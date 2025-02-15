@@ -3,7 +3,7 @@ import {OrderByEnum} from '@utility/domain/enum';
 import {getPaginationItems} from "@utility/domain/pagination.items";
 import hash_sum from "hash-sum";
 import {getMaxPage} from "@utility/domain/max-page";
-import {is} from "../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 
 export interface IPagination_Configuration {
   checkPageSizeBeforeSet: boolean;

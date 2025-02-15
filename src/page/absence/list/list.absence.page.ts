@@ -11,7 +11,7 @@ import {
 import {
 	MobileLayoutListComponent
 } from "@absence/presentation/component/list/layout/mobile/mobile.layout.list.component";
-import {IAbsence} from "../../../../core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {TableService} from "@utility/table.service";
 import {AbsenceTableService} from "@absence/presentation/component/list/absence.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";

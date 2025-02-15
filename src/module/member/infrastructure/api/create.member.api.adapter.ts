@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import * as Member from '../../../../../core/business-logic/member';
+import * as Member from '@src/core/business-logic/member';
 import {memberEndpointEnum} from "@member/infrastructure/endpoint/member.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 
 @Injectable({
   providedIn: 'root'

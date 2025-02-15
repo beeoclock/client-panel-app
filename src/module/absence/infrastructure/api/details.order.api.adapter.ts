@@ -3,7 +3,7 @@ import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {absenceEndpointEnum} from "@absence/infrastructure/endpoint/absenceEndpointEnum";
-import {IAbsence} from "../../../../../core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 
 @Injectable({
 	providedIn: 'root'

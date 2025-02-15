@@ -22,7 +22,7 @@ import {
 } from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {ITableState, TableState} from "@utility/domain/table.state";
-import {IService} from "../../../../../core/business-logic/service/interface/i.service";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'utility-modal-select-service-component',

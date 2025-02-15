@@ -6,7 +6,7 @@ import {
 	CalendarWithSpecialistsAction
 } from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {EventActions} from "@event/infrastructure/state/event/event.actions";
-import {OrderServiceStatusEnum} from "../../../../../../core/business-logic/order/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {firstValueFrom} from "rxjs";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 

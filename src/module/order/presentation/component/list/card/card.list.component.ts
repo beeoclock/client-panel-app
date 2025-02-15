@@ -5,7 +5,7 @@ import {
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {IOrderDto} from "../../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {CardItemOrderComponent} from "@order/presentation/component/list/card/item/card.item.order.component";
 
 @Component({

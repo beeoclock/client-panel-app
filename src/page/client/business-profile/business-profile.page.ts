@@ -33,7 +33,7 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {IBusinessProfile} from "@client/domain/interface/i.business-profile";
 

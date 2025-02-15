@@ -1,8 +1,8 @@
 import angularReactivityAdapter from "@signaldb/angular";
 import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
-import EPayment from "../../../../../../core/business-logic/payment/entity/e.payment";
-import {IPayment} from "../../../../../../core/business-logic/payment/interface/i.payment";
+import EPayment from "@src/core/business-logic/payment/entity/e.payment";
+import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
 import {environment} from "@environment/environment";
 
 /**

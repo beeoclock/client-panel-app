@@ -2,7 +2,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {DateTime} from "luxon";
 import ObjectID from "bson-objectid";
 import {StateEnum} from "@utility/domain/enum/state.enum";
-import {Types} from "../../../core/shared/types";
+import {Types} from "@src/core/shared/types";
 
 
 export interface IBaseEntityForm<OBJECT_NAME> {

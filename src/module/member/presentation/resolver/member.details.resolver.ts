@@ -4,7 +4,7 @@ import {Store} from "@ngxs/store";
 import {catchError, EMPTY} from "rxjs";
 import {IAppState} from "@utility/state/app/app.state";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
-import {RIMember} from "../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 
 export const memberDetailsResolver: ResolveFn<RIMember> = (
 	route: ActivatedRouteSnapshot,

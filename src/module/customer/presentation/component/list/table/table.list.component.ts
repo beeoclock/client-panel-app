@@ -8,7 +8,7 @@ import {SortIndicatorComponent} from "@utility/presentation/component/pagination
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
-import {ICustomer} from "../../../../../../../core/business-logic/customer";
+import {ICustomer} from "@src/core/business-logic/customer";
 import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
 import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";

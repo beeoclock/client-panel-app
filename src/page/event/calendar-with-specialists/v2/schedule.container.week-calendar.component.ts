@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core"
 import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {Store} from "@ngxs/store";
 import {combineLatest, filter, tap} from "rxjs";
-import {is} from "../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe} from "@angular/common";

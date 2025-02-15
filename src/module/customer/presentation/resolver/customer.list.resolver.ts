@@ -4,7 +4,7 @@ import {Store} from "@ngxs/store";
 import {catchError, EMPTY, map, tap} from "rxjs";
 import {IAppState} from "@utility/state/app/app.state";
 import {ITableState} from "@utility/domain/table.state";
-import {ICustomer} from "../../../../../core/business-logic/customer";
+import {ICustomer} from "@src/core/business-logic/customer";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {ICustomerState} from "@customer/infrastructure/state/customer/customer.state";
 

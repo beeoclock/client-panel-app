@@ -2,7 +2,7 @@ import {ApplicationRef, inject, Injectable} from "@angular/core";
 import {SwUpdate, VersionReadyEvent} from "@angular/service-worker";
 import {NGXLogger} from "ngx-logger";
 import {concat, first, interval} from "rxjs";
-import {is} from "../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
 
 @Injectable({

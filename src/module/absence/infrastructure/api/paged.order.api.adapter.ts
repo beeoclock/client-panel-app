@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
-import {IAbsence} from "../../../../../core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {absenceEndpointEnum} from "@absence/infrastructure/endpoint/absenceEndpointEnum";
 
 @Injectable({

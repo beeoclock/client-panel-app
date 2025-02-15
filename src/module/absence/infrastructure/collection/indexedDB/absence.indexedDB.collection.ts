@@ -1,8 +1,8 @@
 import angularReactivityAdapter from "@signaldb/angular";
 import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
-import EAbsence from "../../../../../../core/business-logic/absence/entity/e.absence";
-import {IAbsence} from "../../../../../../core/business-logic/absence/interface/i.absence";
+import EAbsence from "@src/core/business-logic/absence/entity/e.absence";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {environment} from "@environment/environment";
 
 /**

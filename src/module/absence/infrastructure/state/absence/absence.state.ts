@@ -4,7 +4,7 @@ import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.stat
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
@@ -13,7 +13,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@utility/domain/enum/state.enum";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@src/core/business-logic/absence/entity/e.absence";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 
 export type IAbsenceState = IBaseState<IAbsence.DTO>;

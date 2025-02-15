@@ -1,6 +1,6 @@
 import {Directive, ElementRef, inject, input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {OrderServiceStatusEnum} from "../../../../../../core/business-logic/order/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 
 @Directive({
 	selector: '[orderServiceStatusStyle]',

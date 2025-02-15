@@ -1,8 +1,8 @@
 import angularReactivityAdapter from "@signaldb/angular";
 import {Collection} from "@signaldb/core";
-import {ICustomer} from "../../../../../../core/business-logic/customer";
-import {CustomerTypeEnum} from "../../../../../../core/business-logic/customer/enum/customer-type.enum";
-import ECustomer from "../../../../../../core/business-logic/customer/entity/e.customer";
+import {ICustomer} from "@src/core/business-logic/customer";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
+import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
 import {environment} from "@environment/environment";
 import createIndexedDBAdapter from "@signaldb/indexeddb";
 

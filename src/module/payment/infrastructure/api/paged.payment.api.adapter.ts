@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
 import {PaymentEndpoint} from '../endpoint/payment.endpoint';
-import {IPaymentDto} from "../../../../../core/business-logic/payment/interface/i.payment";
+import {IPaymentDto} from "@src/core/business-logic/payment/interface/i.payment";
 
 type TParams = TableState_BackendFormat;
 

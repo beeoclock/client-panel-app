@@ -7,14 +7,14 @@ import {
 	output,
 	ViewEncapsulation
 } from "@angular/core";
-import {IServiceDto} from "../../../../../../core/business-logic/order/interface/i.service.dto";
+import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {Store} from "@ngxs/store";
 import {ListServiceApiAdapter} from "@service/infrastructure/api/list.service.api.adapter";
 import {
 	SelectServiceMultipleComponent
 } from "@service/presentation/component/select-list/select-service-multiple.component";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
-import {IService} from "../../../../../../core/business-logic/service/interface/i.service";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'app-select-service-list-component',

@@ -13,7 +13,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@member/presentation/form/member.form";
 import {firstValueFrom} from "rxjs";
-import {RIMember} from "../../../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -25,9 +25,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {CommonModule} from "@angular/common";
 import {MemberFormAssignmentsComponent} from "@member/presentation/component/form/assignments/assignments.component";
-import {
-	MemberProfileStatusEnum
-} from "../../../../../../../core/business-logic/member/enums/member-profile-status.enum";
+import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
 
 @Component({
 	selector: 'member-form-page',

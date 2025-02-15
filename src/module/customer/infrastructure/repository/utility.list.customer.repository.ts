@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import * as Customer from "../../../../../core/business-logic/customer";
+import * as Customer from "@src/core/business-logic/customer";
 import {NGXLogger} from "ngx-logger";
 import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
 

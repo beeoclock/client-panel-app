@@ -4,9 +4,9 @@ import {
 	ICalendarWithSpecialist
 } from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
 import {DateTime} from "luxon";
-import {IOrderDto} from "@core/business-logic/order/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {IEvent_V2} from "@event/domain";
 
 export class CalendarWithSpecialistsQueries {

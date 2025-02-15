@@ -5,7 +5,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {RIMember} from "../../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 
 @Component({
 	selector: 'app-members-absence-form-container',

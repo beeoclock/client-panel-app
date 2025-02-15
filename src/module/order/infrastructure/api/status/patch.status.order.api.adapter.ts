@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {OrderEndpoint} from "@order/infrastructure/endpoint/order.endpoint";
-import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {OrderStatusEnum} from "../../../../../../core/business-logic/order/enum/order.status.enum";
+import {OrderStatusEnum} from "@src/core/business-logic/order/enum/order.status.enum";
 
 @Injectable({
     providedIn: 'root'

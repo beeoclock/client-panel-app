@@ -1,13 +1,11 @@
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {TENANT_ID} from "@src/token";
 import {CustomerIndexedDBCollection} from "@customer/infrastructure/collection/indexedDB/customer.indexedDB.collection";
-import ECustomer from "../../../../../core/business-logic/customer/entity/e.customer";
+import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
 import {customerEndpointEnum} from "@customer/infrastructure/endpoint/customer.endpoint";
-import {
-	SyncManagerService
-} from "../../../../../core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {SyncManagerService} from "@src/core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {filter} from "rxjs";
 import {OrderDirEnum} from "@utility/domain/enum";
 

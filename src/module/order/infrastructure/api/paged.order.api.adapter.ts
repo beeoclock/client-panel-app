@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
-import {IOrderDto} from "../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {OrderEndpoint} from "@order/infrastructure/endpoint/order.endpoint";
 
 @Injectable({

@@ -1,15 +1,15 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import * as Member from "@core/business-logic/member";
+import * as Member from "@src/core/business-logic/member";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
+import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
-import EMember from "@core/business-logic/member/entity/e.member";
+import EMember from "@src/core/business-logic/member/entity/e.member";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";

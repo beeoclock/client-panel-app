@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {IOrderDto} from "../../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {
 	CancelledChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/cancelled.change-status.button.component";
@@ -13,7 +13,7 @@ import {
 import {
 	RejectedChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/rejected.change-status.button.component";
-import {OrderStatusEnum} from "../../../../../../../core/business-logic/order/enum/order.status.enum";
+import {OrderStatusEnum} from "@src/core/business-logic/order/enum/order.status.enum";
 import {NgSwitch, NgSwitchCase} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 

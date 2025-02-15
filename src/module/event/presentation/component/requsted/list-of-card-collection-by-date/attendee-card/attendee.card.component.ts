@@ -1,10 +1,8 @@
 import {Component, inject, input} from "@angular/core";
 import {IAttendee} from "@event/domain";
-import {CustomerTypeEnum} from "../../../../../../../../core/business-logic/customer/enum/customer-type.enum";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import {TranslateService} from "@ngx-translate/core";
-import {
-	IAttendeeDto
-} from "../../../../../../../../core/business-logic/order/interface/i-order-appointment-details.dto";
+import {IAttendeeDto} from "@src/core/business-logic/order/interface/i-order-appointment-details.dto";
 
 @Component({
 	selector: 'event-attendee-card-component',

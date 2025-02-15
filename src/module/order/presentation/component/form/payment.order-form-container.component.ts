@@ -7,8 +7,8 @@ import {PaymentForm} from "@module/payment/presentation/form/payment.form";
 import {CurrencyPipe} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {PaymentStatusEnum} from "../../../../../../core/business-logic/payment/enum/payment.status.enum";
-import {PaymentMethodEnum} from "../../../../../../core/business-logic/payment/enum/payment.method.enum";
+import {PaymentStatusEnum} from "@src/core/business-logic/payment/enum/payment.status.enum";
+import {PaymentMethodEnum} from "@src/core/business-logic/payment/enum/payment.method.enum";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
 import {BASE_CURRENCY} from '@src/token';
 

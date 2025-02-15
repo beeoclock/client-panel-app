@@ -4,7 +4,7 @@ import ObjectID from "bson-objectid";
 import {FormControl} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
 import {LanguageCodeEnum} from "@utility/domain/enum";
-import {RILanguageVersion} from "../../../../../../../../../core/business-logic/service";
+import {RILanguageVersion} from "@src/core/business-logic/service";
 
 @Component({
 	selector: 'app-language-chip-component',

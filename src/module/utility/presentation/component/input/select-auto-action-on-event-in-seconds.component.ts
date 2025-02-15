@@ -4,7 +4,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AutoActionOnEventInSecondsEnum} from "@utility/domain/enum/auto-action-on-event-in-seconds.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {is} from "../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 
 @Component({
 	selector: 'select-auto-action-on-event-in-seconds-component',

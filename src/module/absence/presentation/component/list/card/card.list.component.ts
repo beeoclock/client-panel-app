@@ -9,7 +9,7 @@ import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
-import {IAbsence} from "../../../../../../../core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 

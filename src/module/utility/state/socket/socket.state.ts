@@ -3,7 +3,7 @@ import {inject, Injectable} from '@angular/core';
 import {Socket, SocketIoConfig} from 'ngx-socket-io';
 import {tap} from 'rxjs/operators';
 import {SocketActions} from "@utility/state/socket/socket.actions";
-import {IOrderDto} from "../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {
 	CalendarWithSpecialistsAction
 } from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";

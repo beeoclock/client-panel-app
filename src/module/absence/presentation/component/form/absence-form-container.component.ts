@@ -1,6 +1,6 @@
 import {Component, inject, input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
-import {AbsenceTypeEnum} from "../../../../../../core/business-logic/absence/enums/absence.type.enum";
+import {AbsenceTypeEnum} from "@src/core/business-logic/absence/enums/absence.type.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -10,7 +10,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {
 	MembersAbsenceFormContainerComponent
 } from "@absence/presentation/component/form/members.absence-form-container.component";
-import {IAbsence} from "../../../../../../core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";

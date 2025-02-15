@@ -16,7 +16,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {RIMember} from "../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 import {firstValueFrom} from "rxjs";
 import {MemberExternalListComponent} from "@member/presentation/component/external/list/list.component";
 import {

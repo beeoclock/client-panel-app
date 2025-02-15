@@ -11,7 +11,7 @@ import {
 } from "@angular/core";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
-import {is} from "../../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {DateTime} from "luxon";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 

@@ -3,14 +3,14 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {PaymentActions} from "@module/payment/infrastructure/state/payment/payment.actions";
-import EPayment from "@core/business-logic/payment/entity/e.payment";
+import EPayment from "@src/core/business-logic/payment/entity/e.payment";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
 import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
 
 export type IPaymentState = IBaseState<IPayment.DTO>;

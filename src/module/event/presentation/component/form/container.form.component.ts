@@ -32,18 +32,18 @@ import {combineLatest, filter, map, tap} from "rxjs";
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {RIClient} from "@client/domain";
-import {is} from "../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {IPresentation, RIConfiguration} from "../../../../../../core/business-logic/service";
+import {IPresentation, RIConfiguration} from "@src/core/business-logic/service";
 import {Reactive} from "@utility/cdk/reactive";
-import * as Member from '../../../../../../core/business-logic/member';
-import {IOrderServiceDto} from "../../../../../../core/business-logic/order/interface/i.order-service.dto";
+import * as Member from '@src/core/business-logic/member';
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {
 	CustomerTypeCustomerComponent
 } from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {IServiceDto} from "../../../../../../core/business-logic/order/interface/i.service.dto";
+import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 
 @Component({
 	selector: 'event-container-form-component',

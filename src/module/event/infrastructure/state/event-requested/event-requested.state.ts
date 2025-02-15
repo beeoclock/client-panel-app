@@ -8,7 +8,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {EventRequestedActions} from "./event-requested.actions";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {DurationVersionTypeEnum} from "@core/business-logic/service/enum/duration-version-type.enum";
+import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";
 
 export type IEventRequestedState = IBaseState<Event.RIEvent>;
 

@@ -1,18 +1,16 @@
 import {Component, input} from "@angular/core";
 import {AsyncPipe} from "@angular/common";
-import {ISpecialist} from "../../../../../../../../core/business-logic/service/interface/i.specialist";
+import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
 import {TranslateModule} from "@ngx-translate/core";
 import {MemberSelector} from "@member/infrastructure/state/member/member.selector";
 import {Select} from "@ngxs/store";
-import {RIMember} from "../../../../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 import {map, Observable} from "rxjs";
 import {TableState} from "@utility/domain/table.state";
 import {FormControl} from "@angular/forms";
 
-import {
-	MemberProfileStatusEnum
-} from "../../../../../../../../core/business-logic/member/enums/member-profile-status.enum";
-import {IServiceDto} from "../../../../../../../../core/business-logic/order/interface/i.service.dto";
+import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
+import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 
 @Component({
 	selector: 'event-service-specialist-component',

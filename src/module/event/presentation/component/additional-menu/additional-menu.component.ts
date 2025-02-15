@@ -1,5 +1,5 @@
 import {Component, HostBinding, inject, Input, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
-import {RIMember} from "../../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";

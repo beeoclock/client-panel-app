@@ -29,7 +29,7 @@
 		],
 		"paths": {
 			"@core/*": [
-				"./core/*"
+				"./src/core/*"
 			],
 			"@src/*": [
 				"./src/*"

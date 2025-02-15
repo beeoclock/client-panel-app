@@ -1,11 +1,9 @@
 import {BaseEntityForm} from "@utility/base.form";
 import {FormArray, FormControl} from "@angular/forms";
-import {IOrderServiceDto} from "../../../../../core/business-logic/order/interface/i.order-service.dto";
-import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
-import {
-	IOrderAppointmentDetailsDto
-} from "../../../../../core/business-logic/order/interface/i-order-appointment-details.dto";
-import {OrderServiceStatusEnum} from "../../../../../core/business-logic/order/enum/order-service.status.enum";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
+import {IOrderAppointmentDetailsDto} from "@src/core/business-logic/order/interface/i-order-appointment-details.dto";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {IMeta} from "@utility/domain";
 
 export interface IServiceOrderForm {

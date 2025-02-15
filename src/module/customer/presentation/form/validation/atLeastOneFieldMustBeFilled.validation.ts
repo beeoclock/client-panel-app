@@ -1,5 +1,5 @@
 import {AbstractControl, ValidatorFn} from "@angular/forms";
-import {is} from "../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 
 export function atLeastOneFieldMustBeFilledValidator(include: string[] = [], exclude: string[] = []): ValidatorFn {
 	return (control: AbstractControl) => {

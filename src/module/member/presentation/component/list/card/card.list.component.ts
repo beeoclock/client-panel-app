@@ -5,7 +5,7 @@ import {
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {RIMember} from "../../../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 

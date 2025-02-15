@@ -3,8 +3,8 @@ import {MetaDetailsComponent} from "@event/presentation/component/details/meta.d
 import {IEvent_V2} from "@event/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {V2GeneralDetailsComponent} from "@event/presentation/component/details/v2.general.details.component";
-import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
-import {IOrderServiceDto} from "../../../../../../core/business-logic/order/interface/i.order-service.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {V2ButtonsDetailsComponent} from "@event/presentation/component/details/v2.buttons.details.component";
 import {
 	ButtonOpenOrderDetailsComponent

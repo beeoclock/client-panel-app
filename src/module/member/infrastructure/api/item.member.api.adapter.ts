@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import * as Member from '../../../../../core/business-logic/member';
+import * as Member from '@src/core/business-logic/member';
 import {memberEndpointEnum} from "@member/infrastructure/endpoint/member.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";

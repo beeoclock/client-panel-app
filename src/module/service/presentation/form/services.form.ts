@@ -1,6 +1,6 @@
 import {FormArray} from "@angular/forms";
 import {ServiceForm} from "@service/presentation/form/service.form";
-import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
+import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 
 
 export class ServicesForm extends FormArray<ServiceForm> {

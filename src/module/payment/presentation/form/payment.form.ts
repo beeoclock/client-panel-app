@@ -1,12 +1,12 @@
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {PaymentMethodEnum} from "../../../../../core/business-logic/payment/enum/payment.method.enum";
-import {PaymentProviderTypeEnum} from "../../../../../core/business-logic/payment/enum/payment.provider-type.enum";
-import {PaymentStatusEnum} from "../../../../../core/business-logic/payment/enum/payment.status.enum";
+import {PaymentMethodEnum} from "@src/core/business-logic/payment/enum/payment.method.enum";
+import {PaymentProviderTypeEnum} from "@src/core/business-logic/payment/enum/payment.provider-type.enum";
+import {PaymentStatusEnum} from "@src/core/business-logic/payment/enum/payment.status.enum";
 import {BaseEntityForm} from "@utility/base.form";
 import {FormControl} from "@angular/forms";
 import {CustomerForm} from "@customer/presentation/form";
-import {CustomerTypeEnum} from "../../../../../core/business-logic/customer/enum/customer-type.enum";
-import {IPayment} from "../../../../../core/business-logic/payment/interface/i.payment";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
+import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
 
 export interface IPaymentForm {
     providerPaymentRef: FormControl<string | null>;

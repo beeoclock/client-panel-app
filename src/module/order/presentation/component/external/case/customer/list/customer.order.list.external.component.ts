@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, viewChildren, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {IOrderDto} from "../../../../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {
 	DesktopLayoutListComponent
 } from "@order/presentation/component/list/layout/desktop/desktop.layout.list.component";

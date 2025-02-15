@@ -1,6 +1,6 @@
 import {Directive, HostBinding, HostListener, inject, input} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {IOrderDto} from "../../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {Store} from "@ngxs/store";
 import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";

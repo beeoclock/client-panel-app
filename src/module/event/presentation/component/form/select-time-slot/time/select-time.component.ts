@@ -12,7 +12,7 @@ import {debounceTime, filter} from "rxjs";
 import {MS_QUARTER_SECOND} from "@utility/domain/const/c.time";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
-import {is} from "../../../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 
 export interface ITimeSlot {
 	isPast: boolean;

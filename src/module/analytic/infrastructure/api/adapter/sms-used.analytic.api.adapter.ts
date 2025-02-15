@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "@core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {AnalyticEndpointEnum} from "@module/analytic/infrastructure/endpoint/analytic.endpoint";
-import {Types} from "@core/shared/types";
+import {Types} from "@src/core/shared/types";
 
 export namespace SmsUsedAnalyticApi {
 

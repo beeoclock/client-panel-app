@@ -6,12 +6,12 @@ import {
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {ILanguageVersion} from "../../../../../../../core/business-logic/service";
+import {ILanguageVersion} from "@src/core/business-logic/service";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
-import {IService} from "../../../../../../../core/business-logic/service/interface/i.service";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'service-card-list-component',

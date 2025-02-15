@@ -3,7 +3,7 @@ import {WeekDaysEnum, WORK_WEEK} from "@utility/domain/enum";
 import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {extractSecondsFrom_hh_mm_ss} from "@utility/domain/time";
 import {ShouldBeMoreThenValidation} from "@utility/presentation/form/validation/should-be-more-then.validation";
-import {is} from "../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 

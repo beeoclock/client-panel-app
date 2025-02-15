@@ -5,7 +5,7 @@ import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.p
 import {Reactive} from "@utility/cdk/reactive";
 import {CustomerForm} from "@customer/presentation/form";
 import {SelectCustomerPushBoxComponent} from "@customer/presentation/push-box/select-customer.push-box.component";
-import {ICustomer} from "../../../../../../../core/business-logic/customer";
+import {ICustomer} from "@src/core/business-logic/customer";
 
 @Component({
 	selector: 'app-regular-customer-type-customer',

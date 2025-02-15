@@ -5,7 +5,7 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@utility/layout.list.component";
-import {RIMember} from "../../../../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {CardListComponent} from "@member/presentation/component/list/card/card.list.component";
 import {FilterComponent} from "@member/presentation/component/filter/filter.component";

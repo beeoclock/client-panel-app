@@ -24,7 +24,7 @@ import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {is} from "../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
@@ -35,9 +35,7 @@ import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB
 import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager/service.indexedDB.collection.manager";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {VisibilityService} from "@utility/cdk/visibility.service";
-import {
-	SyncManagerService
-} from "../../../../../../core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {SyncManagerService} from "@src/core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
 import {AbsenceIndexedDBCollectionManager} from "@absence/infrastructure/manager/absence.indexedDB.collection.manager";
 import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";

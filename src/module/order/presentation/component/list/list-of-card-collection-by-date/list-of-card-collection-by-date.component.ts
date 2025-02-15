@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
-import {IOrderDto} from "../../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {DateTime} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";

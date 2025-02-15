@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import * as Client from '@client/domain';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "../../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {businessProfileEndpointEnum} from "@client/infrastructure/endpoint/business-profile.endpoint";
 
 @Injectable({

@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "@core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {AnalyticEndpointEnum} from "@module/analytic/infrastructure/endpoint/analytic.endpoint";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {Types} from "@core/shared/types";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {Types} from "@src/core/shared/types";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 
 export namespace DateRangeReportAnalyticApi {

@@ -22,11 +22,11 @@ import {StatisticAction} from "@event/infrastructure/state/statistic/statistic.a
 import {DateTime} from "luxon";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {is} from "../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {IClient} from "@client/domain";
 import {TranslateModule} from "@ngx-translate/core";
-import {MemberProfileStatusEnum} from "../../../../../../core/business-logic/member/enums/member-profile-status.enum";
+import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";

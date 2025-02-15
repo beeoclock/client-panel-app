@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@src/module/utility/cdk/reactive";
 import {ActiveEnum} from "@utility/domain/enum";
 import {filter} from "rxjs";
-import {is} from "../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 
 @Component({
     selector: 'utility-switch-component',

@@ -1,12 +1,10 @@
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {TENANT_ID} from "@src/token";
-import {
-	SyncManagerService
-} from "../../../../../core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {SyncManagerService} from "@src/core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {filter} from "rxjs";
-import EPayment from "../../../../../core/business-logic/payment/entity/e.payment";
+import EPayment from "@src/core/business-logic/payment/entity/e.payment";
 import {PaymentEndpoint} from "@module/payment/infrastructure/endpoint/payment.endpoint";
 import {
 	PaymentIndexedDBCollection

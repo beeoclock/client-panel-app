@@ -1,10 +1,10 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IOrderDto} from "@core/business-logic/order/interface/details/i.order.dto";
-import {RIMember} from "@core/business-logic/member";
-import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
-import {IServiceDto} from "@core/business-logic/order/interface/i.service.dto";
-import {ICustomer} from "@core/business-logic/customer";
-import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {RIMember} from "@src/core/business-logic/member";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
+import {ICustomer} from "@src/core/business-logic/customer";
+import {OrderStatusEnum} from "@src/core/business-logic/order/enum/order.status.enum";
 
 export namespace OrderActions {
 

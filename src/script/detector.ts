@@ -2,7 +2,7 @@
 /*                                  Detector                                  */
 /* -------------------------------------------------------------------------- */
 
-import {is} from "../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 
 export const detectorInit = (html: HTMLElement) => {
 

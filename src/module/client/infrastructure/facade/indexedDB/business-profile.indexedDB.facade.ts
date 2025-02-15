@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {TENANT_ID} from "@src/token";
 import {filter} from "rxjs";
-import {is} from "../../../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {
 	BusinessProfileIndexedDBCollectionManager
 } from "@client/infrastructure/manager/business-profile.indexedDB.collection.manager";

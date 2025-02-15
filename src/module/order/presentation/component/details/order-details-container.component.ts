@@ -5,10 +5,10 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {TranslateModule} from "@ngx-translate/core";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
-import {OrderStatusEnum} from "../../../../../../core/business-logic/order/enum/order.status.enum";
-import {IOrderServiceDto} from "../../../../../../core/business-logic/order/interface/i.order-service.dto";
+import {OrderStatusEnum} from "@src/core/business-logic/order/enum/order.status.enum";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {IAttendee_V2} from "@event/domain";
 import {IsOrganizerEnum} from "@utility/domain/enum";

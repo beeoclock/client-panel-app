@@ -1,8 +1,8 @@
 import angularReactivityAdapter from "@signaldb/angular";
 import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
-import {IService} from "../../../../../../core/business-logic/service/interface/i.service";
-import EService from "../../../../../../core/business-logic/service/entity/e.service";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
+import EService from "@src/core/business-logic/service/entity/e.service";
 import {environment} from "@environment/environment";
 
 /**

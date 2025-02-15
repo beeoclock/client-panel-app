@@ -1,4 +1,4 @@
-import {is} from "../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 
 export function clearObject(target: any) {
 	for (const key in target) {

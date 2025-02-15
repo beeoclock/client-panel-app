@@ -23,14 +23,14 @@ import {
 	IonSpinner,
 	IonToolbar
 } from "@ionic/angular/standalone";
-import {CustomerTypeEnum} from "../../../../../../../../../../core/business-logic/customer/enum/customer-type.enum";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FormAttendantComponent} from "@event/presentation/component/form/attendees/attendant/form.attendant.component";
 import {
 	NamesFormAttendantComponent
 } from "@event/presentation/component/form/attendees/attendant/names.form.attendant.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {ICustomer} from "../../../../../../../../../../core/business-logic/customer";
+import {ICustomer} from "@src/core/business-logic/customer";
 import {Store} from "@ngxs/store";
 import {Reactive} from "@utility/cdk/reactive";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";

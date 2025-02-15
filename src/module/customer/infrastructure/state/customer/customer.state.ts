@@ -1,7 +1,7 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import * as Customer from "@core/business-logic/customer";
+import * as Customer from "@src/core/business-logic/customer";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
@@ -12,7 +12,7 @@ import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export type ICustomerState = IBaseState<Customer.ICustomer.Entity>;

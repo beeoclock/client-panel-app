@@ -3,7 +3,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import {BooleanState} from "@utility/domain";
 import {PatchMemberMediaApiAdapter} from "@member/infrastructure/api/media/patch.member-media.api.adapter";
-import {RESPONSE_IMemberMedia} from "../../../../../../../core/business-logic/member/interface/i.member-media";
+import {RESPONSE_IMemberMedia} from "@src/core/business-logic/member/interface/i.member-media";
 import {AvatarFormComponent} from "@member/presentation/component/form/avatar-form/avatar-form.component";
 import {NGXLogger} from "ngx-logger";
 

@@ -5,7 +5,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {CustomerTypeEnum} from "../../../../../../core/business-logic/customer/enum/customer-type.enum";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 
 @Component({
 	selector: 'event-general-details',

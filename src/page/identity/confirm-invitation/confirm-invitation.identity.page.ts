@@ -2,7 +2,7 @@ import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {IBodyConfirmInvitation, IQueryParamsConfirmInvitation} from "@identity/domain/interface/i.confirm-invitation";
 import {filter} from "rxjs";
-import {is} from "../../../../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {ConfirmInvitationForm} from "@identity/presentation/form/confirm-invitation.form";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";

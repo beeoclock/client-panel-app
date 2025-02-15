@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {absenceEndpointEnum} from "@absence/infrastructure/endpoint/absenceEndpointEnum";
-import {IAbsence} from "../../../../../core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 
 @Injectable({
 	providedIn: 'root'

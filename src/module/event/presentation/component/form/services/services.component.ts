@@ -11,26 +11,24 @@ import {
 	DurationVersionTypeRangeComponent
 } from "@event/presentation/component/form/services/duration-version-type/duration-version-type.range.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {
-	DurationVersionTypeEnum
-} from "../../../../../../../core/business-logic/service/enum/duration-version-type.enum";
+import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";
 import {
 	SpecialistServiceComponent
 } from "@event/presentation/component/form/services/specialist/specialist.service.component";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
-import {RIMember} from "../../../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 import {BooleanState} from "@utility/domain";
 import {TableState} from "@utility/domain/table.state";
 import {
 	LanguageVersionOrderControlComponent
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
 import {LanguageCodeEnum} from "@utility/domain/enum";
-import {IServiceDto} from "../../../../../../../core/business-logic/order/interface/i.service.dto";
+import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {
 	ModalSelectServiceListRepository
 } from "@service/infrastructure/repository/modal-select-service.list.repository";
-import {IService} from "../../../../../../../core/business-logic/service/interface/i.service";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
 import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
 
 @Component({

@@ -3,7 +3,7 @@ import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ActiveEnum, OrderDirEnum} from "@utility/domain/enum";
 import {NGXLogger} from "ngx-logger";
-import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
+import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 

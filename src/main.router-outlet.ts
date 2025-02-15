@@ -6,7 +6,7 @@ import {AppState} from "@utility/state/app/app.state";
 import {DOCUMENT} from "@angular/common";
 import {LanguageService} from "@utility/cdk/language.service";
 import {filter} from "rxjs";
-import {is} from "../core/shared/checker";
+import {is} from "@src/core/shared/checker";
 import {SplashScreenService} from "@utility/cdk/splash-screen.service";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.service";

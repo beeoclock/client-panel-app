@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
-import {RIMember} from "../../../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({

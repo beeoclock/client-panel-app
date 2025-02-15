@@ -3,7 +3,7 @@ import {AsyncPipe} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {Observable, tap} from "rxjs";
-import {RIMember} from "../../../../core/business-logic/member";
+import {RIMember} from "@src/core/business-logic/member";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";
 import {

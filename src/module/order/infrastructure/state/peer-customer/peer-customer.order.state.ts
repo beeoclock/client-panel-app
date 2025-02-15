@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {PagedOrderApiAdapter} from "@order/infrastructure/api/paged.order.api.adapter";
-import {IOrderDto} from "@core/business-logic/order/interface/details/i.order.dto";
+import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-customer/peer-customer.order.actions";
 import {getMaxPage} from "@utility/domain/max-page";

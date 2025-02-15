@@ -8,7 +8,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {ILanguageVersion} from "../../../../../../../core/business-logic/service";
+import {ILanguageVersion} from "@src/core/business-logic/service";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
@@ -18,7 +18,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ITableState} from "@utility/domain/table.state";
-import {IService} from "../../../../../../../core/business-logic/service/interface/i.service";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'service-table-list-component',
