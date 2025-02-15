@@ -11,7 +11,7 @@ import {Auth} from "@angular/fire/auth";
 import {ChangeNameForm} from "@client/presentation/form/change-name.form";
 import {ChangeNameComponent} from "@client/presentation/component/settings/change-name/change-name.component";
 import {Store} from "@ngxs/store";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {IdentityActions} from "@identity/infrastructure/state/identity/identity.actions";
 
 @Injectable({
 	providedIn: 'root'

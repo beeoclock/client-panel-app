@@ -2,7 +2,7 @@ import {Component, input} from "@angular/core";
 import {AsyncPipe} from "@angular/common";
 import {ISpecialist} from "../../../../../../../../core/business-logic/service/interface/i.specialist";
 import {TranslateModule} from "@ngx-translate/core";
-import {MemberSelector} from "@member/state/member/member.selector";
+import {MemberSelector} from "@member/infrastructure/state/member/member.selector";
 import {Select} from "@ngxs/store";
 import {RIMember} from "../../../../../../../../core/business-logic/member";
 import {map, Observable} from "rxjs";

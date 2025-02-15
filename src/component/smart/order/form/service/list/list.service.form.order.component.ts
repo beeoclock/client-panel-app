@@ -23,7 +23,7 @@ import {IServiceDto} from "../../../../../../../core/business-logic/order/interf
 import {RIMember} from "../../../../../../../core/business-logic/member";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {ReservationTypeEnum} from "../../../../../../../core/business-logic/order/enum/reservation.type.enum";
 import {DateTime} from "luxon";

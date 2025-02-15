@@ -11,7 +11,9 @@ import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IonPopover} from "@ionic/angular/standalone";
 import {Reactive} from "@utility/cdk/reactive";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {VisibilityService} from "@utility/cdk/visibility.service";
 

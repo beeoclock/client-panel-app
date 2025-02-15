@@ -56,7 +56,7 @@ import {
 import {Reactive} from "@utility/cdk/reactive";
 import {filter} from 'rxjs';
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {RIClient} from "@client/domain";
 import {IAttendeeDto} from "../../../../../../core/business-logic/order/interface/i-order-appointment-details.dto";
 

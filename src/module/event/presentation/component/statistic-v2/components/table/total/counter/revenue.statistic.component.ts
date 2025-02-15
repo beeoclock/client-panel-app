@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
-import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
+import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
 import {TranslatePipe} from "@ngx-translate/core";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {map} from "rxjs";
 import {Store} from "@ngxs/store";
 import {AsyncPipe, CurrencyPipe} from "@angular/common";

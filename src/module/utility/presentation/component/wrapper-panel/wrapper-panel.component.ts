@@ -7,23 +7,23 @@ import {
 	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 import {Store} from "@ngxs/store";
-import {BeeoclockIdTokenResult, IdentityState} from "@identity/state/identity/identity.state";
+import {BeeoclockIdTokenResult, IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
-import {ServiceActions} from "@service/state/service/service.actions";
-import {MemberActions} from "@member/state/member/member.actions";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
-import {ClientActions} from "@client/state/client/client.actions";
-import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
+import {ClientActions} from "@client/infrastructure/state/client/client.actions";
+import {EventRequestedActions} from "@event/infrastructure/state/event-requested/event-requested.actions";
 import {
 	GetFrontendSettingsAccountApiAdapter
-} from "@module/account/adapter/external/api/get.frontend-settings.account.api.adapter";
+} from "@module/account/infrastructure/adapter/external/api/get.frontend-settings.account.api.adapter";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {is} from "../../../../../../core/shared/checker";
 import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";

@@ -6,21 +6,23 @@ import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
 import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
 import {importProvidersFrom} from "@angular/core";
 import {NgxsModule} from "@ngxs/store";
-import {AbsenceState} from "@absence/state/absence/absence.state";
-import {SmsUsedAnalyticState} from "@module/analytic/internal/store/sms-used/sms-used.analytic.state";
+import {AbsenceState} from "@absence/infrastructure/state/absence/absence.state";
+import {SmsUsedAnalyticState} from "@module/analytic/infrastructure/store/sms-used/sms-used.analytic.state";
 import {
 	DateRangeReportAnalyticState
-} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
-import {EventState} from "@event/state/event/event.state";
-import {OrderState} from "@order/state/order/order.state";
-import {CalendarState} from "@event/state/calendar/calendar.state";
-import {CalendarWithSpecialistsState} from "@event/state/calendar-with-specialists/calendar–with-specialists.state";
-import {ServiceState} from "@service/state/service/service.state";
-import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
-import {CustomerState} from "@customer/state/customer/customer.state";
-import {MemberState} from "@member/state/member/member.state";
-import {ClientState} from "@client/state/client/client.state";
-import {PaymentState} from "@module/payment/state/payment/payment.state";
+} from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
+import {EventState} from "@event/infrastructure/state/event/event.state";
+import {OrderState} from "@order/infrastructure/state/order/order.state";
+import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state";
+import {
+	CalendarWithSpecialistsState
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
+import {ServiceState} from "@service/infrastructure/state/service/service.state";
+import {PeerCustomerOrderState} from "@order/infrastructure/state/peer-customer/peer-customer.order.state";
+import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
+import {PaymentState} from "@module/payment/infrastructure/state/payment/payment.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);

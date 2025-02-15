@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {Store} from "@ngxs/store";
 import {combineLatest, filter, tap} from "rxjs";
 import {is} from "../../../../../core/shared/checker";
@@ -11,7 +11,7 @@ import {
 	CalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
 import {NGXLogger} from "ngx-logger";
-import {ClientActions} from "@client/state/client/client.actions";
+import {ClientActions} from "@client/infrastructure/state/client/client.actions";
 
 @Component({
 	selector: 'app-event-v2-schedule-container-week-calendar-component',

@@ -27,7 +27,7 @@ import {
 } from "@order/presentation/component/list/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
 import {ITableState} from "@utility/domain/table.state";
 import {Actions, ofActionSuccessful} from '@ngxs/store';
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 
 @Component({
 	selector: 'order-list-of-card-collection-by-date-layout',

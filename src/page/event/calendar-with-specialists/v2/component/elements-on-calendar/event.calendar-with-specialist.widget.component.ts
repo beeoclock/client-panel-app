@@ -30,11 +30,13 @@ import {
 	AbsenceEventCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {
+	CalendarWithSpecialistsQueries
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
-import {OrderActions} from "@order/state/order/order.actions";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 
 type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsence.DTO>;
 

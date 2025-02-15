@@ -2,8 +2,10 @@ import {Component, inject} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
-import {EventActions} from "@event/state/event/event.actions";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {OrderServiceStatusEnum} from "../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {firstValueFrom} from "rxjs";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";

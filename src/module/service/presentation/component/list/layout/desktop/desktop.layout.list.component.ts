@@ -9,7 +9,7 @@ import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
 import {IService} from "../../../../../../../../core/business-logic/service/interface/i.service";
 

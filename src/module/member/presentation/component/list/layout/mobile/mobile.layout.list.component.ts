@@ -6,7 +6,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@utility/layout.list.component";
 import {RIMember} from "../../../../../../../../core/business-logic/member";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {CardListComponent} from "@member/presentation/component/list/card/card.list.component";
 import {FilterComponent} from "@member/presentation/component/filter/filter.component";
 import {

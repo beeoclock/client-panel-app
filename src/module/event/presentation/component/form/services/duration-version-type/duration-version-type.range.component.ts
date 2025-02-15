@@ -11,7 +11,7 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {filter, firstValueFrom, map, merge, Subscription} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {Store} from "@ngxs/store";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {is} from "../../../../../../../../core/shared/checker";
 import {IServiceDto} from "../../../../../../../../core/business-logic/order/interface/i.service.dto";
 

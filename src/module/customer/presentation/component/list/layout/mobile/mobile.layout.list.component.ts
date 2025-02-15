@@ -11,7 +11,7 @@ import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {ITableState} from "@utility/domain/table.state";
 
 @Component({

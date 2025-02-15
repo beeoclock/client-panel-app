@@ -14,7 +14,9 @@ import {firstValueFrom} from "rxjs";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {
+	CalendarWithSpecialistsQueries
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {BooleanState} from "@utility/domain";

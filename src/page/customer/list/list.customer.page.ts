@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
-import {CustomerState} from "@customer/state/customer/customer.state";
+import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
 import {Observable, tap} from "rxjs";
 import {ICustomer} from "../../../../core/business-logic/customer";
 import {ITableState} from "@utility/domain/table.state";
@@ -16,7 +16,7 @@ import {TableService} from "@utility/table.service";
 import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 
 @Component({
 	selector: 'app-list-customer-page',

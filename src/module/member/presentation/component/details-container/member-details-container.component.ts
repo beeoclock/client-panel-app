@@ -1,7 +1,7 @@
 import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {RIMember} from "../../../../../../core/business-logic/member";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {NgOptimizedImage} from "@angular/common";

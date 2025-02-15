@@ -3,7 +3,7 @@ import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IAbsence} from "../../../../../../core/business-logic/absence/interface/i.absence";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";

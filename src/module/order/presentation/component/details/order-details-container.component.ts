@@ -6,10 +6,10 @@ import {TranslateModule} from "@ngx-translate/core";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {OrderStatusEnum} from "../../../../../../core/business-logic/order/enum/order.status.enum";
 import {IOrderServiceDto} from "../../../../../../core/business-logic/order/interface/i.order-service.dto";
-import {EventActions} from "@event/state/event/event.actions";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {IAttendee_V2} from "@event/domain";
 import {IsOrganizerEnum} from "@utility/domain/enum";
 import {

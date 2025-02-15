@@ -7,7 +7,7 @@ import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.se
 import {environment} from "@environment/environment";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {NgEventBus} from "ng-event-bus";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {is} from "../../../../../../../core/shared/checker";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";

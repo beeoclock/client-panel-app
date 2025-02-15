@@ -13,7 +13,7 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {CustomerTypeEnum} from "../../../../../../core/business-logic/customer/enum/customer-type.enum";
 
 @Component({

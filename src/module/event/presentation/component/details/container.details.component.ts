@@ -10,9 +10,9 @@ import {
 	ButtonOpenOrderDetailsComponent
 } from "@event/presentation/component/details/button.open-order.details.component";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {EventActions} from "@event/state/event/event.actions";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {NGXLogger} from "ngx-logger";
 import {
 	ListServiceFormCardOrderComponent

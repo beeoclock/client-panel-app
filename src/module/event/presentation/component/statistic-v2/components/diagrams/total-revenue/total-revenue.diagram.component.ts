@@ -17,9 +17,9 @@ import {PieChart, PieSeries} from "@amcharts/amcharts5/percent";
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import am5themes_Kelly from '@amcharts/amcharts5/themes/Kelly';
 import {isPlatformBrowser} from "@angular/common";
-import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
+import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
 import {Store} from "@ngxs/store";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {
 	OrderServiceStatusEnum
 } from "../../../../../../../../../core/business-logic/order/enum/order-service.status.enum";

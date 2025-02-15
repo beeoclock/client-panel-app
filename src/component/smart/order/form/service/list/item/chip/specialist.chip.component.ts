@@ -3,7 +3,7 @@ import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone"
 import {FormControl} from "@angular/forms";
 import {RIMember} from "../../../../../../../../../core/business-logic/member";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {MemberState} from "@member/state/member/member.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {ISpecialist} from "../../../../../../../../../core/business-logic/service/interface/i.specialist";

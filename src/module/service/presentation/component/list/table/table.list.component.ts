@@ -9,7 +9,7 @@ import {SortIndicatorComponent} from "@utility/presentation/component/pagination
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {ILanguageVersion} from "../../../../../../../core/business-logic/service";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
 import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";

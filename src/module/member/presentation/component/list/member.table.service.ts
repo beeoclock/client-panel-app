@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {TableService} from "@utility/table.service";
 import {RIMember} from "../../../../../../core/business-logic/member";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 
 @Injectable()
 export class MemberTableService extends TableService<RIMember> {

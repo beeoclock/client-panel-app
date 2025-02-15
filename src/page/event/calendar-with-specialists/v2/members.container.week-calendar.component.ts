@@ -3,7 +3,7 @@ import {Store} from "@ngxs/store";
 import {delay, filter, iif, of, switchMap, tap} from "rxjs";
 import {is} from "../../../../../core/shared/checker";
 import {AsyncPipe} from "@angular/common";
-import {MemberState} from "@member/state/member/member.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";
 import * as Member from "../../../../../core/business-logic/member";
 import {RIMember} from "../../../../../core/business-logic/member";
@@ -12,7 +12,7 @@ import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-
 import {MemberProfileStatusEnum} from "../../../../../core/business-logic/member/enums/member-profile-status.enum";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {NGXLogger} from "ngx-logger";
 

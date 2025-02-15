@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
 import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
 import {Store} from "@ngxs/store";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 

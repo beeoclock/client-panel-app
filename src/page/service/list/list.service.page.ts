@@ -3,7 +3,7 @@ import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
-import {ServiceState} from "@service/state/service/service.state";
+import {ServiceState} from "@service/infrastructure/state/service/service.state";
 import {ITableState} from "@utility/domain/table.state";
 import {
 	MobileLayoutListComponent
@@ -15,7 +15,7 @@ import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {IService} from "../../../../core/business-logic/service/interface/i.service";
 
 @Component({

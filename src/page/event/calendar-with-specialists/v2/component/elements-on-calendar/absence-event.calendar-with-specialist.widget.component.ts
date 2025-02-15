@@ -12,7 +12,7 @@ import {IAttendee, IEvent_V2} from "@event/domain";
 import {Store} from "@ngxs/store";
 import {IAbsence} from "../../../../../../../core/business-logic/absence/interface/i.absence";
 import {TranslateModule} from "@ngx-translate/core";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {DateTime} from "luxon";
 
 @Component({

@@ -14,7 +14,7 @@ import {
 import {CustomerTypeEnum} from "../../../../../../core/business-logic/customer/enum/customer-type.enum";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({

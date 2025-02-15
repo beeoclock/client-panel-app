@@ -2,8 +2,8 @@ import {Component, HostBinding, inject, Input, input, OnInit, viewChild, ViewEnc
 import {RIMember} from "../../../../../../core/business-logic/member";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
-import {OrderActions} from "@order/state/order/order.actions";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyPipe} from "@angular/common";

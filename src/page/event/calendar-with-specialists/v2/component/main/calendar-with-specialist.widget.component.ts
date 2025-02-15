@@ -22,22 +22,26 @@ import {
 } from "@page/event/calendar-with-specialists/v2/component/header.calendar-with-specialist.widget.component";
 import {firstValueFrom, map, switchMap} from "rxjs";
 import {IEvent_V2} from "@event/domain";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {
+	CalendarWithSpecialistsQueries
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {IOrderDto} from "../../../../../../../core/business-logic/order/interface/details/i.order.dto";
 import {IOrderServiceDto} from "../../../../../../../core/business-logic/order/interface/i.order-service.dto";
 import {IAbsence} from "../../../../../../../core/business-logic/absence/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	TimeLineCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "../../../../../../../core/business-logic/order/enum/order-service.status.enum";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {DateTime} from "luxon";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {
 	ScheduleElementCalendarWithSpecialistWidgetComponent
@@ -48,7 +52,7 @@ import {
 import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	FilterCalendarWithSpecialistComponent

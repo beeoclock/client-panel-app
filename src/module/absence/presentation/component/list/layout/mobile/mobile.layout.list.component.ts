@@ -10,7 +10,7 @@ import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@absence/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {IAbsence} from "../../../../../../../../core/business-logic/absence/interface/i.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ITableState} from "@utility/domain/table.state";

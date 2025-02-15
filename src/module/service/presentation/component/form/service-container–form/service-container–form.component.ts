@@ -14,7 +14,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {PricesBlockComponent} from "@service/presentation/component/form/v2/prices/prices-block.component";
 import {ServiceForm} from "@service/presentation/form/service.form";
 import {filter, firstValueFrom, map} from "rxjs";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 
 import {Store} from "@ngxs/store";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -26,7 +26,7 @@ import {
 import {ServicePresentationForm} from "@service/presentation/form/service.presentation.form";
 import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
 import {ServicesFormComponent} from "@service/presentation/component/form/v2/service/services.form.component";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";

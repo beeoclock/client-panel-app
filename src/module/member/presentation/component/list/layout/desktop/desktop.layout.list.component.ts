@@ -5,7 +5,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@utility/layout.list.component";
 import {RIMember} from "../../../../../../../../core/business-logic/member";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {
 	AutoRefreshButtonComponent
 } from "@member/presentation/component/button/auto-refresh/auto-refresh.button.component";

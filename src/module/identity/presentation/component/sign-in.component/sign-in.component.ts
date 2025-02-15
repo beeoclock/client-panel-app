@@ -14,7 +14,7 @@ import {Router, RouterLink} from '@angular/router';
 import LoginForm from '@identity/presentation/form/login.form';
 import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
 import {Store} from "@ngxs/store";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {IdentityActions} from "@identity/infrastructure/state/identity/identity.actions";
 import {firstValueFrom} from "rxjs";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";

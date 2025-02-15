@@ -12,7 +12,7 @@ import {IOrderDto} from "../../../../../../core/business-logic/order/interface/d
 import {IOrderServiceDto} from "../../../../../../core/business-logic/order/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {NGXLogger} from "ngx-logger";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {
 	ChangeStatusOnRejectedComponent
 } from "@event/presentation/component/change-status/change-status-on-rejected.component";

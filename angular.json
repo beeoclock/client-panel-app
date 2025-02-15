@@ -50,7 +50,7 @@
 								"src/manifest.webmanifest",
 								{
 									"glob": "firebase-messaging-sw.js",
-									"input": "environments/production/",
+									"input": "environments/production/firebase/",
 									"output": "./"
 								},
 								{
@@ -86,7 +86,7 @@
 								"src/manifest.webmanifest",
 								{
 									"glob": "firebase-messaging-sw.js",
-									"input": "environments/develop/",
+									"input": "environments/develop/firebase",
 									"output": "./"
 								},
 								{

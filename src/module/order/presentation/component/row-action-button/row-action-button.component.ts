@@ -3,7 +3,7 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
 import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
 
 @Component({

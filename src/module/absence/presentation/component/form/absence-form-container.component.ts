@@ -14,7 +14,7 @@ import {IAbsence} from "../../../../../../core/business-logic/absence/interface/
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {AbsenceForm} from "@absence/presentation/form/absence.form";
 import {
 	ButtonSaveContainerComponent

@@ -11,7 +11,7 @@ import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ITableState} from "@utility/domain/table.state";
 import {IService} from "../../../../../../../../core/business-logic/service/interface/i.service";

@@ -2,7 +2,7 @@ import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY, map} from "rxjs";
-import {EventActions} from "@event/state/event/event.actions";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {IEvent} from "@event/domain";
 
 export const eventDetailsResolver: ResolveFn<IEvent> = (

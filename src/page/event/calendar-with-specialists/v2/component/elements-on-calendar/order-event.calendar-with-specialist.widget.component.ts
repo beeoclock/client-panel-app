@@ -14,7 +14,7 @@ import {Store} from "@ngxs/store";
 import {IOrderDto} from "../../../../../../../core/business-logic/order/interface/details/i.order.dto";
 import {IOrderServiceDto} from "../../../../../../../core/business-logic/order/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "../../../../../../../core/business-logic/order/enum/order-service.status.enum";
-import {EventActions} from "@event/state/event/event.actions";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {
 	AnybodySpecialistIconComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/anybody-specialist.icon.component";

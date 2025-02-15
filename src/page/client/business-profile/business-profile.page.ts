@@ -6,10 +6,10 @@ import {
 import {Store} from "@ngxs/store";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {filter} from "rxjs";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
-import {ClientActions} from "@client/state/client/client.actions";
+import {ClientActions} from "@client/infrastructure/state/client/client.actions";
 import {
 	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";

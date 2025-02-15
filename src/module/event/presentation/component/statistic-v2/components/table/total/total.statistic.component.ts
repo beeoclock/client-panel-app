@@ -6,7 +6,7 @@ import {
 import {
 	OrderServiceStatusEnum
 } from "../../../../../../../../../core/business-logic/order/enum/order-service.status.enum";
-import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
+import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
 
 @Component({
 	selector: 'total-statistic-component',

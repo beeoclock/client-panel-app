@@ -13,7 +13,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
 import {IOrderDto} from "../../../../../../../core/business-logic/order/interface/details/i.order.dto";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 
 @Component({
 	selector: 'app-list-order-table',

@@ -4,12 +4,12 @@ import {Select, Store} from "@ngxs/store";
 import {IClient} from "@client/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {filter, Observable} from "rxjs";
 import {
 	UpdateBusinessProfileApiAdapter
 } from "@client/infrastructure/adapter/api/buisness-profile/update.business-profile.api.adapter";
-import {ClientActions} from "@client/state/client/client.actions";
+import {ClientActions} from "@client/infrastructure/state/client/client.actions";
 import {
 	BookingSettingsBusinessProfileComponent
 } from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";

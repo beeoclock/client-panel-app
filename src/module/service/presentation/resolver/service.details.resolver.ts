@@ -3,7 +3,7 @@ import {ActivatedRouteSnapshot, ResolveFn} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY} from "rxjs";
 
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {IAppState} from "@utility/state/app/app.state";
 import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
 

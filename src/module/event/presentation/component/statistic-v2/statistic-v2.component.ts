@@ -11,11 +11,11 @@ import {
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Store} from "@ngxs/store";
-import {MemberState} from "@member/state/member/member.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {filter, map, startWith, tap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe} from "@angular/common";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {DateTime} from "luxon";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -24,16 +24,16 @@ import {RIClient} from "@client/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	DateSliderControlComponent
-} from "@module/analytic/internal/presentation/component/control/date-slider/date-slider.control.component";
-import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
+} from "@module/analytic/presentation/component/control/date-slider/date-slider.control.component";
+import {IntervalTypeEnum} from "@module/analytic/domain/enum/interval.enum";
 import {
 	DateRangeReportAnalyticState,
 	IDateRangeAnalyticState
-} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
+} from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
 import {RIMember} from "../../../../../../core/business-logic/member";
 import {
 	DateRangeReportAnalyticActions
-} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
+} from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.actions";
 import {
 	MemberRadioTailwindcssComponent
 } from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";

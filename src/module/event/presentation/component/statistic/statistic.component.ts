@@ -11,14 +11,14 @@ import {IonicModule} from "@ionic/angular";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Store} from "@ngxs/store";
-import {MemberState} from "@member/state/member/member.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {combineLatest, filter, map, Observable, startWith} from "rxjs";
-import {StatisticQueries} from "@event/state/statistic/statistic.queries";
+import {StatisticQueries} from "@event/infrastructure/state/statistic/statistic.queries";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe, CurrencyPipe, DecimalPipe, KeyValuePipe} from "@angular/common";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {StatisticAction} from "@event/state/statistic/statistic.action";
+import {StatisticAction} from "@event/infrastructure/state/statistic/statistic.action";
 import {DateTime} from "luxon";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -29,12 +29,12 @@ import {TranslateModule} from "@ngx-translate/core";
 import {MemberProfileStatusEnum} from "../../../../../../core/business-logic/member/enums/member-profile-status.enum";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
-import {IdentityState} from "@identity/state/identity/identity.state";
+import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {
 	DateSliderControlComponent
-} from "@module/analytic/internal/presentation/component/control/date-slider/date-slider.control.component";
-import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
-import {statisticCalculator} from "@event/state/statistic/statistic.calculator";
+} from "@module/analytic/presentation/component/control/date-slider/date-slider.control.component";
+import {IntervalTypeEnum} from "@module/analytic/domain/enum/interval.enum";
+import {statisticCalculator} from "@event/infrastructure/state/statistic/statistic.calculator";
 
 @Component({
 	selector: 'event-statistic-component',

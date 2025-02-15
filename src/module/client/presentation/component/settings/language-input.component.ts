@@ -6,7 +6,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {
 	LanguageBusinessPanelFrontendSettingsAccountApiAdapter
-} from "@module/account/adapter/external/api/language.business-panel.frontend-settings.account.api.adapter";
+} from "@module/account/infrastructure/adapter/external/api/language.business-panel.frontend-settings.account.api.adapter";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({

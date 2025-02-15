@@ -1,5 +1,5 @@
 import {NgxsModule} from "@ngxs/store";
-import {IdentityState} from "@identity/state/identity/identity.state";
+import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {AppState} from "@utility/state/app/app.state";
 import {environment} from "@environment/environment";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";

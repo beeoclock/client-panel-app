@@ -10,7 +10,7 @@ import {TableListComponent} from "@absence/presentation/component/list/table/tab
 import {
 	AutoRefreshButtonComponent
 } from "@absence/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ITableState} from "@utility/domain/table.state";
 

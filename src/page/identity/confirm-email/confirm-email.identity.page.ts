@@ -5,7 +5,7 @@ import {AsyncPipe} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {Select, Store} from "@ngxs/store";
 import {SendConfirmEmailListApiAdapter} from "@identity/infrastructure/api/send-confirm-email-list.api.adapter";
-import {IdentityState} from "@identity/state/identity/identity.state";
+import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";

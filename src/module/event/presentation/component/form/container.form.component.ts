@@ -30,7 +30,7 @@ import {EventForm} from "@event/presentation/form/event.form";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {combineLatest, filter, map, tap} from "rxjs";
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {RIClient} from "@client/domain";
 import {is} from "../../../../../../core/shared/checker";
 import {RISchedule} from "@utility/domain/interface/i.schedule";

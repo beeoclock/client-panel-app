@@ -11,7 +11,7 @@ import {
 	DesktopLayoutListComponent
 } from "@member/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {RIMember} from "../../../../../../../core/business-logic/member";
-import {MemberState} from "@member/state/member/member.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ActiveEnum} from "@utility/domain/enum";
 import {MemberTableService} from "@member/presentation/component/list/member.table.service";
 import {TableService} from "@utility/table.service";

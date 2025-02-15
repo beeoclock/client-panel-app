@@ -6,7 +6,7 @@ import {
 	NotificationSettingsComponent
 } from "@order/presentation/component/notification-settings/notification-settings.component";
 import {Store} from "@ngxs/store";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
 import {OverlayEventDetail} from "@ionic/core/dist/types/utils/overlays-interface";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";

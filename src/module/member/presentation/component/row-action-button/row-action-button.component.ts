@@ -3,7 +3,7 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {RIMember} from "../../../../../../core/business-logic/member";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 
 @Component({
 	selector: 'member-row-action-button-component',

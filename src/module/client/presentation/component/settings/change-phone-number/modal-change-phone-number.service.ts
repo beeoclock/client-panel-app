@@ -9,7 +9,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {Auth} from "@angular/fire/auth";
 import {Store} from "@ngxs/store";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {IdentityActions} from "@identity/infrastructure/state/identity/identity.actions";
 import {ChangePhoneNumberForm} from "@client/presentation/form/change-phone-number.form";
 import {
 	ChangePhoneNumberComponent

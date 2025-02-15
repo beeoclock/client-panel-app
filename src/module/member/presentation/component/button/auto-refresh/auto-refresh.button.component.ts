@@ -1,7 +1,7 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {Store} from "@ngxs/store";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 
 @Component({
 	selector: 'member-auto-refresh-component',

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
-import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
+import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
 import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({

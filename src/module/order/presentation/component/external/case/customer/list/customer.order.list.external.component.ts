@@ -6,14 +6,14 @@ import {
 	DesktopLayoutListComponent
 } from "@order/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {ListPage} from "@utility/list.page";
-import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
+import {PeerCustomerOrderState} from "@order/infrastructure/state/peer-customer/peer-customer.order.state";
 import {MobileLayoutListComponent} from "@order/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {
 	CustomerOrderTableService
 } from "@order/presentation/component/external/case/customer/list/customer.order.table.service";
 import {TableState} from "@utility/domain/table.state";
-import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer.order.actions";
+import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-customer/peer-customer.order.actions";
 
 @Component({
 	selector: 'order-external-list-component',

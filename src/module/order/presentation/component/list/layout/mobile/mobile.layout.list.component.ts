@@ -10,7 +10,7 @@ import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {IOrderDto} from "../../../../../../../../core/business-logic/order/interface/details/i.order.dto";
 
 @Component({

@@ -12,7 +12,7 @@ import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {tap} from "rxjs";
-import {ServiceState} from "@service/state/service/service.state";
+import {ServiceState} from "@service/infrastructure/state/service/service.state";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {
 	MobileLayoutListComponent

@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} fr
 import {CurrencyPipe} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";

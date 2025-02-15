@@ -18,7 +18,7 @@ import {BooleanState} from "@utility/domain";
 import {IdentityApiAdapter} from "@identity/infrastructure/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
 import {IBusinessClient} from "@identity/domain/interface/RIBusinessClient";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {IdentityActions} from "@identity/infrastructure/state/identity/identity.actions";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {

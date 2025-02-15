@@ -4,7 +4,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
-import {CustomerState} from "@customer/state/customer/customer.state";
+import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
 import {ICustomer} from "../../../../../../../core/business-logic/customer";
 import {
 	MobileLayoutListComponent

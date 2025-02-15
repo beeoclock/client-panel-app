@@ -1,5 +1,5 @@
 import {ResolveFn} from "@angular/router";
-import {IdentityState} from "@identity/state/identity/identity.state";
+import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {filter} from "rxjs";

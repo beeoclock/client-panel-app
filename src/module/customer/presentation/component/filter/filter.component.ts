@@ -1,10 +1,10 @@
 import {Component, input} from '@angular/core';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@customer/presentation/form/filter.form";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
-import {CustomerState} from "@customer/state/customer/customer.state";
+import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
-import {AbsenceState} from "@absence/state/absence/absence.state";
+import {AbsenceState} from "@absence/infrastructure/state/absence/absence.state";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
@@ -15,7 +15,7 @@ import {IAbsence} from "../../../../core/business-logic/absence/interface/i.abse
 import {TableService} from "@utility/table.service";
 import {AbsenceTableService} from "@absence/presentation/component/list/absence.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 @Component({

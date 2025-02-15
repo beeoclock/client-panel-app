@@ -1,10 +1,10 @@
 import {Component, input} from '@angular/core';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@absence/presentation/form/filter.form";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
-import {AbsenceState} from "@absence/state/absence/absence.state";
+import {AbsenceState} from "@absence/infrastructure/state/absence/absence.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";

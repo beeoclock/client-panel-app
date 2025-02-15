@@ -11,9 +11,11 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {RIMember} from "../../../../../../core/business-logic/member";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {
+	CalendarWithSpecialistsQueries
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {DateTime} from "luxon";
 import {Store} from "@ngxs/store";
 import {filter, map, switchMap} from "rxjs";

@@ -18,12 +18,12 @@ import {IServiceDto} from "../../../../../../../../../core/business-logic/order/
 import {RIMember} from "../../../../../../../../../core/business-logic/member";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {ClientState} from "@client/state/client/client.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {AlertController} from "@ionic/angular";
 import {IOrderDto} from "../../../../../../../../../core/business-logic/order/interface/details/i.order.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 
 @Component({
 	standalone: true,
