@@ -1,4 +1,4 @@
-import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
+import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
 import {IBaseEntity} from "@utility/domain";
 
 export interface IMediaBanner extends IBaseEntity<'Media'> {

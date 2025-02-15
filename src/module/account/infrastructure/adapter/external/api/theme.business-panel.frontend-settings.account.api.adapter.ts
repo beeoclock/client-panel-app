@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {accountEndpointEnum} from "@module/account/infrastructure/endpoint/account.endpoint";
 import {ThemeEnum} from "@utility/cdk/theme.service";
 

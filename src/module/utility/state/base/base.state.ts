@@ -1,7 +1,7 @@
 import {StateContext, Store} from "@ngxs/store";
 import {BaseActions} from "@utility/state/base/base.actions";
 import {ITableState, TableState} from "@utility/domain/table.state";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 import {inject} from "@angular/core";
 import {Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";

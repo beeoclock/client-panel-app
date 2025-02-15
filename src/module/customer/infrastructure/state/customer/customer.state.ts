@@ -3,7 +3,7 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import * as Customer from "@src/core/business-logic/customer";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
@@ -13,7 +13,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export type ICustomerState = IBaseState<Customer.ICustomer.Entity>;
 

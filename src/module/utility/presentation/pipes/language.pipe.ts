@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {LanguageCodeEnum, LanguageRecord} from "@utility/domain/enum";
+import {LanguageCodeEnum, LanguageRecord} from "src/core/shared/enum";
 
 @Pipe({
   standalone: true,

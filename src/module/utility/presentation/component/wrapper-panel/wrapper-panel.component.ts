@@ -35,9 +35,10 @@ import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB
 import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager/service.indexedDB.collection.manager";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {VisibilityService} from "@utility/cdk/visibility.service";
-import {SyncManagerService} from "@src/core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
-import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
-import {AbsenceIndexedDBCollectionManager} from "@absence/infrastructure/manager/absence.indexedDB.collection.manager";
+import {AbsenceIndexedDBFacade} from "@absence/infrastructure/_deleteMe/facade/indexedDB/absence.indexedDB.facade";
+import {
+	AbsenceIndexedDBCollectionManager
+} from "@absence/infrastructure/_deleteMe/manager/absence.indexedDB.collection.manager";
 import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
 import {MemberIndexedDBCollectionManager} from "@member/infrastructure/manager/member.indexedDB.collection.manager";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
@@ -53,6 +54,7 @@ import {
 	PaymentIndexedDBCollectionManager
 } from "@module/payment/infrastructure/manager/payment.indexedDB.collection.manager";
 import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
+import {SyncManagerService} from "@core/system/infrastructure/database/_indexedDB/sync-manager.indexedDB.database";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -164,7 +166,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 			/**
 			 * Sync all data when the user is online
 			 */
-			this.syncManagerService.syncAll().then();
+			// this.syncManagerService.syncAll().then();
 
 		})
 
@@ -174,7 +176,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 			this.isUserOnWebSite = visible;
 			if (visible) {
-				this.syncManagerService.syncAll().then();
+				// this.syncManagerService.syncAll().then();
 			}
 
 		});

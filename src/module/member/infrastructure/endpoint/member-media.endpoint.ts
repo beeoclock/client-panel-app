@@ -1,6 +1,6 @@
 import {Endpoint} from "@utility/domain/endpoint";
-import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
+import {SourceNetworkEnum} from "@core/shared/enum/source.network.enum";
+import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 
 export enum MemberMediaEndpointEnum {
 	PATCH_MEMBER_MEDIA = '/api/v1/member-media/{memberId}/avatar',

@@ -22,7 +22,7 @@ import {
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
-import {OrderDirEnum} from "@utility/domain/enum";
+import {OrderDirEnum} from "src/core/shared/enum";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
 
 @Component({

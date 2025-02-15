@@ -16,7 +16,7 @@ import {debounce} from "typescript-debounce-decorator";
 import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {UtilityListCustomerRepository} from "@customer/infrastructure/repository/utility.list.customer.repository";
 import {ICustomer} from "@src/core/business-logic/customer";
-import {ActiveEnum} from "@utility/domain/enum";
+import {ActiveEnum} from "src/core/shared/enum";
 
 @Directive({
 	selector: '[customerAutocomplete]',

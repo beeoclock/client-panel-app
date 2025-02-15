@@ -1,6 +1,6 @@
 import {Directive, effect, ElementRef, inject, input} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Directive({
 	selector: '[activeStyle]',

@@ -1,5 +1,5 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
+import {SourceNetworkEnum} from "@core/shared/enum/source.network.enum";
 
 export enum memberEndpointEnum {
     getMembers = '/api/v1/member',

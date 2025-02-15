@@ -1,7 +1,7 @@
 import {environment} from "@environment/environment";
-import {ResponseListType} from "@utility/adapter/base.api.adapter";
+import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {HttpClient} from "@angular/common/http";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 import {delay, firstValueFrom} from "rxjs";
 import {BaseItem, EventEmitter, LoadResponse} from "@signaldb/core";
 import {IBaseEntity} from "@utility/domain";

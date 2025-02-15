@@ -1,5 +1,5 @@
 import {IBaseEntity} from "@utility/domain";
-import {RoleEnum} from "@utility/domain/enum/role.enum";
+import {RoleEnum} from "@core/shared/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "./i.member-media";
 import {MemberProfileStatusEnum} from "../enums/member-profile-status.enum";
 import {IServiceDto} from "../../order/interface/i.service.dto";

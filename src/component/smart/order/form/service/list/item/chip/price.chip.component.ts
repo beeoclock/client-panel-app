@@ -6,7 +6,7 @@ import ObjectID from "bson-objectid";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormControl} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "src/core/shared/enum";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
 

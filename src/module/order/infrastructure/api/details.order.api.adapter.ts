@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";

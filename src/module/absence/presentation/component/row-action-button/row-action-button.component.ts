@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	selector: 'app-absence-row-action-button-component',
@@ -65,7 +65,7 @@ export class RowActionButtonComponent {
 
 	@Dispatch()
 	public setState(state: StateEnum) {
-		return new AbsenceActions.SetState(this.item()._id, state);
+		return new AbsenceActions.SetState(this.item(), state);
 	}
 
 	@Dispatch()

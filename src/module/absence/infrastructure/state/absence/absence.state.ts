@@ -1,20 +1,20 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
+import {AbsenceIndexedDBFacade} from "@absence/infrastructure/_deleteMe/facade/indexedDB/absence.indexedDB.facade";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 import EAbsence from "@src/core/business-logic/absence/entity/e.absence";
-import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
+import {AbsenceRepository} from "@absence/infrastructure/repository/absence.repository";
 
 export type IAbsenceState = IBaseState<IAbsence.DTO>;
 
@@ -37,6 +37,7 @@ export class AbsenceState {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly absenceRepository = inject(AbsenceRepository);
 
 	// Application layer
 
@@ -63,6 +64,8 @@ export class AbsenceState {
 
 		import("@absence/presentation/component/details/absence-details-container.component")
 			.then(({AbsenceDetailsContainerComponent}) => {
+
+				this.ngxLogger.debug('AbsenceState.updateOpenedDetails', 'payload', payload);
 
 				const componentMirror = reflectComponentType(AbsenceDetailsContainerComponent);
 
@@ -91,6 +94,8 @@ export class AbsenceState {
 					const {_id} = renderedComponentRef.instance.item;
 					if (_id === payload._id) {
 						renderedComponentRef.setInput('item', payload);
+						renderedComponentRef.changeDetectorRef.detectChanges();
+						this.ngxLogger.debug('AbsenceState.updateOpenedDetails', 'Item updated');
 						return;
 					}
 					this.ngxLogger.error('AbsenceState.updateOpenedDetails', 'Item not found');
@@ -196,7 +201,8 @@ export class AbsenceState {
 
 	@Action(AbsenceActions.CreateItem)
 	public async createItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.CreateItem) {
-		this.absenceIndexedDBFacade.source.insert(EAbsence.create(action.payload));
+		const entity = EAbsence.create(action.payload);
+		await this.absenceRepository.createAsync(entity);
 		await this.closeFormAction(ctx);
 		ctx.dispatch(new AbsenceActions.GetList());
 	}
@@ -205,11 +211,7 @@ export class AbsenceState {
 	public async updateItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateItem): Promise<void> {
 
 		const item = EAbsence.create(action.payload);
-		this.absenceIndexedDBFacade.source.updateOne({
-			id: action.payload._id,
-		}, {
-			$set: item
-		});
+		await this.absenceRepository.updateAsync(item);
 		await this.closeFormAction(ctx);
 		await this.updateOpenedDetailsAction(ctx, {payload: item});
 		ctx.dispatch(new AbsenceActions.GetList());
@@ -217,9 +219,7 @@ export class AbsenceState {
 
 	@Action(AbsenceActions.GetItem)
 	public async getItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.GetItem): Promise<void> {
-		const data = this.absenceIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
+		const data = await this.absenceRepository.findByIdAsync(action.payload);
 
 		if (!data) {
 			return;
@@ -231,15 +231,6 @@ export class AbsenceState {
 				downloadedAt: new Date(),
 			}
 		});
-	}
-
-	@Action(AbsenceActions.DeleteItem)
-	public async deleteItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.DeleteItem) {
-		this.absenceIndexedDBFacade.source.removeOne({
-			id: action.payload
-		});
-		await this.closeDetailsAction(ctx, action);
-		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	@Action(AbsenceActions.GetList)
@@ -267,8 +258,6 @@ export class AbsenceState {
 				newTableState.filters = {};
 			}
 
-			const phraseFields = ['firstName', 'lastName'];
-
 			const params = newTableState.toBackendFormat();
 
 			const inState = (
@@ -277,38 +266,13 @@ export class AbsenceState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			const selector = {
-				$and: [
-					...((params?.phrase as string)?.length ? [{
-						$or: phraseFields.map((field) => {
-							return {
-								[field]: {
-									$regex: params.phrase,
-									$options: "i"
-								}
-							}
-						})
-					}] : []),
-					{
-						state: {
-							$in: inState
-						}
-					}
-				]
-			};
-
-			const items = this.absenceIndexedDBFacade.source.find(selector, {
-				limit: params.pageSize,
-				skip: (params.page - 1) * params.pageSize,
-				sort: {
-					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
-				}
-			}).fetch();
-
-			const count = this.absenceIndexedDBFacade.source.find(selector).count();
+			const {items, totalSize} = await this.absenceRepository.findAsync({
+				...params,
+				state: inState,
+			});
 
 			newTableState
-				.setTotal(count)
+				.setTotal(totalSize)
 				.setItems(items)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
@@ -328,32 +292,12 @@ export class AbsenceState {
 	}
 
 	@Action(AbsenceActions.SetState)
-	public async setState(ctx: StateContext<IAbsenceState>, {id, state}: AbsenceActions.SetState) {
-		const item = this.absenceIndexedDBFacade.source.findOne({
-			id
-		});
-		if (!item) {
-			this.ngxLogger.error('AbsenceState.setState', 'Item not found');
-			return;
-		}
-		this.absenceIndexedDBFacade.source.updateOne({
-				id
-			},
-			{
-				$set: {
-					state,
-					stateHistory: [
-						...item.stateHistory,
-						{
-							state,
-							setAt: new Date().toISOString()
-						}
-					]
-				}
-			});
-		const {data} = ctx.getState().item;
-		if (data) await this.updateOpenedDetailsAction(ctx, {payload: item});
-		ctx.dispatch(new ServiceActions.GetList());
+	public async setState(ctx: StateContext<IAbsenceState>, {item, state}: AbsenceActions.SetState) {
+		const entity = EAbsence.create(item);
+		entity.changeState(state);
+		await this.absenceRepository.updateAsync(entity);
+		await this.updateOpenedDetailsAction(ctx, {payload: item});
+		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	// Selectors

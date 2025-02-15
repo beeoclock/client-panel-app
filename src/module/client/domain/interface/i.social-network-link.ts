@@ -1,4 +1,4 @@
-import {SocialNetworkEnum} from "@utility/domain/enum/social-network.enum";
+import {SocialNetworkEnum} from "@core/shared/enum/social-network.enum";
 
 export interface ISocialNetworkLink {
   object: 'SocialNetworkLink';

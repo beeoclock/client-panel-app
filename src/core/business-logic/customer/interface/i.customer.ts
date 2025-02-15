@@ -2,7 +2,7 @@ import {IBaseEntity} from "@utility/domain";
 import {CustomerTypeEnum} from "../enum/customer-type.enum";
 import {Tools} from "../../../shared/tools";
 import {Types} from "../../../shared/types";
-import IBaseItem from "../../../system/interface/i.base-item";
+import IBaseItem from "../../../shared/interface/i.base-item";
 import Cursor from "@signaldb/core/Collection/Cursor";
 
 export namespace ICustomer {

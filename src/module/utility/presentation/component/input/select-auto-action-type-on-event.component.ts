@@ -3,7 +3,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {AutomaticApprovalTimeType} from "@utility/domain/enum/automatic-approval-time.enum";
+import {AutomaticApprovalTimeType} from "@core/shared/enum/automatic-approval-time.enum";
 
 @Component({
   selector: 'select-auto-action-type-on-event-component',

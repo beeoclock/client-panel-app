@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
-import {IsOrganizerEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {IsOrganizerEnum, OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 import {DateTime} from "luxon";
 import {
 	CalendarWithSpecialistsAction
@@ -9,10 +9,10 @@ import {IAttendee_V2, IEvent_V2} from "@event/domain";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
 import {clearObject} from "@utility/domain/clear.object";
-import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
+import {AbsenceIndexedDBFacade} from "@absence/infrastructure/_deleteMe/facade/indexedDB/absence.indexedDB.facade";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export interface ICalendarWithSpecialist {
 	params: {

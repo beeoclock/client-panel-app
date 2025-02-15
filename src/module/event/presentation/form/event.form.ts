@@ -2,7 +2,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "src/core/shared/enum";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";

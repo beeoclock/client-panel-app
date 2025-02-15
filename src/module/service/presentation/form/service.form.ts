@@ -1,6 +1,6 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActiveEnum, LanguageCodeEnum} from '@utility/domain/enum';
-import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
+import {ActiveEnum, LanguageCodeEnum} from 'src/core/shared/enum';
+import {CurrencyCodeEnum} from '@core/shared/enum/currency-code.enum';
 import {IDurationVersion, ILanguageVersion} from "@src/core/business-logic/service";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
 import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";

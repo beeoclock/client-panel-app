@@ -1,4 +1,4 @@
-import {RoleEnum} from "@utility/domain/enum/role.enum";
+import {RoleEnum} from "@core/shared/enum/role.enum";
 import {Tools} from "../../../shared/tools";
 
 export interface IOrderMetaDto {

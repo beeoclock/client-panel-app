@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import * as Customer from '@src/core/business-logic/customer';
 import {customerEndpointEnum} from "@customer/infrastructure/endpoint/customer.endpoint";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
-import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter, ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@src/core/shared/checker";
 

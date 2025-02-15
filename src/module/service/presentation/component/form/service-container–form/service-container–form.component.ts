@@ -24,16 +24,16 @@ import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {ServicePresentationForm} from "@service/presentation/form/service.presentation.form";
-import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
+import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
 import {ServicesFormComponent} from "@service/presentation/component/form/v2/service/services.form.component";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@src/core/shared/checker";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "src/core/shared/enum";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
 
 @Component({

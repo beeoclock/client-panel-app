@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {mediaEndpointEnum} from "@module/media/infrastructure/endpoint/media.endpoint";
 import {IMedia} from "@module/media/domain/interface/i.media";
 import {HttpContext} from "@angular/common/http";

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {serviceEndpointEnum} from "@service/infrastructure/endpoint/service.endpoint";
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {RIMediaBanner} from "@src/core/business-logic/service/interface/i.media.banner";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";

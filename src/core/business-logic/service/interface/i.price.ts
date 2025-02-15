@@ -1,4 +1,4 @@
-import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "src/core/shared/enum";
 
 export interface IPrice {
   price?: number | undefined;

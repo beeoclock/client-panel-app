@@ -8,7 +8,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ServiceProvideType} from "@utility/domain/service-provide-type";
-import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({

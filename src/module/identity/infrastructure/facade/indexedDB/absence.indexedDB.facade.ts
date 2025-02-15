@@ -3,8 +3,12 @@ import {Reactive} from "@utility/cdk/reactive";
 import {TENANT_ID} from "@src/token";
 import {filter} from "rxjs";
 import {is} from "@src/core/shared/checker";
-import {AbsenceIndexedDBCollection} from "@absence/infrastructure/collection/indexedDB/absence.indexedDB.collection";
-import {AbsenceIndexedDBCollectionManager} from "@absence/infrastructure/manager/absence.indexedDB.collection.manager";
+import {
+	AbsenceIndexedDBCollection
+} from "@absence/infrastructure/_deleteMe/collection/indexedDB/absence.indexedDB.collection";
+import {
+	AbsenceIndexedDBCollectionManager
+} from "@absence/infrastructure/_deleteMe/manager/absence.indexedDB.collection.manager";
 
 @Injectable({
 	providedIn: 'root',

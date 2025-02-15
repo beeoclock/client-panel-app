@@ -1,6 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export namespace AbsenceActions {
 
@@ -47,10 +47,6 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence API] Get List';
 	}
 
-	export class DeleteItem extends BaseActions.DeleteItem {
-		public static override readonly type = '[Absence API] Delete Item';
-	}
-
 	export class GetItem extends BaseActions.GetItem {
 		public static override readonly type = '[Absence API] Get Item';
 	}
@@ -67,7 +63,7 @@ export namespace AbsenceActions {
 		public static readonly type = '[Absence API] SetState';
 
 		constructor(
-			public readonly id: string,
+			public readonly item: IAbsence.DTO,
 			public readonly state: StateEnum,
 		) {
 		}

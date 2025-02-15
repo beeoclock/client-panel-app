@@ -1,5 +1,5 @@
 import {FormControl, FormGroup} from '@angular/forms';
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export interface IFilterForm {
 

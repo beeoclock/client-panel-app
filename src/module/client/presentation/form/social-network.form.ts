@@ -1,5 +1,5 @@
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
-import {SocialNetworkEnum} from "@utility/domain/enum/social-network.enum";
+import {SocialNetworkEnum} from "@core/shared/enum/social-network.enum";
 import {ISocialNetworkLink} from "@client/domain/interface/i.social-network-link";
 
 export interface ISocialNetworkForm {

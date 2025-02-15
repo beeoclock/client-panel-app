@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {ICustomer} from "@src/core/business-logic/customer";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	selector: 'customer-row-action-button-component',

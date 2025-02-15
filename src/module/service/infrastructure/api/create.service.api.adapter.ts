@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {serviceEndpointEnum} from "@service/infrastructure/endpoint/service.endpoint";
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@src/core/shared/checker";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";

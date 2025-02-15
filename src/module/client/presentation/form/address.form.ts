@@ -1,6 +1,6 @@
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {IAddress} from "@client/domain/interface/i.address";
-import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
+import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 
 export interface IAddressForm {
 

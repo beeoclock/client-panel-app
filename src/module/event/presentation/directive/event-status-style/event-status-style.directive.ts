@@ -1,6 +1,6 @@
 import {Directive, ElementRef, inject, input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
 
 @Directive({
 	selector: '[eventStatusStyle]',

@@ -16,7 +16,7 @@ import {filter, map, startWith, tap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe} from "@angular/common";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "src/core/shared/enum";
 import {DateTime} from "luxon";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {is} from "@src/core/shared/checker";

@@ -1,4 +1,4 @@
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "src/core/shared/enum";
 import {PaymentMethodEnum} from "../enum/payment.method.enum";
 import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";
@@ -6,7 +6,7 @@ import {ICustomer} from "../../customer";
 import {IBaseEntity} from "@utility/domain";
 import {Tools} from "../../../shared/tools";
 import {Types} from "../../../shared/types";
-import IBaseItem from "../../../system/interface/i.base-item";
+import IBaseItem from "../../../shared/interface/i.base-item";
 
 
 export namespace IPayment {

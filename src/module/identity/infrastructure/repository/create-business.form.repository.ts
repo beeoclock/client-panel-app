@@ -2,7 +2,7 @@ import {Injectable, OnDestroy} from "@angular/core";
 import CreateBusinessForm from "@identity/presentation/form/create-business.form";
 import {NGXLogger} from "ngx-logger";
 import {TranslateService} from "@ngx-translate/core";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "src/core/shared/enum";
 import {LanguageCountry} from "@utility/domain/const/c.language-country";
 import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
 import {BooleanState} from "@utility/domain";

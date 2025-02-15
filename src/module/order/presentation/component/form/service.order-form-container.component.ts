@@ -30,7 +30,7 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {ContainerFormComponent} from '@event/presentation/component/form/container.form.component';
 import {IEvent} from "@event/domain";
-import {ActiveEnum} from "@utility/domain/enum";
+import {ActiveEnum} from "src/core/shared/enum";
 import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";

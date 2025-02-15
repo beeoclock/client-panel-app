@@ -4,7 +4,7 @@ import {
 	AbsenceProgressStatusPipe
 } from "@absence/presentation/pipe/absence-progress-status.pipe";
 import {TranslatePipe} from "@ngx-translate/core";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 
 @Component({

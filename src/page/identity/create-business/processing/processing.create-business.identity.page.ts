@@ -25,7 +25,7 @@ import {
 	UpdateBusinessProfileApiAdapter
 } from "@client/infrastructure/adapter/api/buisness-profile/update.business-profile.api.adapter";
 import * as Client from "@client/domain";
-import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {IAddress} from "@client/domain/interface/i.address";
 import {
 	PatchMediaGalleryClientApiAdapter

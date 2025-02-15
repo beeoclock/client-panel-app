@@ -1,7 +1,7 @@
 import {FormControl, FormGroup} from "@angular/forms";
 import {DateTime} from "luxon";
 import ObjectID from "bson-objectid";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 import {Types} from "@src/core/shared/types";
 
 

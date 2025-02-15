@@ -1,17 +1,17 @@
-import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "src/core/shared/enum";
 import {ISocialNetworkLink} from "@client/domain/interface/i.social-network-link";
 import {IBaseEntity} from "@utility/domain/interface";
-import {FacilityEnum} from "@utility/domain/enum/facility.enum";
+import {FacilityEnum} from "@core/shared/enum/facility.enum";
 import {IContact} from "@client/domain/interface/i.contact";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IAddress} from "@client/domain/interface/i.address";
 import {IBookingSettings} from "@client/domain/interface/i.booking-settings";
-import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
-import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
-import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
+import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
+import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
+import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-status.enum";
 import {RIMedia} from "@module/media/domain/interface/i.media";
-import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
+import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
 import {DeepPartial} from "@utility/base.type";
 
 export interface IBusinessSettings {

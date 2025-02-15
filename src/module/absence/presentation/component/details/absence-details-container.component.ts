@@ -40,6 +40,8 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges & { items: SimpleChange }) {
 
+		console.log('AbsenceDetailsContainerComponent:ngOnChanges', {changes});
+
 		if (changes.item) {
 			this.buildProgressBar();
 		}

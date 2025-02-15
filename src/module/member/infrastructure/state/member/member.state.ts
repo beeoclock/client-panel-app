@@ -3,7 +3,7 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Member from "@src/core/business-logic/member";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
@@ -14,7 +14,7 @@ import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 

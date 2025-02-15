@@ -48,6 +48,7 @@
 	"private": true,
 	"dependencies": {
 		"@amcharts/amcharts5": "5.10.10",
+		"@angular-architects/ngrx-toolkit": "19.0.2",
 		"@angular/animations": "19.0.6",
 		"@angular/cdk": "19.0.5",
 		"@angular/common": "19.0.6",
@@ -62,6 +63,7 @@
 		"@ionic/angular": "8.4.1",
 		"@ng-icons/core": "30.2.0",
 		"@ng-select/ng-select": "14.1.0",
+		"@ngrx/signals": "19.0.0",
 		"@ngx-translate/core": "16.0.4",
 		"@ngx-translate/http-loader": "16.0.1",
 		"@ngxs-labs/dispatch-decorator": "5.0.0",
@@ -71,8 +73,13 @@
 		"@p4ck493/checker": "0.0.2",
 		"@p4ck493/ts-type-guard": "1.0.3",
 		"@sentry/angular": "8.48.0",
+		"@signaldb/angular": "1.0.4",
+		"@signaldb/core": "1.2.3",
+		"@signaldb/indexeddb": "1.0.0",
+		"@signaldb/sync": "1.1.1",
 		"bootstrap-icons": "1.11.3",
 		"bson-objectid": "2.0.4",
+		"dexie": "4.0.11",
 		"flowbite": "2.5.2",
 		"hammerjs": "2.0.8",
 		"hash-sum": "2.0.0",
@@ -88,13 +95,7 @@
 		"typescript-debounce-decorator": "0.0.18",
 		"typia": "7.5.1",
 		"uuid": "11.0.5",
-		"zone.js": "0.15.0",
-		"@angular-architects/ngrx-toolkit": "19.0.2",
-		"@ngrx/signals": "19.0.0",
-		"@signaldb/angular": "1.0.4",
-		"@signaldb/core": "1.2.3",
-		"@signaldb/indexeddb": "1.0.0",
-		"@signaldb/sync": "1.1.1"
+		"zone.js": "0.15.0"
 	},
 	"devDependencies": {
 		"@angular-devkit/build-angular": "19.0.7",
@@ -112,11 +113,13 @@
 		"@ng-icons/remixicon": "30.2.0",
 		"@ng-icons/tdesign-icons": "30.2.0",
 		"@ngxs/devtools-plugin": "19.0.0",
+		"@signaldb/devtools": "1.0.0-beta.3",
 		"@tailwindcss/aspect-ratio": "0.4.2",
 		"@tailwindcss/container-queries": "0.1.1",
 		"@tailwindcss/forms": "0.5.10",
 		"@tailwindcss/typography": "0.5.16",
 		"@testing-library/angular": "17.3.5",
+		"@types/dexie": "1.3.35",
 		"@types/hammerjs": "2.0.46",
 		"@types/hash-sum": "1.0.2",
 		"@types/humanize-duration": "3.27.4",
@@ -133,7 +136,6 @@
 		"tailwindcss": "3.4.17",
 		"ts-node": "10.9.2",
 		"ts-patch": "3.3.0",
-		"typescript": "5.6.3",
-		"@signaldb/devtools": "1.0.0-beta.3"
+		"typescript": "5.6.3"
 	}
 }

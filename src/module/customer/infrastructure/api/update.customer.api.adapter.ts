@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import * as Customer from '@src/core/business-logic/customer';
 import {customerEndpointEnum} from "@customer/infrastructure/endpoint/customer.endpoint";
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@src/core/shared/checker";
 import {HttpContext} from "@angular/common/http";

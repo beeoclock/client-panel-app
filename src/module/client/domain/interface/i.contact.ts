@@ -1,4 +1,4 @@
-import {CellCountryPrefixEnum} from "@utility/domain/enum/cell-country-prefix.enum";
+import {CellCountryPrefixEnum} from "@core/shared/enum/cell-country-prefix.enum";
 
 export interface IContact {
   object: 'Contact';

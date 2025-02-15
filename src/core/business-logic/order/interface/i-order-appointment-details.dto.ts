@@ -1,4 +1,4 @@
-import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {ActiveEnum, LanguageCodeEnum} from "src/core/shared/enum";
 import {ISpecialist} from "../../service/interface/i.specialist";
 import {ReservationTypeEnum} from "../enum/reservation.type.enum";
 import {IBaseEntity} from "@utility/domain";

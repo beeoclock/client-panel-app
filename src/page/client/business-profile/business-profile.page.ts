@@ -8,7 +8,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {filter} from "rxjs";
-import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {ClientActions} from "@client/infrastructure/state/client/client.actions";
 import {
 	FormBusinessProfileComponent

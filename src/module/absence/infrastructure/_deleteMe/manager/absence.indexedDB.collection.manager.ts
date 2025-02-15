@@ -1,12 +1,14 @@
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {TENANT_ID} from "@src/token";
-import {SyncManagerService} from "@src/core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "@src/core/shared/checker";
+import {is} from "@core/shared/checker";
 import {filter} from "rxjs";
-import {AbsenceIndexedDBCollection} from "@absence/infrastructure/collection/indexedDB/absence.indexedDB.collection";
-import EAbsence from "@src/core/business-logic/absence/entity/e.absence";
-import {absenceEndpointEnum} from "@absence/infrastructure/endpoint/absenceEndpointEnum";
+import {
+	AbsenceIndexedDBCollection
+} from "@absence/infrastructure/_deleteMe/collection/indexedDB/absence.indexedDB.collection";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {absenceEndpointEnum} from "@absence/infrastructure/endpoint/absence.endpoint";
+import {SyncManagerService} from "@core/system/infrastructure/database/_indexedDB/sync-manager.indexedDB.database";
 
 @Injectable({
 	providedIn: 'root',
@@ -111,10 +113,10 @@ class AbsenceIndexedDBCollectionManagerContext {
 				toDTO: EAbsence.toDTO,
 				create: EAbsence.create,
 				endpoint: {
-					get: absenceEndpointEnum.PAGED,
-					post: absenceEndpointEnum.CREATE,
-					put: absenceEndpointEnum.UPDATE,
-					delete: absenceEndpointEnum.DELETE,
+					get: absenceEndpointEnum.GET,
+					post: absenceEndpointEnum.POST,
+					put: absenceEndpointEnum.PUT,
+					// delete: absenceEndpointEnum.DELETE,
 				}
 			}
 		};

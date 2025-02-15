@@ -1,8 +1,8 @@
 import {AbsenceTypeEnum} from "../enums/absence.type.enum";
 import {RIMember} from "../../member";
 import {IBaseEntity} from "@utility/domain";
-import IBaseItem from "../../../system/interface/i.base-item";
-import {Tools} from "../../../shared/tools";
+import IBaseItem from "@core/shared/interface/i.base-item";
+import {Tools} from "@core/shared/tools";
 
 
 export namespace IAbsence {

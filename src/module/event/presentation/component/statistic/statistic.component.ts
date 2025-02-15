@@ -17,7 +17,7 @@ import {StatisticQueries} from "@event/infrastructure/state/statistic/statistic.
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe, CurrencyPipe, DecimalPipe, KeyValuePipe} from "@angular/common";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "src/core/shared/enum";
 import {StatisticAction} from "@event/infrastructure/state/statistic/statistic.action";
 import {DateTime} from "luxon";
 import {ActivatedRoute, Params, Router} from "@angular/router";

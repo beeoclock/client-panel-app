@@ -1,5 +1,5 @@
 import {IBaseEntity} from "@utility/domain";
-import IBaseItem from "../../../system/interface/i.base-item";
+import IBaseItem from "../../../shared/interface/i.base-item";
 import {Tools} from "../../../shared/tools";
 import {IPresentation, RIConfiguration, RIDurationVersion, RILanguageVersion, RIPrepaymentPolicy} from "../index";
 import {RISchedule} from "@utility/domain/interface/i.schedule";

@@ -1,6 +1,6 @@
-import {IBaseItem} from "../interface/i.base-item";
+import {IBaseItem} from "../../shared/interface/i.base-item";
 import {Types} from "../../shared/types";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 /**
  * Base class for all items.
@@ -20,14 +20,21 @@ export abstract class ABaseItem<T extends string, DTO> implements IBaseItem<T, D
 	updatedAt!: string & Types.DateTime;
 
 	state!: StateEnum;
-	stateHistory!: {
+	stateHistory: {
 		state: StateEnum;
 		setAt: string & Types.DateTime
-	}[];
+	}[] = [];
 
-	protected constructor(data: { _id: string & Types.ObjectId }) {
+	protected constructor(data: { _id: string & Types.ObjectId; stateHistory: { state: StateEnum; setAt: string & Types.DateTime }[] }) {
 		this.id = data._id;
-		Object.assign(this, data);
+		const {stateHistory, ...rest} = data;
+		Object.assign(this, rest);
+		this.stateHistory = this.stateHistory.concat(stateHistory);
+	}
+
+	public changeState(state: StateEnum): void {
+		this.state = state;
+		this.stateHistory.push({state, setAt: new Date().toISOString()});
 	}
 
 	public toDTO(): DTO {

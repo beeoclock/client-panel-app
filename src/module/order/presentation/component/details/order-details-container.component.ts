@@ -11,7 +11,7 @@ import {OrderStatusEnum} from "@src/core/business-logic/order/enum/order.status.
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {IAttendee_V2} from "@event/domain";
-import {IsOrganizerEnum} from "@utility/domain/enum";
+import {IsOrganizerEnum} from "src/core/shared/enum";
 import {
 	ContainerChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/container.change-status.button.component";

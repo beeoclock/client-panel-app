@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import * as Client from "@client/domain";
 import {businessProfileEndpointEnum} from "@client/infrastructure/endpoint/business-profile.endpoint";
 import {map} from "rxjs";

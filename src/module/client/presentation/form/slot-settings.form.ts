@@ -1,6 +1,6 @@
 import {FormControl, FormGroup} from "@angular/forms";
 import {SlotBuildingStrategyEnum} from "@client/domain/enum/slot-building-strategy.enum";
-import {SlotRetrievingStrategyEnum} from "@utility/domain/enum/slot-retrieving-strategy.enum";
+import {SlotRetrievingStrategyEnum} from "@core/shared/enum/slot-retrieving-strategy.enum";
 
 export interface ISlotSettingsForm {
 

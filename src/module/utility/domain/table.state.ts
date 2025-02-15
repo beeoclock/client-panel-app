@@ -1,6 +1,6 @@
 import hash_sum from "hash-sum";
-import {ActiveEnum, OrderByEnum, OrderDirEnum} from "./enum";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {ActiveEnum, OrderByEnum, OrderDirEnum} from "../../../core/shared/enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export interface ITableState<ITEM> {
 	hashSum: string;

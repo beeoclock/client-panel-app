@@ -24,13 +24,13 @@ import {RIMember} from "@src/core/business-logic/member";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {ActiveEnum, LanguageCodeEnum} from "src/core/shared/enum";
 import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
 import {DateTime} from "luxon";
 import {ICustomer} from "@src/core/business-logic/customer";
 import ObjectID from "bson-objectid";
 import {IAttendeeDto} from "@src/core/business-logic/order/interface/i-order-appointment-details.dto";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	standalone: true,

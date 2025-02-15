@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter, ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@src/core/shared/checker";
 import {TableState_BackendFormat} from "@utility/domain/table.state";

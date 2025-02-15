@@ -5,7 +5,7 @@ import {NotificationSettingsFromGroup} from "@client/presentation/form";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {NgSelectComponent} from "@ng-select/ng-select";
 import {ReactiveFormsModule} from "@angular/forms";
-import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
+import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
 
 @Component({
 	selector: 'app-notification-settings',

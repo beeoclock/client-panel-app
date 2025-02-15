@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {PaymentEndpoint} from "@module/payment/infrastructure/endpoint/payment.endpoint";
 import {IPaymentDto} from "@src/core/business-logic/payment/interface/i.payment";
 

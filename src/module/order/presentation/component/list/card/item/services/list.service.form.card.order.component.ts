@@ -19,7 +19,7 @@ import {RIMember} from "@src/core/business-logic/member";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "src/core/shared/enum";
 import {AlertController} from "@ionic/angular";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";

@@ -1,20 +1,20 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActiveEnum} from '@utility/domain/enum/active.enum';
+import {ActiveEnum} from '@core/shared/enum/active.enum';
 import {SocialNetworksForm} from "@client/presentation/form/social-network.form";
-import {FacilityEnum} from "@utility/domain/enum/facility.enum";
+import {FacilityEnum} from "@core/shared/enum/facility.enum";
 import {BookingSettingsForm} from "@client/presentation/form/booking-settings.form";
 import {AddressesForm} from "@client/presentation/form/address.form";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {ContactsForm} from "@client/presentation/form/contact.form";
-import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
+import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {BusinessIndustry} from "@utility/domain/business-industry";
-import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
 import {is} from "@src/core/shared/checker";
 import {USERNAME_ANGULAR_VALIDATOR} from "@utility/validation/validators";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from 'rxjs';
-import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
+import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
 import {PublicPageSettings} from "@client/presentation/form/public-page-settings.form";
 
 

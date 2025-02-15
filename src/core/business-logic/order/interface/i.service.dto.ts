@@ -1,4 +1,4 @@
-import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "src/core/shared/enum";
 import {DurationVersionTypeEnum} from "../../service/enum/duration-version-type.enum";
 import {IPresentation} from "../../service";
 import {IBaseEntity} from "@utility/domain";

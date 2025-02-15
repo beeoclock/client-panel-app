@@ -2,7 +2,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from
 import {inject, Injectable, Injector} from "@angular/core";
 import {ToastController} from "@ionic/angular";
 import {Endpoint} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
+import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 import {EndpointInterface} from "@utility/domain/interface/i.endpoint/i.endpoint-replace";
 import {TranslateService} from "@ngx-translate/core";
 import {Observable, tap} from "rxjs";

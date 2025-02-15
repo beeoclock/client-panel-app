@@ -1,7 +1,7 @@
 import {Component, inject} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {LANGUAGES} from "@utility/domain/enum";
+import {LANGUAGES} from "src/core/shared/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {

@@ -1,7 +1,7 @@
-import {RoleEnum} from "@utility/domain/enum/role.enum";
+import {RoleEnum} from "@core/shared/enum/role.enum";
 import {Tools} from "@src/core/shared/tools";
 import {Types} from "@src/core/shared/types";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export interface IBaseEntity<OBJECT_TYPE extends string = string> {
 

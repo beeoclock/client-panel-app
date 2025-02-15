@@ -1,6 +1,6 @@
 import {InjectionToken, LOCALE_ID} from "@angular/core";
 import {MS_TEN_MINUTES} from "@utility/domain/const/c.time";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "src/core/shared/enum";
 import {ThemeEnum} from "@utility/cdk/theme.service";
 import {BehaviorSubject} from "rxjs";
 

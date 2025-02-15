@@ -21,12 +21,12 @@ import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "src/core/shared/enum";
 import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
 import {TranslatePipe, TranslateService} from "@ngx-translate/core";
-import {ApplicationEnum} from "@utility/domain/enum/application.enum";
+import {ApplicationEnum} from "@core/shared/enum/application.enum";
 
 @Component({
 	standalone: true,

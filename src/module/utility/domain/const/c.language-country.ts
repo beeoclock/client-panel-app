@@ -1,5 +1,5 @@
-import {LanguageCodeEnum} from "@utility/domain/enum";
-import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
+import {LanguageCodeEnum} from "src/core/shared/enum";
+import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 
 export const LanguageCountry = {
   [LanguageCodeEnum.en]: [CountryCodeEnum.PL],

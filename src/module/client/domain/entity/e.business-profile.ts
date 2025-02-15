@@ -1,11 +1,11 @@
 import {ABaseItem} from "@src/core/system/abstract/a.base-item";
 import {IBusinessProfile} from "@client/domain/interface/i.business-profile";
 import {IMedia} from "@src/module/media/domain/interface/i.media";
-import {ActiveEnum} from "@src/module/utility/domain/enum";
-import {BusinessCategoryEnum} from "@src/module/utility/domain/enum/business-category.enum";
-import {BusinessIndustryEnum} from "@src/module/utility/domain/enum/business-industry.enum";
-import {FacilityEnum} from "@src/module/utility/domain/enum/facility.enum";
-import {ServiceProvideTypeEnum} from "@src/module/utility/domain/enum/service-provide-type.enum";
+import {ActiveEnum} from "src/core/shared/enum";
+import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
+import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
+import {FacilityEnum} from "@core/shared/enum/facility.enum";
+import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {ISchedule} from "@src/module/utility/domain/interface/i.schedule";
 import {BusinessClientStatusEnum} from "../enum/business-client-status.enum";
 import {IBusinessSettings, INotificationsSettings} from "../interface";

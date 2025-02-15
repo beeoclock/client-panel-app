@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, V
 import {IsOnlineService} from "@utility/cdk/is-online.service";
 import {AsyncPipe, DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
-import {SyncManagerService} from "@src/core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {SyncManagerService} from "@core/system/infrastructure/database/_indexedDB/sync-manager.indexedDB.database";
 import {TimeAgoPipe} from "@utility/presentation/pipes/time-ago.pipe";
 import {Reactive} from "@utility/cdk/reactive";
 import {setIntervals$} from "@utility/domain/timer";
@@ -90,7 +90,7 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 	public readonly isSyncing$ = this.syncManagerService.isSyncing$;
 
 	public syncAll() {
-		this.syncManagerService.syncAll().then();
+		// this.syncManagerService.syncAll().then();
 	}
 
 	public pauseAll() {

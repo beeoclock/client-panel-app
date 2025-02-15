@@ -1,6 +1,6 @@
 import {ABaseItem} from "../../../system/abstract/a.base-item";
 import {IMember} from "../interface/i.member";
-import {RoleEnum} from "@utility/domain/enum/role.enum";
+import {RoleEnum} from "@core/shared/enum/role.enum";
 import {MemberProfileStatusEnum} from "../enums/member-profile-status.enum";
 import {IAssignments} from "../interface";
 import {RESPONSE_IMemberMedia} from "../interface/i.member-media";

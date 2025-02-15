@@ -1,5 +1,5 @@
-import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "src/core/shared/enum";
 
 export const DefaultServicesByBusinessCategory: {
 	[key in keyof typeof LanguageCodeEnum]?: {

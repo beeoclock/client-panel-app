@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Placement} from "@popperjs/core/lib/enums";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	selector: 'utility-table-column-action',

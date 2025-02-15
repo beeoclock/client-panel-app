@@ -1,17 +1,17 @@
 import {IBaseEntity} from "@utility/domain";
 import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-status.enum";
-import {ActiveEnum} from "@utility/domain/enum";
+import {ActiveEnum} from "src/core/shared/enum";
 import {RIMedia} from "@module/media/domain/interface/i.media";
-import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
-import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
-import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
+import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
+import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {ISocialNetworkLink} from "@client/domain/interface/i.social-network-link";
 import {IBookingSettings} from "@client/domain/interface/i.booking-settings";
 import {IAddress} from "@client/domain/interface/i.address";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IContact} from "@client/domain/interface/i.contact";
-import {FacilityEnum} from "@utility/domain/enum/facility.enum";
-import IBaseItem from "@src/core/system/interface/i.base-item";
+import {FacilityEnum} from "@core/shared/enum/facility.enum";
+import IBaseItem from "@core/shared/interface/i.base-item";
 import {Tools} from "@src/core/shared/tools";
 import {IBusinessSettings, INotificationsSettings} from "@client/domain";
 

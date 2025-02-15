@@ -1,5 +1,5 @@
 import {Component, input, ViewEncapsulation} from '@angular/core';
-import {LANGUAGES} from '@utility/domain/enum';
+import {LANGUAGES} from 'src/core/shared/enum';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 
 import {NgSelectModule} from '@ng-select/ng-select';

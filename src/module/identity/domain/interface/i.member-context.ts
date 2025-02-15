@@ -1,5 +1,5 @@
 import {IBaseEntity} from "@utility/domain";
-import IBaseItem from "@src/core/system/interface/i.base-item";
+import IBaseItem from "@core/shared/interface/i.base-item";
 import {Tools} from "@src/core/shared/tools";
 
 

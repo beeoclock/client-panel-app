@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@src/core/shared/checker";
 import {AnalyticEndpointEnum} from "@module/analytic/infrastructure/endpoint/analytic.endpoint";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "src/core/shared/enum";
 import {Types} from "@src/core/shared/types";
 
 export namespace DailyReportAnalyticApi {

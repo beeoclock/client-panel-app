@@ -4,7 +4,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import * as Customer from "@src/core/business-logic/customer";
 import {NGXLogger} from "ngx-logger";
 import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Injectable({
 	providedIn: 'root'

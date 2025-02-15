@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 import {PagedOrderApiAdapter} from "@order/infrastructure/api/paged.order.api.adapter";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {ITableState, TableState} from "@utility/domain/table.state";
@@ -8,7 +8,7 @@ import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-custome
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export type IPeerCustomerOrderState = {
 	tableState: ITableState<IOrderDto>;

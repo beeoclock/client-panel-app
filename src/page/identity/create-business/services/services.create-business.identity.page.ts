@@ -15,7 +15,7 @@ import {
 } from "@service/presentation/component/form/modal/create-business/create-business.modal.service";
 import {ServiceForm} from "@service/presentation/form";
 import {NGXLogger} from "ngx-logger";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "src/core/shared/enum";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 
 

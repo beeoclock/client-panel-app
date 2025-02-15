@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {customerEndpointEnum} from "@customer/infrastructure/endpoint/customer.endpoint";
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import * as Customer from "@src/core/business-logic/customer";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";

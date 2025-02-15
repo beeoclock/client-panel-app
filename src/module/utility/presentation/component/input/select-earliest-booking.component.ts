@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} fr
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {EarliestBookingEnum} from "@utility/domain/enum/earliest-booking.enum";
+import {EarliestBookingEnum} from "@core/shared/enum/earliest-booking.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({

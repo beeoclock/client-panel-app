@@ -1,6 +1,6 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PIMember} from "@src/core/business-logic/member";
-import {RoleEnum} from "@utility/domain/enum/role.enum";
+import {RoleEnum} from "@core/shared/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@src/core/business-logic/member/interface/i.member-media";
 import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";

@@ -28,7 +28,7 @@ import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
 import {ICustomer} from "@src/core/business-logic/customer";
 import {SpecialistModel} from "@src/core/business-logic/service/model/specialist.model";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 import {is} from "@src/core/shared/checker";
 
 @Component({

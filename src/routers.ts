@@ -23,6 +23,7 @@ import {CustomerState} from "@customer/infrastructure/state/customer/customer.st
 import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {PaymentState} from "@module/payment/infrastructure/state/payment/payment.state";
+import {AbsenceModule} from "@absence/absence.module";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -209,17 +210,20 @@ export const routes: Routes = [
 						path: '',
 						component: WrapperPanelComponent,
 						providers: [
-							importProvidersFrom(NgxsModule.forFeature([
-								DateRangeReportAnalyticState,
-								PeerCustomerOrderState,
-								CustomerState,
-								ServiceState,
-								AbsenceState,
-								MemberState,
-								OrderState,
-								ClientState,
-								PaymentState,
-							]))
+							importProvidersFrom(
+								AbsenceModule,
+								NgxsModule.forFeature([
+									DateRangeReportAnalyticState,
+									PeerCustomerOrderState,
+									CustomerState,
+									ServiceState,
+									AbsenceState,
+									MemberState,
+									OrderState,
+									ClientState,
+									PaymentState,
+								])
+							)
 						],
 						children: [
 

@@ -4,7 +4,7 @@ import {DurationHelper} from "@utility/helper/duration.helper";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {CurrencyPipe} from "@angular/common";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "src/core/shared/enum";
 import {BASE_CURRENCY} from "@src/token";
 
 @Injectable()

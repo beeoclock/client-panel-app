@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {RESPONSE_IMemberMedia} from "@src/core/business-logic/member/interface/i.member-media";
 import {MemberMediaEndpointEnum} from "@member/infrastructure/endpoint/member-media.endpoint";
 import {HttpContext} from "@angular/common/http";

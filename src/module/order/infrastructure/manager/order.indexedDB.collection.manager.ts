@@ -1,6 +1,6 @@
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {TENANT_ID} from "@src/token";
-import {SyncManagerService} from "@src/core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {SyncManagerService} from "@core/system/infrastructure/database/_indexedDB/sync-manager.indexedDB.database";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "@src/core/shared/checker";
 import {filter} from "rxjs";

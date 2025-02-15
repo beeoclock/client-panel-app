@@ -1,10 +1,10 @@
 import {IBaseEntity} from "@utility/domain";
 import {IAssignments} from "../index";
-import IBaseItem from "../../../system/interface/i.base-item";
+import IBaseItem from "../../../shared/interface/i.base-item";
 import {Tools} from "../../../shared/tools";
 import {MemberProfileStatusEnum} from "../enums/member-profile-status.enum";
 import {RESPONSE_IMemberMedia} from "./i.member-media";
-import {RoleEnum} from "@utility/domain/enum/role.enum";
+import {RoleEnum} from "@core/shared/enum/role.enum";
 
 export namespace IMember {
 

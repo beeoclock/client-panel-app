@@ -2,7 +2,7 @@ import {Component, input, ViewEncapsulation} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {FacilityEnum} from "@utility/domain/enum/facility.enum";
+import {FacilityEnum} from "@core/shared/enum/facility.enum";
 
 @Component({
 	selector: 'client-facilities-business-profile-component',

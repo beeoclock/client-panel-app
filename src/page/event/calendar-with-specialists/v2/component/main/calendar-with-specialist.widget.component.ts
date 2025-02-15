@@ -318,8 +318,13 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			.pipe(
 				this.takeUntil(),
 				ofActionSuccessful(
-					AbsenceActions.DeleteItem,
-					OrderActions.DeleteItem,
+					AbsenceActions.SetState,
+					AbsenceActions.UpdateItem,
+					AbsenceActions.CreateItem,
+
+					OrderActions.ChangeStatus,
+					OrderActions.CreateItem,
+					OrderActions.UpdateItem,
 				)
 			).subscribe(() => {
 			this.dispatchActionToUpdateCalendar();

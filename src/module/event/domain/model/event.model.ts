@@ -1,10 +1,10 @@
 import {IAttendee, IEvent, IEventConfiguration, RMIEvent} from "@event/domain";
-import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
 import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "src/core/shared/enum";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 import {Types} from "@src/core/shared/types";
 
 export class MEvent implements RMIEvent {

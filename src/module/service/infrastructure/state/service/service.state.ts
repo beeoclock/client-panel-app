@@ -3,13 +3,13 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EService from "@src/core/business-logic/service/entity/e.service";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";

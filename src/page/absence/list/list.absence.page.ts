@@ -16,7 +16,7 @@ import {TableService} from "@utility/table.service";
 import {AbsenceTableService} from "@absence/presentation/component/list/absence.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 
 @Component({
 	selector: 'app-list-absence-page',

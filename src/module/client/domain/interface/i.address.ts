@@ -1,4 +1,4 @@
-import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
+import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 
 export interface IAddress {
   object: 'Address';

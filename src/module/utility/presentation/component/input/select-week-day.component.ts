@@ -2,7 +2,7 @@ import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {NgClass, NgForOf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {WEEK_DAYS_OBJECTS, WORK_WEEK} from "@utility/domain/enum";
+import {WEEK_DAYS_OBJECTS, WORK_WEEK} from "src/core/shared/enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({

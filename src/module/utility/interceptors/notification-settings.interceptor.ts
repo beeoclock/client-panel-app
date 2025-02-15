@@ -7,9 +7,9 @@ import {
 } from "@order/presentation/component/notification-settings/notification-settings.component";
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
+import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
 import {OverlayEventDetail} from "@ionic/core/dist/types/utils/overlays-interface";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
+import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 
 
 export const NotificationSettingsInterceptor: HttpInterceptorFn = (req, next) => {

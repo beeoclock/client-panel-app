@@ -16,7 +16,7 @@ import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order
 import {IHistoryV2} from "@utility/domain";
 import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
-import {ApplicationEnum} from "@utility/domain/enum/application.enum";
+import {ApplicationEnum} from "@core/shared/enum/application.enum";
 import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
 
 export type IDateRangeAnalyticState = {

@@ -8,7 +8,7 @@ import {BusinessIndustry} from "@utility/domain/business-industry";
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
-import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
+import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
