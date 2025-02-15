@@ -8,9 +8,9 @@ import {IonSelectWrapperComponent} from "@utility/presentation/component/input/i
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {OrderActions} from "@order/state/order/order.actions";
 import {OrderState} from "@order/state/order/order.state";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
+import {OrderStatusEnum} from '../../../../../../core/business-logic/order/enum/order.status.enum';
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 
 @Component({

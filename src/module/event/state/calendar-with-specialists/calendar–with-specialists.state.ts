@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 import {clearObject} from "@utility/domain/clear.object";
 import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export interface ICalendarWithSpecialist {

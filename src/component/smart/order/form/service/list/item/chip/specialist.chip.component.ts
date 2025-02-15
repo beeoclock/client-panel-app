@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, output, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {FormControl} from "@angular/forms";
-import {RIMember} from "@member/domain";
+import {RIMember} from "../../../../../../../../../core/business-logic/member";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {MemberState} from "@member/state/member/member.state";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
-import {SpecialistModel} from "@service/domain/model/specialist.model";
+import {ISpecialist} from "../../../../../../../../../core/business-logic/service/interface/i.specialist";
+import {SpecialistModel} from "../../../../../../../../../core/business-logic/service/model/specialist.model";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({

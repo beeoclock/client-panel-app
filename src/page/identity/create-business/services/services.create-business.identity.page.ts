@@ -16,7 +16,7 @@ import {
 import {ServiceForm} from "@service/presentation/form";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
 
 
 @Component({

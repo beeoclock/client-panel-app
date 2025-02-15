@@ -5,7 +5,7 @@ import {
 import {Reactive} from "@utility/cdk/reactive";
 import {TENANT_ID} from "@src/token";
 import {filter} from "rxjs";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../core/shared/checker";
 import {CustomerIndexedDBCollection} from "@customer/infrastructure/collection/indexedDB/customer.indexedDB.collection";
 
 @Injectable({

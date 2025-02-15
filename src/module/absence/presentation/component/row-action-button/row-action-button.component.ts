@@ -2,7 +2,7 @@ import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {IAbsence} from "@absence/domain/interface/i.absence";
+import {IAbsence} from "../../../../../../core/business-logic/absence/interface/i.absence";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@utility/domain/enum/state.enum";

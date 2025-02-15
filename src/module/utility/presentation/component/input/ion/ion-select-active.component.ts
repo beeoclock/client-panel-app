@@ -4,7 +4,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
 import {ActiveEnum} from "@utility/domain/enum";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../../core/shared/checker";
 
 @Component({
 	selector: 'ion-select-active',

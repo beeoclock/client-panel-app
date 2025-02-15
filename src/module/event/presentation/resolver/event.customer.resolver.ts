@@ -3,7 +3,7 @@ import {ActivatedRouteSnapshot, ResolveFn} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY, of, switchMap} from "rxjs";
 import {ItemCustomerApiAdapter} from "@customer/infrastructure/api/item.customer.api.adapter";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../core/business-logic/customer";
 import {ICustomerState} from "@customer/state/customer/customer.state";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 

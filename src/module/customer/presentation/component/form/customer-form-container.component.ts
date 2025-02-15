@@ -1,6 +1,6 @@
 import {Component, inject, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {ICustomer, validCustomer} from "@customer/domain";
+import {ICustomer, validCustomer} from "../../../../../../core/business-logic/customer";
 import {TranslateModule} from "@ngx-translate/core";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
@@ -14,7 +14,7 @@ import {
 import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {CustomerTypeEnum} from "../../../../../../core/business-logic/customer/enum/customer-type.enum";
 
 @Component({
 	selector: 'customer-form-page',

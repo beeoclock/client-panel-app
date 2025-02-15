@@ -1,4 +1,4 @@
-import {ABaseItem} from "@src/core/abstract/a.base-item";
+import {ABaseItem} from "../../../../../core/system/abstract/a.base-item";
 import {IMemberContext} from "@identity/domain/interface/i.member-context";
 
 

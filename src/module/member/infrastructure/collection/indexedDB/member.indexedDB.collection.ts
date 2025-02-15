@@ -1,8 +1,8 @@
 import angularReactivityAdapter from "@signaldb/angular";
 import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
-import {IMember} from "@member/domain/interface/i.member";
-import EMember from "@member/domain/entity/e.member";
+import {IMember} from "../../../../../../core/business-logic/member/interface/i.member";
+import EMember from "../../../../../../core/business-logic/member/entity/e.member";
 import {environment} from "@environment/environment";
 
 /**

@@ -3,15 +3,15 @@ import {IAttendee, IEvent_V2} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
-import {ICustomer} from "@customer/domain";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderServiceDto} from "../../../../../../core/business-logic/order/interface/i.order-service.dto";
+import {ISpecialist} from "../../../../../../core/business-logic/service/interface/i.specialist";
+import {ICustomer} from "../../../../../../core/business-logic/customer";
+import {OrderServiceStatusEnum} from "../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {
 	OrderServiceStatusStyleDirective
 } from "@event/presentation/directive/order-service-status-style/order-service-status-style.directive";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {CustomerTypeEnum} from "../../../../../../core/business-logic/customer/enum/customer-type.enum";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 import {CustomerActions} from "@customer/state/customer/customer.actions";

@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {IOrderDto} from "../../../../../core/business-logic/order/interface/details/i.order.dto";
 import {ITableState, PITableState} from "@utility/domain/table.state";
 
 export namespace PeerCustomerOrderActions {

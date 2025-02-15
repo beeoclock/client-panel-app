@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {ListMemberApiAdapter} from "@member/infrastructure/api/list.member.api.adapter";
 import {TableState} from "@utility/domain/table.state";
-import * as Member from "@member/domain";
+import * as Member from "../../../../../core/business-logic/member";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {NGXLogger} from "ngx-logger";
 

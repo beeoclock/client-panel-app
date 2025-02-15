@@ -16,7 +16,7 @@ import {ServiceTableService} from "@service/presentation/component/list/service.
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ServiceActions} from "@service/state/service/service.actions";
-import {IService} from "@service/domain/interface/i.service";
+import {IService} from "../../../../core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'app-list-service-page',

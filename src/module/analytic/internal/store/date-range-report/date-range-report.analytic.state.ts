@@ -16,8 +16,8 @@ import {
 import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import {IHistoryV2} from "@utility/domain";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
+import {CustomerTypeEnum} from "../../../../../../core/business-logic/customer/enum/customer-type.enum";
+import {IOrderServiceDto} from "../../../../../../core/business-logic/order/interface/i.order-service.dto";
 import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
 

@@ -12,8 +12,8 @@ import {filter, firstValueFrom, map, merge, Subscription} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
-import {is} from "@utility/checker";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {is} from "../../../../../../../../core/shared/checker";
+import {IServiceDto} from "../../../../../../../../core/business-logic/order/interface/i.service.dto";
 
 @Component({
 	selector: 'event-duration-version-type-range',

@@ -1,6 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IEvent_V2} from "@event/domain";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "../../../../../core/business-logic/order/enum/order-service.status.enum";
 
 export namespace EventActions {
 

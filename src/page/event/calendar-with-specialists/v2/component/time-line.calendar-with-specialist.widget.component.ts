@@ -15,7 +15,7 @@ import {
 import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../core/shared/checker";
 
 @Component({
 	selector: 'app-time-line-calendar-with-specialist-widget-component',

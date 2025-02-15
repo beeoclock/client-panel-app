@@ -7,7 +7,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
-import {IService} from "@service/domain/interface/i.service";
+import {IService} from "../../../../../../core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'service-detail-page',

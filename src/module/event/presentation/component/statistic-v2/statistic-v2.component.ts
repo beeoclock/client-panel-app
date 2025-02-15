@@ -19,7 +19,7 @@ import {ClientState} from "@client/state/client/client.state";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {DateTime} from "luxon";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../core/shared/checker";
 import {RIClient} from "@client/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {
@@ -30,7 +30,7 @@ import {
 	DateRangeReportAnalyticState,
 	IDateRangeAnalyticState
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
-import {RIMember} from "@member/domain";
+import {RIMember} from "../../../../../../core/business-logic/member";
 import {
 	DateRangeReportAnalyticActions
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";

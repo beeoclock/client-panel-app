@@ -14,10 +14,10 @@ import {filter, tap} from "rxjs";
 import {
 	MemberRadioTailwindcssComponent
 } from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../../../../core/shared/checker";
 import {RIClient} from "@client/domain";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {RIMember} from "@member/domain";
+import {RIMember} from "../../../../../../../../../core/business-logic/member";
 import {
 	DateSliderControlComponent
 } from "@module/analytic/internal/presentation/component/control/date-slider/date-slider.control.component";

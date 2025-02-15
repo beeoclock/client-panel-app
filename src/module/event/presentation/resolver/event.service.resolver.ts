@@ -6,7 +6,7 @@ import {catchError, EMPTY, of, switchMap} from "rxjs";
 import {IServiceState} from "@service/state/service/service.state";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {ItemServiceApiAdapter} from "@service/infrastructure/api/item.service.api.adapter";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
 
 export const eventServiceResolver: ResolveFn<IServiceDto | undefined> = (
 	route: ActivatedRouteSnapshot,

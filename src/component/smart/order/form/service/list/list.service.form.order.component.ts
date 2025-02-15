@@ -19,17 +19,17 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {TableState} from "@utility/domain/table.state";
 import {Reactive} from "@utility/cdk/reactive";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
-import {RIMember} from "@member/domain";
+import {IServiceDto} from "../../../../../../../core/business-logic/order/interface/i.service.dto";
+import {RIMember} from "../../../../../../../core/business-logic/member";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ClientState} from "@client/state/client/client.state";
 import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
-import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
+import {ReservationTypeEnum} from "../../../../../../../core/business-logic/order/enum/reservation.type.enum";
 import {DateTime} from "luxon";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../../../core/business-logic/customer";
 import ObjectID from "bson-objectid";
-import {IAttendeeDto} from "@order/domain/interface/i-order-appointment-details.dto";
+import {IAttendeeDto} from "../../../../../../../core/business-logic/order/interface/i-order-appointment-details.dto";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({

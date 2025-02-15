@@ -11,8 +11,8 @@ import {IAddress} from "@client/domain/interface/i.address";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IContact} from "@client/domain/interface/i.contact";
 import {FacilityEnum} from "@utility/domain/enum/facility.enum";
-import IBaseItem from "@src/core/interface/i.base-item";
-import {Tools} from "@utility/tools";
+import IBaseItem from "../../../../../core/system/interface/i.base-item";
+import {Tools} from "../../../../../core/shared/tools";
 import {IBusinessSettings, INotificationsSettings} from "@client/domain";
 
 export namespace IBusinessProfile {

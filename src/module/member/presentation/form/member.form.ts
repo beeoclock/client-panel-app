@@ -1,9 +1,9 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {PIMember} from "@member/domain";
+import {PIMember} from "../../../../../core/business-logic/member";
 import {RoleEnum} from "@utility/domain/enum/role.enum";
-import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
-import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {RESPONSE_IMemberMedia} from "../../../../../core/business-logic/member/interface/i.member-media";
+import {MemberProfileStatusEnum} from "../../../../../core/business-logic/member/enums/member-profile-status.enum";
+import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
 import {BaseEntityForm} from "@utility/base.form";
 
 export interface IAssignments_ServiceForm {

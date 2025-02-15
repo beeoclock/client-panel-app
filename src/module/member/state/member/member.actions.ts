@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IMember} from "@member/domain/interface/i.member";
+import {IMember} from "../../../../../core/business-logic/member/interface/i.member";
 
 export namespace MemberActions {
 

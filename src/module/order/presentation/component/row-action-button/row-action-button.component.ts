@@ -4,7 +4,7 @@ import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {OrderActions} from "@order/state/order/order.actions";
-import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
 
 @Component({
 	selector: 'app-order-row-action-button-component',

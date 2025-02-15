@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import * as Member from "@member/domain";
+import * as Member from "../../../../../core/business-logic/member";
 import {ISchedule} from "@utility/domain/interface/i.schedule";
 import {BehaviorSubject} from "rxjs";
 import {

@@ -1,11 +1,13 @@
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {TENANT_ID} from "@src/token";
-import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {
+	SyncManagerService
+} from "../../../../../core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "@utility/checker";
+import {is} from "../../../../../core/shared/checker";
 import {filter} from "rxjs";
 import {AbsenceIndexedDBCollection} from "@absence/infrastructure/collection/indexedDB/absence.indexedDB.collection";
-import EAbsence from "@absence/domain/entity/e.absence";
+import EAbsence from "../../../../../core/business-logic/absence/entity/e.absence";
 import {absenceEndpointEnum} from "@absence/infrastructure/endpoint/absenceEndpointEnum";
 
 @Injectable({

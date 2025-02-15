@@ -1,9 +1,9 @@
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../core/business-logic/customer";
 import {IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@utility/domain/enum";
 import {IBaseEntity} from "@utility/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
+import {ISpecialist} from "../../../../../core/business-logic/service/interface/i.specialist";
 
 export interface IEventConfiguration {
 	ignoreEventChecks: boolean; // Ignore checking if slot is busy

@@ -1,12 +1,14 @@
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {TENANT_ID} from "@src/token";
-import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {
+	SyncManagerService
+} from "../../../../../core/system/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "@utility/checker";
+import {is} from "../../../../../core/shared/checker";
 import {filter} from "rxjs";
 import {OrderIndexedDBCollection} from "@order/infrastructure/collection/indexedDB/order.indexedDB.collection";
 import {OrderEndpoint} from "@order/infrastructure/endpoint/order.endpoint";
-import EOrder from "@order/domain/entity/e.order";
+import EOrder from "../../../../../core/business-logic/order/entity/e.order";
 
 @Injectable({
 	providedIn: 'root',

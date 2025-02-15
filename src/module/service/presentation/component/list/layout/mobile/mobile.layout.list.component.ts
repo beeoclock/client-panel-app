@@ -14,7 +14,7 @@ import {
 import {ServiceActions} from "@service/state/service/service.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ITableState} from "@utility/domain/table.state";
-import {IService} from "@service/domain/interface/i.service";
+import {IService} from "../../../../../../../../core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'service-mobile-layout-list-component',

@@ -11,7 +11,7 @@ import {
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
-import {IService} from "@service/domain/interface/i.service";
+import {IService} from "../../../../../../../../core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'service-desktop-layout-list-component',

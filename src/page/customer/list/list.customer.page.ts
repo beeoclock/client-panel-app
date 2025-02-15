@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
 import {ListPage} from "@utility/list.page";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {Observable, tap} from "rxjs";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../core/business-logic/customer";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";

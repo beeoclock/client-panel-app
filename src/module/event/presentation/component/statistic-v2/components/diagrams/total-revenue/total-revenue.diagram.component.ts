@@ -20,7 +20,9 @@ import {isPlatformBrowser} from "@angular/common";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {
+	OrderServiceStatusEnum
+} from "../../../../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";

@@ -9,12 +9,12 @@ import {
 	viewChild
 } from "@angular/core";
 import {IonPopover} from "@ionic/angular/standalone";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {CustomerTypeEnum} from "../../../../../../../../../core/business-logic/customer/enum/customer-type.enum";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/presentation/form";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../../../../../core/business-logic/customer";
 import {
 	CustomerListIonicComponent
 } from "@src/component/smart/order/form/service/list/item/chip/customer/customer.list.ionic.component";

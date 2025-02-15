@@ -22,7 +22,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {ToastController} from "@ionic/angular";
 import {NGXLogger} from "ngx-logger";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../core/shared/checker";
 
 @Component({
 	selector: 'identity-sign-in-component',

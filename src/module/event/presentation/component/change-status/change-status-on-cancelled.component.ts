@@ -4,7 +4,7 @@ import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {EventActions} from "@event/state/event/event.actions";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 

@@ -8,7 +8,7 @@ import {environment} from "@environment/environment";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {NgEventBus} from "ng-event-bus";
 import {ClientState} from "@client/state/client/client.state";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../../core/shared/checker";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 import {Reactive} from "@utility/cdk/reactive";

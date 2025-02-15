@@ -17,7 +17,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
 import {filter, Observable} from "rxjs";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../../core/shared/checker";
 import {NGXLogger} from "ngx-logger";
 import {IDayItem} from "@utility/domain/interface/i.day-item";
 import {

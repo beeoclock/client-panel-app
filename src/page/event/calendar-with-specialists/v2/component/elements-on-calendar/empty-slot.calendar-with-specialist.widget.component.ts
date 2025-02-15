@@ -9,7 +9,7 @@ import {
 	input,
 	Renderer2
 } from "@angular/core";
-import {RIMember} from "@member/domain";
+import {RIMember} from "../../../../../../../core/business-logic/member";
 import {firstValueFrom} from "rxjs";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";

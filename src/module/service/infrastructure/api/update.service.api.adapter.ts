@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {serviceEndpointEnum} from "@service/infrastructure/endpoint/service.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "@utility/checker";
+import {is} from "../../../../../core/shared/checker";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
 
 @Injectable({
 	providedIn: 'root'

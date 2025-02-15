@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 import {Modal, ModalInterface, ModalOptions} from "flowbite";
 import {NgClass} from "@angular/common";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../core/shared/checker";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {Subject, take} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";

@@ -1,9 +1,9 @@
 import {DateRangeReportAnalyticApi} from "@module/analytic/external/api/adapter/date-range-report.analytic.api.adapter";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {ApplicationEnum} from "@utility/domain/enum/application.enum";
-import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
-import {is} from "@utility/checker";
+import {OrderStatusEnum} from "../../../../../../core/business-logic/order/enum/order.status.enum";
+import {is} from "../../../../../../core/shared/checker";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 
 // Here we will calculate the date range for the report for analytic propery in store

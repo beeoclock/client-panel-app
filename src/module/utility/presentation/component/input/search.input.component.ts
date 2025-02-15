@@ -2,7 +2,7 @@ import {AfterViewInit, Component, forwardRef, HostBinding, inject, Injector, inp
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IconComponent} from "@src/component/adapter/icon/icon.component";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../core/shared/checker";
 
 @Component({
 	selector: 'utility-search-input-component',

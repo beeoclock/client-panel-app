@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "@utility/checker";
+import {is} from "../../../../../core/shared/checker";
 import {OrderEndpoint} from "@order/infrastructure/endpoint/order.endpoint";
-import {IBusySlot} from "@order/domain/interface/busy-slot/i.busy-slot";
+import {IBusySlot} from "../../../../../core/business-logic/order/interface/busy-slot/i.busy-slot";
 
 type TParams = { start: string; end: string; specialist: string | undefined; };
 

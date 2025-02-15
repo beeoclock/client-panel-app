@@ -8,9 +8,9 @@ import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-
 import {IEvent_V2} from "@event/domain";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {Store} from "@ngxs/store";
-import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderServiceDto} from "../../../../../../core/business-logic/order/interface/i.order-service.dto";
+import {OrderServiceStatusEnum} from "../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {NGXLogger} from "ngx-logger";
 import {OrderActions} from "@order/state/order/order.actions";
 import {

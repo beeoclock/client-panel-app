@@ -31,8 +31,8 @@ import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.p
 import {ContainerFormComponent} from '@event/presentation/component/form/container.form.component';
 import {IEvent} from "@event/domain";
 import {ActiveEnum} from "@utility/domain/enum";
-import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {ReservationTypeEnum} from "../../../../../../core/business-logic/order/enum/reservation.type.enum";
+import {IServiceDto} from "../../../../../../core/business-logic/order/interface/i.service.dto";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
@@ -48,8 +48,8 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
-import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
-import {RIMember} from "@member/domain";
+import {IOrderServiceDto} from "../../../../../../core/business-logic/order/interface/i.order-service.dto";
+import {RIMember} from "../../../../../../core/business-logic/member";
 import {
 	OrderServiceDetailsComponent
 } from "@order/presentation/component/details/service/order-service-details.component";
@@ -58,7 +58,7 @@ import {filter} from 'rxjs';
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
-import {IAttendeeDto} from "@order/domain/interface/i-order-appointment-details.dto";
+import {IAttendeeDto} from "../../../../../../core/business-logic/order/interface/i-order-appointment-details.dto";
 
 
 @Component({

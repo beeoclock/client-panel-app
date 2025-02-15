@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import * as Customer from '@customer/domain';
+import * as Customer from '../../../../../core/business-logic/customer';
 import {customerEndpointEnum} from "@customer/infrastructure/endpoint/customer.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "@utility/checker";
+import {is} from "../../../../../core/shared/checker";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
 

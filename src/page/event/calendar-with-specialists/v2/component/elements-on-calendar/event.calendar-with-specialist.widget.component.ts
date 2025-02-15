@@ -15,11 +15,11 @@ import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@event/domain";
-import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
-import {IAbsence} from "@absence/domain/interface/i.absence";
+import {IOrderDto} from "../../../../../../../core/business-logic/order/interface/details/i.order.dto";
+import {IOrderServiceDto} from "../../../../../../../core/business-logic/order/interface/i.order-service.dto";
+import {IAbsence} from "../../../../../../../core/business-logic/absence/interface/i.absence";
 import {DateTime} from "luxon";
-import {RIMember} from "@member/domain";
+import {RIMember} from "../../../../../../../core/business-logic/member";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";

@@ -1,6 +1,6 @@
 import {inject, Pipe, PipeTransform} from '@angular/core';
 import {DurationVersionHtmlHelper} from '@utility/helper/duration-version.html.helper';
-import {IServiceDto} from '@order/domain/interface/i.service.dto';
+import {IServiceDto} from '../../../../../core/business-logic/order/interface/i.service.dto';
 
 @Pipe({
 	name: 'durationPrice',

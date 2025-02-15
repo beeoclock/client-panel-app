@@ -4,7 +4,7 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../../../../core/business-logic/customer";
 import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
 import {

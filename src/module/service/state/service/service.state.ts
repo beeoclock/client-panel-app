@@ -8,13 +8,13 @@ import {TranslateService} from "@ngx-translate/core";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import EService from "@service/domain/entity/e.service";
+import EService from "../../../../../core/business-logic/service/entity/e.service";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
-import {IService} from "@service/domain/interface/i.service";
+import {IService} from "../../../../../core/business-logic/service/interface/i.service";
 
 export type IServiceState = IBaseState<IService.DTO>
 

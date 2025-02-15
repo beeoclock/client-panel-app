@@ -3,7 +3,7 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
 import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../../core/business-logic/customer";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@utility/domain/enum/state.enum";

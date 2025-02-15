@@ -10,7 +10,7 @@ import {
 	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {RIMember} from "@member/domain";
+import {RIMember} from "../../../../../../core/business-logic/member";
 import {ClientState} from "@client/state/client/client.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";

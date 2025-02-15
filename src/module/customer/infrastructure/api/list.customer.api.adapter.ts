@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import * as Customer from '@customer/domain';
+import * as Customer from '../../../../../core/business-logic/customer';
 import {customerEndpointEnum} from "@customer/infrastructure/endpoint/customer.endpoint";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
 import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "@utility/checker";
+import {is} from "../../../../../core/shared/checker";
 
 @Injectable({
   providedIn: 'root'

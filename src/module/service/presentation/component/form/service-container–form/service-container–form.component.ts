@@ -30,11 +30,11 @@ import {ClientState} from "@client/state/client/client.state";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../../core/shared/checker";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {IServiceDto} from "../../../../../../../core/business-logic/order/interface/i.service.dto";
 import {StateEnum} from "@utility/domain/enum/state.enum";
-import {IService} from "@service/domain/interface/i.service";
+import {IService} from "../../../../../../../core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'service-form-v2-page-component',

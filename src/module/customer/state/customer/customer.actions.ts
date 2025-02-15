@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../core/business-logic/customer";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export namespace CustomerActions {

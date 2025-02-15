@@ -5,7 +5,7 @@ import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {CustomerState} from "@customer/state/customer/customer.state";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../../../core/business-logic/customer";
 import {
 	MobileLayoutListComponent
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";

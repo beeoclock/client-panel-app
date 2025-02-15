@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "../../../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({

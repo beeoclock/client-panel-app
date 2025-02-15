@@ -23,7 +23,7 @@ import {
 import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 import {OrderDirEnum} from "@utility/domain/enum";
-import {IService} from "@service/domain/interface/i.service";
+import {IService} from "../../../../../../../core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'service-external-list-component',

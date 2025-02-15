@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IAbsence} from "@absence/domain/interface/i.absence";
+import {IAbsence} from "../../../../../core/business-logic/absence/interface/i.absence";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export namespace AbsenceActions {

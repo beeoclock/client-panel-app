@@ -15,7 +15,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {FilterComponent} from "@order/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
-import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {IOrderDto} from "../../../../../../../../core/business-logic/order/interface/details/i.order.dto";
 import {
 	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";

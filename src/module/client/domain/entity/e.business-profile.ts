@@ -1,4 +1,4 @@
-import {ABaseItem} from "@src/core/abstract/a.base-item";
+import {ABaseItem} from "../../../../../core/system/abstract/a.base-item";
 import {IBusinessProfile} from "@client/domain/interface/i.business-profile";
 import {IMedia} from "@src/module/media/domain/interface/i.media";
 import {ActiveEnum} from "@src/module/utility/domain/enum";

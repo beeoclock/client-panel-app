@@ -10,8 +10,8 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
-import {RIMember} from "@member/domain";
+import {IServiceDto} from "../../../../../../../../core/business-logic/order/interface/i.service.dto";
+import {RIMember} from "../../../../../../../../core/business-logic/member";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {
@@ -23,13 +23,13 @@ import {DurationChipComponent} from "@src/component/smart/order/form/service/lis
 import {StartChipComponent} from "@src/component/smart/order/form/service/list/item/chip/start.chip.component";
 import LanguageChipComponent from "@src/component/smart/order/form/service/list/item/chip/language.chip.component";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {ISpecialist} from "../../../../../../../../core/business-logic/service/interface/i.specialist";
 import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
-import {ICustomer} from "@customer/domain";
-import {SpecialistModel} from "@service/domain/model/specialist.model";
+import {ICustomer} from "../../../../../../../../core/business-logic/customer";
+import {SpecialistModel} from "../../../../../../../../core/business-logic/service/model/specialist.model";
 import {StateEnum} from "@utility/domain/enum/state.enum";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../../../core/shared/checker";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',

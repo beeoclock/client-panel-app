@@ -17,7 +17,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DateTime} from "luxon";
 import {filter} from "rxjs";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../../../../core/shared/checker";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({

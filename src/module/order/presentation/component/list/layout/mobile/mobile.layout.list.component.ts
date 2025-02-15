@@ -11,7 +11,7 @@ import {
 	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {OrderActions} from "@order/state/order/order.actions";
-import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {IOrderDto} from "../../../../../../../../core/business-logic/order/interface/details/i.order.dto";
 
 @Component({
 	selector: 'app-order-mobile-layout-list-component',

@@ -3,7 +3,9 @@ import {CurrencyPipe, KeyValuePipe} from "@angular/common";
 import {
 	StatusIconComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {
+	OrderServiceStatusEnum
+} from "../../../../../../../../../core/business-logic/order/enum/order-service.status.enum";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
 
 @Component({

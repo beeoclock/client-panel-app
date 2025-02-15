@@ -19,7 +19,7 @@ import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {IOrderDto} from "../../../../../../core/business-logic/order/interface/details/i.order.dto";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
@@ -27,20 +27,20 @@ import {
 	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
 import {OrderActions} from "@order/state/order/order.actions";
-import {RIMember} from "@member/domain";
+import {RIMember} from "../../../../../../core/business-logic/member";
 import {Reactive} from "@utility/cdk/reactive";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../../core/business-logic/customer";
 import {
 	ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
 import {firstValueFrom, lastValueFrom} from "rxjs";
 import {PaymentActions} from "@module/payment/state/payment/payment.actions";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {IServiceDto} from "../../../../../../core/business-logic/order/interface/i.service.dto";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
-import {IPayment} from "@module/payment/domain/interface/i.payment";
+import {IPayment} from "../../../../../../core/business-logic/payment/interface/i.payment";
 
 @Component({
 	selector: 'app-order-form-container',

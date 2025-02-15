@@ -2,7 +2,7 @@ import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {TENANT_ID} from "@src/token";
 import {filter} from "rxjs";
-import {is} from "@utility/checker";
+import {is} from "../../../../../../core/shared/checker";
 import {ServiceIndexedDBCollection} from "@service/infrastructure/collection/indexedDB/service.indexedDB.collection";
 import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager/service.indexedDB.collection.manager";
 

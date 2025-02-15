@@ -1,4 +1,4 @@
-import {is} from "@utility/checker";
+import {is} from "../../../../../core/shared/checker";
 
 export enum CellCountryPrefixEnum {
   // UK = 44,

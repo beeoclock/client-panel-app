@@ -34,7 +34,7 @@ import {CreateServiceApiAdapter} from "@service/infrastructure/api/create.servic
 
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
-import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {IServiceDto} from "../../../../../core/business-logic/order/interface/i.service.dto";
 import {
 	ModalSelectSpecialistListRepository
 } from "@member/infrastructure/repository/modal-select-specialist.list.repository";

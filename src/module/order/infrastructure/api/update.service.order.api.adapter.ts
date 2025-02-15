@@ -3,7 +3,7 @@ import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {OrderEndpoint} from "@order/infrastructure/endpoint/order.endpoint";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
+import {IOrderServiceDto} from "../../../../../core/business-logic/order/interface/i.order-service.dto";
 
 @Injectable({
 	providedIn: 'root'

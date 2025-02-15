@@ -4,7 +4,7 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@utility/layout.list.component";
-import {RIMember} from "@member/domain";
+import {RIMember} from "../../../../../../../../core/business-logic/member";
 import {MemberActions} from "@member/state/member/member.actions";
 import {
 	AutoRefreshButtonComponent

@@ -21,7 +21,7 @@ import {
 	MobileLayoutListComponent
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {CustomerExternalListComponent} from "@customer/presentation/component/external/list/list.component";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "../../../../../core/business-logic/customer";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({

@@ -1,6 +1,6 @@
 import {IBaseEntity} from "@utility/domain";
-import IBaseItem from "@src/core/interface/i.base-item";
-import {Tools} from "@utility/tools";
+import IBaseItem from "../../../../../core/system/interface/i.base-item";
+import {Tools} from "../../../../../core/shared/tools";
 
 
 export namespace IMemberContext {
