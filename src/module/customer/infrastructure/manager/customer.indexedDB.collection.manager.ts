@@ -7,6 +7,7 @@ import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sy
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "@utility/checker";
 import {filter} from "rxjs";
+import {OrderDirEnum} from "@utility/domain/enum";
 
 @Injectable({
 	providedIn: 'root',
@@ -114,7 +115,9 @@ class CustomerIndexedDBCollectionManagerContext {
 					post: customerEndpointEnum.create,
 					put: customerEndpointEnum.update,
 					delete: customerEndpointEnum.delete,
-				}
+				},
+				orderBy: 'phone',
+				orderDir: OrderDirEnum.ASC
 			}
 		};
 

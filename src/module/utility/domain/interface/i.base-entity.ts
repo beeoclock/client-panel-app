@@ -3,7 +3,7 @@ import {Tools} from "@utility/tools";
 import {Types} from "@utility/types";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
-export interface IBaseEntity<OBJECT_TYPE extends string> {
+export interface IBaseEntity<OBJECT_TYPE extends string = string> {
 
 	// Added by the system
 	_id: string & Types.ObjectId;

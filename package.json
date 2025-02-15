@@ -92,7 +92,7 @@
 		"@angular-architects/ngrx-toolkit": "19.0.2",
 		"@ngrx/signals": "19.0.0",
 		"@signaldb/angular": "1.0.4",
-		"@signaldb/core": "1.2.0",
+		"@signaldb/core": "1.2.3",
 		"@signaldb/indexeddb": "1.0.0",
 		"@signaldb/sync": "1.1.1"
 	},

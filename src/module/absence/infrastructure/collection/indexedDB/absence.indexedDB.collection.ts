@@ -3,6 +3,7 @@ import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
 import EAbsence from "@absence/domain/entity/e.absence";
 import {IAbsence} from "@absence/domain/interface/i.absence";
+import {environment} from "@environment/environment";
 
 /**
  * Collection for Customer
@@ -14,6 +15,7 @@ export class AbsenceIndexedDBCollection extends Collection<IAbsence.Entity> {
 		const {name} = params;
 		super({
 			name,
+			enableDebugMode: !environment.production,
 			reactivity: angularReactivityAdapter,
 			persistence: indexedDBPersistenceAdapter({
 				databaseName: name,

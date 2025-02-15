@@ -1,19 +1,21 @@
 import angularReactivityAdapter from "@signaldb/angular";
 import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
-import EAbsence from "@absence/domain/entity/e.absence";
-import {IAbsence} from "@absence/domain/interface/i.absence";
+import {environment} from "@environment/environment";
+import EMemberContext from "@identity/domain/entity/e.member-context";
+import {IMemberContext} from "@identity/domain/interface/i.member-context";
 
 /**
  * Collection for Customer
  * Use this if you know what you are doing!
  *
  */
-export class AbsenceIndexedDBCollection extends Collection<IAbsence.Entity> {
+export class MemberContextIndexedDBCollection extends Collection<IMemberContext.Entity> {
 	public constructor(params: { tenantId: string, name: string }) {
 		const {name} = params;
 		super({
 			name,
+			enableDebugMode: !environment.production,
 			reactivity: angularReactivityAdapter,
 			persistence: indexedDBPersistenceAdapter({
 				databaseName: name,
@@ -24,7 +26,7 @@ export class AbsenceIndexedDBCollection extends Collection<IAbsence.Entity> {
 					autoIncrement: false,
 				}
 			}),
-			transform: EAbsence.create,
+			transform: EMemberContext.create,
 		})
 	}
 

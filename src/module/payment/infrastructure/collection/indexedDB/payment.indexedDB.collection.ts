@@ -3,6 +3,7 @@ import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
 import EPayment from "@module/payment/domain/entity/e.payment";
 import {IPayment} from "@module/payment/domain/interface/i.payment";
+import {environment} from "@environment/environment";
 
 /**
  * Collection for Customer
@@ -14,6 +15,7 @@ export class PaymentIndexedDBCollection extends Collection<IPayment.Entity> {
 		const {name} = params;
 		super({
 			name,
+			enableDebugMode: !environment.production,
 			reactivity: angularReactivityAdapter,
 			persistence: indexedDBPersistenceAdapter({
 				databaseName: name,

@@ -45,13 +45,15 @@ import {setIntervals$} from "@utility/domain/timer";
 			<div class="rounded-2xl border border-neutral-300 bg-neutral-50 flex flex-col">
 				@if (isSyncing$ | async) {
 
-					<div
-						class="h-[48px] w-full gap-2 text-black p-2 px-3 rounded-2xl flex justify-start items-center">
-						<i class="animate-spin bi bi-arrow-repeat text-xl"></i>
+					<button
+						(click)="pauseAll()"
+						class="h-[48px] w-full gap-2 text-black p-2 px-3 rounded-2xl flex justify-start items-center group">
+						<i class="animate-spin bi bi-arrow-repeat text-xl group-hover:hidden"></i>
+						<i class="bi bi-pause-circle hidden group-hover:block text-xl"></i>
 						<span class="text-xs">
-								{{ 'keyword.capitalize.syncing' | translate }}
-							</span>
-					</div>
+							{{ 'keyword.capitalize.syncing' | translate }}
+						</span>
+					</button>
 
 				} @else {
 
@@ -89,6 +91,10 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 
 	public syncAll() {
 		this.syncManagerService.syncAll().then();
+	}
+
+	public pauseAll() {
+		this.syncManagerService.pauseAll().then();
 	}
 
 	public ngOnInit() {

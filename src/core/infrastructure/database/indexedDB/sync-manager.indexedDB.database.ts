@@ -6,15 +6,18 @@ import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {HttpClient, HttpContext} from "@angular/common/http";
-import {BehaviorSubject, delay, filter, firstValueFrom} from "rxjs";
+import {BehaviorSubject, filter, firstValueFrom} from "rxjs";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
 import {TENANT_ID} from "@src/token";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "@utility/checker";
 import {environment} from "@environment/environment";
-
-const paginationEmitter = new EventEmitter();
+import {
+	paginationEmitter,
+	paginationRegisterRemoteChange
+} from "@src/core/infrastructure/database/indexedDB/pagination";
+import {pauseEmitter} from "@src/core/infrastructure/database/indexedDB/pause";
 
 const errorEmitter = new EventEmitter();
 errorEmitter.on('error', (message: unknown) => {
@@ -31,53 +34,23 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 		console.log('SignalDB:onError', {error})
 	},
 	registerRemoteChange: (collectionOptions, onChange) => {
-		paginationEmitter.on(collectionOptions.name, async (data: {
-			endpoint: {
-				get: string
-			},
-			totalSize: number,
-			updatedSince: string,
-		}) => {
-
-			console.log('SignalDB:registerRemoteChange', {data})
-
-			if (!data) {
-				return;
-			}
-
-			paginationEmitter.emit(`${collectionOptions.name}-start`, data);
-
-			const {endpoint, totalSize, updatedSince} = data;
-
-			const pages = Math.ceil(totalSize / +environment.config.syncManager.pull.pageSize);
-
-			for (let page = 2; page <= pages; page++) {
-				const request$ = httpClient.get<ResponseListType<BaseItem>>(endpoint.get, {
-					params: {
-						orderBy: OrderByEnum.UPDATED_AT,
-						orderDir: OrderDirEnum.DESC,
-						page,
-						pageSize: environment.config.syncManager.pull.pageSize,
-						updatedSince
-					}
-				}).pipe(delay(environment.config.syncManager.pull.delay));
-				const response = await firstValueFrom(request$);
-				await onChange({
-					changes: {
-						added: response.items.map(collectionOptions.create) as unknown as BaseItem[],
-						modified: [],
-						removed: []
-					}
-				});
-			}
-
-			paginationEmitter.emit(`${collectionOptions.name}-finish`, data);
-
-		});
+		const {
+			name,
+			create,
+			orderBy,
+			orderDir,
+		} = collectionOptions;
+		paginationRegisterRemoteChange(httpClient, tenantId, {
+			name,
+			create,
+			orderBy,
+			orderDir,
+		}, onChange);
 	},
 	pull: async (something, pullParameters) => {
-		const {endpoint, create, single = false} = something;
+		const {endpoint, create, single = false, orderBy = OrderByEnum.UPDATED_AT, orderDir = OrderDirEnum.DESC} = something;
 
+		// Single means we need to get only one item from the server, e.g. GET api/v1/customer/{_id}
 		if (single) {
 			const request$ = httpClient.get(endpoint.get);
 			const response = await firstValueFrom(request$);
@@ -91,8 +64,8 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 
 		const request$ = httpClient.get<ResponseListType<BaseItem>>(endpoint.get, {
 			params: {
-				orderBy: OrderByEnum.UPDATED_AT,
-				orderDir: OrderDirEnum.DESC,
+				orderBy,
+				orderDir,
 				page: environment.config.syncManager.pull.page,
 				pageSize: environment.config.syncManager.pull.pageSize,
 				updatedSince
@@ -130,6 +103,8 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 				}
 			};
 		}
+
+		console.warn('SignalDB:pull', {items, something, pullParameters})
 
 		return {items};
 	},
@@ -311,7 +286,6 @@ export class SyncManagerService extends Reactive {
 			});
 
 			paginationEmitter.on(`${collection.name}-finish`, () => {
-				this.#isSyncing$.next(false);
 				SyncManagerService.isLoadingPerCollection.set(collection.name, false);
 				this.updateSynchronizationStatus();
 			});
@@ -322,14 +296,22 @@ export class SyncManagerService extends Reactive {
 
 	private updateSynchronizationStatus() {
 		const someCollectionLoading = Array.from(SyncManagerService.isLoadingPerCollection.values()).some(is.true);
+		console.log('updateSynchronizationStatus', {someCollectionLoading}, SyncManagerService.isLoadingPerCollection.values())
 		this.#isSyncing$.next(someCollectionLoading);
 	}
 
 	public async syncAll() {
 		this.#isSyncing$.next(true);
+		pauseEmitter.emit(this.#tenantId, 'off');
 		await this.getSyncManager().syncAll();
 		this.lastSynchronizationInService.setLastSynchronizedIn();
-		this.#isSyncing$.next(false);
+		this.updateSynchronizationStatus();
+	}
+
+	public async pauseAll() {
+		pauseEmitter.emit(this.#tenantId, 'on');
+		await this.getSyncManager().pauseAll();
+		this.updateSynchronizationStatus();
 	}
 
 	public getSyncManager() {

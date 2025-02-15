@@ -3,6 +3,7 @@ import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
 import EOrder from "@order/domain/entity/e.order";
 import {IOrder} from "@order/domain/interface/i.order";
+import {environment} from "@environment/environment";
 
 /**
  * Collection for Customer
@@ -14,6 +15,7 @@ export class OrderIndexedDBCollection extends Collection<IOrder.Entity> {
 		const {name} = params;
 		super({
 			name,
+			enableDebugMode: !environment.production,
 			reactivity: angularReactivityAdapter,
 			persistence: indexedDBPersistenceAdapter({
 				databaseName: name,

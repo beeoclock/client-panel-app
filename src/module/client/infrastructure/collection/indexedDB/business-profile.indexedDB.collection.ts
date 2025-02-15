@@ -3,6 +3,7 @@ import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
 import EBusinessProfile from "@client/domain/entity/e.business-profile";
 import {IBusinessProfile} from "@client/domain/interface/i.business-profile";
+import {environment} from "@environment/environment";
 
 /**
  * Collection for Customer
@@ -14,6 +15,7 @@ export class BusinessProfileIndexedDBCollection extends Collection<IBusinessProf
 		const {name} = params;
 		super({
 			name,
+			enableDebugMode: !environment.production,
 			reactivity: angularReactivityAdapter,
 			persistence: indexedDBPersistenceAdapter({
 				databaseName: name,

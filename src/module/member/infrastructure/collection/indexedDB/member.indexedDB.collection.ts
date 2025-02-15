@@ -3,6 +3,7 @@ import {Collection} from "@signaldb/core";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
 import {IMember} from "@member/domain/interface/i.member";
 import EMember from "@member/domain/entity/e.member";
+import {environment} from "@environment/environment";
 
 /**
  * Collection for Customer
@@ -14,6 +15,7 @@ export class MemberIndexedDBCollection extends Collection<IMember.Entity> {
 		const {name} = params;
 		super({
 			name,
+			enableDebugMode: !environment.production,
 			reactivity: angularReactivityAdapter,
 			persistence: indexedDBPersistenceAdapter({
 				databaseName: name,

@@ -2,8 +2,9 @@ import angularReactivityAdapter from "@signaldb/angular";
 import {Collection} from "@signaldb/core";
 import {ICustomer} from "@customer/domain";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
 import ECustomer from "@customer/domain/entity/e.customer";
+import {environment} from "@environment/environment";
+import createIndexedDBAdapter from "@signaldb/indexeddb";
 
 /**
  * Collection for Customer
@@ -15,16 +16,18 @@ export class CustomerIndexedDBCollection extends Collection<ICustomer.Entity> {
 		const {name} = params;
 		super({
 			name,
+			enableDebugMode: !environment.production,
 			reactivity: angularReactivityAdapter,
-			persistence: indexedDBPersistenceAdapter({
-				databaseName: name,
-				storeName: 'items',
-				version: 1,
-				storeParameters: {
-					keyPath: 'id', // should be id (not _id) because syncManager uses id
-					autoIncrement: false,
-				}
-			}),
+			persistence: createIndexedDBAdapter('customer'),
+			// persistence: indexedDBPersistenceAdapter({
+			// 	databaseName: name,
+			// 	storeName: 'items',
+			// 	version: 1,
+			// 	storeParameters: {
+			// 		keyPath: 'id', // should be id (not _id) because syncManager uses id
+			// 		autoIncrement: false,
+			// 	}
+			// }),
 			transform: ECustomer.create,
 		})
 	}

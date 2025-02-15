@@ -61,6 +61,14 @@ export default function indexedDBPersistenceAdapter<
 			return {items}
 		},
 		async save(items, {added, modified, removed}) {
+
+			console.log('SignalDB:indexedDBPersistenceAdapter:save', {
+				items,
+				added,
+				modified,
+				removed
+			});
+
 			const database = await openDatabase()
 			const transaction = database.transaction(storeName, 'readwrite')
 			const store = transaction.objectStore(storeName)
@@ -68,6 +76,13 @@ export default function indexedDBPersistenceAdapter<
 			added.forEach(item => store.add(item))
 			modified.forEach(item => store.put(item))
 			removed.forEach(item => store.delete(item.id))
+
+			if (transaction.db.name.endsWith('customer')) {
+				// debugger;
+				console.log('customer');
+			}
+
+			console.log({transaction, store});
 
 			return new Promise((resolve, reject) => {
 				transaction.addEventListener('complete', () => resolve())

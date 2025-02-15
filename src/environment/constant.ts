@@ -22,9 +22,9 @@ export const config = {
 	startYear: 2022,
 	syncManager: {
 		pull: {
-			pageSize: '100',
+			pageSize: '500',
 			page: '1',
-			delay: 500
+			delay: 1_000
 		}
 	}
 };
