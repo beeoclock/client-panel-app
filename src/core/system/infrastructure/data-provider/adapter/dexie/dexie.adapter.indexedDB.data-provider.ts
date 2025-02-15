@@ -1,22 +1,23 @@
 import Dexie from 'dexie';
-import {Injectable} from '@angular/core';
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAdapterDataProvider} from "@core/system/interface/data-provider/i.adapter.data-provider";
 
-@Injectable()
-export class DexieAdapterIndexedDBDataProvider {
+export abstract class DexieAdapterIndexedDBDataProvider<Entity> implements IAdapterDataProvider<Entity> {
 
 	private readonly dexie: Dexie;
-	private readonly tables = new Map<string, Dexie.Table<IAbsence.Entity>>();
-	private readonly version = 1;
-	private currentTable: Dexie.Table<IAbsence.Entity> | undefined;
+	private readonly tables = new Map<string, Dexie.Table<Entity>>();
+	private currentTable: Dexie.Table<Entity> | undefined;
 	private currentTenant: string | undefined;
 
-	public constructor() {
+	protected constructor(
+		protected readonly columns: string,
+		protected readonly name: string,
+		protected readonly version: number,
+	) {
 		// TODO: Select strategy: database per tenant or table per tenant
 		// TODO: Find way to inject the database name if database per tenant strategy is selected
 		// TODO: Find way to inject the table name if table per tenant strategy is selected
 		// For a while we will use the table per tenant strategy
-		this.dexie = new Dexie('absence');
+		this.dexie = new Dexie(this.name);
 	}
 
 	/**
@@ -24,7 +25,9 @@ export class DexieAdapterIndexedDBDataProvider {
 	 * @param tenant
 	 */
 	public prepareTableFor(tenant: string) {
-		console.log('DexieAdapterIndexedDBDataProvider:prepareTableFor', {tenant}, this);
+		if (this.currentTenant === tenant) {
+			return;
+		}
 		this.currentTenant = tenant;
 		this.currentTable = this.tables.get(tenant) || this.createTableFor(tenant);
 		this.tables.set(this.currentTenant, this.currentTable);
@@ -46,9 +49,9 @@ export class DexieAdapterIndexedDBDataProvider {
 	 */
 	private createTableFor(tenant: string) {
 		this.dexie.version(this.version).stores({
-			[tenant]: '_id,createdAt,updatedAt,start,end',
+			[tenant]: this.columns,
 		});
-		return this.dexie.table<IAbsence.Entity>(tenant);
+		return this.dexie.table<Entity>(tenant);
 	}
 
 }

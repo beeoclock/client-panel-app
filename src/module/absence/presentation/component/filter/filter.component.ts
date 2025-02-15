@@ -31,27 +31,25 @@ import {IonSelectStateComponent} from "@utility/presentation/component/input/ion
 			@if (isMobile$ | async) {
 
 				<div class="flex gap-4 justify-between w-full">
-					<!--					TODO: return this feature when backend will ready for it -->
-					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+					<ng-container *ngTemplateOutlet="SearchInput"/>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
 				</div>
 			} @else {
 
 				<div class="flex overflow-x-auto gap-2">
-					<!--					TODO: return this feature when backend will ready for it -->
-					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
-					<ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
-					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+					<ng-container *ngTemplateOutlet="SearchInput"/>
+					<ng-container *ngTemplateOutlet="AbsenceActiveSelect"/>
+					<ng-container *ngTemplateOutlet="AutoRefresh"/>
 				</div>
 				<div>
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
 				</div>
 			}
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
-				<ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
-				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+				<ng-container *ngTemplateOutlet="AbsenceActiveSelect"/>
+				<ng-container *ngTemplateOutlet="AutoRefresh"/>
 			</div>
 		}
 

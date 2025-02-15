@@ -21,6 +21,8 @@ export namespace IAbsence {
 
 	export interface Entity extends IBaseItem<'AbsenceDto', DTO>, DTO {
 
+		syncedAt: string;
+
 		// TODO: add key in base entity to know if entity synced and when it was synced
 
 		// TODO: getOrders

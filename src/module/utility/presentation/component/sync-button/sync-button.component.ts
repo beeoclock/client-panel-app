@@ -6,6 +6,7 @@ import {SyncManagerService} from "@core/system/infrastructure/database/_indexedD
 import {TimeAgoPipe} from "@utility/presentation/pipes/time-ago.pipe";
 import {Reactive} from "@utility/cdk/reactive";
 import {setIntervals$} from "@utility/domain/timer";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 
 @Component({
 	standalone: true,
@@ -87,14 +88,27 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	public readonly isOffline$ = this.isOnlineService.isOffline$;
-	public readonly isSyncing$ = this.syncManagerService.isSyncing$;
+	// public readonly isSyncing$ = this.syncManagerService.isSyncing$;
+	public readonly isSyncing$ = BaseSyncManager.isSyncing$;
 
 	public syncAll() {
+		if (BaseSyncManager.isPaused$.value) {
+			BaseSyncManager.resumeAll().then(() => {
+				console.log('resumeAll done');
+			});
+			return;
+		}
+		BaseSyncManager.syncAll().then(() => {
+			console.log('syncAll done');
+		});
 		// this.syncManagerService.syncAll().then();
 	}
 
 	public pauseAll() {
-		this.syncManagerService.pauseAll().then();
+		BaseSyncManager.pauseAll().then(() => {
+			console.log('pauseAll done');
+		});
+		// this.syncManagerService.pauseAll().then();
 	}
 
 	public ngOnInit() {

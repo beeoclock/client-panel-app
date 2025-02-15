@@ -1,7 +1,7 @@
-import {ABaseItem} from "../../../system/abstract/a.base-item";
-import {IAbsence} from "../interface/i.absence";
-import {IMember} from "../../member";
-import {AbsenceTypeEnum} from "../enums/absence.type.enum";
+import {ABaseItem} from "@core/system/abstract/a.base-item";
+import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IMember} from "@core/business-logic/member";
+import {AbsenceTypeEnum} from "@core/business-logic/absence/enums/absence.type.enum";
 
 
 export class EAbsence extends ABaseItem<'AbsenceDto', IAbsence.DTO> implements IAbsence.Entity {
@@ -13,6 +13,8 @@ export class EAbsence extends ABaseItem<'AbsenceDto', IAbsence.DTO> implements I
 	entireBusiness!: boolean;
 	members!: Required<IMember>[];
 	timeZone!: string;
+
+	syncedAt!: string;
 
 	public override toDTO(): IAbsence.DTO {
 		return EAbsence.toDTO(this);

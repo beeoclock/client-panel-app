@@ -1,13 +1,16 @@
-import {NgModule} from "@angular/core";
+import {inject, NgModule} from "@angular/core";
 import {AbsenceRepository} from "@absence/infrastructure/repository/absence.repository";
 import {ApiDataProvider} from "@absence/infrastructure/data-provider/api.data-provider";
-import {IndexedDBDataProvider} from "@absence/infrastructure/data-provider/indexedDB/indexedDB.data-provider";
+import {
+	AbsenceIndexedDBDataProvider
+} from "@absence/infrastructure/data-provider/indexedDB/absence.indexedDB.data-provider";
 import {GetApi} from "@absence/infrastructure/api/get.api";
 import {PutApi} from "@absence/infrastructure/api/put.api";
 import {PostApi} from "@absence/infrastructure/api/post.api";
 import {
-	DexieAdapterIndexedDBDataProvider
-} from "@absence/infrastructure/data-provider/indexedDB/adapter/dexie.adapter.indexedDB.data-provider";
+	AbsenceDexieAdapterIndexedDBDataProvider
+} from "@absence/infrastructure/data-provider/indexedDB/adapter/absence.dexie.adapter.indexedDB.data-provider";
+import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 
 @NgModule({
 	providers: [
@@ -19,22 +22,26 @@ import {
 
 		// Data Provider
 		ApiDataProvider,
-		IndexedDBDataProvider,
+		AbsenceIndexedDBDataProvider,
 
 		// Adapter
-		DexieAdapterIndexedDBDataProvider,
+		AbsenceDexieAdapterIndexedDBDataProvider,
 
 		// Repository
 		{
 			provide: AbsenceRepository,
 			useFactory: () => new AbsenceRepository(
-				new IndexedDBDataProvider(),
+				new AbsenceIndexedDBDataProvider(),
 			)
 		},
-		// TODO: register in sync manager
+
+		// Sync Manger
+		SyncManager,
 
 	]
 })
 export class AbsenceModule {
+
+	private readonly syncManager = inject(SyncManager);
 
 }

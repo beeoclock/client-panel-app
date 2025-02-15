@@ -1,4 +1,4 @@
-import {IDataProvider} from "@core/system/interface/i.data-provider";
+import {IDataProvider} from "@core/system/interface/data-provider/i.data-provider";
 import {Types} from "@core/shared/types";
 import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {firstValueFrom, Observable} from "rxjs";
