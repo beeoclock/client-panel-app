@@ -1,40 +1,56 @@
 import Dexie from 'dexie';
 import {IAdapterDataProvider} from "@core/system/interface/data-provider/i.adapter.data-provider";
 
+export class TenantDB extends Dexie {
+	constructor(
+		public readonly tenant: string,
+		public readonly moduleName: string,
+		public readonly columns: string,
+		version: number,
+	) {
+		super(`${tenant}-${moduleName}`);
+		this.version(version).stores({
+			items: columns,
+		});
+	}
+}
+
 export abstract class DexieAdapterIndexedDBDataProvider<Entity> implements IAdapterDataProvider<Entity> {
 
-	private readonly dexie: Dexie;
-	private readonly tables = new Map<string, Dexie.Table<Entity>>();
-	private currentTable: Dexie.Table<Entity> | undefined;
+	private currentDatabase: TenantDB | undefined;
 	private currentTenant: string | undefined;
 
-	protected constructor(
-		protected readonly columns: string,
-		protected readonly name: string,
-		protected readonly version: number,
-	) {
-		// TODO: Select strategy: database per tenant or table per tenant
-		// TODO: Find way to inject the database name if database per tenant strategy is selected
-		// TODO: Find way to inject the table name if table per tenant strategy is selected
-		// For a while we will use the table per tenant strategy
-		this.dexie = new Dexie(this.name);
-	}
+	private readonly tenantDatabases = new Map<string, TenantDB>();
+
+	protected abstract readonly columns: string;
+	protected abstract readonly moduleName: string;
+	protected abstract readonly version: number;
 
 	/**
 	 * The function prepares the table for the tenant in the database and sets it as the current table
 	 * @param tenant
 	 */
 	public prepareTableFor(tenant: string) {
+
 		if (this.currentTenant === tenant) {
 			return;
 		}
 		this.currentTenant = tenant;
-		this.currentTable = this.tables.get(tenant) || this.createTableFor(tenant);
-		this.tables.set(this.currentTenant, this.currentTable);
+
+		this.currentDatabase = this.tenantDatabases.get(tenant);
+
+		if (!this.currentDatabase) {
+			this.currentDatabase = this.createDatabase(tenant);
+		}
+
+	}
+
+	public get database() {
+		return this.currentDatabase;
 	}
 
 	public get table() {
-		return this.currentTable;
+		return this.currentDatabase?.table('items');
 	}
 
 	public get tenant() {
@@ -47,11 +63,10 @@ export abstract class DexieAdapterIndexedDBDataProvider<Entity> implements IAdap
 	 * @param tenant
 	 * @private
 	 */
-	private createTableFor(tenant: string) {
-		this.dexie.version(this.version).stores({
-			[tenant]: this.columns,
-		});
-		return this.dexie.table<Entity>(tenant);
+	private createDatabase(tenant: string) {
+		const db = new TenantDB(tenant, this.moduleName, this.columns, this.version);
+		this.tenantDatabases.set(tenant, db);
+		return db;
 	}
 
 }

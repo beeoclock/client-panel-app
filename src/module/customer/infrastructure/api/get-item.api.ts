@@ -8,7 +8,7 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
   providedIn: 'root'
 })
-export class ItemCustomerApiAdapter extends BaseApiAdapter<Customer.ICustomer.DTO, [string]> {
+export class GetItemApi extends BaseApiAdapter<Customer.ICustomer.DTO, [string]> {
 
 
   /**

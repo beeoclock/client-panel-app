@@ -78,7 +78,7 @@ export class RowActionButtonComponent {
 
 	@Dispatch()
 	public setState(state: StateEnum) {
-		return new CustomerActions.SetState(this.item()._id, state);
+		return new CustomerActions.SetState(this.item(), state);
 	}
 
 	public open(): void {

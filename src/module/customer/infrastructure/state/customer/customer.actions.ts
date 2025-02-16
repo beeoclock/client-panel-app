@@ -47,10 +47,6 @@ export namespace CustomerActions {
 		public static override readonly type = '[Customer API] Get List';
 	}
 
-	export class DeleteItem extends BaseActions.DeleteItem {
-		public static override readonly type = '[Customer API] Delete Item';
-	}
-
 	export class GetItem extends BaseActions.GetItem {
 		public static override readonly type = '[Customer API] Get Item';
 	}
@@ -62,11 +58,12 @@ export namespace CustomerActions {
 	export class UpdateItem extends BaseActions.UpdateItem<ICustomer.DTO> {
 		public static override readonly type = '[Customer API] Update Item';
 	}
+
 	export class SetState {
 		public static readonly type = '[Customer API] SetState';
 
 		constructor(
-			public readonly id: string,
+			public readonly item: ICustomer.DTO,
 			public readonly state: StateEnum,
 		) {
 		}

@@ -7,13 +7,13 @@ import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 
 export type ICustomerState = IBaseState<Customer.ICustomer.Entity>;
 
@@ -35,7 +35,7 @@ export class CustomerState {
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	public readonly customerIndexedDBFacade = inject(CustomerIndexedDBFacade);
+	public readonly customerService = inject(CustomerService);
 
 	// Application layer
 
@@ -119,9 +119,7 @@ export class CustomerState {
 	public async openDetailsById(ctx: StateContext<ICustomerState>, {payload: id}: CustomerActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('customer.details.title');
-		const item = this.customerIndexedDBFacade.source.findOne({
-			id
-		});
+		const item = await this.customerService.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('CustomerState.openDetailsById', 'Item not found');
@@ -142,9 +140,7 @@ export class CustomerState {
 	public async openFormToEditById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenFormToEditById) {
 
 		const title = await this.translateService.instant('customer.form.title.edit');
-		const item = this.customerIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
+		const item = await this.customerService.repository.findByIdAsync(action.payload);
 
 		if (!item) {
 			this.ngxLogger.error('CustomerState.openFormToEditById', 'Item not found');
@@ -203,9 +199,7 @@ export class CustomerState {
 
 	@Action(CustomerActions.GetItem)
 	public async getItem(ctx: StateContext<ICustomerState>, action: CustomerActions.GetItem): Promise<void> {
-		const data = this.customerIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
+		const data = await this.customerService.repository.findByIdAsync(action.payload);
 
 		if (!data) {
 			return;
@@ -222,7 +216,7 @@ export class CustomerState {
 
 	@Action(CustomerActions.CreateItem)
 	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
-		this.customerIndexedDBFacade.source.insert(ECustomer.create(action.payload));
+		await this.customerService.repository.createAsync(ECustomer.create(action.payload));
 		ctx.dispatch(new CustomerActions.GetList());
 		await this.closeForm(ctx);
 	}
@@ -232,53 +226,19 @@ export class CustomerState {
 		const item = ECustomer.create({
 			...action.payload
 		});
-		this.customerIndexedDBFacade.source.updateOne({
-			id: action.payload._id,
-		}, {
-			$set: item
-		});
+		await this.customerService.repository.updateAsync(item);
 		ctx.dispatch(new CustomerActions.GetList());
 		await this.closeForm(ctx);
 		const {data} = ctx.getState().item;
 		if (data) await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
-	@Action(CustomerActions.DeleteItem)
-	public async deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
-		this.customerIndexedDBFacade.source.removeOne({
-			id: action.payload
-		});
-		ctx.dispatch(new CustomerActions.GetList());
-		await this.closeDetails(ctx, action);
-		ctx.dispatch(new CustomerActions.GetList());
-	}
-
 	@Action(CustomerActions.SetState)
-	public async setState(ctx: StateContext<ICustomerState>, {id, state}: CustomerActions.SetState) {
-		const item = this.customerIndexedDBFacade.source.findOne({
-			id
-		});
-		if (!item) {
-			this.ngxLogger.error('CustomerState.setState', 'Item not found');
-			return;
-		}
-		this.customerIndexedDBFacade.source.updateOne({
-				id
-			},
-			{
-				$set: {
-					state,
-					stateHistory: [
-						...item.stateHistory,
-						{
-							state,
-							setAt: new Date().toISOString()
-						}
-					]
-				}
-			});
-		const {data} = ctx.getState().item;
-		if (data) await this.updateOpenedDetails(ctx, {payload: item});
+	public async setState(ctx: StateContext<ICustomerState>, {item, state}: CustomerActions.SetState) {
+		const entity = ECustomer.create(item);
+		entity.changeState(state);
+		await this.customerService.repository.updateAsync(entity);
+		await this.updateOpenedDetails(ctx, {payload: entity});
 		ctx.dispatch(new CustomerActions.GetList());
 	}
 
@@ -307,8 +267,6 @@ export class CustomerState {
 				newTableState.filters = {};
 			}
 
-			const phraseFields = ['firstName', 'lastName', 'email', 'phone', 'note']
-
 			const params = newTableState.toBackendFormat();
 
 			const inState = (
@@ -317,38 +275,13 @@ export class CustomerState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			const selector = {
-				$and: [
-					...((params?.phrase as string)?.length ? [{
-						$or: phraseFields.map((field) => {
-							return {
-								[field]: {
-									$regex: params.phrase,
-									$options: "i"
-								}
-							}
-						})
-					}] : []),
-					{
-						state: {
-							$in: inState
-						}
-					}
-				]
-			};
-
-			const items = this.customerIndexedDBFacade.source.find(selector, {
-				limit: params.pageSize,
-				skip: (params.page - 1) * params.pageSize,
-				sort: {
-					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
-				}
-			}).fetch();
-
-			const count = this.customerIndexedDBFacade.source.find(selector).count();
+			const {items, totalSize} = await this.customerService.repository.findAsync({
+				...params,
+				state: inState,
+			});
 
 			newTableState
-				.setTotal(count)
+				.setTotal(totalSize)
 				.setItems(items)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 

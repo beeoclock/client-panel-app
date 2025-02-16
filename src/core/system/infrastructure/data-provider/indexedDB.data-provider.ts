@@ -9,7 +9,6 @@ import {Types} from "@core/shared/types";
 import {OrderDirEnum} from "@core/shared/enum";
 import {IAdapterDataProvider} from "@core/system/interface/data-provider/i.adapter.data-provider";
 import {IBaseEntity} from "@utility/domain";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 
 @Injectable()
 export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends DataProvider<ENTITY> implements OnDestroy {
@@ -20,7 +19,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	private readonly tenantId$ = inject(TENANT_ID);
 
 	// TODO: Fix SOLID: Open-Closed Principle
-	protected abstract readonly dexieAdapterIndexedDBDataProvider: IAdapterDataProvider<IAbsence.Entity>;
+	protected abstract readonly dexieAdapterIndexedDBDataProvider: IAdapterDataProvider<ENTITY>;
 	public readonly db$ = this.tenantId$.pipe(
 		takeUntil(this.destroy$),
 		filter(is.string),

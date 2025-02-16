@@ -24,6 +24,7 @@ import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {PaymentState} from "@module/payment/infrastructure/state/payment/payment.state";
 import {AbsenceModule} from "@absence/absence.module";
+import {CustomerModule} from "@customer/customer.module";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -212,6 +213,7 @@ export const routes: Routes = [
 						providers: [
 							importProvidersFrom(
 								AbsenceModule,
+								CustomerModule,
 								NgxsModule.forFeature([
 									DateRangeReportAnalyticState,
 									PeerCustomerOrderState,

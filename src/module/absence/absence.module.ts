@@ -12,6 +12,7 @@ import {
 } from "@absence/infrastructure/data-provider/indexedDB/adapter/absence.dexie.adapter.indexedDB.data-provider";
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@absence/infrastructure/api/get-item.api";
+import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
 
 @NgModule({
 	providers: [
@@ -36,6 +37,12 @@ import {GetItemApi} from "@absence/infrastructure/api/get-item.api";
 				new AbsenceIndexedDBDataProvider(),
 			)
 		},
+		{
+			provide: AbsenceService,
+			useFactory: () => new AbsenceService(
+				inject(AbsenceRepository),
+			)
+		},
 
 		// Sync Manger
 		SyncManager,
@@ -44,6 +51,11 @@ import {GetItemApi} from "@absence/infrastructure/api/get-item.api";
 })
 export class AbsenceModule {
 
+	/**
+	 * Don't remove this, it's declared here to be created in run time
+	 * @private
+	 */
 	private readonly syncManager = inject(SyncManager);
+	private readonly absenceService = inject(AbsenceService);
 
 }

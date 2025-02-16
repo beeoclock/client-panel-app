@@ -3,8 +3,8 @@ import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import * as Customer from "@src/core/business-logic/customer";
 import {NGXLogger} from "ngx-logger";
-import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -12,7 +12,7 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 export class EventListCustomerRepository {
 
 	private readonly logger = inject(NGXLogger);
-	public readonly customerIndexedDBFacade = inject(CustomerIndexedDBFacade);
+	public readonly customerService = inject(CustomerService);
 	public readonly tableState = TableState.create<Customer.ICustomer.Entity>({
 		filters: {}
 	});
@@ -55,39 +55,19 @@ export class EventListCustomerRepository {
 
 		try {
 
-			const phraseFields = ['firstName', 'lastName', 'phone', 'email']
-
 			const newTableState = this.tableState.toBackendFormat();
 
-			const selector = {
-				$and: [
-					...((newTableState?.phrase as string)?.length ? [{
-						$or: phraseFields.map((field) => {
-							return {
-								[field]: {
-									$regex: newTableState.phrase,
-									$options: "i"
-								}
-							}
-						})
-					}] : []),
-					{
-						state: {
-							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
-						}
-					}
-				]
-			};
+			const inState = [StateEnum.active, StateEnum.archived, StateEnum.inactive];
 
-			const data = this.customerIndexedDBFacade.source.find(selector, {
-				limit: newTableState.pageSize,
-				skip: (newTableState.page - 1) * newTableState.pageSize
-			}).fetch();
+			const {items, totalSize} = await this.customerService.repository.findAsync({
+				...newTableState,
+				state: inState,
+			});
 
 			this.tableState
 				.nextPage()
-				.setItems(([] as Customer.ICustomer.Entity[]).concat(this.tableState.items, data))
-				.setTotal(this.customerIndexedDBFacade.source.find(selector).count());
+				.setItems(([] as Customer.ICustomer.Entity[]).concat(this.tableState.items, items))
+				.setTotal(totalSize);
 
 		} catch (e) {
 			this.logger.error(e);

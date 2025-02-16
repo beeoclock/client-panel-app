@@ -21,9 +21,9 @@ import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
-import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
 import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
 import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
+import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -41,7 +41,7 @@ const defaults = baseDefaults<IOrderDto>({
 @Injectable()
 export class OrderState {
 
-	public readonly customerIndexedDBFacade = inject(CustomerIndexedDBFacade);
+	public readonly customerService = inject(CustomerService);
 	public readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
 	public readonly paymentIndexedDBFacade = inject(PaymentIndexedDBFacade);
 
@@ -346,30 +346,16 @@ export class OrderState {
 
 		const orderEntity = EOrder.create(action.payload);
 
+
 		// Resolve new customer case
-		orderEntity.services.forEach((service) => {
-			service.orderAppointmentDetails.attendees.forEach((attendee) => {
+		for (const service of orderEntity.services) {
+			for (const attendee of service.orderAppointmentDetails.attendees) {
 				if (attendee.customer.customerType === CustomerTypeEnum.new) {
-					const customerFound = this.customerIndexedDBFacade.source.findOne({
-						$or: [
-							{
-								// Phone should not be null and should have length > 0 and equal to the phone number
-								phone: {
-									$ne: null,
-									$gt: '',
-									$eq: attendee.customer.phone
-								}
-							},
-							{
-								// E-mail should not be null and should have length > 0 and equal to the phone number
-								email: {
-									$ne: null,
-									$gt: '',
-									$eq: attendee.customer.email
-								}
-							}
-						]
-					});
+
+					const customerFound = await this.customerService.findOneByEmailPhone({
+						email: attendee.customer.email,
+						phone: attendee.customer.phone,
+					})
 
 					if (customerFound) {
 						attendee.customer = customerFound.toDTO();
@@ -378,12 +364,12 @@ export class OrderState {
 							...attendee.customer,
 							customerType: CustomerTypeEnum.regular,
 						});
-						this.customerIndexedDBFacade.source.insert(customerEntity);
+						await this.customerService.repository.createAsync(customerEntity);
 						attendee.customer = customerEntity.toDTO();
 					}
 				}
-			});
-		});
+			}
+		}
 
 		this.orderIndexedDBFacade.source.insert(orderEntity);
 		await this.closeFormAction(ctx);

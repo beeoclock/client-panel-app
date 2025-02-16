@@ -31,6 +31,7 @@ interface SyncStates {
 }
 
 /**
+ * TODO: Add per tenant sync state!!!!!!!!
  * The `BaseSyncManager` class is an abstract class that provides a framework for synchronizing data between a local repository and a remote data provider.
  * It implements the `ISyncManager` interface and includes methods for pausing, resuming, and synchronizing data.
  * The class maintains the synchronization state and handles conflict resolution between local and remote data.

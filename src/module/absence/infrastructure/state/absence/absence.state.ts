@@ -7,14 +7,13 @@ import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.acti
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import {AbsenceIndexedDBFacade} from "@absence/infrastructure/_deleteMe/facade/indexedDB/absence.indexedDB.facade";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import EAbsence from "@src/core/business-logic/absence/entity/e.absence";
-import {AbsenceRepository} from "@absence/infrastructure/repository/absence.repository";
+import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
 
 export type IAbsenceState = IBaseState<IAbsence.DTO>;
 
@@ -32,12 +31,11 @@ const defaults = baseDefaults<IAbsence.DTO>({
 @Injectable()
 export class AbsenceState {
 
-	public readonly absenceIndexedDBFacade = inject(AbsenceIndexedDBFacade);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly absenceRepository = inject(AbsenceRepository);
+	private readonly absenceService = inject(AbsenceService);
 
 	// Application layer
 
@@ -125,9 +123,7 @@ export class AbsenceState {
 	@Action(AbsenceActions.OpenDetailsById)
 	public async openDetailsByIdAction(ctx: StateContext<IAbsenceState>, {payload: id}: AbsenceActions.OpenDetailsById) {
 
-		const item = this.absenceIndexedDBFacade.source.findOne({
-			id
-		});
+		const item = await this.absenceService.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('AbsenceState.openDetailsById', 'Item not found');
@@ -142,9 +138,7 @@ export class AbsenceState {
 	public async openFormToEditByIdAction(ctx: StateContext<IAbsenceState>, action: AbsenceActions.OpenFormToEditById) {
 
 		const title = await this.translateService.instant('absence.form.title.edit');
-		const item = this.absenceIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
+		const item = await this.absenceService.repository.findByIdAsync(action.payload);
 
 		if (!item) {
 			this.ngxLogger.error('AbsenceState.openDetailsById', 'Item not found');
@@ -202,7 +196,7 @@ export class AbsenceState {
 	@Action(AbsenceActions.CreateItem)
 	public async createItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.CreateItem) {
 		const entity = EAbsence.create(action.payload);
-		await this.absenceRepository.createAsync(entity);
+		await this.absenceService.repository.createAsync(entity);
 		await this.closeFormAction(ctx);
 		ctx.dispatch(new AbsenceActions.GetList());
 	}
@@ -211,7 +205,7 @@ export class AbsenceState {
 	public async updateItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateItem): Promise<void> {
 
 		const item = EAbsence.create(action.payload);
-		await this.absenceRepository.updateAsync(item);
+		await this.absenceService.repository.updateAsync(item);
 		await this.closeFormAction(ctx);
 		await this.updateOpenedDetailsAction(ctx, {payload: item});
 		ctx.dispatch(new AbsenceActions.GetList());
@@ -219,7 +213,7 @@ export class AbsenceState {
 
 	@Action(AbsenceActions.GetItem)
 	public async getItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.GetItem): Promise<void> {
-		const data = await this.absenceRepository.findByIdAsync(action.payload);
+		const data = await this.absenceService.repository.findByIdAsync(action.payload);
 
 		if (!data) {
 			return;
@@ -266,7 +260,7 @@ export class AbsenceState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			const {items, totalSize} = await this.absenceRepository.findAsync({
+			const {items, totalSize} = await this.absenceService.repository.findAsync({
 				...params,
 				state: inState,
 			});
@@ -295,7 +289,7 @@ export class AbsenceState {
 	public async setState(ctx: StateContext<IAbsenceState>, {item, state}: AbsenceActions.SetState) {
 		const entity = EAbsence.create(item);
 		entity.changeState(state);
-		await this.absenceRepository.updateAsync(entity);
+		await this.absenceService.repository.updateAsync(entity);
 		await this.updateOpenedDetailsAction(ctx, {payload: item});
 		ctx.dispatch(new AbsenceActions.GetList());
 	}

@@ -9,10 +9,9 @@ import {IAttendee_V2, IEvent_V2} from "@event/domain";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
 import {clearObject} from "@utility/domain/clear.object";
-import {AbsenceIndexedDBFacade} from "@absence/infrastructure/_deleteMe/facade/indexedDB/absence.indexedDB.facade";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
-import {StateEnum} from "@core/shared/enum/state.enum";
+import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
 
 export interface ICalendarWithSpecialist {
 	params: {
@@ -63,7 +62,7 @@ export class CalendarWithSpecialistsState {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
 
-	private readonly absenceIndexedDBFacade = inject(AbsenceIndexedDBFacade);
+	private readonly absenceService = inject(AbsenceService);
 	private readonly router = inject(Router);
 
 	@Action(CalendarWithSpecialistsAction.GetItems)
@@ -96,42 +95,7 @@ export class CalendarWithSpecialistsState {
 			delete absenceParams.status;
 		}
 
-		const absenceQuery = this.absenceIndexedDBFacade.source.find({
-			$and: [
-				{
-					$or: [
-						{
-							start: {
-								$gte: params.start,
-								$lte: params.end,
-							},
-						},
-						{
-							end: {
-								$gte: params.start,
-								$lte: params.end,
-							}
-						},
-						{
-							start: {
-								$lt: params.start,
-							},
-							end: {
-								$gt: params.end,
-							}
-						}
-					]
-				},
-				{
-					state: StateEnum.active
-				}
-			]
-		}, {
-			sort: {
-				createdAt: -1
-			}
-		});
-		const absences = absenceQuery.fetch();
+		const absences = await this.absenceService.findByRange(params.start, params.end);
 
 		const orderQuery = this.orderIndexedDBFacade.source.find({
 			$and: [

@@ -28,17 +28,9 @@ import {is} from "@src/core/shared/checker";
 import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
-import {
-	CustomerIndexedDBCollectionManager
-} from "@customer/infrastructure/manager/customer.indexedDB.collection.manager";
-import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
 import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager/service.indexedDB.collection.manager";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {VisibilityService} from "@utility/cdk/visibility.service";
-import {AbsenceIndexedDBFacade} from "@absence/infrastructure/_deleteMe/facade/indexedDB/absence.indexedDB.facade";
-import {
-	AbsenceIndexedDBCollectionManager
-} from "@absence/infrastructure/_deleteMe/manager/absence.indexedDB.collection.manager";
 import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
 import {MemberIndexedDBCollectionManager} from "@member/infrastructure/manager/member.indexedDB.collection.manager";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
@@ -94,20 +86,10 @@ import {SyncManagerService} from "@core/system/infrastructure/database/_indexedD
 			},
 		},
 		/**
-		 * CUSTOMER
-		 */
-		CustomerIndexedDBCollectionManager,
-		CustomerIndexedDBFacade,
-		/**
 		 * SERVICE
 		 */
 		ServiceIndexedDBCollectionManager,
 		ServiceIndexedDBFacade,
-		/**
-		 * ABSENCE
-		 */
-		AbsenceIndexedDBCollectionManager,
-		AbsenceIndexedDBFacade,
 		/**
 		 * MEMBER
 		 */

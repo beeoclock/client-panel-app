@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import * as Customer from '@src/core/business-logic/customer';
 import {customerEndpointEnum} from "@customer/infrastructure/endpoint/customer.endpoint";
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
@@ -9,17 +10,17 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
   providedIn: 'root'
 })
-export class ArchiveCustomerApiAdapter extends BaseApiAdapter<unknown, [string]> {
+export class PutApi extends BaseApiAdapter<Customer.ICustomer.DTO, [Customer.ICustomer.DTO]> {
 
   /**
-   * ARCHIVE ITEM BY ID
-   * @param id
+   * SAVE NEW ITEM OR UPDATE ITEM BY ID
+   * @param value
    */
-  @TypeGuard([is.string_not_empty])
-  public override execute$(id: string) {
-    return this.httpClient.patch(customerEndpointEnum.archive, null, {
+  @TypeGuard([is.object_not_empty])
+  public override execute$(value: Customer.ICustomer.DTO) {
+    return this.httpClient.put<Customer.ICustomer.Entity>(customerEndpointEnum.update, value, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
-				id
+				id: value._id,
 			}),
     });
   }
