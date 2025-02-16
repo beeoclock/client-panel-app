@@ -223,14 +223,11 @@ export class CustomerState {
 
 	@Action(CustomerActions.UpdateItem)
 	public async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
-		const item = ECustomer.create({
-			...action.payload
-		});
+		const item = ECustomer.create(action.payload);
 		await this.customerService.repository.updateAsync(item);
 		ctx.dispatch(new CustomerActions.GetList());
 		await this.closeForm(ctx);
-		const {data} = ctx.getState().item;
-		if (data) await this.updateOpenedDetails(ctx, {payload: item});
+		await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
 	@Action(CustomerActions.SetState)
@@ -241,7 +238,6 @@ export class CustomerState {
 		await this.updateOpenedDetails(ctx, {payload: entity});
 		ctx.dispatch(new CustomerActions.GetList());
 	}
-
 
 	@Action(CustomerActions.GetList)
 	public async getList(ctx: StateContext<ICustomerState>, action: CustomerActions.GetList): Promise<void> {

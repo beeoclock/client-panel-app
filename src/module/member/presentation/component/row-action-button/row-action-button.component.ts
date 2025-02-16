@@ -10,7 +10,11 @@ import {MemberActions} from "@member/infrastructure/state/member/member.actions"
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-table-column-action [id]="id()" [hide]="hide()" (delete)="delete($event)" (open)="open()" (edit)="edit()">
+		<utility-table-column-action
+			[id]="id()"
+			[hide]="hide()"
+			(open)="open()"
+			(edit)="edit()">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->
@@ -35,10 +39,6 @@ export class RowActionButtonComponent {
 	public readonly item = input.required<RIMember>();
 
 	private readonly store = inject(Store);
-
-	public delete(id: string): void {
-		this.store.dispatch(new MemberActions.DeleteItem(id));
-	}
 
 	public async archive(id: string): Promise<void> {
 		await firstValueFrom(this.store.dispatch(

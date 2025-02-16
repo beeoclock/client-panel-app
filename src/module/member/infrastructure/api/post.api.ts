@@ -4,13 +4,11 @@ import {memberEndpointEnum} from "@member/infrastructure/endpoint/member.endpoin
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@src/core/shared/checker";
-import {HttpContext} from "@angular/common/http";
-import {TokensHttpContext} from "@src/tokens.http-context";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateMemberApiAdapter extends BaseApiAdapter<Member.RIMember, [Member.RIMember]> {
+export class PostApi extends BaseApiAdapter<Member.RIMember, [Member.RIMember]> {
 
   /**
    * SAVE NEW ITEM OR UPDATE ITEM BY ID
@@ -18,11 +16,7 @@ export class UpdateMemberApiAdapter extends BaseApiAdapter<Member.RIMember, [Mem
    */
   @TypeGuard([is.object_not_empty])
   public override execute$(value: Member.RIMember) {
-    return this.httpClient.put<Member.RIMember>(memberEndpointEnum.update, value, {
-			context: new HttpContext().set(TokensHttpContext.REPLACE, {
-				id: value._id,
-			}),
-    });
+    return this.httpClient.post<Member.RIMember>(memberEndpointEnum.create, value);
   }
 
 }

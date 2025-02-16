@@ -26,10 +26,6 @@ export class MemberDetailsContainerComponent {
 
 	public readonly store = inject(Store);
 
-	public delete(id: string): void {
-		this.store.dispatch(new MemberActions.DeleteItem(id));
-	}
-
 	public openForm() {
 		const item = this.item;
 		if (!item) {

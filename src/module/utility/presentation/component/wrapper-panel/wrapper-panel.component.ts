@@ -31,8 +31,6 @@ import {environment} from "@environment/environment";
 import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager/service.indexedDB.collection.manager";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {VisibilityService} from "@utility/cdk/visibility.service";
-import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
-import {MemberIndexedDBCollectionManager} from "@member/infrastructure/manager/member.indexedDB.collection.manager";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import {OrderIndexedDBCollectionManager} from "@order/infrastructure/manager/order.indexedDB.collection.manager";
 import {
@@ -49,6 +47,7 @@ import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/inde
 import {SyncManagerService} from "@core/system/infrastructure/database/_indexedDB/sync-manager.indexedDB.database";
 import {AbsenceModule} from "@absence/absence.module";
 import {CustomerModule} from "@customer/customer.module";
+import {MemberModule} from "@member/member.module";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -81,6 +80,7 @@ import {CustomerModule} from "@customer/customer.module";
 		// MODULE
 		AbsenceModule,
 		CustomerModule,
+		MemberModule,
 	],
 	providers: [
 		{
@@ -97,11 +97,6 @@ import {CustomerModule} from "@customer/customer.module";
 		 */
 		ServiceIndexedDBCollectionManager,
 		ServiceIndexedDBFacade,
-		/**
-		 * MEMBER
-		 */
-		MemberIndexedDBCollectionManager,
-		MemberIndexedDBFacade,
 		/**
 		 * MEMBER
 		 */

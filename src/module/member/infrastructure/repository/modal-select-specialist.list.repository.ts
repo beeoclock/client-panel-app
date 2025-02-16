@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {ListMemberApiAdapter} from "@member/infrastructure/api/list.member.api.adapter";
+import {GetApi} from "@member/infrastructure/api/get.api";
 import {TableState} from "@utility/domain/table.state";
 import * as Member from "@src/core/business-logic/member";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
@@ -11,7 +11,7 @@ import {NGXLogger} from "ngx-logger";
 export class ModalSelectSpecialistListRepository {
 
   private readonly logger = inject(NGXLogger);
-  public readonly listMemberApiAdapter = inject(ListMemberApiAdapter);
+  public readonly listMemberApiAdapter = inject(GetApi);
   public readonly tableState = new TableState<Member.RIMember>();
   public readonly loading$ = new BooleanStreamState(false);
 

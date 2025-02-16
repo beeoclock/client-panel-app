@@ -46,10 +46,6 @@ export namespace MemberActions {
 		public static override readonly type = '[Member API] Get List';
 	}
 
-	export class DeleteItem extends BaseActions.DeleteItem {
-		public static override readonly type = '[Member API] Delete Item';
-	}
-
 	export class ArchiveItem extends BaseActions.ArchiveItem {
 		public static override readonly type = '[Member API] Archive Item';
 	}

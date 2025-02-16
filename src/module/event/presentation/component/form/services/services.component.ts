@@ -29,7 +29,7 @@ import {
 	ModalSelectServiceListRepository
 } from "@service/infrastructure/repository/modal-select-service.list.repository";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
-import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
+import {MemberService} from "@core/business-logic/member/service/member.service";
 
 @Component({
 	selector: 'event-service-component',
@@ -73,7 +73,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 	private readonly modalSelectServiceListRepository = inject(ModalSelectServiceListRepository);
 	public readonly loading$ = this.modalSelectServiceListRepository.loading$;
 	// private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
-	private readonly memberIndexedDBFacade = inject(MemberIndexedDBFacade);
+	private readonly memberService = inject(MemberService);
 	private readonly memberHasBeenSet = new BooleanState(false);
 
 	private lastSelectedMember: RIMember | undefined;
@@ -117,9 +117,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		if (member) {
 			if (!member.assignments.service.full) {
-				const memberWithPopulateServices = this.memberIndexedDBFacade.source.findOne({
-					_id: member._id
-				});
+				const memberWithPopulateServices = await this.memberService.repository.findByIdAsync(member._id);
 				if (!memberWithPopulateServices) {
 					return;
 				}

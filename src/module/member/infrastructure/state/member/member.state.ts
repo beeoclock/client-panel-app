@@ -8,13 +8,13 @@ import {TranslateService} from "@ngx-translate/core";
 import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
 import EMember from "@src/core/business-logic/member/entity/e.member";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {MemberService} from "@core/business-logic/member/service/member.service";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 
@@ -32,7 +32,7 @@ const defaults = baseDefaults<Member.RIMember>({
 @Injectable()
 export class MemberState {
 
-	public readonly memberIndexedDBFacade = inject(MemberIndexedDBFacade);
+	public readonly memberService = inject(MemberService);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
@@ -121,9 +121,7 @@ export class MemberState {
 	public async openDetailsById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('member.details.title');
-		const item = this.memberIndexedDBFacade.source.findOne({
-			id
-		});
+		const item = await this.memberService.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
@@ -146,9 +144,7 @@ export class MemberState {
 	public async openFormToEditById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenFormToEditById) {
 
 		const title = this.translateService.instant('member.form.title.edit');
-		const item = this.memberIndexedDBFacade.source.findOne({
-			id
-		});
+		const item = await this.memberService.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
@@ -205,30 +201,23 @@ export class MemberState {
 
 	@Action(MemberActions.CreateItem)
 	public async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
-		this.memberIndexedDBFacade.source.insert(EMember.create(action.payload));
-		await this.closeForm(ctx);
+		await this.memberService.repository.createAsync(EMember.create(action.payload));
 		ctx.dispatch(new MemberActions.GetList());
+		await this.closeForm(ctx);
 	}
 
 	@Action(MemberActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
-
 		const item = EMember.create(action.payload);
-		this.memberIndexedDBFacade.source.updateOne({
-			id: action.payload._id,
-		}, {
-			$set: item
-		});
+		await this.memberService.repository.updateAsync(item);
+		ctx.dispatch(new MemberActions.GetList());
 		await this.closeForm(ctx);
 		await this.updateOpenedDetails(ctx, {payload: item});
-		ctx.dispatch(new MemberActions.GetList());
 	}
 
 	@Action(MemberActions.GetItem)
 	public async getItem(ctx: StateContext<IMemberState>, action: MemberActions.GetItem): Promise<void> {
-		const data = this.memberIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
+		const data = await this.memberService.repository.findByIdAsync(action.payload);
 
 		if (!data) {
 			return;
@@ -240,15 +229,6 @@ export class MemberState {
 				downloadedAt: new Date(),
 			}
 		});
-	}
-
-	@Action(MemberActions.DeleteItem)
-	public async deleteItem(ctx: StateContext<IMemberState>, action: MemberActions.DeleteItem) {
-		this.memberIndexedDBFacade.source.removeOne({
-			id: action.payload
-		});
-		await this.closeDetails(ctx, action);
-		ctx.dispatch(new MemberActions.GetList());
 	}
 
 	@Action(MemberActions.GetList)
@@ -276,42 +256,21 @@ export class MemberState {
 				newTableState.filters = {};
 			}
 
-			const phraseFields = ['firstName', 'lastName'];
-
 			const params = newTableState.toBackendFormat();
 
-			const selector = {
-				$and: [
-					...((newTableState.filters?.phrase as string)?.length ? [{
-						$or: phraseFields.map((field) => {
-							return {
-								[field]: {
-									$regex: newTableState.filters.phrase,
-									$options: "i"
-								}
-							}
-						})
-					}] : []),
-					{
-						state: {
-							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
-						}
-					}
-				]
-			};
+			const inState = (
+				params?.state ?
+					[params.state] :
+					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
+			);
 
-			const items = this.memberIndexedDBFacade.source.find(selector, {
-				limit: params.pageSize,
-				skip: (params.page - 1) * params.pageSize,
-				sort: {
-					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
-				}
-			}).fetch();
-
-			const count = this.memberIndexedDBFacade.source.find(selector).count();
+			const {items, totalSize} = await this.memberService.repository.findAsync({
+				...params,
+				state: inState,
+			});
 
 			newTableState
-				.setTotal(count)
+				.setTotal(totalSize)
 				.setItems(items)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
