@@ -13,7 +13,6 @@ import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dt
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import EOrder from "@src/core/business-logic/order/entity/e.order";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
@@ -24,6 +23,7 @@ import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-
 import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
 import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
+import {OrderService} from "@core/business-logic/order/service/order.service";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -42,7 +42,7 @@ const defaults = baseDefaults<IOrderDto>({
 export class OrderState {
 
 	public readonly customerService = inject(CustomerService);
-	public readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
+	public readonly orderService = inject(OrderService);
 	public readonly paymentIndexedDBFacade = inject(PaymentIndexedDBFacade);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
@@ -132,9 +132,7 @@ export class OrderState {
 	public async openDetailsByIdAction(ctx: StateContext<IOrderState>, {payload: id}: OrderActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('order.details.title');
-		const item = this.orderIndexedDBFacade.source.findOne({
-			id
-		});
+		const item = await this.orderService.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('OrderState.openDetailsById', 'Item not found');
@@ -161,9 +159,7 @@ export class OrderState {
 		}
 
 		const title = await this.translateService.instant('order.form.title.edit');
-		const orderDto = this.orderIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
+		const orderDto = await this.orderService.repository.findByIdAsync(action.payload);
 
 		if (!orderDto) {
 			this.ngxLogger.error('OrderState.openDetailsById', 'Item not found');
@@ -222,7 +218,7 @@ export class OrderState {
 			return;
 		}
 
-		renderedComponentRef.setInput('callback', (component: ContainerFormComponent, formValue: IEvent) => {
+		renderedComponentRef.setInput('callback', async (component: ContainerFormComponent, formValue: IEvent) => {
 			this.ngxLogger.info('callback', component, formValue);
 
 			if (!formValue.services || !formValue.services.length) {
@@ -269,13 +265,12 @@ export class OrderState {
 				} as unknown as IServiceDto,
 			});
 
-			this.orderIndexedDBFacade.source.updateOne({
-				id: orderId
-			}, {
-				$push: {
-					services: orderServiceForm.value
-				}
-			})
+			const order = await this.orderService.repository.findByIdAsync(orderId)
+
+			if (order) {
+				order.services.push(orderServiceForm.value as IOrderServiceDto);
+				await this.orderService.repository.updateAsync(order);
+			}
 
 			// TODO: call function to increase defaultAppointmentStartDateTimeIso
 
@@ -305,19 +300,13 @@ export class OrderState {
 
 	@Action(OrderActions.ChangeStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: OrderActions.ChangeStatus): Promise<void> {
-		const foundOrder = this.orderIndexedDBFacade.source.findOne({
-			id: action.payload.id
-		});
+		const foundOrder = await this.orderService.repository.findByIdAsync(action.payload.id);
 		if (!foundOrder) {
 			return;
 		}
 		const orderEntity = EOrder.create(foundOrder);
 		orderEntity.status = action.payload.status;
-		this.orderIndexedDBFacade.source.updateOne({
-			id: action.payload.id
-		}, {
-			$set: orderEntity
-		});
+		await this.orderService.repository.updateAsync(orderEntity);
 
 	}
 
@@ -371,7 +360,7 @@ export class OrderState {
 			}
 		}
 
-		this.orderIndexedDBFacade.source.insert(orderEntity);
+		await this.orderService.repository.createAsync(orderEntity);
 		await this.closeFormAction(ctx);
 	}
 
@@ -379,11 +368,7 @@ export class OrderState {
 	public async updateItem(ctx: StateContext<IOrderState>, action: OrderActions.UpdateItem): Promise<void> {
 
 		const item = EOrder.create(action.payload);
-		this.orderIndexedDBFacade.source.updateOne({
-			id: action.payload._id,
-		}, {
-			$set: item
-		});
+		await this.orderService.repository.updateAsync(item);
 		await this.closeFormAction(ctx);
 		await this.updateOpenedDetailsAction(ctx, {payload: item});
 
@@ -391,9 +376,7 @@ export class OrderState {
 
 	@Action(OrderActions.GetItem)
 	public async getItem(ctx: StateContext<IOrderState>, action: OrderActions.GetItem): Promise<void> {
-		const data = this.orderIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
+		const data = await this.orderService.repository.findByIdAsync(action.payload);
 
 		if (!data) {
 			return;
@@ -405,14 +388,6 @@ export class OrderState {
 				downloadedAt: new Date(),
 			}
 		});
-	}
-
-	@Action(OrderActions.DeleteItem)
-	public async deleteItem(ctx: StateContext<IOrderState>, action: OrderActions.DeleteItem) {
-		this.orderIndexedDBFacade.source.removeOne({
-			id: action.payload
-		});
-		await this.closeDetailsAction(ctx, action);
 	}
 
 	@Action(OrderActions.GetList)
@@ -440,31 +415,21 @@ export class OrderState {
 				newTableState.filters = {};
 			}
 
-
 			const params = newTableState.toBackendFormat();
 
-			const selector = {
-				$and: [
-					{
-						state: {
-							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
-						}
-					}
-				]
-			};
+			const inState = (
+				params?.state ?
+					[params.state] :
+					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
+			);
 
-			const items = this.orderIndexedDBFacade.source.find(selector, {
-				limit: params.pageSize,
-				skip: (params.page - 1) * params.pageSize,
-				sort: {
-					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
-				}
-			}).fetch();
-
-			const count = this.orderIndexedDBFacade.source.find(selector).count();
+			const {items, totalSize} = await this.orderService.repository.findAsync({
+				...params,
+				state: inState,
+			});
 
 			newTableState
-				.setTotal(count)
+				.setTotal(totalSize)
 				.setItems(items)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
@@ -485,11 +450,8 @@ export class OrderState {
 
 	@Action(OrderActions.PutItem)
 	public async putItem(ctx: StateContext<IOrderState>, action: OrderActions.PutItem): Promise<void> {
-		this.orderIndexedDBFacade.source.updateOne({
-			id: action.payload.item._id
-		}, {
-			$set: action.payload.item
-		});
+		const item = EOrder.create(action.payload.item);
+		await this.orderService.repository.updateAsync(item);
 	}
 
 	// Selectors

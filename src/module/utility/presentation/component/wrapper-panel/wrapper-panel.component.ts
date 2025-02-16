@@ -31,8 +31,6 @@ import {environment} from "@environment/environment";
 import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager/service.indexedDB.collection.manager";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {VisibilityService} from "@utility/cdk/visibility.service";
-import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
-import {OrderIndexedDBCollectionManager} from "@order/infrastructure/manager/order.indexedDB.collection.manager";
 import {
 	BusinessProfileIndexedDBFacade
 } from "@client/infrastructure/facade/indexedDB/business-profile.indexedDB.facade";
@@ -48,6 +46,7 @@ import {SyncManagerService} from "@core/system/infrastructure/database/_indexedD
 import {AbsenceModule} from "@absence/absence.module";
 import {CustomerModule} from "@customer/customer.module";
 import {MemberModule} from "@member/member.module";
+import {OrderModule} from "@order/order.module";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -81,6 +80,7 @@ import {MemberModule} from "@member/member.module";
 		AbsenceModule,
 		CustomerModule,
 		MemberModule,
+		OrderModule,
 	],
 	providers: [
 		{
@@ -97,11 +97,6 @@ import {MemberModule} from "@member/member.module";
 		 */
 		ServiceIndexedDBCollectionManager,
 		ServiceIndexedDBFacade,
-		/**
-		 * MEMBER
-		 */
-		OrderIndexedDBCollectionManager,
-		OrderIndexedDBFacade,
 		/**
 		 * BUSINESS PROFILE
 		 */

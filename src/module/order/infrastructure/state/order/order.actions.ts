@@ -70,10 +70,6 @@ export namespace OrderActions {
 		public static override readonly type = '[Order API] Get List';
 	}
 
-	export class DeleteItem extends BaseActions.DeleteItem {
-		public static override readonly type = '[Order API] Delete Item';
-	}
-
 	export class GetItem extends BaseActions.GetItem {
 		public static override readonly type = '[Order API] Get Item';
 	}

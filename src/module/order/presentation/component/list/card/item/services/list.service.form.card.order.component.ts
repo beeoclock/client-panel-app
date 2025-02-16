@@ -109,7 +109,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 		this.selectedServicePlusControlList.splice(index, 1);
 
 		if (isLastServiceInOrder) {
-			this.deleteOrder();
+			// this.deleteOrder();
 		} else {
 			this.deleteServiceOrderAt(orderServiceId);
 		}
@@ -169,11 +169,6 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 	@Dispatch()
 	protected saveNewChanges(item: IOrderDto): OrderActions.UpdateItem {
 		return new OrderActions.UpdateItem(item);
-	}
-
-	@Dispatch()
-	protected deleteOrder() {
-		return new OrderActions.DeleteItem(this.order()._id);
 	}
 
 	protected deleteServiceOrderAt(orderServiceId: string) {

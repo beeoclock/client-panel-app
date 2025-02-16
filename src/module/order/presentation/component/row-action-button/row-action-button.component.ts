@@ -15,7 +15,6 @@ import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.orde
 					(activate)="activate()"
 					(deactivate)="deactivate()"-->
 		<utility-table-column-action
-			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
 			[id]="id()"/>
@@ -36,16 +35,16 @@ export class RowActionButtonComponent {
 	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
 
-	public delete(): void {
-
-		const question = this.translateService.instant('order.action.delete.question');
-
-		if (!confirm(question)) {
-
-			throw new Error('User canceled the action');
-		}
-		this.store.dispatch(new OrderActions.DeleteItem(this.item()._id));
-	}
+	// public delete(): void {
+	//
+	// 	const question = this.translateService.instant('order.action.delete.question');
+	//
+	// 	if (!confirm(question)) {
+	//
+	// 		throw new Error('User canceled the action');
+	// 	}
+	// 	this.store.dispatch(new OrderActions.DeleteItem(this.item()._id));
+	// }
 
 	// public activate(): void {
 	// 	this.store.dispatch(new OrderActions.UnarchiveItem(this.item._id));

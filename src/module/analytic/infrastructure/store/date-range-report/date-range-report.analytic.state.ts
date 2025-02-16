@@ -12,12 +12,12 @@ import {
 import {DateTime} from "luxon";
 import {transformIResponseToAnalytic} from "@module/analytic/domain/tool/calculate.date-range-report.analytic.tool";
 import {IntervalTypeEnum} from "@module/analytic/domain/enum/interval.enum";
-import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import {IHistoryV2} from "@utility/domain";
 import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
 import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
+import {OrderService} from "@core/business-logic/order/service/order.service";
 
 export type IDateRangeAnalyticState = {
 	filterState: {
@@ -44,7 +44,7 @@ export type IDateRangeAnalyticState = {
 @Injectable()
 export class DateRangeReportAnalyticState {
 
-	protected readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
+	protected readonly orderService = inject(OrderService);
 	private readonly ngxLogger = inject(NGXLogger);
 
 	// API
@@ -76,65 +76,101 @@ export class DateRangeReportAnalyticState {
 			const startDateTime = DateTime.fromISO(selectedDate).startOf(interval).toJSDate().toISOString();
 			const endDateTime = DateTime.fromISO(selectedDate).endOf(interval).toJSDate().toISOString();
 
-			const orderQuery = this.orderIndexedDBFacade.source.find({
-				$and: [
-					{
-						$or: [
-							/**
-							 * Ми не можемо брати в розрахунок для статистики ті замовлення які почались, але не
-							 * закінчились в вказаному періоді, тому що скорше за все що ми ще не отримали дохід,
-							 * про те взагалі ми повинні якось правильно порахувати дохід і все інше за вказаний
-							 * період, але по змінених статусах, тобто Клієнт А створив замовлення в казаний період:
-							 *
-							 * Приклад №1: оплатив у вказаний період значить статус оплачений має враховуватись в дохід
-							 * 				за вказний період, і взагалі не брати в розрахунок статуси замовленої послуги
-							 * 				таким чином, ми вірно вирахуємо коли саму був дохід і який саме.
-							 *
-							 * Приклад №2: оплатив після вказаного періоду значить статус оплачений не має враховуватись,
-							 * 				таким чином ми вірно вирахуємо коли саму був дохід і який саме.
-							 *
-							 * Виходить з вище вказаного те що ми зараз не вірно рахуємо дохід, ми відштовхуємось від
-							 * статусу замовленої послуги або статусу замовлення, а маємо відштовхуватись від того коли
-							 * саме Клієнт А заплатив за замовлення, тобто виходить що потрібно брати в розрахунок саме
-							 * PaymentDto де вказана реальна дата оплати та сума, а не статус замовлення. Бо клієнт може
-							 * оплатити частинами.
-							 */
-							// {
-							// 	'services.orderAppointmentDetails.start': {
-							// 		$gte: startDateTime,
-							// 		$lte: endDateTime,
-							// 	},
-							// },
-							{
-								'services.orderAppointmentDetails.end': {
-									$gte: startDateTime,
-									$lte: endDateTime,
-								}
-							},
-							{
-								'services.orderAppointmentDetails.start': {
-									$lt: startDateTime,
-								},
-								'services.orderAppointmentDetails.end': {
-									$gt: endDateTime,
-								}
-							}
-						]
-					},
-					...(specialistIds.length ? [
-						{
-							'services.orderAppointmentDetails.specialists.member._id': {
-								$in: specialistIds
-							}
+			// const orderQuery = this.orderIndexedDBFacade.source.find({
+			// 	$and: [
+			// 		{
+			// 			$or: [
+			// 				/**
+			// 				 * Ми не можемо брати в розрахунок для статистики ті замовлення які почались, але не
+			// 				 * закінчились в вказаному періоді, тому що скорше за все що ми ще не отримали дохід,
+			// 				 * про те взагалі ми повинні якось правильно порахувати дохід і все інше за вказаний
+			// 				 * період, але по змінених статусах, тобто Клієнт А створив замовлення в казаний період:
+			// 				 *
+			// 				 * Приклад №1: оплатив у вказаний період значить статус оплачений має враховуватись в дохід
+			// 				 * 				за вказний період, і взагалі не брати в розрахунок статуси замовленої послуги
+			// 				 * 				таким чином, ми вірно вирахуємо коли саму був дохід і який саме.
+			// 				 *
+			// 				 * Приклад №2: оплатив після вказаного періоду значить статус оплачений не має враховуватись,
+			// 				 * 				таким чином ми вірно вирахуємо коли саму був дохід і який саме.
+			// 				 *
+			// 				 * Виходить з вище вказаного те що ми зараз не вірно рахуємо дохід, ми відштовхуємось від
+			// 				 * статусу замовленої послуги або статусу замовлення, а маємо відштовхуватись від того коли
+			// 				 * саме Клієнт А заплатив за замовлення, тобто виходить що потрібно брати в розрахунок саме
+			// 				 * PaymentDto де вказана реальна дата оплати та сума, а не статус замовлення. Бо клієнт може
+			// 				 * оплатити частинами.
+			// 				 */
+			// 				// {
+			// 				// 	'services.orderAppointmentDetails.start': {
+			// 				// 		$gte: startDateTime,
+			// 				// 		$lte: endDateTime,
+			// 				// 	},
+			// 				// },
+			// 				{
+			// 					'services.orderAppointmentDetails.end': {
+			// 						$gte: startDateTime,
+			// 						$lte: endDateTime,
+			// 					}
+			// 				},
+			// 				{
+			// 					'services.orderAppointmentDetails.start': {
+			// 						$lt: startDateTime,
+			// 					},
+			// 					'services.orderAppointmentDetails.end': {
+			// 						$gt: endDateTime,
+			// 					}
+			// 				}
+			// 			]
+			// 		},
+			// 		...(specialistIds.length ? [
+			// 			{
+			// 				'services.orderAppointmentDetails.specialists.member._id': {
+			// 					$in: specialistIds
+			// 				}
+			// 			}
+			// 		] : [])
+			// 	]
+			// }, {
+			// 	sort: {
+			// 		createdAt: -1
+			// 	}
+			// });
+
+			// const orders = orderQuery.fetch();
+
+			const orders = await this.orderService.db.filter((order) => {
+
+				return order.services.some((service) => {
+
+					if (specialistIds.length) {
+
+						const result = service.orderAppointmentDetails.specialists.some((specialist) => {
+							return specialistIds.includes(specialist.member._id);
+						});
+
+						if (!result) {
+							return false;
 						}
-					] : [])
-				]
-			}, {
-				sort: {
-					createdAt: -1
-				}
-			});
-			const orders = orderQuery.fetch();
+
+					}
+
+					if (service.orderAppointmentDetails.end >= startDateTime && service.orderAppointmentDetails.end <= endDateTime) {
+						return true;
+					}
+
+					if (service.orderAppointmentDetails.start < startDateTime && service.orderAppointmentDetails.end > endDateTime) {
+						return true;
+					}
+
+					if (service.orderAppointmentDetails.start >= startDateTime && service.orderAppointmentDetails.end <= endDateTime) {
+						return true;
+					}
+
+					return false;
+
+				});
+
+			}).toArray();
+
 			// Convert orders into response DateRangeReportAnalyticApi.IResponse
 			const response: DateRangeReportAnalyticApi.IResponse = {
 
@@ -145,7 +181,6 @@ export class DateRangeReportAnalyticState {
 						services,
 						// products
 					} = order;
-
 
 					const totalRevenue = this.calculateTotalRevenue(services);
 

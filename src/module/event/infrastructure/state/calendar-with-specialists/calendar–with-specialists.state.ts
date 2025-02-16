@@ -9,9 +9,9 @@ import {IAttendee_V2, IEvent_V2} from "@event/domain";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
 import {clearObject} from "@utility/domain/clear.object";
-import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
+import {OrderService} from "@core/business-logic/order/service/order.service";
 
 export interface ICalendarWithSpecialist {
 	params: {
@@ -60,8 +60,7 @@ export interface ICalendarWithSpecialist {
 export class CalendarWithSpecialistsState {
 
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
-
+	private readonly orderService = inject(OrderService);
 	private readonly absenceService = inject(AbsenceService);
 	private readonly router = inject(Router);
 
@@ -97,44 +96,46 @@ export class CalendarWithSpecialistsState {
 
 		const absences = await this.absenceService.findByRange(params.start, params.end);
 
-		const orderQuery = this.orderIndexedDBFacade.source.find({
-			$and: [
-				{
-					$or: [
-						{
-							'services.orderAppointmentDetails.start': {
-								$gte: params.start,
-								$lte: params.end,
-							},
-						},
-						{
-							'services.orderAppointmentDetails.end': {
-								$gte: params.start,
-								$lte: params.end,
-							}
-						},
-						{
-							'services.orderAppointmentDetails.start': {
-								$lt: params.start,
-							},
-							'services.orderAppointmentDetails.end': {
-								$gt: params.end,
-							}
-						}
-					]
-				},
-				{
-					'services.status': {
-						$in: orderParams.statuses
-					}
-				}
-			]
-		}, {
-			sort: {
-				createdAt: -1
-			}
-		});
-		const orders = orderQuery.fetch();
+		// const orderQuery = this.orderIndexedDBFacade.source.find({
+		// 	$and: [
+		// 		{
+		// 			$or: [
+		// 				{
+		// 					'services.orderAppointmentDetails.start': {
+		// 						$gte: params.start,
+		// 						$lte: params.end,
+		// 					},
+		// 				},
+		// 				{
+		// 					'services.orderAppointmentDetails.end': {
+		// 						$gte: params.start,
+		// 						$lte: params.end,
+		// 					}
+		// 				},
+		// 				{
+		// 					'services.orderAppointmentDetails.start': {
+		// 						$lt: params.start,
+		// 					},
+		// 					'services.orderAppointmentDetails.end': {
+		// 						$gt: params.end,
+		// 					}
+		// 				}
+		// 			]
+		// 		},
+		// 		{
+		// 			'services.status': {
+		// 				$in: orderParams.statuses
+		// 			}
+		// 		}
+		// 	]
+		// }, {
+		// 	sort: {
+		// 		createdAt: -1
+		// 	}
+		// });
+		// const orders = orderQuery.fetch();
+
+		const orders = await this.orderService.findByServicesRangeAndStatuses(params.start, params.end, params.statuses);
 
 		const {startTime, endTime} = settings;
 

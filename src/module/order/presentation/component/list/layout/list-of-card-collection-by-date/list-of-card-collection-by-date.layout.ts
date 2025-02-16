@@ -26,8 +26,7 @@ import {
 	ListOfCardCollectionByDateComponent
 } from "@order/presentation/component/list/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
 import {ITableState} from "@utility/domain/table.state";
-import {Actions, ofActionSuccessful} from '@ngxs/store';
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {Actions} from '@ngxs/store';
 
 @Component({
 	selector: 'order-list-of-card-collection-by-date-layout',
@@ -58,20 +57,20 @@ export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder
 
 	public ngOnInit() {
 		// Handle store action on delete order
-		this.actions$
-			.pipe(
-				this.takeUntil(),
-				ofActionSuccessful(OrderActions.DeleteItem)
-			).subscribe((result) => {
-			this.mapOfItems.forEach((value, key) => {
-				const index = value.findIndex((item) => item._id === result.payload);
-				if (index !== -1) {
-					value.splice(index, 1);
-					this.mapOfItems.set(key, value);
-					this.itemsWithDate = Array.from(this.mapOfItems.entries());
-				}
-			});
-		});
+		// this.actions$
+		// 	.pipe(
+		// 		this.takeUntil(),
+		// 		ofActionSuccessful(OrderActions.DeleteItem)
+		// 	).subscribe((result) => {
+		// 	this.mapOfItems.forEach((value, key) => {
+		// 		const index = value.findIndex((item) => item._id === result.payload);
+		// 		if (index !== -1) {
+		// 			value.splice(index, 1);
+		// 			this.mapOfItems.set(key, value);
+		// 			this.itemsWithDate = Array.from(this.mapOfItems.entries());
+		// 		}
+		// 	});
+		// });
 	}
 
 	public ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }) {

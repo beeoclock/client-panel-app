@@ -5,7 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {IOrderState} from "@order/infrastructure/state/order/order.state";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
+import {OrderService} from "@core/business-logic/order/service/order.service";
 
 
 export interface IEventState {
@@ -19,7 +19,7 @@ export interface IEventState {
 @Injectable()
 export class EventState {
 
-	private readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
+	private readonly orderService = inject(OrderService);
 
 	// Change status
 	private readonly translateService = inject(TranslateService);
@@ -98,10 +98,7 @@ export class EventState {
 
 	@Action(EventActions.ChangeServiceStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: EventActions.ChangeServiceStatus): Promise<void> {
-		const foundItem = this.orderIndexedDBFacade.source.findOne({
-			id: action.payload.orderId,
-			'services._id': action.payload.serviceId
-		});
+		const foundItem = await this.orderService.repository.findByIdAsync(action.payload.orderId);
 
 		if (!foundItem) {
 			return;
@@ -120,9 +117,7 @@ export class EventState {
 			})
 		}
 
-		this.orderIndexedDBFacade.source.updateOne({
-			id: action.payload.orderId,
-		}, {$set: modifiedItem});
+		await this.orderService.repository.updateAsync(modifiedItem);
 
 		// TODO: wait for the implementation. https://github.com/maxnowack/signaldb/issues/1375
 		// this.orderIndexedDBFacade.source.updateOne({

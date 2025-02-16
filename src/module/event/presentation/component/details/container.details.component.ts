@@ -12,7 +12,6 @@ import {
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {NGXLogger} from "ngx-logger";
 import {
 	ListServiceFormCardOrderComponent
@@ -80,24 +79,24 @@ export class ContainerDetailsComponent extends Reactive implements OnInit {
 				}
 			});
 
-		this.actions$
-			.pipe(
-				this.takeUntil(),
-				ofActionSuccessful(
-					OrderActions.DeleteItem,
-				)
-			)
-			.subscribe(({payload: orderId}) => {
-
-				if (this.event.originalData.order._id !== orderId) {
-					return;
-				}
-
-				this.ngxLogger.debug('ContainerDetailsComponent.ngOnInit', `Order ${orderId} deleted, closing dialog`);
-
-				// Close the dialog
-				this.store.dispatch(new EventActions.CloseDetails());
-			});
+		// this.actions$
+		// 	.pipe(
+		// 		this.takeUntil(),
+		// 		ofActionSuccessful(
+		// 			OrderActions.DeleteItem,
+		// 		)
+		// 	)
+		// 	.subscribe(({payload: orderId}) => {
+		//
+		// 		if (this.event.originalData.order._id !== orderId) {
+		// 			return;
+		// 		}
+		//
+		// 		this.ngxLogger.debug('ContainerDetailsComponent.ngOnInit', `Order ${orderId} deleted, closing dialog`);
+		//
+		// 		// Close the dialog
+		// 		this.store.dispatch(new EventActions.CloseDetails());
+		// 	});
 
 	}
 

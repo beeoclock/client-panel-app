@@ -5,10 +5,8 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {OrderEndpoint} from "@order/infrastructure/endpoint/order.endpoint";
 
-@Injectable({
-	providedIn: 'root'
-})
-export class DetailsOrderApiAdapter extends BaseApiAdapter<IOrderDto, [string]> {
+@Injectable()
+export class GetItemApi extends BaseApiAdapter<IOrderDto, [string]> {
 
 
 	/**

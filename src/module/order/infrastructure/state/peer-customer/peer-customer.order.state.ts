@@ -1,14 +1,14 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
-import {PagedOrderApiAdapter} from "@order/infrastructure/api/paged.order.api.adapter";
+import {GetApi} from "@order/infrastructure/api/get.api";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-customer/peer-customer.order.actions";
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
-import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {OrderService} from "@core/business-logic/order/service/order.service";
 
 export type IPeerCustomerOrderState = {
 	tableState: ITableState<IOrderDto>;
@@ -28,9 +28,9 @@ export type IPeerCustomerOrderState = {
 @Injectable()
 export class PeerCustomerOrderState {
 
-	private readonly paged = inject(PagedOrderApiAdapter);
+	private readonly paged = inject(GetApi);
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
+	private readonly orderService = inject(OrderService);
 
 	@Action(PeerCustomerOrderActions.UpdateFilters)
 	public updateFilters(
@@ -101,31 +101,24 @@ export class PeerCustomerOrderState {
 
 			const params = newTableState.toBackendFormat();
 
-			const orderParams = {
-				$and: [
-					{
-						'services.orderAppointmentDetails.attendees.customer._id': params.customerId,
-					},
-					{
-						state: {
-							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
-						}
-					}
-				]
-			};
-			const orderQuery = this.orderIndexedDBFacade.source.find(orderParams, {
-				sort: {
-					updatedAt: -1
-				},
-				limit: 10
-			});
+			const isState = [StateEnum.active, StateEnum.archived, StateEnum.inactive];
+
+			const result = await this.orderService.db.filter((order) => {
+				if (!isState.includes(order.state)) {
+					return false;
+				}
+				const hasFindCustomer = order.services.some((service) => {
+					return service.orderAppointmentDetails.attendees.some((attendee) => {
+						return attendee.customer._id === params.customerId;
+					});
+				});
+				return hasFindCustomer;
+			}).toArray();
 
 			newTableState
-				.setTotal(this.orderIndexedDBFacade.source.find(orderParams).count())
-				.setItems(orderQuery.fetch())
+				.setTotal(result.length)
+				.setItems(result)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
-
-			this.ngxLogger.debug('Table state: ', newTableState);
 
 			ctx.patchState({
 				...state,
