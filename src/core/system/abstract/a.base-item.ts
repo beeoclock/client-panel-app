@@ -16,8 +16,8 @@ export abstract class ABaseItem<T extends string, DTO> implements IBaseItem<T, D
 	// From MongoDB/Backend
 	_id!: string & Types.ObjectId;
 	object!: T;
-	createdAt!: string & Types.DateTime;
-	updatedAt!: string & Types.DateTime;
+	createdAt: string & Types.DateTime = new Date().toISOString();
+	updatedAt: string & Types.DateTime = new Date().toISOString();
 
 	state!: StateEnum;
 	stateHistory: {

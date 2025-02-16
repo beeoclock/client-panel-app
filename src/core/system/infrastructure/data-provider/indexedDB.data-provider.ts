@@ -21,7 +21,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 
 	// TODO: Fix SOLID: Open-Closed Principle
 	protected abstract readonly dexieAdapterIndexedDBDataProvider: IAdapterDataProvider<IAbsence.Entity>;
-	private readonly db$ = this.tenantId$.pipe(
+	public readonly db$ = this.tenantId$.pipe(
 		takeUntil(this.destroy$),
 		filter(is.string),
 		tap((tenant) => this.dexieAdapterIndexedDBDataProvider.prepareTableFor(tenant)),
@@ -35,7 +35,6 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override create$(entity: ENTITY) {
 		return this.db$.pipe(
-			takeUntil(this.destroy$),
 			concatMap((table) =>
 				from(table.add(entity)).pipe(
 					map(() => entity)
@@ -50,7 +49,6 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override find$(options: Types.FindQueryParams) {
 		return this.db$.pipe(
-			takeUntil(this.destroy$),
 			concatMap((table) => {
 
 				const {pageSize, page, orderBy, orderDir, phrase, ...filter} = options as Types.StandardQueryParams;
@@ -124,7 +122,6 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override findById$(id: string) {
 		return this.db$.pipe(
-			takeUntil(this.destroy$),
 			concatMap((table) => from(table.get(id))),
 		);
 	}
@@ -135,7 +132,6 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override update$(entity: ENTITY) {
 		return this.db$.pipe(
-			takeUntil(this.destroy$),
 			concatMap((table) => from(table.put(entity))),
 			tap((result) => console.count(result)),
 			map(() => entity),
@@ -148,7 +144,6 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override delete$(entity: ENTITY) {
 		return this.db$.pipe(
-			takeUntil(this.destroy$),
 			concatMap((table) => from(table.delete(entity._id))),
 			map(() => true),
 		);

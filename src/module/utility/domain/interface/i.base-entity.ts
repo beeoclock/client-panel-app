@@ -10,8 +10,8 @@ export interface IBaseEntity<OBJECT_TYPE extends string = string> {
 	createdAt: string & Types.DateTime;
 	updatedAt: string & Types.DateTime;
 	object: OBJECT_TYPE;
-
 	state: StateEnum;
+
 	stateHistory: {
 		state: StateEnum;
 		setAt: string & Types.DateTime;

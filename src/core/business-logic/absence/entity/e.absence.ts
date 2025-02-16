@@ -14,14 +14,12 @@ export class EAbsence extends ABaseItem<'AbsenceDto', IAbsence.DTO> implements I
 	members!: Required<IMember>[];
 	timeZone!: string;
 
-	syncedAt!: string;
-
 	public override toDTO(): IAbsence.DTO {
 		return EAbsence.toDTO(this);
 	}
 
 	public static toDTO(data: IAbsence.Entity): IAbsence.DTO {
-		const {id, ...rest} = data;
+		const {id, syncedAt, ...rest} = data;
 		return rest;
 	}
 
