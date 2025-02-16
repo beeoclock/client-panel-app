@@ -47,6 +47,8 @@ import {
 } from "@module/payment/infrastructure/manager/payment.indexedDB.collection.manager";
 import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
 import {SyncManagerService} from "@core/system/infrastructure/database/_indexedDB/sync-manager.indexedDB.database";
+import {AbsenceModule} from "@absence/absence.module";
+import {CustomerModule} from "@customer/customer.module";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -76,12 +78,17 @@ import {SyncManagerService} from "@core/system/infrastructure/database/_indexedD
 		PageLoadingProgressBarComponent,
 		AsyncPipe,
 		WhacAMole,
+		// MODULE
+		AbsenceModule,
+		CustomerModule,
 	],
 	providers: [
 		{
 			provide: CURRENT_TENANT_ID,
 			useFactory: () => {
+				console.log('CURRENT_TENANT_ID');
 				const tenantId = inject(TENANT_ID).value;
+				console.log('CURRENT_TENANT_ID', {tenantId});
 				return tenantId;
 			},
 		},

@@ -4,27 +4,6 @@ import {canMatchBecauseTenantId} from "@utility/can-match/can-match-because-tena
 import WrapperIdentityComponent from "@utility/presentation/component/wrapper-identity/wrapper-identity.component";
 import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
 import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
-import {importProvidersFrom} from "@angular/core";
-import {NgxsModule} from "@ngxs/store";
-import {AbsenceState} from "@absence/infrastructure/state/absence/absence.state";
-import {SmsUsedAnalyticState} from "@module/analytic/infrastructure/store/sms-used/sms-used.analytic.state";
-import {
-	DateRangeReportAnalyticState
-} from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
-import {EventState} from "@event/infrastructure/state/event/event.state";
-import {OrderState} from "@order/infrastructure/state/order/order.state";
-import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state";
-import {
-	CalendarWithSpecialistsState
-} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
-import {ServiceState} from "@service/infrastructure/state/service/service.state";
-import {PeerCustomerOrderState} from "@order/infrastructure/state/peer-customer/peer-customer.order.state";
-import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
-import {MemberState} from "@member/infrastructure/state/member/member.state";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {PaymentState} from "@module/payment/infrastructure/state/payment/payment.state";
-import {AbsenceModule} from "@absence/absence.module";
-import {CustomerModule} from "@customer/customer.module";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -210,23 +189,6 @@ export const routes: Routes = [
 					{
 						path: '',
 						component: WrapperPanelComponent,
-						providers: [
-							importProvidersFrom(
-								AbsenceModule,
-								CustomerModule,
-								NgxsModule.forFeature([
-									DateRangeReportAnalyticState,
-									PeerCustomerOrderState,
-									CustomerState,
-									ServiceState,
-									AbsenceState,
-									MemberState,
-									OrderState,
-									ClientState,
-									PaymentState,
-								])
-							)
-						],
 						children: [
 
 							{
@@ -257,16 +219,10 @@ export const routes: Routes = [
 								children: [
 									{
 										path: 'sms-used',
-										providers: [
-											importProvidersFrom(NgxsModule.forFeature([SmsUsedAnalyticState])),
-										],
 										loadComponent: () => import('@page/analytic/sms-used/sms-used.analytic.page')
 									},
 									{
 										path: 'date-range-report',
-										providers: [
-											importProvidersFrom(NgxsModule.forFeature([DateRangeReportAnalyticState])),
-										],
 										loadComponent: () => import('@page/analytic/date-range-report/date-range-report.analytic.page')
 									},
 								]
@@ -282,9 +238,6 @@ export const routes: Routes = [
 							},
 							{
 								path: 'event',
-								providers: [
-									importProvidersFrom(NgxsModule.forFeature([EventState, DateRangeReportAnalyticState])),
-								],
 								children: [
 									{
 										path: 'requested',
@@ -292,23 +245,14 @@ export const routes: Routes = [
 									},
 									{
 										path: 'calendar',
-										providers: [
-											importProvidersFrom(NgxsModule.forFeature([CalendarState])),
-										],
 										loadComponent: () => import('@page/event/calendar/calendar.event.page')
 									},
 									{
 										path: 'statistic',
-										providers: [
-											// importProvidersFrom(NgxsModule.forFeature([StatisticState])),
-										],
 										loadComponent: () => import('@page/event/statistic/statistic.event.page')
 									},
 									{
 										path: 'calendar-with-specialists',
-										providers: [
-											importProvidersFrom(NgxsModule.forFeature([CalendarWithSpecialistsState])),
-										],
 										loadComponent: () => import('@page/event/calendar-with-specialists/calendar-with-specialists.event.page')
 									},
 								]

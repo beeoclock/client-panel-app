@@ -13,8 +13,55 @@ import {
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@absence/infrastructure/api/get-item.api";
 import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
+import {NgxsModule} from "@ngxs/store";
+import {
+	DateRangeReportAnalyticState
+} from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
+import {PeerCustomerOrderState} from "@order/infrastructure/state/peer-customer/peer-customer.order.state";
+import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
+import {ServiceState} from "@service/infrastructure/state/service/service.state";
+import {AbsenceState} from "@absence/infrastructure/state/absence/absence.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
+import {OrderState} from "@order/infrastructure/state/order/order.state";
+import {ClientState} from "@client/infrastructure/state/client/client.state";
+import {PaymentState} from "@module/payment/infrastructure/state/payment/payment.state";
+import {
+	CalendarWithSpecialistsState
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
+import {SmsUsedAnalyticState} from "@module/analytic/infrastructure/store/sms-used/sms-used.analytic.state";
+import {EventState} from "@event/infrastructure/state/event/event.state";
+import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state";
 
 @NgModule({
+	imports: [
+		NgxsModule.forFeature([
+			DateRangeReportAnalyticState,
+			PeerCustomerOrderState,
+			CustomerState,
+			ServiceState,
+			AbsenceState,
+			MemberState,
+			OrderState,
+			ClientState,
+			PaymentState,
+
+			// Calendar Module
+			CalendarWithSpecialistsState,
+
+			// Sms Module
+			SmsUsedAnalyticState,
+
+			// Date Module
+			DateRangeReportAnalyticState,
+
+			// Calendar Module
+			CalendarState,
+
+			// Event module
+			EventState,
+			DateRangeReportAnalyticState,
+		]),
+	],
 	providers: [
 
 		// Api

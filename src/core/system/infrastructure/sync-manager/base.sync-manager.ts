@@ -18,6 +18,7 @@ interface ISyncState {
 
 export interface ISyncManger {
 	readonly moduleName: string;
+	readonly tenantId: string;
 
 	pause(): void;
 
@@ -27,7 +28,9 @@ export interface ISyncManger {
 }
 
 interface SyncStates {
-	[moduleName: string]: ISyncState;
+	[moduleName: string]: {
+		[tenant: string]: ISyncState;
+	};
 }
 
 /**
@@ -48,6 +51,13 @@ export abstract class BaseSyncManager<DTO extends {
 	 * @type {string}
 	 */
 	public readonly moduleName: string;
+
+	/**
+	 * An abstract property representing the tenant ID.
+	 * @protected
+	 * @type {string}
+	 */
+	#tenantId: string | undefined;
 
 	/**
 	 * An abstract property representing the local repository.
@@ -104,11 +114,22 @@ export abstract class BaseSyncManager<DTO extends {
 	 * @param {string} moduleName - The name of the module.
 	 * @throws {Error} If the module name is not provided.
 	 */
-	protected constructor(moduleName: string) {
+	protected constructor(
+		moduleName: string,
+	) {
 		if (!moduleName) throw new Error('moduleName is required');
 		this.moduleName = moduleName;
 		BaseSyncManager.register.set(this.moduleName, this);
-		this.syncState = BaseSyncManager.loadSyncState(this.moduleName)
+	}
+
+	public setTenantId(tenantId: string) {
+		this.#tenantId = tenantId;
+		this.syncState = BaseSyncManager.loadSyncState(this.moduleName, this.tenantId)
+	}
+
+	public get tenantId(): string {
+		if (!this.#tenantId) throw new Error('Tenant ID is not set');
+		return this.#tenantId;
 	}
 
 	/**
@@ -129,6 +150,10 @@ export abstract class BaseSyncManager<DTO extends {
 			await this.sync({
 				page: 1,
 				pageSize: 500,
+				/**
+				 * OrderDirEnum.ASC - because we want to sync from the oldest to the newest, so if user will do refresh page (F5)
+				 * then we can sync from the last sync
+				 */
 				orderDir: OrderDirEnum.ASC,
 				orderBy: 'updatedAt',
 				updatedSince: this.syncState.lastEndSync ?? firstUpdatedSince,
@@ -272,9 +297,9 @@ export abstract class BaseSyncManager<DTO extends {
 	 */
 	private saveSyncState(): void {
 		if (this.syncState) {
-			BaseSyncManager.saveSyncState(this.moduleName, this.syncState);
+			BaseSyncManager.saveSyncState(this.moduleName, this.syncState, this.tenantId);
 		} else {
-			BaseSyncManager.clearSyncState(this.moduleName);
+			BaseSyncManager.clearSyncState(this.moduleName, this.tenantId);
 		}
 	}
 
@@ -306,9 +331,9 @@ export abstract class BaseSyncManager<DTO extends {
 	 */
 	public static async syncAll(): Promise<void> {
 		this.isSyncing$.next(true);
-		// Take updatedSunc from the last sync state
+		// Take updatedSince from the last sync state
 		for (const manager of this.register.values()) {
-			const syncState = this.loadSyncState(manager.moduleName);
+			const syncState = this.loadSyncState(manager.moduleName, manager.tenantId);
 			await manager.sync({
 				page: 1,
 				pageSize: 500,
@@ -344,34 +369,47 @@ export abstract class BaseSyncManager<DTO extends {
 	/**
 	 * Saves the synchronization state for the specified module.
 	 * @param moduleName
+	 * @param tenant
 	 * @param syncState
 	 * @private
 	 */
-	private static saveSyncState(moduleName: string, syncState: ISyncState): void {
+	private static saveSyncState(moduleName: string, syncState: ISyncState, tenant: string): void {
 		const states = this.loadAllSyncStates();
-		states[moduleName] = syncState;
+		if (!states[moduleName]) {
+			states[moduleName] = {
+				[tenant]: syncState,
+			};
+		} else {
+			states[moduleName][tenant] = syncState;
+		}
 		localStorage.setItem('syncStates', JSON.stringify(states));
 	}
 
 	/**
 	 * Clears the synchronization state for the specified module.
 	 * @param moduleName
+	 * @param tenant
 	 * @private
 	 */
-	private static clearSyncState(moduleName: string): void {
+	private static clearSyncState(moduleName: string, tenant: string): void {
 		const states = this.loadAllSyncStates();
-		delete states[moduleName];
+		if (tenant in states[moduleName]) {
+			delete states[moduleName][tenant];
+		}
 		localStorage.setItem('syncStates', JSON.stringify(states));
 	}
 
 	/**
 	 * Loads the synchronization state for the specified module.
 	 * @param moduleName
+	 * @param tenant
 	 * @private
 	 */
-	private static loadSyncState(moduleName: string): ISyncState | null {
+	private static loadSyncState(moduleName: string, tenant: string): ISyncState | null {
 		const states = this.loadAllSyncStates();
-		return states[moduleName] || null;
+		const moduleState = states[moduleName];
+		if (!moduleState) return null;
+		return moduleState[tenant] || null;
 	}
 
 	/**
