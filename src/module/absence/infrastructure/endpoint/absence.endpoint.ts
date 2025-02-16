@@ -5,6 +5,7 @@ export enum absenceEndpointEnum {
 	POST = '/api/v1/absence',
 	PUT = '/api/v1/absence/{id}',
 	GET = '/api/v1/absence/paged',
+	GET_ITEM = '/api/v1/absence/{id}',
 }
 
 export const absenceEndpoint: EndpointCollectionType = {
@@ -30,6 +31,14 @@ export const absenceEndpoint: EndpointCollectionType = {
 	GET: {
 		[absenceEndpointEnum.GET]: {
 			source: SourceNetworkEnum.panel,
+			header: {
+				authorization: true,
+				tenantId: true,
+			}
+		},
+		[absenceEndpointEnum.GET_ITEM]: {
+			source: SourceNetworkEnum.panel,
+			replace: true,
 			header: {
 				authorization: true,
 				tenantId: true,

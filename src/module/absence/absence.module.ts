@@ -11,6 +11,7 @@ import {
 	AbsenceDexieAdapterIndexedDBDataProvider
 } from "@absence/infrastructure/data-provider/indexedDB/adapter/absence.dexie.adapter.indexedDB.data-provider";
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
+import {GetItemApi} from "@absence/infrastructure/api/get-item.api";
 
 @NgModule({
 	providers: [
@@ -18,6 +19,7 @@ import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 		// Api
 		PostApi,
 		GetApi,
+		GetItemApi,
 		PutApi,
 
 		// Data Provider

@@ -177,7 +177,11 @@ export abstract class BaseSyncManager<DTO extends {
 			options.page++;
 			this.saveSyncState();
 
-			if (remoteData.items.length < options.pageSize) break;
+			if (remoteData.items.length < options.pageSize) {
+				this.syncState.lastEndSync = new Date().toISOString();
+				this.saveSyncState();
+				break;
+			}
 
 			remoteData = await this.apiDataProvider.findAsync(options);
 
@@ -218,12 +222,31 @@ export abstract class BaseSyncManager<DTO extends {
 		}
 
 		for (const item of this.pushData) {
-			await this.apiDataProvider.updateAsync(item.toDTO());
-			if ('syncedAt' in item) {
-				// @ts-expect-error
-				item.syncedAt = new Date().toISOString();
-				await this.repository.updateAsync(item);
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			let entity = this.toEntity(item);
+			const dto = entity.toDTO();
+
+			let serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
+
+			if (serverHasItem) {
+				// Update case
+				await this.apiDataProvider.updateAsync(dto);
+			} else {
+				// Create case
+				await this.apiDataProvider.createAsync(dto);
+				serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
 			}
+
+			if (!serverHasItem) {
+				throw new Error('Item not found on server');
+			}
+
+			entity = this.toEntity(serverHasItem);
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			entity['syncedAt'] = new Date().toISOString();
+			await this.repository.updateAsync(entity);
 			this.syncState.progress.current++;
 			this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;
 			this.saveSyncState();

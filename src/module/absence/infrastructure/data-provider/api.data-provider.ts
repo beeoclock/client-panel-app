@@ -5,12 +5,14 @@ import {PostApi} from "@absence/infrastructure/api/post.api";
 import {GetApi} from "@absence/infrastructure/api/get.api";
 import {PutApi} from "@absence/infrastructure/api/put.api";
 import {Types} from "@core/shared/types";
+import {GetItemApi} from "@absence/infrastructure/api/get-item.api";
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<IAbsence.DTO> {
 
 	private readonly postApi = inject(PostApi);
 	private readonly getApi = inject(GetApi);
+	private readonly getItemApi = inject(GetItemApi);
 	private readonly putApi = inject(PutApi);
 
 	/**
@@ -27,6 +29,14 @@ export class ApiDataProvider extends DataProvider<IAbsence.DTO> {
 	 */
 	public override find$(options: Types.FindQueryParams) {
 		return this.getApi.execute$(options);
+	}
+
+	/**
+	 *
+	 * @param id
+	 */
+	public override findById$(id: string) {
+		return this.getItemApi.execute$(id);
 	}
 
 	/**
