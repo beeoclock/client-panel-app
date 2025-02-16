@@ -142,7 +142,7 @@ export abstract class BaseSyncManager<DTO extends {
 	 */
 	public async sync(options: Types.StandardQueryParams): Promise<void> {
 
-		this.initPushData();
+		await this.initPushData();
 
 		let remoteData = await this.apiDataProvider.findAsync(options);
 
