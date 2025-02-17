@@ -19,10 +19,10 @@ import {
 } from "@client/presentation/component/business-profile/gallery/image.gallery.business-profile/image.gallery.business-profile.component";
 import {
 	PatchMediaGalleryClientApiAdapter
-} from "@client/infrastructure/adapter/api/media/gallery/patch.media.gallery.client.api.adapter";
+} from "@client/infrastructure/api/media/gallery/patch.media.gallery.client.api.adapter";
 import {
 	DeleteMediaGalleryClientApiAdapter
-} from "@client/infrastructure/adapter/api/media/gallery/delete.media.gallery.client.api.adapter";
+} from "@client/infrastructure/api/media/gallery/delete.media.gallery.client.api.adapter";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 

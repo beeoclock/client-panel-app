@@ -27,8 +27,8 @@ import {ITableState} from "@utility/domain/table.state";
 		AutoRefreshButtonComponent,
 	]
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<IAbsence.DTO> {
-	public override readonly tableState = input.required<ITableState<IAbsence.DTO> | null>();
+export class DesktopLayoutListComponent extends LayoutListComponent<IAbsence.Entity> {
+	public override readonly tableState = input.required<ITableState<IAbsence.Entity> | null>();
 
 	public constructor() {
 		super();

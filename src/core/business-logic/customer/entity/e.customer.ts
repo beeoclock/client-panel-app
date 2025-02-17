@@ -1,11 +1,10 @@
-import {CustomerTypeEnum} from "../enum/customer-type.enum";
-import {Types} from "../../../shared/types";
-import {ICustomer} from "../index";
-import {ABaseItem} from "../../../system/abstract/a.base-item";
-import Cursor from "@signaldb/core/Collection/Cursor";
+import {CustomerTypeEnum} from "@core/business-logic/customer/enum/customer-type.enum";
+import {Types} from "@core/shared/types";
+import {ICustomer} from "@core/business-logic/customer";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 
 
-export class ECustomer extends ABaseItem<'CustomerDto', ICustomer.DTO> implements ICustomer.Entity {
+export class ECustomer extends ABaseEntity<'CustomerDto', ICustomer.DTO> implements ICustomer.Entity {
 
 	firstName!: (string & Types.MaxLength<50>) | null;
 	lastName!: (string & Types.MaxLength<50>) | null;
@@ -14,27 +13,25 @@ export class ECustomer extends ABaseItem<'CustomerDto', ICustomer.DTO> implement
 	note!: string | null;
 	customerType!: CustomerTypeEnum & Types.Default<CustomerTypeEnum.new>;
 
-	// Implement to find customer with the same lastName
-	public getNamesake(): Cursor<ICustomer.Entity, ICustomer.Entity> {
-		throw new Error('Method not implemented.');
-		// const {lastName, id} = this;
-		// // Not me but with the same lastName
-		// console.log('namesakes', {lastName})
-		// return ECustomer.database.find({
-		// 	lastName,
-		// 	_id: {
-		// 		$ne: id,
-		// 	},
-		// })
-	}
-
 	public override toDTO(): ICustomer.DTO {
 		return ECustomer.toDTO(this);
 	}
 
 	public static toDTO(data: ICustomer.Entity): ICustomer.DTO {
-		const {id, ...rest} = data;
-		return rest;
+		return {
+			_id: data._id,
+			createdAt: data.createdAt,
+			customerType: data.customerType,
+			email: data.email,
+			firstName: data.firstName,
+			lastName: data.lastName,
+			note: data.note,
+			object: data.object,
+			phone: data.phone,
+			state: data.state,
+			stateHistory: data.stateHistory,
+			updatedAt: data.updatedAt,
+		};
 	}
 
 	/**

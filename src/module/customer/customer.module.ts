@@ -41,7 +41,7 @@ import {CustomerState} from "@customer/infrastructure/state/customer/customer.st
 		{
 			provide: CustomerRepository,
 			useFactory: () => new CustomerRepository(
-				new CustomerIndexedDBDataProvider(),
+				inject(CustomerIndexedDBDataProvider),
 			)
 		},
 		{

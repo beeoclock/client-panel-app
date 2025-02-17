@@ -1,6 +1,5 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import * as Member from "@src/core/business-logic/member";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
@@ -15,10 +14,11 @@ import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {MemberService} from "@core/business-logic/member/service/member.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
-export type IMemberState = IBaseState<Member.RIMember>;
+export type IMemberState = IBaseState<IMember.Entity>;
 
-const defaults = baseDefaults<Member.RIMember>({
+const defaults = baseDefaults<IMember.Entity>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
@@ -41,7 +41,7 @@ export class MemberState {
 	// Application layer
 
 	@Action(MemberActions.CloseDetails)
-	public async closeDetails(ctx: StateContext<IMemberState>, action?: MemberActions.CloseDetails) {
+	public async closeDetails() {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
@@ -50,7 +50,7 @@ export class MemberState {
 	}
 
 	@Action(MemberActions.CloseForm)
-	public async closeForm(ctx: StateContext<IMemberState>, action?: MemberActions.CloseForm) {
+	public async closeForm() {
 
 		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
 
@@ -203,6 +203,8 @@ export class MemberState {
 	public async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
 		await this.memberService.repository.createAsync(EMember.create(action.payload));
 		ctx.dispatch(new MemberActions.GetList());
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
 		await this.closeForm(ctx);
 	}
 
@@ -211,6 +213,8 @@ export class MemberState {
 		const item = EMember.create(action.payload);
 		await this.memberService.repository.updateAsync(item);
 		ctx.dispatch(new MemberActions.GetList());
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
 		await this.closeForm(ctx);
 		await this.updateOpenedDetails(ctx, {payload: item});
 	}

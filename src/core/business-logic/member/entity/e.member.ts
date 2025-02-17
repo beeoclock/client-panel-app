@@ -1,12 +1,11 @@
-import {ABaseItem} from "../../../system/abstract/a.base-item";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IMember} from "../interface/i.member";
 import {RoleEnum} from "@core/shared/enum/role.enum";
 import {MemberProfileStatusEnum} from "../enums/member-profile-status.enum";
 import {IAssignments} from "../interface";
 import {RESPONSE_IMemberMedia} from "../interface/i.member-media";
 
-
-export class EMember extends ABaseItem<'MemberDto', IMember.DTO> implements IMember.Entity {
+export class EMember extends ABaseEntity<'MemberDto', IMember.DTO> implements IMember.Entity {
 
 	firstName!: string;
 	lastName!: string;
@@ -23,8 +22,22 @@ export class EMember extends ABaseItem<'MemberDto', IMember.DTO> implements IMem
 	}
 
 	public static toDTO(data: IMember.Entity): IMember.DTO {
-		const {id, ...rest} = data;
-		return rest;
+		return {
+			_id: data._id,
+			assignments: data.assignments,
+			avatar: data.avatar,
+			createdAt: data.createdAt,
+			email: data.email,
+			firstName: data.firstName,
+			lastName: data.lastName,
+			object: data.object,
+			phone: data.phone,
+			profileStatus: data.profileStatus,
+			role: data.role,
+			state: data.state,
+			stateHistory: data.stateHistory,
+			updatedAt: data.updatedAt,
+		}
 	}
 
 	/**

@@ -29,8 +29,8 @@ import {ITableState} from "@utility/domain/table.state";
 		NgClass,
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<IAbsence.DTO> {
-	public override readonly tableState = input.required<ITableState<IAbsence.DTO> | null>();
+export class MobileLayoutListComponent extends LayoutListComponent<IAbsence.Entity> {
+	public override readonly tableState = input.required<ITableState<IAbsence.Entity> | null>();
 	public readonly showButtonGoToForm = input(true);
 
 	readonly cardListComponents = viewChildren(CardListComponent);

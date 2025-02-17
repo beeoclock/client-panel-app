@@ -30,7 +30,7 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 		ServiceTableService
 	],
 })
-export class CardListComponent extends TableComponent<IService.DTO> {
+export class CardListComponent extends TableComponent<IService.Entity> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
@@ -39,7 +39,7 @@ export class CardListComponent extends TableComponent<IService.DTO> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public list: IService.DTO[] = [];
+	public list: IService.Entity[] = [];
 
 	public constructor() {
 		super();

@@ -1,26 +1,24 @@
 import {Injectable} from '@angular/core';
-import * as Member from '@src/core/business-logic/member';
 import {memberEndpointEnum} from "@member/infrastructure/endpoint/member.endpoint";
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
+import {IMember} from '@core/business-logic/member/interface/i.member';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class GetItemApi extends BaseApiAdapter<Member.RIMember, [string]> {
+@Injectable()
+export class GetItemApi extends BaseApiAdapter<IMember.DTO, [string]> {
 
 
-  /**
-   * GET ITEM BY ID
-   * @param id
-   */
-  public override execute$(id: string) {
-    return this.httpClient.get<Member.RIMember>(memberEndpointEnum.item, {
+	/**
+	 * GET ITEM BY ID
+	 * @param id
+	 */
+	public override execute$(id: string) {
+		return this.httpClient.get<IMember.DTO>(memberEndpointEnum.item, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
 				id
 			}),
-    });
-  }
+		});
+	}
 
 }

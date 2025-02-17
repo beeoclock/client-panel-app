@@ -37,9 +37,9 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 		}
 	]
 })
-export class ListAbsencePage extends ListPage<IAbsence.DTO> implements OnDestroy, OnInit {
+export class ListAbsencePage extends ListPage<IAbsence.Entity> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<IAbsence.DTO>> = this.store.select(AbsenceState.tableState)
+	public readonly tableState$: Observable<ITableState<IAbsence.Entity>> = this.store.select(AbsenceState.tableState)
 		.pipe(
 			tap(() => {
 				this.changeDetectorRef.detectChanges();

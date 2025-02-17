@@ -19,7 +19,6 @@ import {
 } from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
 import {PeerCustomerOrderState} from "@order/infrastructure/state/peer-customer/peer-customer.order.state";
 import {AbsenceState} from "@absence/infrastructure/state/absence/absence.state";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {
 	CalendarWithSpecialistsState
 } from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
@@ -33,7 +32,6 @@ import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state
 			DateRangeReportAnalyticState,
 			PeerCustomerOrderState,
 			AbsenceState,
-			ClientState,
 
 			// Calendar Module
 			CalendarWithSpecialistsState,
@@ -71,7 +69,7 @@ import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state
 		{
 			provide: AbsenceRepository,
 			useFactory: () => new AbsenceRepository(
-				new AbsenceIndexedDBDataProvider(),
+				inject(AbsenceIndexedDBDataProvider),
 			)
 		},
 		{

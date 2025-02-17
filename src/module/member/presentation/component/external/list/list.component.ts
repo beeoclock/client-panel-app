@@ -10,24 +10,24 @@ import {
 import {
 	DesktopLayoutListComponent
 } from "@member/presentation/component/list/layout/desktop/desktop.layout.list.component";
-import {RIMember} from "@src/core/business-logic/member";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ActiveEnum} from "@core/shared/enum";
 import {MemberTableService} from "@member/presentation/component/list/member.table.service";
 import {TableService} from "@utility/table.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
-    selector: 'member-external-list-component',
-    templateUrl: './list.component.html',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        AsyncPipe,
-        TranslateModule,
-        DesktopLayoutListComponent,
-        MobileLayoutListComponent,
-    ],
-    standalone: true,
+	selector: 'member-external-list-component',
+	templateUrl: './list.component.html',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		AsyncPipe,
+		TranslateModule,
+		DesktopLayoutListComponent,
+		MobileLayoutListComponent,
+	],
+	standalone: true,
 	providers: [
 		{
 			provide: TableService,
@@ -35,20 +35,20 @@ import {TableService} from "@utility/table.service";
 		}
 	]
 })
-export class MemberExternalListComponent extends ListPage<RIMember> {
+export class MemberExternalListComponent extends ListPage<IMember.Entity> {
 
-    @ViewChildren(MobileLayoutListComponent)
-    public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
+	@ViewChildren(MobileLayoutListComponent)
+	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
 
-    protected override readonly getListParams = {
-        active: ActiveEnum.YES
-    };
+	protected override readonly getListParams = {
+		active: ActiveEnum.YES
+	};
 
-    public readonly tableState$: Observable<ITableState<RIMember>> = this.store.select(MemberState.tableState)
-        .pipe(
-            tap(() => {
-                this.changeDetectorRef.detectChanges();
-            })
-        );
+	public readonly tableState$: Observable<ITableState<IMember.Entity>> = this.store.select(MemberState.tableState)
+		.pipe(
+			tap(() => {
+				this.changeDetectorRef.detectChanges();
+			})
+		);
 
 }

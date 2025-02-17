@@ -15,12 +15,11 @@ import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {filter, map, startWith, tap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe} from "@angular/common";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {DateTime} from "luxon";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {is} from "@src/core/shared/checker";
-import {RIClient} from "@client/domain";
+import {RIClient} from "@core/business-logic/business-profile";
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	DateSliderControlComponent
@@ -60,6 +59,7 @@ import {
 import {
 	RevenueStatisticComponent
 } from "@event/presentation/component/statistic-v2/components/table/total/counter/revenue.statistic.component";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'event-statistic-v2-component',
@@ -118,14 +118,14 @@ export class StatisticV2Component extends Reactive implements OnInit, AfterViewI
 		})
 	);
 
-	public readonly baseCurrency$ = this.store.select(ClientState.baseCurrency).pipe(
+	public readonly baseCurrency$ = this.store.select(BusinessProfileState.baseCurrency).pipe(
 		filter(is.not_null<CurrencyCodeEnum>),
 		tap(() => {
 			this.changeDetectorRef.detectChanges();
 		})
 	);
 
-	public readonly clientItem$ = this.store.select(ClientState.item).pipe(
+	public readonly clientItem$ = this.store.select(BusinessProfileState.item).pipe(
 		filter(is.not_null<RIClient>),
 		tap((clientItem) => {
 			this.items.unshift({

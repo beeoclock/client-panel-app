@@ -82,6 +82,9 @@
 			"@payment/*": [
 				"./src/module/payment/*"
 			],
+			"@businessProfile/*": [
+				"./src/module/business-profile/*"
+			],
 			"@page/*": [
 				"./src/page/*"
 			]

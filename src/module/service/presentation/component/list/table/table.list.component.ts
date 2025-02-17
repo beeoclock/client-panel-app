@@ -42,11 +42,11 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 		DurationVersionHtmlHelper,
 	]
 })
-export class TableListComponent extends TableComponent<IService.DTO> {
+export class TableListComponent extends TableComponent<IService.Entity> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-	public override readonly tableState = input.required<ITableState<IService.DTO>>();
+	public override readonly tableState = input.required<ITableState<IService.Entity>>();
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;

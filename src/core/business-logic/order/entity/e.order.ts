@@ -1,4 +1,4 @@
-import {ABaseItem} from "../../../system/abstract/a.base-item";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IOrder} from "../interface/i.order";
 import {OrderStatusEnum} from "../enum/order.status.enum";
 import {IOrderMetaDto} from "../interface/i.order-meta.dto";
@@ -6,13 +6,13 @@ import {IOrderProductDto} from "../interface/i.order-product.dto";
 import {IOrderServiceDto} from "../interface/i.order-service.dto";
 
 
-export class EOrder extends ABaseItem<'OrderDto', IOrder.DTO> implements IOrder.Entity {
+export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO> implements IOrder.Entity {
 
-    products!: IOrderProductDto[];
-    services!: IOrderServiceDto[];
-    status!: OrderStatusEnum;
-    meta!: IOrderMetaDto;
-    businessNote!: string;
+	products!: IOrderProductDto[];
+	services!: IOrderServiceDto[];
+	status!: OrderStatusEnum;
+	meta!: IOrderMetaDto;
+	businessNote!: string;
 
 
 	public override toDTO(): IOrder.DTO {
@@ -20,8 +20,19 @@ export class EOrder extends ABaseItem<'OrderDto', IOrder.DTO> implements IOrder.
 	}
 
 	public static toDTO(data: IOrder.Entity): IOrder.DTO {
-		const {id, ...rest} = data;
-		return rest;
+		return {
+			_id: data._id,
+			businessNote: data.businessNote,
+			createdAt: data.createdAt,
+			meta: data.meta,
+			object: data.object,
+			products: data.products,
+			services: data.services,
+			state: data.state,
+			stateHistory: data.stateHistory,
+			status: data.status,
+			updatedAt: data.updatedAt,
+		}
 	}
 
 	/**

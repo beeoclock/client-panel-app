@@ -75,7 +75,7 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IAbsence.DTO> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<IAbsence.Entity> {
 		public static override readonly type = '[Absence State] Update Table State';
 	}
 

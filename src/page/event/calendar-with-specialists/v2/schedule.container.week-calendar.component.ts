@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {Store} from "@ngxs/store";
 import {combineLatest, filter, tap} from "rxjs";
 import {is} from "@src/core/shared/checker";
@@ -11,7 +10,8 @@ import {
 	CalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
 import {NGXLogger} from "ngx-logger";
-import {ClientActions} from "@client/infrastructure/state/client/client.actions";
+import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'app-event-v2-schedule-container-week-calendar-component',
@@ -34,7 +34,7 @@ export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive i
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 
 	public readonly item$ = combineLatest([
-		this.store.select(ClientState.earliestScheduleAndLatestSchedule).pipe(
+		this.store.select(BusinessProfileState.earliestScheduleAndLatestSchedule).pipe(
 			filter(is.not_null_or_undefined<{ earliestSchedule: RISchedule; latestSchedule: RISchedule; }>),
 			tap(({earliestSchedule, latestSchedule}) => {
 
@@ -43,7 +43,7 @@ export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive i
 
 			})
 		),
-		this.store.select(ClientState.schedules).pipe(
+		this.store.select(BusinessProfileState.schedules).pipe(
 			filter(is.not_null_or_undefined<ISchedule[]>),
 			tap((schedules) => {
 				this.calendarWithSpecialistLocaStateService.setSchedules(schedules);
@@ -55,7 +55,7 @@ export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive i
 
 	public ngOnInit() {
 		this.ngxLogger.info('ScheduleV2ContainerWeekCalendarComponent ngOnInit');
-		this.store.dispatch(new ClientActions.InitClient());
+		this.store.dispatch(new BusinessProfileActions.Init());
 	}
 
 }

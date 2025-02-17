@@ -1,10 +1,10 @@
 import {inject, Injectable} from '@angular/core';
 import {TableState} from "@utility/domain/table.state";
-import * as Member from "@src/core/business-logic/member";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {MemberService} from "@core/business-logic/member/service/member.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Injectable({
 	providedIn: 'root'
@@ -13,7 +13,7 @@ export class ModalSelectSpecialistListRepository {
 
 	private readonly logger = inject(NGXLogger);
 	private readonly memberService = inject(MemberService);
-	public readonly tableState = new TableState<Member.RIMember>();
+	public readonly tableState = new TableState<IMember.Entity>();
 	public readonly loading$ = new BooleanStreamState(false);
 
 	public resetTableState(): void {
@@ -45,7 +45,7 @@ export class ModalSelectSpecialistListRepository {
 
 			this.tableState
 				.nextPage()
-				.setItems(([] as Member.RIMember[]).concat(this.tableState.items, items))
+				.setItems(([] as IMember.Entity[]).concat(this.tableState.items, items))
 				.setTotal(totalSize);
 
 		} catch (e) {

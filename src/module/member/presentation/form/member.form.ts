@@ -3,13 +3,13 @@ import {PIMember} from "@src/core/business-logic/member";
 import {RoleEnum} from "@core/shared/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@src/core/business-logic/member/interface/i.member-media";
 import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {BaseEntityForm} from "@utility/base.form";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 export interface IAssignments_ServiceForm {
 	full: FormControl<boolean>;
 	include: FormControl<{
-		service: IServiceDto;
+		service: IService.DTO;
 	}[]>;
 }
 

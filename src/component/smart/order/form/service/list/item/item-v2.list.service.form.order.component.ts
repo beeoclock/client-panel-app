@@ -10,8 +10,6 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
-import {RIMember} from "@src/core/business-logic/member";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {
@@ -30,6 +28,9 @@ import {ICustomer} from "@src/core/business-logic/customer";
 import {SpecialistModel} from "@src/core/business-logic/service/model/specialist.model";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {is} from "@src/core/shared/checker";
+import {IAttendeeDto} from "@core/business-logic/order/interface/i-order-appointment-details.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -104,14 +105,14 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	public class = 'flex-col justify-start items-start p-3 gap-2 flex';
 
 	public readonly item = input.required<{
-    service: IServiceDto;
-    control: ServiceOrderForm;
-}>();
+		service: IService.DTO;
+		control: ServiceOrderForm;
+	}>();
 
 	public readonly setupPartialData = input<{
-    defaultAppointmentStartDateTimeIso?: string;
-    defaultMemberForService?: RIMember;
-}>({});
+		defaultAppointmentStartDateTimeIso?: string;
+		defaultMemberForService?: IMember.DTO;
+	}>({});
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
@@ -211,15 +212,17 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		const {orderAppointmentDetails} = this.item().control.getRawValue();
 
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
-		copyOrderAppointmentDetails.attendees = [{
-			customer,
-			_id: ObjectID().toHexString(),
-			createdAt: DateTime.now().toJSDate().toISOString(),
-			updatedAt: DateTime.now().toJSDate().toISOString(),
-			object: "AttendeeDto",
-			state: StateEnum.active,
-			stateHistory: []
-		}];
+		copyOrderAppointmentDetails.attendees = [
+			{
+				customer,
+				_id: ObjectID().toHexString(),
+				createdAt: DateTime.now().toJSDate().toISOString(),
+				updatedAt: DateTime.now().toJSDate().toISOString(),
+				object: "AttendeeDto",
+				state: StateEnum.active,
+				stateHistory: [],
+			} as unknown as IAttendeeDto
+		];
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
 	}

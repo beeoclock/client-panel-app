@@ -14,16 +14,16 @@ import {
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
-import {RIMember} from "@src/core/business-logic/member";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {AlertController} from "@ionic/angular";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	standalone: true,
@@ -64,15 +64,15 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 
 	public readonly selectedServicePlusControlList: {
 		_id: string;
-		service: IServiceDto;
+		service: IService.DTO;
 		control: ServiceOrderForm;
 		setupPartialData: {
 			defaultAppointmentStartDateTimeIso: string;
-			defaultMemberForService: RIMember;
+			defaultMemberForService: IMember.DTO;
 		};
 	}[] = [];
 
-	@SelectSnapshot(ClientState.baseLanguage)
+	@SelectSnapshot(BusinessProfileState.baseLanguage)
 	public readonly baseLanguage!: LanguageCodeEnum;
 
 	readonly #ngxLogger = inject(NGXLogger);

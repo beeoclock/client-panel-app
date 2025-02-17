@@ -5,7 +5,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {RIMember} from "@src/core/business-logic/member";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'app-members-absence-form-container',
@@ -34,7 +34,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
 
 	public readonly entireBusiness = input.required<FormControl<boolean>>();
 
-	public readonly members = input.required<FormControl<RIMember[]>>();
+	public readonly members = input.required<FormControl<IMember.DTO[]>>();
 
 	private readonly translateService = inject(TranslateService);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);

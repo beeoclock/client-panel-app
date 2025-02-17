@@ -19,11 +19,9 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {TableState} from "@utility/domain/table.state";
 import {Reactive} from "@utility/cdk/reactive";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {RIMember} from "@src/core/business-logic/member";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
 import {DateTime} from "luxon";
@@ -31,6 +29,8 @@ import {ICustomer} from "@src/core/business-logic/customer";
 import ObjectID from "bson-objectid";
 import {IAttendeeDto} from "@src/core/business-logic/order/interface/i-order-appointment-details.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Component({
 	standalone: true,
@@ -66,11 +66,11 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 export class ListServiceFormOrderComponent extends Reactive implements OnChanges, OnInit {
 
 	public readonly setupPartialData = input<{
-    defaultAppointmentStartDateTimeIso?: string;
-    defaultMemberForService?: RIMember;
-    serviceList?: IServiceDto[];
-    customer?: ICustomer.Entity;
-}>({});
+		defaultAppointmentStartDateTimeIso?: string;
+		defaultMemberForService?: RIMember;
+		serviceList?: IService.DTO[];
+		customer?: ICustomer.Entity;
+	}>({});
 
 	public readonly serviceOrderFormArray = input.required<ServiceOrderFormArray>();
 
@@ -78,14 +78,14 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 	public class = 'flex-col justify-start items-start flex';
 
 	public readonly selectedServicePlusControlList: {
-		service: IServiceDto;
+		service: IService.DTO;
 		control: ServiceOrderForm;
 		setupPartialData: {
 			defaultAppointmentStartDateTimeIso: string;
 		};
 	}[] = [];
 
-	@SelectSnapshot(ClientState.baseLanguage)
+	@SelectSnapshot(BusinessProfileState.baseLanguage)
 	public readonly baseLanguage!: LanguageCodeEnum;
 
 	readonly #translateService = inject(TranslateService);
@@ -94,7 +94,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 
 	public ngOnInit() {
 		const setupPartialData = this.setupPartialData();
-  if (setupPartialData?.serviceList?.length) {
+		if (setupPartialData?.serviceList?.length) {
 			this.addServiceFromServiceList(setupPartialData.serviceList);
 		}
 	}
@@ -133,7 +133,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 		const {SelectServiceWhacAMoleComponent} = await import("@service/presentation/push-box/select-service.whac-a-mole.component");
 
 		const useTableStateFromStore = true;
-		const tableState = new TableState<IServiceDto>().toCache();
+		const tableState = new TableState<IService.DTO>().toCache();
 
 		const pushBoxWrapperComponentRef = await this.#whacAMaleProvider.buildItAsync({
 			component: SelectServiceWhacAMoleComponent,
@@ -170,7 +170,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 
 	}
 
-	public addServiceFromServiceList(serviceList: IServiceDto[]) {
+	public addServiceFromServiceList(serviceList: IService.DTO[]) {
 		serviceList.forEach((service) => {
 
 			let foundLanguageVersion = service.languageVersions.find(({language}) => language === this.baseLanguage);
@@ -189,7 +189,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 			const lastService = this.selectedServicePlusControlList[this.selectedServicePlusControlList.length - 1];
 
 			const setupPartialData = this.setupPartialData();
-   if (lastService) {
+			if (lastService) {
 				const {orderAppointmentDetails} = lastService.control.getRawValue();
 				const {attendees: lastServiceAttendees} = orderAppointmentDetails;
 				if (lastServiceAttendees.length) {
@@ -198,15 +198,17 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 				start = orderAppointmentDetails.end ?? start;
 			} else {
 				if (setupPartialData.customer) {
-					attendees.push({
-						customer: setupPartialData.customer,
-						_id: ObjectID().toHexString(),
-						createdAt: DateTime.now().toJSDate().toISOString(),
-						updatedAt: DateTime.now().toJSDate().toISOString(),
-						object: "AttendeeDto",
-						state: StateEnum.active,
-						stateHistory: []
-					});
+					attendees.push(
+						{
+							customer: setupPartialData.customer,
+							_id: ObjectID().toHexString(),
+							createdAt: DateTime.now().toJSDate().toISOString(),
+							updatedAt: DateTime.now().toJSDate().toISOString(),
+							object: "AttendeeDto",
+							state: StateEnum.active,
+							stateHistory: [],
+						} as unknown as IAttendeeDto
+					);
 				}
 			}
 

@@ -39,7 +39,7 @@ import {OrderState} from "@order/infrastructure/state/order/order.state";
 		{
 			provide: OrderRepository,
 			useFactory: () => new OrderRepository(
-				new OrderIndexedDBDataProvider(),
+				inject(OrderIndexedDBDataProvider),
 			)
 		},
 		{

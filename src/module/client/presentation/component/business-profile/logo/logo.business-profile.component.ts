@@ -7,7 +7,7 @@ import {
 } from "@client/presentation/component/business-profile/logo/image.logo.business-profile/image.logo.business-profile.component";
 import {
 	PatchMediaLogoClientApiAdapter
-} from "@client/infrastructure/adapter/api/media/logo/patch.media.logo.client.api.adapter";
+} from "@client/infrastructure/api/media/logo/patch.media.logo.client.api.adapter";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 

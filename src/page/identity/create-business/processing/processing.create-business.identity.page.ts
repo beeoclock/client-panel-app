@@ -21,15 +21,12 @@ import {IBusinessClient} from "@identity/domain/interface/RIBusinessClient";
 import {IdentityActions} from "@identity/infrastructure/state/identity/identity.actions";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
-import {
-	UpdateBusinessProfileApiAdapter
-} from "@client/infrastructure/adapter/api/buisness-profile/update.business-profile.api.adapter";
-import * as Client from "@client/domain";
+import {PutApi} from "@businessProfile/infrastructure/api/put.api";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
-import {IAddress} from "@client/domain/interface/i.address";
+import {IAddress} from "@core/business-logic/business-profile/interface/i.address";
 import {
 	PatchMediaGalleryClientApiAdapter
-} from "@client/infrastructure/adapter/api/media/gallery/patch.media.gallery.client.api.adapter";
+} from "@client/infrastructure/api/media/gallery/patch.media.gallery.client.api.adapter";
 import {PostApi} from "@service/infrastructure/api/post.api";
 
 import {TENANT_ID} from "@src/token";
@@ -38,6 +35,7 @@ import {
 	ModalSelectSpecialistListRepository
 } from "@member/infrastructure/repository/modal-select-specialist.list.repository";
 import {IService} from "@core/business-logic/service/interface/i.service";
+import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
 
 const enum Status {
 	Success = 'success',
@@ -104,7 +102,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly createServiceApiAdapter = inject(PostApi);
-	private readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
+	private readonly updateBusinessProfileApiAdapter = inject(PutApi);
 	private readonly translateService = inject(TranslateService);
 	public readonly steps = [
 		{
@@ -228,11 +226,11 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 
 	private async stepAddBusinessProfile(): Promise<void> {
 		const tenantId = this.tenantId$.value as string;
-		let body: Client.IClient = {
+		let body = {
 			_id: tenantId,
 			schedules: this.createBusinessQuery.getSchedulesForm().value,
 			published: this.createBusinessQuery.publishedControl().value
-		}
+		} as IBusinessProfile.DTO;
 		if (this.createBusinessQuery.getServiceProvideTypeControl().value !== ServiceProvideTypeEnum.Online) {
 			body = {
 				...body,
@@ -244,10 +242,10 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 
 	private async stepAddBusinessSettings(): Promise<void> {
 		const tenantId = this.tenantId$.value as string;
-		const body: Client.IClient = {
+		const body = {
 			_id: tenantId,
 			businessSettings: this.createBusinessQuery.getBusinessSettings().value,
-		}
+		} as IBusinessProfile.DTO;
 		await this.updateBusinessProfileApiAdapter.executeAsync(body);
 	}
 

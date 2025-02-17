@@ -1,35 +1,24 @@
 import {AbsenceTypeEnum} from "../enums/absence.type.enum";
-import {RIMember} from "../../member";
-import {IBaseEntity} from "@utility/domain";
-import IBaseItem from "@core/shared/interface/i.base-item";
+import {IBaseDTO, IBaseEntity} from "@utility/domain";
 import {Tools} from "@core/shared/tools";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 
 export namespace IAbsence {
 
-	export interface DTO extends IBaseEntity<'AbsenceDto'> {
+	export interface DTO extends IBaseDTO<'AbsenceDto'> {
 		note: string;
 		start: string;
 		end: string;
 		type: AbsenceTypeEnum;
 		entireBusiness: boolean;
-		members: RIMember[];
+		members: IMember.DTO[];
 		// locations?: LocationDto[]; // TODO
 		timeZone: string;
 		// meta?: MetaDto;
 	}
 
-	export interface Entity extends IBaseItem<'AbsenceDto', DTO>, DTO {
-
-		// syncedAt: string;
-
-		// TODO: add key in base entity to know if entity synced and when it was synced
-
-		// TODO: getOrders
-		// TODO: getFavoriteSpecialist
-		// TODO: getFavoriteCustomer
-
-	}
+	export type Entity = IBaseEntity<'AbsenceDto', DTO> & DTO;
 
 }
 

@@ -37,11 +37,11 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 	],
 	standalone: true,
 })
-export class ListServicePage extends ListPage<IService.DTO> implements OnInit, OnDestroy {
+export class ListServicePage extends ListPage<IService.Entity> implements OnInit, OnDestroy {
 
-	public readonly tableState$: Observable<ITableState<IService.DTO>> = this.store.select(ServiceState.tableState)
+	public readonly tableState$: Observable<ITableState<IService.Entity>> = this.store.select(ServiceState.tableState)
 		.pipe(
-			tap((tableState) => {
+			tap(() => {
 				this.changeDetectorRef.detectChanges();
 			})
 		);

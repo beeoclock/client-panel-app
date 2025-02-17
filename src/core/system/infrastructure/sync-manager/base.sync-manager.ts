@@ -2,9 +2,9 @@ import {Types} from "@core/shared/types";
 import {BaseRepository} from "@core/system/infrastructure/repository/base.repository";
 import {DataProvider} from "@core/system/infrastructure/data-provider/data-provider";
 import {OrderDirEnum} from "@core/shared/enum";
-import IBaseItem from "@core/shared/interface/i.base-item";
 import {BehaviorSubject, firstValueFrom, Observable} from "rxjs";
 import {Table} from "dexie";
+import {IBaseDTO, IBaseEntity} from "@core/shared/interface/i.base-entity";
 
 interface ISyncState {
 	progress: {
@@ -42,9 +42,7 @@ interface SyncStates {
  * @template DTO - The data transfer object type.
  * @template ENTITY - The entity type that extends `IBaseItem`.
  */
-export abstract class BaseSyncManager<DTO extends {
-	updatedAt: string;
-}, ENTITY extends IBaseItem<string, DTO>> implements ISyncManger {
+export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBaseEntity<string, DTO>> implements ISyncManger {
 
 	/**
 	 * The name of the module using the sync manager.
@@ -89,7 +87,7 @@ export abstract class BaseSyncManager<DTO extends {
 	 * @type {ISyncState | null}
 	 * @private
 	 */
-	private syncState: ISyncState | null = null;
+	#syncState: ISyncState | null = null;
 
 	/**
 	 * A static map that registers all sync managers by module name.
@@ -109,6 +107,10 @@ export abstract class BaseSyncManager<DTO extends {
 	 */
 	public static isPaused$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+	public get syncState(): ISyncState | null {
+		return this.#syncState;
+	}
+
 	/**
 	 * Constructs a new `BaseSyncManager`.
 	 * @param {string} moduleName - The name of the module.
@@ -124,7 +126,7 @@ export abstract class BaseSyncManager<DTO extends {
 
 	public setTenantId(tenantId: string) {
 		this.#tenantId = tenantId;
-		this.syncState = BaseSyncManager.loadSyncState(this.moduleName, this.tenantId)
+		this.#syncState = BaseSyncManager.loadSyncState(this.moduleName, this.tenantId)
 	}
 
 	public get tenantId(): string {
@@ -172,7 +174,7 @@ export abstract class BaseSyncManager<DTO extends {
 
 		let remoteData = await this.apiDataProvider.findAsync(options);
 
-		this.syncState = {
+		this.#syncState = {
 			progress: {
 				total: remoteData.totalSize + this.pushData.length,
 				current: 0,
@@ -189,14 +191,12 @@ export abstract class BaseSyncManager<DTO extends {
 			for (const item of remoteData.items) {
 
 				const entity = this.toEntity(item);
-
-				// @ts-ignore
-				entity['syncedAt'] = new Date().toISOString();
+				entity.syncedAt = new Date().toISOString();
 				await this.repository.updateAsync(entity);
 
-				this.syncState.progress.current++;
-				this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;
-				this.syncState.lastEndSync = item.updatedAt;
+				this.#syncState.progress.current++;
+				this.#syncState.progress.percentage = (this.#syncState.progress.current / this.#syncState.progress.total) * 100;
+				this.#syncState.lastEndSync = item.updatedAt;
 
 			}
 
@@ -204,7 +204,7 @@ export abstract class BaseSyncManager<DTO extends {
 			this.saveSyncState();
 
 			if (remoteData.items.length < options.pageSize) {
-				this.syncState.lastEndSync = new Date().toISOString();
+				this.#syncState.lastEndSync = new Date().toISOString();
 				this.saveSyncState();
 				break;
 			}
@@ -222,10 +222,14 @@ export abstract class BaseSyncManager<DTO extends {
 			const {db$} = this.repository.dataProvider as { db$: Observable<Table<ENTITY>> };
 			const table = await firstValueFrom(db$);
 			const localChanges = await table.filter((item) => {
-				if ('syncedAt' in item && 'updatedAt' in item) {
+
+				if ('syncedAt' in item && 'updatedAt' in item && item.syncedAt) {
+
 					return new Date(item.syncedAt) < new Date(item.updatedAt);
+
 				}
-				return !item['syncedAt'];
+
+				return !!item['syncedAt'];
 
 			}).toArray();
 			this.pushData = localChanges;
@@ -269,9 +273,7 @@ export abstract class BaseSyncManager<DTO extends {
 			}
 
 			entity = this.toEntity(serverHasItem);
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-expect-error
-			entity['syncedAt'] = new Date().toISOString();
+			entity.syncedAt = new Date().toISOString();
 			await this.repository.updateAsync(entity);
 			this.syncState.progress.current++;
 			this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;

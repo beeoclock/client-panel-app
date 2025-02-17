@@ -16,9 +16,9 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
 import {ServiceService} from "@core/business-logic/service/service/service.service";
 
-export type IServiceState = IBaseState<IService.DTO>
+export type IServiceState = IBaseState<IService.Entity>
 
-const defaults = baseDefaults<IService.DTO>({
+const defaults = baseDefaults<IService.Entity>({
 	filters: {},
 	orderDir: OrderDirEnum.DESC,
 	orderBy: OrderByEnum.CREATED_AT,
@@ -41,13 +41,13 @@ export class ServiceState {
 	// Application layer
 
 	@Action(ServiceActions.CloseDetails)
-	public async closeDetails(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseDetails) {
+	public async closeDetails() {
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 		await this.whacAMaleProvider.destroyComponent(ServiceDetails);
 	}
 
 	@Action(ServiceActions.CloseForm)
-	public async closeForm(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseForm) {
+	public async closeForm() {
 		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
 		await this.whacAMaleProvider.destroyComponent(ServiceContainerFormComponent);
 	}
@@ -193,12 +193,16 @@ export class ServiceState {
 
 	@Action(ServiceActions.UpdateTableState)
 	public updateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState) {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
 		BaseState.updateTableState(ctx, action);
 	}
 
 	@Action(ServiceActions.CreateItem)
 	public async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
 		await this.serviceService.repository.createAsync(EService.create(action.payload));
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
 		await this.closeForm(ctx);
 		ctx.dispatch(new ServiceActions.GetList());
 	}
@@ -209,6 +213,8 @@ export class ServiceState {
 			...action.payload
 		});
 		await this.serviceService.repository.updateAsync(item);
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
 		await this.closeForm(ctx);
 		await this.updateOpenedDetails(ctx, {payload: item});
 		ctx.dispatch(new ServiceActions.GetList());

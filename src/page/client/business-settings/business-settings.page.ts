@@ -1,15 +1,9 @@
 import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {Select, Store} from "@ngxs/store";
-import {IClient} from "@client/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {filter, Observable} from "rxjs";
-import {
-	UpdateBusinessProfileApiAdapter
-} from "@client/infrastructure/adapter/api/buisness-profile/update.business-profile.api.adapter";
-import {ClientActions} from "@client/infrastructure/state/client/client.actions";
+import {filter, firstValueFrom, Observable} from "rxjs";
 import {
 	BookingSettingsBusinessProfileComponent
 } from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
@@ -28,7 +22,11 @@ import {NGXLogger} from "ngx-logger";
 import {
 	NotificationSettingsComponent
 } from "@client/presentation/component/business-profile/notification-settings/notification-settings.component";
-import EBusinessProfile from "@client/domain/entity/e.business-profile";
+import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
+import {Dispatch} from '@ngxs-labs/dispatch-decorator';
+import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -51,9 +49,8 @@ export default class BusinessSettingsPage extends Reactive implements OnInit, On
 	public readonly ngxLogger = inject(NGXLogger);
 	public readonly store = inject(Store);
 	public readonly analyticsService = inject(AnalyticsService);
-	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
-	@Select(ClientState.item)
+	@Select(BusinessProfileState.item)
 	public readonly item$!: Observable<EBusinessProfile>;
 
 	public ngOnInit(): void {
@@ -110,22 +107,26 @@ export default class BusinessSettingsPage extends Reactive implements OnInit, On
 
 	}
 
+	@Dispatch()
+	private saveBusinessProfile(value: IBusinessProfile.DTO) {
+		return new BusinessProfileActions.Update(value);
+	}
+
 	// Save data
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
 		if (this.form.valid) {
 			this.store.dispatch(new AppActions.PageLoading(true));
-			const value = this.form.getRawValue() as unknown as IClient;
+			const value = this.form.getRawValue() as unknown as IBusinessProfile.DTO;
 			this.form.disable();
 			this.form.markAsPending();
 
 			await Promise.all([
 				// Save data
-				this.updateBusinessProfileApiAdapter.executeAsync(value),
+				firstValueFrom(this.saveBusinessProfile(value) as unknown as Observable<unknown>),
 			]);
 
 			this.store.dispatch(new AppActions.PageLoading(false));
-			this.store.dispatch(new ClientActions.InitClient());
 			this.form.enable();
 			this.form.updateValueAndValidity();
 		} else {

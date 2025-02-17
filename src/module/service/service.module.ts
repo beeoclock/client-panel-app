@@ -41,7 +41,7 @@ import {ServiceState} from "@service/infrastructure/state/service/service.state"
 		{
 			provide: ServiceRepository,
 			useFactory: () => new ServiceRepository(
-				new ServiceIndexedDBDataProvider(),
+				inject(ServiceIndexedDBDataProvider),
 			)
 		},
 		{

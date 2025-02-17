@@ -41,7 +41,7 @@ import {PaymentState} from "@payment/infrastructure/state/payment/payment.state"
 		{
 			provide: PaymentRepository,
 			useFactory: () => new PaymentRepository(
-				new PaymentIndexedDBDataProvider(),
+				inject(PaymentIndexedDBDataProvider),
 			)
 		},
 		{

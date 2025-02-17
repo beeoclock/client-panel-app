@@ -19,7 +19,6 @@ import am5themes_Kelly from '@amcharts/amcharts5/themes/Kelly';
 import {isPlatformBrowser} from "@angular/common";
 import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
 import {Store} from "@ngxs/store";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {IonicModule} from "@ionic/angular";
@@ -27,6 +26,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
 import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	standalone: true,
@@ -35,51 +35,51 @@ import {ApplicationEnum} from "@core/shared/enum/application.enum";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 
-			<div class="flex gap-2 justify-between items-center max-w-full overflow-auto">
-				<div>
-					{{ 'analytic.widget.revenue.summary.by.form.source.label' | translate }}
-				</div>
-				<div class="text-black rounded-2xl bg-white px-3">
-					<ion-select aria-label="Fruit" interface="popover" [formControl]="applicationFormControl"
-								placeholder="Select fruit">
-
-						<ion-select-option [value]="null">
-
-							{{ 'analytic.widget.revenue.summary.by.form.source.all' | translate }}
-
-						</ion-select-option>
-
-						<ion-select-option [value]="ApplicationEnum.panel">
-
-							{{ 'analytic.widget.revenue.summary.by.form.source.panel' | translate }}
-
-						</ion-select-option>
-
-						<ion-select-option [value]="ApplicationEnum.client">
-
-							{{ 'analytic.widget.revenue.summary.by.form.source.client' | translate }}
-
-						</ion-select-option>
-
-					</ion-select>
-				</div>
+		<div class="flex gap-2 justify-between items-center max-w-full overflow-auto">
+			<div>
+				{{ 'analytic.widget.revenue.summary.by.form.source.label' | translate }}
 			</div>
-			<div class="rounded-2xl bg-white p-2 flex flex-col gap-2 justify-center max-w-full overflow-auto">
+			<div class="text-black rounded-2xl bg-white px-3">
+				<ion-select aria-label="Fruit" interface="popover" [formControl]="applicationFormControl"
+							placeholder="Select fruit">
 
-				<ion-segment [formControl]="showMoneyOrCountFormControl">
-					<ion-segment-button [value]="true">
-						<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.money' | translate }}</ion-label>
-					</ion-segment-button>
-					<ion-segment-button [value]="false">
-						<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.count' | translate }}</ion-label>
-					</ion-segment-button>
-				</ion-segment>
-				<div id="total-revenue-diagram-container" style="width: 480px; height: 240px"></div>
+					<ion-select-option [value]="null">
 
+						{{ 'analytic.widget.revenue.summary.by.form.source.all' | translate }}
+
+					</ion-select-option>
+
+					<ion-select-option [value]="ApplicationEnum.panel">
+
+						{{ 'analytic.widget.revenue.summary.by.form.source.panel' | translate }}
+
+					</ion-select-option>
+
+					<ion-select-option [value]="ApplicationEnum.client">
+
+						{{ 'analytic.widget.revenue.summary.by.form.source.client' | translate }}
+
+					</ion-select-option>
+
+				</ion-select>
 			</div>
-			<div class="text-neutral-400 text-sm">
-				{{ 'analytic.widget.revenue.summary.by.description' | translate }}
-			</div>
+		</div>
+		<div class="rounded-2xl bg-white p-2 flex flex-col gap-2 justify-center max-w-full overflow-auto">
+
+			<ion-segment [formControl]="showMoneyOrCountFormControl">
+				<ion-segment-button [value]="true">
+					<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.money' | translate }}</ion-label>
+				</ion-segment-button>
+				<ion-segment-button [value]="false">
+					<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.count' | translate }}</ion-label>
+				</ion-segment-button>
+			</ion-segment>
+			<div id="total-revenue-diagram-container" style="width: 480px; height: 240px"></div>
+
+		</div>
+		<div class="text-neutral-400 text-sm">
+			{{ 'analytic.widget.revenue.summary.by.description' | translate }}
+		</div>
 	`,
 	imports: [
 		IonicModule,
@@ -102,7 +102,7 @@ export class TotalRevenueDiagramComponent extends Reactive implements AfterViewI
 	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	protected readonly baseCurrency = this.store.selectSnapshot(ClientState.baseCurrency) ?? CurrencyCodeEnum.USD;
+	protected readonly baseCurrency = this.store.selectSnapshot(BusinessProfileState.baseCurrency) ?? CurrencyCodeEnum.USD;
 
 	protected readonly ApplicationEnum = ApplicationEnum;
 

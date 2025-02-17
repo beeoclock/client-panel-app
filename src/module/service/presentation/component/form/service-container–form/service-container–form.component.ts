@@ -26,15 +26,14 @@ import {
 import {ServicePresentationForm} from "@service/presentation/form/service.presentation.form";
 import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
 import {ServicesFormComponent} from "@service/presentation/component/form/v2/service/services.form.component";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@src/core/shared/checker";
 import {CurrencyCodeEnum} from "@core/shared/enum";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -61,7 +60,7 @@ export class ServiceContainerFormComponent implements OnInit {
 
 	public readonly isEditMode = input(false);
 
-	public readonly item = input<IServiceDto | null>(null);
+	public readonly item = input<IService.DTO | null>(null);
 
 	public readonly form = new ServiceForm();
 	public readonly presentationForm = new ServicePresentationForm({
@@ -89,7 +88,7 @@ export class ServiceContainerFormComponent implements OnInit {
 	public readonly router = inject(Router);
 	public readonly ngxLogger = inject(NGXLogger);
 
-	public readonly currencyList$ = this.store.select(ClientState.baseCurrency).pipe(
+	public readonly currencyList$ = this.store.select(BusinessProfileState.baseCurrency).pipe(
 		filter(is.not_undefined<CurrencyCodeEnum>),
 		map((currency) => [currency]),
 		map((currencies) => {
@@ -100,7 +99,7 @@ export class ServiceContainerFormComponent implements OnInit {
 		}),
 	);
 
-	// public readonly currencyList$ = this.store.select(ClientState.currencies).pipe(
+	// public readonly currencyList$ = this.store.select(BusinessProfileState.currencies).pipe(
 	// 	map((currencies) => {
 	// 		if (!currencies) {
 	// 			return Object.values(CurrencyCodeEnum);
@@ -118,7 +117,7 @@ export class ServiceContainerFormComponent implements OnInit {
 	// 	}),
 	// );
 
-	public readonly availableLanguages$ = this.store.select(ClientState.availableLanguages);
+	public readonly availableLanguages$ = this.store.select(BusinessProfileState.availableLanguages);
 
 	public ngOnInit(): void {
 		this.detectItem();

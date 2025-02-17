@@ -2,8 +2,8 @@ import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {RIMember} from "@src/core/business-logic/member";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'member-row-action-button-component',
@@ -36,7 +36,7 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<RIMember>();
+	public readonly item = input.required<IMember.Entity>();
 
 	private readonly store = inject(Store);
 

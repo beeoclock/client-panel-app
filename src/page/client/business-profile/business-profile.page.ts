@@ -6,10 +6,8 @@ import {
 import {Store} from "@ngxs/store";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {filter} from "rxjs";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
-import {ClientActions} from "@client/infrastructure/state/client/client.actions";
 import {
 	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
@@ -35,7 +33,9 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "@src/core/shared/checker";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
-import {IBusinessProfile} from "@client/domain/interface/i.business-profile";
+import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'app-business-profile-client-page',
@@ -72,7 +72,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 
 	public readonly serviceProfideType = ServiceProvideTypeEnum;
 
-	public readonly item$ = this.store.select(ClientState.item).pipe(
+	public readonly item$ = this.store.select(BusinessProfileState.item).pipe(
 		filter(Boolean)
 	);
 
@@ -80,7 +80,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 
 		this.analyticsService.logEvent('business_profile_page_initialized');
 
-		this.store.dispatch(new ClientActions.InitClient());
+		this.store.dispatch(new BusinessProfileActions.Init());
 
 		this.item$.pipe(this.takeUntil()).subscribe((item) => {
 
@@ -148,11 +148,11 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 				// this.galleryBusinessProfileComponent.save(),
 				// Save data
 				// this.updateBusinessProfileApiAdapter.executeAsync(value),
-				this.store.dispatch(new ClientActions.UpdateClient(value)),
+				this.store.dispatch(new BusinessProfileActions.Update(value)),
 			]);
 
 			this.store.dispatch(new AppActions.PageLoading(false));
-			this.store.dispatch(new ClientActions.InitClient());
+			this.store.dispatch(new BusinessProfileActions.Init());
 			this.form.enable();
 			this.form.updateValueAndValidity();
 		}

@@ -40,17 +40,17 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 })
 export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit, AfterViewInit {
 
-	public readonly selectedServiceList = input<IService.DTO[]>([]);
+	public readonly selectedServiceList = input<IService.Entity[]>([]);
 
 	@Input()
-	public newSelectedServiceList: IService.DTO[] = [];
+	public newSelectedServiceList: IService.Entity[] = [];
 
 	@Output()
 	public readonly selectedServicesListener = new EventEmitter<void>();
 
 	public readonly useTableStateFromStore = input(true);
 
-	public readonly tableState = input<ITableState<IService.DTO>>(new TableState<IService.DTO>().toCache());
+	public readonly tableState = input<ITableState<IService.Entity>>(new TableState<IService.Entity>().toCache());
 
 	readonly serviceExternalListComponent = viewChild.required(ServiceExternalListComponent);
 
@@ -94,7 +94,7 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 		});
 	}
 
-	public async select(service: IService.DTO) {
+	public async select(service: IService.Entity) {
 		if (!this.multiple()) {
 			if (this.newSelectedServiceList.length) {
 				this.newSelectedServiceList.splice(0, 1);

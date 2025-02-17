@@ -30,11 +30,11 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 		NgClass
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<IService.DTO> {
+export class MobileLayoutListComponent extends LayoutListComponent<IService.Entity> {
 
 	public readonly showButtonGoToForm = input(true);
 
-	public override readonly tableState = input.required<ITableState<IService.DTO> | null>();
+	public override readonly tableState = input.required<ITableState<IService.Entity> | null>();
 	public readonly cardListComponents = viewChildren(CardListComponent);
 
 	@Dispatch()

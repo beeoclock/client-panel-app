@@ -26,7 +26,7 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 		TableListComponent,
 	],
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<IService.DTO> {
+export class DesktopLayoutListComponent extends LayoutListComponent<IService.Entity> {
 
 	openForm() {
 		this.store.dispatch(new ServiceActions.OpenForm());

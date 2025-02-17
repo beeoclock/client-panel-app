@@ -7,7 +7,7 @@ import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/dur
 import {filter} from "rxjs";
 import {is} from "@src/core/shared/checker";
 import {BaseEntityForm} from "@utility/base.form";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;
@@ -213,7 +213,7 @@ export interface IServiceDtoForm {
 }
 
 export class ServiceForm extends BaseEntityForm<'ServiceDto', IServiceDtoForm> {
-	constructor(initialValue: Partial<IServiceDto> = {}) {
+	constructor(initialValue: Partial<IService.DTO> = {}) {
 		super('ServiceDto', {
 			// schedules: new SchedulesForm(),
 			configuration: new ConfigurationForm(),
@@ -227,7 +227,7 @@ export class ServiceForm extends BaseEntityForm<'ServiceDto', IServiceDtoForm> {
 		this.patchValue(initialValue);
 	}
 
-	public override patchValue(value: Partial<IServiceDto>): void {
+	public override patchValue(value: Partial<IService.DTO>): void {
 		super.patchValue(value);
 		if (value.languageVersions) {
 			this.controls.languageVersions.clear();

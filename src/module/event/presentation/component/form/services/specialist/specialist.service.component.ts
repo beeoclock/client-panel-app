@@ -10,7 +10,7 @@ import {TableState} from "@utility/domain/table.state";
 import {FormControl} from "@angular/forms";
 
 import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'event-service-specialist-component',
@@ -23,11 +23,11 @@ import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dt
 })
 export class SpecialistServiceComponent {
 
-	public readonly serviceListControl = input.required<FormControl<IServiceDto[]>>();
+	public readonly serviceListControl = input.required<FormControl<IService.DTO[]>>();
 
 	public readonly index = input.required<number>();
 
-	public readonly service = input.required<IServiceDto>();
+	public readonly service = input.required<IService.DTO>();
 
 	@Select(MemberSelector.tableState)
 	private memberTableState$!: Observable<TableState<RIMember>>;

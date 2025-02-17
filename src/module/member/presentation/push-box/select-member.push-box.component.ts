@@ -16,12 +16,12 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {RIMember} from "@src/core/business-logic/member";
 import {firstValueFrom} from "rxjs";
 import {MemberExternalListComponent} from "@member/presentation/component/external/list/list.component";
 import {
 	MobileLayoutListComponent
 } from "@member/presentation/component/list/layout/mobile/mobile.layout.list.component";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'utility-modal-select-member-component',
@@ -38,10 +38,10 @@ import {
 })
 export class SelectMemberPushBoxComponent extends Reactive implements OnInit, AfterViewInit {
 
-	public readonly selectedMemberList = input<RIMember[]>([]);
+	public readonly selectedMemberList = input<IMember.Entity[]>([]);
 
 	@Input()
-	public newSelectedMemberList: RIMember[] = [];
+	public newSelectedMemberList: IMember.Entity[] = [];
 
 	@Output()
 	public readonly selectedMembersListener = new EventEmitter<void>();
@@ -82,13 +82,13 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 		});
 	}
 
-	public async submit(): Promise<RIMember[]> {
+	public async submit(): Promise<IMember.Entity[]> {
 		return new Promise((resolve) => {
 			resolve(this.newSelectedMemberList);
 		});
 	}
 
-	public select(member: RIMember): void {
+	public select(member: IMember.Entity): void {
 		if (!this.multiple) {
 			if (this.newSelectedMemberList.length) {
 				this.newSelectedMemberList.splice(0, 1);
@@ -100,17 +100,17 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public deselect(member: RIMember): void {
+	public deselect(member: IMember.Entity): void {
 		this.newSelectedMemberList = this.newSelectedMemberList.filter(({_id}) => _id !== member._id);
 		this.selectedMembersListener.emit();
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public isSelected(member: RIMember): boolean {
+	public isSelected(member: IMember.Entity): boolean {
 		return this.newSelectedMemberList.some(({_id}) => _id === member._id);
 	}
 
-	public isNotSelected(member: RIMember): boolean {
+	public isNotSelected(member: IMember.Entity): boolean {
 		return !this.isSelected(member);
 	}
 }

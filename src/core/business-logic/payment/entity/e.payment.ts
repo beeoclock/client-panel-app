@@ -1,13 +1,13 @@
-import {ABaseItem} from "../../../system/abstract/a.base-item";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IPayment} from "../interface/i.payment";
 import {ICustomer} from "../../customer";
 import {CurrencyCodeEnum} from "@core/shared/enum";
-import {Types} from "../../../shared/types";
+import {Types} from "@core/shared/types";
 import {PaymentMethodEnum} from "../enum/payment.method.enum";
 import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";
 
-export class EPayment extends ABaseItem<'PaymentDto', IPayment.DTO> implements IPayment.Entity {
+export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO> implements IPayment.Entity {
 
 	providerPaymentRef!: string | null;
 	orderId!: string;
@@ -25,8 +25,21 @@ export class EPayment extends ABaseItem<'PaymentDto', IPayment.DTO> implements I
 	}
 
 	public static toDTO(data: IPayment.Entity): IPayment.DTO {
-		const {id, ...rest} = data;
-		return rest;
+		return {
+			_id: data._id,
+			amount: data.amount,
+			createdAt: data.createdAt,
+			currency: data.currency,
+			method: data.method,
+			object: data.object,
+			orderId: data.orderId,
+			payer: data.payer,
+			providerPaymentRef: data.providerPaymentRef,
+			state: data.state,
+			stateHistory: data.stateHistory,
+			status: data.status,
+			updatedAt: data.updatedAt,
+		}
 	}
 
 	/**

@@ -16,7 +16,7 @@ import {
 import {ServiceForm} from "@service/presentation/form";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 
 @Component({
@@ -45,10 +45,10 @@ export class ServicesCreateBusinessIdentityPage {
 	private readonly ngxLogger = inject(NGXLogger);
 
 	public get serviceList() {
-		return (this.servicesForm.value ?? []) as IServiceDto[];
+		return (this.servicesForm.value ?? []) as IService.DTO[];
 	}
 
-	public openServiceFormModal(service?: IServiceDto | undefined) {
+	public openServiceFormModal(service?: IService.DTO | undefined) {
 		let serviceFormToEdit = undefined;
 		if (service !== undefined) {
 			serviceFormToEdit = new ServiceForm();
@@ -72,7 +72,7 @@ export class ServicesCreateBusinessIdentityPage {
 			} else {
 				const serviceForm = this.servicesForm.controls.find((control) => control.value._id === service._id);
 				if (serviceForm) {
-					serviceForm.patchValue(newServiceForm.value as Partial<IServiceDto>);
+					serviceForm.patchValue(newServiceForm.value as Partial<IService.DTO>);
 				} else {
 					this.ngxLogger.error('Service not found');
 				}

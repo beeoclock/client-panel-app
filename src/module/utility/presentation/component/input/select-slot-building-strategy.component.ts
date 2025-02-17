@@ -3,7 +3,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {SlotBuildingStrategyEnum} from "@client/domain/enum/slot-building-strategy.enum";
+import {SlotBuildingStrategyEnum} from "@core/business-logic/business-profile/enum/slot-building-strategy.enum";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
 import {HALF_HOUR_IN_SECONDS, ONE_HOUR_IN_SECONDS} from "@utility/domain/time";

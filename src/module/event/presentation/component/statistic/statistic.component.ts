@@ -16,7 +16,6 @@ import {combineLatest, filter, map, Observable, startWith} from "rxjs";
 import {StatisticQueries} from "@event/infrastructure/state/statistic/statistic.queries";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe, CurrencyPipe, DecimalPipe, KeyValuePipe} from "@angular/common";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {StatisticAction} from "@event/infrastructure/state/statistic/statistic.action";
 import {DateTime} from "luxon";
@@ -24,7 +23,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {is} from "@src/core/shared/checker";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {IClient} from "@client/domain";
+import {IClient} from "@core/business-logic/business-profile";
 import {TranslateModule} from "@ngx-translate/core";
 import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
 import {NGXLogger} from "ngx-logger";
@@ -82,7 +81,7 @@ export class StatisticComponent extends Reactive implements AfterViewInit, OnIni
 		userId?: string;
 	};
 
-	@SelectSnapshot(ClientState.item)
+	@SelectSnapshot(BusinessProfileState.item)
 	public readonly clientItem: IClient | undefined;
 
 	public readonly loader$: Observable<boolean> = this.store.select(StatisticQueries.loader);
@@ -91,7 +90,7 @@ export class StatisticComponent extends Reactive implements AfterViewInit, OnIni
 	public end = DateTime.now().endOf('day');
 	public periodTitle = '';
 
-	public readonly baseCurrency$: Observable<CurrencyCodeEnum> = this.store.select(ClientState.baseCurrency).pipe(filter(is.not_undefined<CurrencyCodeEnum>));
+	public readonly baseCurrency$: Observable<CurrencyCodeEnum> = this.store.select(BusinessProfileState.baseCurrency).pipe(filter(is.not_undefined<CurrencyCodeEnum>));
 
 	public readonly calculatedStatistic$: Observable<ReturnType<typeof statisticCalculator>> = combineLatest([
 		this.store.select(MemberState.tableStateItems).pipe(

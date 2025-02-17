@@ -6,7 +6,6 @@ import {
 } from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
 import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {IonicModule} from "@ionic/angular";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -15,7 +14,7 @@ import {
 	MemberRadioTailwindcssComponent
 } from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
 import {is} from "@src/core/shared/checker";
-import {RIClient} from "@client/domain";
+import {RIClient} from "@core/business-logic/business-profile";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {RIMember} from "@src/core/business-logic/member";
 import {
@@ -33,6 +32,7 @@ import {
 } from "@module/analytic/presentation/component/date-range-report/dummy/customer-list-group/customer-list-group.component";
 import {IntervalTypeEnum} from "@module/analytic/domain/enum/interval.enum";
 import {DateTime} from "luxon";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	standalone: true,
@@ -81,14 +81,14 @@ export class TotalDateRangeReportSmartAnalyticComponent extends Reactive impleme
 		})
 	);
 
-	public readonly baseCurrency$ = this.store.select(ClientState.baseCurrency).pipe(
+	public readonly baseCurrency$ = this.store.select(BusinessProfileState.baseCurrency).pipe(
 		filter(is.not_null<CurrencyCodeEnum>),
 		tap(() => {
 			this.changeDetectorRef.detectChanges();
 		})
 	);
 
-	public readonly clientItem$ = this.store.select(ClientState.item).pipe(
+	public readonly clientItem$ = this.store.select(BusinessProfileState.item).pipe(
 		filter(is.not_null<RIClient>),
 		tap((clientItem) => {
 			this.items.unshift({

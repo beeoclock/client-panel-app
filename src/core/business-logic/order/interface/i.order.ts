@@ -1,6 +1,5 @@
-import {IBaseEntity} from "@utility/domain";
-import IBaseItem from "../../../shared/interface/i.base-item";
-import {Tools} from "../../../shared/tools";
+import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {Tools} from "@core/shared/tools";
 import {IOrderProductDto} from "./i.order-product.dto";
 import {IOrderServiceDto} from "./i.order-service.dto";
 import {OrderStatusEnum} from "../enum/order.status.enum";
@@ -8,7 +7,7 @@ import {IOrderMetaDto} from "./i.order-meta.dto";
 
 export namespace IOrder {
 
-	export interface DTO extends IBaseEntity<'OrderDto'> {
+	export interface DTO extends IBaseDTO<'OrderDto'> {
 
 		products: IOrderProductDto[];
 		services: IOrderServiceDto[];
@@ -18,7 +17,7 @@ export namespace IOrder {
 
 	}
 
-	export interface Entity extends IBaseItem<'OrderDto', DTO>, DTO {
+	export type Entity = IBaseEntity<'OrderDto', DTO> & DTO & {
 
 		// TODO: add key in base entity to know if entity synced and when it was synced
 
@@ -26,7 +25,7 @@ export namespace IOrder {
 		// TODO: getFavoriteService
 		// TODO: getFavoriteCustomer
 
-	}
+	};
 
 }
 

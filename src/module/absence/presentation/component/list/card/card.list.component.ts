@@ -10,7 +10,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
-import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 
 @Component({
@@ -28,11 +27,9 @@ import {StateStatusComponent} from "@absence/presentation/component/state-status
 		StateStatusComponent
 	]
 })
-export class CardListComponent extends TableComponent<IAbsence.DTO> {
+export class CardListComponent extends TableComponent<IAbsence.Entity> {
 
 	public override open(item: IAbsence.DTO) {
 		this.store.dispatch(new AbsenceActions.OpenDetails(item));
 	}
-
-	protected readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum;
 }

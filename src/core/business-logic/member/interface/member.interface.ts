@@ -2,7 +2,7 @@ import {IBaseEntity} from "@utility/domain";
 import {RoleEnum} from "@core/shared/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "./i.member-media";
 import {MemberProfileStatusEnum} from "../enums/member-profile-status.enum";
-import {IServiceDto} from "../../order/interface/i.service.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 export interface IAssignments {
 	// object: 'Assignments';
@@ -11,7 +11,7 @@ export interface IAssignments {
 		full: boolean;
 		include: {
 			// "object": "string",
-			service: IServiceDto;
+			service: IService.DTO;
 		}[];
 	}
 }

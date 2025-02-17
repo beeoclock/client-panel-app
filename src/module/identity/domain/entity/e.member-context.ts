@@ -1,8 +1,8 @@
-import {ABaseItem} from "@src/core/system/abstract/a.base-item";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IMemberContext} from "@identity/domain/interface/i.member-context";
 
 
-export class EMemberContext extends ABaseItem<'MemberContextDto', IMemberContext.DTO> implements IMemberContext.Entity {
+export class EMemberContext extends ABaseEntity<'MemberContextDto', IMemberContext.DTO> implements IMemberContext.Entity {
 	account!: { _id: string; };
 	client!: { _id: string; name: string; };
 

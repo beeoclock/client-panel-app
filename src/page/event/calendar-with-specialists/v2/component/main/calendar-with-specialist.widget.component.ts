@@ -41,7 +41,6 @@ import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {DateTime} from "luxon";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {
 	ScheduleElementCalendarWithSpecialistWidgetComponent
@@ -57,6 +56,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	FilterCalendarWithSpecialistComponent
 } from "@page/event/calendar-with-specialists/v2/component/main/filter/filter.calendar-with-specialist.component";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -173,7 +173,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
-	public readonly schedules$ = this.store.select(ClientState.schedules);
+	public readonly schedules$ = this.store.select(BusinessProfileState.schedules);
 	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
 	public readonly showTimeLine$ = this.isToday$.pipe();
 	private readonly document = inject(DOCUMENT);
@@ -534,7 +534,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			return;
 		}
 
-		this.fixNearEventsWidth(Array.from(nearEvents)  as HTMLDivElement[], htmlDivElement, column, () => {
+		this.fixNearEventsWidth(Array.from(nearEvents) as HTMLDivElement[], htmlDivElement, column, () => {
 			this.restoreWidthOfMutatedEvents(column);
 		});
 

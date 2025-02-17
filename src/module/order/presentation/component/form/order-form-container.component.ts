@@ -36,13 +36,14 @@ import {
 import {FormsModule} from "@angular/forms";
 import {firstValueFrom, lastValueFrom} from "rxjs";
 import {PaymentActions} from "@module/payment/infrastructure/state/payment/payment.actions";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 import {
 	CalendarWithSpecialistsAction
 } from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {IOrder} from "@core/business-logic/order/interface/i.order";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -96,7 +97,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	public readonly setupPartialData = input<{
 		defaultAppointmentStartDateTimeIso?: string;
 		defaultMemberForService?: RIMember;
-		serviceList?: IServiceDto[];
+		serviceList?: IService.DTO[];
 		customer?: ICustomer.Entity;
 	}>({});
 	public readonly orderDto = input<Partial<IOrderDto>>({});
@@ -167,7 +168,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	 * @param item
 	 * @private
 	 */
-	private dispatchPutOrderAction$(item: IOrderDto) {
+	private dispatchPutOrderAction$(item: IOrder.DTO) {
 		const action = new OrderActions.PutItem({
 			item
 		});
@@ -187,7 +188,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	}
 
 	private async finishSave() {
-		const {order, payment} = this.form.value as { order: IOrderDto, payment: IPayment.DTO };
+		const {order, payment} = this.form.value as { order: IOrder.DTO, payment: IPayment.DTO };
 		this.form.disable();
 		this.form.markAsPending();
 

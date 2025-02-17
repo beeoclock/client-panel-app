@@ -41,7 +41,7 @@ import {MemberState} from "@member/infrastructure/state/member/member.state";
 		{
 			provide: MemberRepository,
 			useFactory: () => new MemberRepository(
-				new MemberIndexedDBDataProvider(),
+				inject(MemberIndexedDBDataProvider),
 			)
 		},
 		{

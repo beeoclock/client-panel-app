@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, Input, output, ViewEncapsulation} from "@angular/core";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {NgStyle} from "@angular/common";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
 
@@ -108,8 +107,8 @@ export class SelectServiceMultipleComponent {
 	@Input({required: true})
 	public service!: IService.DTO;
 
-	public readonly emitSelect = output<IServiceDto>();
-	public readonly emitDeselect = output<IServiceDto>();
+	public readonly emitSelect = output<IService.DTO>();
+	public readonly emitDeselect = output<IService.DTO>();
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 

@@ -18,7 +18,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {IBaseEntity} from "@utility/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
-import {OrderByEnum} from "../../core/shared/enum";
+import {OrderByEnum} from "@core/shared/enum";
 import {TableService} from "@utility/table.service";
 import {Reactive} from "@utility/cdk/reactive";
 

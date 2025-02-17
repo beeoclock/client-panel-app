@@ -1,14 +1,13 @@
-import {IBaseEntity} from "@utility/domain";
+import {IBaseDTO, IBaseEntity} from "@utility/domain";
 import {IAssignments} from "../index";
-import IBaseItem from "../../../shared/interface/i.base-item";
-import {Tools} from "../../../shared/tools";
+import {Tools} from "@core/shared/tools";
 import {MemberProfileStatusEnum} from "../enums/member-profile-status.enum";
 import {RESPONSE_IMemberMedia} from "./i.member-media";
 import {RoleEnum} from "@core/shared/enum/role.enum";
 
 export namespace IMember {
 
-	export interface DTO extends IBaseEntity<'MemberDto'> {
+	export interface DTO extends IBaseDTO<'MemberDto'> {
 		firstName: string;
 		lastName: string;
 		email: string;
@@ -19,7 +18,7 @@ export namespace IMember {
 		assignments: IAssignments;
 	}
 
-	export interface Entity extends IBaseItem<'MemberDto', DTO>, DTO {
+	export type Entity = IBaseEntity<'MemberDto', DTO> & DTO & {
 
 		// TODO: add key in base entity to know if entity synced and when it was synced
 
@@ -27,7 +26,7 @@ export namespace IMember {
 		// TODO: getFavoriteService
 		// TODO: getFavoriteCustomer
 
-	}
+	};
 
 }
 

@@ -30,8 +30,7 @@ import {EventForm} from "@event/presentation/form/event.form";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {combineLatest, filter, map, tap} from "rxjs";
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {RIClient} from "@client/domain";
+import {RIClient} from "@core/business-logic/business-profile";
 import {is} from "@src/core/shared/checker";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IPresentation, RIConfiguration} from "@src/core/business-logic/service";
@@ -43,7 +42,8 @@ import {
 	CustomerTypeCustomerComponent
 } from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -86,11 +86,11 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 	readonly servicesComponent = viewChildren(ServicesComponent);
 
-	@SelectSnapshot(ClientState.item)
+	@SelectSnapshot(BusinessProfileState.item)
 	public readonly clientItem!: RIClient;
 
 	private readonly store = inject(Store);
-	public readonly client$ = this.store.select(ClientState.item).pipe(
+	public readonly client$ = this.store.select(BusinessProfileState.item).pipe(
 		filter(is.not_undefined<RIClient>),
 	);
 	private readonly logger = inject(NGXLogger);
@@ -260,7 +260,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 		super.ngOnDestroy();
 	}
 
-	private getEventDurationInSeconds(service: IServiceDto): number {
+	private getEventDurationInSeconds(service: IService.DTO): number {
 		try {
 			// Find the biggest duration version
 
@@ -280,7 +280,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 		}
 	}
 
-	private setEventDuration(service: IServiceDto): this {
+	private setEventDuration(service: IService.DTO): this {
 		this.eventDurationInSeconds = this.getEventDurationInSeconds(service);
 		return this;
 	}

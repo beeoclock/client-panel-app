@@ -4,7 +4,6 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@utility/layout.list.component";
-import {RIMember} from "@src/core/business-logic/member";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {
 	AutoRefreshButtonComponent
@@ -12,6 +11,7 @@ import {
 import {TableListComponent} from "@member/presentation/component/list/table/table.list.component";
 import {FilterComponent} from "@member/presentation/component/filter/filter.component";
 import {ITableState} from "@utility/domain/table.state";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'member-desktop-layout-list-component',
@@ -27,8 +27,9 @@ import {ITableState} from "@utility/domain/table.state";
 		AutoRefreshButtonComponent,
 	]
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<RIMember> {
-	public override readonly tableState = input.required<ITableState<RIMember> | null>();
+export class DesktopLayoutListComponent extends LayoutListComponent<IMember.Entity> {
+	public override readonly tableState = input.required<ITableState<IMember.Entity> | null>();
+
 	openForm() {
 		this.store.dispatch(new MemberActions.OpenForm());
 	}

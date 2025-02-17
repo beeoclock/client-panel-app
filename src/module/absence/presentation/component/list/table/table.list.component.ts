@@ -37,7 +37,7 @@ import {StateStatusComponent} from "@absence/presentation/component/state-status
 		StateStatusComponent,
 	]
 })
-export class TableListComponent extends TableComponent<IAbsence.DTO> {
+export class TableListComponent extends TableComponent<IAbsence.Entity> {
 
 	public readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum
 

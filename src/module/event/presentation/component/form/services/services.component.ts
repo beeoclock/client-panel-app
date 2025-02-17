@@ -24,7 +24,6 @@ import {
 	LanguageVersionOrderControlComponent
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
 import {LanguageCodeEnum} from "@core/shared/enum";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {
 	ModalSelectServiceListRepository
 } from "@service/infrastructure/repository/modal-select-service.list.repository";
@@ -55,7 +54,7 @@ import {MemberService} from "@core/business-logic/member/service/member.service"
 export class ServicesComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
-	public serviceListControl: FormControl<IServiceDto[]> = new FormControl([] as any);
+	public serviceListControl: FormControl<IService.DTO[]> = new FormControl([] as any);
 
 	public readonly languageControl = input.required<FormControl<LanguageCodeEnum>>();
 
@@ -112,7 +111,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 		const {SelectServiceWhacAMoleComponent} = await import("@service/presentation/push-box/select-service.whac-a-mole.component");
 
 		let useTableStateFromStore = true;
-		let tableState = new TableState<IServiceDto>().toCache();
+		let tableState = new TableState<IService.DTO>().toCache();
 
 		const member = this.lastSelectedMember || this.member();
 
@@ -122,9 +121,9 @@ export class ServicesComponent extends Reactive implements OnInit {
 				if (!memberWithPopulateServices) {
 					return;
 				}
-				const items = memberWithPopulateServices.assignments.service.include.map(({service}) => service as unknown as IServiceDto);
+				const items = memberWithPopulateServices.assignments.service.include.map(({service}) => service as unknown as IService.DTO);
 				useTableStateFromStore = false;
-				tableState = new TableState<IServiceDto>().setItems(items).setTotal(items.length).toCache();
+				tableState = new TableState<IService.DTO>().setItems(items).setTotal(items.length).toCache();
 			}
 		}
 
@@ -164,7 +163,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	}
 
-	public removeServiceFromSelectedList(service: IServiceDto): void {
+	public removeServiceFromSelectedList(service: IService.DTO): void {
 
 		const newSelectedSpecialistList = this.serviceListControl.value.filter((value) => value._id !== service._id);
 
@@ -172,7 +171,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	}
 
-	public isDurationVersionTypeRange(service: IServiceDto): boolean {
+	public isDurationVersionTypeRange(service: IService.DTO): boolean {
 		return service.configuration.duration?.durationVersionType === DurationVersionTypeEnum.RANGE;
 	}
 
@@ -200,7 +199,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 	 * @param {IService.DTO[]} newSelectedServiceList - The list of services to update with a member.
 	 * @returns {IService.DTO[]} The updated list of services with a member set for each service's specialists.
 	 */
-	private setMember(newSelectedServiceList: IService.DTO[]): IService.DTO[] {
+	private setMember(newSelectedServiceList: IService.Entity[]): IService.Entity[] {
 		// Check if a member is available to be set
 		const memberValue = this.member();
 		if (memberValue) {

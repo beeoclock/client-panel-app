@@ -1,6 +1,6 @@
 import {inject, Pipe, PipeTransform} from '@angular/core';
 import {DurationVersionHtmlHelper} from '@utility/helper/duration-version.html.helper';
-import {IServiceDto} from '@src/core/business-logic/order/interface/i.service.dto';
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Pipe({
 	name: 'durationPrice',
@@ -10,7 +10,7 @@ export default class DurationPricePipe implements PipeTransform {
 
 	private readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
-	transform(item: IServiceDto, type: 'duration' | 'price'): string {
+	transform(item: IService.DTO, type: 'duration' | 'price'): string {
 		if (type === 'duration') {
 			return this.durationVersionHtmlHelper.getDurationValue(item);
 		} else if (type === 'price') {

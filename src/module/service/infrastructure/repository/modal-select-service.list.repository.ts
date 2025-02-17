@@ -3,16 +3,16 @@ import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ActiveEnum} from "@core/shared/enum";
 import {NGXLogger} from "ngx-logger";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {ServiceService} from "@core/business-logic/service/service/service.service";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Injectable()
 export class ModalSelectServiceListRepository {
 
 	private readonly logger = inject(NGXLogger);
 	public readonly serviceService = inject(ServiceService);
-	public readonly tableState = new TableState<IServiceDto>().setFilters({
+	public readonly tableState = new TableState<IService.DTO>().setFilters({
 		active: ActiveEnum.YES
 	});
 	public readonly loading$ = new BooleanStreamState(false);
@@ -48,7 +48,7 @@ export class ModalSelectServiceListRepository {
 
 			this.tableState
 				.nextPage()
-				.setItems(([] as IServiceDto[]).concat(this.tableState.items, items))
+				.setItems(([] as IService.DTO[]).concat(this.tableState.items, items))
 				.setTotal(totalSize);
 
 		} catch (e) {

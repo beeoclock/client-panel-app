@@ -1,10 +1,10 @@
-import {ABaseItem} from "@core/system/abstract/a.base-item";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 import {IMember} from "@core/business-logic/member";
 import {AbsenceTypeEnum} from "@core/business-logic/absence/enums/absence.type.enum";
 
 
-export class EAbsence extends ABaseItem<'AbsenceDto', IAbsence.DTO> implements IAbsence.Entity {
+export class EAbsence extends ABaseEntity<'AbsenceDto', IAbsence.DTO> implements IAbsence.Entity {
 
 	note!: string;
 	start!: string;
@@ -19,8 +19,21 @@ export class EAbsence extends ABaseItem<'AbsenceDto', IAbsence.DTO> implements I
 	}
 
 	public static toDTO(data: IAbsence.Entity): IAbsence.DTO {
-		const {id, syncedAt, ...rest} = data;
-		return rest;
+		return {
+			_id: data._id,
+			createdAt: data.createdAt,
+			end: data.end,
+			entireBusiness: data.entireBusiness,
+			members: data.members,
+			note: data.note,
+			object: data.object,
+			start: data.start,
+			state: data.state,
+			stateHistory: data.stateHistory,
+			timeZone: data.timeZone,
+			type: data.type,
+			updatedAt: data.updatedAt,
+		};
 	}
 
 	/**

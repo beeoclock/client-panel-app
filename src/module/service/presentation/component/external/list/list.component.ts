@@ -49,7 +49,7 @@ export class ServiceExternalListComponent extends ListPage<IService.DTO> impleme
 	public readonly useTableStateFromStore = input(true);
 
 	@Input()
-	public tableState: ITableState<IService.DTO> = new TableState<IService.DTO>().toCache();
+	public tableState: ITableState<IService.Entity> = new TableState<IService.Entity>().toCache();
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;

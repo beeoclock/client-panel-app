@@ -7,7 +7,6 @@ import {
 	output,
 	ViewEncapsulation
 } from "@angular/core";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {
 	SelectServiceMultipleComponent
 } from "@service/presentation/component/select-list/select-service-multiple.component";
@@ -38,10 +37,10 @@ export class SelectServiceListComponent implements OnInit {
 	private readonly serviceService = inject(ServiceService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	public readonly emitSelectedServiceList = output<IServiceDto[]>();
+	public readonly emitSelectedServiceList = output<IService.DTO[]>();
 
 	public serviceList: IService.DTO[] = [];
-	public readonly selectedServices: IServiceDto[] = [];
+	public readonly selectedServices: IService.DTO[] = [];
 
 	public ngOnInit() {
 		this.initServiceList().then();
@@ -62,7 +61,7 @@ export class SelectServiceListComponent implements OnInit {
 	 * Select a service
 	 * @param service
 	 */
-	public select(service: IServiceDto): void {
+	public select(service: IService.DTO): void {
 		this.selectedServices.push(service);
 		this.emitSelectedServiceList.emit(this.selectedServices);
 	}
@@ -71,7 +70,7 @@ export class SelectServiceListComponent implements OnInit {
 	 * Deselect a service
 	 * @param service
 	 */
-	public deselect(service: IServiceDto): void {
+	public deselect(service: IService.DTO): void {
 		const index = this.selectedServices.indexOf(service);
 		if (index >= 0) {
 			this.selectedServices.splice(index, 1);

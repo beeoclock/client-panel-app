@@ -1,12 +1,11 @@
-import {IBaseEntity} from "@utility/domain";
-import IBaseItem from "../../../shared/interface/i.base-item";
-import {Tools} from "../../../shared/tools";
+import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {Tools} from "@core/shared/tools";
 import {IPresentation, RIConfiguration, RIDurationVersion, RILanguageVersion, RIPrepaymentPolicy} from "../index";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 
 export namespace IService {
 
-	export interface DTO extends IBaseEntity<'ServiceDto'> {
+	export interface DTO extends IBaseDTO<'ServiceDto'> {
 		configuration: RIConfiguration;
 		presentation: IPresentation;
 		prepaymentPolicy: RIPrepaymentPolicy;
@@ -16,7 +15,7 @@ export namespace IService {
 		order: number; // Queue/Position in list
 	}
 
-	export interface Entity extends IBaseItem<'ServiceDto', DTO>, DTO {
+	export type Entity = IBaseEntity<'ServiceDto', DTO> & DTO & {
 
 		// TODO: add key in base entity to know if entity synced and when it was synced
 

@@ -1,7 +1,7 @@
-import {RIMember} from "../../member";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 export interface ISpecialist {
 	object: 'SpecialistDto';
-	member: RIMember;
+	member: IMember.DTO;
 	wasSelectedAnybody: boolean;
 }

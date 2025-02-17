@@ -5,14 +5,14 @@ import {EventConfigurationForm} from "@event/presentation/form/configuration.for
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 
 export interface IEventForm {
 	_id: FormControl<string>;
 	servicesAreProvidedInParallel: FormControl<boolean>;
-	services: FormControl<IServiceDto[]>;
+	services: FormControl<IService.DTO[]>;
 	language: FormControl<LanguageCodeEnum>;
 	note: FormControl<string>;
 	start: FormControl<string>;

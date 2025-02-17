@@ -39,7 +39,6 @@ import '@angular/common/locales/global/uk';
 import {SocketIoModule} from "ngx-socket-io";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
 import {firebase} from "@src/firebase";
-import {loadDeveloperTools} from '@signaldb/core';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -63,8 +62,6 @@ if (environment.production) {
 		replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
 	});
 } else {
-
-	loadDeveloperTools();
 
 }
 

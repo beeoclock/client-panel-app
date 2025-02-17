@@ -15,7 +15,6 @@ import {MemberActions} from "@member/infrastructure/state/member/member.actions"
 import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
-import {ClientActions} from "@client/infrastructure/state/client/client.actions";
 import {EventRequestedActions} from "@event/infrastructure/state/event-requested/event-requested.actions";
 import {
 	GetFrontendSettingsAccountApiAdapter
@@ -23,26 +22,21 @@ import {
 import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {is} from "@src/core/shared/checker";
 import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
 import {VisibilityService} from "@utility/cdk/visibility.service";
-import {
-	BusinessProfileIndexedDBFacade
-} from "@client/infrastructure/facade/indexedDB/business-profile.indexedDB.facade";
-import {
-	BusinessProfileIndexedDBCollectionManager
-} from "@client/infrastructure/manager/business-profile.indexedDB.collection.manager";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
-import {SyncManagerService} from "@core/system/infrastructure/database/_indexedDB/sync-manager.indexedDB.database";
 import {AbsenceModule} from "@absence/absence.module";
 import {CustomerModule} from "@customer/customer.module";
 import {MemberModule} from "@member/member.module";
 import {OrderModule} from "@order/order.module";
 import {ServiceModule} from "@service/service.module";
 import {PaymentModule} from "@payment/payment.module";
+import {BusinessProfileModule} from "@businessProfile/business-profile.module";
+import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -79,6 +73,7 @@ import {PaymentModule} from "@payment/payment.module";
 		OrderModule,
 		ServiceModule,
 		PaymentModule,
+		BusinessProfileModule,
 	],
 	providers: [
 		{
@@ -90,11 +85,6 @@ import {PaymentModule} from "@payment/payment.module";
 				return tenantId;
 			},
 		},
-		/**
-		 * BUSINESS PROFILE
-		 */
-		BusinessProfileIndexedDBCollectionManager,
-		BusinessProfileIndexedDBFacade,
 	],
 	encapsulation: ViewEncapsulation.None
 })
@@ -108,7 +98,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	private readonly translateService = inject(TranslateService);
 	private readonly visibilityService = inject(VisibilityService);
 	private readonly isOnlineService = inject(IsOnlineService);
-	private readonly syncManagerService = inject(SyncManagerService);
 	private readonly tenantId$ = inject(TENANT_ID);
 
 	public readonly token$ = this.store.select(IdentityState.token);
@@ -119,7 +108,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	private checkerTimer: undefined | NodeJS.Timeout;
 	private isUserOnWebSite = true;
 
-	public readonly businessProfile$ = this.store.select(ClientState.item);
+	public readonly businessProfile$ = this.store.select(BusinessProfileState.item);
 
 	constructor() {
 		super();
@@ -176,7 +165,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	}
 
 	private initClient(): void {
-		this.store.dispatch(new ClientActions.InitClient());
+		this.store.dispatch(new BusinessProfileActions.Init());
 	}
 
 	private initAccountFrontendSettings(): void {

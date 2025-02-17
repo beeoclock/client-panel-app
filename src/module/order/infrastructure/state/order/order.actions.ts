@@ -2,9 +2,10 @@ import {BaseActions} from "@utility/state/base/base.actions";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {RIMember} from "@src/core/business-logic/member";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {ICustomer} from "@src/core/business-logic/customer";
 import {OrderStatusEnum} from "@src/core/business-logic/order/enum/order.status.enum";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {IOrder} from "@core/business-logic/order/interface/i.order";
 
 export namespace OrderActions {
 
@@ -49,11 +50,11 @@ export namespace OrderActions {
 
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
-		item?: IOrderDto;
+		item?: IOrder.DTO;
 		setupPartialData?: {
 			defaultAppointmentStartDateTimeIso?: string;
 			defaultMemberForService?: RIMember;
-			serviceList?: IServiceDto[];
+			serviceList?: IService.DTO[];
 			customer?: ICustomer.DTO;
 		};
 	}> {
@@ -74,11 +75,11 @@ export namespace OrderActions {
 		public static override readonly type = '[Order API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<IOrderDto> {
+	export class CreateItem extends BaseActions.CreateItem<IOrder.DTO> {
 		public static override readonly type = '[Order API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IOrderDto> {
+	export class UpdateItem extends BaseActions.UpdateItem<IOrder.DTO> {
 		public static override readonly type = '[Order API] Update Item';
 	}
 
@@ -87,7 +88,7 @@ export namespace OrderActions {
 
 		public constructor(
 			public readonly payload: {
-				item: IOrderDto;
+				item: IOrder.DTO;
 			}
 		) {
 		}
@@ -99,7 +100,7 @@ export namespace OrderActions {
 		public static override readonly type = '[Order State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IOrderDto> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<IOrder.Entity> {
 		public static override readonly type = '[Order State] Update Table State';
 	}
 

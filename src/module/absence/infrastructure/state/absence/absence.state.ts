@@ -15,9 +15,9 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 import EAbsence from "@src/core/business-logic/absence/entity/e.absence";
 import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
 
-export type IAbsenceState = IBaseState<IAbsence.DTO>;
+export type IAbsenceState = IBaseState<IAbsence.Entity>;
 
-const defaults = baseDefaults<IAbsence.DTO>({
+const defaults = baseDefaults<IAbsence.Entity>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
@@ -40,7 +40,7 @@ export class AbsenceState {
 	// Application layer
 
 	@Action(AbsenceActions.CloseDetails)
-	public async closeDetailsAction(ctx: StateContext<IAbsenceState>, action?: AbsenceActions.CloseDetails) {
+	public async closeDetailsAction() {
 
 		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
@@ -49,7 +49,7 @@ export class AbsenceState {
 	}
 
 	@Action(AbsenceActions.CloseForm)
-	public async closeFormAction(ctx: StateContext<IAbsenceState>, action?: AbsenceActions.CloseForm) {
+	public async closeFormAction() {
 
 		const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
 
@@ -197,6 +197,8 @@ export class AbsenceState {
 	public async createItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.CreateItem) {
 		const entity = EAbsence.create(action.payload);
 		await this.absenceService.repository.createAsync(entity);
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
 		await this.closeFormAction(ctx);
 		ctx.dispatch(new AbsenceActions.GetList());
 	}
@@ -206,6 +208,8 @@ export class AbsenceState {
 
 		const item = EAbsence.create(action.payload);
 		await this.absenceService.repository.updateAsync(item);
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
 		await this.closeFormAction(ctx);
 		await this.updateOpenedDetailsAction(ctx, {payload: item});
 		ctx.dispatch(new AbsenceActions.GetList());

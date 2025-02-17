@@ -68,7 +68,7 @@ export namespace MemberActions {
 		public static override readonly type = '[Member State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IMember.DTO> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<IMember.Entity> {
 		public static override readonly type = '[Member State] Update Table State';
 	}
 

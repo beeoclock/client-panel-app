@@ -9,7 +9,7 @@ import {BooleanState} from "@utility/domain";
 
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Injectable()
 export class CreateBusinessFormRepository extends Reactive implements OnDestroy {
@@ -45,7 +45,7 @@ export class CreateBusinessFormRepository extends Reactive implements OnDestroy 
 		if (value) {
 			const parsedValue = JSON.parse(value) as {
 				schedules: RISchedule[],
-				services: IServiceDto[],
+				services: IService.DTO[],
 				// gallery: { object: string; images: string[] }
 			};
 

@@ -37,6 +37,7 @@ import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsence.DTO>;
 
@@ -126,10 +127,10 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	public draggable = false;
 
 	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
-	public temporaryNewMember: RIMember | null = null;
+	public temporaryNewMember: IMember.DTO | null = null;
 	public snapshotOfOriginalPosition: { top: number, height: number } | null = null;
 	public previousData: {
-		member: RIMember | undefined;
+		member: IMember.DTO | undefined;
 		htmlParent: HTMLElement | null | undefined;
 		memberId: string | undefined;
 	} | null = null;

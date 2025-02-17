@@ -11,9 +11,9 @@ import {CurrencyCodeEnum} from "@core/shared/enum";
 import {filter, firstValueFrom, map, merge, Subscription} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {Store} from "@ngxs/store";
-import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {is} from "@src/core/shared/checker";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'event-duration-version-type-range',
@@ -32,9 +32,9 @@ import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dt
 })
 export class DurationVersionTypeRangeComponent extends Reactive implements OnInit {
 
-	public readonly service = input.required<IServiceDto>();
+	public readonly service = input.required<IService.DTO>();
 
-	public readonly serviceListControl = input.required<FormControl<IServiceDto[]>>();
+	public readonly serviceListControl = input.required<FormControl<IService.DTO[]>>();
 
 	public readonly index = input.required<number>();
 
@@ -56,7 +56,7 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 	private readonly logger = inject(NGXLogger);
 	private readonly store = inject(Store);
 
-	public readonly currencyList$ = this.store.select(ClientState.baseCurrency).pipe(
+	public readonly currencyList$ = this.store.select(BusinessProfileState.baseCurrency).pipe(
 		filter(is.not_undefined<CurrencyCodeEnum>),
 		map((currency) => [currency]),
 		map((currencies) => {
@@ -66,7 +66,7 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 			}));
 		}),
 	);
-	public readonly baseCurrency$ = this.store.select(ClientState.item).pipe(
+	public readonly baseCurrency$ = this.store.select(BusinessProfileState.item).pipe(
 		map((item) => {
 			return item?.businessSettings?.baseCurrency;
 		})

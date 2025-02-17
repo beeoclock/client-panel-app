@@ -9,7 +9,6 @@ import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order
 import {ContainerFormComponent} from "@event/presentation/component/form/container.form.component";
 import {IEvent} from "@event/domain";
 import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
@@ -257,16 +256,13 @@ export class OrderState {
 					createdAt: formValue.createdAt,
 					updatedAt: formValue.updatedAt,
 				},
-				serviceSnapshot: {
-					...formValue.services[0],
-					object: "ServiceDto",
-				} as unknown as IServiceDto,
+				serviceSnapshot: formValue.services[0] as unknown as IOrderServiceDto,
 			});
 
 			const order = await this.orderService.repository.findByIdAsync(orderId)
 
 			if (order) {
-				order.services.push(orderServiceForm.value as IOrderServiceDto);
+				order.services.push(orderServiceForm.value as unknown as IOrderServiceDto);
 				await this.orderService.repository.updateAsync(order);
 			}
 

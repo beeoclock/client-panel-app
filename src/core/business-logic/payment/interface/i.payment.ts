@@ -3,15 +3,14 @@ import {PaymentMethodEnum} from "../enum/payment.method.enum";
 import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";
 import {ICustomer} from "../../customer";
-import {IBaseEntity} from "@utility/domain";
-import {Tools} from "../../../shared/tools";
-import {Types} from "../../../shared/types";
-import IBaseItem from "../../../shared/interface/i.base-item";
+import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {Tools} from "@core/shared/tools";
+import {Types} from "@core/shared/types";
 
 
 export namespace IPayment {
 
-	export interface DTO extends IBaseEntity<'PaymentDto'> {
+	export interface DTO extends IBaseDTO<'PaymentDto'> {
 
 		providerPaymentRef: string | null;
 		orderId: string;
@@ -25,7 +24,7 @@ export namespace IPayment {
 
 	}
 
-	export interface Entity extends IBaseItem<'PaymentDto', DTO>, DTO {
+	export type Entity = IBaseEntity<'PaymentDto', DTO> & DTO & {
 
 		// TODO: add key in base entity to know if entity synced and when it was synced
 
@@ -33,7 +32,7 @@ export namespace IPayment {
 		// TODO: getFavoriteSpecialist
 		// TODO: getFavoriteCustomer
 
-	}
+	};
 
 }
 
