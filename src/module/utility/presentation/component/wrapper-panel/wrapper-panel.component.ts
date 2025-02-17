@@ -36,16 +36,13 @@ import {
 	BusinessProfileIndexedDBCollectionManager
 } from "@client/infrastructure/manager/business-profile.indexedDB.collection.manager";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
-import {
-	PaymentIndexedDBCollectionManager
-} from "@module/payment/infrastructure/manager/payment.indexedDB.collection.manager";
-import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
 import {SyncManagerService} from "@core/system/infrastructure/database/_indexedDB/sync-manager.indexedDB.database";
 import {AbsenceModule} from "@absence/absence.module";
 import {CustomerModule} from "@customer/customer.module";
 import {MemberModule} from "@member/member.module";
 import {OrderModule} from "@order/order.module";
 import {ServiceModule} from "@service/service.module";
+import {PaymentModule} from "@payment/payment.module";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -81,6 +78,7 @@ import {ServiceModule} from "@service/service.module";
 		MemberModule,
 		OrderModule,
 		ServiceModule,
+		PaymentModule,
 	],
 	providers: [
 		{
@@ -97,11 +95,6 @@ import {ServiceModule} from "@service/service.module";
 		 */
 		BusinessProfileIndexedDBCollectionManager,
 		BusinessProfileIndexedDBFacade,
-		/**
-		 * Payment
-		 */
-		PaymentIndexedDBCollectionManager,
-		PaymentIndexedDBFacade,
 	],
 	encapsulation: ViewEncapsulation.None
 })

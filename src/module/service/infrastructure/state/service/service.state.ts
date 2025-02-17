@@ -261,8 +261,6 @@ export class ServiceState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			console.log({params})
-
 			const {items, totalSize} = await this.serviceService.repository.findAsync({
 				...params,
 				state: inState,

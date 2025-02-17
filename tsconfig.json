@@ -79,6 +79,9 @@
 			"@absence/*": [
 				"./src/module/absence/*"
 			],
+			"@payment/*": [
+				"./src/module/payment/*"
+			],
 			"@page/*": [
 				"./src/page/*"
 			]

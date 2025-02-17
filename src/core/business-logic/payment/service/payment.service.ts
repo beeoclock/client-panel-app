@@ -7,5 +7,9 @@ type ENTITY = IPayment.Entity;
 @Injectable()
 export class PaymentService extends BaseService<ENTITY> {
 
+	public async findByOrderId(payload: string) {
+		const result = await this.db.filter((entity) => entity.orderId === payload).toArray();
+		return result;
+	}
 
 }

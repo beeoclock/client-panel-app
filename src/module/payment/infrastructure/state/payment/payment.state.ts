@@ -11,7 +11,7 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
 import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
-import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
+import {PaymentService} from "@core/business-logic/payment/service/payment.service";
 
 export type IPaymentState = IBaseState<IPayment.DTO>;
 
@@ -29,7 +29,7 @@ const defaults = baseDefaults<IPayment.DTO>({
 @Injectable()
 export class PaymentState {
 
-	private readonly paymentIndexedDBFacade = inject(PaymentIndexedDBFacade);
+	private readonly paymentService = inject(PaymentService);
 	private readonly ngxLogger = inject(NGXLogger);
 
 	// Application layer
@@ -169,7 +169,7 @@ export class PaymentState {
 
 	@Action(PaymentActions.CreateItem)
 	public async createItem(ctx: StateContext<IPaymentState>, action: PaymentActions.CreateItem) {
-		this.paymentIndexedDBFacade.source.insert(EPayment.create(action.payload));
+		await this.paymentService.repository.createAsync(EPayment.create(action.payload));
 		await this.closeFormAction(ctx);
 		ctx.dispatch(new PaymentActions.GetList());
 	}
@@ -177,21 +177,16 @@ export class PaymentState {
 	@Action(PaymentActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IPaymentState>, action: PaymentActions.UpdateItem): Promise<void> {
 		const item = EPayment.create(action.payload);
-		this.paymentIndexedDBFacade.source.updateOne({
-			id: action.payload._id,
-		}, {
-			$set: item
-		});
+		await this.paymentService.repository.updateAsync(item);
 		await this.closeFormAction(ctx);
 		await this.updateOpenedDetailsAction(ctx, {payload: item});
 		ctx.dispatch(new PaymentActions.GetList());
 	}
 
 	@Action(PaymentActions.GetItem)
-	public async getItem(ctx: StateContext<IPaymentState>, action: PaymentActions.GetItem): Promise<void> {
-		const data = this.paymentIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
+	public async getItem(ctx: StateContext<IPaymentState>, {payload: id}: PaymentActions.GetItem): Promise<void> {
+
+		const data = await this.paymentService.repository.findByIdAsync(id);
 
 		if (!data) {
 			return;
@@ -203,15 +198,6 @@ export class PaymentState {
 				downloadedAt: new Date(),
 			}
 		});
-	}
-
-	@Action(PaymentActions.DeleteItem)
-	public async deleteItem(ctx: StateContext<IPaymentState>, action: PaymentActions.DeleteItem) {
-		this.paymentIndexedDBFacade.source.removeOne({
-			id: action.payload
-		});
-		await this.closeDetailsAction(ctx, action);
-		ctx.dispatch(new PaymentActions.GetList());
 	}
 
 	@Action(PaymentActions.GetList)
@@ -239,42 +225,21 @@ export class PaymentState {
 				newTableState.filters = {};
 			}
 
-			const phraseFields = ['firstName', 'lastName'];
-
 			const params = newTableState.toBackendFormat();
 
-			const selector = {
-				$and: [
-					...((newTableState.filters?.phrase as string)?.length ? [{
-						$or: phraseFields.map((field) => {
-							return {
-								[field]: {
-									$regex: newTableState.filters.phrase,
-									$options: "i"
-								}
-							}
-						})
-					}] : []),
-					{
-						state: {
-							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
-						}
-					}
-				]
-			};
+			const inState = (
+				params?.state ?
+					[params.state] :
+					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
+			);
 
-			const items = this.paymentIndexedDBFacade.source.find(selector, {
-				limit: params.pageSize,
-				skip: (params.page - 1) * params.pageSize,
-				sort: {
-					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
-				}
-			}).fetch();
-
-			const count = this.paymentIndexedDBFacade.source.find(selector).count();
+			const {items, totalSize} = await this.paymentService.repository.findAsync({
+				...params,
+				state: inState,
+			});
 
 			newTableState
-				.setTotal(count)
+				.setTotal(totalSize)
 				.setItems(items)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
@@ -296,11 +261,7 @@ export class PaymentState {
 	@Action(PaymentActions.PutItem)
 	public async putItem(ctx: StateContext<IPaymentState>, action: PaymentActions.PutItem): Promise<void> {
 		const item = EPayment.create(action.payload.item);
-		this.paymentIndexedDBFacade.source.updateOne({
-			id: action.payload.item._id,
-		}, {
-			$set: item
-		});
+		await this.paymentService.repository.updateAsync(item);
 		// await this.closeFormAction(ctx);
 		// await this.updateOpenedDetailsAction(ctx, {payload: item});
 		// ctx.dispatch(new PaymentActions.GetList());

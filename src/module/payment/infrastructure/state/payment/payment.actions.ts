@@ -46,10 +46,6 @@ export namespace PaymentActions {
 		public static override readonly type = '[Payment API] Get List';
 	}
 
-	export class DeleteItem extends BaseActions.DeleteItem {
-		public static override readonly type = '[Payment API] Delete Item';
-	}
-
 	export class GetItem extends BaseActions.GetItem {
 		public static override readonly type = '[Payment API] Get Item';
 	}

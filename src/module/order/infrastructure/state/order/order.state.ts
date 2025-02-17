@@ -21,9 +21,9 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
-import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 import {OrderService} from "@core/business-logic/order/service/order.service";
+import {PaymentService} from "@core/business-logic/payment/service/payment.service";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -43,7 +43,7 @@ export class OrderState {
 
 	public readonly customerService = inject(CustomerService);
 	public readonly orderService = inject(OrderService);
-	public readonly paymentIndexedDBFacade = inject(PaymentIndexedDBFacade);
+	public readonly paymentService = inject(PaymentService);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
@@ -168,9 +168,7 @@ export class OrderState {
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
-		const paymentEntity = this.paymentIndexedDBFacade.source.findOne({
-			orderId: action.payload,
-		});
+		const paymentEntity = await this.paymentService.findByOrderId(action.payload);
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
@@ -178,7 +176,7 @@ export class OrderState {
 			component: OrderFormContainerComponent,
 			componentInputs: {
 				orderDto,
-				paymentDto: paymentEntity,
+				paymentDto: paymentEntity.at(-1),
 				isEditMode: true,
 			},
 		});
