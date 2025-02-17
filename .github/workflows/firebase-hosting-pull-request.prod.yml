@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci && npm test && npm run build -- --output-path=./environments/production/firebase/dist
+      - run: npm ci && npm test && npm run build -- --output-path=./environment/production/firebase/dist
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEE_O_CLOCK }}'
           target: panel-beeoclock
           projectId: bee-o-clock
-          entrypoint: ./environments/production/firebase
+          entrypoint: ./environment/production/firebase
