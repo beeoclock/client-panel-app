@@ -240,7 +240,6 @@ export class ServiceState {
 
 			const newTableState = TableState.fromCache(state.tableState);
 
-
 			const {
 				resetPage,
 				resetParams
@@ -261,6 +260,8 @@ export class ServiceState {
 					[params.state] :
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
+
+			console.log({params})
 
 			const {items, totalSize} = await this.serviceService.repository.findAsync({
 				...params,

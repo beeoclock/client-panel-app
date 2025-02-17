@@ -16,7 +16,6 @@ export class TimeAgoPipe implements PipeTransform {
 	 * @param value
 	 */
 	public transform(value: string): string {
-		console.log('TimeAgoPipe.transform', value);
 		const dateTime = DateTime.fromISO(value);
 		return dateTime.toRelative({
 			locale: this.translateService.currentLang

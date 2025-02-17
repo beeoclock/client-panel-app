@@ -47,7 +47,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 * @param options
 	 * @param filterFn
 	 */
-	public override find$(options: Types.FindQueryParams, filterFn = this.defaultFilter) {
+	public override find$(options: Types.FindQueryParams, filterFn = this.defaultFilter.bind(this)) {
 		return this.db$.pipe(
 			concatMap((table) => {
 
@@ -66,7 +66,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 
 				// Filter entities
 				query = query.filter((entity) => {
-					return filterFn(entity);
+					return filterFn(entity, filter as Types.StandardQueryParams);
 				});
 
 				const promiseAll = Promise.all([
@@ -127,12 +127,12 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 * @param filter
 	 * @private
 	 */
-	private defaultFilter(entity: ENTITY, filter: Record<string, never> = {}) {
-
+	private defaultFilter(entity: ENTITY, filter: Types.StandardQueryParams) {
 		const { phrase, ...otherFilter } = filter;
 
 		const phraseExist = is.string(phrase);
 		const filterExist = is.object_not_empty(otherFilter);
+
 
 		if (!phraseExist && !filterExist) {
 			return true;
@@ -178,7 +178,10 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 
 		function searchNested(current: unknown, index: number): boolean {
 			if (index === keys.length) {
-				return typeof current === 'string' && regex.test(current);
+				if (typeof current === 'string' ) {
+					return regex.test(current);
+				}
+				return false;
 			}
 
 			const key = keys[index];
@@ -189,12 +192,8 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-expect-error
 				const nextItem = current[key];
-				if (Array.isArray(nextItem)) {
-					return nextItem.some(item => searchNested(item, index));
-				}
 				return searchNested(nextItem, index + 1);
 			}
-
 			return false;
 		}
 
