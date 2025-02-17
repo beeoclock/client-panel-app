@@ -1,7 +1,7 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {ActiveEnum, OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
+import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";

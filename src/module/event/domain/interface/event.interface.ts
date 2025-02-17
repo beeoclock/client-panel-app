@@ -1,5 +1,5 @@
 import {ICustomer} from "@src/core/business-logic/customer";
-import {IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "src/core/shared/enum";
+import {IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@core/shared/enum";
 import {IBaseEntity} from "@utility/domain";
 import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";

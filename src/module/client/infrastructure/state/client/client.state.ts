@@ -4,7 +4,7 @@ import {INotificationsSettings} from "@client/domain";
 import {ClientActions} from "@client/infrastructure/state/client/client.actions";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {BASE_CURRENCY} from "@src/token";
 import {
 	BusinessProfileIndexedDBFacade

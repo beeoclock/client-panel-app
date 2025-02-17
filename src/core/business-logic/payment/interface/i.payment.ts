@@ -1,4 +1,4 @@
-import {CurrencyCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {PaymentMethodEnum} from "../enum/payment.method.enum";
 import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";

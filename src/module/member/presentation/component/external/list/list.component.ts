@@ -12,7 +12,7 @@ import {
 } from "@member/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {RIMember} from "@src/core/business-logic/member";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
-import {ActiveEnum} from "src/core/shared/enum";
+import {ActiveEnum} from "@core/shared/enum";
 import {MemberTableService} from "@member/presentation/component/list/member.table.service";
 import {TableService} from "@utility/table.service";
 

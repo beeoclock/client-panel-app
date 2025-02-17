@@ -2,7 +2,7 @@ import {BaseItem, Collection, EventEmitter} from '@signaldb/core';
 import createIndexedDBAdapter from '@signaldb/indexeddb'
 import angularReactivityAdapter from '@signaldb/angular';
 import {SyncManager} from '@signaldb/sync'
-import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {HttpClient, HttpContext} from "@angular/common/http";

@@ -26,7 +26,7 @@ import {provideEnvironmentNgxMask} from "ngx-mask";
 import {tokens} from "@src/token";
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {provideServiceWorker} from '@angular/service-worker';
-import {LanguageCodeEnum} from "src/core/shared/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {NgEventBus} from 'ng-event-bus';
 import {ngxsProviders} from "@src/ngxs";
 import * as Sentry from "@sentry/angular";

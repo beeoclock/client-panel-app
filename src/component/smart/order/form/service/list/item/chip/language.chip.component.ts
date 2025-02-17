@@ -3,7 +3,7 @@ import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone"
 import ObjectID from "bson-objectid";
 import {FormControl} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
-import {LanguageCodeEnum} from "src/core/shared/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {RILanguageVersion} from "@src/core/business-logic/service";
 
 @Component({

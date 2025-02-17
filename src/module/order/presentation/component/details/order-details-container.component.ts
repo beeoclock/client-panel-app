@@ -8,7 +8,7 @@ import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {IAttendee_V2} from "@event/domain";
-import {IsOrganizerEnum} from "src/core/shared/enum";
+import {IsOrganizerEnum} from "@core/shared/enum";
 import {
 	ContainerChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/container.change-status.button.component";

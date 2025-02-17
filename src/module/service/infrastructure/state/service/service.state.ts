@@ -3,7 +3,7 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
-import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";

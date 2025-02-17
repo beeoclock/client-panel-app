@@ -3,7 +3,7 @@ import {FormControl} from "@angular/forms";
 
 import {NgClass} from "@angular/common";
 import {LanguageNamePipe} from "@utility/presentation/pipes/language-name/language-name.pipe";
-import {LanguageCodeEnum} from "src/core/shared/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 
 @Component({

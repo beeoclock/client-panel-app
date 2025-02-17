@@ -1,7 +1,7 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";

@@ -13,7 +13,7 @@ import {
 	ListServiceFormCardOrderComponent
 } from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {CurrencyCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 
 @Component({
 	selector: 'app-card-item-order-component',

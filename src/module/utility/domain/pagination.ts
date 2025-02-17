@@ -1,5 +1,5 @@
 import {TypeGuard} from '@p4ck493/ts-type-guard';
-import {OrderByEnum} from 'src/core/shared/enum';
+import {OrderByEnum} from '@core/shared/enum';
 import {getPaginationItems} from "@utility/domain/pagination.items";
 import hash_sum from "hash-sum";
 import {getMaxPage} from "@utility/domain/max-page";

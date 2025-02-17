@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {WEEK_DAYS_NAME} from "src/core/shared/enum";
+import {WEEK_DAYS_NAME} from "@core/shared/enum";
 
 @Pipe({
 	standalone: true,

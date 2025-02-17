@@ -7,7 +7,7 @@ import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
 import {EventRequestedActions} from "./event-requested.actions";
-import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";
 
 export type IEventRequestedState = IBaseState<Event.RIEvent>;

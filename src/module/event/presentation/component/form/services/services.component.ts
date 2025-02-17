@@ -23,7 +23,7 @@ import {TableState} from "@utility/domain/table.state";
 import {
 	LanguageVersionOrderControlComponent
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
-import {LanguageCodeEnum} from "src/core/shared/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {
 	ModalSelectServiceListRepository

@@ -1,5 +1,5 @@
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 

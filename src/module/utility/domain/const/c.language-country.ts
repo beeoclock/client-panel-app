@@ -1,4 +1,4 @@
-import {LanguageCodeEnum} from "src/core/shared/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 
 export const LanguageCountry = {

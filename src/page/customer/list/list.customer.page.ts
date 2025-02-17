@@ -15,7 +15,7 @@ import {
 import {TableService} from "@utility/table.service";
 import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 
 @Component({

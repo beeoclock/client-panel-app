@@ -3,7 +3,7 @@ import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@src/core/shared/checker";
 import {AnalyticEndpointEnum} from "@module/analytic/infrastructure/endpoint/analytic.endpoint";
-import {CurrencyCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {Types} from "@src/core/shared/types";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";

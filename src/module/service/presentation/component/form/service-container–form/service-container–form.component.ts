@@ -31,7 +31,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@src/core/shared/checker";
-import {CurrencyCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {IService} from "@src/core/business-logic/service/interface/i.service";

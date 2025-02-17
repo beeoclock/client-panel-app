@@ -1,4 +1,4 @@
-import {WeekDaysEnum} from "src/core/shared/enum";
+import {WeekDaysEnum} from "@core/shared/enum";
 
 export interface ISchedule {
   workDays?: WeekDaysEnum[];

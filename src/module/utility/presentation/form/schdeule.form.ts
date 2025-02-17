@@ -1,5 +1,5 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {WeekDaysEnum, WORK_WEEK} from "src/core/shared/enum";
+import {WeekDaysEnum, WORK_WEEK} from "@core/shared/enum";
 import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {extractSecondsFrom_hh_mm_ss} from "@utility/domain/time";
 import {ShouldBeMoreThenValidation} from "@utility/presentation/form/validation/should-be-more-then.validation";

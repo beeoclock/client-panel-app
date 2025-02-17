@@ -22,7 +22,7 @@ import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
-import {CurrencyCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";

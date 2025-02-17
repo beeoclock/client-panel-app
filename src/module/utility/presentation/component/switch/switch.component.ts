@@ -2,7 +2,7 @@ import {Component, input, OnChanges, OnInit, SimpleChange, SimpleChanges} from "
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@src/module/utility/cdk/reactive";
-import {ActiveEnum} from "src/core/shared/enum";
+import {ActiveEnum} from "@core/shared/enum";
 import {filter} from "rxjs";
 import {is} from "@src/core/shared/checker";
 

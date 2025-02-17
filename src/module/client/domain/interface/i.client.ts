@@ -1,4 +1,4 @@
-import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "src/core/shared/enum";
+import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ISocialNetworkLink} from "@client/domain/interface/i.social-network-link";
 import {IBaseEntity} from "@utility/domain/interface";
 import {FacilityEnum} from "@core/shared/enum/facility.enum";

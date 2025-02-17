@@ -24,7 +24,7 @@ import {RIMember} from "@src/core/business-logic/member";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {ActiveEnum, LanguageCodeEnum} from "src/core/shared/enum";
+import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
 import {DateTime} from "luxon";
 import {ICustomer} from "@src/core/business-logic/customer";

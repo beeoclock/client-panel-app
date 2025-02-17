@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {GetApi} from "@order/infrastructure/api/get.api";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {ITableState, TableState} from "@utility/domain/table.state";

@@ -9,7 +9,7 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from '@angular/core';
-import {LanguageCodeEnum, LanguageRecord, LANGUAGES} from "src/core/shared/enum";
+import {LanguageCodeEnum, LanguageRecord, LANGUAGES} from "@core/shared/enum";
 import {NgForOf} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";

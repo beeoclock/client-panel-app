@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {ActiveEnum, OrderDirEnum} from "src/core/shared/enum";
+import {ActiveEnum, OrderDirEnum} from "@core/shared/enum";
 import {NGXLogger} from "ngx-logger";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";

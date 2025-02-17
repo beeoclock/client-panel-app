@@ -7,7 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {DurationSelectComponent} from "@utility/presentation/component/input/duration.select.component";
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {NGXLogger} from "ngx-logger";
-import {CurrencyCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {filter, firstValueFrom, map, merge, Subscription} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {Store} from "@ngxs/store";

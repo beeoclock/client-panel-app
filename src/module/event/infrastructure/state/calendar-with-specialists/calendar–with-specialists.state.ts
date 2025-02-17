@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
-import {IsOrganizerEnum, OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
+import {IsOrganizerEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {DateTime} from "luxon";
 import {
 	CalendarWithSpecialistsAction

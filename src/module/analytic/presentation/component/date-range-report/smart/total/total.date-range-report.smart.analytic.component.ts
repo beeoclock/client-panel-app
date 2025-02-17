@@ -16,7 +16,7 @@ import {
 } from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
 import {is} from "@src/core/shared/checker";
 import {RIClient} from "@client/domain";
-import {CurrencyCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {RIMember} from "@src/core/business-logic/member";
 import {
 	DateSliderControlComponent

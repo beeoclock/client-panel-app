@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {OrderByEnum, OrderDirEnum} from "src/core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {PaymentActions} from "@module/payment/infrastructure/state/payment/payment.actions";
 import EPayment from "@src/core/business-logic/payment/entity/e.payment";
 import {firstValueFrom} from "rxjs";

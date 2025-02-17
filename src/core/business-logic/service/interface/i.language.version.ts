@@ -1,4 +1,4 @@
-import {ActiveEnum, LanguageCodeEnum} from "src/core/shared/enum";
+import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
 
 export interface ILanguageVersion {
   title?: string;

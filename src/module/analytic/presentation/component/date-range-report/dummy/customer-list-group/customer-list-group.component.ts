@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, input, OnChanges, SimpleChanges, ViewEncapsulation} from "@angular/core";
 import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
 import {TranslateModule} from "@ngx-translate/core";
-import {CurrencyCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 
 type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
 

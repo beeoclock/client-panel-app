@@ -1,5 +1,5 @@
 import {Types} from "@src/core/shared/types";
-import {CurrencyCodeEnum} from "src/core/shared/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
 import {OrderStatusEnum} from "@src/core/business-logic/order/enum/order.status.enum";

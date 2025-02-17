@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {accountEndpointEnum} from "@module/account/infrastructure/endpoint/account.endpoint";
-import {LanguageCodeEnum} from "src/core/shared/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 
 @Injectable({
 	providedIn: 'root'

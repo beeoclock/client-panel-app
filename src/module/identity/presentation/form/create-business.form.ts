@@ -5,7 +5,7 @@ import {ServiceForm, ServicesForm} from "@service/presentation/form";
 import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
-import {ActiveEnum} from "src/core/shared/enum";
+import {ActiveEnum} from "@core/shared/enum";
 import {DefaultServicesByBusinessCategory} from "@utility/domain/const/c.default-services-by-business-category";
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
 import {takeUntil} from "rxjs/operators";

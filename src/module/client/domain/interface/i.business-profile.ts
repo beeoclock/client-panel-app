@@ -1,6 +1,6 @@
 import {IBaseEntity} from "@utility/domain";
 import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-status.enum";
-import {ActiveEnum} from "src/core/shared/enum";
+import {ActiveEnum} from "@core/shared/enum";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
