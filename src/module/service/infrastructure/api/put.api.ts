@@ -5,23 +5,22 @@ import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@src/core/shared/checker";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class UnarchiveServiceApiAdapter extends BaseApiAdapter<unknown, [string]> {
+@Injectable()
+export class PutApi extends BaseApiAdapter<IService.DTO, [IService.DTO]> {
 
-  /**
-   * ARCHIVE ITEM BY ID
-   * @param id
-   */
-  @TypeGuard([is.string_not_empty])
-  public override execute$(id: string) {
-    return this.httpClient.patch(serviceEndpointEnum.unarchive, null, {
+	/**
+	 * SAVE NEW ITEM OR UPDATE ITEM BY ID
+	 * @param value
+	 */
+	@TypeGuard([is.object_not_empty])
+	public override execute$(value: IService.DTO) {
+		return this.httpClient.put<IService.DTO>(serviceEndpointEnum.update, value, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
-				id
+				id: value._id,
 			}),
-    });
-  }
+		});
+	}
 
 }

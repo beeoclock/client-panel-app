@@ -45,18 +45,18 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	/**
 	 *
 	 * @param options
+	 * @param filterFn
 	 */
-	public override find$(options: Types.FindQueryParams) {
+	public override find$(options: Types.FindQueryParams, filterFn = this.defaultFilter) {
 		return this.db$.pipe(
 			concatMap((table) => {
 
-				const {pageSize, page, orderBy, orderDir, phrase, ...filter} = options as Types.StandardQueryParams;
+				const {pageSize, page, orderBy, orderDir, ...filter} = options as Types.StandardQueryParams;
 
 				// Delete updatedSince from filter because it is not a field in the table, and it is not a filter field
 				delete filter.updatedSince;
 
 				const offset = pageSize * (page - 1);
-				const phraseRegExp = new RegExp(phrase ?? '', 'i');
 
 				let query = table.orderBy(orderBy);
 
@@ -64,40 +64,9 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 					query = query.reverse();
 				}
 
-				const phraseExist = is.string(phrase);
-				const filterExist = is.object_not_empty(filter);
-
 				// Filter entities
 				query = query.filter((entity) => {
-
-					if (!phraseExist && !filterExist) {
-						return true;
-					}
-
-					const results: boolean[] = [false, false];
-					const filterCase: 'every' | 'some' = !!phraseExist && !!filterExist ? 'every' : 'some';
-
-					if (phraseExist) {
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-expect-error
-						results[0] = this.entityFieldsToSearch.some((field) => phraseRegExp.test(entity[field]));
-					}
-
-					if (filterExist) {
-						results[1] = Object.entries(filter).every(([key, value]) => {
-							if (is.array(value)) {
-								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-								// @ts-expect-error
-								return value.includes(entity[key]);
-							}
-							// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-							// @ts-expect-error
-							return entity[key] === value;
-						});
-					}
-
-					return results[filterCase](is.true);
-
+					return filterFn(entity);
 				});
 
 				const promiseAll = Promise.all([
@@ -132,7 +101,6 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	public override update$(entity: ENTITY) {
 		return this.db$.pipe(
 			concatMap((table) => from(table.put(entity))),
-			tap((result) => console.count(result)),
 			map(() => entity),
 		);
 	}
@@ -151,6 +119,86 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	public ngOnDestroy() {
 		this.destroy$.next();
 		this.destroy$.complete();
+	}
+
+	/**
+	 * Default filter
+	 * @param entity
+	 * @param filter
+	 * @private
+	 */
+	private defaultFilter(entity: ENTITY, filter: Record<string, never> = {}) {
+
+		const { phrase, ...otherFilter } = filter;
+
+		const phraseExist = is.string(phrase);
+		const filterExist = is.object_not_empty(otherFilter);
+
+		if (!phraseExist && !filterExist) {
+			return true;
+		}
+
+		const results: boolean[] = [false, false];
+		const filterCase: 'every' | 'some' = !!phraseExist && !!filterExist ? 'every' : 'some';
+
+		if (phraseExist) {
+			results[0] = this.entityFieldsToSearch.some((field) => {
+				return this.regexFullTextSearch(entity, field, phrase);
+			});
+		}
+
+		if (filterExist) {
+			results[1] = Object.entries(otherFilter).every(([key, value]) => {
+				if (is.array(value)) {
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					return value.includes(entity[key]);
+				}
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				return entity[key] === value;
+			});
+		}
+
+		return results[filterCase](is.true);
+
+
+	}
+
+	/**
+	 * Search in nested object
+	 * @param item
+	 * @param path
+	 * @param phrase
+	 * @private
+	 */
+	private regexFullTextSearch(item: unknown, path: string, phrase: string): boolean {
+		const keys = path.split('.');
+		const regex = new RegExp(phrase, 'i'); // case-insensitive
+
+		function searchNested(current: unknown, index: number): boolean {
+			if (index === keys.length) {
+				return typeof current === 'string' && regex.test(current);
+			}
+
+			const key = keys[index];
+
+			if (Array.isArray(current)) {
+				return current.some(item => searchNested(item, index));
+			} else if (is.object_not_empty<object>(current) && key in current) {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				const nextItem = current[key];
+				if (Array.isArray(nextItem)) {
+					return nextItem.some(item => searchNested(item, index));
+				}
+				return searchNested(nextItem, index + 1);
+			}
+
+			return false;
+		}
+
+		return searchNested(item, 0);
 	}
 
 }

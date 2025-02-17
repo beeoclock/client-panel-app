@@ -49,6 +49,7 @@ import {MemberService} from "@core/business-logic/member/service/member.service"
 	providers: [
 		CurrencyPipe,
 		DurationVersionHtmlHelper,
+		ModalSelectServiceListRepository,
 	],
 })
 export class ServicesComponent extends Reactive implements OnInit {

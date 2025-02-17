@@ -1,27 +1,27 @@
 import {Injectable} from '@angular/core';
 import {serviceEndpointEnum} from "@service/infrastructure/endpoint/service.endpoint";
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
-import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "@src/core/shared/checker";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
+import {TypeGuard} from "@p4ck493/ts-type-guard";
+import {is} from "@core/shared/checker";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ArchiveServiceApiAdapter extends BaseApiAdapter<unknown, [string]> {
+@Injectable()
+export class GetItemApi extends BaseApiAdapter<IService.DTO, [string]> {
 
-  /**
-   * ARCHIVE ITEM BY ID
-   * @param id
-   */
-	@TypeGuard([is.string_not_empty])
+
+	/**
+	 * GET ITEM BY ID
+	 * @param id
+	 */
+	@TypeGuard([is.string])
 	public override execute$(id: string) {
-    return this.httpClient.patch(serviceEndpointEnum.archive, null, {
+		return this.httpClient.get<IService.DTO>(serviceEndpointEnum.item, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
 				id
 			}),
-    });
-  }
+		});
+	}
 
 }

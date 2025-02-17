@@ -30,14 +30,14 @@ import {IAddress} from "@client/domain/interface/i.address";
 import {
 	PatchMediaGalleryClientApiAdapter
 } from "@client/infrastructure/adapter/api/media/gallery/patch.media.gallery.client.api.adapter";
-import {CreateServiceApiAdapter} from "@service/infrastructure/api/create.service.api.adapter";
+import {PostApi} from "@service/infrastructure/api/post.api";
 
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
-import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 import {
 	ModalSelectSpecialistListRepository
 } from "@member/infrastructure/repository/modal-select-specialist.list.repository";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 const enum Status {
 	Success = 'success',
@@ -103,7 +103,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	public readonly modalSelectSpecialistListRepository = inject(ModalSelectSpecialistListRepository);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly createServiceApiAdapter = inject(CreateServiceApiAdapter);
+	private readonly createServiceApiAdapter = inject(PostApi);
 	private readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 	private readonly translateService = inject(TranslateService);
 	public readonly steps = [
@@ -280,7 +280,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 
 		const requestList$ = this.createBusinessQuery.getServicesForm()
 			.value?.map((service) => {
-				return this.createServiceApiAdapter.executeAsync(service as IServiceDto);
+				return this.createServiceApiAdapter.executeAsync(service as IService.DTO);
 			});
 
 		if (!requestList$) {

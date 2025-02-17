@@ -46,7 +46,7 @@ export class ImageBlockComponent {
 
 			if (component.mediaState === MediaStateEnum.DELETED) {
 				const banner = component.banner();
-    if (!banner) {
+				if (!banner) {
 					continue;
 				}
 				await this.deleteBannerServiceApiAdapter.executeAsync(serviceId, banner._id);
@@ -57,7 +57,7 @@ export class ImageBlockComponent {
 			formData.append('file', component.selectedFile as Blob);
 
 			const banner = component.banner();
-   if (banner) {
+			if (banner) {
 				formData.append('_id', banner._id);
 			}
 

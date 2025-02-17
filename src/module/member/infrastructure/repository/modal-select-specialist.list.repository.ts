@@ -1,53 +1,59 @@
 import {inject, Injectable} from '@angular/core';
-import {GetApi} from "@member/infrastructure/api/get.api";
 import {TableState} from "@utility/domain/table.state";
 import * as Member from "@src/core/business-logic/member";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {NGXLogger} from "ngx-logger";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {MemberService} from "@core/business-logic/member/service/member.service";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ModalSelectSpecialistListRepository {
 
-  private readonly logger = inject(NGXLogger);
-  public readonly listMemberApiAdapter = inject(GetApi);
-  public readonly tableState = new TableState<Member.RIMember>();
-  public readonly loading$ = new BooleanStreamState(false);
+	private readonly logger = inject(NGXLogger);
+	private readonly memberService = inject(MemberService);
+	public readonly tableState = new TableState<Member.RIMember>();
+	public readonly loading$ = new BooleanStreamState(false);
 
-  public resetTableState(): void {
+	public resetTableState(): void {
 
 		this.tableState.setPage(1).setTotal(0).setItems([]);
 
-  }
+	}
 
-  /**
-   * GET PAGE
-   * Find data in tabelState
-   */
-  public async getPageAsync(): Promise<void> {
+	/**
+	 * GET PAGE
+	 * Find data in tabelState
+	 */
+	public async getPageAsync(): Promise<void> {
 
-    if (this.loading$.isTrue) {
-      return;
-    }
+		if (this.loading$.isTrue) {
+			return;
+		}
 
-    this.loading$.doTrue();
+		this.loading$.doTrue();
 
-    try {
+		try {
 
-      const data = await this.listMemberApiAdapter.executeAsync(this.tableState.toBackendFormat());
+			const inState = [StateEnum.active, StateEnum.archived, StateEnum.inactive];
 
-      this.tableState
+			const {items, totalSize} = await this.memberService.repository.findAsync({
+				...this.tableState.toBackendFormat(),
+				state: inState,
+			});
+
+			this.tableState
 				.nextPage()
-				.setItems(([] as Member.RIMember[]).concat(this.tableState.items, data.items))
-				.setTotal(data.totalSize);
+				.setItems(([] as Member.RIMember[]).concat(this.tableState.items, items))
+				.setTotal(totalSize);
 
-    } catch (e) {
+		} catch (e) {
 			this.logger.error(e);
-    }
+		}
 
-    this.loading$.doFalse();
+		this.loading$.doFalse();
 
-  }
+	}
 
 }

@@ -1,19 +1,17 @@
 import {inject, Injectable} from "@angular/core";
 import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {ActiveEnum, OrderDirEnum} from "@core/shared/enum";
+import {ActiveEnum} from "@core/shared/enum";
 import {NGXLogger} from "ngx-logger";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
-import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {ServiceService} from "@core/business-logic/service/service/service.service";
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class ModalSelectServiceListRepository {
 
 	private readonly logger = inject(NGXLogger);
-	public readonly serviceIndexedDBFacade = inject(ServiceIndexedDBFacade);
+	public readonly serviceService = inject(ServiceService);
 	public readonly tableState = new TableState<IServiceDto>().setFilters({
 		active: ActiveEnum.YES
 	});
@@ -41,30 +39,17 @@ export class ModalSelectServiceListRepository {
 
 			const params = this.tableState.toBackendFormat();
 
-			const selector = {
-				$and: [
-					{
-						state: {
-							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
-						}
-					}
-				]
-			};
+			const inState = [StateEnum.active, StateEnum.archived, StateEnum.inactive];
 
-			const items = this.serviceIndexedDBFacade.source.find(selector, {
-				limit: params.pageSize,
-				skip: (params.page - 1) * params.pageSize,
-				sort: {
-					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
-				}
-			}).fetch();
-
-			const total = this.serviceIndexedDBFacade.source.find(selector).count();
+			const {items, totalSize} = await this.serviceService.repository.findAsync({
+				...params,
+				state: inState,
+			});
 
 			this.tableState
 				.nextPage()
 				.setItems(([] as IServiceDto[]).concat(this.tableState.items, items))
-				.setTotal(total);
+				.setTotal(totalSize);
 
 		} catch (e) {
 			this.logger.error(e);

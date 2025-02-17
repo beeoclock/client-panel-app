@@ -8,13 +8,12 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
-import {Store} from "@ngxs/store";
-import {ListServiceApiAdapter} from "@service/infrastructure/api/list.service.api.adapter";
 import {
 	SelectServiceMultipleComponent
 } from "@service/presentation/component/select-list/select-service-multiple.component";
-import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
+import {ServiceService} from "@core/business-logic/service/service/service.service";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 
 @Component({
 	selector: 'app-select-service-list-component',
@@ -36,9 +35,7 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 })
 export class SelectServiceListComponent implements OnInit {
 
-	private readonly store = inject(Store);
-	private readonly serviceIndexedDBFacade = inject(ServiceIndexedDBFacade);
-	private readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
+	private readonly serviceService = inject(ServiceService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	public readonly emitSelectedServiceList = output<IServiceDto[]>();
@@ -51,7 +48,13 @@ export class SelectServiceListComponent implements OnInit {
 	}
 
 	public async initServiceList() {
-		this.serviceList = this.serviceIndexedDBFacade.source.find().fetch();
+		const result = await this.serviceService.repository.findAsync({
+			pageSize: 500,
+			page: 1,
+			orderBy: OrderByEnum.UPDATED_AT,
+			orderDir: OrderDirEnum.DESC,
+		});
+		this.serviceList = result.items;
 		this.changeDetectorRef.detectChanges();
 	}
 

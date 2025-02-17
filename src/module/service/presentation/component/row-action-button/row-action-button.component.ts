@@ -94,6 +94,6 @@ export class RowActionButtonComponent {
 
 	@Dispatch()
 	public setState(state: StateEnum) {
-		return new ServiceActions.SetState(this.item()._id, state);
+		return new ServiceActions.SetState(this.item(), state);
 	}
 }

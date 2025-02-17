@@ -49,15 +49,11 @@ export namespace ServiceActions {
 		public static override readonly type = '[Service API] Get List';
 	}
 
-	export class DeleteItem extends BaseActions.DeleteItem {
-		public static override readonly type = '[Service API] Delete Item';
-	}
-
 	export class SetState {
 		public static readonly type = '[Service API] SetState';
 
 		constructor(
-			public readonly id: string,
+			public readonly item: IService.DTO,
 			public readonly state: StateEnum,
 		) {
 		}

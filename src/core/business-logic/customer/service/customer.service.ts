@@ -1,41 +1,11 @@
 import {Injectable} from "@angular/core";
-import {Table} from "dexie";
 import {ICustomer} from "@core/business-logic/customer";
-import {firstValueFrom, Observable} from "rxjs";
-import {BaseRepository} from "@core/system/infrastructure/repository/base.repository";
+import {BaseService} from "@core/shared/service/base.service";
 
 type ENTITY = ICustomer.Entity;
 
 @Injectable()
-export class CustomerService {
-
-	#db: Table<ENTITY> | null = null;
-
-	public constructor(
-		public readonly repository: BaseRepository<ENTITY>,
-	) {
-
-		this.initDB().then();
-
-	}
-
-	public get db(): Table<ENTITY> {
-		if (!this.#db) {
-			throw new Error('Table not initialized');
-		}
-		return this.#db;
-	}
-
-	public async initDB(): Promise<void> {
-
-		if ('db$' in this.repository.dataProvider) {
-
-			const {db$} = this.repository.dataProvider as { db$: Observable<Table<ENTITY>> };
-			this.#db = await firstValueFrom(db$);
-
-		}
-
-	}
+export class CustomerService extends BaseService<ENTITY> {
 
 	public async findOneByEmailPhone(either: {
 		email?: string | null;

@@ -3,26 +3,19 @@ import {serviceEndpointEnum} from "@service/infrastructure/endpoint/service.endp
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@src/core/shared/checker";
-import {HttpContext} from "@angular/common/http";
-import {TokensHttpContext} from "@src/tokens.http-context";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
-@Injectable({
-	providedIn: 'root'
-})
-export class UpdateServiceApiAdapter extends BaseApiAdapter<IServiceDto, [IServiceDto]> {
+@Injectable()
+export class PostApi extends BaseApiAdapter<IServiceDto, [IService.DTO]> {
 
 	/**
 	 * SAVE NEW ITEM OR UPDATE ITEM BY ID
 	 * @param value
 	 */
 	@TypeGuard([is.object_not_empty])
-	public override execute$(value: IServiceDto) {
-		return this.httpClient.put<IServiceDto>(serviceEndpointEnum.update, value, {
-			context: new HttpContext().set(TokensHttpContext.REPLACE, {
-				id: value._id,
-			}),
-		});
+	public override execute$(value: IService.DTO) {
+		return this.httpClient.post<IService.DTO>(serviceEndpointEnum.create, value);
 	}
 
 }

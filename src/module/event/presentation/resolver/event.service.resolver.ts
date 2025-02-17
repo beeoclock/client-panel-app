@@ -5,7 +5,7 @@ import {catchError, EMPTY, of, switchMap} from "rxjs";
 
 import {IServiceState} from "@service/infrastructure/state/service/service.state";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
-import {ItemServiceApiAdapter} from "@service/infrastructure/api/item.service.api.adapter";
+import {GetItemApi} from "@service/infrastructure/api/get-item.api";
 import {IServiceDto} from "@src/core/business-logic/order/interface/i.service.dto";
 
 export const eventServiceResolver: ResolveFn<IServiceDto | undefined> = (
@@ -13,7 +13,7 @@ export const eventServiceResolver: ResolveFn<IServiceDto | undefined> = (
 ) => {
 
 	const store = inject(Store); // NGXS
-	const itemServiceApiAdapter = inject(ItemServiceApiAdapter); // NGXS
+	const itemServiceApiAdapter = inject(GetItemApi); // NGXS
 
 	const {serviceId} = route.queryParams;
 

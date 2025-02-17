@@ -28,8 +28,6 @@ import {is} from "@src/core/shared/checker";
 import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
-import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager/service.indexedDB.collection.manager";
-import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {VisibilityService} from "@utility/cdk/visibility.service";
 import {
 	BusinessProfileIndexedDBFacade
@@ -47,6 +45,7 @@ import {AbsenceModule} from "@absence/absence.module";
 import {CustomerModule} from "@customer/customer.module";
 import {MemberModule} from "@member/member.module";
 import {OrderModule} from "@order/order.module";
+import {ServiceModule} from "@service/service.module";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -81,6 +80,7 @@ import {OrderModule} from "@order/order.module";
 		CustomerModule,
 		MemberModule,
 		OrderModule,
+		ServiceModule,
 	],
 	providers: [
 		{
@@ -92,11 +92,6 @@ import {OrderModule} from "@order/order.module";
 				return tenantId;
 			},
 		},
-		/**
-		 * SERVICE
-		 */
-		ServiceIndexedDBCollectionManager,
-		ServiceIndexedDBFacade,
 		/**
 		 * BUSINESS PROFILE
 		 */

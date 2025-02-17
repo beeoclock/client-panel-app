@@ -5,7 +5,6 @@ import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.stat
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EService from "@src/core/business-logic/service/entity/e.service";
@@ -15,6 +14,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
+import {ServiceService} from "@core/business-logic/service/service/service.service";
 
 export type IServiceState = IBaseState<IService.DTO>
 
@@ -32,7 +32,7 @@ const defaults = baseDefaults<IService.DTO>({
 @Injectable()
 export class ServiceState {
 
-	public readonly serviceIndexedDBFacade = inject(ServiceIndexedDBFacade);
+	public readonly serviceService = inject(ServiceService);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
@@ -118,9 +118,7 @@ export class ServiceState {
 	public async openDetailsById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenDetailsById) {
 
 		const title = this.translateService.instant('service.details.title');
-		const item = this.serviceIndexedDBFacade.source.findOne({
-			id
-		});
+		const item = await this.serviceService.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('ServiceState.openDetailsById', 'Item not found');
@@ -142,9 +140,7 @@ export class ServiceState {
 	public async openFormToEditById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenFormToEditById) {
 
 		const title = this.translateService.instant('service.form.title.edit');
-		const item = this.serviceIndexedDBFacade.source.findOne({
-			id
-		});
+		const item = await this.serviceService.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('ServiceState.openFormToEditById', 'Item not found');
@@ -202,7 +198,7 @@ export class ServiceState {
 
 	@Action(ServiceActions.CreateItem)
 	public async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
-		this.serviceIndexedDBFacade.source.insert(EService.create(action.payload));
+		await this.serviceService.repository.createAsync(EService.create(action.payload));
 		await this.closeForm(ctx);
 		ctx.dispatch(new ServiceActions.GetList());
 	}
@@ -212,21 +208,15 @@ export class ServiceState {
 		const item = EService.create({
 			...action.payload
 		});
-		this.serviceIndexedDBFacade.source.updateOne({
-			id: action.payload._id,
-		}, {
-			$set: item
-		});
+		await this.serviceService.repository.updateAsync(item);
 		await this.closeForm(ctx);
 		await this.updateOpenedDetails(ctx, {payload: item});
 		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	@Action(ServiceActions.GetItem)
-	public async getItem(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
-		const data = this.serviceIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
+	public async getItem(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.GetItem): Promise<void> {
+		const data = await this.serviceService.repository.findByIdAsync(id);
 
 		if (!data) {
 			return;
@@ -238,15 +228,6 @@ export class ServiceState {
 				downloadedAt: new Date(),
 			}
 		});
-	}
-
-	@Action(ServiceActions.DeleteItem)
-	public async deleteItem(ctx: StateContext<IServiceState>, action: ServiceActions.DeleteItem) {
-		this.serviceIndexedDBFacade.source.removeOne({
-			id: action.payload
-		});
-		await this.closeDetails(ctx, action);
-		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	@Action(ServiceActions.GetList)
@@ -273,11 +254,6 @@ export class ServiceState {
 				newTableState.filters = {};
 			}
 
-			const phraseFields = [
-				'languageVersions.title',
-				'languageVersions.description',
-			];
-
 			const params = newTableState.toBackendFormat();
 
 			const inState = (
@@ -286,38 +262,13 @@ export class ServiceState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			const selector = {
-				$and: [
-					...((params?.phrase as string)?.length ? [{
-						$or: phraseFields.map((field) => {
-							return {
-								[field]: {
-									$regex: params.phrase,
-									$options: "i"
-								}
-							}
-						})
-					}] : []),
-					{
-						state: {
-							$in: inState
-						}
-					}
-				]
-			};
-
-			const items = this.serviceIndexedDBFacade.source.find(selector, {
-				limit: params.pageSize,
-				skip: (params.page - 1) * params.pageSize,
-				sort: {
-					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
-				}
-			}).fetch();
-
-			const count = this.serviceIndexedDBFacade.source.find(selector).count();
+			const {items, totalSize} = await this.serviceService.repository.findAsync({
+				...params,
+				state: inState,
+			});
 
 			newTableState
-				.setTotal(count)
+				.setTotal(totalSize)
 				.setItems(items)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
@@ -338,31 +289,11 @@ export class ServiceState {
 	}
 
 	@Action(ServiceActions.SetState)
-	public async setState(ctx: StateContext<IServiceState>, {id, state}: ServiceActions.SetState) {
-		const item = this.serviceIndexedDBFacade.source.findOne({
-			id
-		});
-		if (!item) {
-			this.ngxLogger.error('ServiceState.setState', 'Item not found');
-			return;
-		}
-		this.serviceIndexedDBFacade.source.updateOne({
-				id
-			},
-			{
-				$set: {
-					state,
-					stateHistory: [
-						...item.stateHistory,
-						{
-							state,
-							setAt: new Date().toISOString()
-						}
-					]
-				}
-			});
-		const {data} = ctx.getState().item;
-		if (data) await this.updateOpenedDetails(ctx, {payload: item});
+	public async setState(ctx: StateContext<IServiceState>, {item, state}: ServiceActions.SetState) {
+		const entity = EService.create(item);
+		entity.changeState(state);
+		await this.serviceService.repository.updateAsync(entity);
+		await this.updateOpenedDetails(ctx, {payload: entity});
 		ctx.dispatch(new ServiceActions.GetList());
 	}
 
