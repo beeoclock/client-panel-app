@@ -11,8 +11,15 @@ import {
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@order/infrastructure/api/get-item.api";
 import {OrderService} from "@core/business-logic/order/service/order.service";
+import {NgxsModule} from "@ngxs/store";
+import {OrderState} from "@order/infrastructure/state/order/order.state";
 
 @NgModule({
+	imports: [
+		NgxsModule.forFeature([
+			OrderState,
+		]),
+	],
 	providers: [
 
 		// Api

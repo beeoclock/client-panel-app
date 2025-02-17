@@ -13,8 +13,15 @@ import {
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@payment/infrastructure/api/get-item.api";
 import {PaymentService} from "@core/business-logic/payment/service/payment.service";
+import {NgxsModule} from "@ngxs/store";
+import {PaymentState} from "@payment/infrastructure/state/payment/payment.state";
 
 @NgModule({
+	imports: [
+		NgxsModule.forFeature([
+			PaymentState,
+		]),
+	],
 	providers: [
 
 		// Api

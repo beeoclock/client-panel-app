@@ -13,8 +13,15 @@ import {
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@member/infrastructure/api/get-item.api";
 import {MemberService} from "@core/business-logic/member/service/member.service";
+import {NgxsModule} from "@ngxs/store";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 
 @NgModule({
+	imports: [
+		NgxsModule.forFeature([
+			MemberState,
+		]),
+	],
 	providers: [
 
 		// Api

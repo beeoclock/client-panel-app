@@ -18,13 +18,8 @@ import {
 	DateRangeReportAnalyticState
 } from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
 import {PeerCustomerOrderState} from "@order/infrastructure/state/peer-customer/peer-customer.order.state";
-import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
-import {ServiceState} from "@service/infrastructure/state/service/service.state";
 import {AbsenceState} from "@absence/infrastructure/state/absence/absence.state";
-import {MemberState} from "@member/infrastructure/state/member/member.state";
-import {OrderState} from "@order/infrastructure/state/order/order.state";
 import {ClientState} from "@client/infrastructure/state/client/client.state";
-import {PaymentState} from "@module/payment/infrastructure/state/payment/payment.state";
 import {
 	CalendarWithSpecialistsState
 } from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
@@ -37,13 +32,8 @@ import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state
 		NgxsModule.forFeature([
 			DateRangeReportAnalyticState,
 			PeerCustomerOrderState,
-			CustomerState,
-			ServiceState,
 			AbsenceState,
-			MemberState,
-			OrderState,
 			ClientState,
-			PaymentState,
 
 			// Calendar Module
 			CalendarWithSpecialistsState,

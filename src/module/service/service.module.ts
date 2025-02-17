@@ -13,8 +13,15 @@ import {
 import {ServiceRepository} from "@service/infrastructure/repository/service.repository";
 import {ServiceService} from "@core/business-logic/service/service/service.service";
 import {SyncManager} from "@service/infrastructure/sync-manager/sync-manager";
+import {NgxsModule} from "@ngxs/store";
+import {ServiceState} from "@service/infrastructure/state/service/service.state";
 
 @NgModule({
+	imports: [
+		NgxsModule.forFeature([
+			ServiceState,
+		]),
+	],
 	providers: [
 
 		// Api
