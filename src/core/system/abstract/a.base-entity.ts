@@ -36,6 +36,7 @@ export abstract class ABaseEntity<T extends string, DTO extends IBaseDTO> implem
 	public changeState(state: StateEnum): void {
 		this.state = state;
 		this.stateHistory.push({state, setAt: new Date().toISOString()});
+		this.refreshUpdatedAt();
 	}
 
 	public toDTO(): DTO {

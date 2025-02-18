@@ -354,7 +354,6 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 			if (entity.isNew()) {
 
-
 				// Create case
 				await this.apiDataProvider.createAsync(dto);
 
@@ -398,7 +397,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 			const {db$} = this.repository.dataProvider as { db$: Observable<Table<ENTITY>> };
 			const table = await firstValueFrom(db$);
 			// Use buildPut instead of put to avoid conflicts, because this.repository.updateSync use db.table.put and it call hooks
-			await table.bulkPut([entity]);
+			await table.put(entity);
 		}
 	}
 

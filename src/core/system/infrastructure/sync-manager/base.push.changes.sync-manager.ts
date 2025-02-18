@@ -10,14 +10,11 @@ const asyncQueue = new AsyncQueue();
 
 function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: IBaseEntity, transaction: any) {
 
-
-	if (obj.isNew() || obj.isUpdated()) {
+	if (obj.isNew()) {
 
 		this.onsuccess = (primKey) => {
 
 			const isOnline = window.navigator.onLine;
-
-			console.log('PushChangesSyncManager:hookCreate:onsuccess', {BaseSyncManager, primKey});
 
 			if (isOnline) {
 				setTimeout(() => {
@@ -35,14 +32,19 @@ function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: IBas
 
 function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, primKey: any, obj: IBaseEntity, transaction: any) {
 
+	const objIsUpdated = obj.syncedAt && obj.updatedAt > obj.syncedAt;
 
-	if ((!obj?.syncedAt) || obj.syncedAt < obj.updatedAt) {
+	const modificationIsUpdated = modifications.updatedAt && modifications.syncedAt && modifications.updatedAt > modifications.syncedAt;
+
+	const objModificationIsUpdated = modifications.updatedAt && obj.syncedAt && modifications.updatedAt > obj.syncedAt;
+
+	const isUpdated = objIsUpdated || modificationIsUpdated || objModificationIsUpdated;
+
+	if (isUpdated) {
 
 		this.onsuccess = (updatedObj) => {
 
 			const isOnline = window.navigator.onLine;
-
-			console.log('PushChangesSyncManager:hookUpdate:onsuccess', {BaseSyncManager, updatedObj});
 
 			if (isOnline) {
 				setTimeout(() => {
