@@ -15,6 +15,8 @@ import {GetItemApi} from "@customer/infrastructure/api/get-item.api";
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 import {NgxsModule} from "@ngxs/store";
 import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
+import {EventListCustomerRepository} from "@customer/infrastructure/repository/event.list.customer.repository";
+import {UtilityListCustomerRepository} from "@customer/infrastructure/repository/utility.list.customer.repository";
 
 @NgModule({
 	imports: [
@@ -50,6 +52,8 @@ import {CustomerState} from "@customer/infrastructure/state/customer/customer.st
 				inject(CustomerRepository),
 			)
 		},
+		EventListCustomerRepository,
+		UtilityListCustomerRepository,
 
 		// Sync Manger
 		SyncManager,

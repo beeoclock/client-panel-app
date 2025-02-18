@@ -1,10 +1,11 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
-import {AsyncPipe} from "@angular/common";
+import {AsyncPipe, DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {setIntervals$} from "@utility/domain/timer";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {TimeAgoPipe} from "@utility/presentation/pipes/time-ago.pipe";
 
 @Component({
 	standalone: true,
@@ -13,9 +14,9 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		AsyncPipe,
-		// DatePipe,
+		DatePipe,
 		TranslatePipe,
-		// TimeAgoPipe
+		TimeAgoPipe
 	],
 	host: {
 		class: 'px-3 pb-4 pt-0'
@@ -33,7 +34,7 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 							{{ 'keyword.capitalize.youOffline' | translate }}
 						</span>
 						<span class="text-xs">
-<!--							{{ syncManagerService.lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss' }}-->
+							{{ lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss' }}
 						</span>
 					</div>
 				</button>
@@ -56,8 +57,8 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 
 				} @else {
 
-					<!--					[title]="syncManagerService.lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss'"-->
 					<button (click)="syncAll()"
+							[title]="lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss'"
 							class="h-[48px] text-black gap-2 p-2 px-3 rounded-2xl flex justify-start items-center hover:bg-neutral-200 cursor-pointer transition-all">
 						<i class="bi bi-arrow-repeat text-xl"></i>
 						<div class="flex flex-col items-start">
@@ -65,9 +66,9 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 								{{ 'keyword.capitalize.synced' | translate }}
 							</span>
 							<span class="text-xs">
-<!--								@if (syncManagerService.lastSynchronizedIn) {-->
-								<!--									{{ syncManagerService.lastSynchronizedIn | timeAgo }}-->
-								<!--								}-->
+								@if (lastSynchronizedIn) {
+									{{ lastSynchronizedIn | timeAgo }}
+								}
 							</span>
 						</div>
 					</button>
@@ -87,6 +88,8 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 	public readonly isOffline$ = this.isOnlineService.isOffline$;
 	public readonly isSyncing$ = BaseSyncManager.isSyncing$;
 
+	public lastSynchronizedIn = new Date(0).toISOString();
+
 	public syncAll() {
 		if (BaseSyncManager.isPaused$.value) {
 			BaseSyncManager.resumeAll().then(() => {
@@ -97,19 +100,23 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 		BaseSyncManager.syncAll().then(() => {
 			console.log('syncAll done');
 		});
-		// this.syncManagerService.syncAll().then();
 	}
 
 	public pauseAll() {
 		BaseSyncManager.pauseAll().then(() => {
 			console.log('pauseAll done');
 		});
-		// this.syncManagerService.pauseAll().then();
 	}
 
 	public ngOnInit() {
-		console.log(BaseSyncManager.getSyncManager('businessProfile'))
 		setIntervals$(() => {
+			const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
+			if (syncState) {
+				const {lastEndSync} = syncState;
+				if (lastEndSync) {
+					this.lastSynchronizedIn = lastEndSync;
+				}
+			}
 			this.changeDetectorRef.detectChanges();
 		}, 5_000).pipe(this.takeUntil()).subscribe();
 	}

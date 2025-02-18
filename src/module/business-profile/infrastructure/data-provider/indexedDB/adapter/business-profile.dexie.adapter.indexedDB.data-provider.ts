@@ -7,7 +7,7 @@ import {IBusinessProfile} from "@core/business-logic/business-profile/interface/
 @Injectable()
 export class BusinessProfileDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IBusinessProfile.Entity> {
 
-	protected readonly columns = '_id';
+	protected readonly columns = '_id,updatedAt,createdAt';
 	protected readonly moduleName = 'businessProfile';
 	protected readonly version = 1;
 

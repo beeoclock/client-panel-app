@@ -5,9 +5,7 @@ import * as Customer from "@src/core/business-logic/customer";
 import {NGXLogger} from "ngx-logger";
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class UtilityListCustomerRepository {
 
 	private readonly logger = inject(NGXLogger);

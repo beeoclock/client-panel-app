@@ -6,9 +6,7 @@ import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class EventListCustomerRepository {
 
 	private readonly logger = inject(NGXLogger);

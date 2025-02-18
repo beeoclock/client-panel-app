@@ -1,7 +1,7 @@
 import {Types} from "@core/shared/types";
 import {BaseRepository} from "@core/system/infrastructure/repository/base.repository";
 import {DataProvider} from "@core/system/infrastructure/data-provider/data-provider";
-import {OrderDirEnum} from "@core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {BehaviorSubject, firstValueFrom, Observable} from "rxjs";
 import {Table} from "dexie";
 import {IBaseDTO, IBaseEntity} from "@core/shared/interface/i.base-entity";
@@ -25,6 +25,7 @@ export interface ISyncManger {
 	resume(): Promise<void>;
 
 	sync(options: Types.StandardQueryParams): Promise<void>;
+	syncState: ISyncState | null;
 }
 
 interface SyncStates {
@@ -157,7 +158,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 				 * then we can sync from the last sync
 				 */
 				orderDir: OrderDirEnum.ASC,
-				orderBy: 'updatedAt',
+				orderBy: OrderByEnum.UPDATED_AT,
 				updatedSince: this.syncState.lastEndSync ?? firstUpdatedSince,
 			});
 		}
@@ -303,16 +304,6 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 		} else {
 			BaseSyncManager.clearSyncState(this.moduleName, this.tenantId);
 		}
-	}
-
-	/**
-	 * Loads the synchronization state from local storage.
-	 * @private
-	 * @returns {ISyncState | null} The loaded synchronization state.
-	 */
-	private loadSyncState(): ISyncState | null {
-		const state = localStorage.getItem('syncState');
-		return state ? JSON.parse(state) : null;
 	}
 
 	/**

@@ -3,7 +3,7 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {INotificationsSettings} from "@core/business-logic/business-profile";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {BASE_CURRENCY} from "@src/token";
 import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
 import {BusinessProfileService} from "@core/business-logic/business-profile/service/business-profile.service";
@@ -104,7 +104,12 @@ export class BusinessProfileState {
 
 		ctx.dispatch(new AppActions.PageLoading(true));
 
-		const {items} = await this.businessProfileService.repository.findAsync({});
+		const {items} = await this.businessProfileService.repository.findAsync({
+			page: 1,
+			pageSize: 1,
+			orderBy: OrderByEnum.UPDATED_AT,
+			orderDir: OrderDirEnum.DESC,
+		});
 
 		const {0: item} = items;
 
