@@ -25,6 +25,9 @@ export interface IBaseEntity<OBJECT_TYPE extends string = string, DTO extends IB
 
 	changeState(state: StateEnum): void;
 	toDTO(): DTO;
+	isNew(): boolean;
+	isUpdated(): boolean;
+	initSyncedAt(force?: string): void;
 
 }
 

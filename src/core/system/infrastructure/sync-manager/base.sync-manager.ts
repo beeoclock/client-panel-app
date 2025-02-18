@@ -5,26 +5,26 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {BehaviorSubject, firstValueFrom, Observable} from "rxjs";
 import {Table} from "dexie";
 import {IBaseDTO, IBaseEntity} from "@core/shared/interface/i.base-entity";
+import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
 
 interface ISyncState {
+	options: Types.StandardQueryParams;
 	progress: {
 		total: number;
 		current: number;
 		percentage: number;
 	};
 	lastStartSync: string;
-	lastEndSync: string | null;
 }
 
 export interface ISyncManger {
 	readonly moduleName: string;
 	readonly tenantId: string;
 
-	pause(): void;
-
 	resume(): Promise<void>;
 
-	sync(options: Types.StandardQueryParams): Promise<void>;
+	sync(): Promise<void>;
+
 	syncState: ISyncState | null;
 }
 
@@ -75,6 +75,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 	 * @private
 	 */
 	private pushData: Array<ENTITY> = [];
+	private pullData: ResponseListType<DTO> = {items: [], totalSize: 0};
 
 	/**
 	 * Converts a DTO to an entity.
@@ -112,6 +113,10 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 		return this.#syncState;
 	}
 
+	public set syncState(value: ISyncState | null) {
+		this.#syncState = value;
+	}
+
 	/**
 	 * Constructs a new `BaseSyncManager`.
 	 * @param {string} moduleName - The name of the module.
@@ -127,7 +132,9 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 	public setTenantId(tenantId: string) {
 		this.#tenantId = tenantId;
-		this.#syncState = BaseSyncManager.loadSyncState(this.moduleName, this.tenantId)
+		this.#syncState = BaseSyncManager.loadSyncState(this.moduleName, this.tenantId);
+		// Initialize the sync state
+		this.initSyncState();
 	}
 
 	public get tenantId(): string {
@@ -136,85 +143,73 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 	}
 
 	/**
-	 * Pauses the synchronization process.
-	 */
-	public pause(): void {
-		this.saveSyncState();
-	}
-
-	/**
 	 * Resumes the synchronization process and continues from the last saved state.
 	 * @returns {Promise<void>}
 	 */
 	public async resume(): Promise<void> {
-		if (this.syncState) {
-			this.saveSyncState();
-			const firstUpdatedSince = new Date(0).toISOString();
-			await this.sync({
-				page: 1,
-				pageSize: 500,
-				/**
-				 * OrderDirEnum.ASC - because we want to sync from the oldest to the newest, so if user will do refresh page (F5)
-				 * then we can sync from the last sync
-				 */
-				orderDir: OrderDirEnum.ASC,
-				orderBy: OrderByEnum.UPDATED_AT,
-				updatedSince: this.syncState.lastEndSync ?? firstUpdatedSince,
-			});
+		if (this.#syncState) {
+			await this.sync();
 		}
+	}
+
+	public initSyncState() {
+
+		if (!this.#syncState) {
+
+			this.#syncState = {
+				options: {
+					page: 1,
+					pageSize: 500,
+					/**
+					 * OrderDirEnum.ASC - because we want to sync from the oldest to the newest, so if user will do refresh page (F5)
+					 * then we can sync from the last sync
+					 */
+					orderDir: OrderDirEnum.ASC,
+					orderBy: OrderByEnum.UPDATED_AT,
+					updatedSince: new Date(0).toISOString(),
+				},
+				progress: {
+					total: this.pullData.totalSize + this.pushData.length,
+					current: 0,
+					percentage: 0,
+				},
+				lastStartSync: new Date().toISOString(),
+			}
+
+			this.saveSyncState();
+
+		}
+
 	}
 
 	/**
 	 * Synchronizes data based on the provided query parameters.
-	 * @param {Types.StandardQueryParams} options - The query parameters.
 	 * @returns {Promise<void>}
 	 */
-	public async sync(options: Types.StandardQueryParams): Promise<void> {
+	public async sync(): Promise<void> {
 
+		// Prepare pull and push data
 		await this.initPushData();
+		await this.initPullData();
 
-		let remoteData = await this.apiDataProvider.findAsync(options);
-
-		this.#syncState = {
-			progress: {
-				total: remoteData.totalSize + this.pushData.length,
-				current: 0,
-				percentage: 0,
-			},
-			lastStartSync: new Date().toISOString(),
-			lastEndSync: null,
-		};
-
-		this.saveSyncState();
-
-		while (!BaseSyncManager.isPaused$.value) {
-
-			for (const item of remoteData.items) {
-
-				const entity = this.toEntity(item);
-				entity.syncedAt = new Date().toISOString();
-				await this.repository.updateAsync(entity);
-
-				this.#syncState.progress.current++;
-				this.#syncState.progress.percentage = (this.#syncState.progress.current / this.#syncState.progress.total) * 100;
-				this.#syncState.lastEndSync = item.updatedAt;
-
-			}
-
-			options.page++;
-			this.saveSyncState();
-
-			if (remoteData.items.length < options.pageSize) {
-				this.#syncState.lastEndSync = new Date().toISOString();
-				this.saveSyncState();
-				break;
-			}
-
-			remoteData = await this.apiDataProvider.findAsync(options);
-
+		if (this.#syncState) {
+			this.#syncState.progress.total = this.pullData.totalSize + this.pushData.length;
 		}
 
-		await this.checkLocalChanges();
+		// Do sync
+		await this.doPull();
+		await this.doPush();
+	}
+
+	private async initPullData() {
+
+		if (!this.#syncState) {
+			throw new Error('Sync state is not initialized');
+		}
+
+		const {options} = this.#syncState;
+		this.pullData = await this.apiDataProvider.findAsync(options);
+
 	}
 
 	private async initPushData() {
@@ -230,10 +225,49 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 				}
 
-				return !!item['syncedAt'];
+				return !item['syncedAt'];
 
 			}).toArray();
 			this.pushData = localChanges;
+
+		}
+
+	}
+
+	public async doPull() {
+
+		if (!this.#syncState) {
+			throw new Error('Sync state is not initialized');
+		}
+
+		this.#syncState.lastStartSync = new Date().toISOString();
+		this.saveSyncState();
+
+		while (!BaseSyncManager.isPaused$.value) {
+
+			for (const item of this.pullData.items) {
+
+				const entity = this.toEntity(item);
+				entity.initSyncedAt();
+				await this.repository.updateAsync(entity);
+
+				this.#syncState.progress.current++;
+				this.#syncState.progress.percentage = (this.#syncState.progress.current / this.#syncState.progress.total) * 100;
+				this.#syncState.options.updatedSince = item.updatedAt;
+
+			}
+
+			this.#syncState.options.page++;
+			this.saveSyncState();
+
+			if (this.pullData.items.length < this.#syncState.options.pageSize) {
+				this.#syncState.options.page = 1;
+				this.#syncState.options.updatedSince = new Date().toISOString();
+				this.saveSyncState();
+				break;
+			}
+
+			await this.initPullData();
 
 		}
 
@@ -244,7 +278,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 	 * @private
 	 * @returns {Promise<void>}
 	 */
-	private async checkLocalChanges(): Promise<void> {
+	private async doPush(): Promise<void> {
 
 		if (!this.pushData.length) return;
 
@@ -258,24 +292,34 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 			let entity = this.toEntity(item);
 			const dto = entity.toDTO();
 
-			let serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
+			if (entity.isNew()) {
 
-			if (serverHasItem) {
-				// Update case
-				await this.apiDataProvider.updateAsync(dto);
-			} else {
+
 				// Create case
 				await this.apiDataProvider.createAsync(dto);
-				serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
+
+			} else {
+
+				if (entity.isUpdated()) {
+
+					// Update case
+					await this.apiDataProvider.updateAsync(dto);
+
+				}
+
 			}
+
+			const serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
 
 			if (!serverHasItem) {
 				throw new Error('Item not found on server');
 			}
 
 			entity = this.toEntity(serverHasItem);
-			entity.syncedAt = new Date().toISOString();
+			entity.initSyncedAt();
+
 			await this.repository.updateAsync(entity);
+
 			this.syncState.progress.current++;
 			this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;
 			this.saveSyncState();
@@ -326,14 +370,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 		this.isSyncing$.next(true);
 		// Take updatedSince from the last sync state
 		for (const manager of this.register.values()) {
-			const syncState = this.loadSyncState(manager.moduleName, manager.tenantId);
-			await manager.sync({
-				page: 1,
-				pageSize: 500,
-				orderDir: OrderDirEnum.ASC,
-				orderBy: 'updatedAt',
-				updatedSince: syncState?.lastEndSync ?? new Date(0).toISOString(),
-			});
+			await manager.sync();
 		}
 		this.isSyncing$.next(false);
 	}

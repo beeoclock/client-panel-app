@@ -111,12 +111,7 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 	public ngOnInit() {
 		setIntervals$(() => {
 			const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
-			if (syncState) {
-				const {lastEndSync} = syncState;
-				if (lastEndSync) {
-					this.lastSynchronizedIn = lastEndSync;
-				}
-			}
+			this.lastSynchronizedIn = syncState?.options?.updatedSince || new Date(0).toISOString();
 			this.changeDetectorRef.detectChanges();
 		}, 5_000).pipe(this.takeUntil()).subscribe();
 	}

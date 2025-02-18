@@ -150,9 +150,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 				// this.updateBusinessProfileApiAdapter.executeAsync(value),
 				this.store.dispatch(new BusinessProfileActions.Update(value)),
 			]);
-
 			this.store.dispatch(new AppActions.PageLoading(false));
-			this.store.dispatch(new BusinessProfileActions.Init());
 			this.form.enable();
 			this.form.updateValueAndValidity();
 		}

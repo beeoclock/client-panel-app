@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, HostBinding, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
@@ -37,6 +37,7 @@ import {PaymentModule} from "@payment/payment.module";
 import {BusinessProfileModule} from "@businessProfile/business-profile.module";
 import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -86,7 +87,10 @@ import {BusinessProfileState} from "@businessProfile/infrastructure/state/busine
 			},
 		},
 	],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	host: {
+		class: 'flex',
+	}
 })
 export default class WrapperPanelComponent extends Reactive implements OnInit, AfterViewInit, OnDestroy {
 
@@ -101,9 +105,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	private readonly tenantId$ = inject(TENANT_ID);
 
 	public readonly token$ = this.store.select(IdentityState.token);
-
-	@HostBinding()
-	public class = 'flex';
 
 	private checkerTimer: undefined | NodeJS.Timeout;
 	private isUserOnWebSite = true;
@@ -122,7 +123,9 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 			/**
 			 * Sync all data when the user is online
 			 */
-			// this.syncManagerService.syncAll().then();
+			if (!BaseSyncManager.isSyncing$.value) {
+				BaseSyncManager.syncAll().then();
+			}
 
 		})
 
@@ -132,7 +135,9 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 			this.isUserOnWebSite = visible;
 			if (visible) {
-				// this.syncManagerService.syncAll().then();
+				if (!BaseSyncManager.isSyncing$.value) {
+					BaseSyncManager.syncAll().then();
+				}
 			}
 
 		});

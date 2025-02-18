@@ -131,7 +131,13 @@ export class BusinessProfileState {
 	@Action(BusinessProfileActions.Update)
 	public async updateItem(ctx: StateContext<IBusinessProfileState>, {item}: BusinessProfileActions.Update): Promise<void> {
 
-		const entity = EBusinessProfile.create(item);
+		const {item: fromState} = ctx.getState();
+
+		const entity = EBusinessProfile.create({
+			...fromState,
+			...item
+		});
+		debugger;
 		await this.businessProfileService.repository.updateAsync(entity);
 
 		this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
