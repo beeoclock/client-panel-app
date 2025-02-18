@@ -17,6 +17,7 @@ import {NgxsModule} from "@ngxs/store";
 import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
 import {EventListCustomerRepository} from "@customer/infrastructure/repository/event.list.customer.repository";
 import {UtilityListCustomerRepository} from "@customer/infrastructure/repository/utility.list.customer.repository";
+import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [
@@ -58,6 +59,13 @@ import {UtilityListCustomerRepository} from "@customer/infrastructure/repository
 		// Sync Manger
 		SyncManager,
 
+		{
+			provide: PushChangesSyncManager,
+			useFactory: () => new PushChangesSyncManager(
+				inject(CustomerIndexedDBDataProvider),
+			),
+		},
+
 	]
 })
 export class CustomerModule {
@@ -67,6 +75,7 @@ export class CustomerModule {
 	 * @private
 	 */
 	private readonly syncManager = inject(SyncManager);
+	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly customerService = inject(CustomerService);
 
 }

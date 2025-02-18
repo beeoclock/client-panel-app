@@ -15,6 +15,7 @@ import {GetItemApi} from "@member/infrastructure/api/get-item.api";
 import {MemberService} from "@core/business-logic/member/service/member.service";
 import {NgxsModule} from "@ngxs/store";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
+import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [
@@ -54,6 +55,13 @@ import {MemberState} from "@member/infrastructure/state/member/member.state";
 		// Sync Manger
 		SyncManager,
 
+		{
+			provide: PushChangesSyncManager,
+			useFactory: () => new PushChangesSyncManager(
+				inject(MemberIndexedDBDataProvider),
+			),
+		},
+
 	]
 })
 export class MemberModule {
@@ -63,6 +71,7 @@ export class MemberModule {
 	 * @private
 	 */
 	private readonly syncManager = inject(SyncManager);
+	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly memberService = inject(MemberService);
 
 }

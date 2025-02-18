@@ -137,7 +137,7 @@ export class BusinessProfileState {
 			...fromState,
 			...item
 		});
-		debugger;
+
 		await this.businessProfileService.repository.updateAsync(entity);
 
 		this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);

@@ -100,7 +100,10 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override update$(entity: ENTITY) {
 		return this.db$.pipe(
-			concatMap((table) => from(table.put(entity))),
+			concatMap((table) => {
+				entity.refreshUpdatedAt();
+				return from(table.put(entity));
+			}),
 			map(() => entity),
 		);
 	}

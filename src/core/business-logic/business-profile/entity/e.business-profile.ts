@@ -16,6 +16,13 @@ import {ISocialNetworkLink} from "../interface/i.social-network-link";
 
 
 export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusinessProfile.DTO> implements IBusinessProfile.Entity {
+
+	serviceProvideType: ServiceProvideTypeEnum | null = null;
+	publicPageSettings!: { primaryColor: boolean; };
+	paymentSettings!: { externalApiCredentials: { stripe: { secretKey: string; webhookSecret: string; }; }; };
+	specialSchedules = [];
+	_version!: string;
+
 	status!: BusinessClientStatusEnum;
 	published!: ActiveEnum;
 	name!: string;
@@ -34,7 +41,7 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 	contacts!: IContact[];
 	gallery!: Required<IMedia>[];
 	description!: string;
-	username?: string | null | undefined;
+	username: string | null = null;
 	facilities!: FacilityEnum[];
 
 
@@ -45,6 +52,7 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 	public static toDTO(data: IBusinessProfile.Entity): IBusinessProfile.DTO {
 		return {
 			_id: data._id,
+			_version: data._version,
 			addresses: data.addresses,
 			banners: data.banners,
 			bookingSettings: data.bookingSettings,
@@ -61,14 +69,20 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 			name: data.name,
 			notificationSettings: data.notificationSettings,
 			object: data.object,
+			paymentSettings: data.paymentSettings,
+			publicPageSettings: data.publicPageSettings,
 			published: data.published,
 			schedules: data.schedules,
 			serviceProfideType: data.serviceProfideType,
+			serviceProvideType: data.serviceProvideType,
 			socialNetworkLinks: data.socialNetworkLinks,
+			specialSchedules: data.specialSchedules,
 			state: data.state,
 			stateHistory: data.stateHistory,
 			status: data.status,
 			updatedAt: data.updatedAt,
+			username: data.username,
+
 		}
 	}
 

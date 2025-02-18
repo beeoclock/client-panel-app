@@ -20,6 +20,7 @@ export interface IBaseDTO<OBJECT_TYPE extends string = string> {
 }
 
 export interface IBaseEntity<OBJECT_TYPE extends string = string, DTO extends IBaseDTO = IBaseDTO> extends IBaseDTO<OBJECT_TYPE> {
+    refreshUpdatedAt(): void;
 
 	syncedAt?: string & Types.DateTime;
 

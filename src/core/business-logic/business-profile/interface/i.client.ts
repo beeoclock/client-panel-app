@@ -27,12 +27,41 @@ export interface IBusinessSettings {
 
 export interface INotificationsSettings {
 	smsNotificationSettings: {
+		allowedSmsTypes: {
+			allowAll: true;
+			specificTypes: []
+		};
 		sendNotificationConditionType: SendNotificationConditionEnum;
+		activeProviderName: "twilio";
+		providers: [];
 	};
 	emailNotificationSettings: {
 		emailLanguage: LanguageCodeEnum;
 		sendNotificationConditionType: SendNotificationConditionEnum;
 		allowedEmailTypes?: boolean | string;
+	};
+	reminderSettings: {
+		sendNotificationConditionType: "allow";
+		reminders: [
+			{
+				reminderTimeInMinutes: number;
+				actionType: "confirm";
+				priority: "high";
+			},
+			{
+				reminderTimeInMinutes: number;
+				actionType: "confirm";
+				priority: "high";
+			}
+		];
+		escalationContact: "";
+	};
+	pushNotificationSettings: {
+		allowedPushTypes: {
+			allowAll: boolean;
+			specificTypes: [];
+		};
+		sendNotificationConditionType: "allow";
 	};
 }
 
@@ -62,5 +91,3 @@ export interface RIClient extends IBaseEntity<'Client'> {
 }
 
 export type IClient = DeepPartial<RIClient>;
-
-

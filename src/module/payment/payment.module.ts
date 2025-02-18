@@ -15,6 +15,7 @@ import {GetItemApi} from "@payment/infrastructure/api/get-item.api";
 import {PaymentService} from "@core/business-logic/payment/service/payment.service";
 import {NgxsModule} from "@ngxs/store";
 import {PaymentState} from "@payment/infrastructure/state/payment/payment.state";
+import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [
@@ -54,6 +55,13 @@ import {PaymentState} from "@payment/infrastructure/state/payment/payment.state"
 		// Sync Manger
 		SyncManager,
 
+		{
+			provide: PushChangesSyncManager,
+			useFactory: () => new PushChangesSyncManager(
+				inject(PaymentIndexedDBDataProvider),
+			),
+		},
+
 	]
 })
 export class PaymentModule {
@@ -63,6 +71,7 @@ export class PaymentModule {
 	 * @private
 	 */
 	private readonly syncManager = inject(SyncManager);
+	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly paymentService = inject(PaymentService);
 
 }

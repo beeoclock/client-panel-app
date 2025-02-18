@@ -37,8 +37,31 @@ export namespace IBusinessProfile {
 		// gallery: IGallery;
 		gallery: RIMedia[];
 		description: string;
-		username?: string | null;
+		username: string | null;
 		facilities: FacilityEnum[];
+
+		serviceProvideType: ServiceProvideTypeEnum | null;
+
+		publicPageSettings: {
+			primaryColor: boolean;
+		},
+
+		paymentSettings: {
+			externalApiCredentials: {
+				stripe: {
+					secretKey: string;
+					webhookSecret: string;
+				}
+			}
+		},
+
+		specialSchedules: {
+			dates: string[];
+			startInSeconds: number;
+			endInSeconds: number;
+			isClosed: boolean;
+		}[];
+		_version: string; // "1"
 	}
 
 	export type Entity = IBaseEntity<'BusinessProfileDto', DTO> & DTO;

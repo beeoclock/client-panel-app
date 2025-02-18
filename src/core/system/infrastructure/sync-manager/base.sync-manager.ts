@@ -26,6 +26,18 @@ export interface ISyncManger {
 	sync(): Promise<void>;
 
 	syncState: ISyncState | null;
+
+	initSyncState(): void;
+
+	initPullData(): Promise<void>;
+
+	initPushData(): Promise<void>;
+
+	doPull(): Promise<void>;
+
+	doPush(): Promise<void>;
+
+	setTenantId(tenantId: string): void;
 }
 
 interface SyncStates {
@@ -188,20 +200,20 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 	 */
 	public async sync(): Promise<void> {
 
+		if (this.#syncState) {
+			this.#syncState.progress.total = 0;
+		}
+
 		// Prepare pull and push data
 		await this.initPushData();
 		await this.initPullData();
-
-		if (this.#syncState) {
-			this.#syncState.progress.total = this.pullData.totalSize + this.pushData.length;
-		}
 
 		// Do sync
 		await this.doPull();
 		await this.doPush();
 	}
 
-	private async initPullData() {
+	public async initPullData(firstPage: boolean = true) {
 
 		if (!this.#syncState) {
 			throw new Error('Sync state is not initialized');
@@ -210,9 +222,16 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 		const {options} = this.#syncState;
 		this.pullData = await this.apiDataProvider.findAsync(options);
 
+		if (firstPage) {
+			if (this.#syncState) {
+				this.#syncState.progress.total += this.pullData.totalSize;
+				this.saveSyncState();
+			}
+		}
+
 	}
 
-	private async initPushData() {
+	public async initPushData() {
 		if ('db$' in this.repository.dataProvider) {
 
 			const {db$} = this.repository.dataProvider as { db$: Observable<Table<ENTITY>> };
@@ -229,6 +248,10 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 			}).toArray();
 			this.pushData = localChanges;
+			if (this.#syncState) {
+				this.#syncState.progress.total += this.pushData.length;
+				this.saveSyncState();
+			}
 
 		}
 
@@ -267,7 +290,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 				break;
 			}
 
-			await this.initPullData();
+			await this.initPullData(false);
 
 		}
 
@@ -278,7 +301,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 	 * @private
 	 * @returns {Promise<void>}
 	 */
-	private async doPush(): Promise<void> {
+	public async doPush(): Promise<void> {
 
 		if (!this.pushData.length) return;
 
@@ -371,6 +394,27 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 		// Take updatedSince from the last sync state
 		for (const manager of this.register.values()) {
 			await manager.sync();
+		}
+		this.isSyncing$.next(false);
+	}
+
+	public static async pushAll(): Promise<void> {
+		this.isSyncing$.next(true);
+		for (const syncManager of this.register.values()) {
+			if (syncManager.syncState) {
+				syncManager.syncState.progress.total = 0;
+			}
+			await syncManager.initPushData();
+			await syncManager.doPush();
+		}
+		this.isSyncing$.next(false);
+	}
+
+	public static async pullAll(): Promise<void> {
+		this.isSyncing$.next(true);
+		for (const manager of this.register.values()) {
+			await manager.initPullData();
+			await manager.doPull();
 		}
 		this.isSyncing$.next(false);
 	}

@@ -25,6 +25,7 @@ import {
 import {SmsUsedAnalyticState} from "@module/analytic/infrastructure/store/sms-used/sms-used.analytic.state";
 import {EventState} from "@event/infrastructure/state/event/event.state";
 import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state";
+import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [
@@ -82,6 +83,13 @@ import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state
 		// Sync Manger
 		SyncManager,
 
+		{
+			provide: PushChangesSyncManager,
+			useFactory: () => new PushChangesSyncManager(
+				inject(AbsenceIndexedDBDataProvider),
+			),
+		},
+
 	]
 })
 export class AbsenceModule {
@@ -91,6 +99,7 @@ export class AbsenceModule {
 	 * @private
 	 */
 	private readonly syncManager = inject(SyncManager);
+	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly absenceService = inject(AbsenceService);
 
 }

@@ -13,6 +13,7 @@ import {GetItemApi} from "@order/infrastructure/api/get-item.api";
 import {OrderService} from "@core/business-logic/order/service/order.service";
 import {NgxsModule} from "@ngxs/store";
 import {OrderState} from "@order/infrastructure/state/order/order.state";
+import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [
@@ -52,6 +53,13 @@ import {OrderState} from "@order/infrastructure/state/order/order.state";
 		// Sync Manger
 		SyncManager,
 
+		{
+			provide: PushChangesSyncManager,
+			useFactory: () => new PushChangesSyncManager(
+				inject(OrderIndexedDBDataProvider),
+			),
+		},
+
 	]
 })
 export class OrderModule {
@@ -61,6 +69,7 @@ export class OrderModule {
 	 * @private
 	 */
 	private readonly syncManager = inject(SyncManager);
+	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly orderService = inject(OrderService);
 
 }

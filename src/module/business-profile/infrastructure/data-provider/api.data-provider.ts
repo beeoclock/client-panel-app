@@ -4,6 +4,7 @@ import {GetApi} from "@businessProfile/infrastructure/api/get.api";
 import {PutApi} from "@businessProfile/infrastructure/api/put.api";
 import {Types} from "@core/shared/types";
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {map} from "rxjs";
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<IBusinessProfile.DTO> {
@@ -17,6 +18,12 @@ export class ApiDataProvider extends DataProvider<IBusinessProfile.DTO> {
 	 */
 	public override find$(options: Types.FindQueryParams = {}) {
 		return this.getApi.execute$();
+	}
+
+	public override findById$(id: string) {
+		return this.getApi.execute$().pipe(
+			map((data) => data.items.find((item) => item._id === id))
+		);
 	}
 
 	/**

@@ -13,6 +13,7 @@ import {
 } from "@businessProfile/infrastructure/data-provider/indexedDB/adapter/business-profile.dexie.adapter.indexedDB.data-provider";
 import {BusinessProfileRepository} from "@businessProfile/infrastructure/repository/business-profile.repository";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [
@@ -50,6 +51,13 @@ import {BusinessProfileState} from "@businessProfile/infrastructure/state/busine
 		// Sync Manger
 		SyncManager,
 
+		{
+			provide: PushChangesSyncManager,
+			useFactory: () => new PushChangesSyncManager(
+				inject(BusinessProfileIndexedDBDataProvider),
+			),
+		},
+
 	]
 })
 export class BusinessProfileModule {
@@ -59,6 +67,7 @@ export class BusinessProfileModule {
 	 * @private
 	 */
 	private readonly syncManager = inject(SyncManager);
+	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly businessProfileService = inject(BusinessProfileService);
 
 }

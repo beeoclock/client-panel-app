@@ -54,4 +54,8 @@ export abstract class ABaseEntity<T extends string, DTO extends IBaseDTO> implem
 		this.syncedAt = force;
 	}
 
+	public refreshUpdatedAt(): void {
+		this.updatedAt = new Date().toISOString();
+	}
+
 }
