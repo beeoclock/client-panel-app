@@ -43,7 +43,7 @@ export namespace IBusinessProfile {
 		serviceProvideType: ServiceProvideTypeEnum | null;
 
 		publicPageSettings: {
-			primaryColor: boolean;
+			primaryColor: string;
 		},
 
 		paymentSettings: {

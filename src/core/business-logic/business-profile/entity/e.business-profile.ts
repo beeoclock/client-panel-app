@@ -18,7 +18,7 @@ import {ISocialNetworkLink} from "../interface/i.social-network-link";
 export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusinessProfile.DTO> implements IBusinessProfile.Entity {
 
 	serviceProvideType: ServiceProvideTypeEnum | null = null;
-	publicPageSettings!: { primaryColor: boolean; };
+	publicPageSettings!: { primaryColor: string; };
 	paymentSettings!: { externalApiCredentials: { stripe: { secretKey: string; webhookSecret: string; }; }; };
 	specialSchedules = [];
 	_version!: string;

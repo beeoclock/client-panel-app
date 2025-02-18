@@ -18,7 +18,7 @@ import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification
 import {PublicPageSettings} from "@client/presentation/form/public-page-settings.form";
 
 
-export interface IBusinessProfile {
+export interface IBusinessProfileForm {
 	_id: FormControl<string>;
 	object: FormControl<'BusinessProfileDto'>;
 
@@ -26,7 +26,7 @@ export interface IBusinessProfile {
 	username: FormControl<string | null>;
 	businessCategory: FormControl<BusinessCategoryEnum>;
 	businessIndustry: FormControl<BusinessIndustry>;
-	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
+	serviceProvideType: FormControl<ServiceProvideTypeEnum | null>;
 	feature: FormControl<string>;
 	description: FormControl<string>;
 	published: FormControl<ActiveEnum>;
@@ -48,7 +48,7 @@ export type NotificationSettingsFromGroup = FormGroup<{
 	smsNotificationSettings: FormGroup<{ sendNotificationConditionType: FormControl<SendNotificationConditionEnum> }>;
 }>;
 
-export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
+export class BusinessProfileForm extends FormGroup<IBusinessProfileForm> {
 
 	private readonly destroy$ = new Subject<void>();
 
