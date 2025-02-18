@@ -82,58 +82,7 @@ export class CalendarWithSpecialistsState {
 			...params
 		};
 
-		const absenceParams: any = {
-			...params,
-		};
-
-		if ('statuses' in absenceParams) {
-			delete absenceParams.statuses;
-		}
-
-		if ('status' in absenceParams) {
-			delete absenceParams.status;
-		}
-
 		const absences = await this.absenceService.findByRange(params.start, params.end);
-
-		// const orderQuery = this.orderIndexedDBFacade.source.find({
-		// 	$and: [
-		// 		{
-		// 			$or: [
-		// 				{
-		// 					'services.orderAppointmentDetails.start': {
-		// 						$gte: params.start,
-		// 						$lte: params.end,
-		// 					},
-		// 				},
-		// 				{
-		// 					'services.orderAppointmentDetails.end': {
-		// 						$gte: params.start,
-		// 						$lte: params.end,
-		// 					}
-		// 				},
-		// 				{
-		// 					'services.orderAppointmentDetails.start': {
-		// 						$lt: params.start,
-		// 					},
-		// 					'services.orderAppointmentDetails.end': {
-		// 						$gt: params.end,
-		// 					}
-		// 				}
-		// 			]
-		// 		},
-		// 		{
-		// 			'services.status': {
-		// 				$in: orderParams.statuses
-		// 			}
-		// 		}
-		// 	]
-		// }, {
-		// 	sort: {
-		// 		createdAt: -1
-		// 	}
-		// });
-		// const orders = orderQuery.fetch();
 
 		const orders = await this.orderService.findByServicesRangeAndStatuses(params.start, params.end, params.statuses);
 

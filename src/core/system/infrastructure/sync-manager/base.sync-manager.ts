@@ -50,7 +50,6 @@ interface SyncStates {
 }
 
 /**
- * TODO: Add per tenant sync state!!!!!!!!
  * The `BaseSyncManager` class is an abstract class that provides a framework for synchronizing data between a local repository and a remote data provider.
  * It implements the `ISyncManager` interface and includes methods for pausing, resuming, and synchronizing data.
  * The class maintains the synchronization state and handles conflict resolution between local and remote data.
@@ -299,6 +298,9 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 				this.#syncState.progress.current++;
 				this.#syncState.progress.percentage = (this.#syncState.progress.current / this.#syncState.progress.total) * 100;
+				if (this.#syncState.progress.percentage > 100) {
+					this.#syncState.progress.percentage = 100;
+				}
 				this.#syncState.lastSuccessSyncItemAt = item.updatedAt;
 
 			}
@@ -380,6 +382,9 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 			this.syncState.progress.current++;
 			this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;
+			if (this.syncState.progress.percentage > 100) {
+				this.syncState.progress.percentage = 100;
+			}
 			this.saveSyncState();
 
 		} while (this.pushData.length && !BaseSyncManager.isPaused$.value);
