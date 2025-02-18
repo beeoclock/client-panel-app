@@ -15,7 +15,7 @@ import {GetItemApi} from "@member/infrastructure/api/get-item.api";
 import {MemberService} from "@core/business-logic/member/service/member.service";
 import {NgxsModule} from "@ngxs/store";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
-import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
+import {PushChangesSyncManager} from "@member/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [

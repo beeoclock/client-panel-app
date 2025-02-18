@@ -4,20 +4,25 @@ import {IBaseEntity} from "@core/shared/interface/i.base-entity";
 import {Reactive} from "@utility/cdk/reactive";
 import {CreatingHookContext, Table, UpdatingHookContext} from "dexie";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {AsyncQueue} from "@core/shared/async-queue";
+
+const asyncQueue = new AsyncQueue();
 
 function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: any, transaction: any) {
 
-	console.log({primKey, obj, transaction});
+	console.log('PushChangesSyncManager:hookCreate', {primKey, obj, transaction});
 
 	this.onsuccess = (primKey) => {
 
 		const isOnline = window.navigator.onLine;
 
-		console.log({BaseSyncManager, primKey});
+		console.log('PushChangesSyncManager:hookCreate:onsuccess', {BaseSyncManager, primKey});
 
 		if (isOnline) {
 			setTimeout(() => {
-				BaseSyncManager.pushAll().then()
+				asyncQueue.enqueue(() => {
+					return BaseSyncManager.pushAll()
+				}).then();
 			}, 250);
 		}
 
@@ -27,18 +32,20 @@ function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: any,
 
 function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, primKey: any, obj: any, transaction: any) {
 
-	console.log({modifications, primKey, obj, transaction});
+	console.log('PushChangesSyncManager:hookUpdate', {modifications, primKey, obj, transaction});
 
 
 	this.onsuccess = (updatedObj) => {
 
 		const isOnline = window.navigator.onLine;
 
-		console.log({BaseSyncManager, updatedObj});
+		console.log('PushChangesSyncManager:hookUpdate:onsuccess', {BaseSyncManager, updatedObj});
 
 		if (isOnline) {
 			setTimeout(() => {
-				BaseSyncManager.pushAll().then()
+				asyncQueue.enqueue(() => {
+					return BaseSyncManager.pushAll()
+				}).then();
 			}, 250);
 		}
 
@@ -47,7 +54,7 @@ function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, pri
 }
 
 @Injectable()
-export class PushChangesSyncManager<ENTITY extends IBaseEntity> extends Reactive implements OnDestroy {
+export class BasePushChangesSyncManager<ENTITY extends IBaseEntity> extends Reactive implements OnDestroy {
 
 	private readonly hooksToDestroy = new Map<string, () => void>();
 
@@ -55,7 +62,7 @@ export class PushChangesSyncManager<ENTITY extends IBaseEntity> extends Reactive
 		public readonly indexedDBDataProvider: IndexedDBDataProvider<ENTITY>,
 	) {
 		super();
-		console.log('PushChangesSyncManager');
+		console.log('PushChangesSyncManager', this.indexedDBDataProvider);
 		this.indexedDBDataProvider.db$.pipe(
 			this.takeUntil(),
 		).subscribe((table) => {
@@ -73,14 +80,9 @@ export class PushChangesSyncManager<ENTITY extends IBaseEntity> extends Reactive
 		this.hooksToDestroy.set(name, () => {
 			table.hook(name).unsubscribe(fn);
 		});
-		switch (name) {
-			case 'creating':
-				table.hook(name, fn);
-				break;
-			case 'updating':
-				table.hook(name, fn);
-				break;
-		}
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
+		table.hook(name, fn);
 	}
 
 	public override ngOnDestroy() {

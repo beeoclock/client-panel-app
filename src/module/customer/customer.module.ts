@@ -17,7 +17,7 @@ import {NgxsModule} from "@ngxs/store";
 import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
 import {EventListCustomerRepository} from "@customer/infrastructure/repository/event.list.customer.repository";
 import {UtilityListCustomerRepository} from "@customer/infrastructure/repository/utility.list.customer.repository";
-import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
+import {PushChangesSyncManager} from "@customer/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [

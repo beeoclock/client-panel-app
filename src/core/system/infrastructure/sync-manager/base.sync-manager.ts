@@ -21,6 +21,8 @@ export interface ISyncManger {
 	readonly moduleName: string;
 	readonly tenantId: string;
 
+	isSyncing: boolean;
+
 	resume(): Promise<void>;
 
 	sync(): Promise<void>;
@@ -69,6 +71,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 	 * @type {string}
 	 */
 	#tenantId: string | undefined;
+
+	#isSyncing: boolean = false;
 
 	/**
 	 * An abstract property representing the local repository.
@@ -154,6 +158,10 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 		return this.#tenantId;
 	}
 
+	public get isSyncing(): boolean {
+		return this.#isSyncing;
+	}
+
 	/**
 	 * Resumes the synchronization process and continues from the last saved state.
 	 * @returns {Promise<void>}
@@ -200,6 +208,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 	 */
 	public async sync(): Promise<void> {
 
+		this.#isSyncing = true;
+
 		if (this.#syncState) {
 			this.#syncState.progress.total = 0;
 		}
@@ -211,6 +221,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 		// Do sync
 		await this.doPull();
 		await this.doPush();
+
+		this.#isSyncing = false;
 	}
 
 	public async initPullData(firstPage: boolean = true) {
@@ -263,6 +275,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 			throw new Error('Sync state is not initialized');
 		}
 
+		this.#isSyncing = true;
+
 		this.#syncState.lastStartSync = new Date().toISOString();
 		this.saveSyncState();
 
@@ -272,7 +286,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 				const entity = this.toEntity(item);
 				entity.initSyncedAt();
-				await this.repository.updateAsync(entity);
+
+				await this.putEntity(entity);
 
 				this.#syncState.progress.current++;
 				this.#syncState.progress.percentage = (this.#syncState.progress.current / this.#syncState.progress.total) * 100;
@@ -294,6 +309,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 		}
 
+		this.#isSyncing = false;
+
 	}
 
 	/**
@@ -309,7 +326,16 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 			throw new Error('Sync state is not initialized');
 		}
 
-		for (const item of this.pushData) {
+		this.#isSyncing = true;
+
+		do {
+
+			const item = this.pushData.shift();
+
+			if (!item) {
+				break;
+			}
+
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-expect-error
 			let entity = this.toEntity(item);
@@ -341,11 +367,24 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 			entity = this.toEntity(serverHasItem);
 			entity.initSyncedAt();
 
-			await this.repository.updateAsync(entity);
+			await this.putEntity(entity);
 
 			this.syncState.progress.current++;
 			this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;
 			this.saveSyncState();
+
+		} while (this.pushData.length && !BaseSyncManager.isPaused$.value);
+
+		this.#isSyncing = false;
+
+	}
+
+	private async putEntity(entity: ENTITY) {
+		if ('db$' in this.repository.dataProvider) {
+			const {db$} = this.repository.dataProvider as { db$: Observable<Table<ENTITY>> };
+			const table = await firstValueFrom(db$);
+			// Use buildPut instead of put to avoid conflicts, because this.repository.updateSync use db.table.put and it call hooks
+			await table.bulkPut([entity]);
 		}
 	}
 
@@ -401,6 +440,9 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 	public static async pushAll(): Promise<void> {
 		this.isSyncing$.next(true);
 		for (const syncManager of this.register.values()) {
+			if (syncManager.isSyncing) {
+				continue;
+			}
 			if (syncManager.syncState) {
 				syncManager.syncState.progress.total = 0;
 			}

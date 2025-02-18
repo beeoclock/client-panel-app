@@ -1,7 +1,7 @@
 import {DataProvider} from "@core/system/infrastructure/data-provider/data-provider";
 import {inject, Injectable, OnDestroy} from "@angular/core";
 import {TENANT_ID} from "@src/token";
-import {concatMap, filter, from, map, Subject, tap} from "rxjs";
+import {concatMap, filter, from, map, shareReplay, Subject, take, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 import {takeUntil} from "rxjs/operators";
 import Dexie from "dexie";
@@ -26,6 +26,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 		tap((tenant) => this.dexieAdapterIndexedDBDataProvider.prepareTableFor(tenant)),
 		map(() => this.dexieAdapterIndexedDBDataProvider.table),
 		filter(is.object<Dexie.Table<ENTITY>>),
+		shareReplay({ bufferSize: 1, refCount: true }),
 	);
 
 	/**
@@ -34,6 +35,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override create$(entity: ENTITY) {
 		return this.db$.pipe(
+			take(1),
 			concatMap((table) =>
 				from(table.add(entity)).pipe(
 					map(() => entity)
@@ -49,6 +51,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override find$(options: Types.FindQueryParams, filterFn = this.defaultFilter.bind(this)) {
 		return this.db$.pipe(
+			take(1),
 			concatMap((table) => {
 
 				const {pageSize, page, orderBy, orderDir, ...filter} = options as Types.StandardQueryParams;
@@ -90,6 +93,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override findById$(id: string) {
 		return this.db$.pipe(
+			take(1),
 			concatMap((table) => from(table.get(id))),
 		);
 	}
@@ -100,6 +104,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override update$(entity: ENTITY) {
 		return this.db$.pipe(
+			take(1),
 			concatMap((table) => {
 				entity.refreshUpdatedAt();
 				return from(table.put(entity));
@@ -114,6 +119,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 */
 	public override delete$(entity: ENTITY) {
 		return this.db$.pipe(
+			take(1),
 			concatMap((table) => from(table.delete(entity._id))),
 			map(() => true),
 		);

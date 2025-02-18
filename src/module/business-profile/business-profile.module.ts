@@ -13,7 +13,7 @@ import {
 } from "@businessProfile/infrastructure/data-provider/indexedDB/adapter/business-profile.dexie.adapter.indexedDB.data-provider";
 import {BusinessProfileRepository} from "@businessProfile/infrastructure/repository/business-profile.repository";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
-import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
+import {PushChangesSyncManager} from "@businessProfile/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [

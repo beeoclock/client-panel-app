@@ -203,8 +203,11 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 				payment.orderId = order._id;
 
+
+				const createOrder$ = this.store.dispatch(new OrderActions.CreateItem(order));
+				await firstValueFrom(createOrder$);
+
 				const actions$ = this.store.dispatch([
-					new OrderActions.CreateItem(order),
 					new PaymentActions.CreateItem(payment),
 					new CalendarWithSpecialistsAction.GetItems(),
 				]);

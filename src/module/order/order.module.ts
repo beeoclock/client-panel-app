@@ -13,7 +13,7 @@ import {GetItemApi} from "@order/infrastructure/api/get-item.api";
 import {OrderService} from "@core/business-logic/order/service/order.service";
 import {NgxsModule} from "@ngxs/store";
 import {OrderState} from "@order/infrastructure/state/order/order.state";
-import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
+import {PushChangesSyncManager} from "@order/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [

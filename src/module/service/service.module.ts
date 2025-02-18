@@ -15,7 +15,7 @@ import {ServiceService} from "@core/business-logic/service/service/service.servi
 import {SyncManager} from "@service/infrastructure/sync-manager/sync-manager";
 import {NgxsModule} from "@ngxs/store";
 import {ServiceState} from "@service/infrastructure/state/service/service.state";
-import {PushChangesSyncManager} from "@core/system/infrastructure/sync-manager/push.changes.sync-manager";
+import {PushChangesSyncManager} from "@service/infrastructure/sync-manager/push.changes.sync-manager";
 
 @NgModule({
 	imports: [
