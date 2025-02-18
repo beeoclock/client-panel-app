@@ -24,7 +24,7 @@ function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: IBas
 					asyncQueue.enqueue(() => {
 						return BaseSyncManager.pushAll()
 					}).then();
-				}, 250);
+				}, 0);
 			}
 
 		};
@@ -49,7 +49,7 @@ function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, pri
 					asyncQueue.enqueue(() => {
 						return BaseSyncManager.pushAll()
 					}).then();
-				}, 250);
+				}, 0);
 			}
 
 		};
