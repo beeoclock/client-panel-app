@@ -15,7 +15,7 @@ interface IBusinessProfileState {
 }
 
 @State<IBusinessProfileState>({
-	name: 'business-profile',
+	name: 'businessProfile',
 	defaults: {
 		item: undefined
 	}
