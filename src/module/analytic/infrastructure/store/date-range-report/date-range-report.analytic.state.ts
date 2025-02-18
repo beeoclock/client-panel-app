@@ -320,19 +320,19 @@ export class DateRangeReportAnalyticState {
 	private groupServicesByDate(services: IOrderServiceDto[]): {
 		[key: string]: DateRangeReportAnalyticApi.IService[]
 	} {
-		return services.reduce((map, service) => {
-			const serviceDate = service.orderAppointmentDetails.start.split('T')[0];
+		return services.reduce((map, orderService) => {
+			const serviceDate = orderService.orderAppointmentDetails.start.split('T')[0];
 			const serviceInfo: DateRangeReportAnalyticApi.IService = {
-				orderServiceId: service._id,
-				orderId: service.orderId,
-				serviceId: service.serviceSnapshot._id,
-				status: service.status,
-				serviceName: service.serviceSnapshot.languageVersions[0]?.title || '',
-				price: service.serviceSnapshot.durationVersions[0]?.prices[0]?.price || 0,
-				currency: service.serviceSnapshot.durationVersions[0]?.prices[0]?.currency,
-				durationInSeconds: service.serviceSnapshot.durationVersions[0]?.durationInSeconds || 0,
-				startTime: service.orderAppointmentDetails?.start,
-				attendants: service.orderAppointmentDetails?.attendees
+				orderServiceId: orderService._id,
+				orderId: orderService.orderId,
+				serviceId: orderService.serviceSnapshot._id,
+				status: orderService.status,
+				serviceName: orderService.serviceSnapshot.languageVersions[0]?.title || '',
+				price: orderService.serviceSnapshot.durationVersions[0]?.prices[0]?.price || 0,
+				currency: orderService.serviceSnapshot.durationVersions[0]?.prices[0]?.currency,
+				durationInSeconds: orderService.serviceSnapshot.durationVersions[0]?.durationInSeconds || 0,
+				startTime: orderService.orderAppointmentDetails?.start,
+				attendants: orderService.orderAppointmentDetails?.attendees
 					.filter(attendant => attendant?.customer?.customerType !== CustomerTypeEnum.anonymous) // Filter out anonymous attendants
 					.map(attendant => ({
 						customerId: attendant?.customer?._id || '',
@@ -340,9 +340,9 @@ export class DateRangeReportAnalyticState {
 						lastName: attendant?.customer?.lastName ?? '',
 						registeredDate: attendant?.customer?.createdAt,
 					})) || [],
-				endTime: service.orderAppointmentDetails?.end,
-				createdOn: (service.meta?.history as IHistoryV2[])[0]?.issuer?.type === 'customer' ? ApplicationEnum.client : ApplicationEnum.panel,
-				wasSelectedAnybody: service.orderAppointmentDetails?.specialists[0]?.wasSelectedAnybody || false,
+				endTime: orderService.orderAppointmentDetails?.end,
+				createdOn: (orderService.meta?.history as IHistoryV2[])?.[0]?.issuer?.type === 'customer' ? ApplicationEnum.client : ApplicationEnum.panel,
+				wasSelectedAnybody: orderService.orderAppointmentDetails?.specialists[0]?.wasSelectedAnybody || false,
 			};
 			map[serviceDate] = map[serviceDate] || [];
 			map[serviceDate].push(serviceInfo);
