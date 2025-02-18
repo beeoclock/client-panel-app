@@ -15,6 +15,7 @@ interface ISyncState {
 		percentage: number;
 	};
 	lastStartSync: string;
+	lastSuccessSyncItemAt: string | null;
 }
 
 export interface ISyncManger {
@@ -194,6 +195,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 					percentage: 0,
 				},
 				lastStartSync: new Date().toISOString(),
+				lastSuccessSyncItemAt: null,
 			}
 
 			this.saveSyncState();
@@ -225,14 +227,18 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 		this.#isSyncing = false;
 	}
 
-	public async initPullData(firstPage: boolean = true) {
+	public async initPullData(firstPage: boolean = true, isContinuation: boolean = false) {
 
 		if (!this.#syncState) {
 			throw new Error('Sync state is not initialized');
 		}
 
-		const {options} = this.#syncState;
-		this.pullData = await this.apiDataProvider.findAsync(options);
+		const {options, lastSuccessSyncItemAt} = this.#syncState;
+		this.pullData = await this.apiDataProvider.findAsync({
+			...options,
+			// If user did F5 (refresh page) during sync, then we can sync from the last sync
+			updatedSince: isContinuation ? options.updatedSince : (lastSuccessSyncItemAt ?? options.updatedSince),
+		});
 
 		if (firstPage) {
 			if (this.#syncState) {
@@ -280,6 +286,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 		this.#syncState.lastStartSync = new Date().toISOString();
 		this.saveSyncState();
 
+		const lastPage = Math.ceil(this.pullData.totalSize / this.#syncState.options.pageSize);
+
 		while (!BaseSyncManager.isPaused$.value) {
 
 			for (const item of this.pullData.items) {
@@ -291,21 +299,22 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 				this.#syncState.progress.current++;
 				this.#syncState.progress.percentage = (this.#syncState.progress.current / this.#syncState.progress.total) * 100;
-				this.#syncState.options.updatedSince = item.updatedAt;
+				this.#syncState.lastSuccessSyncItemAt = item.updatedAt;
 
 			}
 
 			this.#syncState.options.page++;
 			this.saveSyncState();
 
-			if (this.pullData.items.length < this.#syncState.options.pageSize) {
+			if (lastPage < this.#syncState.options.page) {
 				this.#syncState.options.page = 1;
 				this.#syncState.options.updatedSince = new Date().toISOString();
+				this.#syncState.lastSuccessSyncItemAt = null;
 				this.saveSyncState();
 				break;
 			}
 
-			await this.initPullData(false);
+			await this.initPullData(false, true);
 
 		}
 

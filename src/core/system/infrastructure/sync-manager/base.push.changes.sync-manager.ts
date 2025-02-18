@@ -8,48 +8,53 @@ import {AsyncQueue} from "@core/shared/async-queue";
 
 const asyncQueue = new AsyncQueue();
 
-function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: any, transaction: any) {
+function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: IBaseEntity, transaction: any) {
 
-	console.log('PushChangesSyncManager:hookCreate', {primKey, obj, transaction});
 
-	this.onsuccess = (primKey) => {
+	if (obj.isNew() || obj.isUpdated()) {
 
-		const isOnline = window.navigator.onLine;
+		this.onsuccess = (primKey) => {
 
-		console.log('PushChangesSyncManager:hookCreate:onsuccess', {BaseSyncManager, primKey});
+			const isOnline = window.navigator.onLine;
 
-		if (isOnline) {
-			setTimeout(() => {
-				asyncQueue.enqueue(() => {
-					return BaseSyncManager.pushAll()
-				}).then();
-			}, 250);
-		}
+			console.log('PushChangesSyncManager:hookCreate:onsuccess', {BaseSyncManager, primKey});
 
-	};
+			if (isOnline) {
+				setTimeout(() => {
+					asyncQueue.enqueue(() => {
+						return BaseSyncManager.pushAll()
+					}).then();
+				}, 250);
+			}
+
+		};
+
+	}
 
 }
 
-function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, primKey: any, obj: any, transaction: any) {
-
-	console.log('PushChangesSyncManager:hookUpdate', {modifications, primKey, obj, transaction});
+function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, primKey: any, obj: IBaseEntity, transaction: any) {
 
 
-	this.onsuccess = (updatedObj) => {
+	if ((!obj?.syncedAt) || obj.syncedAt < obj.updatedAt) {
 
-		const isOnline = window.navigator.onLine;
+		this.onsuccess = (updatedObj) => {
 
-		console.log('PushChangesSyncManager:hookUpdate:onsuccess', {BaseSyncManager, updatedObj});
+			const isOnline = window.navigator.onLine;
 
-		if (isOnline) {
-			setTimeout(() => {
-				asyncQueue.enqueue(() => {
-					return BaseSyncManager.pushAll()
-				}).then();
-			}, 250);
-		}
+			console.log('PushChangesSyncManager:hookUpdate:onsuccess', {BaseSyncManager, updatedObj});
 
-	};
+			if (isOnline) {
+				setTimeout(() => {
+					asyncQueue.enqueue(() => {
+						return BaseSyncManager.pushAll()
+					}).then();
+				}, 250);
+			}
+
+		};
+
+	}
 
 }
 
