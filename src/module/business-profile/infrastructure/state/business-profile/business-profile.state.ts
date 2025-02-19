@@ -113,16 +113,13 @@ export class BusinessProfileState {
 
 		const {0: item} = items;
 
-		if (!item) {
-			console.error('ClientState.getItem', 'Item not found');
-			return;
-		}
-
 		ctx.patchState({
 			item
 		});
 
-		this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
+		if (item) {
+			this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
+		}
 
 		ctx.dispatch(new AppActions.PageLoading(false));
 
