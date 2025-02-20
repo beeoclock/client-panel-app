@@ -291,6 +291,17 @@ export class OrderState {
 
 	}
 
+	@Action(OrderActions.Delete)
+	public async delete(ctx: StateContext<IOrderState>, action: OrderActions.Delete): Promise<void> {
+		const foundOrder = await this.orderService.repository.findByIdAsync(action.payload.id);
+		if (!foundOrder) {
+			return;
+		}
+		const orderEntity = EOrder.create(foundOrder);
+		orderEntity.changeState(StateEnum.deleted);
+		await this.orderService.repository.updateAsync(orderEntity);
+	}
+
 	// API
 
 	@Action(OrderActions.ChangeStatus)

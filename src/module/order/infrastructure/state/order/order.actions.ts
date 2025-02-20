@@ -116,4 +116,15 @@ export namespace OrderActions {
 		}
 	}
 
+	export class Delete {
+		public static readonly type = '[Order] Delete';
+
+		public constructor(
+			public readonly payload: {
+				id: string;
+			}
+		) {
+		}
+	}
+
 }

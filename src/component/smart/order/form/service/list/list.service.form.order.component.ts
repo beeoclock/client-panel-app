@@ -2,7 +2,6 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	HostBinding,
 	inject,
 	input,
 	OnChanges,
@@ -61,7 +60,10 @@ import {IService} from "@core/business-logic/service/interface/i.service";
 				}
 			</div>
 		</div>
-	`
+	`,
+	host: {
+		class: 'flex-col justify-start items-start flex'
+	}
 })
 export class ListServiceFormOrderComponent extends Reactive implements OnChanges, OnInit {
 
@@ -73,9 +75,6 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 	}>({});
 
 	public readonly serviceOrderFormArray = input.required<ServiceOrderFormArray>();
-
-	@HostBinding()
-	public class = 'flex-col justify-start items-start flex';
 
 	public readonly selectedServicePlusControlList: {
 		service: IService.DTO;

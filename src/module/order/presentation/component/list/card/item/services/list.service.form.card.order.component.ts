@@ -2,7 +2,6 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	HostBinding,
 	inject,
 	input,
 	OnChanges,
@@ -49,7 +48,10 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 				}
 			</div>
 		</div>
-	`
+	`,
+	host: {
+		class: 'flex-col justify-start items-start flex'
+	}
 })
 export class ListServiceFormCardOrderComponent extends Reactive implements OnChanges {
 
@@ -58,9 +60,6 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 	public readonly specificOrderServiceId = input<string | null>(null);
 
 	public readonly idPrefix = input('');
-
-	@HostBinding()
-	public class = 'flex-col justify-start items-start flex';
 
 	public readonly selectedServicePlusControlList: {
 		_id: string;
@@ -109,13 +108,21 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 		this.selectedServicePlusControlList.splice(index, 1);
 
 		if (isLastServiceInOrder) {
-			// this.deleteOrder();
+			this.deleteOrder();
 		} else {
 			this.deleteServiceOrderAt(orderServiceId);
 		}
 
 		this.#changeDetectorRef.detectChanges();
 
+	}
+
+	@Dispatch()
+	private deleteOrder() {
+		const {_id} = this.order();
+		return new OrderActions.Delete({
+			id: _id
+		});
 	}
 
 	private async confirmToDelete(isLastServiceInOrder = false) {

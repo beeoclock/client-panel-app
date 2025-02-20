@@ -1,7 +1,6 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	HostBinding,
 	inject,
 	input,
 	OnChanges,
@@ -97,12 +96,12 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 			</div>
 		</div>
 
-	`
+	`,
+	host: {
+		class: 'flex-col justify-start items-start p-3 gap-2 flex'
+	}
 })
 export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnChanges {
-
-	@HostBinding()
-	public class = 'flex-col justify-start items-start p-3 gap-2 flex';
 
 	public readonly item = input.required<{
 		service: IService.DTO;
