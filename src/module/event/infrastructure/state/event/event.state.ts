@@ -6,6 +6,7 @@ import {IOrderState} from "@order/infrastructure/state/order/order.state";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import {OrderService} from "@core/business-logic/order/service/order.service";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 
 export interface IEventState {
@@ -115,20 +116,11 @@ export class EventState {
 				}
 				return service;
 			})
-		}
+		};
 
-		await this.orderService.repository.updateAsync(modifiedItem);
+		const entity = EOrder.create(modifiedItem);
 
-		// TODO: wait for the implementation. https://github.com/maxnowack/signaldb/issues/1375
-		// this.orderIndexedDBFacade.source.updateOne({
-		// 	id: action.payload.orderId,
-		// 	'services._id': action.payload.serviceId
-		// }, {
-		// 	$set: {
-		// 		'services.$[service].status': action.payload.status,
-		// 	}
-		// }, [{ service: action.payload.serviceId }]);
-
+		await this.orderService.repository.updateAsync(entity);
 	}
 
 }
