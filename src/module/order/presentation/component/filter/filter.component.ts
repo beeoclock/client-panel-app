@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@order/presentation/form/filter.form";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -65,14 +65,14 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		<ng-template #AutoRefresh>
 			<utility-auto-refresh-component id="order-filter-auto-refresh" (emitter)="forceRefresh()"/>
 		</ng-template>
-	`
+	`,
+	host: {
+		class: 'flex flex-col overflow-x-auto'
+	}
 })
 export class FilterComponent extends BaseFilterComponent implements OnInit {
 
 	public readonly showButtonGoToForm = input(true);
-
-	@HostBinding()
-	public class = 'flex flex-col overflow-x-auto';
 
 	public override readonly form = new FilterForm();
 	public override readonly actions = OrderActions;

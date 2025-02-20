@@ -3,6 +3,8 @@ import {MS_TEN_MINUTES} from "@utility/domain/const/c.time";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ThemeEnum} from "@utility/cdk/theme.service";
 import {BehaviorSubject} from "rxjs";
+import {CustomerService} from "@core/business-logic/customer/service/customer.service";
+import {EventListCustomerRepository} from "@customer/infrastructure/repository/event.list.customer.repository";
 
 // Use in [tenantId] router or in wrapper-panel.component.ts
 export const CURRENT_TENANT_ID = new InjectionToken<string>('TENANT_ID');
@@ -18,6 +20,11 @@ export const SIDEBAR_ID = new InjectionToken<string>('SIDEBAR_ID');
 export const MAIN_CONTAINER_ID = new InjectionToken<string>('MAIN_CONTAINER_ID');
 export const CACHE_TABLE_CLEAR_AFTER_MS = new InjectionToken<number>('CACHE_TABLE_CLEAR_AFTER_MS');
 
+/**
+ * Token of service per resource
+ */
+export const GlobalCustomerService = new InjectionToken<CustomerService>('GlobalCustomerService');
+export const GlobalEventListCustomerRepository = new InjectionToken<EventListCustomerRepository>('GlobalEventListCustomerRepository');
 
 export const tokens = [
 	{

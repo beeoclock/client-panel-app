@@ -18,6 +18,7 @@ import {CustomerState} from "@customer/infrastructure/state/customer/customer.st
 import {EventListCustomerRepository} from "@customer/infrastructure/repository/event.list.customer.repository";
 import {UtilityListCustomerRepository} from "@customer/infrastructure/repository/utility.list.customer.repository";
 import {PushChangesSyncManager} from "@customer/infrastructure/sync-manager/push.changes.sync-manager";
+import {GlobalEventListCustomerRepository} from "@src/token";
 
 @NgModule({
 	imports: [
@@ -54,6 +55,10 @@ import {PushChangesSyncManager} from "@customer/infrastructure/sync-manager/push
 			)
 		},
 		EventListCustomerRepository,
+		{
+			provide: GlobalEventListCustomerRepository,
+			useExisting: EventListCustomerRepository,
+		},
 		UtilityListCustomerRepository,
 
 		// Sync Manger
@@ -77,5 +82,12 @@ export class CustomerModule {
 	private readonly syncManager = inject(SyncManager);
 	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly customerService = inject(CustomerService);
+
+	public static readonly providers = [
+		{
+			provide: GlobalEventListCustomerRepository,
+			useExisting: EventListCustomerRepository,
+		},
+	]
 
 }

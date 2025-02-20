@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgTemplateOutlet} from "@angular/common";
 import {
@@ -7,7 +7,6 @@ import {
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {IEvent_V2} from "@event/domain";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {Store} from "@ngxs/store";
 import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
@@ -19,6 +18,7 @@ import {
 import {
 	ChangeStatusOnCancelledComponent
 } from "@event/presentation/component/change-status/change-status-on-cancelled.component";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'app-event-v2-buttons-details',
@@ -109,7 +109,10 @@ import {
 <!--		<hr>-->
 
 <!--		<event-delete-button-component [event]="event"/>-->
-	`
+	`,
+	host: {
+		class: 'flex justify-between flex-col gap-4 bg-white p-4 border-y'
+	}
 })
 export class V2ButtonsDetailsComponent implements OnChanges {
 
@@ -118,9 +121,6 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 		service: IOrderServiceDto;
 	}>>();
 
-	@HostBinding()
-	public class = 'flex justify-between flex-col gap-4 bg-white p-4 border-y';
-
 	public isNegative = false;
 	public isDone = false;
 	public isAccepted = false;
@@ -128,22 +128,20 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 	public isRequested = false;
 
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly store = inject(Store);
 
+	@Dispatch()
 	public editEvent() {
 
-		this.store.dispatch(new OrderActions.OpenOrderServiceForm({
+		return new OrderActions.OpenOrderServiceForm({
 			orderId: this.event().originalData.order._id,
 			item: this.event().originalData.service,
 			isEditMode: true
-		}));
+		});
 
 	}
 
 	public openFormToRepeat() {
-
 		this.ngxLogger.info('V2ButtonsDetailsComponent:openFormToRepeat');
-
 	}
 
 	public ngOnChanges(changes: SimpleChanges & { event: SimpleChange }) {

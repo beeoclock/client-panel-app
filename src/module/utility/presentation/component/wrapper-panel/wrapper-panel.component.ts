@@ -86,6 +86,7 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 				return tenantId;
 			},
 		},
+		...CustomerModule.providers,
 	],
 	encapsulation: ViewEncapsulation.None,
 	host: {

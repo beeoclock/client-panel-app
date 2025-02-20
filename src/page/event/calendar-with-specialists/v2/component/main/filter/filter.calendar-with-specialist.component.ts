@@ -58,7 +58,7 @@ import {VisibilityService} from "@utility/cdk/visibility.service";
 									{{ 'keyword.capitalize.statuses' | translate }}
 								</label>
 								<ion-select-wrapper
-									class="p-4 max-w-xs"
+									class="max-w-xs"
 									id="calendar-with-specialists-filter-order-service-status"
 									[multiple]="true"
 									[options]="orderServiceStatusOptions"

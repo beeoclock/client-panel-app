@@ -108,7 +108,6 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 			concatMap((table) => {
 				entity.refreshUpdatedAt();
 				return from(table.where('_id').equals(entity._id).modify((value, ref) => {
-					console.log('IndexedDBDataProvider.update$', {value, ref, entity});
 					ref.value = entity;
 				}));
 			}),

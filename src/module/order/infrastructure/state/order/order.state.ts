@@ -23,6 +23,7 @@ import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 import {OrderService} from "@core/business-logic/order/service/order.service";
 import {PaymentService} from "@core/business-logic/payment/service/payment.service";
+import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -409,7 +410,7 @@ export class OrderState {
 				newTableState.filters = {};
 			}
 
-			const params = newTableState.toBackendFormat();
+			const {statuses = [], ...params} = newTableState.toBackendFormat();
 
 			const inState = (
 				params?.state ?
@@ -420,6 +421,13 @@ export class OrderState {
 			const {items, totalSize} = await this.orderService.repository.findAsync({
 				...params,
 				state: inState,
+
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				...(statuses?.length ? {
+					status: statuses as OrderStatusEnum[],
+				} : {}),
+
 			});
 
 			newTableState

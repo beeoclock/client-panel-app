@@ -35,9 +35,9 @@ import {Store} from "@ngxs/store";
 import {Reactive} from "@utility/cdk/reactive";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import ObjectID from "bson-objectid";
-import {EventListCustomerRepository} from "@customer/infrastructure/repository/event.list.customer.repository";
 import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
 import {NGXLogger} from "ngx-logger";
+import {GlobalEventListCustomerRepository} from "@src/token";
 
 @Component({
 	selector: 'app-customer-list-ionic-component',
@@ -201,7 +201,7 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	public readonly ngxLogger = inject(NGXLogger);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
-	public readonly eventListCustomerAdapter = inject(EventListCustomerRepository);
+	public readonly eventListCustomerAdapter = inject(GlobalEventListCustomerRepository);
 
 	protected selectedCustomer: ICustomer.DTO | undefined;
 
