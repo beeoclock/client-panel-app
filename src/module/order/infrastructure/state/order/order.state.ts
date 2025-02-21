@@ -341,6 +341,7 @@ export class OrderState {
 		orderEntity.changeState(StateEnum.deleted);
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.orderService.repository.updateAsync(orderEntity);
+		ctx.dispatch(new OrderActions.GetList());
 	}
 
 	@Action(OrderActions.CreateItem)
