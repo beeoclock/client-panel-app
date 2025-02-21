@@ -3,7 +3,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IHistory, IHistoryV2} from "@utility/domain";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {DateTime} from "luxon";
 import {
 	ListFromToChronologyComponent
@@ -71,7 +71,7 @@ import {
 })
 export class MetaDetailsComponent implements OnChanges {
 
-	public readonly orderDro = input.required<IOrderDto>();
+	public readonly orderDro = input.required<IOrder.DTO>();
 
 	public readonly orderServiceDto = input.required<IOrderServiceDto>();
 

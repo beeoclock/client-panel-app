@@ -3,7 +3,7 @@ import {MetaDetailsComponent} from "@event/presentation/component/details/meta.d
 import {IEvent_V2} from "@event/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {V2GeneralDetailsComponent} from "@event/presentation/component/details/v2.general.details.component";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {V2ButtonsDetailsComponent} from "@event/presentation/component/details/v2.buttons.details.component";
 import {
@@ -52,7 +52,7 @@ import {
 export class ContainerDetailsComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
-	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+	public event!: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>;
 
 	@HostBinding()
 	public class = 'pb-48 block';

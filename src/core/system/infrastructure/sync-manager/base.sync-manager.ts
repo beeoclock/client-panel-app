@@ -298,8 +298,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 				this.#syncState.progress.current++;
 				this.#syncState.progress.percentage = (this.#syncState.progress.current / this.#syncState.progress.total) * 100;
-				if (this.#syncState.progress.percentage > 100) {
-					this.#syncState.progress.percentage = 100;
+				if (this.#syncState.progress.percentage >= 100) {
+					this.#syncState.progress.percentage = 99;
 				}
 				this.#syncState.lastSuccessSyncItemAt = item.updatedAt;
 
@@ -381,8 +381,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 			this.syncState.progress.current++;
 			this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;
-			if (this.syncState.progress.percentage > 100) {
-				this.syncState.progress.percentage = 100;
+			if (this.syncState.progress.percentage >= 100) {
+				this.syncState.progress.percentage = 99;
 			}
 			this.saveSyncState();
 

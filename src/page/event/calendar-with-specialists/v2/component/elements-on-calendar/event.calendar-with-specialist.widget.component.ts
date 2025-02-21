@@ -15,7 +15,7 @@ import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@event/domain";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {DateTime} from "luxon";
@@ -39,7 +39,7 @@ import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 
-type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsence.DTO>;
+type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>;
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -370,7 +370,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	}
 
-	public isOrder(event: DATA): event is IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }> {
+	public isOrder(event: DATA): event is IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }> {
 		return event.is === 'order';
 	}
 

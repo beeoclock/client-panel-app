@@ -1,6 +1,6 @@
 import {Directive, HostBinding, HostListener, inject, input} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {Store} from "@ngxs/store";
 import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";
@@ -8,7 +8,7 @@ import {TranslateService} from "@ngx-translate/core";
 @Directive()
 export abstract class BaseChangeStatusButtonComponent extends Reactive {
 
-	public readonly item = input.required<IOrderDto>();
+	public readonly item = input.required<IOrder.DTO>();
 
 	@HostListener('click')
 	public onClick() {

@@ -4,7 +4,7 @@ import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 
 @Component({
 	selector: 'app-order-row-action-button-component',
@@ -28,7 +28,7 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<IOrderDto>();
+	public readonly item = input.required<IOrder.DTO>();
 
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);

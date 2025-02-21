@@ -15,7 +15,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {FilterComponent} from "@order/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {
 	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
@@ -46,12 +46,12 @@ import {Actions} from '@ngxs/store';
 		DurationVersionHtmlHelper,
 	],
 })
-export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrderDto> implements OnChanges, OnInit {
-	public override readonly tableState = input.required<ITableState<IOrderDto> | null>();
+export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder.Entity> implements OnChanges, OnInit {
+	public override readonly tableState = input.required<ITableState<IOrder.Entity> | null>();
 
-	public readonly mapOfItems: Map<string, IOrderDto[]> = new Map<string, IOrderDto[]>();
-	public itemsWithDate: [string, IOrderDto[]][] = [];
-	private previousTableState: ITableState<IOrderDto> | undefined;
+	public readonly mapOfItems: Map<string, IOrder.DTO[]> = new Map<string, IOrder.DTO[]>();
+	public itemsWithDate: [string, IOrder.DTO[]][] = [];
+	private previousTableState: ITableState<IOrder.DTO> | undefined;
 
 	private readonly actions$ = inject(Actions);
 
@@ -79,7 +79,7 @@ export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder
 
 		if (changes.tableState?.currentValue) {
 
-			const currentTableState = changes.tableState.currentValue as ITableState<IOrderDto>;
+			const currentTableState = changes.tableState.currentValue as ITableState<IOrder.DTO>;
 
 			// Check if the tableState is not the same as the previous one
 			if (JSON.stringify(this.previousTableState) === JSON.stringify(currentTableState)) {
@@ -98,7 +98,7 @@ export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder
 			});
 			this.itemsWithDate = Array.from(this.mapOfItems.entries());
 
-			this.previousTableState = currentTableState as ITableState<IOrderDto>;
+			this.previousTableState = currentTableState as ITableState<IOrder.DTO>;
 
 		}
 

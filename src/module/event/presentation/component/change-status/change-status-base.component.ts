@@ -3,7 +3,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {IEvent_V2} from "@event/domain";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 
@@ -19,7 +19,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 export abstract class ChangeStatusBaseComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
-    order: IOrderDto;
+    order: IOrder.DTO;
     service: IOrderServiceDto;
 }>>();
 

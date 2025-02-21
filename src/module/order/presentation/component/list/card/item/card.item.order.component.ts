@@ -5,7 +5,7 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
@@ -101,7 +101,7 @@ export class CardItemOrderComponent implements OnInit {
 	public readonly selectedIds = input.required<string[]>();
 
 	@Input({required: true})
-	public orderDto!: IOrderDto;
+	public orderDto!: IOrder.DTO;
 
 	readonly showAction = input.required<boolean>();
 

@@ -1,8 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
-import {GetApi} from "@order/infrastructure/api/get.api";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-customer/peer-customer.order.actions";
 import {getMaxPage} from "@utility/domain/max-page";
@@ -11,14 +10,14 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderService} from "@core/business-logic/order/service/order.service";
 
 export type IPeerCustomerOrderState = {
-	tableState: ITableState<IOrderDto>;
+	tableState: ITableState<IOrder.Entity>;
 	loading: boolean;
 };
 
 @State<IPeerCustomerOrderState>({
 	name: 'peerCustomerOrderState',
 	defaults: {
-		tableState: new TableState<IOrderDto>()
+		tableState: new TableState<IOrder.Entity>()
 			.setOrderBy(OrderByEnum.UPDATED_AT)
 			.setOrderDir(OrderDirEnum.DESC)
 			.toCache(),
@@ -28,7 +27,6 @@ export type IPeerCustomerOrderState = {
 @Injectable()
 export class PeerCustomerOrderState {
 
-	private readonly paged = inject(GetApi);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly orderService = inject(OrderService);
 
@@ -89,7 +87,7 @@ export class PeerCustomerOrderState {
 
 		try {
 
-			const newTableState = TableState.fromCache<IOrderDto>(state.tableState);
+			const newTableState = TableState.fromCache<IOrder.Entity>(state.tableState);
 
 			if (resetPage) {
 				newTableState.setPage(1);

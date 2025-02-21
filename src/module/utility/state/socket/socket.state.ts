@@ -3,7 +3,7 @@ import {inject, Injectable} from '@angular/core';
 import {Socket, SocketIoConfig} from 'ngx-socket-io';
 import {tap} from 'rxjs/operators';
 import {SocketActions} from "@utility/state/socket/socket.actions";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {
 	CalendarWithSpecialistsAction
 } from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
@@ -25,7 +25,7 @@ export enum SocketEventTypes {
 	OrderPaid = 'order-paid',
 }
 
-export type SocketMessages = Array<IOrderDto>;
+export type SocketMessages = Array<IOrder.DTO>;
 
 @State<SocketStateModel>({
 	name: 'socket',

@@ -3,7 +3,7 @@ import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {EventActions} from "@event/infrastructure/state/event/event.actions";
@@ -34,13 +34,13 @@ export class OrderDetailsContainerComponent {
 	// TODO add base index of details with store and delete method
 
 	@Input()
-	public item!: IOrderDto;
+	public item!: IOrder.DTO;
 
 	public readonly idPrefix = 'order-details-container';
 
 	public readonly store = inject(Store);
 
-	// public async delete(order: IOrderDto) {
+	// public async delete(order: IOrder.DTO) {
 	//
 	// 	const {status} = order;
 	//

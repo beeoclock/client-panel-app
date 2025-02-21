@@ -1,9 +1,9 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
-import {Action, Selector, State, StateContext} from "@ngxs/store";
+import {Action, Selector, State, StateContext, Store} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {ContainerFormComponent} from "@event/presentation/component/form/container.form.component";
@@ -24,10 +24,18 @@ import {CustomerService} from "@core/business-logic/customer/service/customer.se
 import {OrderService} from "@core/business-logic/order/service/order.service";
 import {PaymentService} from "@core/business-logic/payment/service/payment.service";
 import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
+import {OverlayEventDetail} from "@ionic/core/dist/types/utils/overlays-interface";
+import {ModalController} from "@ionic/angular";
+import {
+	NotificationSettingsComponent
+} from "@order/presentation/component/notification-settings/notification-settings.component";
+import {INotificationSettings} from "@core/business-logic/order/interface/i.notification-settings";
 
-export type IOrderState = IBaseState<IOrderDto>;
+export type IOrderState = IBaseState<IOrder.Entity>;
 
-const defaults = baseDefaults<IOrderDto>({
+const defaults = baseDefaults<IOrder.Entity>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
@@ -41,13 +49,30 @@ const defaults = baseDefaults<IOrderDto>({
 @Injectable()
 export class OrderState {
 
-	public readonly customerService = inject(CustomerService);
-	public readonly orderService = inject(OrderService);
-	public readonly paymentService = inject(PaymentService);
+	private readonly customerService = inject(CustomerService);
+	private readonly orderService = inject(OrderService);
+	private readonly paymentService = inject(PaymentService);
+	private readonly store = inject(Store);
+	private readonly modalController = inject(ModalController);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
+
+	@Action(OrderActions.Init)
+	public async init(ctx: StateContext<IOrderState>): Promise<void> {
+		ctx.setState(structuredClone(defaults));
+	}
+
+	@Action(OrderActions.UpdateFilters)
+	public updateFilters(ctx: StateContext<IOrderState>, action: OrderActions.UpdateFilters) {
+		BaseState.updateFilters(ctx, action);
+	}
+
+	@Action(OrderActions.UpdateTableState)
+	public updateTableState(ctx: StateContext<IOrderState>, action: OrderActions.UpdateTableState) {
+		BaseState.updateTableState(ctx, action);
+	}
 
 	// Application layer
 
@@ -291,17 +316,6 @@ export class OrderState {
 
 	}
 
-	@Action(OrderActions.Delete)
-	public async delete(ctx: StateContext<IOrderState>, action: OrderActions.Delete): Promise<void> {
-		const foundOrder = await this.orderService.repository.findByIdAsync(action.payload.id);
-		if (!foundOrder) {
-			return;
-		}
-		const orderEntity = EOrder.create(foundOrder);
-		orderEntity.changeState(StateEnum.deleted);
-		await this.orderService.repository.updateAsync(orderEntity);
-	}
-
 	// API
 
 	@Action(OrderActions.ChangeStatus)
@@ -312,23 +326,21 @@ export class OrderState {
 		}
 		const orderEntity = EOrder.create(foundOrder);
 		orderEntity.status = action.payload.status;
+		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.orderService.repository.updateAsync(orderEntity);
 
 	}
 
-	@Action(OrderActions.Init)
-	public async init(ctx: StateContext<IOrderState>): Promise<void> {
-		ctx.setState(structuredClone(defaults));
-	}
-
-	@Action(OrderActions.UpdateFilters)
-	public updateFilters(ctx: StateContext<IOrderState>, action: OrderActions.UpdateFilters) {
-		BaseState.updateFilters(ctx, action);
-	}
-
-	@Action(OrderActions.UpdateTableState)
-	public updateTableState(ctx: StateContext<IOrderState>, action: OrderActions.UpdateTableState) {
-		BaseState.updateTableState(ctx, action);
+	@Action(OrderActions.Delete)
+	public async delete(ctx: StateContext<IOrderState>, action: OrderActions.Delete): Promise<void> {
+		const foundOrder = await this.orderService.repository.findByIdAsync(action.payload.id);
+		if (!foundOrder) {
+			return;
+		}
+		const orderEntity = EOrder.create(foundOrder);
+		orderEntity.changeState(StateEnum.deleted);
+		await this.addNotificationSettingsToOrderEntity(orderEntity);
+		await this.orderService.repository.updateAsync(orderEntity);
 	}
 
 	@Action(OrderActions.CreateItem)
@@ -366,18 +378,18 @@ export class OrderState {
 			}
 		}
 
+		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.orderService.repository.createAsync(orderEntity);
 		await this.closeFormAction(ctx);
 	}
 
 	@Action(OrderActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IOrderState>, action: OrderActions.UpdateItem): Promise<void> {
-
-		const item = EOrder.create(action.payload);
-		await this.orderService.repository.updateAsync(item);
+		const orderEntity = EOrder.create(action.payload);
+		await this.addNotificationSettingsToOrderEntity(orderEntity);
+		await this.orderService.repository.updateAsync(orderEntity);
 		await this.closeFormAction(ctx);
-		await this.updateOpenedDetailsAction(ctx, {payload: item});
-
+		await this.updateOpenedDetailsAction(ctx, {payload: orderEntity});
 	}
 
 	@Action(OrderActions.GetItem)
@@ -461,12 +473,6 @@ export class OrderState {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
 
-	@Action(OrderActions.PutItem)
-	public async putItem(ctx: StateContext<IOrderState>, action: OrderActions.PutItem): Promise<void> {
-		const item = EOrder.create(action.payload.item);
-		await this.orderService.repository.updateAsync(item);
-	}
-
 	// Selectors
 
 	@Selector()
@@ -487,6 +493,77 @@ export class OrderState {
 	@Selector()
 	public static tableStateFilters(state: IOrderState) {
 		return state.tableState.filters;
+	}
+
+	/**
+	 * Add notification settings to order entity
+	 * @param orderEntity
+	 * @private
+	 */
+	private async addNotificationSettingsToOrderEntity(orderEntity: EOrder): Promise<EOrder> {
+
+		const notificationSettings = this.store.selectSnapshot(BusinessProfileState.notificationSettings);
+		const askEmailNotifications = notificationSettings?.emailNotificationSettings?.sendNotificationConditionType === SendNotificationConditionEnum.ALLOW_BUT_ASK;
+		const askSmsNotifications = notificationSettings?.smsNotificationSettings?.sendNotificationConditionType === SendNotificationConditionEnum.ALLOW_BUT_ASK;
+		const needToShowNotificationsSettingModal = askEmailNotifications || askSmsNotifications;
+
+		if (!needToShowNotificationsSettingModal) {
+			return orderEntity;
+		}
+
+		return this.notificationSettingsFromModal({
+			askEmailNotifications,
+			askSmsNotifications
+		}).then(({data}) => {
+
+			if (data) {
+
+				orderEntity.notificationSettings = {
+					sendNotification: Boolean(data?.length),
+					sendTypes: data,
+					sendReceivers: ['business', 'client']
+				} as INotificationSettings;
+
+			}
+
+			return orderEntity;
+
+			//
+			// const updatedBody = {
+			// 	...req.body as object,
+			// 	// TODO move Receivers to UI settings
+			// 	notificationSettings: {
+			// 		sendNotification: Boolean(resp.data?.length),
+			// 		sendTypes: resp.data,
+			// 		sendReceivers: ['business', 'client']
+			// 	}
+			// }
+			// return next(req.clone({body: updatedBody}))
+
+		})
+
+	}
+
+	/**
+	 * Show notification settings modal
+	 * @param data
+	 * @private
+	 */
+	private async notificationSettingsFromModal(data: {
+		askEmailNotifications: boolean,
+		askSmsNotifications: boolean
+	}): Promise<OverlayEventDetail<string[]>> {
+		const {askEmailNotifications, askSmsNotifications} = data;
+		const modal = await this.modalController.create({
+			component: NotificationSettingsComponent,
+			backdropDismiss: false,
+			componentProps: {
+				askEmailNotifications,
+				askSmsNotifications,
+			}
+		});
+		await modal.present();
+		return modal.onWillDismiss<string[]>();
 	}
 
 }

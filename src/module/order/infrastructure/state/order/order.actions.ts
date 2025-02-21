@@ -1,5 +1,4 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {RIMember} from "@src/core/business-logic/member";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {ICustomer} from "@src/core/business-logic/customer";
@@ -19,11 +18,11 @@ export namespace OrderActions {
 		public static override readonly type = '[Order Application] Close Form';
 	}
 
-	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IOrderDto> {
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IOrder.DTO> {
 		public static override readonly type = '[Order Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<IOrderDto> {
+	export class OpenDetails extends BaseActions.OpenDetails<IOrder.DTO> {
 		public static override readonly type = '[Order Application] Open Details';
 	}
 

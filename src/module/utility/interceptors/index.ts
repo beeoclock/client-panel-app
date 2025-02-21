@@ -6,4 +6,3 @@ export {ParamsReplaceInterceptor} from './params.replace.interceptor';
 export {PrepareHttpContextInterceptor} from './prepare-http-context.interceptor';
 export {AccessTokenInterceptor} from './access.token.interceptor';
 export {TenantIdInterceptor} from './tenant-id.interceptor';
-export {NotificationSettingsInterceptor} from './notification-settings.interceptor';

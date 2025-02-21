@@ -17,7 +17,7 @@ import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {AlertController} from "@ionic/angular";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
@@ -55,7 +55,7 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 })
 export class ListServiceFormCardOrderComponent extends Reactive implements OnChanges {
 
-	public readonly order = input.required<IOrderDto>();
+	public readonly order = input.required<IOrder.DTO>();
 
 	public readonly specificOrderServiceId = input<string | null>(null);
 
@@ -174,7 +174,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 	}
 
 	@Dispatch()
-	protected saveNewChanges(item: IOrderDto): OrderActions.UpdateItem {
+	protected saveNewChanges(item: IOrder.DTO): OrderActions.UpdateItem {
 		return new OrderActions.UpdateItem(item);
 	}
 

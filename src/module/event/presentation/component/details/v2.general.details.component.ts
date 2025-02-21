@@ -3,7 +3,7 @@ import {IAttendee, IEvent_V2} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
 import {ICustomer} from "@src/core/business-logic/customer";
@@ -139,7 +139,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 export class V2GeneralDetailsComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
-		order: IOrderDto;
+		order: IOrder.DTO;
 		service: IOrderServiceDto;
 	}>>();
 
@@ -173,7 +173,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 			this.attendantMap.specialists = [];
 			this.attendantMap.customers = [];
 
-			const {attendees} = event.currentValue as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+			const {attendees} = event.currentValue as IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>;
 			attendees.forEach((attendee) => {
 				(attendee.is === 'specialist') && this.attendantMap.specialists.push(attendee.originalData as ISpecialist);
 				(attendee.is === 'customer') && this.attendantMap.customers.push((attendee.originalData as IAttendee).customer);

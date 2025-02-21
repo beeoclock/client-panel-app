@@ -19,7 +19,6 @@ import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
@@ -100,7 +99,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		serviceList?: IService.DTO[];
 		customer?: ICustomer.Entity;
 	}>({});
-	public readonly orderDto = input<Partial<IOrderDto>>({});
+	public readonly orderDto = input<Partial<IOrder.DTO>>({});
 	public readonly paymentDto = input<Partial<IPayment.DTO>>({});
 	public readonly isEditMode = input<boolean>(false);
 	public readonly firstStepOnInit = input<{
@@ -169,9 +168,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	 * @private
 	 */
 	private dispatchPutOrderAction$(item: IOrder.DTO) {
-		const action = new OrderActions.PutItem({
-			item
-		});
+		const action = new OrderActions.UpdateItem(item);
 		return this.store.dispatch(action);
 	}
 
@@ -235,7 +232,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	}
 
 	private patchOrderValue(orderDto: SimpleChange) {
-		const {currentValue} = orderDto as { currentValue: IOrderDto };
+		const {currentValue} = orderDto as { currentValue: IOrder.DTO };
 		this.form.controls.order.patchValue(currentValue);
 		currentValue.services?.forEach((service) => {
 			this.form.controls.order.controls.services.pushNewOne(service);
@@ -243,7 +240,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		this.changeDetectorRef.detectChanges();
 	}
 
-	private updatePaymentFormWithOrderDto(orderDto: Partial<IOrderDto>) {
+	private updatePaymentFormWithOrderDto(orderDto: Partial<IOrder.DTO>) {
 
 		if (!orderDto) {
 			return;

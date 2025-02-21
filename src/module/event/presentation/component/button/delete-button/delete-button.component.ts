@@ -2,7 +2,7 @@ import {Component, inject, input, output, ViewEncapsulation} from "@angular/core
 import {TranslateModule} from "@ngx-translate/core";
 import {IEvent_V2} from "@event/domain";
 import {Store} from "@ngxs/store";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 
 @Component({
@@ -42,7 +42,7 @@ import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order
 export class DeleteButtonComponent {
 
 	public readonly event = input.required<IEvent_V2<{
-		order: IOrderDto;
+		order: IOrder.DTO;
 		service: IOrderServiceDto;
 	}>>();
 

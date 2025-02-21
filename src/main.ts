@@ -117,7 +117,6 @@ bootstrapApplication(MainRouterOutlet, {
 			Utility.Interceptors.SourceInterceptor,
 			Utility.Interceptors.TenantIdInterceptor,
 			Utility.Interceptors.AccessTokenInterceptor,
-			Utility.Interceptors.NotificationSettingsInterceptor
 		])),
 		provideRouter(
 			routes,

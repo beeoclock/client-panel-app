@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {ITableState, PITableState} from "@utility/domain/table.state";
 
 export namespace PeerCustomerOrderActions {
@@ -15,7 +15,7 @@ export namespace PeerCustomerOrderActions {
 		public static readonly type: string = '[PeerCustomerOrder] Update Filters';
 
 		constructor(
-			public readonly payload: ITableState<IOrderDto>['filters'],
+			public readonly payload: ITableState<IOrder.Entity>['filters'],
 		) {
 		}
 	}
@@ -24,7 +24,7 @@ export namespace PeerCustomerOrderActions {
 		public static readonly type: string = '[PeerCustomerOrder] Update Table State';
 
 		constructor(
-			public readonly payload: ITableState<IOrderDto>
+			public readonly payload: ITableState<IOrder.Entity>
 		) {
 		}
 	}
@@ -33,7 +33,7 @@ export namespace PeerCustomerOrderActions {
 		public static readonly type: string = '[PeerCustomerOrder] Patch Table State';
 
 		constructor(
-			public readonly payload: PITableState<IOrderDto>
+			public readonly payload: PITableState<IOrder.Entity>
 		) {
 		}
 	}

@@ -4,7 +4,7 @@ import {
 	ICalendarWithSpecialist
 } from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
 import {DateTime} from "luxon";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {IEvent_V2} from "@event/domain";
@@ -39,7 +39,7 @@ export class CalendarWithSpecialistsQueries {
 
 	@Selector([CalendarWithSpecialistsQueries.state.data])
 	static data(data: ICalendarWithSpecialist['data']) {
-		return data as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsence.DTO>[];
+		return data as IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>[];
 	}
 
 }

@@ -11,7 +11,7 @@ import {
 	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 
 @Component({
 	selector: 'app-order-mobile-layout-list-component',
@@ -27,7 +27,7 @@ import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.orde
 		NgClass,
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<IOrderDto> {
+export class MobileLayoutListComponent extends LayoutListComponent<IOrder.Entity> {
 
 	public readonly showButtonGoToForm = input(true);
 

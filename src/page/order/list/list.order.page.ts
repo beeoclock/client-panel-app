@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {OrderState} from "@order/infrastructure/state/order/order.state";
 import {TableService} from "@utility/table.service";
 import {OrderTableService} from "@order/presentation/component/list/order.table.service";
@@ -43,9 +43,9 @@ import {
 		}
 	],
 })
-export default class ListOrderPage extends ListPage<IOrderDto> implements OnDestroy {
+export default class ListOrderPage extends ListPage<IOrder.Entity> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<IOrderDto>> = this.store.select(OrderState.tableState)
+	public readonly tableState$: Observable<ITableState<IOrder.Entity>> = this.store.select(OrderState.tableState)
 		.pipe(
 			tap(() => {
 				this.changeDetectorRef.detectChanges();

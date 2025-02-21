@@ -4,6 +4,7 @@ import {OrderStatusEnum} from "../enum/order.status.enum";
 import {IOrderMetaDto} from "../interface/i.order-meta.dto";
 import {IOrderProductDto} from "../interface/i.order-product.dto";
 import {IOrderServiceDto} from "../interface/i.order-service.dto";
+import {INotificationSettings} from "@core/business-logic/order/interface/i.notification-settings";
 
 
 export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO> implements IOrder.Entity {
@@ -13,7 +14,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO> implements IOrde
 	status!: OrderStatusEnum;
 	meta!: IOrderMetaDto;
 	businessNote!: string;
-
+	notificationSettings!: INotificationSettings;
 
 	public override toDTO(): IOrder.DTO {
 		return EOrder.toDTO(this);
@@ -32,6 +33,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO> implements IOrde
 			stateHistory: data.stateHistory,
 			status: data.status,
 			updatedAt: data.updatedAt,
+			notificationSettings: data.notificationSettings,
 		}
 	}
 

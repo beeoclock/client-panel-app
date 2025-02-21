@@ -5,7 +5,7 @@ import {
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {CardItemOrderComponent} from "@order/presentation/component/list/card/item/card.item.order.component";
 
 @Component({
@@ -35,6 +35,6 @@ import {CardItemOrderComponent} from "@order/presentation/component/list/card/it
 		CardItemOrderComponent
 	]
 })
-export class CardListComponent extends TableComponent<IOrderDto> {
+export class CardListComponent extends TableComponent<IOrder.Entity> {
 
 }

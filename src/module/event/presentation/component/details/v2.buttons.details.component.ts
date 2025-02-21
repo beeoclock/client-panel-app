@@ -7,7 +7,7 @@ import {
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {IEvent_V2} from "@event/domain";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {IOrderDto} from "@src/core/business-logic/order/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {NGXLogger} from "ngx-logger";
@@ -117,7 +117,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 export class V2ButtonsDetailsComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
-		order: IOrderDto;
+		order: IOrder.DTO;
 		service: IOrderServiceDto;
 	}>>();
 
@@ -150,7 +150,7 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 
 		if (event) {
 			const {currentValue} = event;
-			const {originalData} = currentValue as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+			const {originalData} = currentValue as IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>;
 			const {status} = originalData.service;
 			this.isNegative = [OrderServiceStatusEnum.cancelled, OrderServiceStatusEnum.rejected].includes(status);
 			this.isDone = [OrderServiceStatusEnum.done].includes(status);

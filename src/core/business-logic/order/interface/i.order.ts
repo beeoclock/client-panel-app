@@ -4,6 +4,7 @@ import {IOrderProductDto} from "./i.order-product.dto";
 import {IOrderServiceDto} from "./i.order-service.dto";
 import {OrderStatusEnum} from "../enum/order.status.enum";
 import {IOrderMetaDto} from "./i.order-meta.dto";
+import {INotificationSettings} from "@core/business-logic/order/interface/i.notification-settings";
 
 export namespace IOrder {
 
@@ -14,6 +15,7 @@ export namespace IOrder {
 		status: OrderStatusEnum;
 		meta: IOrderMetaDto;
 		businessNote: string;
+		notificationSettings: INotificationSettings;
 
 	}
 

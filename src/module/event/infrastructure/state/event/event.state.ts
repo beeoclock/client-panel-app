@@ -7,6 +7,7 @@ import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.p
 import {NGXLogger} from "ngx-logger";
 import {OrderService} from "@core/business-logic/order/service/order.service";
 import EOrder from "@core/business-logic/order/entity/e.order";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 
 
 export interface IEventState {
@@ -119,8 +120,7 @@ export class EventState {
 		};
 
 		const entity = EOrder.create(modifiedItem);
-
-		await this.orderService.repository.updateAsync(entity);
+		ctx.dispatch(new OrderActions.UpdateItem(entity));
 	}
 
 }
