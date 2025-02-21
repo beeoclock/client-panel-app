@@ -11,9 +11,6 @@ import {
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
-import {
-	SpecialistChipComponent
-} from "@src/component/smart/order/form/service/list/item/chip/specialist.chip.component";
 import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {PriceChipComponent} from "@src/component/smart/order/form/service/list/item/chip/price.chip.component";
 import {DurationChipComponent} from "@src/component/smart/order/form/service/list/item/chip/duration.chip.component";
@@ -30,6 +27,12 @@ import {is} from "@src/core/shared/checker";
 import {IAttendeeDto} from "@core/business-logic/order/interface/i-order-appointment-details.dto";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {
+	ServiceChipComponent
+} from "@src/component/smart/order/form/service/list/item/chip/service/service.chip.component";
+import {
+	SpecialistChipComponent
+} from "@src/component/smart/order/form/service/list/item/chip/specialist.chip.component";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -44,22 +47,15 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 		StartChipComponent,
 		LanguageChipComponent,
 		PrimaryLinkButtonDirective,
+		ServiceChipComponent,
 	],
 	template: `
 		<div class="justify-start items-start gap-1 flex w-full">
 			<div class="justify-start gap-1.5 flex flex-1">
-				<div class="block py-0.5 min-h-[32px]">
-					<div
-						class="h-full rounded-xl w-2 flex items-center"
-						[style.background-color]="service.presentation.color">
-						{{ service.presentation.color ? '' : '❓' }}
-					</div>
-				</div>
-				<div class="justify-start items-center flex">
-					<div class="text-black text-sm font-bold">
-						{{ service.languageVersions[0]?.title }}
-					</div>
-				</div>
+				<app-service-chip-component
+					[id]="id()"
+					(serviceChanges)="handleServiceChanges($event)"
+					[initialValue]="service"/>
 			</div>
 			<button primaryLink (click)="deleteMe.emit()"
 					class="w-8 h-8 p-1.5 rounded-lg justify-center items-center flex">
@@ -169,6 +165,29 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.specialists = [specialist];
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
+		this.saveChanges.emit();
+	}
+
+	public handleServiceChanges(service: IService.DTO) {
+		this.#ngxLogger.debug('handleServiceChanges', this.id(), service);
+		let {serviceSnapshot} = this.item().control.getRawValue();
+
+		const languageVersions = service.languageVersions.filter(({language}) => {
+			return language === serviceSnapshot.languageVersions[0].language;
+		});
+
+		if (!languageVersions.length) {
+			languageVersions.push(service.languageVersions[0]);
+		}
+
+		serviceSnapshot = {
+			...serviceSnapshot,
+			...service,
+			languageVersions,
+			durationVersions: serviceSnapshot.durationVersions,
+		};
+
+		this.item().control.controls.serviceSnapshot.patchValue(serviceSnapshot);
 		this.saveChanges.emit();
 	}
 

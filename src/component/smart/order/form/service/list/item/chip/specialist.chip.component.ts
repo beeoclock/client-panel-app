@@ -26,7 +26,7 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 
 		<!-- Button to show selected specialist and place where user can change selected specialist -->
 		<button
-			[id]="'select-specialist' + id()"
+			[id]="'select-specialist-' + id()"
 			class="p-1 rounded-lg border border-gray-200 justify-center items-center flex">
 
 			@if (specialistFormControl.value; as specialist) {
@@ -62,7 +62,7 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 		</button>
 
 		<!-- Control to select specialist -->
-		<ion-popover #selectSpecialistPopover [trigger]="'select-specialist' + id()">
+		<ion-popover #selectSpecialistPopover [trigger]="'select-specialist-' + id()">
 			<ng-template>
 				<ion-list>
 					@for (member of members; track member._id) {
