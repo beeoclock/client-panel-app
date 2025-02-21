@@ -38,7 +38,7 @@
 					<nav  class="isolate inline-flex -space-x-px rounded-md shadow-sm"
 						 aria-label="Pagination">
 						<button
-							[class.disabled]="1 === tableState().page"
+							[disabled]="1 === tableState().page"
 							(click)="prevPage()"
 							class="pagination-page-item">
 							<span class="sr-only">{{ 'keyword.capitalize.previous' | translate }}</span>
@@ -47,7 +47,7 @@
 						@for (page of pages; track $index) {
 
 							<button
-								[class.disabled]="isNaN(page)"
+								[disabled]="isNaN(page)"
 								[class.bg-beeColor-100]="tableState().page === page"
 								[class.dark:bg-beeDarkColor-700]="tableState().page === page"
 								(click)="changePage(page)"
@@ -56,7 +56,7 @@
 							</button>
 						}
 						<button
-							[class.disabled]="tableState().maxPage === tableState().page"
+							[disabled]="tableState().maxPage === tableState().page"
 							(click)="nextPage()"
 							class="pagination-page-item">
 							<span class="sr-only">{{ 'keyword.capitalize.next' | translate }}</span>
