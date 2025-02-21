@@ -4,7 +4,9 @@ import {ISchedule} from "@utility/domain/interface/i.schedule";
 import {IConfiguration, ILanguageVersion, IPrepaymentPolicy, IPresentation, RIDurationVersion} from "../interface";
 
 
-export class EService extends ABaseEntity<'ServiceDto', IService.DTO> implements IService.Entity {
+export class EService extends ABaseEntity<'ServiceDto', IService.DTO, IService.EntityRaw> implements IService.EntityRaw {
+
+	override object = 'ServiceDto' as const;
 
 	configuration!: Required<IConfiguration>;
 	presentation!: IPresentation;
@@ -19,7 +21,7 @@ export class EService extends ABaseEntity<'ServiceDto', IService.DTO> implements
 		return EService.toDTO(this);
 	}
 
-	public static toDTO(data: IService.Entity): IService.DTO {
+	public static toDTO(data: IService.EntityRaw): IService.DTO {
 		return {
 			_id: data._id,
 			configuration: data.configuration,
@@ -42,7 +44,15 @@ export class EService extends ABaseEntity<'ServiceDto', IService.DTO> implements
 	 * Use it to create new entity, e.g. from API or form
 	 * @param data
 	 */
-	public static create(data: IService.DTO): IService.Entity {
+	public static fromDTO(data: IService.DTO): EService {
+		return new EService(data);
+	}
+
+	/**
+	 * Use it to create entity from raw data, e.g. from database
+	 * @param data
+	 */
+	public static fromRaw(data: IService.EntityRaw): EService {
 		return new EService(data);
 	}
 

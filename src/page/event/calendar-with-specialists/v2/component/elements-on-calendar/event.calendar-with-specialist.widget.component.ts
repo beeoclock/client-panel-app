@@ -19,7 +19,6 @@ import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {DateTime} from "luxon";
-import {RIMember} from "@src/core/business-logic/member";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";
@@ -38,6 +37,7 @@ import {firstValueFrom} from "rxjs";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>;
 
@@ -225,7 +225,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		this.toggleMode(true);
 	}
 
-	public changeMember(member: RIMember) {
+	public changeMember(member: IMember.EntityRaw) {
 		this.temporaryNewMember = member;
 	}
 
@@ -350,7 +350,8 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			}
 
 			if (this.isAbsence(this.item)) {
-				const action = new AbsenceActions.UpdateItem(this.item.originalData);
+				const entity = EAbsence.fromDTO(this.item.originalData);
+				const action = new AbsenceActions.UpdateItem(entity);
 				const action$ = this.store.dispatch(action);
 				await firstValueFrom(action$);
 				this.item = structuredClone(this.item);

@@ -11,6 +11,7 @@ import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.acti
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({
 	selector: 'app-absence-card-list-component',
@@ -27,9 +28,10 @@ import {StateStatusComponent} from "@absence/presentation/component/state-status
 		StateStatusComponent
 	]
 })
-export class CardListComponent extends TableComponent<IAbsence.Entity> {
+export class CardListComponent extends TableComponent<EAbsence> {
 
 	public override open(item: IAbsence.DTO) {
-		this.store.dispatch(new AbsenceActions.OpenDetails(item));
+		const entity = EAbsence.fromDTO(item);
+		this.store.dispatch(new AbsenceActions.OpenDetails(entity));
 	}
 }

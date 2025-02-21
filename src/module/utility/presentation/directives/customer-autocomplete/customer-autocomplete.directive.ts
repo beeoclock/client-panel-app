@@ -37,7 +37,7 @@ export class CustomerAutocompleteDirective implements DoCheck {
 	public control: AbstractControl | undefined | null;
 
 	@Output()
-	public readonly customerSelected = new EventEmitter<ICustomer.Entity>();
+	public readonly customerSelected = new EventEmitter<ICustomer.EntityRaw>();
 
 	private readonly document = inject(DOCUMENT);
 	private readonly utilityListCustomerAdapter = inject(UtilityListCustomerRepository);

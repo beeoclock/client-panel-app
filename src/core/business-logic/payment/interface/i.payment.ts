@@ -3,7 +3,7 @@ import {PaymentMethodEnum} from "../enum/payment.method.enum";
 import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";
 import {ICustomer} from "../../customer";
-import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {Tools} from "@core/shared/tools";
 import {Types} from "@core/shared/types";
 
@@ -14,7 +14,7 @@ export namespace IPayment {
 
 		providerPaymentRef: string | null;
 		orderId: string;
-		payer: ICustomer.Entity;
+		payer: ICustomer.EntityRaw;
 		amount: number & Types.Minimum<0>;
 		currency: CurrencyCodeEnum & Types.Default<CurrencyCodeEnum.USD>;
 		method: PaymentMethodEnum & Types.Default<PaymentMethodEnum.CASH>;
@@ -24,7 +24,7 @@ export namespace IPayment {
 
 	}
 
-	export type Entity = IBaseEntity<'PaymentDto', DTO> & DTO & {
+	export type EntityRaw = IBaseEntityRaw<'PaymentDto'> & DTO & {
 
 		// TODO: add key in base entity to know if entity synced and when it was synced
 

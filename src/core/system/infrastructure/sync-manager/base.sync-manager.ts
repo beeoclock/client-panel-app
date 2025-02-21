@@ -4,8 +4,10 @@ import {DataProvider} from "@core/system/infrastructure/data-provider/data-provi
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {BehaviorSubject, firstValueFrom, Observable} from "rxjs";
 import {Table} from "dexie";
-import {IBaseDTO, IBaseEntity} from "@core/shared/interface/i.base-entity";
+import {IBaseDTO} from "@core/shared/interface/i-base-entity.raw";
 import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 
 interface ISyncState {
 	options: Types.StandardQueryParams;
@@ -57,7 +59,7 @@ interface SyncStates {
  * @template DTO - The data transfer object type.
  * @template ENTITY - The entity type that extends `IBaseItem`.
  */
-export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBaseEntity<string, DTO>> implements ISyncManger {
+export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY extends ABaseEntity<string, DTO>> implements ISyncManger {
 
 	/**
 	 * The name of the module using the sync manager.
@@ -274,6 +276,9 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 
 	}
 
+	/**
+	 * Synchronizes data from the remote data provider to the local repository.
+	 */
 	public async doPull() {
 
 		if (!this.#syncState) {
@@ -347,44 +352,82 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO, ENTITY extends IBase
 				break;
 			}
 
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-expect-error
-			let entity = this.toEntity(item);
-			const dto = entity.toDTO();
+			try {
 
-			if (entity.isNew()) {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				let entity = this.toEntity(item);
+				const dto = entity.toDTO();
 
-				// Create case
-				await this.apiDataProvider.createAsync(dto);
+				// Check if the entity is already on the server, we take data from local and if object has syncedAt then we know that object is already on the server
+				const entityFromLocal = await this.repository.findByIdAsync(entity._id);
 
-			} else {
+				if (!entityFromLocal || entityFromLocal?.isNew?.() || entityFromLocal?.isUpdated?.()) {
+					console.log('Entity is new or updated', {entityFromLocal, entity});
+				}
 
-				if (entity.isUpdated()) {
+				if (entity.isNew()) {
 
-					// Update case
-					await this.apiDataProvider.updateAsync(dto);
+					// Create case
+					await this.apiDataProvider.createAsync(dto);
+
+				} else {
+
+					if (entity.isUpdated()) {
+
+						// Update case
+						await this.apiDataProvider.updateAsync(dto);
+
+					}
 
 				}
 
+				const serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
+
+				if (!serverHasItem) {
+					throw new Error('Item not found on server');
+				}
+
+				entity = this.toEntity(serverHasItem);
+				entity.initSyncedAt();
+
+				await this.putEntity(entity);
+
+				this.syncState.progress.current++;
+				this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;
+				if (this.syncState.progress.percentage >= 100) {
+					this.syncState.progress.percentage = 99;
+				}
+				this.saveSyncState();
+
+			} catch (error) {
+				if (error instanceof HttpErrorResponse) {
+
+					if (error.status === 400) {
+
+						const serverHasItem = await this.apiDataProvider.findByIdAsync(item._id);
+
+						if (!serverHasItem) {
+							throw new Error('Item not found on server');
+						}
+
+						const entity = this.toEntity(serverHasItem);
+						entity.initSyncedAt();
+
+						await this.putEntity(entity);
+
+					} else {
+
+						console.error('Error while pushing data', error);
+
+					}
+
+				} else {
+
+					console.error('Error while pushing data', error);
+
+				}
 			}
-
-			const serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
-
-			if (!serverHasItem) {
-				throw new Error('Item not found on server');
-			}
-
-			entity = this.toEntity(serverHasItem);
-			entity.initSyncedAt();
-
-			await this.putEntity(entity);
-
-			this.syncState.progress.current++;
-			this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;
-			if (this.syncState.progress.percentage >= 100) {
-				this.syncState.progress.percentage = 99;
-			}
-			this.saveSyncState();
 
 		} while (this.pushData.length && !BaseSyncManager.isPaused$.value);
 

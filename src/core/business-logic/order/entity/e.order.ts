@@ -7,7 +7,9 @@ import {IOrderServiceDto} from "../interface/i.order-service.dto";
 import {INotificationSettings} from "@core/business-logic/order/interface/i.notification-settings";
 
 
-export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO> implements IOrder.Entity {
+export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw> implements IOrder.EntityRaw {
+
+	override object = 'OrderDto' as const;
 
 	products!: IOrderProductDto[];
 	services!: IOrderServiceDto[];
@@ -20,7 +22,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO> implements IOrde
 		return EOrder.toDTO(this);
 	}
 
-	public static toDTO(data: IOrder.Entity): IOrder.DTO {
+	public static toDTO(data: IOrder.EntityRaw): IOrder.DTO {
 		return {
 			_id: data._id,
 			businessNote: data.businessNote,
@@ -41,7 +43,15 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO> implements IOrde
 	 * Use it to create new entity, e.g. from API or form
 	 * @param data
 	 */
-	public static create(data: IOrder.DTO): IOrder.Entity {
+	public static fromDTO(data: IOrder.DTO): EOrder {
+		return new EOrder(data);
+	}
+
+	/**
+	 * Use it to create entity from raw data, e.g. from database
+	 * @param data
+	 */
+	public static fromRaw(data: IOrder.EntityRaw): EOrder {
 		return new EOrder(data);
 	}
 

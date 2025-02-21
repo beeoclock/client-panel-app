@@ -4,7 +4,6 @@ import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.stat
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
-import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
@@ -12,13 +11,13 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import EAbsence from "@src/core/business-logic/absence/entity/e.absence";
 import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
 import {environment} from "@environment/environment";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
-export type IAbsenceState = IBaseState<IAbsence.Entity>;
+export type IAbsenceState = IBaseState<EAbsence>;
 
-const defaults = baseDefaults<IAbsence.Entity>({
+const defaults = baseDefaults<EAbsence>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
@@ -131,7 +130,9 @@ export class AbsenceState {
 			return;
 		}
 
-		ctx.dispatch(new AbsenceActions.OpenDetails(item));
+		const entity = EAbsence.fromRaw(item);
+
+		ctx.dispatch(new AbsenceActions.OpenDetails(entity));
 
 	}
 
@@ -191,28 +192,29 @@ export class AbsenceState {
 
 	@Action(AbsenceActions.UpdateTableState)
 	public updateTableState(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateTableState) {
-		BaseState.updateTableState(ctx, action);
+		BaseState.updateTableState<EAbsence>(ctx, action);
 	}
 
 	@Action(AbsenceActions.CreateItem)
-	public async createItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.CreateItem) {
-		const entity = EAbsence.create(action.payload);
+	public async createItem(ctx: StateContext<IAbsenceState>, {payload: entity}: AbsenceActions.CreateItem) {
 		await this.absenceService.repository.createAsync(entity);
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
-		await this.closeFormAction(ctx);
+		await this.closeFormAction();
 		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	@Action(AbsenceActions.UpdateItem)
-	public async updateItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateItem): Promise<void> {
-
-		const item = EAbsence.create(action.payload);
-		await this.absenceService.repository.updateAsync(item);
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
-		await this.closeFormAction(ctx);
-		await this.updateOpenedDetailsAction(ctx, {payload: item});
+	public async updateItem(ctx: StateContext<IAbsenceState>, {payload: entity}: AbsenceActions.UpdateItem): Promise<void> {
+		console.log('entity: ', entity);
+		const existing = await this.absenceService.repository.findByIdAsync(entity._id);
+		if (existing) {
+			entity = EAbsence.fromDTO({
+				...existing,
+				...entity,
+			});
+		}
+		await this.absenceService.repository.updateAsync(entity);
+		await this.closeFormAction();
+		await this.updateOpenedDetailsAction(ctx, {payload: entity});
 		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
@@ -224,9 +226,11 @@ export class AbsenceState {
 			return;
 		}
 
+		const entity = EAbsence.fromRaw(data);
+
 		ctx.patchState({
 			item: {
-				data,
+				data: entity,
 				downloadedAt: new Date(),
 			}
 		});
@@ -270,16 +274,18 @@ export class AbsenceState {
 				state: inState,
 			});
 
+			const entities = items.map(EAbsence.fromRaw);
+
 			newTableState
 				.setTotal(totalSize)
-				.setItems(items)
+				.setItems(entities)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
 			this.ngxLogger.debug('Table state: ', newTableState);
 
 			ctx.patchState({
 				tableState: newTableState.toCache(),
-				lastTableHashSum: newTableState.hashSum
+				lastTableHashSum: newTableState.hashSum,
 			});
 
 		} catch (e) {
@@ -292,10 +298,10 @@ export class AbsenceState {
 
 	@Action(AbsenceActions.SetState)
 	public async setState(ctx: StateContext<IAbsenceState>, {item, state}: AbsenceActions.SetState) {
-		const entity = EAbsence.create(item);
+		const entity = EAbsence.fromDTO(item);
 		entity.changeState(state);
 		await this.absenceService.repository.updateAsync(entity);
-		await this.updateOpenedDetailsAction(ctx, {payload: item});
+		await this.updateOpenedDetailsAction(ctx, {payload: entity});
 		ctx.dispatch(new AbsenceActions.GetList());
 	}
 

@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, viewChildren, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {
 	DesktopLayoutListComponent
 } from "@order/presentation/component/list/layout/desktop/desktop.layout.list.component";
@@ -14,6 +13,7 @@ import {
 } from "@order/presentation/component/external/case/customer/list/customer.order.table.service";
 import {TableState} from "@utility/domain/table.state";
 import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-customer/peer-customer.order.actions";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	selector: 'order-external-list-component',
@@ -55,7 +55,7 @@ import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-custome
 		}
 	`
 })
-export class CustomerOrderListExternalComponent extends ListPage<IOrder.Entity> implements OnInit {
+export class CustomerOrderListExternalComponent extends ListPage<EOrder> implements OnInit {
 
 	public readonly customerId = input.required<string>();
 

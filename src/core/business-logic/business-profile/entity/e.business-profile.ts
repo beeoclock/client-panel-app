@@ -15,7 +15,9 @@ import {IContact} from "../interface/i.contact";
 import {ISocialNetworkLink} from "../interface/i.social-network-link";
 
 
-export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusinessProfile.DTO> implements IBusinessProfile.Entity {
+export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusinessProfile.DTO, IBusinessProfile.EntityRaw> implements IBusinessProfile.EntityRaw {
+
+	override object = 'BusinessProfileDto' as const;
 
 	serviceProvideType: ServiceProvideTypeEnum | null = null;
 	publicPageSettings!: { primaryColor: string; };
@@ -49,7 +51,7 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 		return EBusinessProfile.toDTO(this);
 	}
 
-	public static toDTO(data: IBusinessProfile.Entity): IBusinessProfile.DTO {
+	public static toDTO(data: IBusinessProfile.EntityRaw): IBusinessProfile.DTO {
 		return {
 			_id: data._id,
 			_version: data._version,
@@ -90,7 +92,15 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 	 * Use it to create new entity, e.g. from API or form
 	 * @param data
 	 */
-	public static create(data: IBusinessProfile.DTO): IBusinessProfile.Entity {
+	public static fromDTO(data: IBusinessProfile.DTO): EBusinessProfile {
+		return new EBusinessProfile(data);
+	}
+
+	/**
+	 * Use it to create entity from raw data, e.g. from database
+	 * @param data
+	 */
+	public static fromRaw(data: IBusinessProfile.EntityRaw): EBusinessProfile {
 		return new EBusinessProfile(data);
 	}
 

@@ -1,9 +1,9 @@
-import {IBaseDTO, IBaseEntity} from "@utility/domain";
-import {IAssignments} from "../index";
+import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {Tools} from "@core/shared/tools";
 import {MemberProfileStatusEnum} from "../enums/member-profile-status.enum";
 import {RESPONSE_IMemberMedia} from "./i.member-media";
 import {RoleEnum} from "@core/shared/enum/role.enum";
+import {IAssignments} from "@core/business-logic/member/entity/e.member";
 
 export namespace IMember {
 
@@ -18,7 +18,7 @@ export namespace IMember {
 		assignments: IAssignments;
 	}
 
-	export type Entity = IBaseEntity<'MemberDto', DTO> & DTO & {
+	export type EntityRaw = IBaseEntityRaw<'MemberDto'> & DTO & {
 
 		// TODO: add key in base entity to know if entity synced and when it was synced
 

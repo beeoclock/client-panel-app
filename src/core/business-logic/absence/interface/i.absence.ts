@@ -1,5 +1,5 @@
 import {AbsenceTypeEnum} from "../enums/absence.type.enum";
-import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {Tools} from "@core/shared/tools";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 
@@ -18,7 +18,7 @@ export namespace IAbsence {
 		// meta?: MetaDto;
 	}
 
-	export type Entity = IBaseEntity<'AbsenceDto', DTO> & DTO;
+	export type EntityRaw = IBaseEntityRaw<'AbsenceDto'> & DTO;
 
 }
 

@@ -13,7 +13,6 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@member/presentation/form/member.form";
 import {firstValueFrom} from "rxjs";
-import {RIMember} from "@src/core/business-logic/member";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -26,6 +25,7 @@ import {SwitchComponent} from "@utility/presentation/component/switch/switch.com
 import {CommonModule} from "@angular/common";
 import {MemberFormAssignmentsComponent} from "@member/presentation/component/form/assignments/assignments.component";
 import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'member-form-page',
@@ -54,7 +54,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 	public readonly memberProfileStatusEnum = MemberProfileStatusEnum;
 
-	public readonly item = input<RIMember>();
+	public readonly item = input<IMember.EntityRaw>();
 
 	@Input()
 	public isEditMode = false;
@@ -63,7 +63,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 		this.detectItem();
 	}
 
-	public ngOnChanges(changes: SimpleChanges & {item: RIMember | undefined}) {
+	public ngOnChanges(changes: SimpleChanges & {item: IMember.EntityRaw | undefined}) {
 
 		const {item} = changes;
 		if (item) {

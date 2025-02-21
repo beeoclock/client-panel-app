@@ -5,7 +5,7 @@ import {
 import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Injectable()
-export class ServiceDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IService.Entity> {
+export class ServiceDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IService.EntityRaw> {
 
 	protected readonly columns = '_id,createdAt,updatedAt';
 	protected readonly moduleName = 'service';

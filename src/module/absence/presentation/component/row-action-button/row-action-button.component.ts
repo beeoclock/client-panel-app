@@ -6,6 +6,7 @@ import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({
 	selector: 'app-absence-row-action-button-component',
@@ -65,20 +66,23 @@ export class RowActionButtonComponent {
 
 	@Dispatch()
 	public setState(state: StateEnum) {
-		return new AbsenceActions.SetState(this.item(), state);
+		const entity = EAbsence.fromDTO(this.item());
+		return new AbsenceActions.SetState(entity, state);
 	}
 
 	@Dispatch()
 	public open() {
-		return new AbsenceActions.OpenDetails(this.item());
+		const entity = EAbsence.fromDTO(this.item());
+		return new AbsenceActions.OpenDetails(entity);
 	}
 
 	@Dispatch()
 	public edit() {
+		const entity = EAbsence.fromDTO(this.item());
 		return new AbsenceActions.OpenForm({
 			componentInputs: {
 				isEditMode: true,
-				item: this.item()
+				item: entity,
 			}
 		});
 	}

@@ -13,7 +13,7 @@ import {
 } from "@member/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {MemberTableService} from "@member/presentation/component/list/member.table.service";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import EMember from "@core/business-logic/member/entity/e.member";
 
 @Component({
 	selector: 'app-list-member-page',
@@ -34,9 +34,9 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 		}
 	]
 })
-export class ListMemberPage extends ListPage<IMember.Entity> implements OnInit {
+export class ListMemberPage extends ListPage<EMember> implements OnInit {
 
-	public readonly tableState$: Observable<ITableState<IMember.Entity>> = this.store.select(MemberState.tableState)
+	public readonly tableState$: Observable<ITableState<EMember>> = this.store.select(MemberState.tableState)
 		.pipe(
 			tap(() => {
 				this.changeDetectorRef.detectChanges();

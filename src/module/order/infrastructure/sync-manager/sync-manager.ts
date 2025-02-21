@@ -10,11 +10,11 @@ import {IOrder} from "@core/business-logic/order/interface/i.order";
 import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Injectable()
-export class SyncManager extends BaseSyncManager<IOrder.DTO, IOrder.Entity> implements OnDestroy {
+export class SyncManager extends BaseSyncManager<IOrder.DTO, EOrder> implements OnDestroy {
 
 	protected readonly apiDataProvider = inject(ApiDataProvider);
 	protected readonly repository = inject(OrderRepository);
-	protected readonly toEntity = EOrder.create;
+	protected readonly toEntity = EOrder.fromDTO;
 
 	private readonly destroy$ = new Subject<void>();
 

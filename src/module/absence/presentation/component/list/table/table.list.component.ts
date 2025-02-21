@@ -17,6 +17,7 @@ import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -37,7 +38,7 @@ import {StateStatusComponent} from "@absence/presentation/component/state-status
 		StateStatusComponent,
 	]
 })
-export class TableListComponent extends TableComponent<IAbsence.Entity> {
+export class TableListComponent extends TableComponent<EAbsence> {
 
 	public readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum
 
@@ -95,7 +96,8 @@ export class TableListComponent extends TableComponent<IAbsence.Entity> {
 
 	@Dispatch()
 	public override open(item: IAbsence.DTO) {
-		return new AbsenceActions.OpenDetails(item);
+		const entity = EAbsence.fromDTO(item);
+		return new AbsenceActions.OpenDetails(entity);
 	}
 
 }

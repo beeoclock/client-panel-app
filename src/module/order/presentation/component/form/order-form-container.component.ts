@@ -26,7 +26,6 @@ import {
 	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
-import {RIMember} from "@src/core/business-logic/member";
 import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@src/core/business-logic/customer";
 import {
@@ -43,6 +42,7 @@ import {
 import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -95,9 +95,9 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	public readonly setupPartialData = input<{
 		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: RIMember;
+		defaultMemberForService?: IMember.EntityRaw;
 		serviceList?: IService.DTO[];
-		customer?: ICustomer.Entity;
+		customer?: ICustomer.EntityRaw;
 	}>({});
 	public readonly orderDto = input<Partial<IOrder.DTO>>({});
 	public readonly paymentDto = input<Partial<IPayment.DTO>>({});

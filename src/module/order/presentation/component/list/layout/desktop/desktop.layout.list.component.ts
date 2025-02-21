@@ -10,7 +10,7 @@ import {
 	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
-import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	selector: 'app-order-desktop-layout-list-component',
@@ -25,7 +25,7 @@ import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 		AutoRefreshButtonComponent,
 	]
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<IOrder.Entity> {
+export class DesktopLayoutListComponent extends LayoutListComponent<EOrder> {
 
 	public openForm(): void {
 		this.store.dispatch(new OrderActions.OpenForm());

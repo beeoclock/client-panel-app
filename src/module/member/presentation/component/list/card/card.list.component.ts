@@ -7,7 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import EMember from "@core/business-logic/member/entity/e.member";
 
 @Component({
 	selector: 'member-card-list-component',
@@ -21,9 +21,9 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 		CardComponent,
 	]
 })
-export class CardListComponent extends TableComponent<IMember.Entity> {
+export class CardListComponent extends TableComponent<EMember> {
 
-	public override open(item: IMember.Entity) {
+	public override open(item: EMember) {
 		this.store.dispatch(new MemberActions.OpenDetails(item));
 	}
 

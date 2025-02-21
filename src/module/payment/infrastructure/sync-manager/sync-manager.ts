@@ -10,11 +10,11 @@ import EPayment from "@core/business-logic/payment/entity/e.payment";
 import {IPayment} from "@core/business-logic/payment/interface/i.payment";
 
 @Injectable()
-export class SyncManager extends BaseSyncManager<IPayment.DTO, IPayment.Entity> implements OnDestroy {
+export class SyncManager extends BaseSyncManager<IPayment.DTO, EPayment> implements OnDestroy {
 
 	protected readonly apiDataProvider = inject(ApiDataProvider);
 	protected readonly repository = inject(PaymentRepository);
-	protected readonly toEntity = EPayment.create;
+	protected readonly toEntity = EPayment.fromDTO;
 
 	private readonly destroy$ = new Subject<void>();
 

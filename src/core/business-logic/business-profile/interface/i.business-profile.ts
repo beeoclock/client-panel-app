@@ -1,4 +1,4 @@
-import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {BusinessClientStatusEnum} from "@core/business-logic/business-profile/enum/business-client-status.enum";
 import {ActiveEnum} from "@core/shared/enum";
 import {RIMedia} from "@module/media/domain/interface/i.media";
@@ -64,7 +64,7 @@ export namespace IBusinessProfile {
 		_version: string; // "1"
 	}
 
-	export type Entity = IBaseEntity<'BusinessProfileDto', DTO> & DTO;
+	export type EntityRaw = IBaseEntityRaw<'BusinessProfileDto'> & DTO;
 
 }
 

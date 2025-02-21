@@ -8,7 +8,7 @@ import {ICustomer} from "@src/core/business-logic/customer";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {ICustomerState} from "@customer/infrastructure/state/customer/customer.state";
 
-export const customerListResolver: ResolveFn<ITableState<ICustomer.Entity>> = () => {
+export const customerListResolver: ResolveFn<ITableState<ICustomer.EntityRaw>> = () => {
 
 	const store = inject(Store); // NGXS
 	const router = inject(Router);

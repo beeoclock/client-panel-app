@@ -13,13 +13,12 @@ import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
-import {IService} from "@src/core/business-logic/service/interface/i.service";
 import {ServiceService} from "@core/business-logic/service/service/service.service";
 import {environment} from "@environment/environment";
 
-export type IServiceState = IBaseState<IService.Entity>
+export type IServiceState = IBaseState<EService>
 
-const defaults = baseDefaults<IService.Entity>({
+const defaults = baseDefaults<EService>({
 	filters: {},
 	orderDir: OrderDirEnum.DESC,
 	orderBy: OrderByEnum.CREATED_AT,
@@ -201,7 +200,7 @@ export class ServiceState {
 
 	@Action(ServiceActions.CreateItem)
 	public async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
-		await this.serviceService.repository.createAsync(EService.create(action.payload));
+		await this.serviceService.repository.createAsync(EService.fromDTO(action.payload));
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-expect-error
 		await this.closeForm(ctx);
@@ -210,7 +209,7 @@ export class ServiceState {
 
 	@Action(ServiceActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateItem): Promise<void> {
-		const item = EService.create({
+		const item = EService.fromDTO({
 			...action.payload
 		});
 		await this.serviceService.repository.updateAsync(item);
@@ -223,11 +222,13 @@ export class ServiceState {
 
 	@Action(ServiceActions.GetItem)
 	public async getItem(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.GetItem): Promise<void> {
-		const data = await this.serviceService.repository.findByIdAsync(id);
+		const raw = await this.serviceService.repository.findByIdAsync(id);
 
-		if (!data) {
+		if (!raw) {
 			return;
 		}
+
+		const data = EService.fromRaw(raw);
 
 		ctx.patchState({
 			item: {
@@ -273,9 +274,11 @@ export class ServiceState {
 				state: inState,
 			});
 
+			const entities = items.map(EService.fromRaw);
+
 			newTableState
 				.setTotal(totalSize)
-				.setItems(items)
+				.setItems(entities)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
 			this.ngxLogger.debug('Table state: ', newTableState);
@@ -296,7 +299,7 @@ export class ServiceState {
 
 	@Action(ServiceActions.SetState)
 	public async setState(ctx: StateContext<IServiceState>, {item, state}: ServiceActions.SetState) {
-		const entity = EService.create(item);
+		const entity = EService.fromDTO(item);
 		entity.changeState(state);
 		await this.serviceService.repository.updateAsync(entity);
 		await this.updateOpenedDetails(ctx, {payload: entity});

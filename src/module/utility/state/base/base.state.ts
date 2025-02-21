@@ -5,9 +5,9 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {inject} from "@angular/core";
 import {Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
-import {IBaseEntity} from "@utility/domain";
 import {NgEventBus} from "ng-event-bus";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 
 export interface IBaseState_Item<ITEM> {
 	data: undefined | ITEM;
@@ -36,7 +36,7 @@ export function baseDefaults<T>({filters, orderBy, orderDir, pageSize}: {
 	};
 }
 
-export abstract class BaseState<ITEM extends IBaseEntity<string>> {
+export abstract class BaseState<ITEM extends ABaseEntity> {
 
 	protected readonly ngEventBus = inject(NgEventBus);
 

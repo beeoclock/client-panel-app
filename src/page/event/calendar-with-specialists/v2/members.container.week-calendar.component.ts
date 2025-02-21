@@ -5,8 +5,6 @@ import {is} from "@src/core/shared/checker";
 import {AsyncPipe} from "@angular/common";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";
-import * as Member from "@src/core/business-logic/member";
-import {RIMember} from "@src/core/business-logic/member";
 import {Reactive} from "@utility/cdk/reactive";
 import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
 import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
@@ -15,6 +13,7 @@ import CalendarWithSpecialistLocaStateService
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {NGXLogger} from "ngx-logger";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'app-event-v2-members-container-week-calendar-component',
@@ -49,10 +48,10 @@ export default class MembersV2ContainerWeekCalendarComponent extends Reactive im
 				of(tableState)
 			);
 		}),
-		filter(is.object_not_empty<ITableState<Member.RIMember>>),
+		filter(is.object_not_empty<ITableState<IMember.EntityRaw>>),
 		filter((tableState) => tableState.total > 0),
 		tap((tableState) => {
-			const members = tableState.items.filter((member: RIMember) => member.profileStatus === MemberProfileStatusEnum.active);
+			const members = tableState.items.filter((member: IMember.EntityRaw) => member.profileStatus === MemberProfileStatusEnum.active);
 			this.calendarWithSpecialistLocaStateService.setMembers(members);
 		})
 	);

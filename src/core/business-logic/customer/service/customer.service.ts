@@ -1,12 +1,11 @@
 import {Injectable} from "@angular/core";
 import {ICustomer} from "@core/business-logic/customer";
 import {BaseService} from "@core/shared/service/base.service";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
-type ENTITY = ICustomer.Entity;
+type ENTITY_RAW = ICustomer.EntityRaw;
 
 @Injectable()
-export class CustomerService extends BaseService<ENTITY> {
+export class CustomerService extends BaseService<ENTITY_RAW> {
 
 	public async findOneByEmailPhone(either: {
 		email?: string | null;
@@ -15,13 +14,13 @@ export class CustomerService extends BaseService<ENTITY> {
 		if (either?.email && either.email.length > 0) {
 			// Find by email
 			const customer = await this.db.where('email').equals(either.email).first();
-			if (customer) return ECustomer.create(customer);
+			if (customer) return customer;
 		}
 
 		if (either?.phone && either.phone.length > 0) {
 			// Find by phone
 			const customer = await this.db.where('phone').equals(either.phone).first();
-			if (customer) return ECustomer.create(customer);
+			if (customer) return customer;
 		}
 
 		return null;

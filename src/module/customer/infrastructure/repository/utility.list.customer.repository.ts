@@ -10,7 +10,7 @@ export class UtilityListCustomerRepository {
 
 	private readonly logger = inject(NGXLogger);
 	public readonly customerService = inject(CustomerService);
-	public readonly tableState = new TableState<Customer.ICustomer.Entity>();
+	public readonly tableState = new TableState<Customer.ICustomer.EntityRaw>();
 	public readonly loading$ = new BooleanStreamState(false);
 
 	public resetTableState(): void {

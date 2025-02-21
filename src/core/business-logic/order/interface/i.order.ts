@@ -1,4 +1,4 @@
-import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {Tools} from "@core/shared/tools";
 import {IOrderProductDto} from "./i.order-product.dto";
 import {IOrderServiceDto} from "./i.order-service.dto";
@@ -19,7 +19,7 @@ export namespace IOrder {
 
 	}
 
-	export type Entity = IBaseEntity<'OrderDto', DTO> & DTO & {
+	export type EntityRaw = IBaseEntityRaw<'OrderDto'> & DTO & {
 
 		// TODO: add key in base entity to know if entity synced and when it was synced
 

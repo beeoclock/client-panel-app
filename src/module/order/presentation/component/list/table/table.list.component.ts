@@ -14,6 +14,7 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
 import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	selector: 'app-list-order-table',
@@ -33,7 +34,7 @@ import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 		RowActionButtonComponent
 	]
 })
-export class TableListComponent extends TableComponent<IOrder.Entity> {
+export class TableListComponent extends TableComponent<EOrder> {
 
 	// public override readonly actions = OrderActions;
 

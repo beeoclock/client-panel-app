@@ -4,6 +4,6 @@ import {CustomerActions} from "@customer/infrastructure/state/customer/customer.
 import {ICustomer} from "@src/core/business-logic/customer";
 
 @Injectable()
-export class CustomerTableService extends TableService<ICustomer.Entity> {
+export class CustomerTableService extends TableService<ICustomer.EntityRaw> {
 	public override readonly actions = CustomerActions;
 }

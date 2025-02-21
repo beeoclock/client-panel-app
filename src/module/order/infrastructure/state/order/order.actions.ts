@@ -1,10 +1,10 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {RIMember} from "@src/core/business-logic/member";
-import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {ICustomer} from "@src/core/business-logic/customer";
 import {OrderStatusEnum} from "@src/core/business-logic/order/enum/order.status.enum";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IMember} from "@core/business-logic/member/interface/i.member";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 export namespace OrderActions {
 
@@ -30,19 +30,6 @@ export namespace OrderActions {
 		public static override readonly type = '[Order Application] Open Details By Id';
 	}
 
-	export class OpenOrderServiceForm {
-		public static readonly type = '[Order Application] Open Order Service Form';
-
-		public constructor(
-			public readonly payload: {
-				orderId: string;
-				isEditMode?: boolean;
-				item?: Partial<IOrderServiceDto>;
-			}
-		) {
-		}
-	}
-
 	export class OpenFormToEditById extends BaseActions.OpenFormToEditById {
 		public static override readonly type = '[Order Application] Open Form To Edit By Id';
 	}
@@ -52,7 +39,7 @@ export namespace OrderActions {
 		item?: IOrder.DTO;
 		setupPartialData?: {
 			defaultAppointmentStartDateTimeIso?: string;
-			defaultMemberForService?: RIMember;
+			defaultMemberForService?: IMember.EntityRaw;
 			serviceList?: IService.DTO[];
 			customer?: ICustomer.DTO;
 		};
@@ -74,11 +61,11 @@ export namespace OrderActions {
 		public static override readonly type = '[Order API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<IOrder.DTO> {
+	export class CreateItem extends BaseActions.CreateItem<IOrder.EntityRaw> {
 		public static override readonly type = '[Order API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IOrder.DTO> {
+	export class UpdateItem extends BaseActions.UpdateItem<IOrder.EntityRaw> {
 		public static override readonly type = '[Order API] Update Item';
 	}
 
@@ -99,7 +86,7 @@ export namespace OrderActions {
 		public static override readonly type = '[Order State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IOrder.Entity> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<EOrder> {
 		public static override readonly type = '[Order State] Update Table State';
 	}
 

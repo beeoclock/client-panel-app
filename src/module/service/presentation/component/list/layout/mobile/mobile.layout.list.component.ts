@@ -14,7 +14,7 @@ import {
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ITableState} from "@utility/domain/table.state";
-import {IService} from "@src/core/business-logic/service/interface/i.service";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
 	selector: 'service-mobile-layout-list-component',
@@ -30,11 +30,11 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 		NgClass
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<IService.Entity> {
+export class MobileLayoutListComponent extends LayoutListComponent<EService> {
 
 	public readonly showButtonGoToForm = input(true);
 
-	public override readonly tableState = input.required<ITableState<IService.Entity> | null>();
+	public override readonly tableState = input.required<ITableState<EService> | null>();
 	public readonly cardListComponents = viewChildren(CardListComponent);
 
 	@Dispatch()

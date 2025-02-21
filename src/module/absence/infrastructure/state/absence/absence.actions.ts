@@ -1,6 +1,7 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 export namespace AbsenceActions {
 
@@ -14,11 +15,11 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence Application] Close Form';
 	}
 
-	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IAbsence.DTO> {
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<EAbsence> {
 		public static override readonly type = '[Absence Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<IAbsence.DTO> {
+	export class OpenDetails extends BaseActions.OpenDetails<EAbsence> {
 		public static override readonly type = '[Absence Application] Open Details';
 	}
 
@@ -32,7 +33,8 @@ export namespace AbsenceActions {
 
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
-		item?: Partial<IAbsence.DTO>;
+		item?: EAbsence;
+		defaultValue?: Partial<IAbsence.DTO>;
 	}> {
 		public static override readonly type = '[Absence Application] Open Form';
 	}
@@ -51,11 +53,11 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<IAbsence.DTO> {
+	export class CreateItem extends BaseActions.CreateItem<EAbsence> {
 		public static override readonly type = '[Absence API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IAbsence.DTO> {
+	export class UpdateItem extends BaseActions.UpdateItem<EAbsence> {
 		public static override readonly type = '[Absence API] Update Item';
 	}
 
@@ -63,7 +65,7 @@ export namespace AbsenceActions {
 		public static readonly type = '[Absence API] SetState';
 
 		constructor(
-			public readonly item: IAbsence.DTO,
+			public readonly item: EAbsence,
 			public readonly state: StateEnum,
 		) {
 		}
@@ -75,7 +77,7 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IAbsence.Entity> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<EAbsence> {
 		public static override readonly type = '[Absence State] Update Table State';
 	}
 

@@ -18,7 +18,7 @@ export class PutApi extends BaseApiAdapter<Customer.ICustomer.DTO, [Customer.ICu
    */
   @TypeGuard([is.object_not_empty])
   public override execute$(value: Customer.ICustomer.DTO) {
-    return this.httpClient.put<Customer.ICustomer.Entity>(customerEndpointEnum.update, value, {
+    return this.httpClient.put<Customer.ICustomer.EntityRaw>(customerEndpointEnum.update, value, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
 				id: value._id,
 			}),

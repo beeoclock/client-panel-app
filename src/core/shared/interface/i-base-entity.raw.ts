@@ -3,7 +3,7 @@ import {Tools} from "@core/shared/tools";
 import {Types} from "@core/shared/types";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
-export interface IBaseDTO<OBJECT_TYPE extends string = string> {
+export interface IBaseDTO<OBJECT_TYPE> {
 
 	// Added by the system
 	_id: string & Types.ObjectId;
@@ -19,16 +19,13 @@ export interface IBaseDTO<OBJECT_TYPE extends string = string> {
 
 }
 
-export interface IBaseEntity<OBJECT_TYPE extends string = string, DTO extends IBaseDTO = IBaseDTO> extends IBaseDTO<OBJECT_TYPE> {
-    refreshUpdatedAt(): void;
+/**
+ * Base entity raw
+ * Does not contain any methods, only properties
+ */
+export interface IBaseEntityRaw<OBJECT_TYPE> extends IBaseDTO<OBJECT_TYPE> {
 
 	syncedAt?: string & Types.DateTime;
-
-	changeState(state: StateEnum): void;
-	toDTO(): DTO;
-	isNew(): boolean;
-	isUpdated(): boolean;
-	initSyncedAt(force?: string): void;
 
 }
 

@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
 import {ListPage} from "@utility/list.page";
 import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
 import {Observable, tap} from "rxjs";
-import {ICustomer} from "@src/core/business-logic/customer";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";
@@ -18,6 +17,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {environment} from "@environment/environment";
+import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -40,9 +40,9 @@ import {environment} from "@environment/environment";
 		}
 	]
 })
-export class ListCustomerPage extends ListPage<ICustomer.Entity> implements OnDestroy, OnInit {
+export class ListCustomerPage extends ListPage<ECustomer> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<ICustomer.Entity>> = this.store.select(CustomerState.tableState)
+	public readonly tableState$: Observable<ITableState<ECustomer>> = this.store.select(CustomerState.tableState)
 		.pipe(
 			tap((tableState) => {
 				this.changeDetectorRef.detectChanges();

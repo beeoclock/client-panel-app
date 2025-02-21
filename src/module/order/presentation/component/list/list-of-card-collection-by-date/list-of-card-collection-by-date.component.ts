@@ -9,6 +9,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	standalone: true,
@@ -54,7 +55,7 @@ import {
 
 	`
 })
-export class ListOfCardCollectionByDateComponent extends TableComponent<IOrder.Entity> {
+export class ListOfCardCollectionByDateComponent extends TableComponent<EOrder> {
 
 	public readonly itemsWithDate = input.required<[
 		string,

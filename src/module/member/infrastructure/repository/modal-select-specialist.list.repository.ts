@@ -13,7 +13,7 @@ export class ModalSelectSpecialistListRepository {
 
 	private readonly logger = inject(NGXLogger);
 	private readonly memberService = inject(MemberService);
-	public readonly tableState = new TableState<IMember.Entity>();
+	public readonly tableState = new TableState<IMember.EntityRaw>();
 	public readonly loading$ = new BooleanStreamState(false);
 
 	public resetTableState(): void {
@@ -45,7 +45,7 @@ export class ModalSelectSpecialistListRepository {
 
 			this.tableState
 				.nextPage()
-				.setItems(([] as IMember.Entity[]).concat(this.tableState.items, items))
+				.setItems(([] as IMember.EntityRaw[]).concat(this.tableState.items, items))
 				.setTotal(totalSize);
 
 		} catch (e) {

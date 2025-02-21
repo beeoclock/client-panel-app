@@ -1,6 +1,6 @@
 import {ICustomer} from "@src/core/business-logic/customer";
 import {IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@core/shared/enum";
-import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {IBaseDTO} from "@utility/domain";
 import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
 import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
 import {IService} from "@core/business-logic/service/interface/i.service";
@@ -9,7 +9,7 @@ export interface IEventConfiguration {
 	ignoreEventChecks: boolean; // Ignore checking if slot is busy
 }
 
-export interface IAttendee extends IBaseEntity<'Event.Attendant'> {
+export interface IAttendee extends IBaseDTO<'Event.Attendant'> {
 	isOptional: IsOptionalEnum;
 	isOrganizer: IsOrganizerEnum;
 	responseStatus: ResponseStatusEnum;

@@ -4,7 +4,9 @@ import {ICustomer} from "@core/business-logic/customer";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 
 
-export class ECustomer extends ABaseEntity<'CustomerDto', ICustomer.DTO> implements ICustomer.Entity {
+export class ECustomer extends ABaseEntity<'CustomerDto', ICustomer.DTO, ICustomer.EntityRaw> implements ICustomer.EntityRaw {
+
+	override object = 'CustomerDto' as const;
 
 	firstName!: (string & Types.MaxLength<50>) | null;
 	lastName!: (string & Types.MaxLength<50>) | null;
@@ -17,7 +19,7 @@ export class ECustomer extends ABaseEntity<'CustomerDto', ICustomer.DTO> impleme
 		return ECustomer.toDTO(this);
 	}
 
-	public static toDTO(data: ICustomer.Entity): ICustomer.DTO {
+	public static toDTO(data: ICustomer.EntityRaw): ICustomer.DTO {
 		return {
 			_id: data._id,
 			createdAt: data.createdAt,
@@ -38,7 +40,15 @@ export class ECustomer extends ABaseEntity<'CustomerDto', ICustomer.DTO> impleme
 	 * Use it to create new entity, e.g. from API or form
 	 * @param data
 	 */
-	public static create(data: ICustomer.DTO): ICustomer.Entity {
+	public static fromDTO(data: ICustomer.DTO): ECustomer {
+		return new ECustomer(data);
+	}
+
+	/**
+	 * Use it to create entity from raw data, e.g. from database
+	 * @param data
+	 */
+	public static fromRaw(data: ICustomer.EntityRaw): ECustomer {
 		return new ECustomer(data);
 	}
 

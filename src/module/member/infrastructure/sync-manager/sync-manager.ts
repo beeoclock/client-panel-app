@@ -10,11 +10,11 @@ import EMember from "@core/business-logic/member/entity/e.member";
 import {MemberRepository} from "@member/infrastructure/repository/member.repository";
 
 @Injectable()
-export class SyncManager extends BaseSyncManager<IMember.DTO, IMember.Entity> implements OnDestroy {
+export class SyncManager extends BaseSyncManager<IMember.DTO, EMember> implements OnDestroy {
 
 	protected readonly apiDataProvider = inject(ApiDataProvider);
 	protected readonly repository = inject(MemberRepository);
-	protected readonly toEntity = EMember.create;
+	protected readonly toEntity = EMember.fromDTO;
 
 	private readonly destroy$ = new Subject<void>();
 

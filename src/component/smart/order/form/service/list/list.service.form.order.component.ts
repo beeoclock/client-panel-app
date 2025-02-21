@@ -18,7 +18,6 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {TableState} from "@utility/domain/table.state";
 import {Reactive} from "@utility/cdk/reactive";
-import {RIMember} from "@src/core/business-logic/member";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
@@ -30,6 +29,7 @@ import {IAttendeeDto} from "@src/core/business-logic/order/interface/i-order-app
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {IService} from "@core/business-logic/service/interface/i.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	standalone: true,
@@ -69,9 +69,9 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 
 	public readonly setupPartialData = input<{
 		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: RIMember;
+		defaultMemberForService?: IMember.EntityRaw;
 		serviceList?: IService.DTO[];
-		customer?: ICustomer.Entity;
+		customer?: ICustomer.EntityRaw;
 	}>({});
 
 	public readonly serviceOrderFormArray = input.required<ServiceOrderFormArray>();

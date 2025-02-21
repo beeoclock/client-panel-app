@@ -1,11 +1,10 @@
-import {IBaseEntity} from "@utility/domain";
-import IBaseItem from "@core/shared/interface/i.base-item";
+import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {Tools} from "@src/core/shared/tools";
 
 
 export namespace IMemberContext {
 
-	export interface DTO extends IBaseEntity<'MemberContextDto'> {
+	export interface DTO extends IBaseDTO<'MemberContextDto'> {
 		account: {
 			_id: string;
 		};
@@ -15,7 +14,7 @@ export namespace IMemberContext {
 		}
 	}
 
-	export interface Entity extends IBaseItem<'MemberContextDto', DTO>, DTO {
+	export interface EntityRaw extends IBaseEntityRaw<'MemberContextDto'>, DTO {
 
 	}
 

@@ -16,7 +16,7 @@ export class GetItemApi extends BaseApiAdapter<Customer.ICustomer.DTO, [string]>
    * @param id
    */
   public override execute$(id: string) {
-    return this.httpClient.get<Customer.ICustomer.Entity>(customerEndpointEnum.item, {
+    return this.httpClient.get<Customer.ICustomer.EntityRaw>(customerEndpointEnum.item, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
 				id
 			}),

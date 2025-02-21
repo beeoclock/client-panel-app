@@ -1,5 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IMember} from "@src/core/business-logic/member/interface/i.member";
+import EMember from "@core/business-logic/member/entity/e.member";
 
 export namespace MemberActions {
 
@@ -54,11 +55,11 @@ export namespace MemberActions {
 		public static override readonly type = '[Member API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<IMember.DTO> {
+	export class CreateItem extends BaseActions.CreateItem<IMember.EntityRaw> {
 		public static override readonly type = '[Member API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IMember.DTO> {
+	export class UpdateItem extends BaseActions.UpdateItem<IMember.EntityRaw> {
 		public static override readonly type = '[Member API] Update Item';
 	}
 
@@ -68,7 +69,7 @@ export namespace MemberActions {
 		public static override readonly type = '[Member State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IMember.Entity> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<EMember> {
 		public static override readonly type = '[Member State] Update Table State';
 	}
 

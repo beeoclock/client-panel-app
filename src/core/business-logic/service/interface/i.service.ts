@@ -1,4 +1,4 @@
-import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {Tools} from "@core/shared/tools";
 import {IPresentation, RIConfiguration, RIDurationVersion, RILanguageVersion, RIPrepaymentPolicy} from "../index";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
@@ -15,7 +15,7 @@ export namespace IService {
 		order: number; // Queue/Position in list
 	}
 
-	export type Entity = IBaseEntity<'ServiceDto', DTO> & DTO & {
+	export type EntityRaw = IBaseEntityRaw<'ServiceDto'> & DTO & {
 
 		// TODO: add key in base entity to know if entity synced and when it was synced
 

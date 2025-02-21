@@ -23,6 +23,7 @@ import {
 import {Reactive} from "@utility/cdk/reactive";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
 	selector: 'utility-modal-select-service-component',
@@ -40,17 +41,17 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 })
 export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit, AfterViewInit {
 
-	public readonly selectedServiceList = input<IService.Entity[]>([]);
+	public readonly selectedServiceList = input<EService[]>([]);
 
 	@Input()
-	public newSelectedServiceList: IService.Entity[] = [];
+	public newSelectedServiceList: EService[] = [];
 
 	@Output()
 	public readonly selectedServicesListener = new EventEmitter<void>();
 
 	public readonly useTableStateFromStore = input(true);
 
-	public readonly tableState = input<ITableState<IService.Entity>>(new TableState<IService.Entity>().toCache());
+	public readonly tableState = input<ITableState<EService>>(new TableState<EService>().toCache());
 
 	readonly serviceExternalListComponent = viewChild.required(ServiceExternalListComponent);
 
@@ -94,13 +95,13 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 		});
 	}
 
-	public async select(service: IService.Entity) {
+	public async select(service: EService) {
 		if (!this.multiple()) {
 			if (this.newSelectedServiceList.length) {
 				this.newSelectedServiceList.splice(0, 1);
 			}
 		}
-		this.newSelectedServiceList.push({...service});
+		this.newSelectedServiceList.push(service);
 		this.selectedServicesListener.emit();
 		this.changeDetectorRef.detectChanges();
 

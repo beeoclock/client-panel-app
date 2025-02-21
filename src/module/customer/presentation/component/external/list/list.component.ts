@@ -5,7 +5,6 @@ import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
-import {ICustomer} from "@src/core/business-logic/customer";
 import {
 	MobileLayoutListComponent
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
@@ -14,6 +13,7 @@ import {
 } from "@customer/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
 import {TableService} from "@utility/table.service";
+import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
 @Component({
 	selector: 'customer-external-list-component',
@@ -34,12 +34,12 @@ import {TableService} from "@utility/table.service";
 		}
 	]
 })
-export class CustomerExternalListComponent extends ListPage<ICustomer.Entity> {
+export class CustomerExternalListComponent extends ListPage<ECustomer> {
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
 
-	public readonly tableState$: Observable<ITableState<ICustomer.Entity>> = this.store.select(CustomerState.tableState)
+	public readonly tableState$: Observable<ITableState<ECustomer>> = this.store.select(CustomerState.tableState)
 		.pipe(
 			tap((tableState) => {
 				this.changeDetectorRef.detectChanges();

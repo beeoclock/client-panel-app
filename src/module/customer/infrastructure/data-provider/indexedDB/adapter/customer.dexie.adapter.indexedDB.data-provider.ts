@@ -5,7 +5,7 @@ import {
 import {ICustomer} from "@core/business-logic/customer";
 
 @Injectable()
-export class CustomerDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<ICustomer.Entity> {
+export class CustomerDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<ICustomer.EntityRaw> {
 
 	protected readonly columns = '_id,createdAt,updatedAt,firstName,lastName,email,phone';
 	protected readonly moduleName = 'customer';

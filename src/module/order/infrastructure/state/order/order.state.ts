@@ -1,15 +1,9 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext, Store} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
-import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
-import {ContainerFormComponent} from "@event/presentation/component/form/container.form.component";
-import {IEvent} from "@event/domain";
-import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
-import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EOrder from "@src/core/business-logic/order/entity/e.order";
@@ -34,9 +28,9 @@ import {
 import {INotificationSettings} from "@core/business-logic/order/interface/i.notification-settings";
 import {environment} from "@environment/environment";
 
-export type IOrderState = IBaseState<IOrder.Entity>;
+export type IOrderState = IBaseState<EOrder>;
 
-const defaults = baseDefaults<IOrder.Entity>({
+const defaults = baseDefaults<EOrder>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
@@ -72,13 +66,13 @@ export class OrderState {
 
 	@Action(OrderActions.UpdateTableState)
 	public updateTableState(ctx: StateContext<IOrderState>, action: OrderActions.UpdateTableState) {
-		BaseState.updateTableState(ctx, action);
+		BaseState.updateTableState<EOrder>(ctx, action);
 	}
 
 	// Application layer
 
 	@Action(OrderActions.CloseDetails)
-	public async closeDetailsAction(ctx: StateContext<IOrderState>, action?: OrderActions.CloseDetails) {
+	public async closeDetailsAction() {
 
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
@@ -87,7 +81,7 @@ export class OrderState {
 	}
 
 	@Action(OrderActions.CloseForm)
-	public async closeFormAction(ctx: StateContext<IOrderState>, action?: OrderActions.CloseForm) {
+	public async closeFormAction() {
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
@@ -209,98 +203,6 @@ export class OrderState {
 
 	}
 
-	@Action(OrderActions.OpenOrderServiceForm)
-	public async openOrderServiceFormAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.OpenOrderServiceForm): Promise<void> {
-
-
-		this.ngxLogger.info('openOrderServiceFormAction', payload);
-
-		const {orderId, isEditMode, item} = payload;
-
-		const componentInputs: {
-			orderServiceDto: Partial<IOrderServiceDto>;
-			isEditMode: boolean;
-			forceStart?: string;
-		} = {
-			isEditMode: isEditMode ?? false,
-			orderServiceDto: item ?? {},
-		};
-
-		const componentRef = await this.whacAMaleProvider.buildItAsync({
-			title: this.translateService.instant('event.form.title.edit'),
-			component: ContainerFormComponent,
-			componentInputs,
-		});
-
-		if (!componentRef) {
-			return;
-		}
-
-		const {renderedComponentRef} = componentRef.instance;
-
-		if (!renderedComponentRef) {
-			return;
-		}
-
-		renderedComponentRef.setInput('callback', async (component: ContainerFormComponent, formValue: IEvent) => {
-			this.ngxLogger.info('callback', component, formValue);
-
-			if (!formValue.services || !formValue.services.length) {
-				return;
-			}
-
-			if (!formValue.attendees || !formValue.attendees.length) {
-				return;
-			}
-
-			if (!formValue.timeZone) {
-				return;
-			}
-
-			if (!formValue.start) {
-				return;
-			}
-
-			if (!formValue.end) {
-				return;
-			}
-
-			const orderServiceForm = ServiceOrderForm.create({
-				...(formValue as any),
-				customerNote: formValue.note,
-				orderAppointmentDetails: {
-					object: 'OrderAppointmentDetailsDto',
-					active: ActiveEnum.YES,
-					start: formValue.start,
-					end: formValue.end,
-					type: ReservationTypeEnum.service,
-					languageCodes: [formValue.language],
-					// attachments: IAttachmentDto[];
-					specialists: formValue.specialists,
-					attendees: formValue.attendees,
-					// locations: ILocationsDto[];
-					timeZone: formValue.timeZone,
-					createdAt: formValue.createdAt,
-					updatedAt: formValue.updatedAt,
-				},
-				serviceSnapshot: formValue.services[0] as unknown as IOrderServiceDto,
-			});
-
-			const order = await this.orderService.repository.findByIdAsync(orderId)
-
-			if (order) {
-				order.services.push(orderServiceForm.value as unknown as IOrderServiceDto);
-				await this.orderService.repository.updateAsync(order);
-			}
-
-			// TODO: call function to increase defaultAppointmentStartDateTimeIso
-
-			componentRef.instance.destroySelf()();
-
-		});
-
-	}
-
 	@Action(OrderActions.OpenForm)
 	public async openFormAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.OpenForm): Promise<void> {
 
@@ -325,7 +227,7 @@ export class OrderState {
 		if (!foundOrder) {
 			return;
 		}
-		const orderEntity = EOrder.create(foundOrder);
+		const orderEntity = EOrder.fromDTO(foundOrder);
 		orderEntity.status = action.payload.status;
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.orderService.repository.updateAsync(orderEntity);
@@ -338,7 +240,7 @@ export class OrderState {
 		if (!foundOrder) {
 			return;
 		}
-		const orderEntity = EOrder.create(foundOrder);
+		const orderEntity = EOrder.fromDTO(foundOrder);
 		orderEntity.changeState(StateEnum.deleted);
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.orderService.repository.updateAsync(orderEntity);
@@ -353,7 +255,7 @@ export class OrderState {
 		 * 	  if not then create new customer, but if customer exists then we have to use it
 		 */
 
-		const orderEntity = EOrder.create(action.payload);
+		const orderEntity = EOrder.fromDTO(action.payload);
 
 
 		// Resolve new customer case
@@ -367,9 +269,9 @@ export class OrderState {
 					})
 
 					if (customerFound) {
-						attendee.customer = customerFound.toDTO();
+						attendee.customer = ECustomer.fromRaw(customerFound).toDTO();
 					} else {
-						const customerEntity = ECustomer.create({
+						const customerEntity = ECustomer.fromDTO({
 							...attendee.customer,
 							customerType: CustomerTypeEnum.regular,
 						});
@@ -382,29 +284,31 @@ export class OrderState {
 
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.orderService.repository.createAsync(orderEntity);
-		await this.closeFormAction(ctx);
+		await this.closeFormAction();
 	}
 
 	@Action(OrderActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IOrderState>, action: OrderActions.UpdateItem): Promise<void> {
-		const orderEntity = EOrder.create(action.payload);
+		const orderEntity = EOrder.fromDTO(action.payload);
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.orderService.repository.updateAsync(orderEntity);
-		await this.closeFormAction(ctx);
+		await this.closeFormAction();
 		await this.updateOpenedDetailsAction(ctx, {payload: orderEntity});
 	}
 
 	@Action(OrderActions.GetItem)
 	public async getItem(ctx: StateContext<IOrderState>, action: OrderActions.GetItem): Promise<void> {
-		const data = await this.orderService.repository.findByIdAsync(action.payload);
+		const raw = await this.orderService.repository.findByIdAsync(action.payload);
 
-		if (!data) {
+		if (!raw) {
 			return;
 		}
 
+		const entity = EOrder.fromDTO(raw);
+
 		ctx.patchState({
 			item: {
-				data,
+				data: entity,
 				downloadedAt: new Date(),
 			}
 		});
@@ -455,9 +359,11 @@ export class OrderState {
 
 			});
 
+			const entities = items.map(EOrder.fromDTO);
+
 			newTableState
 				.setTotal(totalSize)
-				.setItems(items)
+				.setItems(entities)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
 			this.ngxLogger.debug('Table state: ', newTableState);

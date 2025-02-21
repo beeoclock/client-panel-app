@@ -16,7 +16,7 @@ export class PostApi extends BaseApiAdapter<Customer.ICustomer.DTO, [Customer.IC
    */
   @TypeGuard([is.object_not_empty])
   public override execute$(value: Customer.ICustomer.DTO) {
-    return this.httpClient.post<Customer.ICustomer.Entity>(customerEndpointEnum.create, value);
+    return this.httpClient.post<Customer.ICustomer.EntityRaw>(customerEndpointEnum.create, value);
   }
 
 }

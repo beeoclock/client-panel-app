@@ -9,7 +9,6 @@ import {
 	input,
 	Renderer2
 } from "@angular/core";
-import {RIMember} from "@src/core/business-logic/member";
 import {firstValueFrom} from "rxjs";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -20,6 +19,7 @@ import {
 import {Store} from "@ngxs/store";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {BooleanState} from "@utility/domain";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'app-empty-slot-calendar-with-specialist-widget-component',
@@ -38,7 +38,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 
 	public readonly durationInMinutes = input.required<number>();
 
-	public readonly member = input.required<RIMember>();
+	public readonly member = input.required<IMember.EntityRaw>();
 	public readonly showSquare = new BooleanState(false);
 	@HostBinding('style.touch-action')
 	public touchAction = 'auto';
@@ -120,7 +120,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 								const {
 									datetimeISO: datetimeISOComponent,
 									member: memberComponent
-								} = componentInputs as { datetimeISO: string; member: RIMember };
+								} = componentInputs as { datetimeISO: string; member: IMember.EntityRaw };
 
 								this.ngxLogger.debug('Callback:update:before', {datetimeISOComponent, memberComponent});
 

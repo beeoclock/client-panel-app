@@ -22,7 +22,7 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 export class MemberDetailsContainerComponent {
 
 	@Input({required: true})
-	public readonly item!: IMember.Entity;
+	public readonly item!: IMember.EntityRaw;
 
 	public readonly store = inject(Store);
 

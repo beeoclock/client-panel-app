@@ -36,7 +36,7 @@ export class PaymentState {
 	// Application layer
 
 	@Action(PaymentActions.CloseDetails)
-	public async closeDetailsAction(ctx: StateContext<IPaymentState>, action?: PaymentActions.CloseDetails) {
+	public async closeDetailsAction() {
 
 		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
 		//
@@ -45,7 +45,7 @@ export class PaymentState {
 	}
 
 	@Action(PaymentActions.CloseForm)
-	public async closeFormAction(ctx: StateContext<IPaymentState>, action?: PaymentActions.CloseForm) {
+	public async closeFormAction() {
 
 		//
 		// const {PaymentFormContainerComponent} = await import("@payment/presentation/component/form/payment-form-container.component");
@@ -55,7 +55,7 @@ export class PaymentState {
 	}
 
 	@Action(PaymentActions.UpdateOpenedDetails)
-	public async updateOpenedDetailsAction(ctx: StateContext<IPaymentState>, {payload}: PaymentActions.UpdateOpenedDetails) {
+	public async updateOpenedDetailsAction() {
 
 		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
 		//
@@ -68,7 +68,7 @@ export class PaymentState {
 	}
 
 	@Action(PaymentActions.OpenDetails)
-	public async openDetailsAction(ctx: StateContext<IPaymentState>, {payload}: PaymentActions.OpenDetails) {
+	public async openDetailsAction() {
 
 		// const title = await this.translateService.instant('payment.details.title');
 		//
@@ -84,7 +84,7 @@ export class PaymentState {
 	}
 
 	@Action(PaymentActions.OpenDetailsById)
-	public async openDetailsByIdAction(ctx: StateContext<IPaymentState>, {payload: id}: PaymentActions.OpenDetailsById) {
+	public async openDetailsByIdAction() {
 
 		// const title = await this.translateService.instant('payment.details.title');
 		//
@@ -170,17 +170,17 @@ export class PaymentState {
 
 	@Action(PaymentActions.CreateItem)
 	public async createItem(ctx: StateContext<IPaymentState>, action: PaymentActions.CreateItem) {
-		await this.paymentService.repository.createAsync(EPayment.create(action.payload));
-		await this.closeFormAction(ctx);
+		await this.paymentService.repository.createAsync(EPayment.fromDTO(action.payload));
+		await this.closeFormAction();
 		ctx.dispatch(new PaymentActions.GetList());
 	}
 
 	@Action(PaymentActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IPaymentState>, action: PaymentActions.UpdateItem): Promise<void> {
-		const item = EPayment.create(action.payload);
+		const item = EPayment.fromDTO(action.payload);
 		await this.paymentService.repository.updateAsync(item);
-		await this.closeFormAction(ctx);
-		await this.updateOpenedDetailsAction(ctx, {payload: item});
+		await this.closeFormAction();
+		await this.updateOpenedDetailsAction();
 		ctx.dispatch(new PaymentActions.GetList());
 	}
 
@@ -261,7 +261,7 @@ export class PaymentState {
 
 	@Action(PaymentActions.PutItem)
 	public async putItem(ctx: StateContext<IPaymentState>, action: PaymentActions.PutItem): Promise<void> {
-		const item = EPayment.create(action.payload.item);
+		const item = EPayment.fromDTO(action.payload.item);
 		await this.paymentService.repository.updateAsync(item);
 		// await this.closeFormAction(ctx);
 		// await this.updateOpenedDetailsAction(ctx, {payload: item});

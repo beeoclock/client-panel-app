@@ -1,6 +1,6 @@
 import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ISocialNetworkLink} from "@core/business-logic/business-profile/interface/i.social-network-link";
-import {IBaseEntity} from "@utility/domain/interface";
+import {IBaseDTO} from "@utility/domain/interface";
 import {FacilityEnum} from "@core/shared/enum/facility.enum";
 import {IContact} from "@core/business-logic/business-profile/interface/i.contact";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
@@ -65,7 +65,7 @@ export interface INotificationsSettings {
 	};
 }
 
-export interface RIClient extends IBaseEntity<'Client'> {
+export interface RIClient extends IBaseDTO<'Client'> {
 	status: BusinessClientStatusEnum;
 	published: ActiveEnum;
 	name: string;

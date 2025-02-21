@@ -4,7 +4,6 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
-import {ICustomer} from "@src/core/business-logic/customer";
 import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
 import {
@@ -12,6 +11,7 @@ import {
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {ITableState} from "@utility/domain/table.state";
+import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
 @Component({
 	selector: 'customer-desktop-layout-list-component',
@@ -29,8 +29,9 @@ import {ITableState} from "@utility/domain/table.state";
 		class: 'flex flex-col overflow-hidden h-full',
 	}
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<ICustomer.Entity> {
-	public override readonly tableState = input.required<ITableState<ICustomer.Entity> | null>();
+export class DesktopLayoutListComponent extends LayoutListComponent<ECustomer> {
+	public override readonly tableState = input.required<ITableState<ECustomer> | null>();
+
 	public openForm(): void {
 		this.store.dispatch(new CustomerActions.OpenForm());
 	}

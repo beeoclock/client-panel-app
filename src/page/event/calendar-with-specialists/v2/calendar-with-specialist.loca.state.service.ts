@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
-import * as Member from "@src/core/business-logic/member";
 import {ISchedule} from "@utility/domain/interface/i.schedule";
 import {BehaviorSubject} from "rxjs";
 import {
 	EventCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Injectable({
 	providedIn: 'root'
@@ -60,7 +60,7 @@ export default class CalendarWithSpecialistLocaStateService {
 	#latestScheduleInSeconds = 0;
 	#startTimeToDisplay = 0; // e.g. 8 (It means: 08:00)
 	#endTimeToDisplay = 23; // e.g. 20 (It means: 20:00)
-	#members: Member.RIMember[] = [];
+	#members: IMember.EntityRaw[] = [];
 	#schedules: ISchedule[] = [];
 
 	public get startTimeToDisplay(): number {
@@ -79,7 +79,7 @@ export default class CalendarWithSpecialistLocaStateService {
 		return this.#latestScheduleInSeconds;
 	}
 
-	public get members(): Member.RIMember[] {
+	public get members(): IMember.EntityRaw[] {
 		return this.#members;
 	}
 
@@ -112,7 +112,7 @@ export default class CalendarWithSpecialistLocaStateService {
 		return this;
 	}
 
-	public setMembers(value: Member.RIMember[]) {
+	public setMembers(value: IMember.EntityRaw[]) {
 		this.#members = value;
 		return this;
 	}

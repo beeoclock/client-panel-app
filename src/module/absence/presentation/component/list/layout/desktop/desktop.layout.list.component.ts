@@ -4,7 +4,6 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@utility/layout.list.component";
-import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {FilterComponent} from "@absence/presentation/component/filter/filter.component";
 import {TableListComponent} from "@absence/presentation/component/list/table/table.list.component";
 import {
@@ -13,6 +12,7 @@ import {
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ITableState} from "@utility/domain/table.state";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({
 	selector: 'app-absence-desktop-layout-list-component',
@@ -27,12 +27,8 @@ import {ITableState} from "@utility/domain/table.state";
 		AutoRefreshButtonComponent,
 	]
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<IAbsence.Entity> {
-	public override readonly tableState = input.required<ITableState<IAbsence.Entity> | null>();
-
-	public constructor() {
-		super();
-	}
+export class DesktopLayoutListComponent extends LayoutListComponent<EAbsence> {
+	public override readonly tableState = input.required<ITableState<EAbsence> | null>();
 
 	@Dispatch()
 	public openForm() {

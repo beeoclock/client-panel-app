@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {BaseRepository} from "@core/system/infrastructure/repository/base.repository";
-import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
 
 @Injectable()
-export class BusinessProfileRepository extends BaseRepository<IBusinessProfile.Entity> {
+export class BusinessProfileRepository extends BaseRepository<EBusinessProfile> {
 
 }

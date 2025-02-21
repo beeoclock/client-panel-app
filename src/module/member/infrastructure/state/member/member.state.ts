@@ -14,12 +14,11 @@ import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {MemberService} from "@core/business-logic/member/service/member.service";
-import {IMember} from "@core/business-logic/member/interface/i.member";
 import {environment} from "@environment/environment";
 
-export type IMemberState = IBaseState<IMember.Entity>;
+export type IMemberState = IBaseState<EMember>;
 
-const defaults = baseDefaults<IMember.Entity>({
+const defaults = baseDefaults<EMember>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
@@ -197,12 +196,12 @@ export class MemberState {
 
 	@Action(MemberActions.UpdateTableState)
 	public updateTableState(ctx: StateContext<IMemberState>, action: MemberActions.UpdateTableState) {
-		BaseState.updateTableState(ctx, action);
+		BaseState.updateTableState<EMember>(ctx, action);
 	}
 
 	@Action(MemberActions.CreateItem)
 	public async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
-		await this.memberService.repository.createAsync(EMember.create(action.payload));
+		await this.memberService.repository.createAsync(EMember.fromDTO(action.payload));
 		ctx.dispatch(new MemberActions.GetList());
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-expect-error
@@ -211,7 +210,7 @@ export class MemberState {
 
 	@Action(MemberActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
-		const item = EMember.create(action.payload);
+		const item = EMember.fromDTO(action.payload);
 		await this.memberService.repository.updateAsync(item);
 		ctx.dispatch(new MemberActions.GetList());
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -222,15 +221,17 @@ export class MemberState {
 
 	@Action(MemberActions.GetItem)
 	public async getItem(ctx: StateContext<IMemberState>, action: MemberActions.GetItem): Promise<void> {
-		const data = await this.memberService.repository.findByIdAsync(action.payload);
+		const raw = await this.memberService.repository.findByIdAsync(action.payload);
 
-		if (!data) {
+		if (!raw) {
 			return;
 		}
 
+		const entity = EMember.fromRaw(raw);
+
 		ctx.patchState({
 			item: {
-				data,
+				data: entity,
 				downloadedAt: new Date(),
 			}
 		});
@@ -274,9 +275,11 @@ export class MemberState {
 				state: inState,
 			});
 
+			const entities = items.map(EMember.fromRaw);
+
 			newTableState
 				.setTotal(totalSize)
-				.setItems(items)
+				.setItems(entities)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
 			this.ngxLogger.debug('Table state: ', newTableState);

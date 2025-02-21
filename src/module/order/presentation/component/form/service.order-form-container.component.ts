@@ -48,7 +48,6 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
-import {RIMember} from "@src/core/business-logic/member";
 import {
 	OrderServiceDetailsComponent
 } from "@order/presentation/component/details/service/order-service-details.component";
@@ -149,7 +148,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 	@Input()
 	public setupPartialData: {
 		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: RIMember;
+		defaultMemberForService?: IMember.Entity;
 	} = {};
 
 	@Input()
@@ -199,7 +198,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 			useDefaultFlow: boolean;
 			isEditMode: boolean;
 			forceStart?: string;
-			member?: RIMember;
+			member?: IMember.Entity;
 		} = {
 			isEditMode: false,
 			useDefaultFlow: false,

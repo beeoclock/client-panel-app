@@ -5,7 +5,7 @@ import {
 import {IPayment} from "@core/business-logic/payment/interface/i.payment";
 
 @Injectable()
-export class PaymentDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IPayment.Entity> {
+export class PaymentDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IPayment.EntityRaw> {
 
 	protected readonly columns = '_id,createdAt,updatedAt';
 	protected readonly moduleName = 'payment';

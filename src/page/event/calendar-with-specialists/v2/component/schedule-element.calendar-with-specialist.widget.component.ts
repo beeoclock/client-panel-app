@@ -10,7 +10,6 @@ import {
 	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {RIMember} from "@src/core/business-logic/member";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {
 	CalendarWithSpecialistsQueries
@@ -23,6 +22,7 @@ import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {BooleanState} from "@utility/domain";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 
 interface IData {
@@ -63,7 +63,7 @@ interface IData {
 })
 export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reactive implements AfterViewInit {
 
-	public readonly member = input<RIMember | null>(null);
+	public readonly member = input<IMember.EntityRaw | null>(null);
 
 	public readonly index = input<number>(-1); // Index of instance
 

@@ -7,11 +7,13 @@ import {PaymentMethodEnum} from "../enum/payment.method.enum";
 import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";
 
-export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO> implements IPayment.Entity {
+export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.EntityRaw> implements IPayment.EntityRaw {
+
+	override object = 'PaymentDto' as const;
 
 	providerPaymentRef!: string | null;
 	orderId!: string;
-	payer!: ICustomer.Entity;
+	payer!: ICustomer.EntityRaw;
 	amount!: number & Types.Minimum<0>;
 	currency!: CurrencyCodeEnum & Types.Default<CurrencyCodeEnum.USD>;
 	method!: PaymentMethodEnum & Types.Default<PaymentMethodEnum.CASH>;
@@ -24,7 +26,7 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO> implements
 		return EPayment.toDTO(this);
 	}
 
-	public static toDTO(data: IPayment.Entity): IPayment.DTO {
+	public static toDTO(data: IPayment.EntityRaw): IPayment.DTO {
 		return {
 			_id: data._id,
 			amount: data.amount,
@@ -46,7 +48,15 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO> implements
 	 * Use it to create new entity, e.g. from API or form
 	 * @param data
 	 */
-	public static create(data: IPayment.DTO): IPayment.Entity {
+	public static fromDTO(data: IPayment.DTO): EPayment {
+		return new EPayment(data);
+	}
+
+	/**
+	 * Use it to create entity from raw data, e.g. from database
+	 * @param data
+	 */
+	public static fromRaw(data: IPayment.EntityRaw): EPayment {
 		return new EPayment(data);
 	}
 

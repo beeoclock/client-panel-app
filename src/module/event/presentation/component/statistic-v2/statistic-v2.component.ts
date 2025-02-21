@@ -29,7 +29,6 @@ import {
 	DateRangeReportAnalyticState,
 	IDateRangeAnalyticState
 } from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
-import {RIMember} from "@src/core/business-logic/member";
 import {
 	DateRangeReportAnalyticActions
 } from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.actions";
@@ -60,6 +59,7 @@ import {
 	RevenueStatisticComponent
 } from "@event/presentation/component/statistic-v2/components/table/total/counter/revenue.statistic.component";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'event-statistic-v2-component',
@@ -138,7 +138,7 @@ export class StatisticV2Component extends Reactive implements OnInit, AfterViewI
 		})
 	);
 	public readonly activeMembers$ = this.store.select(MemberState.activeMembers).pipe(
-		filter(is.not_null<RIMember[]>),
+		filter(is.not_null<IMember.EntityRaw[]>),
 		tap((activeMembers) => {
 			activeMembers.forEach((member) => {
 				this.items.push({

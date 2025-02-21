@@ -1,4 +1,4 @@
-import {IBaseDTO, IBaseEntity} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {CustomerTypeEnum} from "@core/business-logic/customer/enum/customer-type.enum";
 import {Tools} from "@core/shared/tools";
 import {Types} from "@core/shared/types";
@@ -14,7 +14,7 @@ export namespace ICustomer {
 		customerType: CustomerTypeEnum & Types.Default<CustomerTypeEnum.new>;
 	}
 
-	export type Entity = IBaseEntity<'CustomerDto', DTO> & DTO &
+	export type EntityRaw = IBaseEntityRaw<'CustomerDto'> & DTO &
 	{
 
 		// TODO: add key in base entity to know if entity synced and when it was synced

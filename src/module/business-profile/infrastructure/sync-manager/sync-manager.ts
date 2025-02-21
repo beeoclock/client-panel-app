@@ -10,11 +10,11 @@ import {ApiDataProvider} from "@businessProfile/infrastructure/data-provider/api
 import {BusinessProfileRepository} from "@businessProfile/infrastructure/repository/business-profile.repository";
 
 @Injectable()
-export class SyncManager extends BaseSyncManager<IBusinessProfile.DTO, IBusinessProfile.Entity> implements OnDestroy {
+export class SyncManager extends BaseSyncManager<IBusinessProfile.DTO, EBusinessProfile> implements OnDestroy {
 
 	protected readonly apiDataProvider = inject(ApiDataProvider);
 	protected readonly repository = inject(BusinessProfileRepository);
-	protected readonly toEntity = EBusinessProfile.create;
+	protected readonly toEntity = EBusinessProfile.fromDTO;
 
 	private readonly destroy$ = new Subject<void>();
 

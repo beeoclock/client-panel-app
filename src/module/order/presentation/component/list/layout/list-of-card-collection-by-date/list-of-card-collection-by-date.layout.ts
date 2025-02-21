@@ -27,6 +27,7 @@ import {
 } from "@order/presentation/component/list/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
 import {ITableState} from "@utility/domain/table.state";
 import {Actions} from '@ngxs/store';
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	selector: 'order-list-of-card-collection-by-date-layout',
@@ -46,8 +47,8 @@ import {Actions} from '@ngxs/store';
 		DurationVersionHtmlHelper,
 	],
 })
-export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder.Entity> implements OnChanges, OnInit {
-	public override readonly tableState = input.required<ITableState<IOrder.Entity> | null>();
+export class ListOfCardCollectionByDateLayout extends LayoutListComponent<EOrder> implements OnChanges, OnInit {
+	public override readonly tableState = input.required<ITableState<EOrder> | null>();
 
 	public readonly mapOfItems: Map<string, IOrder.DTO[]> = new Map<string, IOrder.DTO[]>();
 	public itemsWithDate: [string, IOrder.DTO[]][] = [];

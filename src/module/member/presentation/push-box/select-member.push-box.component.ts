@@ -38,10 +38,10 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 })
 export class SelectMemberPushBoxComponent extends Reactive implements OnInit, AfterViewInit {
 
-	public readonly selectedMemberList = input<IMember.Entity[]>([]);
+	public readonly selectedMemberList = input<IMember.EntityRaw[]>([]);
 
 	@Input()
-	public newSelectedMemberList: IMember.Entity[] = [];
+	public newSelectedMemberList: IMember.EntityRaw[] = [];
 
 	@Output()
 	public readonly selectedMembersListener = new EventEmitter<void>();
@@ -82,13 +82,13 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 		});
 	}
 
-	public async submit(): Promise<IMember.Entity[]> {
+	public async submit(): Promise<IMember.EntityRaw[]> {
 		return new Promise((resolve) => {
 			resolve(this.newSelectedMemberList);
 		});
 	}
 
-	public select(member: IMember.Entity): void {
+	public select(member: IMember.EntityRaw): void {
 		if (!this.multiple) {
 			if (this.newSelectedMemberList.length) {
 				this.newSelectedMemberList.splice(0, 1);
@@ -100,17 +100,17 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public deselect(member: IMember.Entity): void {
+	public deselect(member: IMember.EntityRaw): void {
 		this.newSelectedMemberList = this.newSelectedMemberList.filter(({_id}) => _id !== member._id);
 		this.selectedMembersListener.emit();
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public isSelected(member: IMember.Entity): boolean {
+	public isSelected(member: IMember.EntityRaw): boolean {
 		return this.newSelectedMemberList.some(({_id}) => _id === member._id);
 	}
 
-	public isNotSelected(member: IMember.Entity): boolean {
+	public isNotSelected(member: IMember.EntityRaw): boolean {
 		return !this.isSelected(member);
 	}
 }

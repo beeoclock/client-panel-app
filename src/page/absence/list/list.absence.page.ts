@@ -11,13 +11,13 @@ import {
 import {
 	MobileLayoutListComponent
 } from "@absence/presentation/component/list/layout/mobile/mobile.layout.list.component";
-import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {TableService} from "@utility/table.service";
 import {AbsenceTableService} from "@absence/presentation/component/list/absence.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {environment} from '@src/environment/environment';
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({
 	selector: 'app-list-absence-page',
@@ -38,9 +38,9 @@ import {environment} from '@src/environment/environment';
 		}
 	]
 })
-export class ListAbsencePage extends ListPage<IAbsence.Entity> implements OnDestroy, OnInit {
+export class ListAbsencePage extends ListPage<EAbsence> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<IAbsence.Entity>> = this.store.select(AbsenceState.tableState)
+	public readonly tableState$: Observable<ITableState<EAbsence>> = this.store.select(AbsenceState.tableState)
 		.pipe(
 			tap(() => {
 				this.changeDetectorRef.detectChanges();

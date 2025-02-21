@@ -3,7 +3,7 @@ import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
 import {BaseService} from "@core/shared/service/base.service";
 
-type ENTITY = IOrder.Entity;
+type ENTITY = IOrder.EntityRaw;
 
 @Injectable()
 export class OrderService extends BaseService<ENTITY> {

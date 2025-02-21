@@ -10,11 +10,11 @@ import {filter, Subject, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 
 @Injectable()
-export class SyncManager extends BaseSyncManager<IAbsence.DTO, IAbsence.Entity> implements OnDestroy {
+export class SyncManager extends BaseSyncManager<IAbsence.DTO, EAbsence> implements OnDestroy {
 
 	protected readonly apiDataProvider = inject(ApiDataProvider);
 	protected readonly repository = inject(AbsenceRepository);
-	protected readonly toEntity = EAbsence.create;
+	protected readonly toEntity = EAbsence.fromDTO;
 
 	private readonly destroy$ = new Subject<void>();
 

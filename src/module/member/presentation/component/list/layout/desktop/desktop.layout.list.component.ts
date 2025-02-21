@@ -11,7 +11,7 @@ import {
 import {TableListComponent} from "@member/presentation/component/list/table/table.list.component";
 import {FilterComponent} from "@member/presentation/component/filter/filter.component";
 import {ITableState} from "@utility/domain/table.state";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import EMember from "@core/business-logic/member/entity/e.member";
 
 @Component({
 	selector: 'member-desktop-layout-list-component',
@@ -27,10 +27,10 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 		AutoRefreshButtonComponent,
 	]
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<IMember.Entity> {
-	public override readonly tableState = input.required<ITableState<IMember.Entity> | null>();
+export class DesktopLayoutListComponent extends LayoutListComponent<EMember> {
+	public override readonly tableState = input.required<ITableState<EMember> | null>();
 
-	openForm() {
+	public openForm() {
 		this.store.dispatch(new MemberActions.OpenForm());
 	}
 }

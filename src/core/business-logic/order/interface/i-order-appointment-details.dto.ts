@@ -1,7 +1,7 @@
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ISpecialist} from "../../service/interface/i.specialist";
 import {ReservationTypeEnum} from "../enum/reservation.type.enum";
-import {IBaseEntity} from "@utility/domain";
+import {IBaseDTO} from "@utility/domain";
 import {ICustomer} from "../../customer";
 
 export interface IAttachmentDto {
@@ -19,7 +19,7 @@ export interface ILocationsDto {
 	address: string;
 }
 
-export interface IAttendeeDto extends IBaseEntity<'AttendeeDto'> {
+export interface IAttendeeDto extends IBaseDTO<'AttendeeDto'> {
 	customer: ICustomer.DTO;
 	firstTime?: boolean;
 }

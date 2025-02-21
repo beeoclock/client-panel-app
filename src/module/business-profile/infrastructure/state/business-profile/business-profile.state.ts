@@ -11,7 +11,7 @@ import {BusinessProfileActions} from "@businessProfile/infrastructure/state/busi
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
 
 interface IBusinessProfileState {
-	item: IBusinessProfile.Entity | undefined;
+	item: IBusinessProfile.EntityRaw | undefined;
 }
 
 @State<IBusinessProfileState>({
@@ -24,7 +24,7 @@ interface IBusinessProfileState {
 export class BusinessProfileState {
 
 	@Selector()
-	public static item(state: IBusinessProfileState): IBusinessProfile.Entity | undefined {
+	public static item(state: IBusinessProfileState): IBusinessProfile.EntityRaw | undefined {
 		return state.item;
 	}
 
@@ -130,7 +130,7 @@ export class BusinessProfileState {
 
 		const {item: fromState} = ctx.getState();
 
-		const entity = EBusinessProfile.create({
+		const entity = EBusinessProfile.fromDTO({
 			...fromState,
 			...item
 		});

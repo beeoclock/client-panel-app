@@ -2,7 +2,7 @@ import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IMemberContext} from "@identity/domain/interface/i.member-context";
 
 
-export class EMemberContext extends ABaseEntity<'MemberContextDto', IMemberContext.DTO> implements IMemberContext.Entity {
+export class EMemberContext extends ABaseEntity<'MemberContextDto', IMemberContext.DTO> implements IMemberContext.EntityRaw {
 	account!: { _id: string; };
 	client!: { _id: string; name: string; };
 
@@ -10,16 +10,15 @@ export class EMemberContext extends ABaseEntity<'MemberContextDto', IMemberConte
 		return EMemberContext.toDTO(this);
 	}
 
-	public static toDTO(data: IMemberContext.Entity): IMemberContext.DTO {
-		const {id, ...rest} = data;
-		return rest;
+	public static toDTO(data: IMemberContext.EntityRaw): IMemberContext.DTO {
+		return data;
 	}
 
 	/**
 	 * Use it to create new entity, e.g. from API or form
 	 * @param data
 	 */
-	public static create(data: IMemberContext.DTO): IMemberContext.Entity {
+	public static create(data: IMemberContext.DTO): IMemberContext.EntityRaw {
 		return new EMemberContext(data);
 	}
 

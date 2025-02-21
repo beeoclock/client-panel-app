@@ -6,19 +6,16 @@ import {
 } from "@event/presentation/component/change-status/change-status-on-accepted.component";
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {IEvent_V2} from "@event/domain";
-import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {NGXLogger} from "ngx-logger";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {
 	ChangeStatusOnRejectedComponent
 } from "@event/presentation/component/change-status/change-status-on-rejected.component";
 import {
 	ChangeStatusOnCancelledComponent
 } from "@event/presentation/component/change-status/change-status-on-cancelled.component";
-import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'app-event-v2-buttons-details',
@@ -28,7 +25,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		NgTemplateOutlet,
 		ChangeStatusOnAcceptedComponent,
 		ChangeStatusOnDoneComponent,
-		EditButtonComponent,
 		ChangeStatusOnRejectedComponent,
 		ChangeStatusOnCancelledComponent,
 	],
@@ -36,14 +32,12 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 		@if (isRequested) {
 			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
-			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToAcceptEvent"/>
 
 		}
 
 		@if (inProgress) {
 
-			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
 		}
 
@@ -51,19 +45,16 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		@if (isAccepted) {
 
 			<ng-container *ngTemplateOutlet="ButtonToCancelledEvent"/>
-			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
 		}
 
 		@if (isDone) {
 
-			<edit-button-component (click)="editEvent()"/>
 			<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 		}
 
 		@if (isNegative) {
 
-			<edit-button-component (click)="editEvent()"/>
 			<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 		}
 
@@ -128,17 +119,6 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 	public isRequested = false;
 
 	private readonly ngxLogger = inject(NGXLogger);
-
-	@Dispatch()
-	public editEvent() {
-
-		return new OrderActions.OpenOrderServiceForm({
-			orderId: this.event().originalData.order._id,
-			item: this.event().originalData.service,
-			isEditMode: true
-		});
-
-	}
 
 	public openFormToRepeat() {
 		this.ngxLogger.info('V2ButtonsDetailsComponent:openFormToRepeat');

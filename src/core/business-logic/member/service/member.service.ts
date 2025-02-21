@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {BaseService} from "@core/shared/service/base.service";
 
-type ENTITY = IMember.Entity;
+type ENTITY = IMember.EntityRaw;
 
 @Injectable()
 export class MemberService extends BaseService<ENTITY> {

@@ -11,7 +11,7 @@ export class EventListCustomerRepository {
 
 	private readonly logger = inject(NGXLogger);
 	public readonly customerService = inject(CustomerService);
-	public readonly tableState = TableState.create<Customer.ICustomer.Entity>({
+	public readonly tableState = TableState.create<Customer.ICustomer.EntityRaw>({
 		filters: {}
 	});
 	public readonly loading$ = new BooleanStreamState(false);
@@ -64,7 +64,7 @@ export class EventListCustomerRepository {
 
 			this.tableState
 				.nextPage()
-				.setItems(([] as Customer.ICustomer.Entity[]).concat(this.tableState.items, items))
+				.setItems(([] as Customer.ICustomer.EntityRaw[]).concat(this.tableState.items, items))
 				.setTotal(totalSize);
 
 		} catch (e) {

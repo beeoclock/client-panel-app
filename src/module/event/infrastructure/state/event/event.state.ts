@@ -119,7 +119,7 @@ export class EventState {
 			})
 		};
 
-		const entity = EOrder.create(modifiedItem);
+		const entity = EOrder.fromDTO(modifiedItem);
 		ctx.dispatch(new OrderActions.UpdateItem(entity));
 	}
 

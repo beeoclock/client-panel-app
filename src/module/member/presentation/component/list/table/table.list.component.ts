@@ -13,6 +13,7 @@ import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import EMember from "@core/business-logic/member/entity/e.member";
 
 @Component({
 	selector: 'member-table-list-component',
@@ -32,7 +33,7 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 		RowActionButtonComponent,
 	]
 })
-export class TableListComponent extends TableComponent<IMember.Entity> {
+export class TableListComponent extends TableComponent<EMember> {
 
 	// public override readonly actions = MemberActions;
 
@@ -88,7 +89,7 @@ export class TableListComponent extends TableComponent<IMember.Entity> {
 		},
 	}
 
-	public override open(item: IMember.Entity) {
+	public override open(item: IMember.EntityRaw) {
 		this.store.dispatch(new MemberActions.OpenDetails(item));
 	}
 

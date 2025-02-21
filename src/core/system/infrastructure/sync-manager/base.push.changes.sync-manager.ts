@@ -1,14 +1,15 @@
 import {Injectable, OnDestroy} from "@angular/core";
 import {IndexedDBDataProvider} from "@core/system/infrastructure/data-provider/indexedDB.data-provider";
-import {IBaseEntity} from "@core/shared/interface/i.base-entity";
+import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 import {Reactive} from "@utility/cdk/reactive";
 import {CreatingHookContext, Table, UpdatingHookContext} from "dexie";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {AsyncQueue} from "@core/shared/async-queue";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 
 const asyncQueue = new AsyncQueue();
 
-function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: IBaseEntity, transaction: any) {
+function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: ABaseEntity, transaction: any) {
 
 	if (obj.isNew()) {
 
@@ -30,7 +31,7 @@ function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: IBas
 
 }
 
-function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, primKey: any, obj: IBaseEntity, transaction: any) {
+function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, primKey: any, obj: IBaseEntityRaw<string>, transaction: any) {
 
 	const objIsUpdated = obj.syncedAt && obj.updatedAt > obj.syncedAt;
 
@@ -61,7 +62,7 @@ function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, pri
 }
 
 @Injectable()
-export class BasePushChangesSyncManager<ENTITY extends IBaseEntity> extends Reactive implements OnDestroy {
+export class BasePushChangesSyncManager<ENTITY extends ABaseEntity> extends Reactive implements OnDestroy {
 
 	private readonly hooksToDestroy = new Map<string, () => void>();
 
@@ -69,11 +70,9 @@ export class BasePushChangesSyncManager<ENTITY extends IBaseEntity> extends Reac
 		public readonly indexedDBDataProvider: IndexedDBDataProvider<ENTITY>,
 	) {
 		super();
-		console.log('PushChangesSyncManager', this.indexedDBDataProvider);
 		this.indexedDBDataProvider.db$.pipe(
 			this.takeUntil(),
 		).subscribe((table) => {
-			console.log('PushChangesSyncManager:table', {table});
 
 			this.destroyHooks();
 

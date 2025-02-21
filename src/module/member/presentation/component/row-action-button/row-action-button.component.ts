@@ -36,7 +36,7 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<IMember.Entity>();
+	public readonly item = input.required<IMember.EntityRaw>();
 
 	private readonly store = inject(Store);
 

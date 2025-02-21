@@ -14,7 +14,7 @@ import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ActiveEnum} from "@core/shared/enum";
 import {MemberTableService} from "@member/presentation/component/list/member.table.service";
 import {TableService} from "@utility/table.service";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import EMember from "@core/business-logic/member/entity/e.member";
 
 @Component({
 	selector: 'member-external-list-component',
@@ -35,7 +35,7 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 		}
 	]
 })
-export class MemberExternalListComponent extends ListPage<IMember.Entity> {
+export class MemberExternalListComponent extends ListPage<EMember> {
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
@@ -44,7 +44,7 @@ export class MemberExternalListComponent extends ListPage<IMember.Entity> {
 		active: ActiveEnum.YES
 	};
 
-	public readonly tableState$: Observable<ITableState<IMember.Entity>> = this.store.select(MemberState.tableState)
+	public readonly tableState$: Observable<ITableState<EMember>> = this.store.select(MemberState.tableState)
 		.pipe(
 			tap(() => {
 				this.changeDetectorRef.detectChanges();

@@ -1,7 +1,6 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import * as Customer from "@src/core/business-logic/customer";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
@@ -16,9 +15,9 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 import {environment} from "@src/environment/environment";
 
-export type ICustomerState = IBaseState<Customer.ICustomer.Entity>;
+export type ICustomerState = IBaseState<ECustomer>;
 
-const defaults = baseDefaults<Customer.ICustomer.Entity>({
+const defaults = baseDefaults<ECustomer>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
@@ -41,7 +40,7 @@ export class CustomerState {
 	// Application layer
 
 	@Action(CustomerActions.CloseDetails)
-	public async closeDetails(ctx: StateContext<ICustomerState>, action?: CustomerActions.CloseDetails) {
+	public async closeDetails() {
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
@@ -50,7 +49,7 @@ export class CustomerState {
 	}
 
 	@Action(CustomerActions.CloseForm)
-	public async closeForm(ctx: StateContext<ICustomerState>) {
+	public async closeForm() {
 
 		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
 
@@ -195,7 +194,7 @@ export class CustomerState {
 
 	@Action(CustomerActions.UpdateTableState)
 	public updateTableState(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateTableState) {
-		BaseState.updateTableState(ctx, action);
+		BaseState.updateTableState<ECustomer>(ctx, action);
 	}
 
 	@Action(CustomerActions.GetItem)
@@ -206,9 +205,11 @@ export class CustomerState {
 			return;
 		}
 
+		const entity = ECustomer.fromRaw(data);
+
 		ctx.patchState({
 			item: {
-				data,
+				data: entity,
 				downloadedAt: new Date(),
 			}
 		});
@@ -217,23 +218,23 @@ export class CustomerState {
 
 	@Action(CustomerActions.CreateItem)
 	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
-		await this.customerService.repository.createAsync(ECustomer.create(action.payload));
+		await this.customerService.repository.createAsync(ECustomer.fromDTO(action.payload));
 		ctx.dispatch(new CustomerActions.GetList());
-		await this.closeForm(ctx);
+		await this.closeForm();
 	}
 
 	@Action(CustomerActions.UpdateItem)
 	public async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
-		const item = ECustomer.create(action.payload);
+		const item = ECustomer.fromDTO(action.payload);
 		await this.customerService.repository.updateAsync(item);
 		ctx.dispatch(new CustomerActions.GetList());
-		await this.closeForm(ctx);
+		await this.closeForm();
 		await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
 	@Action(CustomerActions.SetState)
 	public async setState(ctx: StateContext<ICustomerState>, {item, state}: CustomerActions.SetState) {
-		const entity = ECustomer.create(item);
+		const entity = ECustomer.fromDTO(item);
 		entity.changeState(state);
 		await this.customerService.repository.updateAsync(entity);
 		await this.updateOpenedDetails(ctx, {payload: entity});
@@ -278,11 +279,11 @@ export class CustomerState {
 				state: inState,
 			});
 
-			console.log({params, items, totalSize});
+			const entities = items.map(ECustomer.fromRaw);
 
 			newTableState
 				.setTotal(totalSize)
-				.setItems(items)
+				.setItems(entities)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
 			this.ngxLogger.debug('Table state: ', newTableState);

@@ -15,6 +15,7 @@ import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
+import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -35,7 +36,7 @@ import {RowActionButtonComponent} from "@customer/presentation/component/row-act
 		RowActionButtonComponent
 	]
 })
-export class TableListComponent extends TableComponent<ICustomer.Entity> {
+export class TableListComponent extends TableComponent<ECustomer> {
 
 	public readonly tableConfiguration = {
 		columns: {
@@ -90,7 +91,7 @@ export class TableListComponent extends TableComponent<ICustomer.Entity> {
 		},
 	};
 
-	public override open(item: ICustomer.Entity) {
+	public override open(item: ICustomer.EntityRaw) {
 		this.store.dispatch(new CustomerActions.OpenDetails(item));
 	}
 

@@ -4,7 +4,6 @@ import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";
-import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {OrderState} from "@order/infrastructure/state/order/order.state";
 import {TableService} from "@utility/table.service";
 import {OrderTableService} from "@order/presentation/component/list/order.table.service";
@@ -12,6 +11,7 @@ import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {
 	ListOfCardCollectionByDateLayout
 } from "@order/presentation/component/list/layout/list-of-card-collection-by-date/list-of-card-collection-by-date.layout";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	selector: 'app-list-order-page',
@@ -43,9 +43,9 @@ import {
 		}
 	],
 })
-export default class ListOrderPage extends ListPage<IOrder.Entity> implements OnDestroy, OnInit {
+export default class ListOrderPage extends ListPage<EOrder> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<IOrder.Entity>> = this.store.select(OrderState.tableState)
+	public readonly tableState$: Observable<ITableState<EOrder>> = this.store.select(OrderState.tableState)
 		.pipe(
 			tap(() => {
 				this.changeDetectorRef.detectChanges();

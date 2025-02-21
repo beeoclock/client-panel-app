@@ -1,10 +1,10 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {PIMember} from "@src/core/business-logic/member";
 import {RoleEnum} from "@core/shared/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@src/core/business-logic/member/interface/i.member-media";
 import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
 import {BaseEntityForm} from "@utility/base.form";
 import {IService} from "@core/business-logic/service/interface/i.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 export interface IAssignments_ServiceForm {
 	full: FormControl<boolean>;
@@ -92,7 +92,7 @@ export class MemberForm extends BaseEntityForm<'MemberDto', IMemberForm> {
 		this.controls.email.setValidators([Validators.email, Validators.required]);
 	}
 
-	public static create(initValue: PIMember = {}): MemberForm {
+	public static create(initValue: Partial<IMember.DTO> = {}): MemberForm {
 
 		const form = new MemberForm();
 

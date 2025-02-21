@@ -13,7 +13,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {tap} from "rxjs";
 import {ServiceState} from "@service/infrastructure/state/service/service.state";
-import {ITableState, TableState} from "@utility/domain/table.state";
+import {TableState} from "@utility/domain/table.state";
 import {
 	MobileLayoutListComponent
 } from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
@@ -23,7 +23,7 @@ import {
 import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 import {OrderDirEnum} from "@core/shared/enum";
-import {IService} from "@src/core/business-logic/service/interface/i.service";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
 	selector: 'service-external-list-component',
@@ -44,12 +44,12 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 		}
 	]
 })
-export class ServiceExternalListComponent extends ListPage<IService.DTO> implements OnInit {
+export class ServiceExternalListComponent extends ListPage<EService> implements OnInit {
 
 	public readonly useTableStateFromStore = input(true);
 
 	@Input()
-	public tableState: ITableState<IService.Entity> = new TableState<IService.Entity>().toCache();
+	public tableState = new TableState<EService>().toCache();
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;

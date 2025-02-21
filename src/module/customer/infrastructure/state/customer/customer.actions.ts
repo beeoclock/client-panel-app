@@ -1,6 +1,7 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {ICustomer} from "@src/core/business-logic/customer";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
 export namespace CustomerActions {
 
@@ -14,11 +15,11 @@ export namespace CustomerActions {
 		public static override readonly type = '[Customer Application] Close Form';
 	}
 
-	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<ICustomer.Entity> {
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<ICustomer.EntityRaw> {
 		public static override readonly type = '[Customer Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<ICustomer.Entity> {
+	export class OpenDetails extends BaseActions.OpenDetails<ICustomer.EntityRaw> {
 		public static override readonly type = '[Customer Application] Open Details';
 	}
 
@@ -51,11 +52,11 @@ export namespace CustomerActions {
 		public static override readonly type = '[Customer API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<ICustomer.DTO> {
+	export class CreateItem extends BaseActions.CreateItem<ICustomer.EntityRaw> {
 		public static override readonly type = '[Customer API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<ICustomer.DTO> {
+	export class UpdateItem extends BaseActions.UpdateItem<ICustomer.EntityRaw> {
 		public static override readonly type = '[Customer API] Update Item';
 	}
 
@@ -76,7 +77,7 @@ export namespace CustomerActions {
 		public static override readonly type = '[Customer State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<ICustomer.Entity> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<ECustomer> {
 		public static override readonly type = '[Customer State] Update Table State';
 	}
 

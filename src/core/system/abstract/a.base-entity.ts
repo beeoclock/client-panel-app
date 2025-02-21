@@ -1,6 +1,7 @@
 import {Types} from "../../shared/types";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {IBaseDTO, IBaseEntity} from "@core/shared/interface/i.base-entity";
+import {IBaseDTO, IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
+import ObjectID from "bson-objectid";
 
 /**
  * Base class for all items.
@@ -8,11 +9,15 @@ import {IBaseDTO, IBaseEntity} from "@core/shared/interface/i.base-entity";
  *
  * @template T - type of item data.
  */
-export abstract class ABaseEntity<T extends string, DTO extends IBaseDTO> implements IBaseEntity<T, DTO> {
+export abstract class ABaseEntity<
+	OBJECT_TYPE = string,
+	DTO extends IBaseDTO<OBJECT_TYPE> = IBaseDTO<OBJECT_TYPE>,
+	RAW extends IBaseEntityRaw<OBJECT_TYPE> = IBaseEntityRaw<OBJECT_TYPE>
+> implements IBaseEntityRaw<OBJECT_TYPE> {
 
+	object!: OBJECT_TYPE;
 	// From MongoDB/Backend
-	_id!: string & Types.ObjectId;
-	object!: T;
+	_id: string & Types.ObjectId = new ObjectID().toHexString();
 	createdAt: string & Types.DateTime = new Date().toISOString();
 	updatedAt: string & Types.DateTime = new Date().toISOString();
 
@@ -57,6 +62,11 @@ export abstract class ABaseEntity<T extends string, DTO extends IBaseDTO> implem
 
 	public refreshUpdatedAt(): void {
 		this.updatedAt = new Date().toISOString();
+	}
+
+	public toRaw(): RAW {
+		const {changeState, toDTO, isNew, isUpdated, initSyncedAt, refreshUpdatedAt, ...raw} = this;
+		return raw as unknown as RAW;
 	}
 
 }

@@ -10,11 +10,11 @@ import {IService} from "@core/business-logic/service/interface/i.service";
 import EService from "@core/business-logic/service/entity/e.service";
 
 @Injectable()
-export class SyncManager extends BaseSyncManager<IService.DTO, IService.Entity> implements OnDestroy {
+export class SyncManager extends BaseSyncManager<IService.DTO, EService> implements OnDestroy {
 
 	protected readonly apiDataProvider = inject(ApiDataProvider);
 	protected readonly repository = inject(ServiceRepository);
-	protected readonly toEntity = EService.create;
+	protected readonly toEntity = EService.fromDTO;
 
 	private readonly destroy$ = new Subject<void>();
 

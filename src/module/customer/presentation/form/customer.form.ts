@@ -173,7 +173,7 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 		this.removeValidators(this.unregisteredCaseValidator);
 	}
 
-	public static create(initValue: Partial<ICustomer.Entity> = {}): CustomerForm {
+	public static create(initValue: Partial<ICustomer.EntityRaw> = {}): CustomerForm {
 
 		const form = new CustomerForm();
 

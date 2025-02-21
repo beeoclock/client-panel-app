@@ -9,7 +9,7 @@ import {Types} from "@core/shared/types";
 @Injectable({
 	providedIn: 'root'
 })
-export class GetApi extends BaseApiAdapter<ResponseListType<Customer.ICustomer.Entity>, [Types.FindQueryParams]> {
+export class GetApi extends BaseApiAdapter<ResponseListType<Customer.ICustomer.EntityRaw>, [Types.FindQueryParams]> {
 
 
 	/**
@@ -18,7 +18,7 @@ export class GetApi extends BaseApiAdapter<ResponseListType<Customer.ICustomer.E
 	 */
 	@TypeGuard([is.object_not_empty])
 	public override execute$(params: Types.FindQueryParams) {
-		return this.httpClient.get<ResponseListType<Customer.ICustomer.Entity>>(customerEndpointEnum.paged, {
+		return this.httpClient.get<ResponseListType<Customer.ICustomer.EntityRaw>>(customerEndpointEnum.paged, {
 			params,
 		});
 	}

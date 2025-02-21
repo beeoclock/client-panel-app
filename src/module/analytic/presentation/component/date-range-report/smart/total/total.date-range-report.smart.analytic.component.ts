@@ -16,7 +16,6 @@ import {
 import {is} from "@src/core/shared/checker";
 import {RIClient} from "@core/business-logic/business-profile";
 import {CurrencyCodeEnum} from "@core/shared/enum";
-import {RIMember} from "@src/core/business-logic/member";
 import {
 	DateSliderControlComponent
 } from "@module/analytic/presentation/component/control/date-slider/date-slider.control.component";
@@ -33,6 +32,7 @@ import {
 import {IntervalTypeEnum} from "@module/analytic/domain/enum/interval.enum";
 import {DateTime} from "luxon";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	standalone: true,
@@ -101,7 +101,7 @@ export class TotalDateRangeReportSmartAnalyticComponent extends Reactive impleme
 		})
 	);
 	public readonly activeMembers$ = this.store.select(MemberState.activeMembers).pipe(
-		filter(is.not_null<RIMember[]>),
+		filter(is.not_null<IMember.EntityRaw[]>),
 		tap((activeMembers) => {
 			activeMembers.forEach((member) => {
 				this.items.push({

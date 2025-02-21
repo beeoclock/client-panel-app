@@ -13,7 +13,7 @@ import {
 } from "@member/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ITableState} from "@utility/domain/table.state";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import EMember from "@core/business-logic/member/entity/e.member";
 
 @Component({
 	selector: 'member-mobile-layout-list-component',
@@ -29,8 +29,8 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 		NgClass,
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<IMember.Entity> {
-	public override readonly tableState = input.required<ITableState<IMember.Entity> | null>();
+export class MobileLayoutListComponent extends LayoutListComponent<EMember> {
+	public override readonly tableState = input.required<ITableState<EMember> | null>();
 	public readonly showButtonGoToForm = input(true);
 
 	public readonly cardListComponents = viewChildren(CardListComponent);

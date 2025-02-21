@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {BasePushChangesSyncManager} from "@core/system/infrastructure/sync-manager/base.push.changes.sync-manager";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 
 @Injectable()
-export class PushChangesSyncManager extends BasePushChangesSyncManager<IAbsence.Entity> {
+export class PushChangesSyncManager extends BasePushChangesSyncManager<EAbsence> {
 
 }

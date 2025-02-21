@@ -19,6 +19,7 @@ import {RowActionButtonComponent} from "@service/presentation/component/row-acti
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ITableState} from "@utility/domain/table.state";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -42,11 +43,11 @@ import {IService} from "@src/core/business-logic/service/interface/i.service";
 		DurationVersionHtmlHelper,
 	]
 })
-export class TableListComponent extends TableComponent<IService.Entity> {
+export class TableListComponent extends TableComponent<EService> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-	public override readonly tableState = input.required<ITableState<IService.Entity>>();
+	public override readonly tableState = input.required<ITableState<EService>>();
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;

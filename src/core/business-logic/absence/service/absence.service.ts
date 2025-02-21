@@ -3,10 +3,10 @@ import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 import {BaseService} from "@core/shared/service/base.service";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
-type ENTITY = IAbsence.Entity;
+type ENTITY_RAW = IAbsence.EntityRaw;
 
 @Injectable()
-export class AbsenceService extends BaseService<ENTITY> {
+export class AbsenceService extends BaseService<ENTITY_RAW> {
 
 	/**
 	 * Find all absences by range
