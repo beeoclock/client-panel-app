@@ -23,12 +23,6 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 })
 export class CardListComponent extends TableComponent<IMember.Entity> {
 
-	// public override readonly actions = MemberActions;
-	//
-	// public showAction = new BooleanStreamState(true);
-	//
-	// public showSelectedStatus = new BooleanStreamState(false);
-
 	public override open(item: IMember.Entity) {
 		this.store.dispatch(new MemberActions.OpenDetails(item));
 	}

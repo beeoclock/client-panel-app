@@ -33,7 +33,7 @@ export class MobileLayoutListComponent extends LayoutListComponent<IMember.Entit
 	public override readonly tableState = input.required<ITableState<IMember.Entity> | null>();
 	public readonly showButtonGoToForm = input(true);
 
-	readonly cardListComponents = viewChildren(CardListComponent);
+	public readonly cardListComponents = viewChildren(CardListComponent);
 
 	@Dispatch()
 	public openForm() {

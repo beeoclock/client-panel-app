@@ -68,8 +68,8 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
 		const {0: cardListComponent} = mobileLayoutListComponent.cardListComponents();
 		cardListComponent.selectedIds = this.newSelectedMemberList.map(({_id}) => _id);
-		// cardListComponent.showAction.doFalse();
-		// cardListComponent.showSelectedStatus.doTrue();
+		cardListComponent.tableService.showAction.doFalse();
+		cardListComponent.tableService.showSelectedStatus.doTrue();
 		cardListComponent.goToDetailsOnSingleClick = false;
 		cardListComponent.singleClickEmitter.pipe(this.takeUntil()).subscribe((item) => {
 			if (this.isSelected(item)) {
