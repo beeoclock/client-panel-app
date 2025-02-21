@@ -530,17 +530,6 @@ export class OrderState {
 
 			return orderEntity;
 
-			//
-			// const updatedBody = {
-			// 	...req.body as object,
-			// 	// TODO move Receivers to UI settings
-			// 	notificationSettings: {
-			// 		sendNotification: Boolean(resp.data?.length),
-			// 		sendTypes: resp.data,
-			// 		sendReceivers: ['business', 'client']
-			// 	}
-			// }
-			// return next(req.clone({body: updatedBody}))
 
 		})
 
