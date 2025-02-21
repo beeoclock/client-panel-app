@@ -1,6 +1,7 @@
 import hash_sum from "hash-sum";
 import {ActiveEnum, OrderByEnum, OrderDirEnum} from "../../../core/shared/enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {environment} from "@environment/environment";
 
 export interface ITableState<ITEM> {
 	hashSum: string;
@@ -42,7 +43,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		orderBy: OrderByEnum.CREATED_AT,
 		orderDir: OrderDirEnum.DESC,
 		page: 1,
-		pageSize: 20,
+		pageSize: environment.config.pagination.pageSize,
 	};
 
 	constructor() {

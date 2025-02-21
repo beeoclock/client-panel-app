@@ -4,6 +4,7 @@ import {IList} from "@utility/domain/interface/i.endpoint/i.list";
 import {IMember} from "@identity/domain/interface/i.member";
 import {memberContextEndpointEnum} from "@identity/infrastructure/endpoint/member-context.endpoint";
 import {TokensHttpContext} from "@src/tokens.http-context";
+import {environment} from "@src/environment/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class MemberContextApiAdapter {
 				orderBy: 'createdAt',
 				orderDir: 'asc',
 				page: 1,
-				pageSize: 20
+				pageSize: environment.config.pagination.pageSize
 			}
     });
   }

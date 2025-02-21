@@ -1,7 +1,7 @@
 import {DataProvider} from "@core/system/infrastructure/data-provider/data-provider";
 import {inject, Injectable, OnDestroy} from "@angular/core";
 import {TENANT_ID} from "@src/token";
-import {concatMap, filter, from, map, shareReplay, Subject, take, tap} from "rxjs";
+import {concatMap, filter, from, map, shareReplay, Subject, switchMap, take, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 import {takeUntil} from "rxjs/operators";
 import Dexie from "dexie";
@@ -26,7 +26,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 		tap((tenant) => this.dexieAdapterIndexedDBDataProvider.prepareTableFor(tenant)),
 		map(() => this.dexieAdapterIndexedDBDataProvider.table),
 		filter(is.object<Dexie.Table<ENTITY>>),
-		shareReplay({ bufferSize: 1, refCount: true }),
+		shareReplay({bufferSize: 1, refCount: true}),
 	);
 
 	/**
@@ -59,8 +59,6 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 				// Delete updatedSince from filter because it is not a field in the table, and it is not a filter field
 				delete filter.updatedSince;
 
-				const offset = pageSize * (page - 1);
-
 				let query = table.orderBy(orderBy);
 
 				if (orderDir === OrderDirEnum.DESC) {
@@ -72,12 +70,14 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 					return filterFn(entity, filter as Types.StandardQueryParams);
 				});
 
-				const promiseAll = Promise.all([
-					query.count(),
-					query.offset(offset).limit(pageSize).toArray(),
-				]);
+				const offset = pageSize * (page - 1);
 
-				return from(promiseAll).pipe(
+				return from(query.count()).pipe(
+					switchMap((totalSize) =>
+							from(query.offset(offset).limit(pageSize).toArray()).pipe(
+								map((items) => [totalSize, items] as const)
+							)
+					),
 					map(({0: totalSize, 1: items}) => ({
 						items,
 						totalSize,
@@ -139,7 +139,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 	 * @private
 	 */
 	private defaultFilter(entity: ENTITY, filter: Types.StandardQueryParams) {
-		const { phrase, ...otherFilter } = filter;
+		const {phrase, ...otherFilter} = filter;
 
 		const phraseExist = is.string(phrase);
 		const filterExist = is.object_not_empty(otherFilter);
@@ -189,7 +189,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends IBaseEntity> extends 
 
 		function searchNested(current: unknown, index: number): boolean {
 			if (index === keys.length) {
-				if (typeof current === 'string' ) {
+				if (typeof current === 'string') {
 					return regex.test(current);
 				}
 				return false;

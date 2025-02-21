@@ -17,6 +17,7 @@ import {AbsenceTableService} from "@absence/presentation/component/list/absence.
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {environment} from '@src/environment/environment';
 
 @Component({
 	selector: 'app-list-absence-page',
@@ -57,7 +58,7 @@ export class ListAbsencePage extends ListPage<IAbsence.Entity> implements OnDest
 			filters: {},
 			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,
-			pageSize: 20
+			pageSize: environment.config.pagination.pageSize
 		});
 	}
 

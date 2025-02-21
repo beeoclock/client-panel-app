@@ -9,6 +9,7 @@ import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
 import {EventRequestedActions} from "./event-requested.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";
+import {environment} from "@environment/environment";
 
 export type IEventRequestedState = IBaseState<Event.RIEvent>;
 
@@ -18,7 +19,7 @@ const defaults = baseDefaults<Event.RIEvent>({
 	},
 	orderDir: OrderDirEnum.ASC,
 	orderBy: OrderByEnum.START,
-	pageSize: 20
+	pageSize: environment.config.pagination.pageSize
 });
 
 @State<IEventRequestedState>({

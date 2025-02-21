@@ -15,6 +15,7 @@ import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
 import {ServiceService} from "@core/business-logic/service/service/service.service";
+import {environment} from "@environment/environment";
 
 export type IServiceState = IBaseState<IService.Entity>
 
@@ -22,7 +23,7 @@ const defaults = baseDefaults<IService.Entity>({
 	filters: {},
 	orderDir: OrderDirEnum.DESC,
 	orderBy: OrderByEnum.CREATED_AT,
-	pageSize: 20
+	pageSize: environment.config.pagination.pageSize
 });
 
 @State<IServiceState>({

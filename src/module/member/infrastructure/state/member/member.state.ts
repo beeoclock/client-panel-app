@@ -15,6 +15,7 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {MemberService} from "@core/business-logic/member/service/member.service";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {environment} from "@environment/environment";
 
 export type IMemberState = IBaseState<IMember.Entity>;
 
@@ -22,7 +23,7 @@ const defaults = baseDefaults<IMember.Entity>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
-	pageSize: 20
+	pageSize: environment.config.pagination.pageSize
 });
 
 @State<IMemberState>({

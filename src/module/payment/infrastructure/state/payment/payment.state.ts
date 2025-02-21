@@ -12,6 +12,7 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
 import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
 import {PaymentService} from "@core/business-logic/payment/service/payment.service";
+import {environment} from "@environment/environment";
 
 export type IPaymentState = IBaseState<IPayment.DTO>;
 
@@ -19,7 +20,7 @@ const defaults = baseDefaults<IPayment.DTO>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
-	pageSize: 20
+	pageSize: environment.config.pagination.pageSize
 });
 
 @State<IPaymentState>({

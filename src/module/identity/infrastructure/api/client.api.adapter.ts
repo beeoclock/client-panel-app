@@ -16,7 +16,7 @@ export class ClientApiAdapter {
         orderBy: 'createdAt',
         orderDir: 'asc',
         page: 1,
-        pageSize: 20
+        pageSize: environment.config.pagination.pageSize
       }
     });
   }
@@ -26,7 +26,7 @@ export class ClientApiAdapter {
       orderBy: 'createdAt',
       orderDir: 'asc',
       page: 1,
-      pageSize: 20
+      pageSize: environment.config.pagination.pageSize
     });
   }
 

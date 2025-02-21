@@ -14,6 +14,7 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import EAbsence from "@src/core/business-logic/absence/entity/e.absence";
 import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
+import {environment} from "@environment/environment";
 
 export type IAbsenceState = IBaseState<IAbsence.Entity>;
 
@@ -21,7 +22,7 @@ const defaults = baseDefaults<IAbsence.Entity>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
-	pageSize: 20
+	pageSize: environment.config.pagination.pageSize,
 });
 
 @State<IAbsenceState>({

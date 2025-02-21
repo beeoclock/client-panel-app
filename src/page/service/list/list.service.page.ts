@@ -17,6 +17,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
+import {environment} from "@environment/environment";
 
 @Component({
 	selector: 'app-list-service-page',
@@ -57,7 +58,7 @@ export class ListServicePage extends ListPage<IService.Entity> implements OnInit
 			filters: {},
 			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,
-			pageSize: 20
+			pageSize: environment.config.pagination.pageSize
 		});
 	}
 

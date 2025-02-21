@@ -32,6 +32,7 @@ import {
 	NotificationSettingsComponent
 } from "@order/presentation/component/notification-settings/notification-settings.component";
 import {INotificationSettings} from "@core/business-logic/order/interface/i.notification-settings";
+import {environment} from "@environment/environment";
 
 export type IOrderState = IBaseState<IOrder.Entity>;
 
@@ -39,7 +40,7 @@ const defaults = baseDefaults<IOrder.Entity>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
-	pageSize: 20
+	pageSize: environment.config.pagination.pageSize
 });
 
 @State<IOrderState>({

@@ -14,6 +14,7 @@ import {getMaxPage} from "@utility/domain/max-page";
 import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
+import {environment} from "@src/environment/environment";
 
 export type ICustomerState = IBaseState<Customer.ICustomer.Entity>;
 
@@ -21,7 +22,7 @@ const defaults = baseDefaults<Customer.ICustomer.Entity>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
-	pageSize: 20
+	pageSize: environment.config.pagination.pageSize
 });
 
 @State<ICustomerState>({
@@ -271,10 +272,13 @@ export class CustomerState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
+
 			const {items, totalSize} = await this.customerService.repository.findAsync({
 				...params,
 				state: inState,
 			});
+
+			console.log({params, items, totalSize});
 
 			newTableState
 				.setTotal(totalSize)

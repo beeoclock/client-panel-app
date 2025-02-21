@@ -17,6 +17,7 @@ import {CustomerTableService} from "@customer/presentation/component/list/custom
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {environment} from "@environment/environment";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -59,7 +60,7 @@ export class ListCustomerPage extends ListPage<ICustomer.Entity> implements OnDe
 			filters: {},
 			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,
-			pageSize: 20
+			pageSize: environment.config.pagination.pageSize
 		});
 	}
 

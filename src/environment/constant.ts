@@ -17,7 +17,8 @@ export const config = {
 		prefix: 'beeoclock_modal_'
 	},
 	pagination: {
-		maxLength: 5
+		maxLength: 5,
+		pageSize: 20
 	},
 	startYear: 2022,
 	syncManager: {
