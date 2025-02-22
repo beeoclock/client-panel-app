@@ -56,8 +56,8 @@ export abstract class ABaseEntity<
 		return this.syncedAt !== undefined && this.updatedAt > this.syncedAt;
 	}
 
-	public initSyncedAt(force?: string): void {
-		this.syncedAt = force ?? new Date().toISOString();
+	public initSyncedAt(force: string = new Date().toISOString()): void {
+		this.syncedAt = force;
 	}
 
 	public refreshUpdatedAt(): void {

@@ -378,7 +378,14 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 					}
 
 					entity = this.toEntity(serverHasItem);
-					entity.initSyncedAt();
+					/**
+					 * We need to set syncedAt to updatedAt because we want to know that this object is already on the server
+					 * And I don't know why but on the Windows OS we have problem with every browser to set syncedAt
+					 * Effect on windows browsers without as argument updatedAt we will have something like this:
+					 * syncedAt: "2021-09-14T08:00:00.000Z"
+					 * updatedAt: "2021-09-14T08:00:00.001Z" <- updated has 1ms more than syncedAt
+					 */
+					entity.initSyncedAt(entity.updatedAt);
 
 					await this.putEntity(entity);
 
@@ -396,7 +403,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 						}
 
 						entity = this.toEntity(serverHasItem);
-						entity.initSyncedAt();
+						entity.initSyncedAt(entity.updatedAt);
 
 						await this.putEntity(entity);
 
