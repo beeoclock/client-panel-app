@@ -209,11 +209,11 @@ export class ServiceState {
 	public async updateItem(ctx: StateContext<IServiceState>, {payload: item}: ServiceActions.UpdateItem): Promise<void> {
 		const foundItems = await this.sharedUow.service.repository.findByIdAsync(item._id);
 		if (foundItems) {
-			await this.sharedUow.service.repository.updateAsync({
+			const entity = EService.fromRaw({
 				...foundItems,
 				...item,
-			});
-
+			})
+			await this.sharedUow.service.repository.updateAsync(entity);
 			await this.closeForm();
 			await this.updateOpenedDetails(ctx, {payload: item});
 			ctx.dispatch(new ServiceActions.GetList());

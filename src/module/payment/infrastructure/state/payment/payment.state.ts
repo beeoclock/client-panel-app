@@ -61,10 +61,11 @@ export class PaymentState {
 	public async update(ctx: StateContext<IPaymentState>, {payload: {item}}: PaymentActions.Update): Promise<void> {
 		const foundItems = await this.sharedUow.payment.repository.findByIdAsync(item._id);
 		if (foundItems) {
-			await this.sharedUow.payment.repository.updateAsync({
+			const entity = EPayment.fromRaw({
 				...foundItems,
 				...item,
 			});
+			await this.sharedUow.payment.repository.updateAsync(entity);
 		}
 	}
 

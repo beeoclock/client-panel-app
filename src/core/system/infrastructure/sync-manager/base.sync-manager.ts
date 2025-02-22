@@ -299,7 +299,19 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 				const entity = this.toEntity(item);
 				entity.initSyncedAt();
 
-				await this.putEntity(entity);
+				const entityRaw = await this.repository.findByIdAsync(item._id);
+
+				if (entityRaw) {
+
+					const localEntity = this.toEntity(entityRaw as unknown as DTO);
+					const resolvedEntity = this.resolveConflict(localEntity, entity);
+					await this.putEntity(resolvedEntity);
+
+				} else {
+
+					await this.putEntity(entity);
+
+				}
 
 				this.#syncState.progress.current++;
 				this.#syncState.progress.percentage = (this.#syncState.progress.current / this.#syncState.progress.total) * 100;
@@ -358,13 +370,6 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 				// @ts-expect-error
 				let entity = this.toEntity(item);
 				const dto = entity.toDTO();
-
-				// Check if the entity is already on the server, we take data from local and if object has syncedAt then we know that object is already on the server
-				const entityFromLocal = await this.repository.findByIdAsync(entity._id);
-
-				if (!entityFromLocal || entityFromLocal?.isNew?.() || entityFromLocal?.isUpdated?.()) {
-					console.log('Entity is new or updated', {entityFromLocal, entity});
-				}
 
 				if (entity.isNew()) {
 
