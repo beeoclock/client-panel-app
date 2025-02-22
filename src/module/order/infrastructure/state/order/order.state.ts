@@ -231,19 +231,6 @@ export class OrderState {
 
 	}
 
-	@Action(OrderActions.Delete)
-	public async delete(ctx: StateContext<IOrderState>, action: OrderActions.Delete): Promise<void> {
-		const foundOrder = await this.sharedUow.order.repository.findByIdAsync(action.payload.id);
-		if (!foundOrder) {
-			return;
-		}
-		const orderEntity = EOrder.fromDTO(foundOrder);
-		orderEntity.changeState(StateEnum.deleted);
-		await this.addNotificationSettingsToOrderEntity(orderEntity);
-		await this.sharedUow.order.repository.updateAsync(orderEntity);
-		ctx.dispatch(new OrderActions.GetList());
-	}
-
 	@Action(OrderActions.CreateItem)
 	public async createItem(ctx: StateContext<IOrderState>, action: OrderActions.CreateItem) {
 		/**
@@ -385,6 +372,18 @@ export class OrderState {
 
 		// Switch of page loader
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+	}
+
+	@Action(OrderActions.SetState)
+	public async setState(ctx: StateContext<IOrderState>, {item, state}: OrderActions.SetState) {
+		const foundItems = await this.sharedUow.order.repository.findByIdAsync(item._id);
+		if (foundItems) {
+			const entity = EOrder.fromRaw(foundItems);
+			entity.changeState(state);
+			await this.sharedUow.order.repository.updateAsync(entity);
+			await this.updateOpenedDetailsAction(ctx, {payload: entity});
+			ctx.dispatch(new OrderActions.GetList());
+		}
 	}
 
 	// Selectors

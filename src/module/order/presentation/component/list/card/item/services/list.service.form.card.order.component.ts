@@ -23,6 +23,7 @@ import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	standalone: true,
@@ -119,10 +120,10 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 
 	@Dispatch()
 	private deleteOrder() {
-		const {_id} = this.order();
-		return new OrderActions.Delete({
-			id: _id
-		});
+		return new OrderActions.SetState(
+			this.order(),
+			StateEnum.deleted
+		);
 	}
 
 	private async confirmToDelete(isLastServiceInOrder = false) {

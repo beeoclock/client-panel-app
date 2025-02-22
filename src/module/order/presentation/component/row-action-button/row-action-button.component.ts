@@ -5,6 +5,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	selector: 'app-order-row-action-button-component',
@@ -15,8 +16,12 @@ import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 					(activate)="activate()"
 					(deactivate)="deactivate()"-->
 		<utility-table-column-action
+			[hide]="['deactivate', 'activate']"
 			(open)="open()"
 			(edit)="edit()"
+			(delete)="delete()"
+			(deactivate)="deactivate()"
+			(activate)="activate()"
 			[id]="id()"/>
 	`,
 	imports: [
@@ -35,29 +40,34 @@ export class RowActionButtonComponent {
 	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
 
-	// public delete(): void {
-	//
-	// 	const question = this.translateService.instant('order.action.delete.question');
-	//
-	// 	if (!confirm(question)) {
-	//
-	// 		throw new Error('User canceled the action');
-	// 	}
-	// 	this.store.dispatch(new OrderActions.DeleteItem(this.item()._id));
-	// }
+	public delete(): void {
 
-	// public activate(): void {
-	// 	this.store.dispatch(new OrderActions.UnarchiveItem(this.item._id));
-	// }
-	//
-	// public deactivate(): void {
-	// 	this.store.dispatch(new OrderActions.ArchiveItem(this.item._id));
-	// }
-	//
-	// public async archive(id: string): Promise<void> {
-	// 	await firstValueFrom(this.store.dispatch(
-	// 		new OrderActions.ArchiveItem(id)));
-	// }
+		const question = this.translateService.instant('order.action.delete.question');
+
+		if (!confirm(question)) {
+
+			throw new Error('User canceled the action');
+		}
+
+		this.store.dispatch(new OrderActions.SetState(
+			this.item(),
+			StateEnum.deleted
+		));
+	}
+
+	public activate(): void {
+		this.store.dispatch(new OrderActions.SetState(
+			this.item(),
+			StateEnum.active
+		));
+	}
+
+	public deactivate(): void {
+		this.store.dispatch(new OrderActions.SetState(
+			this.item(),
+			StateEnum.archived
+		));
+	}
 
 	public open(): void {
 		this.store.dispatch(new OrderActions.OpenDetails(this.item()));

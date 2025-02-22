@@ -5,6 +5,7 @@ import {IService} from "@core/business-logic/service/interface/i.service";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import EOrder from "@core/business-logic/order/entity/e.order";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export namespace OrderActions {
 
@@ -91,13 +92,12 @@ export namespace OrderActions {
 		}
 	}
 
-	export class Delete {
-		public static readonly type = '[Order] Delete';
+	export class SetState {
+		public static readonly type = '[Order API] SetState';
 
-		public constructor(
-			public readonly payload: {
-				id: string;
-			}
+		constructor(
+			public readonly item: IOrder.DTO,
+			public readonly state: StateEnum,
 		) {
 		}
 	}
