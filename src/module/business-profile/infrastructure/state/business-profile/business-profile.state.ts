@@ -11,13 +11,13 @@ import {IBusinessProfile} from "@core/business-logic/business-profile/interface/
 import {SharedUow} from "@core/shared/uow/shared.uow";
 
 interface IBusinessProfileState {
-	item: IBusinessProfile.EntityRaw | undefined;
+	item: IBusinessProfile.EntityRaw | null;
 }
 
 @State<IBusinessProfileState>({
 	name: 'businessProfile',
 	defaults: {
-		item: undefined
+		item: null,
 	}
 })
 @Injectable()
@@ -41,7 +41,7 @@ export class BusinessProfileState {
 		const {0: item} = items;
 
 		ctx.patchState({
-			item
+			item: item ?? null,
 		});
 
 		if (item) {
@@ -69,7 +69,7 @@ export class BusinessProfileState {
 	}
 
 	@Selector()
-	public static item(state: IBusinessProfileState): IBusinessProfile.EntityRaw | undefined {
+	public static item(state: IBusinessProfileState): IBusinessProfile.EntityRaw | null {
 		return state.item;
 	}
 
