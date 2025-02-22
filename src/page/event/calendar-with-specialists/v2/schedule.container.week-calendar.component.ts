@@ -78,6 +78,11 @@ export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive i
 		this.initBusinessProfile();
 	}
 
+	/**
+	 * Delete it when state manager will use signalStore instead of NGXS!
+	 * NGXS has some problems with diff OS MacoS/Windows
+	 * @private
+	 */
 	private initTimer() {
 		this.timer = setInterval(() => {
 			this.initBusinessProfile();
