@@ -1,5 +1,14 @@
 import {ChangeDetectionStrategy, Component, inject, input, OnInit, output, ViewEncapsulation} from "@angular/core";
-import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
+import {
+	InfiniteScrollCustomEvent,
+	IonContent,
+	IonInfiniteScroll,
+	IonInfiniteScrollContent,
+	IonItem,
+	IonLabel,
+	IonList,
+	IonPopover
+} from "@ionic/angular/standalone";
 import {FormControl} from "@angular/forms";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
@@ -22,6 +31,9 @@ import {AsyncPipe} from "@angular/common";
 		IonPopover,
 		TranslateModule,
 		AsyncPipe,
+		IonContent,
+		IonInfiniteScroll,
+		IonInfiniteScrollContent,
 	],
 	providers: [
 		ServiceChipPagination
@@ -57,19 +69,24 @@ import {AsyncPipe} from "@angular/common";
 		<!-- Control to select specialist -->
 		<ion-popover #selectSpecialistPopover [trigger]="'select-service-' + id()">
 			<ng-template>
-				<ion-list>
-					@for (service of (items$ | async); track service._id) {
-						<ion-item [button]="true" lines="full" [detail]="false"
-								  (click)="setService(service);selectSpecialistPopover.dismiss()">
-							<div
-								class="rounded-full w-4 h-4 me-3 flex items-center"
-								[style.background-color]="service.presentation.color">
-								{{ service.presentation.color ? '' : '❓' }}
-							</div>
-							<ion-label>{{ service.languageVersions[0].title }}</ion-label>
-						</ion-item>
-					}
-				</ion-list>
+				<ion-content class="popover-content">
+					<ion-list>
+						@for (service of (items$ | async); track service._id) {
+							<ion-item [button]="true" lines="full" [detail]="false"
+									  (click)="setService(service);selectSpecialistPopover.dismiss()">
+								<div
+									class="rounded-full w-4 h-4 me-3 flex items-center"
+									[style.background-color]="service.presentation.color">
+									{{ service.presentation.color ? '' : '❓' }}
+								</div>
+								<ion-label>{{ service.languageVersions[0].title }}</ion-label>
+							</ion-item>
+						}
+					</ion-list>
+					<ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+						<ion-infinite-scroll-content/>
+					</ion-infinite-scroll>
+				</ion-content>
 			</ng-template>
 		</ion-popover>
 	`
@@ -106,5 +123,12 @@ export class ServiceChipComponent extends Reactive implements OnInit {
 			this.serviceChanges.emit(service);
 		}
 	}
+
+	protected onIonInfinite(event: InfiniteScrollCustomEvent) {
+		this.serviceChipPagination.fetch().then(() => {
+			event.target.complete().then();
+		});
+	}
+
 
 }
