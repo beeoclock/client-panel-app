@@ -1,4 +1,4 @@
-import {Component, inject, input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, effect, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {AbsenceTypeEnum} from "@src/core/business-logic/absence/enums/absence.type.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -146,9 +146,9 @@ import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 	`
 })
-export class AbsenceFormContainerComponent extends Reactive implements OnChanges, OnInit {
+export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
-	public readonly item = input.required<IAbsence.EntityRaw>();
+	public readonly item = input<IAbsence.EntityRaw>();
 	public readonly defaultValue = input<Partial<IAbsence.DTO>>({});
 
 	public readonly isEditMode = input<boolean>(false);
@@ -159,19 +159,21 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 		return this.#translateService.currentLang;
 	}
 
-	public readonly form = AbsenceForm.create(this.defaultValue());
-	public readonly proxyForm = AbsenceForm.create(this.defaultValue());
+	public readonly form = AbsenceForm.create();
+	public readonly proxyForm = AbsenceForm.create();
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	public ngOnChanges(changes: SimpleChanges & { item: Partial<IAbsence.DTO> }) {
-
-		const {item} = changes;
-		if (item) {
-			this.detectItem();
-		}
-
+	public constructor() {
+		super();
+		effect(() => {
+			this.patchValue(this.defaultValue());
+			const item = this.item();
+			if (item) {
+				this.patchValue(item);
+			}
+		});
 	}
 
 	public ngOnInit() {
@@ -191,8 +193,8 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 		});
 	}
 
-	public detectItem(): void {
-		this.form.patchValue(this.item());
+	public patchValue(item: IAbsence.EntityRaw | Partial<IAbsence.DTO>): void {
+		this.form.patchValue(item);
 		this.form.updateValueAndValidity();
 		this.updateProxyForm();
 	}
