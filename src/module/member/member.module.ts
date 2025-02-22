@@ -16,6 +16,7 @@ import {MemberService} from "@core/business-logic/member/service/member.service"
 import {NgxsModule} from "@ngxs/store";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {PushChangesSyncManager} from "@member/infrastructure/sync-manager/push.changes.sync-manager";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @NgModule({
 	imports: [
@@ -73,5 +74,10 @@ export class MemberModule {
 	private readonly syncManager = inject(SyncManager);
 	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly memberService = inject(MemberService);
+	private readonly sharedUow = inject(SharedUow);
+
+	public constructor() {
+		this.sharedUow.member = this.memberService;
+	}
 
 }

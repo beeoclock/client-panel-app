@@ -19,6 +19,7 @@ import {EventListCustomerRepository} from "@customer/infrastructure/repository/e
 import {UtilityListCustomerRepository} from "@customer/infrastructure/repository/utility.list.customer.repository";
 import {PushChangesSyncManager} from "@customer/infrastructure/sync-manager/push.changes.sync-manager";
 import {GlobalEventListCustomerRepository} from "@src/token";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @NgModule({
 	imports: [
@@ -82,6 +83,11 @@ export class CustomerModule {
 	private readonly syncManager = inject(SyncManager);
 	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly customerService = inject(CustomerService);
+	private readonly sharedUow = inject(SharedUow);
+
+	public constructor() {
+		this.sharedUow.customer = this.customerService;
+	}
 
 	public static readonly providers = [
 		{

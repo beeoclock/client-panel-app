@@ -14,6 +14,7 @@ import {
 import {BusinessProfileRepository} from "@businessProfile/infrastructure/repository/business-profile.repository";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {PushChangesSyncManager} from "@businessProfile/infrastructure/sync-manager/push.changes.sync-manager";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @NgModule({
 	imports: [
@@ -69,5 +70,10 @@ export class BusinessProfileModule {
 	private readonly syncManager = inject(SyncManager);
 	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly businessProfileService = inject(BusinessProfileService);
+	private readonly sharedUow = inject(SharedUow);
+
+	public constructor() {
+		this.sharedUow.businessProfile = this.businessProfileService;
+	}
 
 }

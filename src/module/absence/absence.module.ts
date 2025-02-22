@@ -26,6 +26,7 @@ import {SmsUsedAnalyticState} from "@module/analytic/infrastructure/store/sms-us
 import {EventState} from "@event/infrastructure/state/event/event.state";
 import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state";
 import {PushChangesSyncManager} from "@absence/infrastructure/sync-manager/push.changes.sync-manager";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @NgModule({
 	imports: [
@@ -104,5 +105,10 @@ export class AbsenceModule {
 	private readonly syncManager = inject(SyncManager);
 	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly absenceService = inject(AbsenceService);
+	private readonly sharedUow = inject(SharedUow);
+
+	public constructor() {
+		this.sharedUow.absence = this.absenceService;
+	}
 
 }

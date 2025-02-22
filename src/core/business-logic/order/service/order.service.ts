@@ -3,10 +3,10 @@ import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
 import {BaseService} from "@core/shared/service/base.service";
 
-type ENTITY = IOrder.EntityRaw;
+type ENTITY_RAW = IOrder.EntityRaw;
 
 @Injectable()
-export class OrderService extends BaseService<ENTITY> {
+export class OrderService extends BaseService<ENTITY_RAW> {
 
 	/**
 	 * Find all absences by range

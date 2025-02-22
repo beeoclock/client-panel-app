@@ -14,6 +14,7 @@ import {OrderService} from "@core/business-logic/order/service/order.service";
 import {NgxsModule} from "@ngxs/store";
 import {OrderState} from "@order/infrastructure/state/order/order.state";
 import {PushChangesSyncManager} from "@order/infrastructure/sync-manager/push.changes.sync-manager";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @NgModule({
 	imports: [
@@ -71,5 +72,10 @@ export class OrderModule {
 	private readonly syncManager = inject(SyncManager);
 	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly orderService = inject(OrderService);
+	private readonly sharedUow = inject(SharedUow);
+
+	public constructor() {
+		this.sharedUow.order = this.orderService;
+	}
 
 }

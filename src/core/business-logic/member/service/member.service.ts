@@ -2,10 +2,10 @@ import {Injectable} from "@angular/core";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {BaseService} from "@core/shared/service/base.service";
 
-type ENTITY = IMember.EntityRaw;
+type ENTITY_RAW = IMember.EntityRaw;
 
 @Injectable()
-export class MemberService extends BaseService<ENTITY> {
+export class MemberService extends BaseService<ENTITY_RAW> {
 
 	public async findOneByEmailPhone(either: {
 		email?: string | null;

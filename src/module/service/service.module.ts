@@ -16,6 +16,7 @@ import {SyncManager} from "@service/infrastructure/sync-manager/sync-manager";
 import {NgxsModule} from "@ngxs/store";
 import {ServiceState} from "@service/infrastructure/state/service/service.state";
 import {PushChangesSyncManager} from "@service/infrastructure/sync-manager/push.changes.sync-manager";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @NgModule({
 	imports: [
@@ -72,5 +73,10 @@ export class ServiceModule {
 	private readonly syncManager = inject(SyncManager);
 	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly serviceService = inject(ServiceService);
+	private readonly sharedUow = inject(SharedUow);
+
+	public constructor() {
+		this.sharedUow.service = this.serviceService;
+	}
 
 }

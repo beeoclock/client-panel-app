@@ -1,14 +1,15 @@
 import {inject, Injectable} from "@angular/core";
-import {ServiceService} from "@core/business-logic/service/service/service.service";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {BehaviorSubject} from "rxjs";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import EService from "@core/business-logic/service/entity/e.service";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Injectable()
 export class ServiceChipPagination {
 
-	private readonly serviceService = inject(ServiceService);
+	private readonly sharedUow = inject(SharedUow);
+	private readonly service = this.sharedUow.service;
 
 	private readonly params = {
 		page: 1,
@@ -32,7 +33,7 @@ export class ServiceChipPagination {
 
 	public async fetch() {
 		this.isLoading$.next(true);
-		const {items, totalSize} = await this.serviceService.repository.findAsync(this.params);
+		const {items, totalSize} = await this.service.repository.findAsync(this.params);
 		const mappedItems = items.map(EService.fromRaw).map(EService.toDTO);
 		const concatItems = this.items$.value.concat(mappedItems);
 		this.items$.next(concatItems);

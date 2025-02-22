@@ -4,6 +4,7 @@ import {canMatchBecauseTenantId} from "@utility/can-match/can-match-because-tena
 import WrapperIdentityComponent from "@utility/presentation/component/wrapper-identity/wrapper-identity.component";
 import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
 import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -185,6 +186,9 @@ export const routes: Routes = [
 			{
 				path: ':tenantId',
 				canMatch: [canMatchBecauseTenantId],
+				providers: [
+					SharedUow,
+				],
 				children: [
 					{
 						path: '',

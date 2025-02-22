@@ -212,7 +212,6 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 
 		this.form.disable();
 		this.form.markAsPending();
-		console.log('isEditMode: ', this.isEditMode());
 		const entity = EAbsence.fromDTO(value);
 		if (this.isEditMode()) {
 			await firstValueFrom(this.store.dispatch(new AbsenceActions.UpdateItem(entity)));

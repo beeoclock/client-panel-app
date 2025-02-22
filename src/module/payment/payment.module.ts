@@ -16,6 +16,7 @@ import {PaymentService} from "@core/business-logic/payment/service/payment.servi
 import {NgxsModule} from "@ngxs/store";
 import {PaymentState} from "@payment/infrastructure/state/payment/payment.state";
 import {PushChangesSyncManager} from "@payment/infrastructure/sync-manager/push.changes.sync-manager";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @NgModule({
 	imports: [
@@ -73,5 +74,10 @@ export class PaymentModule {
 	private readonly syncManager = inject(SyncManager);
 	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
 	private readonly paymentService = inject(PaymentService);
+	private readonly sharedUow = inject(SharedUow);
+
+	public constructor() {
+		this.sharedUow.payment = this.paymentService;
+	}
 
 }
