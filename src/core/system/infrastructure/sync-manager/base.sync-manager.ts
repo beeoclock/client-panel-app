@@ -378,7 +378,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 					}
 
 					entity = this.toEntity(serverHasItem);
-					entity.initSyncedAt();
+					entity.initSyncedAt(entity.updatedAt);
 
 					await this.putEntity(entity);
 
@@ -396,7 +396,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 						}
 
 						entity = this.toEntity(serverHasItem);
-						entity.initSyncedAt();
+						entity.initSyncedAt(entity.updatedAt);
 
 						await this.putEntity(entity);
 
