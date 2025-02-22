@@ -67,6 +67,7 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 		PageLoadingProgressBarComponent,
 		AsyncPipe,
 		WhacAMole,
+
 		// MODULE
 		AbsenceModule,
 		CustomerModule,
@@ -80,9 +81,7 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 		{
 			provide: CURRENT_TENANT_ID,
 			useFactory: () => {
-				console.log('CURRENT_TENANT_ID');
 				const tenantId = inject(TENANT_ID).value;
-				console.log('CURRENT_TENANT_ID', {tenantId});
 				return tenantId;
 			},
 		},
@@ -112,12 +111,9 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 	public readonly businessProfile$ = this.store.select(BusinessProfileState.item);
 
-	constructor() {
-		super();
-		this.initNotificationChecker();
-	}
-
 	public ngOnInit(): void {
+
+		this.initNotificationChecker();
 
 		this.isOnlineService.isOnline$.pipe(this.takeUntil(), filter(is.true)).subscribe(() => {
 
@@ -157,7 +153,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 			}
 			const {bookingSettings} = businessProfile;
 			const {autoBookOrder} = bookingSettings;
-			is.false(autoBookOrder) && this.initEventRequested();
+			if (is.false(autoBookOrder)) this.initEventRequested();
 		});
 
 	}

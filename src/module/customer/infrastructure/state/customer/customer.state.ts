@@ -12,8 +12,8 @@ import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 import {environment} from "@src/environment/environment";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export type ICustomerState = IBaseState<ECustomer>;
 
@@ -35,7 +35,7 @@ export class CustomerState {
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	public readonly customerService = inject(CustomerService);
+	private readonly sharedUow = inject(SharedUow);
 
 	// Application layer
 
@@ -119,7 +119,7 @@ export class CustomerState {
 	public async openDetailsById(ctx: StateContext<ICustomerState>, {payload: id}: CustomerActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('customer.details.title');
-		const item = await this.customerService.repository.findByIdAsync(id);
+		const item = await this.sharedUow.customer.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('CustomerState.openDetailsById', 'Item not found');
@@ -140,7 +140,7 @@ export class CustomerState {
 	public async openFormToEditById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenFormToEditById) {
 
 		const title = await this.translateService.instant('customer.form.title.edit');
-		const item = await this.customerService.repository.findByIdAsync(action.payload);
+		const item = await this.sharedUow.customer.repository.findByIdAsync(action.payload);
 
 		if (!item) {
 			this.ngxLogger.error('CustomerState.openFormToEditById', 'Item not found');
@@ -199,7 +199,7 @@ export class CustomerState {
 
 	@Action(CustomerActions.GetItem)
 	public async getItem(ctx: StateContext<ICustomerState>, action: CustomerActions.GetItem): Promise<void> {
-		const data = await this.customerService.repository.findByIdAsync(action.payload);
+		const data = await this.sharedUow.customer.repository.findByIdAsync(action.payload);
 
 		if (!data) {
 			return;
@@ -218,27 +218,39 @@ export class CustomerState {
 
 	@Action(CustomerActions.CreateItem)
 	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
-		await this.customerService.repository.createAsync(ECustomer.fromDTO(action.payload));
+		await this.sharedUow.customer.repository.createAsync(ECustomer.fromDTO(action.payload));
 		ctx.dispatch(new CustomerActions.GetList());
 		await this.closeForm();
 	}
 
 	@Action(CustomerActions.UpdateItem)
-	public async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
-		const item = ECustomer.fromDTO(action.payload);
-		await this.customerService.repository.updateAsync(item);
-		ctx.dispatch(new CustomerActions.GetList());
-		await this.closeForm();
-		await this.updateOpenedDetails(ctx, {payload: item});
+	public async updateItem(ctx: StateContext<ICustomerState>, {payload: item}: CustomerActions.UpdateItem): Promise<void> {
+		const foundItem = await this.sharedUow.customer.repository.findByIdAsync(item._id);
+		if (foundItem) {
+			const entity = ECustomer.fromRaw({
+				...foundItem,
+				...item,
+			});
+			await this.sharedUow.customer.repository.updateAsync(entity);
+			ctx.dispatch(new CustomerActions.GetList());
+			await this.closeForm();
+			await this.updateOpenedDetails(ctx, {payload: entity});
+		}
 	}
 
 	@Action(CustomerActions.SetState)
 	public async setState(ctx: StateContext<ICustomerState>, {item, state}: CustomerActions.SetState) {
-		const entity = ECustomer.fromDTO(item);
-		entity.changeState(state);
-		await this.customerService.repository.updateAsync(entity);
-		await this.updateOpenedDetails(ctx, {payload: entity});
-		ctx.dispatch(new CustomerActions.GetList());
+		const foundItem = await this.sharedUow.customer.repository.findByIdAsync(item._id);
+		if (foundItem) {
+			const entity = ECustomer.fromRaw({
+				...foundItem,
+				...item,
+			});
+			entity.changeState(state);
+			await this.sharedUow.customer.repository.updateAsync(entity);
+			await this.updateOpenedDetails(ctx, {payload: entity});
+			ctx.dispatch(new CustomerActions.GetList());
+		}
 	}
 
 	@Action(CustomerActions.GetList)
@@ -274,7 +286,7 @@ export class CustomerState {
 			);
 
 
-			const {items, totalSize} = await this.customerService.repository.findAsync({
+			const {items, totalSize} = await this.sharedUow.customer.repository.findAsync({
 				...params,
 				state: inState,
 			});

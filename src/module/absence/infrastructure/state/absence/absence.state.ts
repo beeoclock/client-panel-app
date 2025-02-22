@@ -11,9 +11,9 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
 import {environment} from "@environment/environment";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export type IAbsenceState = IBaseState<EAbsence>;
 
@@ -35,7 +35,7 @@ export class AbsenceState {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly absenceService = inject(AbsenceService);
+	private readonly sharedUow = inject(SharedUow);
 
 	// Application layer
 
@@ -123,7 +123,7 @@ export class AbsenceState {
 	@Action(AbsenceActions.OpenDetailsById)
 	public async openDetailsByIdAction(ctx: StateContext<IAbsenceState>, {payload: id}: AbsenceActions.OpenDetailsById) {
 
-		const item = await this.absenceService.repository.findByIdAsync(id);
+		const item = await this.sharedUow.absence.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('AbsenceState.openDetailsById', 'Item not found');
@@ -140,7 +140,7 @@ export class AbsenceState {
 	public async openFormToEditByIdAction(ctx: StateContext<IAbsenceState>, action: AbsenceActions.OpenFormToEditById) {
 
 		const title = await this.translateService.instant('absence.form.title.edit');
-		const item = await this.absenceService.repository.findByIdAsync(action.payload);
+		const item = await this.sharedUow.absence.repository.findByIdAsync(action.payload);
 
 		if (!item) {
 			this.ngxLogger.error('AbsenceState.openDetailsById', 'Item not found');
@@ -197,29 +197,29 @@ export class AbsenceState {
 
 	@Action(AbsenceActions.CreateItem)
 	public async createItem(ctx: StateContext<IAbsenceState>, {payload: entity}: AbsenceActions.CreateItem) {
-		await this.absenceService.repository.createAsync(entity);
+		await this.sharedUow.absence.repository.createAsync(entity);
 		await this.closeFormAction();
 		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	@Action(AbsenceActions.UpdateItem)
-	public async updateItem(ctx: StateContext<IAbsenceState>, {payload: entity}: AbsenceActions.UpdateItem): Promise<void> {
-		const existing = await this.absenceService.repository.findByIdAsync(entity._id);
-		if (existing) {
-			entity = EAbsence.fromDTO({
-				...existing,
-				...entity,
+	public async updateItem(ctx: StateContext<IAbsenceState>, {payload: item}: AbsenceActions.UpdateItem): Promise<void> {
+		const foundItem = await this.sharedUow.absence.repository.findByIdAsync(item._id);
+		if (foundItem) {
+			const entity = EAbsence.fromRaw({
+				...foundItem,
+				...item,
 			});
+			await this.sharedUow.absence.repository.updateAsync(entity);
+			await this.closeFormAction();
+			await this.updateOpenedDetailsAction(ctx, {payload: entity});
+			ctx.dispatch(new AbsenceActions.GetList());
 		}
-		await this.absenceService.repository.updateAsync(entity);
-		await this.closeFormAction();
-		await this.updateOpenedDetailsAction(ctx, {payload: entity});
-		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	@Action(AbsenceActions.GetItem)
 	public async getItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.GetItem): Promise<void> {
-		const data = await this.absenceService.repository.findByIdAsync(action.payload);
+		const data = await this.sharedUow.absence.repository.findByIdAsync(action.payload);
 
 		if (!data) {
 			return;
@@ -268,7 +268,7 @@ export class AbsenceState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			const {items, totalSize} = await this.absenceService.repository.findAsync({
+			const {items, totalSize} = await this.sharedUow.absence.repository.findAsync({
 				...params,
 				state: inState,
 			});
@@ -297,11 +297,11 @@ export class AbsenceState {
 
 	@Action(AbsenceActions.SetState)
 	public async setState(ctx: StateContext<IAbsenceState>, {item, state}: AbsenceActions.SetState) {
-		const foundItems = await this.absenceService.repository.findByIdAsync(item._id);
+		const foundItems = await this.sharedUow.absence.repository.findByIdAsync(item._id);
 		if (foundItems) {
 			const entity = EAbsence.fromRaw(foundItems);
 			entity.changeState(state);
-			await this.absenceService.repository.updateAsync(entity);
+			await this.sharedUow.absence.repository.updateAsync(entity);
 			await this.updateOpenedDetailsAction(ctx, {payload: entity});
 			ctx.dispatch(new AbsenceActions.GetList());
 		}

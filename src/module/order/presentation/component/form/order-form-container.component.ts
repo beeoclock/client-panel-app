@@ -178,7 +178,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	 * @private
 	 */
 	private dispatchPutPaymentAction$(item: IPayment.DTO) {
-		const action = new PaymentActions.PutItem({
+		const action = new PaymentActions.Update({
 			item
 		});
 		return this.store.dispatch(action);

@@ -11,8 +11,8 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
 import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
-import {PaymentService} from "@core/business-logic/payment/service/payment.service";
 import {environment} from "@environment/environment";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export type IPaymentState = IBaseState<IPayment.DTO>;
 
@@ -30,126 +30,9 @@ const defaults = baseDefaults<IPayment.DTO>({
 @Injectable()
 export class PaymentState {
 
-	private readonly paymentService = inject(PaymentService);
+	private readonly sharedUow = inject(SharedUow);
+
 	private readonly ngxLogger = inject(NGXLogger);
-
-	// Application layer
-
-	@Action(PaymentActions.CloseDetails)
-	public async closeDetailsAction() {
-
-		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
-		//
-		// this.whacAMaleProvider.destroyByComponentName$.next(PaymentDetailsContainerComponent.name);
-
-	}
-
-	@Action(PaymentActions.CloseForm)
-	public async closeFormAction() {
-
-		//
-		// const {PaymentFormContainerComponent} = await import("@payment/presentation/component/form/payment-form-container.component");
-		//
-		// this.whacAMaleProvider.destroyByComponentName$.next(PaymentFormContainerComponent.name);
-
-	}
-
-	@Action(PaymentActions.UpdateOpenedDetails)
-	public async updateOpenedDetailsAction() {
-
-		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
-		//
-		// await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-		// 	id: payload._id,
-		// 	component: PaymentDetailsContainerComponent,
-		// 	componentInputs: {item: payload},
-		// });
-
-	}
-
-	@Action(PaymentActions.OpenDetails)
-	public async openDetailsAction() {
-
-		// const title = await this.translateService.instant('payment.details.title');
-		//
-		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
-		//
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	id,
-		// 	title,
-		// 	componentInputs: {item: payload},
-		// 	component: PaymentDetailsContainerComponent,
-		// });
-
-	}
-
-	@Action(PaymentActions.OpenDetailsById)
-	public async openDetailsByIdAction() {
-
-		// const title = await this.translateService.instant('payment.details.title');
-		//
-		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
-		//
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	id,
-		// 	title,
-		// 	showLoading: true,
-		// 	component: PaymentDetailsContainerComponent,
-		// });
-		//
-		// const item = await this.item.executeAsync(id);
-		//
-		// await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-		// 	component: PaymentDetailsContainerComponent,
-		// 	componentInputs: {item},
-		// });
-
-	}
-
-	@Action(PaymentActions.OpenFormToEditById)
-	public async openFormToEditByIdAction(ctx: StateContext<IPaymentState>, action: PaymentActions.OpenFormToEditById) {
-
-		// const title = await this.translateService.instant('payment.form.title.edit');
-		//
-		// const {PaymentFormContainerComponent} = await import("@payment/presentation/component/form/payment-form-container.component");
-		//
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	title,
-		// 	id: action.payload,
-		// 	component: PaymentFormContainerComponent,
-		// 	componentInputs: {},
-		// });
-		//
-		// const item = await this.item.executeAsync(action.payload);
-		//
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	title,
-		// 	id: action.payload,
-		// 	component: PaymentFormContainerComponent,
-		// 	componentInputs: {
-		// 		item,
-		// 		isEditMode: true,
-		// 	},
-		// });
-
-	}
-
-	@Action(PaymentActions.OpenForm)
-	public async openFormAction(ctx: StateContext<IPaymentState>, {payload}: PaymentActions.OpenForm): Promise<void> {
-
-		// const {PaymentFormContainerComponent} = await import("@payment/presentation/component/form/payment-form-container.component");
-		//
-		// const {componentInputs, pushBoxInputs} = payload ?? {};
-		//
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	id: PaymentFormContainerComponent.name,
-		// 	title: this.translateService.instant('payment.form.title.create'),
-		// 	...pushBoxInputs,
-		// 	component: PaymentFormContainerComponent,
-		// 	componentInputs,
-		// });
-
-	}
 
 	// API
 
@@ -170,24 +53,25 @@ export class PaymentState {
 
 	@Action(PaymentActions.CreateItem)
 	public async createItem(ctx: StateContext<IPaymentState>, action: PaymentActions.CreateItem) {
-		await this.paymentService.repository.createAsync(EPayment.fromDTO(action.payload));
-		await this.closeFormAction();
+		await this.sharedUow.payment.repository.createAsync(EPayment.fromDTO(action.payload));
 		ctx.dispatch(new PaymentActions.GetList());
 	}
 
-	@Action(PaymentActions.UpdateItem)
-	public async updateItem(ctx: StateContext<IPaymentState>, action: PaymentActions.UpdateItem): Promise<void> {
-		const item = EPayment.fromDTO(action.payload);
-		await this.paymentService.repository.updateAsync(item);
-		await this.closeFormAction();
-		await this.updateOpenedDetailsAction();
-		ctx.dispatch(new PaymentActions.GetList());
+	@Action(PaymentActions.Update)
+	public async update(ctx: StateContext<IPaymentState>, {payload: {item}}: PaymentActions.Update): Promise<void> {
+		const foundItems = await this.sharedUow.payment.repository.findByIdAsync(item._id);
+		if (foundItems) {
+			await this.sharedUow.payment.repository.updateAsync({
+				...foundItems,
+				...item,
+			});
+		}
 	}
 
 	@Action(PaymentActions.GetItem)
 	public async getItem(ctx: StateContext<IPaymentState>, {payload: id}: PaymentActions.GetItem): Promise<void> {
 
-		const data = await this.paymentService.repository.findByIdAsync(id);
+		const data = await this.sharedUow.payment.repository.findByIdAsync(id);
 
 		if (!data) {
 			return;
@@ -234,7 +118,7 @@ export class PaymentState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			const {items, totalSize} = await this.paymentService.repository.findAsync({
+			const {items, totalSize} = await this.sharedUow.payment.repository.findAsync({
 				...params,
 				state: inState,
 			});
@@ -257,15 +141,6 @@ export class PaymentState {
 
 		// Switch of page loader
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-	}
-
-	@Action(PaymentActions.PutItem)
-	public async putItem(ctx: StateContext<IPaymentState>, action: PaymentActions.PutItem): Promise<void> {
-		const item = EPayment.fromDTO(action.payload.item);
-		await this.paymentService.repository.updateAsync(item);
-		// await this.closeFormAction(ctx);
-		// await this.updateOpenedDetailsAction(ctx, {payload: item});
-		// ctx.dispatch(new PaymentActions.GetList());
 	}
 
 	// Selectors

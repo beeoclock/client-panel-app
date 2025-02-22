@@ -6,9 +6,9 @@ import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CurrencyCodeEnum, LanguageCodeEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {BASE_CURRENCY} from "@src/token";
 import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
-import {BusinessProfileService} from "@core/business-logic/business-profile/service/business-profile.service";
 import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 interface IBusinessProfileState {
 	item: IBusinessProfile.EntityRaw | undefined;
@@ -22,6 +22,51 @@ interface IBusinessProfileState {
 })
 @Injectable()
 export class BusinessProfileState {
+
+	private readonly BASE_CURRENCY = inject(BASE_CURRENCY);
+	private readonly sharedUow = inject(SharedUow);
+
+	@Action(BusinessProfileActions.Init)
+	public async getItem(ctx: StateContext<IBusinessProfileState>): Promise<void> {
+
+		ctx.dispatch(new AppActions.PageLoading(true));
+
+		const {items} = await this.sharedUow.businessProfile.repository.findAsync({
+			page: 1,
+			pageSize: 1,
+			orderBy: OrderByEnum.UPDATED_AT,
+			orderDir: OrderDirEnum.DESC,
+		});
+
+		const {0: item} = items;
+
+		ctx.patchState({
+			item
+		});
+
+		if (item) {
+			this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
+		}
+
+		ctx.dispatch(new AppActions.PageLoading(false));
+
+	}
+
+	@Action(BusinessProfileActions.Update)
+	public async updateItem(ctx: StateContext<IBusinessProfileState>, {item}: BusinessProfileActions.Update): Promise<void> {
+
+		const {item: fromState} = ctx.getState();
+
+		const entity = EBusinessProfile.fromDTO({
+			...fromState,
+			...item
+		});
+
+		await this.sharedUow.businessProfile.repository.updateAsync(entity);
+
+		this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
+
+	}
 
 	@Selector()
 	public static item(state: IBusinessProfileState): IBusinessProfile.EntityRaw | undefined {
@@ -93,51 +138,6 @@ export class BusinessProfileState {
 			earliestSchedule,
 			latestSchedule
 		};
-
-	}
-
-	private readonly BASE_CURRENCY = inject(BASE_CURRENCY);
-	private readonly businessProfileService = inject(BusinessProfileService);
-
-	@Action(BusinessProfileActions.Init)
-	public async getItem(ctx: StateContext<IBusinessProfileState>): Promise<void> {
-
-		ctx.dispatch(new AppActions.PageLoading(true));
-
-		const {items} = await this.businessProfileService.repository.findAsync({
-			page: 1,
-			pageSize: 1,
-			orderBy: OrderByEnum.UPDATED_AT,
-			orderDir: OrderDirEnum.DESC,
-		});
-
-		const {0: item} = items;
-
-		ctx.patchState({
-			item
-		});
-
-		if (item) {
-			this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
-		}
-
-		ctx.dispatch(new AppActions.PageLoading(false));
-
-	}
-
-	@Action(BusinessProfileActions.Update)
-	public async updateItem(ctx: StateContext<IBusinessProfileState>, {item}: BusinessProfileActions.Update): Promise<void> {
-
-		const {item: fromState} = ctx.getState();
-
-		const entity = EBusinessProfile.fromDTO({
-			...fromState,
-			...item
-		});
-
-		await this.businessProfileService.repository.updateAsync(entity);
-
-		this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
 
 	}
 

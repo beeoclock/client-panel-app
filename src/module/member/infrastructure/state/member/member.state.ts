@@ -13,8 +13,8 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {MemberService} from "@core/business-logic/member/service/member.service";
 import {environment} from "@environment/environment";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export type IMemberState = IBaseState<EMember>;
 
@@ -32,7 +32,7 @@ const defaults = baseDefaults<EMember>({
 @Injectable()
 export class MemberState {
 
-	public readonly memberService = inject(MemberService);
+	private readonly sharedUow = inject(SharedUow);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
@@ -121,7 +121,7 @@ export class MemberState {
 	public async openDetailsById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('member.details.title');
-		const item = await this.memberService.repository.findByIdAsync(id);
+		const item = await this.sharedUow.member.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
@@ -144,7 +144,7 @@ export class MemberState {
 	public async openFormToEditById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenFormToEditById) {
 
 		const title = this.translateService.instant('member.form.title.edit');
-		const item = await this.memberService.repository.findByIdAsync(id);
+		const item = await this.sharedUow.member.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
@@ -201,27 +201,31 @@ export class MemberState {
 
 	@Action(MemberActions.CreateItem)
 	public async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
-		await this.memberService.repository.createAsync(EMember.fromDTO(action.payload));
+		await this.sharedUow.member.repository.createAsync(EMember.fromDTO(action.payload));
 		ctx.dispatch(new MemberActions.GetList());
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
-		await this.closeForm(ctx);
+		await this.closeForm();
 	}
 
 	@Action(MemberActions.UpdateItem)
-	public async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
-		const item = EMember.fromDTO(action.payload);
-		await this.memberService.repository.updateAsync(item);
-		ctx.dispatch(new MemberActions.GetList());
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
-		await this.closeForm(ctx);
-		await this.updateOpenedDetails(ctx, {payload: item});
+	public async updateItem(ctx: StateContext<IMemberState>, {payload: item}: MemberActions.UpdateItem): Promise<void> {
+		const foundItem = await this.sharedUow.member.repository.findByIdAsync(item._id);
+		if (foundItem) {
+
+			const entity = EMember.fromRaw({
+				...foundItem,
+				...item,
+			});
+			await this.sharedUow.member.repository.updateAsync(entity);
+			ctx.dispatch(new MemberActions.GetList());
+			await this.closeForm();
+			await this.updateOpenedDetails(ctx, {payload: entity});
+
+		}
 	}
 
 	@Action(MemberActions.GetItem)
 	public async getItem(ctx: StateContext<IMemberState>, action: MemberActions.GetItem): Promise<void> {
-		const raw = await this.memberService.repository.findByIdAsync(action.payload);
+		const raw = await this.sharedUow.member.repository.findByIdAsync(action.payload);
 
 		if (!raw) {
 			return;
@@ -270,7 +274,7 @@ export class MemberState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			const {items, totalSize} = await this.memberService.repository.findAsync({
+			const {items, totalSize} = await this.sharedUow.member.repository.findAsync({
 				...params,
 				state: inState,
 			});

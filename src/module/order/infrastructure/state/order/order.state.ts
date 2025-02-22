@@ -14,9 +14,6 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import ECustomer from "@src/core/business-logic/customer/entity/e.customer";
-import {CustomerService} from "@core/business-logic/customer/service/customer.service";
-import {OrderService} from "@core/business-logic/order/service/order.service";
-import {PaymentService} from "@core/business-logic/payment/service/payment.service";
 import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
@@ -27,6 +24,7 @@ import {
 } from "@order/presentation/component/notification-settings/notification-settings.component";
 import {INotificationSettings} from "@core/business-logic/order/interface/i.notification-settings";
 import {environment} from "@environment/environment";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export type IOrderState = IBaseState<EOrder>;
 
@@ -44,9 +42,8 @@ const defaults = baseDefaults<EOrder>({
 @Injectable()
 export class OrderState {
 
-	private readonly customerService = inject(CustomerService);
-	private readonly orderService = inject(OrderService);
-	private readonly paymentService = inject(PaymentService);
+	private readonly sharedUow = inject(SharedUow);
+
 	private readonly store = inject(Store);
 	private readonly modalController = inject(ModalController);
 
@@ -152,7 +149,7 @@ export class OrderState {
 	public async openDetailsByIdAction(ctx: StateContext<IOrderState>, {payload: id}: OrderActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('order.details.title');
-		const item = await this.orderService.repository.findByIdAsync(id);
+		const item = await this.sharedUow.order.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('OrderState.openDetailsById', 'Item not found');
@@ -179,7 +176,7 @@ export class OrderState {
 		}
 
 		const title = await this.translateService.instant('order.form.title.edit');
-		const orderDto = await this.orderService.repository.findByIdAsync(action.payload);
+		const orderDto = await this.sharedUow.order.repository.findByIdAsync(action.payload);
 
 		if (!orderDto) {
 			this.ngxLogger.error('OrderState.openDetailsById', 'Item not found');
@@ -188,7 +185,7 @@ export class OrderState {
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
-		const paymentEntity = await this.paymentService.findByOrderId(action.payload);
+		const paymentEntity = await this.sharedUow.payment.findByOrderId(action.payload);
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
@@ -223,27 +220,27 @@ export class OrderState {
 
 	@Action(OrderActions.ChangeStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: OrderActions.ChangeStatus): Promise<void> {
-		const foundOrder = await this.orderService.repository.findByIdAsync(action.payload.id);
+		const foundOrder = await this.sharedUow.order.repository.findByIdAsync(action.payload.id);
 		if (!foundOrder) {
 			return;
 		}
 		const orderEntity = EOrder.fromDTO(foundOrder);
 		orderEntity.status = action.payload.status;
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
-		await this.orderService.repository.updateAsync(orderEntity);
+		await this.sharedUow.order.repository.updateAsync(orderEntity);
 
 	}
 
 	@Action(OrderActions.Delete)
 	public async delete(ctx: StateContext<IOrderState>, action: OrderActions.Delete): Promise<void> {
-		const foundOrder = await this.orderService.repository.findByIdAsync(action.payload.id);
+		const foundOrder = await this.sharedUow.order.repository.findByIdAsync(action.payload.id);
 		if (!foundOrder) {
 			return;
 		}
 		const orderEntity = EOrder.fromDTO(foundOrder);
 		orderEntity.changeState(StateEnum.deleted);
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
-		await this.orderService.repository.updateAsync(orderEntity);
+		await this.sharedUow.order.repository.updateAsync(orderEntity);
 		ctx.dispatch(new OrderActions.GetList());
 	}
 
@@ -263,7 +260,7 @@ export class OrderState {
 			for (const attendee of service.orderAppointmentDetails.attendees) {
 				if (attendee.customer.customerType === CustomerTypeEnum.new) {
 
-					const customerFound = await this.customerService.findOneByEmailPhone({
+					const customerFound = await this.sharedUow.customer.findOneByEmailPhone({
 						email: attendee.customer.email,
 						phone: attendee.customer.phone,
 					})
@@ -275,7 +272,7 @@ export class OrderState {
 							...attendee.customer,
 							customerType: CustomerTypeEnum.regular,
 						});
-						await this.customerService.repository.createAsync(customerEntity);
+						await this.sharedUow.customer.repository.createAsync(customerEntity);
 						attendee.customer = customerEntity.toDTO();
 					}
 				}
@@ -283,22 +280,31 @@ export class OrderState {
 		}
 
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
-		await this.orderService.repository.createAsync(orderEntity);
+		await this.sharedUow.order.repository.createAsync(orderEntity);
 		await this.closeFormAction();
 	}
 
 	@Action(OrderActions.UpdateItem)
-	public async updateItem(ctx: StateContext<IOrderState>, action: OrderActions.UpdateItem): Promise<void> {
-		const orderEntity = EOrder.fromDTO(action.payload);
-		await this.addNotificationSettingsToOrderEntity(orderEntity);
-		await this.orderService.repository.updateAsync(orderEntity);
-		await this.closeFormAction();
-		await this.updateOpenedDetailsAction(ctx, {payload: orderEntity});
+	public async updateItem(ctx: StateContext<IOrderState>, {payload: item}: OrderActions.UpdateItem): Promise<void> {
+		const foundItems = await this.sharedUow.order.repository.findByIdAsync(item._id);
+		if (foundItems) {
+
+			const orderEntity = EOrder.fromRaw({
+				...foundItems,
+				...item,
+			});
+
+			await this.addNotificationSettingsToOrderEntity(orderEntity);
+			await this.sharedUow.order.repository.updateAsync(orderEntity);
+			await this.closeFormAction();
+			await this.updateOpenedDetailsAction(ctx, {payload: orderEntity});
+
+		}
 	}
 
 	@Action(OrderActions.GetItem)
 	public async getItem(ctx: StateContext<IOrderState>, action: OrderActions.GetItem): Promise<void> {
-		const raw = await this.orderService.repository.findByIdAsync(action.payload);
+		const raw = await this.sharedUow.order.repository.findByIdAsync(action.payload);
 
 		if (!raw) {
 			return;
@@ -347,7 +353,7 @@ export class OrderState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			const {items, totalSize} = await this.orderService.repository.findAsync({
+			const {items, totalSize} = await this.sharedUow.order.repository.findAsync({
 				...params,
 				state: inState,
 

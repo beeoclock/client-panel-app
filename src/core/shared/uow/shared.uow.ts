@@ -11,7 +11,9 @@ import {AbsenceService} from "@core/business-logic/absence/service/absence.servi
  * Shared Unit of Work
  * Use this class to access services from different modules, without importing them directly
  */
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class SharedUow {
 
 	#service!: ServiceService;

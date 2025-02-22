@@ -13,8 +13,8 @@ import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
-import {ServiceService} from "@core/business-logic/service/service/service.service";
 import {environment} from "@environment/environment";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export type IServiceState = IBaseState<EService>
 
@@ -32,7 +32,7 @@ const defaults = baseDefaults<EService>({
 @Injectable()
 export class ServiceState {
 
-	public readonly serviceService = inject(ServiceService);
+	private readonly sharedUow = inject(SharedUow);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
@@ -118,7 +118,7 @@ export class ServiceState {
 	public async openDetailsById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenDetailsById) {
 
 		const title = this.translateService.instant('service.details.title');
-		const item = await this.serviceService.repository.findByIdAsync(id);
+		const item = await this.sharedUow.service.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('ServiceState.openDetailsById', 'Item not found');
@@ -140,7 +140,7 @@ export class ServiceState {
 	public async openFormToEditById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenFormToEditById) {
 
 		const title = this.translateService.instant('service.form.title.edit');
-		const item = await this.serviceService.repository.findByIdAsync(id);
+		const item = await this.sharedUow.service.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('ServiceState.openFormToEditById', 'Item not found');
@@ -200,29 +200,42 @@ export class ServiceState {
 
 	@Action(ServiceActions.CreateItem)
 	public async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
-		await this.serviceService.repository.createAsync(EService.fromDTO(action.payload));
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
-		await this.closeForm(ctx);
+		await this.sharedUow.service.repository.createAsync(EService.fromDTO(action.payload));
+		await this.closeForm();
 		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	@Action(ServiceActions.UpdateItem)
-	public async updateItem(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateItem): Promise<void> {
-		const item = EService.fromDTO({
-			...action.payload
-		});
-		await this.serviceService.repository.updateAsync(item);
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
-		await this.closeForm(ctx);
-		await this.updateOpenedDetails(ctx, {payload: item});
-		ctx.dispatch(new ServiceActions.GetList());
+	public async updateItem(ctx: StateContext<IServiceState>, {payload: item}: ServiceActions.UpdateItem): Promise<void> {
+		const foundItems = await this.sharedUow.service.repository.findByIdAsync(item._id);
+		if (foundItems) {
+			await this.sharedUow.service.repository.updateAsync({
+				...foundItems,
+				...item,
+			});
+
+			await this.closeForm();
+			await this.updateOpenedDetails(ctx, {payload: item});
+			ctx.dispatch(new ServiceActions.GetList());
+
+		}
+	}
+
+	@Action(ServiceActions.SetState)
+	public async setState(ctx: StateContext<IServiceState>, {item, state}: ServiceActions.SetState) {
+		const foundItems = await this.sharedUow.service.repository.findByIdAsync(item._id);
+		if (foundItems) {
+			const entity = EService.fromRaw(foundItems);
+			entity.changeState(state);
+			await this.sharedUow.service.repository.updateAsync(entity);
+			await this.updateOpenedDetails(ctx, {payload: entity});
+			ctx.dispatch(new ServiceActions.GetList());
+		}
 	}
 
 	@Action(ServiceActions.GetItem)
 	public async getItem(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.GetItem): Promise<void> {
-		const raw = await this.serviceService.repository.findByIdAsync(id);
+		const raw = await this.sharedUow.service.repository.findByIdAsync(id);
 
 		if (!raw) {
 			return;
@@ -269,7 +282,7 @@ export class ServiceState {
 					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
 			);
 
-			const {items, totalSize} = await this.serviceService.repository.findAsync({
+			const {items, totalSize} = await this.sharedUow.service.repository.findAsync({
 				...params,
 				state: inState,
 			});
@@ -295,15 +308,6 @@ export class ServiceState {
 		// Switch of page loader
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
-	}
-
-	@Action(ServiceActions.SetState)
-	public async setState(ctx: StateContext<IServiceState>, {item, state}: ServiceActions.SetState) {
-		const entity = EService.fromDTO(item);
-		entity.changeState(state);
-		await this.serviceService.repository.updateAsync(entity);
-		await this.updateOpenedDetails(ctx, {payload: entity});
-		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	// Selectors

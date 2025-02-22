@@ -54,14 +54,10 @@ export namespace PaymentActions {
 		public static override readonly type = '[Payment API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IPayment.DTO> {
-		public static override readonly type = '[Payment API] Update Item';
-	}
-
-	export class PutItem {
+	export class Update {
 		public static readonly type = '[Payment API] Put Item';
 
-		constructor(
+		public constructor(
 			public readonly payload: { item: IPayment.DTO }
 		) {
 		}
