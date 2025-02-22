@@ -371,6 +371,17 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 					// Create case
 					await this.apiDataProvider.createAsync(dto);
 
+					const serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
+
+					if (!serverHasItem) {
+						throw new Error('Item not found on server');
+					}
+
+					entity = this.toEntity(serverHasItem);
+					entity.initSyncedAt();
+
+					await this.putEntity(entity);
+
 				} else {
 
 					if (entity.isUpdated()) {
@@ -378,20 +389,20 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 						// Update case
 						await this.apiDataProvider.updateAsync(dto);
 
+						const serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
+
+						if (!serverHasItem) {
+							throw new Error('Item not found on server');
+						}
+
+						entity = this.toEntity(serverHasItem);
+						entity.initSyncedAt();
+
+						await this.putEntity(entity);
+
 					}
 
 				}
-
-				const serverHasItem = await this.apiDataProvider.findByIdAsync(entity._id);
-
-				if (!serverHasItem) {
-					throw new Error('Item not found on server');
-				}
-
-				entity = this.toEntity(serverHasItem);
-				entity.initSyncedAt();
-
-				await this.putEntity(entity);
 
 				this.syncState.progress.current++;
 				this.syncState.progress.percentage = (this.syncState.progress.current / this.syncState.progress.total) * 100;
