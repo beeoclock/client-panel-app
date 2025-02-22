@@ -204,7 +204,6 @@ export class AbsenceState {
 
 	@Action(AbsenceActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IAbsenceState>, {payload: entity}: AbsenceActions.UpdateItem): Promise<void> {
-		console.log('entity: ', entity);
 		const existing = await this.absenceService.repository.findByIdAsync(entity._id);
 		if (existing) {
 			entity = EAbsence.fromDTO({
@@ -298,11 +297,14 @@ export class AbsenceState {
 
 	@Action(AbsenceActions.SetState)
 	public async setState(ctx: StateContext<IAbsenceState>, {item, state}: AbsenceActions.SetState) {
-		const entity = EAbsence.fromDTO(item);
-		entity.changeState(state);
-		await this.absenceService.repository.updateAsync(entity);
-		await this.updateOpenedDetailsAction(ctx, {payload: entity});
-		ctx.dispatch(new AbsenceActions.GetList());
+		const foundItems = await this.absenceService.repository.findByIdAsync(item._id);
+		if (foundItems) {
+			const entity = EAbsence.fromRaw(foundItems);
+			entity.changeState(state);
+			await this.absenceService.repository.updateAsync(entity);
+			await this.updateOpenedDetailsAction(ctx, {payload: entity});
+			ctx.dispatch(new AbsenceActions.GetList());
+		}
 	}
 
 	// Selectors
