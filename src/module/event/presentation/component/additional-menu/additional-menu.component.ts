@@ -307,8 +307,8 @@ export class AdditionalMenuComponent implements OnInit {
 				callback: {
 					on: {
 						destroy: {
-							before: this.callback()
-						}
+							before: this.callback(),
+						},
 					}
 				}
 			}
@@ -342,7 +342,10 @@ export class AdditionalMenuComponent implements OnInit {
 				callback: {
 					on: {
 						destroy: {
-							before: this.callback()
+							before: this.callback(),
+							after: () => {
+								this.closeSelf().then();
+							}
 						}
 					}
 				}
