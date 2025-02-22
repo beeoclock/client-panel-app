@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
 import {Store} from "@ngxs/store";
-import {combineLatest, delay, filter, iif, of, switchMap, tap} from "rxjs";
+import {combineLatest, filter, iif, of, switchMap, tap} from "rxjs";
 import {is} from "@src/core/shared/checker";
 import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
@@ -36,15 +36,16 @@ export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive i
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 
+	private timer: number | NodeJS.Timeout | undefined;
+
 	public readonly item$ = this.store.select(BusinessProfileState.item).pipe(
 		this.takeUntil(),
 		switchMap((item) => {
 			return iif(
 				() => is.null_or_undefined(item),
 				of(item).pipe(
-					delay(1_000),
 					tap(() => {
-						this.initBusinessProfile()
+						this.initTimer();
 					})
 				),
 				combineLatest([
@@ -63,7 +64,11 @@ export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive i
 							this.calendarWithSpecialistLocaStateService.setSchedules(schedules);
 						})
 					)
-				])
+				]).pipe(
+					tap(() => {
+						this.clearTimer();
+					}),
+				)
 			);
 		})
 	);
@@ -71,6 +76,16 @@ export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive i
 	public ngOnInit() {
 		this.ngxLogger.info('ScheduleV2ContainerWeekCalendarComponent ngOnInit');
 		this.initBusinessProfile();
+	}
+
+	private initTimer() {
+		this.timer = setInterval(() => {
+			this.initBusinessProfile();
+		}, 1_000);
+	}
+
+	private clearTimer() {
+		clearInterval(this.timer);
 	}
 
 	@Dispatch()
