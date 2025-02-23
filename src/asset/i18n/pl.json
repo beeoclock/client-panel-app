@@ -1367,6 +1367,7 @@
 					"draft": "Wersja robocza",
 					"inProgress": "W toku",
 					"rejected": "Odrzucono",
+					"deleted": "Usunięte",
 					"requested": "Żądany"
 				}
 			}

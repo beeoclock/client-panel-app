@@ -1367,6 +1367,7 @@
 					"draft": "Udkast",
 					"inProgress": "Igangværende",
 					"rejected": "Afvist",
+					"deleted": "Slettet",
 					"requested": "Anmodet om"
 				}
 			}
