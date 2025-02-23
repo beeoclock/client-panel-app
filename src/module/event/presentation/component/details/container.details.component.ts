@@ -9,7 +9,7 @@ import {V2ButtonsDetailsComponent} from "@event/presentation/component/details/v
 import {
 	ButtonOpenOrderDetailsComponent
 } from "@event/presentation/component/details/button.open-order.details.component";
-import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
+import {Actions, ofActionSuccessful} from "@ngxs/store";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import {NGXLogger} from "ngx-logger";
@@ -57,7 +57,6 @@ export class ContainerDetailsComponent extends Reactive implements OnInit {
 	@HostBinding()
 	public class = 'pb-48 block';
 
-	private readonly store = inject(Store);
 	private readonly actions$ = inject(Actions);
 	private readonly ngxLogger = inject(NGXLogger);
 

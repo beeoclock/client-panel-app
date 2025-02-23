@@ -44,7 +44,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 				<i class="bi bi-x-lg"></i>
 				{{ 'keyword.capitalize.cancel' | translate }}
 			} @else {
-				<utility-loader [py2_5]="false" />
+				<utility-loader [py2_5]="false"/>
 			}
 
 		</button>
@@ -57,7 +57,7 @@ export class ChangeStatusOnCancelledComponent extends ChangeStatusBaseComponent 
 	public async changeStatusOnCancelled(): Promise<void> {
 		this.loading.doTrue();
 		const event = this.event();
-  event.originalData.service.status = OrderServiceStatusEnum.cancelled;
+		event.originalData.service.status = OrderServiceStatusEnum.cancelled;
 		await firstValueFrom(
 			this.store.dispatch(
 				new EventActions.ChangeServiceStatus({

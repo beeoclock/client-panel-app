@@ -4,8 +4,6 @@ import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-
 
 export namespace EventActions {
 
-	// Application layer
-
 	export class CloseDetails extends BaseActions.CloseDetails {
 		public static override readonly type = '[Event Application] Close Details';
 	}
@@ -17,10 +15,6 @@ export namespace EventActions {
 	export class OpenDetails extends BaseActions.OpenDetails<IEvent_V2> {
 		public static override readonly type = '[Event Application] Open Details';
 	}
-
-	// export class OpenDetailsById extends BaseActions.OpenDetailsById {
-	// 	public static override readonly type = '[Event Application] Open Details By Id';
-	// }
 
 	export class ChangeServiceStatus {
 		public static readonly type = '[Order API] Change Service Status';

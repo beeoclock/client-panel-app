@@ -49,7 +49,7 @@ import {BusinessProfileState} from "@businessProfile/infrastructure/state/busine
 
 							{{ ('event.keyword.status.plural.' + status.value) | translate }}
 							&nbsp;&nbsp;
-							{{ analytic().summary.revenue.total.by.status[status.value][baseCurrency] | currency: baseCurrency: 'symbol-narrow' }}
+							{{ (analytic()?.summary?.revenue?.total?.by?.status?.[status.value]?.[baseCurrency] ?? 0) | currency: baseCurrency: 'symbol-narrow' }}
 
 						</ion-select-option>
 

@@ -1,9 +1,11 @@
 export enum OrderStatusEnum {
-	requested = 'requested',
 	draft = 'draft',
+	deleted = 'deleted',
+	requested = 'requested',
+	confirmed = 'confirmed',
 	inProgress = 'inProgress',
 	done = 'done',
-	rejected = 'rejected', // By member
-	confirmed = 'confirmed',
-	cancelled = 'cancelled', // By customer
+	cancelled = 'cancelled',
+	rejected = 'rejected',
+	waitingForPayment = 'waitingForPayment',
 }

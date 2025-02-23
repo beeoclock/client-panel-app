@@ -21,7 +21,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 		<button
 			(click)="this.changeStatusOnDone()"
 			[disabled]="loading.isTrue"
-		type="button"
+			type="button"
 			class="
 		w-full
 		flex
@@ -59,14 +59,14 @@ export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 	public async changeStatusOnDone(): Promise<void> {
 		this.loading.doTrue();
 		const event = this.event();
-  event.originalData.service.status = OrderServiceStatusEnum.done;
+		event.originalData.service.status = OrderServiceStatusEnum.done;
 		const actionToChangeStatus$ = this.store.dispatch(new EventActions.ChangeServiceStatus({
 			serviceId: event.originalData.service._id,
 			orderId: event.originalData.order._id,
 			status: OrderServiceStatusEnum.done,
 		}));
 		await firstValueFrom(actionToChangeStatus$);
-		const actionToUpdateList$ =  this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		const actionToUpdateList$ = this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		await firstValueFrom(actionToUpdateList$);
 		const actionToUpdateDetails$ = this.store.dispatch(new EventActions.UpdateOpenedDetails(event));
 		await firstValueFrom(actionToUpdateDetails$);

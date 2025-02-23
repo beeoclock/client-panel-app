@@ -6,6 +6,7 @@ import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import EOrder from "@core/business-logic/order/entity/e.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
 
 export namespace OrderActions {
 
@@ -97,6 +98,30 @@ export namespace OrderActions {
 
 		constructor(
 			public readonly item: IOrder.DTO,
+			public readonly state: StateEnum,
+		) {
+		}
+	}
+
+	// OrderedService
+
+	export class OrderedServiceStatus {
+		public static readonly type = '[Ordered Service] Status';
+
+		constructor(
+			public readonly orderId: string,
+			public readonly orderedServiceId: string,
+			public readonly status: OrderServiceStatusEnum,
+		) {
+		}
+	}
+
+	export class OrderedServiceState {
+		public static readonly type = '[Ordered Service] SetState';
+
+		constructor(
+			public readonly orderId: string,
+			public readonly orderedServiceId: string,
 			public readonly state: StateEnum,
 		) {
 		}

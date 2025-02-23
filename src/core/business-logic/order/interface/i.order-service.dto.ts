@@ -15,6 +15,9 @@ export interface IOrderServiceDto {
 	status: OrderServiceStatusEnum;
 	meta: IMeta;
 	customerNote: string;
+
+	// TODO: Implement BOC-
+	// specialistReadyAt: string | null; // New field added, the field talks about the time the specialist is ready to start the service, specialist can set the date only if start in future
 }
 
 export const isOrderServiceDto = Tools.createIs<IOrderServiceDto>();

@@ -73,31 +73,6 @@ export class EventState {
 
 	}
 
-	// @Action(EventActions.OpenDetailsById)
-	// public async openDetailsById(ctx: StateContext<IEventState>, {payload: id}: EventActions.OpenDetailsById) {
-	//
-	// 	const title = this.translateService.instant('event.details.title');
-	//
-	// 	const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
-	//
-	// 	await this.whacAMaleProvider.buildItAsync({
-	// 		component: ContainerDetailsComponent,
-	// 		showLoading: true,
-	// 		title
-	// 	});
-	//
-	// 	const event = await this.item.executeAsync(id);
-	//
-	// 	await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-	// 		id,
-	// 		component: ContainerDetailsComponent,
-	// 		componentInputs: {
-	// 			event: Event.MEvent.create(event)
-	// 		},
-	// 	});
-	//
-	// }
-
 	@Action(EventActions.ChangeServiceStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: EventActions.ChangeServiceStatus): Promise<void> {
 		const foundItem = await this.orderService.repository.findByIdAsync(action.payload.orderId);
@@ -105,6 +80,8 @@ export class EventState {
 		if (!foundItem) {
 			return;
 		}
+
+		// TODO: Check if all orderService will have the same status, e.g. canceled then change status of order on canceled
 
 		const modifiedItem = {
 			...foundItem,
