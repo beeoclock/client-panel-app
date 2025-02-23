@@ -57,7 +57,7 @@ export class ChangeStatusOnAcceptedComponent extends ChangeStatusBaseComponent {
 
 		this.loading.doTrue();
 		const event = this.event();
-  event.originalData.service.status = OrderServiceStatusEnum.accepted;
+		event.originalData.service.status = OrderServiceStatusEnum.accepted;
 
 		this.store.dispatch(new EventActions.ChangeServiceStatus({
 			serviceId: event.originalData.service._id,

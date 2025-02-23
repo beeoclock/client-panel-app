@@ -8,9 +8,6 @@ import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order
 import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
 import {ICustomer} from "@src/core/business-logic/customer";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
-import {
-	OrderServiceStatusStyleDirective
-} from "@event/presentation/directive/order-service-status-style/order-service-status-style.directive";
 import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
@@ -23,7 +20,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	imports: [
 		TranslateModule,
 		NgClass,
-		OrderServiceStatusStyleDirective,
 		PrimaryLinkButtonDirective,
 		PrimaryLinkStyleDirective,
 	],
@@ -32,19 +28,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		DurationVersionHtmlHelper,
 	],
 	template: `
-
-		<div class="p-2 flex justify-between">
-			@if (isPreview()) {
-				<div
-					class="px-2 py-1 flex items-center justify-center h-6 text-xs rounded-full border text-white uppercase bg-blue-500 border-blue-500 dark:bg-blue-900 dark:text-blue-400 dark:border-blue-800">
-					{{ 'keyword.capitalize.preview' | translate }}
-				</div>
-			} @else {
-				@if (status) {
-					<div orderServiceStatusStyle [status]="status"></div>
-				}
-			}
-		</div>
 		<div class="border-t border-gray-100">
 			<dl class="divide-y divide-gray-100">
 				<div class="p-2">

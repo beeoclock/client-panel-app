@@ -66,6 +66,8 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 		// Update the order status
 		const newOrderStatus = this.determineOrderStatus();
 
+		console.log('newOrderStatus', newOrderStatus);
+
 		if (newOrderStatus) {
 			this.changeOrderStatus(newOrderStatus);
 		}

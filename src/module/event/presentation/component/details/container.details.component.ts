@@ -5,7 +5,6 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {V2GeneralDetailsComponent} from "@event/presentation/component/details/v2.general.details.component";
 import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
-import {V2ButtonsDetailsComponent} from "@event/presentation/component/details/v2.buttons.details.component";
 import {
 	ButtonOpenOrderDetailsComponent
 } from "@event/presentation/component/details/button.open-order.details.component";
@@ -16,6 +15,7 @@ import {NGXLogger} from "ngx-logger";
 import {
 	ListServiceFormCardOrderComponent
 } from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
+import {StatusSegmentComponent} from "@event/presentation/component/details/status.segment.component";
 
 @Component({
 	selector: 'event-container-details-component',
@@ -26,21 +26,23 @@ import {
 		MetaDetailsComponent,
 		LoaderComponent,
 		V2GeneralDetailsComponent,
-		V2ButtonsDetailsComponent,
 		ButtonOpenOrderDetailsComponent,
-		ListServiceFormCardOrderComponent
+		ListServiceFormCardOrderComponent,
+		StatusSegmentComponent
 	],
 	template: `
 		@if (event) {
-			<button-open-order-details [order]="event.originalData.order"/>
-
+			<div class="p-2">
+				<app-event-status-segment-component [event]="event"/>
+			</div>
 			<app-list-service-form-card-order-component
 				[idPrefix]="event.originalData.service._id"
 				[order]="event.originalData.order"
 				[specificOrderServiceId]="event.originalData.service._id"/>
 
 			<event-v2-general-details [event]="event"/>
-			<app-event-v2-buttons-details [event]="event"/>
+			<!--			<app-event-v2-buttons-details [event]="event"/>-->
+			<button-open-order-details [order]="event.originalData.order"/>
 			<event-meta-details
 				[orderDro]="event.originalData.order"
 				[orderServiceDto]="event.originalData.service"/>

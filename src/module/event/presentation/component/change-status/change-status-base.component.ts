@@ -19,9 +19,9 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 export abstract class ChangeStatusBaseComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
-    order: IOrder.DTO;
-    service: IOrderServiceDto;
-}>>();
+		order: IOrder.DTO;
+		service: IOrderServiceDto;
+	}>>();
 
 	public readonly statusChange = output<void>();
 
