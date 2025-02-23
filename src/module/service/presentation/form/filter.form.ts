@@ -12,7 +12,7 @@ export class FilterForm extends FormGroup<IFilterForm> {
 	constructor() {
 		super({
 			phrase: new FormControl(),
-			state: new FormControl()
+			state: new FormControl(StateEnum.active)
 		});
 	}
 }
