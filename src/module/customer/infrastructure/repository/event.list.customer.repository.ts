@@ -55,7 +55,7 @@ export class EventListCustomerRepository {
 
 			const newTableState = this.tableState.toBackendFormat();
 
-			const inState = [StateEnum.active, StateEnum.archived, StateEnum.inactive];
+			const inState = [StateEnum.active];
 
 			const {items, totalSize} = await this.customerService.repository.findAsync({
 				...newTableState,
