@@ -83,7 +83,7 @@ import {CurrencyCodeEnum} from "@core/shared/enum";
 					@if (orderDto.businessNote?.length) {
 						<div class="flex justify-between px-2 pb-2">
 							<div class="flex-1">
-								<div>
+								<div class="text-neutral-500">
 									{{ 'keyword.capitalize.businessNote' | translate }}
 								</div>
 								<div>
