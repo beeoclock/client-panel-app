@@ -4,7 +4,6 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@utility/layout.list.component";
-import {FilterComponent} from "@order/presentation/component/filter/filter.component";
 import {TableListComponent} from "@order/presentation/component/list/table/table.list.component";
 import {
 	AutoRefreshButtonComponent
@@ -18,7 +17,6 @@ import EOrder from "@core/business-logic/order/entity/e.order";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		FilterComponent,
 		NotFoundTableDataComponent,
 		TableListComponent,
 		TranslateModule,

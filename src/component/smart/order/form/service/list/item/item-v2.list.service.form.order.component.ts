@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	inject,
-	input,
-	OnChanges,
-	output,
-	SimpleChanges,
-	ViewEncapsulation
-} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, output, ViewEncapsulation} from "@angular/core";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
@@ -105,7 +96,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 		class: 'flex-col justify-start items-start p-3 gap-2 flex'
 	}
 })
-export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnChanges {
+export class ItemV2ListServiceFormOrderComponent extends Reactive {
 
 	public readonly item = input.required<{
 		service: IService.DTO;
@@ -125,9 +116,6 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 
 	readonly #ngxLogger = inject(NGXLogger);
 
-	public ngOnChanges(changes: SimpleChanges) {
-		this.#ngxLogger.debug('ItemV2ListServiceFormOrderComponent:ngOnChanges', changes);
-	}
 
 	public get initialSpecialistOrMember() {
 		const specialist = this.item().control.getRawValue().orderAppointmentDetails.specialists[0];
@@ -150,11 +138,11 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	}
 
 	public handlePriceChanges(price: number) {
-		this.#ngxLogger.debug('handlePriceChanges', this.id(), price);
 		const {serviceSnapshot} = this.item().control.getRawValue();
-
 		// Check if the price is the same as the previous price, if so, return early
+
 		if (serviceSnapshot.durationVersions[0].prices[0].price === price) return;
+		this.#ngxLogger.debug('handlePriceChanges', this.id(), price);
 
 		const copyServiceSnapshot = structuredClone(serviceSnapshot);
 		copyServiceSnapshot.durationVersions[0].prices[0].price = price;
@@ -163,12 +151,12 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	}
 
 	public handleSpecialistChanges(specialist: ISpecialist) {
-		this.#ngxLogger.debug('handleSpecialistChanges', this.id(), specialist);
 		const {orderAppointmentDetails} = this.item().control.getRawValue();
 
 		const {0: previousSpecialist} = orderAppointmentDetails.specialists;
 
 		if (previousSpecialist && previousSpecialist.member._id === specialist.member._id) return;
+		this.#ngxLogger.debug('handleSpecialistChanges', this.id(), specialist);
 
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.specialists = [specialist];
@@ -200,12 +188,12 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	}
 
 	public handleDurationChanges(duration: number) {
-		this.#ngxLogger.debug('handleDurationChanges', this.id(), duration);
 		const {serviceSnapshot} = this.item().control.getRawValue();
 		const {durationInSeconds} = serviceSnapshot.durationVersions[0];
 
 		// Check if the duration is the same as the previous duration, if so, return early
 		if (durationInSeconds === duration) return;
+		this.#ngxLogger.debug('handleDurationChanges', this.id(), duration);
 
 		const copyServiceSnapshot = structuredClone(serviceSnapshot);
 		copyServiceSnapshot.durationVersions[0].durationInSeconds = duration;
@@ -233,11 +221,11 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	}
 
 	public handleStartChanges(start: string) {
-		this.#ngxLogger.debug('handleStartChanges', this.id(), start);
 		const {orderAppointmentDetails} = this.item().control.getRawValue();
-
 		// Check if the start is the same as the previous start, if so, return early
+
 		if (orderAppointmentDetails.start === start) return;
+		this.#ngxLogger.debug('handleStartChanges', this.id(), start);
 
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.start = start;

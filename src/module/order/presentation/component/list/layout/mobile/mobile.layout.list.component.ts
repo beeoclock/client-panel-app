@@ -5,7 +5,6 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardListComponent} from "@order/presentation/component/list/card/card.list.component";
-import {FilterComponent} from "@order/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
@@ -22,7 +21,6 @@ import EOrder from "@core/business-logic/order/entity/e.order";
 		CardListComponent,
 		NotFoundTableDataComponent,
 		TranslateModule,
-		FilterComponent,
 		AutoRefreshButtonComponent,
 		NgClass,
 	]

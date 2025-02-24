@@ -32,23 +32,25 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 					<!--					TODO: return this feature when backend will ready for it -->
 					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
-					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+<!--					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>-->
+
+					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
 				</div>
 			} @else {
 				<div class="flex overflow-x-auto gap-2">
 					<!--					TODO: return this feature when backend will ready for it -->
 					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
-					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+<!--					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>-->
 				</div>
 			}
 		</utility-default-panel-component>
-		@if (isMobile$ | async) {
+<!--		@if (isMobile$ | async) {-->
 
-			<div class="flex overflow-x-auto gap-2 my-2 px-2">
-				<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
-			</div>
-		}
+<!--			<div class="flex overflow-x-auto gap-2 my-2 px-2">-->
+<!--				<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>-->
+<!--			</div>-->
+<!--		}-->
 
 		<ng-template #SearchInput>
 			<utility-search-input-component [formControl]="form.controls.phrase"/>
@@ -59,7 +61,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 				id="order-filter-select-order-status"
 				[multiple]="true"
 				[options]="orderStatusOptions"
-				[control]="orderStatusControl"/>
+				[control]="orderStatusControl()"/>
 		</ng-template>
 		<ng-template #AutoRefresh>
 			<utility-auto-refresh-component id="order-filter-auto-refresh" (emitter)="forceRefresh()"/>
@@ -72,18 +74,11 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 export class FilterComponent extends BaseFilterComponent implements OnInit {
 
 	public readonly showButtonGoToForm = input(true);
+	public readonly orderStatusControl = input.required<FormControl<OrderStatusEnum[]>>();
 
 	public override readonly form = new FilterForm();
 	public override readonly actions = OrderActions;
 	public override readonly state = OrderState;
-
-	public readonly orderStatusControl = new FormControl<OrderStatusEnum[]>([
-		OrderStatusEnum.confirmed,
-		OrderStatusEnum.done,
-		OrderStatusEnum.cancelled,
-	], {
-		nonNullable: true
-	});
 
 	private readonly translateService = inject(TranslateService);
 
@@ -113,11 +108,11 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 
 	public ngOnInit() {
 		this.initOrderStatusList();
-		this.orderStatusControl.valueChanges.pipe(this.takeUntil()).subscribe((statuses) => {
-			this.store.dispatch([
-				new OrderActions.UpdateFilters({statuses}),
-				new OrderActions.GetList()
-			]);
-		});
+		// this.orderStatusControl.valueChanges.pipe(this.takeUntil()).subscribe((statuses) => {
+		// 	this.store.dispatch([
+		// 		new OrderActions.UpdateFilters({statuses}),
+		// 		new OrderActions.GetList()
+		// 	]);
+		// });
 	}
 }

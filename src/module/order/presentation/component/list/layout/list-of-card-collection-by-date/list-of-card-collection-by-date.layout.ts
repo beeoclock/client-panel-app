@@ -13,7 +13,6 @@ import {CurrencyPipe} from "@angular/common";
 import {DateTime} from "luxon";
 import {TranslateModule} from "@ngx-translate/core";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {FilterComponent} from "@order/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
 import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {
@@ -39,7 +38,6 @@ import EOrder from "@core/business-logic/order/entity/e.order";
 		NotFoundTableDataComponent,
 		AutoRefreshButtonComponent,
 		ListOfCardCollectionByDateComponent,
-		FilterComponent,
 		TranslateModule
 	],
 	providers: [

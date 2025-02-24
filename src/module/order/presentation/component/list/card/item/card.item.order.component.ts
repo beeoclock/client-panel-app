@@ -99,14 +99,14 @@ import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum
 })
 export class CardItemOrderComponent implements OnInit {
 
-	public readonly selectedIds = input.required<string[]>();
+	public readonly selectedIds = input<string[]>([]);
 
 	@Input({required: true})
 	public orderDto!: IOrder.DTO;
 
-	readonly showAction = input.required<boolean>();
+	readonly showAction = input<boolean>(true);
 
-	readonly showSelectedStatus = input.required<boolean>();
+	readonly showSelectedStatus = input<boolean>(false);
 
 	@HostBinding()
 	public id!: string;
