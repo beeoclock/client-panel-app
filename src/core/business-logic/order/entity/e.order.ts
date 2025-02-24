@@ -53,6 +53,10 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 	 */
 	public changeOrderState(state: StateEnum): void {
 		this.state = state;
+		this.stateHistory.push({
+			state,
+			setAt: new Date().toISOString(),
+		});
 		this.services.forEach((service) => {
 			service.state = state;
 		});
