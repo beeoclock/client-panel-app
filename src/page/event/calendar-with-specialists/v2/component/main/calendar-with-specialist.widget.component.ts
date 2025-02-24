@@ -243,6 +243,14 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		return this.calendarWithSpecialistLocaStateService.oneMinuteForPx * this.calendarWithSpecialistLocaStateService.movementInMinutesControl.value;
 	}
 
+	public nowOrder(target: unknown) {
+		return target as { order: IOrder.DTO; service: IOrderServiceDto; };
+	}
+
+	public nowAbsence(target: unknown) {
+		return target as IAbsence.DTO;
+	}
+
 	public async openForm() {
 
 		// From selectedDate$
