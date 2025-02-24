@@ -78,8 +78,6 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 		// Update the order status
 		const newOrderStatus = this.determineOrderStatus();
 
-		console.log('newOrderStatus', newOrderStatus);
-
 		if (newOrderStatus) {
 			this.changeOrderStatus(newOrderStatus);
 		}
@@ -99,6 +97,10 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 		}
 
 		service.state = state;
+		service.stateHistory.push({
+			state,
+			setAt: new Date().toISOString(),
+		});
 
 		// Update the order state
 		const newOrderState = this.determineOrderState();

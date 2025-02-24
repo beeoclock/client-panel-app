@@ -12,6 +12,7 @@ import {clearObject} from "@utility/domain/clear.object";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
 import {OrderService} from "@core/business-logic/order/service/order.service";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export interface ICalendarWithSpecialist {
 	params: {
@@ -104,6 +105,13 @@ export class CalendarWithSpecialistsState {
 					}
 
 					if (!orderParams.statuses.includes(service.status)) {
+						return;
+					}
+
+					/**
+					 * Check if the service is in the correct state
+					 */
+					if (service.state !== StateEnum.active) {
 						return;
 					}
 
