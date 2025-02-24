@@ -29,7 +29,13 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 export type IOrderState = IBaseState<EOrder>;
 
 const defaults = baseDefaults<EOrder>({
-	filters: {},
+	filters: {
+		statuses: [
+			OrderStatusEnum.confirmed,
+			OrderStatusEnum.done,
+			OrderStatusEnum.cancelled,
+		]
+	},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
 	pageSize: environment.config.pagination.pageSize

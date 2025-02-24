@@ -79,6 +79,8 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 
 	public readonly orderStatusControl = new FormControl<OrderStatusEnum[]>([
 		OrderStatusEnum.confirmed,
+		OrderStatusEnum.done,
+		OrderStatusEnum.cancelled,
 	], {
 		nonNullable: true
 	});
