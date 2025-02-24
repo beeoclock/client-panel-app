@@ -95,7 +95,8 @@ export class FilterCalendarWithSpecialistComponent extends Reactive implements A
 	}
 
 	private initEventStatusList() {
-		Object.keys(OrderServiceStatusEnum).forEach((status) => {
+		// Object.keys(OrderServiceStatusEnum)
+		[OrderServiceStatusEnum.done, OrderServiceStatusEnum.accepted, OrderServiceStatusEnum.requested].forEach((status) => {
 			this.orderServiceStatusOptions.push({
 				value: status,
 				label: this.translateService.instant(`event.keyword.status.singular.${status}`)

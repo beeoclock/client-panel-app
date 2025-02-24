@@ -8,7 +8,6 @@ import {IonSelectWrapperComponent} from "@utility/presentation/component/input/i
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {OrderState} from "@order/infrastructure/state/order/order.state";
-import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {OrderStatusEnum} from '@src/core/business-logic/order/enum/order.status.enum';
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
@@ -31,14 +30,14 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full">
 					<!--					TODO: return this feature when backend will ready for it -->
-<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
+					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
 					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
 			} @else {
 				<div class="flex overflow-x-auto gap-2">
 					<!--					TODO: return this feature when backend will ready for it -->
-<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
+					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
 					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
@@ -78,7 +77,9 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 	public override readonly actions = OrderActions;
 	public override readonly state = OrderState;
 
-	public readonly orderStatusControl = new FormControl<OrderServiceStatusEnum[]>([], {
+	public readonly orderStatusControl = new FormControl<OrderStatusEnum[]>([
+		OrderStatusEnum.confirmed,
+	], {
 		nonNullable: true
 	});
 
@@ -90,7 +91,8 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 	}[] = [];
 
 	private initOrderStatusList() {
-		Object.keys(OrderStatusEnum).forEach((status) => {
+		// Object.keys(OrderStatusEnum)
+		[OrderStatusEnum.confirmed, OrderStatusEnum.done, OrderStatusEnum.cancelled].forEach((status) => {
 			this.orderStatusOptions.push({
 				value: status,
 				label: this.translateService.instant(`order.enum.status.singular.${status}`)
