@@ -84,15 +84,17 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 	public ngOnChanges() {
 		this.selectedServicePlusControlList.length = 0;
 		this.order().services.forEach((orderServiceDto) => {
-			this.selectedServicePlusControlList.push({
-				_id: orderServiceDto._id,
-				service: orderServiceDto.serviceSnapshot,
-				control: ServiceOrderForm.create(orderServiceDto),
-				setupPartialData: {
-					defaultAppointmentStartDateTimeIso: orderServiceDto.orderAppointmentDetails.start,
-					defaultMemberForService: orderServiceDto?.orderAppointmentDetails?.specialists?.[0]?.member
-				}
-			});
+			if (orderServiceDto.state === StateEnum.active) {
+				this.selectedServicePlusControlList.push({
+					_id: orderServiceDto._id,
+					service: orderServiceDto.serviceSnapshot,
+					control: ServiceOrderForm.create(orderServiceDto),
+					setupPartialData: {
+						defaultAppointmentStartDateTimeIso: orderServiceDto.orderAppointmentDetails.start,
+						defaultMemberForService: orderServiceDto?.orderAppointmentDetails?.specialists?.[0]?.member
+					}
+				});
+			}
 		});
 		this.#changeDetectorRef.detectChanges();
 	}
@@ -108,11 +110,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 			return;
 		}
 
-		const index = this.selectedServicePlusControlList.findIndex(({_id}) => _id === orderedServiceId);
-		this.selectedServicePlusControlList.splice(index, 1);
-
 		this.dispatchOrderedServiceState(orderedServiceId, StateEnum.deleted);
-
 		this.#changeDetectorRef.detectChanges();
 
 	}

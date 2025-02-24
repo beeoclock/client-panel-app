@@ -6,6 +6,7 @@ import {IOrderProductDto} from "../interface/i.order-product.dto";
 import {IOrderServiceDto} from "../interface/i.order-service.dto";
 import {INotificationSettings} from "@core/business-logic/order/interface/i.notification-settings";
 import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 
 export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw> implements IOrder.EntityRaw {
@@ -27,7 +28,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 
 		this.status = status;
 
-		const orderedServiceStatusCase: {[key in keyof typeof OrderStatusEnum]?: OrderServiceStatusEnum} = {
+		const orderedServiceStatusCase: { [key in keyof typeof OrderStatusEnum]?: OrderServiceStatusEnum } = {
 			[OrderStatusEnum.confirmed]: OrderServiceStatusEnum.accepted,
 			[OrderStatusEnum.rejected]: OrderServiceStatusEnum.rejected,
 		};
@@ -44,6 +45,17 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 
 		}
 
+	}
+
+	/**
+	 *
+	 * @param state
+	 */
+	public changeOrderState(state: StateEnum): void {
+		this.state = state;
+		this.services.forEach((service) => {
+			service.state = state;
+		});
 	}
 
 	/**
@@ -75,6 +87,28 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 	}
 
 	/**
+	 *
+	 * @param serviceId
+	 * @param state
+	 */
+	public changeOrderedServiceState(serviceId: string, state: StateEnum): void {
+		const service = this.services.find((service) => service._id === serviceId);
+
+		if (!service) {
+			throw new Error(`Service with id ${serviceId} not found`);
+		}
+
+		service.state = state;
+
+		// Update the order state
+		const newOrderState = this.determineOrderState();
+
+		if (newOrderState) {
+			this.changeOrderState(newOrderState);
+		}
+	}
+
+	/**
 	 * Determine the overall status of an order based on the status of its services.
 	 * @returns The new order status, or null if no change is needed.
 	 */
@@ -97,6 +131,31 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 		const allServicesDeleted = this.services.every(service => service.status === OrderServiceStatusEnum.deleted);
 		if (allServicesDeleted) {
 			return OrderStatusEnum.deleted;
+		}
+
+		// No change to the order status
+		return null;
+	}
+
+	public determineOrderState(): StateEnum | null {
+		const allServicesActive = this.services.every(service => service.state === StateEnum.active);
+		if (allServicesActive) {
+			return StateEnum.active;
+		}
+
+		const allServicesDeleted = this.services.every(service => service.state === StateEnum.deleted);
+		if (allServicesDeleted) {
+			return StateEnum.deleted;
+		}
+
+		const allServiceArchived = this.services.every(service => service.state === StateEnum.archived);
+		if (allServiceArchived) {
+			return StateEnum.archived;
+		}
+
+		const allServiceInactive = this.services.some(service => service.state === StateEnum.inactive);
+		if (allServiceInactive) {
+			return StateEnum.inactive;
 		}
 
 		// No change to the order status

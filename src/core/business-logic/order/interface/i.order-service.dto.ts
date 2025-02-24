@@ -1,14 +1,12 @@
 import {IOrderAppointmentDetailsDto} from "./i-order-appointment-details.dto";
 import {OrderServiceStatusEnum} from "../enum/order-service.status.enum";
-import {IMeta} from "@utility/domain";
+import {IBaseEntityRaw, IMeta} from "@utility/domain";
 import {Tools} from "@core/shared/tools";
 import {Types} from "@core/shared/types";
 import {IService} from "@core/business-logic/service/interface/i.service";
 
 
-export interface IOrderServiceDto {
-	object: "OrderServiceDto";
-	_id: string & Types.ObjectId;
+export interface IOrderServiceDto extends IBaseEntityRaw<'OrderServiceDto'> {
 	orderId: string & Types.ObjectId;
 	serviceSnapshot: IService.DTO;
 	orderAppointmentDetails: IOrderAppointmentDetailsDto;

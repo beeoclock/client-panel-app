@@ -398,6 +398,18 @@ export class OrderState {
 		}
 	}
 
+	@Action(OrderActions.OrderedServiceState)
+	public async orderedServiceState(ctx: StateContext<IOrderState>, {orderedServiceId, orderId, state}: OrderActions.OrderedServiceState) {
+		const foundItems = await this.sharedUow.order.repository.findByIdAsync(orderId);
+		if (foundItems) {
+			const entity = EOrder.fromRaw(foundItems);
+			entity.changeOrderedServiceState(orderedServiceId, state);
+			await this.sharedUow.order.repository.updateAsync(entity);
+			await this.updateOpenedDetailsAction(ctx, {payload: entity});
+			ctx.dispatch(new OrderActions.GetList());
+		}
+	}
+
 	// Selectors
 
 	@Selector()

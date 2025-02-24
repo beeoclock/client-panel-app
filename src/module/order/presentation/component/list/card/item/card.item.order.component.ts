@@ -14,6 +14,8 @@ import {
 } from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CurrencyCodeEnum} from "@core/shared/enum";
+import {StatusOrderChipComponent} from "@src/component/smart/order/form/chip/status.order.chip.component";
+import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
 
 @Component({
 	selector: 'app-card-item-order-component',
@@ -27,6 +29,7 @@ import {CurrencyCodeEnum} from "@core/shared/enum";
 		TranslateModule,
 		CurrencyPipe,
 		ListServiceFormCardOrderComponent,
+		StatusOrderChipComponent,
 	],
 	providers: [
 		DurationVersionHtmlHelper
@@ -37,13 +40,11 @@ import {CurrencyCodeEnum} from "@core/shared/enum";
 			<div class="flex flex-col gap-2">
 				<div class="p-2 flex flex-wrap justify-between items-center gap-8">
 
-					<div (click)="singleClick()" class="flex justify-between cursor-pointer">
-						<div class="flex-1 flex text-beeColor-500">
-
-							<div class="font-bold">
-								{{ ('order.enum.status.singular.' + orderDto.status) | translate }}
-							</div>
-						</div>
+					<div class="flex flex-1 justify-between cursor-pointer">
+						<app-status-order-chip-component
+							(statusChanges)="statusChanges($event)"
+							[initialValue]="orderDto.status"
+							[showLabel]="true"/>
 					</div>
 
 					<div class="flex items-center gap-2">
@@ -131,6 +132,25 @@ export class CardItemOrderComponent implements OnInit {
 		this.id = this.orderDto._id;
 		this.totalAmount = this.amount(this.orderDto.services);
 		this.baseCurrency = this.orderDto.services[0].serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.currency ?? CurrencyCodeEnum.USD;
+	}
+
+	public statusChanges(status: OrderStatusEnum) {
+		if (status === this.orderDto.status) {
+			return;
+		}
+		this.orderDto = {
+			...this.orderDto,
+			status,
+		};
+		this.dispatchStatus(status);
+	}
+
+	@Dispatch()
+	public dispatchStatus(status: OrderStatusEnum) {
+		return new OrderActions.ChangeStatus({
+			id: this.orderDto._id,
+			status
+		});
 	}
 
 	public amount(services: IOrderServiceDto[]): number {

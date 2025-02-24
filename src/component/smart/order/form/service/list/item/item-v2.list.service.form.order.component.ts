@@ -33,6 +33,8 @@ import {
 import {
 	SpecialistChipComponent
 } from "@src/component/smart/order/form/service/list/item/chip/specialist.chip.component";
+import StatusChipComponent from "@src/component/smart/order/form/service/list/item/chip/status.chip.component";
+import {LanguageCodeEnum} from "@core/shared/enum";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -48,6 +50,7 @@ import {
 		LanguageChipComponent,
 		PrimaryLinkButtonDirective,
 		ServiceChipComponent,
+		StatusChipComponent,
 	],
 	template: `
 		<div class="justify-start items-start gap-1 flex w-full">
@@ -65,8 +68,13 @@ import {
 		<div class="justify-start items-start flex">
 			<div class="justify-start items-start gap-2 flex flex-wrap">
 				<app-language-chip-component
+					(languageChanges)="handleLanguageChanges($event)"
 					[initialValue]="service.languageVersions[0].language"
 					[languageVersions]="service.languageVersions"
+					[id]="id()"/>
+				<app-status-chip-component
+					(statusChanges)="handleStatusChanges()"
+					[control]="item().control.controls.status"
 					[id]="id()"/>
 				<app-start-chip-component
 					[id]="id()"
@@ -208,6 +216,19 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.end = DateTime.fromISO(copyOrderAppointmentDetails.start).plus({seconds: duration}).toJSDate().toISOString();
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
+		this.saveChanges.emit();
+	}
+
+	public handleLanguageChanges(language: LanguageCodeEnum) {
+		this.#ngxLogger.debug('handleLanguageChanges', this.id());
+		const {orderAppointmentDetails} = this.item().control.getRawValue();
+		orderAppointmentDetails.languageCodes = [language];
+		// TODO take service from repository and replace languageVersions
+		this.saveChanges.emit();
+	}
+
+	public handleStatusChanges() {
+		this.#ngxLogger.debug('handleStatusChanges', this.id());
 		this.saveChanges.emit();
 	}
 
