@@ -15,7 +15,6 @@ import {NGXLogger} from "ngx-logger";
 import {
 	ListServiceFormCardOrderComponent
 } from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
-import {StatusSegmentComponent} from "@event/presentation/component/details/status.segment.component";
 
 @Component({
 	selector: 'event-container-details-component',
@@ -28,13 +27,12 @@ import {StatusSegmentComponent} from "@event/presentation/component/details/stat
 		V2GeneralDetailsComponent,
 		ButtonOpenOrderDetailsComponent,
 		ListServiceFormCardOrderComponent,
-		StatusSegmentComponent
 	],
 	template: `
 		@if (event) {
-			<div class="p-2">
-				<app-event-status-segment-component [event]="event"/>
-			</div>
+<!--			<div class="p-2">-->
+<!--				<app-event-status-segment-component [event]="event"/>-->
+<!--			</div>-->
 			<app-list-service-form-card-order-component
 				[idPrefix]="event.originalData.service._id"
 				[order]="event.originalData.order"
