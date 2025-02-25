@@ -1,35 +1,34 @@
 import {Injectable} from "@angular/core";
 import {Table} from "dexie";
 import {BaseRepository} from "@core/system/infrastructure/repository/base.repository";
-import {firstValueFrom, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Injectable()
 export abstract class BaseService<ENTITY_RAW> {
 
-	#db: Table<ENTITY_RAW> | null = null;
+	readonly #db$ = new BehaviorSubject<Table<ENTITY_RAW> | undefined>(undefined);
 
 	public constructor(
 		public readonly repository: BaseRepository<ENTITY_RAW>,
 	) {
-		this.initDB().then();
+		(this.repository.dataProvider as unknown as { db$: Observable<Table<ENTITY_RAW>> })
+			.db$
+			.pipe(
+				takeUntilDestroyed(),
+				map((table) => {
+					this.#db$.next(table);
+				})
+			)
+			.subscribe();
 	}
 
 	public get db(): Table<ENTITY_RAW> {
-		if (!this.#db) {
+		const db = this.#db$.value;
+		if (!db) {
 			throw new Error('Table not initialized');
 		}
-		return this.#db;
-	}
-
-	public async initDB(): Promise<void> {
-
-		if ('db$' in this.repository.dataProvider) {
-
-			const {db$} = this.repository.dataProvider as { db$: Observable<Table<ENTITY_RAW>> };
-			this.#db = await firstValueFrom(db$);
-
-		}
-
+		return db;
 	}
 
 }

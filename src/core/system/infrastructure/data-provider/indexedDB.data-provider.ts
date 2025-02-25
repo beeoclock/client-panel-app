@@ -23,7 +23,9 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
     public readonly db$ = this.tenantId$.pipe(
         takeUntil(this.destroy$),
         filter(is.string),
-        tap((tenant) => this.dexieAdapterIndexedDBDataProvider.prepareTableFor(tenant)),
+        tap((tenant) => {
+			return this.dexieAdapterIndexedDBDataProvider.prepareTableFor(tenant);
+		}),
         map(() => this.dexieAdapterIndexedDBDataProvider.table),
         filter(is.object<Dexie.Table<ENTITY>>),
         shareReplay({bufferSize: 1, refCount: true}),

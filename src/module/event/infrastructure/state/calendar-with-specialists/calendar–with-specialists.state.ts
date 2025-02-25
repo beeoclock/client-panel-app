@@ -10,9 +10,8 @@ import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
 import {clearObject} from "@utility/domain/clear.object";
 import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
-import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
-import {OrderService} from "@core/business-logic/order/service/order.service";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export interface ICalendarWithSpecialist {
 	params: {
@@ -61,8 +60,7 @@ export interface ICalendarWithSpecialist {
 export class CalendarWithSpecialistsState {
 
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly orderService = inject(OrderService);
-	private readonly absenceService = inject(AbsenceService);
+	private readonly sharedUow = inject(SharedUow);
 	private readonly router = inject(Router);
 
 	@Action(CalendarWithSpecialistsAction.GetItems)
@@ -83,9 +81,9 @@ export class CalendarWithSpecialistsState {
 			...params
 		};
 
-		const absences = await this.absenceService.findByRange(params.start, params.end);
+		const absences = await this.sharedUow.absence.findByRange(params.start, params.end);
 
-		const orders = await this.orderService.findByServicesRangeAndStatuses(params.start, params.end, params.statuses);
+		const orders = await this.sharedUow.order.findByServicesRangeAndStatuses(params.start, params.end, params.statuses);
 
 		const {startTime, endTime} = settings;
 

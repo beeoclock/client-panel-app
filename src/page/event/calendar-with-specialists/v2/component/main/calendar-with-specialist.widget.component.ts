@@ -82,20 +82,26 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	public readonly orderServiceStatusesControl: FormControl<OrderServiceStatusEnum[]> = new FormControl<OrderServiceStatusEnum[]>([], {
 		nonNullable: true
 	});
+
 	readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
+
 	public eventsBySpecialistId: {
 		[key: string]: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>[]
 	} = {};
+
 	// Find all #column
 	@ViewChildren('column')
 	public columnList!: QueryList<ElementRef<HTMLDivElement>>;
+
 	public eventCalendarWithSpecialistWidgetComponent: EventCalendarWithSpecialistWidgetComponent | null = null;
-	mutatedOtherEventHtmlList: HTMLDivElement[] = [];
-	mouseDown = false;
-	prevMousePosition = {x: 0, y: 0};
-	whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
+
+	private mutatedOtherEventHtmlList: HTMLDivElement[] = [];
+	private mouseDown = false;
+	private prevMousePosition = {x: 0, y: 0};
+	private whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
+
 	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-	moveCallback = {
+	private moveCallback = {
 		accumulationDiffY: 0,
 		position: (htmlDivElement: HTMLElement, diffY: number) => {
 
@@ -179,6 +185,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	private readonly document = inject(DOCUMENT);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly actions$ = inject(Actions);
+
 	private readonly events$ = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
 		this.takeUntil(),
 		map((items) => {
@@ -314,12 +321,14 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		});
 		this.events$.pipe(this.takeUntil()).subscribe((eventsBySpecialistId) => {
 
+			console.log('CalendarWithSpecialistWidgetComponent: events$: ', eventsBySpecialistId);
 			this.eventsBySpecialistId = eventsBySpecialistId;
 			setTimeout(() => {
 				this.columnList.forEach((column) => {
 					this.findAndFixNearEventsWidthInEachColumn(column);
 				});
 			}, 0);
+			this.changeDetectorRef.detectChanges();
 		});
 
 		this.actions$
@@ -333,6 +342,9 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 					OrderActions.ChangeStatus,
 					OrderActions.CreateItem,
 					OrderActions.UpdateItem,
+					OrderActions.SetState,
+					OrderActions.OrderedServiceStatus,
+					OrderActions.OrderedServiceState,
 				)
 			).subscribe(() => {
 			this.dispatchActionToUpdateCalendar();
