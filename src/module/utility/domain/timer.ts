@@ -1,4 +1,4 @@
-import {delay, of, Subject, takeUntil, tap} from "rxjs";
+import {delay, interval, of, Subject, takeUntil, tap} from "rxjs";
 
 /**
  *
@@ -28,4 +28,8 @@ export const setTimeoutTakeUntil$ = (cb: () => void, timer: number) => {
 	const destroyTimeout$ = new Subject<void>();
 	const timeout$ = buildTimeOut$(timer).pipe(takeUntil(destroyTimeout$)).subscribe(cb);
 	return {destroyTimeout$, timeout$};
+};
+
+export const setIntervals$ = (cb: () => void, timer: number) => {
+	return interval(timer).pipe(tap(cb));
 };

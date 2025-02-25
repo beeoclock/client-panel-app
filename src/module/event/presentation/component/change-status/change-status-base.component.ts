@@ -3,8 +3,8 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {IEvent_V2} from "@event/domain";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 
 @Component({
@@ -19,9 +19,9 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 export abstract class ChangeStatusBaseComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
-    order: IOrderDto;
-    service: IOrderServiceDto;
-}>>();
+		order: IOrder.DTO;
+		service: IOrderServiceDto;
+	}>>();
 
 	public readonly statusChange = output<void>();
 

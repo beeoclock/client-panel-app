@@ -3,10 +3,11 @@ import {inject, Injectable} from '@angular/core';
 import {Socket, SocketIoConfig} from 'ngx-socket-io';
 import {tap} from 'rxjs/operators';
 import {SocketActions} from "@utility/state/socket/socket.actions";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {merge} from "rxjs";
-import {OrderActions} from "@order/state/order/order.actions";
 
 export interface SocketStateModel {
 	connected: boolean;
@@ -24,7 +25,7 @@ export enum SocketEventTypes {
 	OrderPaid = 'order-paid',
 }
 
-export type SocketMessages = Array<IOrderDto>;
+export type SocketMessages = Array<IOrder.DTO>;
 
 @State<SocketStateModel>({
 	name: 'socket',
@@ -90,7 +91,7 @@ export class SocketState {
 			}
 			const isOrderListActive = url.includes('order/list');
 			if (isOrderListActive) {
-				ctx.dispatch(new OrderActions.GetList());
+				// ctx.dispatch(new OrderActions.GetList());
 				return;
 			}
 		})).subscribe()

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
-import {RIMember} from "@member/domain";
 import {TranslateModule} from "@ngx-translate/core";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
     selector: 'app-selected-member-additional-menu',
@@ -24,7 +24,7 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class SelectedMemberAdditionalMenuComponent {
 
-    public readonly member = input.required<RIMember>();
+    public readonly member = input.required<IMember.EntityRaw>();
 
     @HostBinding()
     public get class() {

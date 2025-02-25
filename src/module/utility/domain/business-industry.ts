@@ -1,4 +1,4 @@
-import {BusinessIndustryEnum, BusinessIndustryIconEnum} from "@utility/domain/enum/business-industry.enum";
+import {BusinessIndustryEnum, BusinessIndustryIconEnum} from "@core/shared/enum/business-industry.enum";
 
 export class BusinessIndustry {
 

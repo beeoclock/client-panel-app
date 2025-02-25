@@ -2,7 +2,6 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	HostBinding,
 	inject,
 	input,
 	OnChanges,
@@ -14,16 +13,18 @@ import {
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {RIMember} from "@member/domain";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {ClientState} from "@client/state/client/client.state";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {AlertController} from "@ionic/angular";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
+import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	standalone: true,
@@ -41,7 +42,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 					@if (specificOrderServiceId() === null || specificOrderServiceId() === item._id) {
 						<app-item-list-v2-service-form-order-component
 							[id]="idPrefix() + item._id"
-							(deleteMe)="deleteItem(item._id)"
+							(deleteMe)="deleteOrderedService(item._id)"
 							(saveChanges)="saveChanges(item.control)"
 							[item]="item"
 							[setupPartialData]="item.setupPartialData"/>
@@ -49,30 +50,30 @@ import {OrderActions} from "@order/state/order/order.actions";
 				}
 			</div>
 		</div>
-	`
+	`,
+	host: {
+		class: 'flex-col justify-start items-start flex'
+	}
 })
 export class ListServiceFormCardOrderComponent extends Reactive implements OnChanges {
 
-	public readonly order = input.required<IOrderDto>();
+	public readonly order = input.required<IOrder.DTO>();
 
 	public readonly specificOrderServiceId = input<string | null>(null);
 
 	public readonly idPrefix = input('');
 
-	@HostBinding()
-	public class = 'flex-col justify-start items-start flex';
-
 	public readonly selectedServicePlusControlList: {
 		_id: string;
-		service: IServiceDto;
+		service: IService.DTO;
 		control: ServiceOrderForm;
 		setupPartialData: {
 			defaultAppointmentStartDateTimeIso: string;
-			defaultMemberForService: RIMember;
+			defaultMemberForService: IMember.DTO;
 		};
 	}[] = [];
 
-	@SelectSnapshot(ClientState.baseLanguage)
+	@SelectSnapshot(BusinessProfileState.baseLanguage)
 	public readonly baseLanguage!: LanguageCodeEnum;
 
 	readonly #ngxLogger = inject(NGXLogger);
@@ -83,21 +84,25 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 	public ngOnChanges() {
 		this.selectedServicePlusControlList.length = 0;
 		this.order().services.forEach((orderServiceDto) => {
-			this.selectedServicePlusControlList.push({
-				_id: orderServiceDto._id,
-				service: orderServiceDto.serviceSnapshot,
-				control: ServiceOrderForm.create(orderServiceDto),
-				setupPartialData: {
-					defaultAppointmentStartDateTimeIso: orderServiceDto.orderAppointmentDetails.start,
-					defaultMemberForService: orderServiceDto?.orderAppointmentDetails?.specialists?.[0]?.member
-				}
-			});
+			if (orderServiceDto.state === StateEnum.active) {
+				this.selectedServicePlusControlList.push({
+					_id: orderServiceDto._id,
+					service: orderServiceDto.serviceSnapshot,
+					control: ServiceOrderForm.create(orderServiceDto),
+					setupPartialData: {
+						defaultAppointmentStartDateTimeIso: orderServiceDto.orderAppointmentDetails.start,
+						defaultMemberForService: orderServiceDto?.orderAppointmentDetails?.specialists?.[0]?.member
+					}
+				});
+			}
 		});
 		this.#changeDetectorRef.detectChanges();
 	}
 
-	public async deleteItem(orderServiceId: string) {
-		this.#ngxLogger.info('deleteItem', orderServiceId);
+	public async deleteOrderedService(orderedServiceId: string) {
+
+		this.#ngxLogger.info('deleteOrderedService', orderedServiceId);
+
 		const isLastServiceInOrder = this.selectedServicePlusControlList.length === 1;
 		const confirmed = await this.confirmToDelete(isLastServiceInOrder);
 
@@ -105,15 +110,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 			return;
 		}
 
-		const index = this.selectedServicePlusControlList.findIndex(({_id}) => _id === orderServiceId);
-		this.selectedServicePlusControlList.splice(index, 1);
-
-		if (isLastServiceInOrder) {
-			this.deleteOrder();
-		} else {
-			this.deleteServiceOrderAt(orderServiceId);
-		}
-
+		this.dispatchOrderedServiceState(orderedServiceId, StateEnum.deleted);
 		this.#changeDetectorRef.detectChanges();
 
 	}
@@ -147,7 +144,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 			]
 		});
 		await modal.present();
-		const {data, role} = await modal.onDidDismiss();
+		const {role} = await modal.onDidDismiss();
 		return role === 'confirm';
 	}
 
@@ -155,7 +152,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 		this.#ngxLogger.info('saveChanges', control.getRawValue());
 
 		const orderServiceDto = control.getRawValue();
-		this.saveNewChanges({
+		this.dispatchOrderChanges({
 			...this.order(),
 			services: this.order().services.map((service) => {
 				if (service._id === orderServiceDto._id) {
@@ -167,19 +164,26 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 	}
 
 	@Dispatch()
-	protected saveNewChanges(item: IOrderDto): OrderActions.UpdateItem {
-		return new OrderActions.UpdateItem(item);
+	protected dispatchOrderedServiceStatus(orderedServiceId: string, status: OrderServiceStatusEnum) {
+		return new OrderActions.OrderedServiceStatus(
+			this.order()._id,
+			orderedServiceId,
+			status
+		);
 	}
 
 	@Dispatch()
-	protected deleteOrder() {
-		return new OrderActions.DeleteItem(this.order()._id);
+	protected dispatchOrderedServiceState(orderedServiceId: string, state: StateEnum) {
+		return new OrderActions.OrderedServiceState(
+			this.order()._id,
+			orderedServiceId,
+			state
+		);
 	}
 
-	protected deleteServiceOrderAt(orderServiceId: string) {
-		this.saveNewChanges({
-			...this.order(),
-			services: this.order().services.filter(({_id}) => _id !== orderServiceId),
-		});
+	@Dispatch()
+	protected dispatchOrderChanges(item: IOrder.DTO): OrderActions.UpdateItem {
+		return new OrderActions.UpdateItem(item);
 	}
+
 }

@@ -25,11 +25,11 @@
 					[tableState]="tableState()"/>
 			</div>
 		</div>
-		<div tableColumnFlex="active" data-orderBy="active">
+		<div tableColumnFlex="active" data-orderBy="state">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.active' | translate }}
 				<utility-sort-indicator
-					orderBy="active"
+					orderBy="state"
 					[tableState]="tableState()"
 				/>
 			</div>
@@ -96,7 +96,7 @@
 				<div tableColumnFlex="order">
 					{{ item.order }}
 				</div>
-				<div tableColumnFlex="active">
+				<div tableColumnFlex="state">
 					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
 						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [state]="item.state">
 					</div>

@@ -1,6 +1,6 @@
 import {Component, HostBinding, input} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {TranslateModule} from "@ngx-translate/core";

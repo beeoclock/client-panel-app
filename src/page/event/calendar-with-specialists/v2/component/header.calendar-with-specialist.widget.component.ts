@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
-import * as Member from "@member/domain";
+import {IMember} from "@src/core/business-logic/member";
 
 @Component({
 	selector: 'event-header-calendar-with-specialist-widget-component',
@@ -33,7 +33,7 @@ import * as Member from "@member/domain";
 export class HeaderCalendarWithSpecialistWidgetComponent {
 
 	@Input()
-	public member: Member.RIMember | null = null;
+	public member: IMember.EntityRaw | null = null;
 
 	@HostBinding()
 	public get class() {

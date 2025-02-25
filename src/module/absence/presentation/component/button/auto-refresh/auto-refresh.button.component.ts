@@ -1,7 +1,7 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {Store} from "@ngxs/store";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 
 @Component({
 	selector: 'app-absence-auto-refresh-component',

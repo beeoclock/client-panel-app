@@ -1,17 +1,13 @@
 import {StateContext, Store} from "@ngxs/store";
 import {BaseActions} from "@utility/state/base/base.actions";
-import {AppActions} from "@utility/state/app/app.actions";
 import {ITableState, TableState} from "@utility/domain/table.state";
-import {firstValueFrom} from "rxjs";
-import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {inject} from "@angular/core";
-import {getMaxPage} from "@utility/domain/max-page";
 import {Router} from "@angular/router";
-import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {NGXLogger} from "ngx-logger";
-import {IBaseEntity} from "@utility/domain";
 import {NgEventBus} from "ng-event-bus";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 
 export interface IBaseState_Item<ITEM> {
 	data: undefined | ITEM;
@@ -40,7 +36,7 @@ export function baseDefaults<T>({filters, orderBy, orderDir, pageSize}: {
 	};
 }
 
-export abstract class BaseState<ITEM extends IBaseEntity<string>> {
+export abstract class BaseState<ITEM extends ABaseEntity> {
 
 	protected readonly ngEventBus = inject(NgEventBus);
 
@@ -48,17 +44,6 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 	protected readonly store = inject(Store);
 	protected readonly ngxLogger = inject(NGXLogger);
 	protected readonly whacAMaleProvider = inject(WhacAMoleProvider);
-
-	protected readonly item!: BaseApiAdapter<ITEM, unknown[]>;
-	protected readonly create!: BaseApiAdapter<ITEM, unknown[]>;
-	protected readonly update!: BaseApiAdapter<ITEM, unknown[]>;
-	protected readonly delete!: BaseApiAdapter<unknown, unknown[]>;
-	protected readonly archive!: BaseApiAdapter<unknown, unknown[]>;
-	protected readonly unarchive!: BaseApiAdapter<unknown, unknown[]>;
-	protected readonly paged!: BaseApiAdapter<{
-		items: ITEM[];
-		totalSize: number;
-	}, unknown[]>;
 
 	protected constructor(
 		protected defaults: IBaseState<ITEM>,
@@ -80,9 +65,8 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 	 *
 	 * @param ctx
 	 * @param payload
-	 * @constructor
 	 */
-	public updateFilters(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters) {
+	public static updateFilters<ITEM>(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters) {
 
 		const state = ctx.getState();
 
@@ -99,9 +83,8 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 	 *
 	 * @param ctx
 	 * @param payload
-	 * @constructor
 	 */
-	public updateTableState(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateTableState<ITEM>) {
+	public static updateTableState<ITEM>(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateTableState<ITEM>) {
 
 		const state = ctx.getState();
 
@@ -132,283 +115,6 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 		ctx.patchState({
 			tableState: newTableState.toCache()
 		});
-
-	}
-
-	/**
-	 *
-	 * @param ctx
-	 * @param payload
-	 * @constructor
-	 */
-	public async getItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
-
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-
-		const data = await this.item.executeAsync(payload);
-
-		const item = {
-			data,
-			downloadedAt: new Date(),
-		};
-
-		ctx.patchState({
-			item
-		});
-
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-
-	}
-
-	/**
-	 *
-	 * @param ctx
-	 * @param payload
-	 */
-	public async createItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.CreateItem<ITEM>) {
-
-		ctx.dispatch(new AppActions.PageLoading(true));
-
-		try {
-			const data = await this.create.executeAsync(payload);
-
-			// Set new/updated item to store state and clear table
-			ctx.patchState({
-				item: {
-					data,
-					downloadedAt: new Date(),
-				},
-			});
-
-			await this.getList(ctx, {
-				payload: {
-					resetPage: false,
-					resetParams: false
-				}
-			});
-
-		} catch (e) {
-			this.ngxLogger.error('Error Response: ', e)
-		}
-
-		ctx.dispatch(new AppActions.PageLoading(false));
-
-	}
-
-	/**
-	 *
-	 * @param ctx
-	 * @param payload
-	 */
-	public async updateItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateItem<ITEM>): Promise<void> {
-
-		ctx.dispatch(new AppActions.PageLoading(true));
-
-		try {
-			const data = await this.update.executeAsync(payload);
-
-			// Set new/updated item to store state and clear table
-			ctx.patchState({
-				item: {
-					data,
-					downloadedAt: new Date(),
-				}
-			});
-			await this.getList(ctx, {
-				payload: {
-					resetPage: false,
-					resetParams: false
-				}
-			});
-		} catch (e) {
-			this.ngxLogger.error(e);
-		}
-
-		ctx.dispatch(new AppActions.PageLoading(false));
-
-	}
-
-	/**
-	 *
-	 * @param ctx
-	 * @param payload
-	 */
-	public async deleteItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.DeleteItem): Promise<void> {
-
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-
-		const isOk = await this.delete.executeAsync(payload).then((result) => {
-			this.ngxLogger.debug('Delete result: ', result);
-			return true;
-		}).catch((error) => {
-			// Cancel action or there some error
-			this.ngxLogger.error(error);
-			return false;
-		});
-
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-
-		if (isOk) {
-
-			ctx.patchState({
-				item: {
-					data: undefined,
-					downloadedAt: new Date(),
-				}
-			});
-
-		}
-
-		await this.getList(ctx, {
-			payload: {
-				resetPage: false,
-				resetParams: false
-			}
-		});
-
-	}
-
-	/**
-	 *
-	 * @param ctx
-	 * @param payload
-	 */
-	public async archiveItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.ArchiveItem): Promise<void> {
-
-		ctx.dispatch(new AppActions.PageLoading(true));
-
-		try {
-			await this.archive.executeAsync(payload);
-
-			const state = ctx.getState();
-
-			if (state.item.data) {
-				ctx.patchState({
-					item: {
-						data: {
-							...state.item.data,
-							active: ActiveEnum.NO
-						} as never,
-						downloadedAt: new Date(),
-					}
-				});
-			} else {
-
-				await this.getList(ctx, {
-					payload: {
-						resetPage: false,
-						resetParams: false
-					}
-				});
-
-			}
-
-
-		} catch (e) {
-			this.ngxLogger.error(e);
-		}
-
-		ctx.dispatch(new AppActions.PageLoading(false));
-	}
-
-	/**
-	 *
-	 * @param ctx
-	 * @param payload
-	 */
-	public async unarchiveItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UnarchiveItem): Promise<void> {
-
-		ctx.dispatch(new AppActions.PageLoading(true));
-
-		try {
-			await this.unarchive.executeAsync(payload);
-
-			const state = ctx.getState();
-
-			if (state.item.data) {
-				ctx.patchState({
-					item: {
-						data: {
-							...state.item.data,
-							active: ActiveEnum.YES
-						} as never,
-						downloadedAt: new Date(),
-					}
-				});
-			} else {
-				// Update list
-				await this.getList(ctx, {
-					payload: {
-						resetPage: false,
-						resetParams: false
-					}
-				});
-			}
-
-
-		} catch (e) {
-			this.ngxLogger.error(e);
-		}
-
-		ctx.dispatch(new AppActions.PageLoading(false));
-	}
-
-	/**
-	 *
-	 * @param ctx
-	 * @param force
-	 * @param resetPage
-	 */
-	public async getList(ctx: StateContext<IBaseState<ITEM>>, {
-		payload: {
-			resetPage,
-			resetParams,
-			queryParams,
-		}
-	}: BaseActions.GetList): Promise<void> {
-
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-
-		const state = ctx.getState();
-
-		try {
-
-			const newTableState = TableState.fromCache<ITEM>(state.tableState);
-
-			if (resetPage) {
-				newTableState.setPage(1);
-			}
-
-			if (resetParams) {
-				newTableState.filters = {};
-			}
-
-			const params = newTableState.toBackendFormat();
-
-			// Update current state
-			const {items, totalSize} = await this.paged.executeAsync({
-				...params,
-				...(queryParams ?? {})
-			});
-
-			newTableState
-				.setTotal(totalSize)
-				.setItems(items)
-				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
-
-			this.ngxLogger.debug('Table state: ', newTableState);
-
-			ctx.patchState({
-				tableState: newTableState.toCache(),
-				lastTableHashSum: newTableState.hashSum
-			});
-
-		} catch (e) {
-			this.ngxLogger.error(e);
-		}
-
-		// Switch of page loader
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
 	}
 

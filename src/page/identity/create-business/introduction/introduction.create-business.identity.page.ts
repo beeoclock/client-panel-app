@@ -7,9 +7,9 @@ import {filter, map, Observable, tap} from "rxjs";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Select, Store} from "@ngxs/store";
-import {IdentityState} from "@identity/state/identity/identity.state";
+import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {IMember} from "@identity/domain/interface/i.member";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {IdentityActions} from "@identity/infrastructure/state/identity/identity.actions";
 
 @Component({
 	selector: 'app-introduction-create-business-identity-page',

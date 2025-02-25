@@ -30,9 +30,8 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {ContainerFormComponent} from '@event/presentation/component/form/container.form.component';
 import {IEvent} from "@event/domain";
-import {ActiveEnum} from "@utility/domain/enum";
-import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {ActiveEnum} from "@core/shared/enum";
+import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
@@ -48,17 +47,17 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {RIMember} from "@member/domain";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {
 	OrderServiceDetailsComponent
 } from "@order/presentation/component/details/service/order-service-details.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {filter} from 'rxjs';
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {ClientState} from "@client/state/client/client.state";
-import {RIClient} from "@client/domain";
-import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
+import {RIClient} from "@core/business-logic/business-profile";
+import {IAttendeeDto} from "@src/core/business-logic/order/interface/i-order-appointment-details.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 
 @Component({
@@ -149,7 +148,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 	@Input()
 	public setupPartialData: {
 		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: RIMember;
+		defaultMemberForService?: IMember.Entity;
 	} = {};
 
 	@Input()
@@ -164,7 +163,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	@SelectSnapshot(ClientState.item)
+	@SelectSnapshot(BusinessProfileState.item)
 	public readonly clientItem!: RIClient;
 
 	public trackById(index: number, item: IOrderServiceDto) {
@@ -175,7 +174,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 
 		this.ngxLogger.info('ServiceOrderFormContainerComponent.ngOnInit()');
 
-		this.updateList(this.form.controls.services.getRawValue());
+		this.updateList(this.form.controls.services.getRawValue() as unknown as IOrderServiceDto[]);
 
 		this.form.controls.services.valueChanges.pipe(
 			this.takeUntil(),
@@ -199,7 +198,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 			useDefaultFlow: boolean;
 			isEditMode: boolean;
 			forceStart?: string;
-			member?: RIMember;
+			member?: IMember.Entity;
 		} = {
 			isEditMode: false,
 			useDefaultFlow: false,
@@ -283,7 +282,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 				serviceSnapshot: {
 					...formValue.services[0],
 					object: "ServiceDto",
-				} as unknown as IServiceDto,
+				} as unknown as IService.DTO,
 			});
 
 			// TODO: call function to increase defaultAppointmentStartDateTimeIso
@@ -376,10 +375,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 					createdAt: formValue.createdAt,
 					updatedAt: formValue.updatedAt,
 				},
-				serviceSnapshot: {
-					...formValue.services[0],
-					object: "ServiceDto",
-				} as unknown as IServiceDto,
+				serviceSnapshot: formValue.services[0] as unknown as IOrderServiceDto,
 			});
 
 			// TODO: call function to increase defaultAppointmentStartDateTimeIso

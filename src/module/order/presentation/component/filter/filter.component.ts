@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@order/presentation/form/filter.form";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -6,11 +6,10 @@ import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
-import {OrderActions} from "@order/state/order/order.actions";
-import {OrderState} from "@order/state/order/order.state";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderState} from "@order/infrastructure/state/order/order.state";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
+import {OrderStatusEnum} from '@src/core/business-logic/order/enum/order.status.enum';
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 
 @Component({
@@ -31,25 +30,27 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full">
 					<!--					TODO: return this feature when backend will ready for it -->
-<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
+					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
-					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+<!--					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>-->
+
+					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
 				</div>
 			} @else {
 				<div class="flex overflow-x-auto gap-2">
 					<!--					TODO: return this feature when backend will ready for it -->
-<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
+					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
-					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+<!--					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>-->
 				</div>
 			}
 		</utility-default-panel-component>
-		@if (isMobile$ | async) {
+<!--		@if (isMobile$ | async) {-->
 
-			<div class="flex overflow-x-auto gap-2 my-2 px-2">
-				<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
-			</div>
-		}
+<!--			<div class="flex overflow-x-auto gap-2 my-2 px-2">-->
+<!--				<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>-->
+<!--			</div>-->
+<!--		}-->
 
 		<ng-template #SearchInput>
 			<utility-search-input-component [formControl]="form.controls.phrase"/>
@@ -60,27 +61,24 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 				id="order-filter-select-order-status"
 				[multiple]="true"
 				[options]="orderStatusOptions"
-				[control]="orderStatusControl"/>
+				[control]="orderStatusControl()"/>
 		</ng-template>
 		<ng-template #AutoRefresh>
 			<utility-auto-refresh-component id="order-filter-auto-refresh" (emitter)="forceRefresh()"/>
 		</ng-template>
-	`
+	`,
+	host: {
+		class: 'flex flex-col overflow-x-auto'
+	}
 })
 export class FilterComponent extends BaseFilterComponent implements OnInit {
 
 	public readonly showButtonGoToForm = input(true);
-
-	@HostBinding()
-	public class = 'flex flex-col overflow-x-auto';
+	public readonly orderStatusControl = input.required<FormControl<OrderStatusEnum[]>>();
 
 	public override readonly form = new FilterForm();
 	public override readonly actions = OrderActions;
 	public override readonly state = OrderState;
-
-	public readonly orderStatusControl = new FormControl<OrderServiceStatusEnum[]>([], {
-		nonNullable: true
-	});
 
 	private readonly translateService = inject(TranslateService);
 
@@ -90,7 +88,8 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 	}[] = [];
 
 	private initOrderStatusList() {
-		Object.keys(OrderStatusEnum).forEach((status) => {
+		// Object.keys(OrderStatusEnum)
+		[OrderStatusEnum.confirmed, OrderStatusEnum.done, OrderStatusEnum.cancelled].forEach((status) => {
 			this.orderStatusOptions.push({
 				value: status,
 				label: this.translateService.instant(`order.enum.status.singular.${status}`)
@@ -109,11 +108,11 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 
 	public ngOnInit() {
 		this.initOrderStatusList();
-		this.orderStatusControl.valueChanges.pipe(this.takeUntil()).subscribe((statuses) => {
-			this.store.dispatch([
-				new OrderActions.UpdateFilters({statuses}),
-				new OrderActions.GetList()
-			]);
-		});
+		// this.orderStatusControl.valueChanges.pipe(this.takeUntil()).subscribe((statuses) => {
+		// 	this.store.dispatch([
+		// 		new OrderActions.UpdateFilters({statuses}),
+		// 		new OrderActions.GetList()
+		// 	]);
+		// });
 	}
 }

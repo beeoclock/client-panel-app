@@ -1,4 +1,4 @@
-import {ServiceProvideTypeEnum, ServiceProvideTypeIconEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {ServiceProvideTypeEnum, ServiceProvideTypeIconEnum} from "@core/shared/enum/service-provide-type.enum";
 
 export class ServiceProvideType {
 

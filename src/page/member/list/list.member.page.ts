@@ -1,10 +1,9 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {Observable, tap} from "rxjs";
-import {RIMember} from "@member/domain";
-import {MemberState} from "@member/state/member/member.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";
 import {
 	DesktopLayoutListComponent
@@ -14,6 +13,7 @@ import {
 } from "@member/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {MemberTableService} from "@member/presentation/component/list/member.table.service";
+import EMember from "@core/business-logic/member/entity/e.member";
 
 @Component({
 	selector: 'app-list-member-page',
@@ -34,11 +34,11 @@ import {MemberTableService} from "@member/presentation/component/list/member.tab
 		}
 	]
 })
-export class ListMemberPage extends ListPage<RIMember> {
+export class ListMemberPage extends ListPage<EMember> implements OnInit {
 
-	public readonly tableState$: Observable<ITableState<RIMember>> = this.store.select(MemberState.tableState)
+	public readonly tableState$: Observable<ITableState<EMember>> = this.store.select(MemberState.tableState)
 		.pipe(
-			tap((tableState) => {
+			tap(() => {
 				this.changeDetectorRef.detectChanges();
 			})
 		);

@@ -8,7 +8,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {ToastController} from "@ionic/angular";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {ForgotPasswordApiAdapter} from "@identity/adapter/external/api/forgot-password.api.adapter";
+import {ForgotPasswordApiAdapter} from "@identity/infrastructure/api/forgot-password.api.adapter";
 import {NgOptimizedImage} from "@angular/common";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 import {AnalyticsService} from "@utility/cdk/analytics.service";

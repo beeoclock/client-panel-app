@@ -15,19 +15,19 @@ import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {DoubleClick} from "@utility/domain/decorator/double-click";
 import {ActivatedRoute, Router} from "@angular/router";
-import {IBaseEntity} from "@utility/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
-import {OrderByEnum} from "./domain/enum";
+import {OrderByEnum} from "@core/shared/enum";
 import {TableService} from "@utility/table.service";
 import {Reactive} from "@utility/cdk/reactive";
+import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 
 @Component({
 	selector: 'utility-table-component',
 	providers: [TableService],
 	template: ``
 })
-export abstract class TableComponent<ITEM extends IBaseEntity<string>> extends Reactive implements AfterViewInit {
+export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive implements AfterViewInit {
 
 	@Input()
 	public goToDetailsOnSingleClick = true;

@@ -4,7 +4,7 @@ import {FormControl} from "@angular/forms";
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {PriceForm} from "@service/presentation/form/service.form";
 import {DurationSelectComponent} from "@utility/presentation/component/input/duration.select.component";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 
 @Component({
 	selector: 'service-form-price-block-component',

@@ -12,8 +12,8 @@ import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {tap} from "rxjs";
-import {ServiceState} from "@service/state/service/service.state";
-import {ITableState, TableState} from "@utility/domain/table.state";
+import {ServiceState} from "@service/infrastructure/state/service/service.state";
+import {TableState} from "@utility/domain/table.state";
 import {
 	MobileLayoutListComponent
 } from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
@@ -22,8 +22,8 @@ import {
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {OrderDirEnum} from "@utility/domain/enum";
+import {OrderDirEnum} from "@core/shared/enum";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
 	selector: 'service-external-list-component',
@@ -44,12 +44,12 @@ import {OrderDirEnum} from "@utility/domain/enum";
 		}
 	]
 })
-export class ServiceExternalListComponent extends ListPage<IServiceDto> implements OnInit {
+export class ServiceExternalListComponent extends ListPage<EService> implements OnInit {
 
 	public readonly useTableStateFromStore = input(true);
 
 	@Input()
-	public tableState: ITableState<IServiceDto> = new TableState<IServiceDto>().toCache();
+	public tableState = new TableState<EService>().toCache();
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;

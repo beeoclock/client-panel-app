@@ -5,7 +5,7 @@ import {LinkButtonDirective} from "@utility/presentation/directives/button/link.
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "@utility/checker";
+import {is} from "@src/core/shared/checker";
 import {filter} from "rxjs";
 import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {AutoRefreshStorageService} from "@utility/presentation/component/auto-refresh/auto-refresh.storage.service";
@@ -167,7 +167,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		}
 
 		this.timer = setTimeout(() => {
-			if (this.visibilityService.visibilityChange.value && !this.isLoading()) {
+			if (this.visibilityService.isVisible && !this.isLoading()) {
 				this.emitter.emit();
 				this.analyticsService.logEvent('auto_refresh_component_emit', {
 					id: this.id(),

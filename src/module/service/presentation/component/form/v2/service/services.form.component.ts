@@ -1,7 +1,7 @@
 import {LanguageVersionsForm} from '@service/presentation/form/service.form';
 import {Component, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgClass} from '@angular/common';
-import {LanguageCodeEnum, LanguageRecord} from '@utility/domain/enum';
+import {LanguageCodeEnum, LanguageRecord} from '@core/shared/enum';
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";

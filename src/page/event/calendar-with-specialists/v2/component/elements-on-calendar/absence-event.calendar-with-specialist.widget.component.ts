@@ -10,10 +10,11 @@ import {
 
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {Store} from "@ngxs/store";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {TranslateModule} from "@ngx-translate/core";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {DateTime} from "luxon";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({
 	selector: 'app-absence-event-calendar-with-specialist-widget-component',
@@ -48,7 +49,7 @@ import {DateTime} from "luxon";
 export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChanges {
 
 	@Input()
-	public event!: IEvent_V2<IAbsenceDto>;
+	public event!: IEvent_V2<IAbsence.DTO>;
 
 	public startEndTitle = '';
 
@@ -134,8 +135,10 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 
 	}
 
-	private async openAbsenceDetails(event: IEvent_V2<IAbsenceDto>) {
-		this.store.dispatch(new AbsenceActions.OpenDetails(event.originalData));
+	private async openAbsenceDetails(event: IEvent_V2<IAbsence.DTO>) {
+		const entity = EAbsence.fromDTO(event.originalData);
+		console.log('entity: ', entity);
+		this.store.dispatch(new AbsenceActions.OpenDetails(entity));
 	}
 
 }

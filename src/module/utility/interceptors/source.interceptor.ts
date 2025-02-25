@@ -1,6 +1,6 @@
 import {HttpInterceptorFn} from "@angular/common/http";
 import {Endpoint} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
+import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 import {RuntimeEnvironment} from "@src/runtime.environment";
 import {TokensHttpContext} from "@src/tokens.http-context";
 

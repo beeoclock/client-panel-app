@@ -1,6 +1,5 @@
 import {Duration} from "luxon";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ConvertTime {
 
   export function calculateDuration(...args: Duration[]): Duration {

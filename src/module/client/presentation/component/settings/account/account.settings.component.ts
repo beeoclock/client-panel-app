@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@an
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ModalChangeNameService} from "@client/presentation/component/settings/change-name/modal-change-name.service";
-import {IdentityState} from "@identity/state/identity/identity.state";
+import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {Select} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {AsyncPipe} from "@angular/common";

@@ -1,5 +1,5 @@
 import {AbstractControl, ValidatorFn} from "@angular/forms";
-import {is} from "@utility/checker";
+import {is} from "@src/core/shared/checker";
 
 export function atLeastOneFieldMustBeFilledValidator(include: string[] = [], exclude: string[] = []): ValidatorFn {
 	return (control: AbstractControl) => {
@@ -9,10 +9,12 @@ export function atLeastOneFieldMustBeFilledValidator(include: string[] = [], exc
 
 			let formValueValues: any[] = [];
 
-			include.length && (formValueValues = formValueKeys.filter((key) => include.includes(key)).map((key) => formValue[key]));
-			exclude.length && (formValueValues = formValueKeys.filter((key) => !exclude.includes(key)).map((key) => formValue[key]));
+			if (include.length) (formValueValues = formValueKeys.filter((key) => include.includes(key)).map((key) => formValue[key]));
+			if (exclude.length) (formValueValues = formValueKeys.filter((key) => !exclude.includes(key)).map((key) => formValue[key]));
 
-			if (formValueValues.every(is.null)) {
+			const everyFieldIsEmpty = formValueValues.every((formValue) => is.null(formValue) || is.string_empty(formValue));
+
+			if (everyFieldIsEmpty) {
 				return {
 					atLeastOneFieldMustBeFilled: true
 				}

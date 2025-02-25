@@ -1,13 +1,13 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActiveEnum, LanguageCodeEnum} from '@utility/domain/enum';
-import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {IDurationVersion, ILanguageVersion} from "@service/domain";
+import {ActiveEnum, LanguageCodeEnum} from '@core/shared/enum';
+import {CurrencyCodeEnum} from '@core/shared/enum/currency-code.enum';
+import {IDurationVersion, ILanguageVersion} from "@src/core/business-logic/service";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
-import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
+import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";
 import {filter} from "rxjs";
-import {is} from "@utility/checker";
+import {is} from "@src/core/shared/checker";
 import {BaseEntityForm} from "@utility/base.form";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;
@@ -208,22 +208,18 @@ export interface IServiceDtoForm {
 	prepaymentPolicy: PrepaymentPolicyForm;
 	languageVersions: LanguageVersionsForm;
 	durationVersions: DurationVersionsForm;
-	active: FormControl<ActiveEnum>;
 	order: FormControl<number | null>;
 	presentation: PresentationForm;
 }
 
 export class ServiceForm extends BaseEntityForm<'ServiceDto', IServiceDtoForm> {
-	constructor(initialValue: Partial<IServiceDto> = {}) {
+	constructor(initialValue: Partial<IService.DTO> = {}) {
 		super('ServiceDto', {
 			// schedules: new SchedulesForm(),
 			configuration: new ConfigurationForm(),
 			prepaymentPolicy: new PrepaymentPolicyForm(),
 			languageVersions: new LanguageVersionsForm(),
 			durationVersions: new DurationVersionsForm(),
-			active: new FormControl(ActiveEnum.YES, {
-				nonNullable: true,
-			}),
 			presentation: new PresentationForm(),
 			order: new FormControl(),
 		});
@@ -231,7 +227,7 @@ export class ServiceForm extends BaseEntityForm<'ServiceDto', IServiceDtoForm> {
 		this.patchValue(initialValue);
 	}
 
-	public override patchValue(value: Partial<IServiceDto>): void {
+	public override patchValue(value: Partial<IService.DTO>): void {
 		super.patchValue(value);
 		if (value.languageVersions) {
 			this.controls.languageVersions.clear();

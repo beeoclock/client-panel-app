@@ -4,7 +4,7 @@ import {EMPTY, firstValueFrom, from, Observable, switchMap} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {AlertController} from "@ionic/angular";
 import {Endpoint} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
+import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 import {OverlayEventDetail} from "@ionic/core/dist/types/utils/overlays-interface";
 import {Store} from "@ngxs/store";
 import {AppActions} from "@utility/state/app/app.actions";

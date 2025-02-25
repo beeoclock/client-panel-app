@@ -14,9 +14,9 @@ import {AbstractControl, NgControl} from '@angular/forms';
 import {DOCUMENT} from "@angular/common";
 import {debounce} from "typescript-debounce-decorator";
 import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
-import {UtilityListCustomerAdapter} from "@customer/adapter/external/module/utility.list.customer.adapter";
-import {ICustomer} from "@customer/domain";
-import {ActiveEnum} from "@utility/domain/enum";
+import {UtilityListCustomerRepository} from "@customer/infrastructure/repository/utility.list.customer.repository";
+import {ICustomer} from "@src/core/business-logic/customer";
+import {ActiveEnum} from "@core/shared/enum";
 
 @Directive({
 	selector: '[customerAutocomplete]',
@@ -37,10 +37,10 @@ export class CustomerAutocompleteDirective implements DoCheck {
 	public control: AbstractControl | undefined | null;
 
 	@Output()
-	public readonly customerSelected = new EventEmitter<ICustomer>();
+	public readonly customerSelected = new EventEmitter<ICustomer.EntityRaw>();
 
 	private readonly document = inject(DOCUMENT);
-	private readonly utilityListCustomerAdapter = inject(UtilityListCustomerAdapter);
+	private readonly utilityListCustomerAdapter = inject(UtilityListCustomerRepository);
 	private readonly ngControl: NgControl | null = inject(NgControl);
 	private readonly elementRef: ElementRef<HTMLInputElement> = inject(ElementRef);
 

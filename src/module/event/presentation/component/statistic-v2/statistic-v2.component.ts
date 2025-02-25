@@ -8,38 +8,34 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {IonicModule} from "@ionic/angular";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Store} from "@ngxs/store";
-import {MemberState} from "@member/state/member/member.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {filter, map, startWith, tap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe} from "@angular/common";
-import {ClientState} from "@client/state/client/client.state";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {DateTime} from "luxon";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {is} from "@utility/checker";
-import {RIClient} from "@client/domain";
+import {is} from "@src/core/shared/checker";
+import {RIClient} from "@core/business-logic/business-profile";
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	DateSliderControlComponent
-} from "@module/analytic/internal/presentation/component/control/date-slider/date-slider.control.component";
-import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
+} from "@module/analytic/presentation/component/control/date-slider/date-slider.control.component";
+import {IntervalTypeEnum} from "@module/analytic/domain/enum/interval.enum";
 import {
 	DateRangeReportAnalyticState,
 	IDateRangeAnalyticState
-} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
-import {RIMember} from "@member/domain";
+} from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
 import {
 	DateRangeReportAnalyticActions
-} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
+} from "@module/analytic/infrastructure/store/date-range-report/date-range-report.analytic.actions";
 import {
 	MemberRadioTailwindcssComponent
 } from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {StatisticAction} from "@event/state/statistic/statistic.action";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {
 	RevenueSummaryDiagramComponent
@@ -62,6 +58,8 @@ import {
 import {
 	RevenueStatisticComponent
 } from "@event/presentation/component/statistic-v2/components/table/total/counter/revenue.statistic.component";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'event-statistic-v2-component',
@@ -69,7 +67,6 @@ import {
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		IonicModule,
 		DefaultPanelComponent,
 		AsyncPipe,
 		LoaderComponent,
@@ -121,14 +118,14 @@ export class StatisticV2Component extends Reactive implements OnInit, AfterViewI
 		})
 	);
 
-	public readonly baseCurrency$ = this.store.select(ClientState.baseCurrency).pipe(
+	public readonly baseCurrency$ = this.store.select(BusinessProfileState.baseCurrency).pipe(
 		filter(is.not_null<CurrencyCodeEnum>),
 		tap(() => {
 			this.changeDetectorRef.detectChanges();
 		})
 	);
 
-	public readonly clientItem$ = this.store.select(ClientState.item).pipe(
+	public readonly clientItem$ = this.store.select(BusinessProfileState.item).pipe(
 		filter(is.not_null<RIClient>),
 		tap((clientItem) => {
 			this.items.unshift({
@@ -141,7 +138,7 @@ export class StatisticV2Component extends Reactive implements OnInit, AfterViewI
 		})
 	);
 	public readonly activeMembers$ = this.store.select(MemberState.activeMembers).pipe(
-		filter(is.not_null<RIMember[]>),
+		filter(is.not_null<IMember.EntityRaw[]>),
 		tap((activeMembers) => {
 			activeMembers.forEach((member) => {
 				this.items.push({
@@ -202,7 +199,8 @@ export class StatisticV2Component extends Reactive implements OnInit, AfterViewI
 					period: interval,
 					payload: JSON.stringify(payload),
 				});
-				this.store.dispatch(new StatisticAction.SetDate(payload));
+				// TODO add to store
+				// this.store.dispatch(new DateRangeReportAnalyticActions.set(payload));
 				this.router.navigate([], {
 					queryParams: {
 						interval,

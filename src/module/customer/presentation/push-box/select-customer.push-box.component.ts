@@ -21,7 +21,7 @@ import {
 	MobileLayoutListComponent
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {CustomerExternalListComponent} from "@customer/presentation/component/external/list/list.component";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "@src/core/business-logic/customer";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
@@ -41,15 +41,15 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 
 	readonly customerExternalListComponent = viewChild.required(CustomerExternalListComponent);
 
-	public readonly selectedCustomerList = input<ICustomer[]>([]);
+	public readonly selectedCustomerList = input<ICustomer.DTO[]>([]);
 
 	@Input()
-	public newSelectedCustomerList: ICustomer[] = [];
+	public newSelectedCustomerList: ICustomer.DTO[] = [];
 
 	public readonly multiple = input(true);
 
 	@Output()
-	public readonly selectedCustomerListener = new EventEmitter<ICustomer[]>();
+	public readonly selectedCustomerListener = new EventEmitter<ICustomer.DTO[]>();
 
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly router = inject(Router);
@@ -84,13 +84,13 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 		});
 	}
 
-	public async submit(): Promise<ICustomer[]> {
+	public async submit(): Promise<ICustomer.DTO[]> {
 		return new Promise((resolve) => {
 			resolve(this.newSelectedCustomerList);
 		});
 	}
 
-	public select(service: ICustomer): void {
+	public select(service: ICustomer.DTO): void {
 		if (!this.multiple()) {
 			if (this.newSelectedCustomerList.length) {
 				this.newSelectedCustomerList.splice(0, 1);
@@ -102,16 +102,16 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public deselect(service: ICustomer): void {
-		this.newSelectedCustomerList = this.newSelectedCustomerList.filter((selectedMember: ICustomer) => selectedMember._id !== service._id);
+	public deselect(service: ICustomer.DTO): void {
+		this.newSelectedCustomerList = this.newSelectedCustomerList.filter((selectedMember: ICustomer.DTO) => selectedMember._id !== service._id);
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public isSelected(service: ICustomer): boolean {
-		return this.newSelectedCustomerList.some((selectedMember: ICustomer) => selectedMember._id === service._id);
+	public isSelected(service: ICustomer.DTO): boolean {
+		return this.newSelectedCustomerList.some((selectedMember: ICustomer.DTO) => selectedMember._id === service._id);
 	}
 
-	public isNotSelected(service: ICustomer): boolean {
+	public isNotSelected(service: ICustomer.DTO): boolean {
 		return !this.isSelected(service);
 	}
 }

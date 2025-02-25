@@ -4,8 +4,8 @@ import {
 	AbsenceProgressStatusPipe
 } from "@absence/presentation/pipe/absence-progress-status.pipe";
 import {TranslatePipe} from "@ngx-translate/core";
-import {StateEnum} from "@utility/domain/enum/state.enum";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 
 @Component({
 	standalone: true,
@@ -59,7 +59,7 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 })
 export class StateStatusComponent {
 
-	public readonly item = input.required<IAbsenceDto>();
+	public readonly item = input.required<IAbsence.DTO>();
 
 	protected readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum;
 	protected readonly stateEnum = StateEnum;

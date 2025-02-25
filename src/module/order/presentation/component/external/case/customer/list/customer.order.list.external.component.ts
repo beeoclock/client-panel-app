@@ -1,19 +1,19 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, viewChildren, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {
 	DesktopLayoutListComponent
 } from "@order/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {ListPage} from "@utility/list.page";
-import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
+import {PeerCustomerOrderState} from "@order/infrastructure/state/peer-customer/peer-customer.order.state";
 import {MobileLayoutListComponent} from "@order/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {
 	CustomerOrderTableService
 } from "@order/presentation/component/external/case/customer/list/customer.order.table.service";
 import {TableState} from "@utility/domain/table.state";
-import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer.order.actions";
+import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-customer/peer-customer.order.actions";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	selector: 'order-external-list-component',
@@ -55,7 +55,7 @@ import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer
 		}
 	`
 })
-export class CustomerOrderListExternalComponent extends ListPage<IOrderDto> implements OnInit {
+export class CustomerOrderListExternalComponent extends ListPage<EOrder> implements OnInit {
 
 	public readonly customerId = input.required<string>();
 

@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
-import {CustomerState} from "@customer/state/customer/customer.state";
+import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
 import {Observable, tap} from "rxjs";
-import {ICustomer} from "@customer/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";
@@ -15,8 +14,10 @@ import {
 import {TableService} from "@utility/table.service";
 import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {environment} from "@environment/environment";
+import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -39,9 +40,9 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 		}
 	]
 })
-export class ListCustomerPage extends ListPage<ICustomer> implements OnDestroy, OnInit {
+export class ListCustomerPage extends ListPage<ECustomer> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
+	public readonly tableState$: Observable<ITableState<ECustomer>> = this.store.select(CustomerState.tableState)
 		.pipe(
 			tap((tableState) => {
 				this.changeDetectorRef.detectChanges();
@@ -59,7 +60,7 @@ export class ListCustomerPage extends ListPage<ICustomer> implements OnDestroy, 
 			filters: {},
 			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,
-			pageSize: 20
+			pageSize: environment.config.pagination.pageSize
 		});
 	}
 

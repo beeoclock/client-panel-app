@@ -7,11 +7,11 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
-import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({
 	selector: 'app-absence-card-list-component',
@@ -28,11 +28,10 @@ import {StateStatusComponent} from "@absence/presentation/component/state-status
 		StateStatusComponent
 	]
 })
-export class CardListComponent extends TableComponent<IAbsenceDto> {
+export class CardListComponent extends TableComponent<EAbsence> {
 
-	public override open(item: IAbsenceDto) {
-		this.store.dispatch(new AbsenceActions.OpenDetails(item));
+	public override open(item: IAbsence.DTO) {
+		const entity = EAbsence.fromDTO(item);
+		this.store.dispatch(new AbsenceActions.OpenDetails(entity));
 	}
-
-	protected readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum;
 }

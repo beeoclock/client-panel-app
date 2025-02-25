@@ -1,0 +1,892 @@
+{
+	"startDateTime": "2025-02-05T23:00:00.000Z",
+	"endDateTime": "2025-02-06T22:59:59.999Z",
+	"totalOrderServices": 40,
+	"totalOrders": 31,
+	"totalRevenue": 1785,
+	"specialistReports": [
+		{
+			"dateReports": [
+				{
+					"date": "2025-02-06",
+					"services": [
+						{
+							"orderServiceId": "67a3d15d37c508f6c3a273ae",
+							"orderId": "67a3d15d37c508f6c3a273ad",
+							"serviceId": "66f9378479ea9a35b137bf16",
+							"status": "accepted",
+							"serviceName": "Shaving",
+							"price": 30,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T15:15:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c024",
+									"firstName": "Ronald",
+									"lastName": "Johnson",
+									"registeredDate": "2025-02-05T21:00:00.888Z"
+								}
+							],
+							"endTime": "2025-02-06T16:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15d37c508f6c3a273b0",
+							"orderId": "67a3d15d37c508f6c3a273ad",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T12:15:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c024",
+									"firstName": "Ronald",
+									"lastName": "Johnson",
+									"registeredDate": "2025-02-05T21:00:00.888Z"
+								}
+							],
+							"endTime": "2025-02-06T13:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16337c508f6c3a279c0",
+							"orderId": "67a3d16337c508f6c3a279bf",
+							"serviceId": "66f9378479ea9a35b137bf0b",
+							"status": "accepted",
+							"serviceName": "Men's Haircut",
+							"price": 70,
+							"currency": "USD",
+							"durationInSeconds": 3600,
+							"startTime": "2025-02-06T08:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c023",
+									"firstName": "Jacob",
+									"lastName": "Williams",
+									"registeredDate": "2025-02-05T21:00:00.884Z"
+								}
+							],
+							"endTime": "2025-02-06T09:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16337c508f6c3a279fd",
+							"orderId": "67a3d16337c508f6c3a279fc",
+							"serviceId": "66f9378479ea9a35b137bf10",
+							"status": "accepted",
+							"serviceName": "Beard Trim",
+							"price": 40,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T16:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c035",
+									"firstName": "Brian",
+									"lastName": "Sanchez",
+									"registeredDate": "2025-02-05T21:00:00.937Z"
+								}
+							],
+							"endTime": "2025-02-06T16:45:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16737c508f6c3a27d30",
+							"orderId": "67a3d16737c508f6c3a27d2f",
+							"serviceId": "66f9378479ea9a35b137bf12",
+							"status": "accepted",
+							"serviceName": "Kids' Haircut",
+							"price": 60,
+							"currency": "USD",
+							"durationInSeconds": 3600,
+							"startTime": "2025-02-06T13:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c025",
+									"firstName": "Gary",
+									"lastName": "Miller",
+									"registeredDate": "2025-02-05T21:00:00.891Z"
+								}
+							],
+							"endTime": "2025-02-06T14:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16837c508f6c3a27e6d",
+							"orderId": "67a3d16837c508f6c3a27e6c",
+							"serviceId": "66f9378479ea9a35b137bf16",
+							"status": "accepted",
+							"serviceName": "Shaving",
+							"price": 30,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T09:15:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9399f79ea9a5b137bf735",
+									"firstName": "Daniel",
+									"lastName": "Jones",
+									"registeredDate": "2025-02-05T21:00:00.984Z"
+								}
+							],
+							"endTime": "2025-02-06T10:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16a37c508f6c3a2807c",
+							"orderId": "67a3d16a37c508f6c3a2807b",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T14:30:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T15:15:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16a37c508f6c3a280c1",
+							"orderId": "67a3d16a37c508f6c3a280c0",
+							"serviceId": "66f9378479ea9a35b137bf16",
+							"status": "accepted",
+							"serviceName": "Shaving",
+							"price": 30,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T10:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c036",
+									"firstName": "Kevin",
+									"lastName": "Taylor",
+									"registeredDate": "2025-02-05T21:00:00.941Z"
+								}
+							],
+							"endTime": "2025-02-06T10:45:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16b37c508f6c3a28211",
+							"orderId": "67a3d16b37c508f6c3a28210",
+							"serviceId": "66f9378479ea9a35b137bf16",
+							"status": "accepted",
+							"serviceName": "Shaving",
+							"price": 30,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T11:30:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T12:15:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d1b237c508f6c3a2bcde",
+							"orderId": "67a3d1b237c508f6c3a2bcdd",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "done",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T13:45:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T14:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						}
+					],
+					"products": [],
+					"dateRevenue": 395
+				}
+			],
+			"endDateTime": "2025-02-06T22:59:59.999Z",
+			"startDateTime": "2025-02-05T23:00:00.000Z",
+			"specialist": {
+				"memberId": "66f9378241ed7954254c40db",
+				"firstName": "John",
+				"lastName": "Doe",
+				"email": "demo@beeoclock.com"
+			},
+			"totalRevenue": 395
+		},
+		{
+			"dateReports": [
+				{
+					"date": "2025-02-06",
+					"services": [
+						{
+							"orderServiceId": "67a3d15537c508f6c3a26cd5",
+							"orderId": "67a3d15537c508f6c3a26cd4",
+							"serviceId": "66f9378479ea9a35b137bf0b",
+							"status": "accepted",
+							"serviceName": "Men's Haircut",
+							"price": 70,
+							"currency": "USD",
+							"durationInSeconds": 3600,
+							"startTime": "2025-02-06T07:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c037",
+									"firstName": "Christopher",
+									"lastName": "Anderson",
+									"registeredDate": "2025-02-05T21:00:00.945Z"
+								}
+							],
+							"endTime": "2025-02-06T08:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15637c508f6c3a26d57",
+							"orderId": "67a3d15637c508f6c3a26d56",
+							"serviceId": "66ffcde37e4f8814b3b1efa2",
+							"status": "accepted",
+							"serviceName": "Full Service ",
+							"price": 100,
+							"currency": "USD",
+							"durationInSeconds": 5400,
+							"startTime": "2025-02-06T10:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c030",
+									"firstName": "Daniel",
+									"lastName": "Perez",
+									"registeredDate": "2025-02-05T21:00:00.911Z"
+								}
+							],
+							"endTime": "2025-02-06T11:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15c37c508f6c3a271fd",
+							"orderId": "67a3d15c37c508f6c3a271fc",
+							"serviceId": "66f9378479ea9a35b137bf15",
+							"status": "accepted",
+							"serviceName": "Moustache Styling",
+							"price": 20,
+							"currency": "USD",
+							"durationInSeconds": 1800,
+							"startTime": "2025-02-06T09:00:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T09:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15e37c508f6c3a27476",
+							"orderId": "67a3d15e37c508f6c3a27475",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T15:15:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f939f79ea9a35b137bf108",
+									"firstName": "John",
+									"lastName": "Moore",
+									"registeredDate": "2025-02-05T21:00:00.956Z"
+								}
+							],
+							"endTime": "2025-02-06T16:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16137c508f6c3a27762",
+							"orderId": "67a3d16137c508f6c3a27761",
+							"serviceId": "66f9378479ea9a35b137bf15",
+							"status": "accepted",
+							"serviceName": "Moustache Styling",
+							"price": 20,
+							"currency": "USD",
+							"durationInSeconds": 1800,
+							"startTime": "2025-02-06T14:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9399f79ea9a35b13bf218",
+									"firstName": "Nicholas",
+									"lastName": "Harris",
+									"registeredDate": "2025-02-05T21:00:00.964Z"
+								}
+							],
+							"endTime": "2025-02-06T14:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16637c508f6c3a27c26",
+							"orderId": "67a3d16637c508f6c3a27c25",
+							"serviceId": "66ffcde37e4f8814b3b1efa2",
+							"status": "accepted",
+							"serviceName": "Full Service ",
+							"price": 100,
+							"currency": "USD",
+							"durationInSeconds": 5400,
+							"startTime": "2025-02-06T11:30:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T13:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16637c508f6c3a27cd7",
+							"orderId": "67a3d16637c508f6c3a27cd6",
+							"serviceId": "66f9378479ea9a35b137bf10",
+							"status": "accepted",
+							"serviceName": "Beard Trim",
+							"price": 40,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T16:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c022",
+									"firstName": "Ronald",
+									"lastName": "Lee",
+									"registeredDate": "2025-02-05T21:00:00.880Z"
+								}
+							],
+							"endTime": "2025-02-06T16:45:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16737c508f6c3a27d7e",
+							"orderId": "67a3d16737c508f6c3a27d7d",
+							"serviceId": "66f9378479ea9a35b137bf10",
+							"status": "accepted",
+							"serviceName": "Beard Trim",
+							"price": 40,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T14:30:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c032",
+									"firstName": "Matthew",
+									"lastName": "Hernandez",
+									"registeredDate": "2025-02-05T21:00:00.920Z"
+								}
+							],
+							"endTime": "2025-02-06T15:15:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16837c508f6c3a27e89",
+							"orderId": "67a3d16837c508f6c3a27e88",
+							"serviceId": "66f9378479ea9a35b137bf15",
+							"status": "accepted",
+							"serviceName": "Moustache Styling",
+							"price": 20,
+							"currency": "USD",
+							"durationInSeconds": 1800,
+							"startTime": "2025-02-06T08:30:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T09:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16c37c508f6c3a282ab",
+							"orderId": "67a3d16c37c508f6c3a282aa",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T13:00:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T13:45:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						}
+					],
+					"products": [],
+					"dateRevenue": 480
+				}
+			],
+			"endDateTime": "2025-02-06T22:59:59.999Z",
+			"startDateTime": "2025-02-05T23:00:00.000Z",
+			"specialist": {
+				"memberId": "66f945c679ea9a35b137c004",
+				"firstName": "Kelly",
+				"lastName": "Chase",
+				"email": "kelly97@hotmail.com"
+			},
+			"totalRevenue": 480
+		},
+		{
+			"dateReports": [
+				{
+					"date": "2025-02-06",
+					"services": [
+						{
+							"orderServiceId": "67a3d15537c508f6c3a26cc7",
+							"orderId": "67a3d15537c508f6c3a26cc6",
+							"serviceId": "66f9378479ea9a35b137bf0b",
+							"status": "accepted",
+							"serviceName": "Men's Haircut",
+							"price": 70,
+							"currency": "USD",
+							"durationInSeconds": 3600,
+							"startTime": "2025-02-06T14:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9399f79ea9a3b137bf541",
+									"firstName": "Robert",
+									"lastName": "Davis",
+									"registeredDate": "2025-02-05T21:00:00.977Z"
+								}
+							],
+							"endTime": "2025-02-06T15:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15537c508f6c3a26cc8",
+							"orderId": "67a3d15537c508f6c3a26cc6",
+							"serviceId": "66f9378479ea9a35b137bf15",
+							"status": "accepted",
+							"serviceName": "Moustache Styling",
+							"price": 20,
+							"currency": "USD",
+							"durationInSeconds": 1800,
+							"startTime": "2025-02-06T13:30:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9399f79ea9a3b137bf541",
+									"firstName": "Robert",
+									"lastName": "Davis",
+									"registeredDate": "2025-02-05T21:00:00.977Z"
+								}
+							],
+							"endTime": "2025-02-06T14:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15937c508f6c3a26fe8",
+							"orderId": "67a3d15937c508f6c3a26fe7",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T08:30:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c021",
+									"firstName": "Edward",
+									"lastName": "Davis",
+									"registeredDate": "2025-02-05T21:00:00.867Z"
+								}
+							],
+							"endTime": "2025-02-06T09:15:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16037c508f6c3a27635",
+							"orderId": "67a3d16037c508f6c3a27634",
+							"serviceId": "66f9378479ea9a35b137bf0b",
+							"status": "accepted",
+							"serviceName": "Men's Haircut",
+							"price": 70,
+							"currency": "USD",
+							"durationInSeconds": 3600,
+							"startTime": "2025-02-06T16:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c027",
+									"firstName": "Michael",
+									"lastName": "Miller",
+									"registeredDate": "2025-02-05T21:00:00.900Z"
+								}
+							],
+							"endTime": "2025-02-06T17:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16037c508f6c3a27636",
+							"orderId": "67a3d16037c508f6c3a27634",
+							"serviceId": "66f9378479ea9a35b137bf16",
+							"status": "accepted",
+							"serviceName": "Shaving",
+							"price": 30,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T09:15:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c027",
+									"firstName": "Michael",
+									"lastName": "Miller",
+									"registeredDate": "2025-02-05T21:00:00.900Z"
+								}
+							],
+							"endTime": "2025-02-06T10:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16737c508f6c3a27d4f",
+							"orderId": "67a3d16737c508f6c3a27d4e",
+							"serviceId": "66f9378479ea9a35b137bf10",
+							"status": "accepted",
+							"serviceName": "Beard Trim",
+							"price": 40,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T07:00:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T07:45:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16737c508f6c3a27d50",
+							"orderId": "67a3d16737c508f6c3a27d4e",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T10:45:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T11:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16737c508f6c3a27db9",
+							"orderId": "67a3d16737c508f6c3a27db8",
+							"serviceId": "66f9378479ea9a35b137bf10",
+							"status": "accepted",
+							"serviceName": "Beard Trim",
+							"price": 40,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T07:45:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9399f79ea9a5b137bf340",
+									"firstName": "Mark",
+									"lastName": "Perez",
+									"registeredDate": "2025-02-05T21:00:00.990Z"
+								}
+							],
+							"endTime": "2025-02-06T08:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16a37c508f6c3a280ee",
+							"orderId": "67a3d16a37c508f6c3a280ed",
+							"serviceId": "66f9378479ea9a35b137bf16",
+							"status": "accepted",
+							"serviceName": "Shaving",
+							"price": 30,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T15:15:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9399f79ea9a3b137bf166",
+									"firstName": "Joshua",
+									"lastName": "Ramirez",
+									"registeredDate": "2025-02-05T21:00:00.994Z"
+								}
+							],
+							"endTime": "2025-02-06T16:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16a37c508f6c3a280f9",
+							"orderId": "67a3d16a37c508f6c3a280f8",
+							"serviceId": "66ffcde37e4f8814b3b1efa2",
+							"status": "accepted",
+							"serviceName": "Full Service ",
+							"price": 100,
+							"currency": "USD",
+							"durationInSeconds": 5400,
+							"startTime": "2025-02-06T11:30:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T13:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						}
+					],
+					"products": [],
+					"dateRevenue": 470
+				}
+			],
+			"endDateTime": "2025-02-06T22:59:59.999Z",
+			"startDateTime": "2025-02-05T23:00:00.000Z",
+			"specialist": {
+				"memberId": "66f947b241ed7954254c40dc",
+				"firstName": "Emily",
+				"lastName": "Smith",
+				"email": "emily.smith@example.com"
+			},
+			"totalRevenue": 470
+		},
+		{
+			"dateReports": [
+				{
+					"date": "2025-02-06",
+					"services": [
+						{
+							"orderServiceId": "67a3d15437c508f6c3a26c2f",
+							"orderId": "67a3d15437c508f6c3a26c2e",
+							"serviceId": "66f9378479ea9a35b137bf10",
+							"status": "accepted",
+							"serviceName": "Beard Trim",
+							"price": 40,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T11:30:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c039",
+									"firstName": "Christopher",
+									"lastName": "Perez",
+									"registeredDate": "2025-02-05T21:00:00.953Z"
+								}
+							],
+							"endTime": "2025-02-06T12:15:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15437c508f6c3a26c30",
+							"orderId": "67a3d15437c508f6c3a26c2e",
+							"serviceId": "66ffcde37e4f8814b3b1efa2",
+							"status": "accepted",
+							"serviceName": "Full Service ",
+							"price": 100,
+							"currency": "USD",
+							"durationInSeconds": 5400,
+							"startTime": "2025-02-06T08:30:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c039",
+									"firstName": "Christopher",
+									"lastName": "Perez",
+									"registeredDate": "2025-02-05T21:00:00.953Z"
+								}
+							],
+							"endTime": "2025-02-06T10:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15437c508f6c3a26c31",
+							"orderId": "67a3d15437c508f6c3a26c2e",
+							"serviceId": "66f9378479ea9a35b137bf10",
+							"status": "accepted",
+							"serviceName": "Beard Trim",
+							"price": 40,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T14:30:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c039",
+									"firstName": "Christopher",
+									"lastName": "Perez",
+									"registeredDate": "2025-02-05T21:00:00.953Z"
+								}
+							],
+							"endTime": "2025-02-06T15:15:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15937c508f6c3a26f27",
+							"orderId": "67a3d15937c508f6c3a26f26",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T10:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c029",
+									"firstName": "Matthew",
+									"lastName": "Moore",
+									"registeredDate": "2025-02-05T21:00:00.907Z"
+								}
+							],
+							"endTime": "2025-02-06T10:45:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15937c508f6c3a26f28",
+							"orderId": "67a3d15937c508f6c3a26f26",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T10:45:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c029",
+									"firstName": "Matthew",
+									"lastName": "Moore",
+									"registeredDate": "2025-02-05T21:00:00.907Z"
+								}
+							],
+							"endTime": "2025-02-06T11:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15c37c508f6c3a27275",
+							"orderId": "67a3d15c37c508f6c3a27274",
+							"serviceId": "66f9378479ea9a35b137bf15",
+							"status": "accepted",
+							"serviceName": "Moustache Styling",
+							"price": 20,
+							"currency": "USD",
+							"durationInSeconds": 1800,
+							"startTime": "2025-02-06T07:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9399f79eaa35b137bf219",
+									"firstName": "Christopher",
+									"lastName": "Hernandez",
+									"registeredDate": "2025-02-05T21:00:00.987Z"
+								}
+							],
+							"endTime": "2025-02-06T07:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15c37c508f6c3a27276",
+							"orderId": "67a3d15c37c508f6c3a27274",
+							"serviceId": "66f9378479ea9a35b137bf16",
+							"status": "accepted",
+							"serviceName": "Shaving",
+							"price": 30,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T13:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9399f79eaa35b137bf219",
+									"firstName": "Christopher",
+									"lastName": "Hernandez",
+									"registeredDate": "2025-02-05T21:00:00.987Z"
+								}
+							],
+							"endTime": "2025-02-06T13:45:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d15c37c508f6c3a27277",
+							"orderId": "67a3d15c37c508f6c3a27274",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T07:45:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9399f79eaa35b137bf219",
+									"firstName": "Christopher",
+									"lastName": "Hernandez",
+									"registeredDate": "2025-02-05T21:00:00.987Z"
+								}
+							],
+							"endTime": "2025-02-06T08:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16137c508f6c3a2772f",
+							"orderId": "67a3d16137c508f6c3a2772e",
+							"serviceId": "66f9378479ea9a35b137bf0b",
+							"status": "accepted",
+							"serviceName": "Men's Haircut",
+							"price": 70,
+							"currency": "USD",
+							"durationInSeconds": 3600,
+							"startTime": "2025-02-06T16:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66f9475b79ea9a35b137c031",
+									"firstName": "Michael",
+									"lastName": "Miller",
+									"registeredDate": "2025-02-05T21:00:00.916Z"
+								}
+							],
+							"endTime": "2025-02-06T17:00:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "67a3d16537c508f6c3a27bc3",
+							"orderId": "67a3d16537c508f6c3a27bc2",
+							"serviceId": "66ffce307e4f8814b3b1efba",
+							"status": "accepted",
+							"serviceName": "Classic Razor Shave",
+							"price": 35,
+							"currency": "USD",
+							"durationInSeconds": 2700,
+							"startTime": "2025-02-06T13:45:00.000Z",
+							"attendants": [],
+							"endTime": "2025-02-06T14:30:00.000Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						}
+					],
+					"products": [],
+					"dateRevenue": 440
+				}
+			],
+			"endDateTime": "2025-02-06T22:59:59.999Z",
+			"startDateTime": "2025-02-05T23:00:00.000Z",
+			"specialist": {
+				"memberId": "66f948f741ed7954254c40de",
+				"firstName": "Michael",
+				"lastName": "Brown",
+				"email": "michael.brown@example.com"
+			},
+			"totalRevenue": 440
+		}
+	]
+}

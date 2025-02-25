@@ -4,16 +4,10 @@ import {
 	LogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
 import {Store} from "@ngxs/store";
-import {IClient} from "@client/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {ClientState} from "@client/state/client/client.state";
 import {filter} from "rxjs";
-import {
-	UpdateBusinessProfileApiAdapter
-} from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
-import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
-import {ClientActions} from "@client/state/client/client.actions";
+import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {
 	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
@@ -37,8 +31,11 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "@utility/checker";
+import {is} from "@src/core/shared/checker";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'app-business-profile-client-page',
@@ -72,17 +69,18 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
 	public readonly analyticsService = inject(AnalyticsService);
-	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
 	public readonly serviceProfideType = ServiceProvideTypeEnum;
 
-	public readonly item$ = this.store.select(ClientState.item).pipe(
+	public readonly item$ = this.store.select(BusinessProfileState.item).pipe(
 		filter(Boolean)
 	);
 
 	public ngOnInit(): void {
 
 		this.analyticsService.logEvent('business_profile_page_initialized');
+
+		this.store.dispatch(new BusinessProfileActions.Init());
 
 		this.item$.pipe(this.takeUntil()).subscribe((item) => {
 
@@ -136,7 +134,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 		this.form.markAllAsTouched();
 		if (this.form.valid) {
 			this.store.dispatch(new AppActions.PageLoading(true));
-			const value = this.form.getRawValue() as unknown as IClient;
+			const value = this.form.getRawValue() as unknown as IBusinessProfile.DTO;
 			this.checkUsername(value);
 			this.form.disable();
 			this.form.markAsPending();
@@ -149,11 +147,10 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 				// Save gallery
 				// this.galleryBusinessProfileComponent.save(),
 				// Save data
-				this.updateBusinessProfileApiAdapter.executeAsync(value),
+				// this.updateBusinessProfileApiAdapter.executeAsync(value),
+				this.store.dispatch(new BusinessProfileActions.Update(value)),
 			]);
-
 			this.store.dispatch(new AppActions.PageLoading(false));
-			this.store.dispatch(new ClientActions.InitClient());
 			this.form.enable();
 			this.form.updateValueAndValidity();
 		}
@@ -164,7 +161,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 		this.form.destroyHandlers();
 	}
 
-	private checkUsername(value: IClient): void {
+	private checkUsername(value: IBusinessProfile.DTO): void {
 		if (is.string_empty(value.username)) {
 			value.username = null;
 		}

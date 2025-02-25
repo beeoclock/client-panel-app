@@ -101,11 +101,32 @@
 
 					@for (event of events; track event._id) {
 
-						<app-event-calendar-with-specialists-widget-component
-							[attr.data-member-id]="member._id"
-							[attr.data-member-first-name]="member.firstName"
-							[attr.data-member-last-name]="member.lastName"
-							[item]="event"/>
+						@switch (event.is) {
+
+							@case ('order') {
+
+								<app-event-calendar-with-specialists-widget-component
+									[attr.data-order-id]="nowOrder(event.originalData).order._id"
+									[attr.data-order-service-id]="nowOrder(event.originalData).service._id"
+									[attr.data-member-id]="member._id"
+									[attr.data-member-first-name]="member.firstName"
+									[attr.data-member-last-name]="member.lastName"
+									[item]="event"/>
+
+							}
+
+							@case ('absence') {
+
+								<app-event-calendar-with-specialists-widget-component
+									[attr.data-absence-id]="nowAbsence(event.originalData)._id"
+									[attr.data-member-id]="member._id"
+									[attr.data-member-first-name]="member.firstName"
+									[attr.data-member-last-name]="member.lastName"
+									[item]="event"/>
+
+							}
+
+						}
 
 					}
 

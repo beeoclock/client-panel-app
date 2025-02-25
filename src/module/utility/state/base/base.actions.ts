@@ -1,6 +1,5 @@
 import {ITableState, PITableState} from "@utility/domain/table.state";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BaseActions {
 
 	// Application layer

@@ -3,9 +3,11 @@ import {TranslateModule} from "@ngx-translate/core";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {EventActions} from "@event/state/event/event.actions";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
@@ -42,7 +44,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 				<i class="bi bi-x-lg"></i>
 				{{ 'keyword.capitalize.cancel' | translate }}
 			} @else {
-				<utility-loader [py2_5]="false" />
+				<utility-loader [py2_5]="false"/>
 			}
 
 		</button>
@@ -55,7 +57,7 @@ export class ChangeStatusOnCancelledComponent extends ChangeStatusBaseComponent 
 	public async changeStatusOnCancelled(): Promise<void> {
 		this.loading.doTrue();
 		const event = this.event();
-  event.originalData.service.status = OrderServiceStatusEnum.cancelled;
+		event.originalData.service.status = OrderServiceStatusEnum.cancelled;
 		await firstValueFrom(
 			this.store.dispatch(
 				new EventActions.ChangeServiceStatus({

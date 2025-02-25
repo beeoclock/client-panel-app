@@ -19,6 +19,14 @@ export class IsOnlineService {
 		}
 	}
 
+	public isOnline() {
+		return this.#isOnline$.getValue();
+	}
+
+	public isOffline() {
+		return !this.isOnline();
+	}
+
 	public constructor() {
 
 		if (this.document.defaultView) {

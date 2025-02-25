@@ -2,7 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {ServiceForm} from "@service/presentation/form";
 import {PricesBlockComponent} from "@service/presentation/component/form/v2/prices/prices-block.component";
 import {ServicesFormComponent} from "@service/presentation/component/form/v2/service/services.form.component";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 
 @Component({
 	selector: 'service-create-business-component',

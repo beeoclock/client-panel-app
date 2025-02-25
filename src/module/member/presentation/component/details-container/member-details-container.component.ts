@@ -1,11 +1,11 @@
-import {Component, inject, input, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
-import {MemberActions} from "@member/state/member/member.actions";
-import {RIMember} from "@member/domain";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {NgOptimizedImage} from "@angular/common";
 import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'member-detail-page',
@@ -21,16 +21,13 @@ import {RowActionButtonComponent} from "@member/presentation/component/row-actio
 })
 export class MemberDetailsContainerComponent {
 
-	public readonly item = input<RIMember | null>(null);
+	@Input({required: true})
+	public readonly item!: IMember.EntityRaw;
 
 	public readonly store = inject(Store);
 
-	public delete(id: string): void {
-		this.store.dispatch(new MemberActions.DeleteItem(id));
-	}
-
 	public openForm() {
-		const item = this.item();
+		const item = this.item;
 		if (!item) {
 			return
 		}

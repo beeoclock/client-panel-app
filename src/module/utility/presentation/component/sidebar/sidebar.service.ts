@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {DOCUMENT} from "@angular/common";
 import {ActivationStart, Router} from "@angular/router";
-import {filter} from "rxjs";
+import {BehaviorSubject, filter} from "rxjs";
 import {MAIN_CONTAINER_ID, SIDEBAR_ID} from "@src/token";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 
@@ -27,10 +27,11 @@ export class SidebarService {
 		mainContainerId: true
 	};
 
-	#currentContent: SidebarContentEnum = SidebarContentEnum.MENU;
+	readonly #currentContent$ = new BehaviorSubject<SidebarContentEnum>(SidebarContentEnum.MENU);
+	public readonly currentContent$ = this.#currentContent$.asObservable();
 
 	public get currentContent(): SidebarContentEnum {
-		return this.#currentContent;
+		return this.#currentContent$.value;
 	}
 
 	public get sidebarContentEnum(): typeof SidebarContentEnum {
@@ -65,11 +66,11 @@ export class SidebarService {
 	}
 
 	public switchOnMenu(): void {
-		this.#currentContent = SidebarContentEnum.MENU;
+		this.#currentContent$.next(SidebarContentEnum.MENU);
 	}
 
 	public switchOnProfile(): void {
-		this.#currentContent = SidebarContentEnum.PROFILE;
+		this.#currentContent$.next(SidebarContentEnum.PROFILE);
 	}
 
 	public detectAutoClose(): void {
@@ -98,7 +99,7 @@ export class SidebarService {
 			return;
 		}
 
-		this.#currentContent = contentEnum;
+		this.#currentContent$.next(contentEnum);
 		this.toggleSidebar(true);
 	}
 

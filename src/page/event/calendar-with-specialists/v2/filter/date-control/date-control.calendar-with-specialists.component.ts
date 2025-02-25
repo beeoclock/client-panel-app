@@ -2,9 +2,13 @@ import {Component, inject, OnInit, viewChild, ViewEncapsulation} from "@angular/
 import {AsyncPipe, DOCUMENT} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {
+	CalendarWithSpecialistsQueries
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {combineLatest, map, switchMap, tap} from "rxjs";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {IonDatetime, IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {DateTime} from "luxon";

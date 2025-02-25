@@ -4,19 +4,18 @@ import {
 } from "@page/event/calendar-with-specialists/v2/filter/date-control/date-control.calendar-with-specialists.component";
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {SettingsComponent} from "@page/event/calendar-with-specialists/v2/settings/settings.component";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
-import {Store} from "@ngxs/store";
-import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {IonPopover} from "@ionic/angular/standalone";
-import {VisibilityAppService} from "@utility/cdk/visibility-app.service";
 import {Reactive} from "@utility/cdk/reactive";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {VisibilityService} from "@utility/cdk/visibility.service";
 
 @Component({
 	selector: 'filter-calendar-with-specialist',
@@ -59,7 +58,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 									{{ 'keyword.capitalize.statuses' | translate }}
 								</label>
 								<ion-select-wrapper
-									class="p-4 max-w-xs"
+									class="max-w-xs"
 									id="calendar-with-specialists-filter-order-service-status"
 									[multiple]="true"
 									[options]="orderServiceStatusOptions"
@@ -82,14 +81,11 @@ export class FilterCalendarWithSpecialistComponent extends Reactive implements A
 	}[] = [];
 	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly translateService = inject(TranslateService);
-	private readonly visibilityAppService = inject(VisibilityAppService);
-	private readonly store = inject(Store);
-
-	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
+	private readonly visibilityService = inject(VisibilityService);
 
 	public ngAfterViewInit() {
 		this.initEventStatusList();
-		this.visibilityAppService.visibility$.pipe(
+		this.visibilityService.visibility$.pipe(
 			this.takeUntil()
 		).subscribe((visible) => {
 			if (visible) {
@@ -99,10 +95,11 @@ export class FilterCalendarWithSpecialistComponent extends Reactive implements A
 	}
 
 	private initEventStatusList() {
-		Object.keys(OrderStatusEnum).forEach((status) => {
+		// Object.keys(OrderServiceStatusEnum)
+		[OrderServiceStatusEnum.done, OrderServiceStatusEnum.accepted, OrderServiceStatusEnum.requested].forEach((status) => {
 			this.orderServiceStatusOptions.push({
 				value: status,
-				label: this.translateService.instant(`order.enum.status.singular.${status}`)
+				label: this.translateService.instant(`event.keyword.status.singular.${status}`)
 			});
 		});
 	}

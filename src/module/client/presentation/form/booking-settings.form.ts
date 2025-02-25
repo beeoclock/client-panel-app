@@ -1,8 +1,8 @@
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {EarliestBookingEnum} from "@utility/domain/enum/earliest-booking.enum";
-import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
-import {AutoActionOnEventInSecondsEnum} from "@utility/domain/enum/auto-action-on-event-in-seconds.enum";
-import {AutomaticApprovalTimeType} from "@utility/domain/enum/automatic-approval-time.enum";
+import {EarliestBookingEnum} from "@core/shared/enum/earliest-booking.enum";
+import {LatestBookingEnum} from "@core/shared/enum/latest-booking.enum";
+import {AutoActionOnEventInSecondsEnum} from "@core/shared/enum/auto-action-on-event-in-seconds.enum";
+import {AutomaticApprovalTimeType} from "@core/shared/enum/automatic-approval-time.enum";
 import {SlotSettingsForm} from "@client/presentation/form/slot-settings.form";
 
 export interface IBookingSettingsForm {

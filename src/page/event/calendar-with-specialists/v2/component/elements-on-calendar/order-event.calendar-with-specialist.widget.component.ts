@@ -11,10 +11,10 @@ import {
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {EventActions} from "@event/state/event/event.actions";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {
 	AnybodySpecialistIconComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/anybody-specialist.icon.component";
@@ -70,7 +70,7 @@ import {
 export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 	public readonly event = input.required<IEvent_V2<{
-		order: IOrderDto;
+		order: IOrder.DTO;
 		service: IOrderServiceDto;
 	}>>();
 
@@ -174,7 +174,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 		}, [] as string[]).join(', ');
 	}
 
-	private async openEventDetails(event: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>) {
+	private async openEventDetails(event: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>) {
 		this.store.dispatch(new EventActions.OpenDetails(event));
 	}
 

@@ -1,12 +1,12 @@
-import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {PaymentMethodEnum} from "@module/payment/domain/enum/payment.method.enum";
-import {PaymentProviderTypeEnum} from "@module/payment/domain/enum/payment.provider-type.enum";
-import {PaymentStatusEnum} from "@module/payment/domain/enum/payment.status.enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
+import {PaymentMethodEnum} from "@src/core/business-logic/payment/enum/payment.method.enum";
+import {PaymentProviderTypeEnum} from "@src/core/business-logic/payment/enum/payment.provider-type.enum";
+import {PaymentStatusEnum} from "@src/core/business-logic/payment/enum/payment.status.enum";
 import {BaseEntityForm} from "@utility/base.form";
 import {FormControl} from "@angular/forms";
 import {CustomerForm} from "@customer/presentation/form";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
+import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
 
 export interface IPaymentForm {
     providerPaymentRef: FormControl<string | null>;
@@ -48,7 +48,7 @@ export class PaymentForm extends BaseEntityForm<'PaymentDto', IPaymentForm> {
         });
     }
 
-    public static create(initValue: Partial<IPaymentDto> = {}): PaymentForm {
+    public static create(initValue: Partial<IPayment.DTO> = {}): PaymentForm {
 
         const form = new PaymentForm();
 

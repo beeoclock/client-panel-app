@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci && npm test && npm run build -- --output-path=./firebase/production/dist
+      - run: npm ci && npm test && npm run build -- --output-path=./environment/production/firebase/dist
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
@@ -19,4 +19,4 @@ jobs:
           channelId: live
           target: panel-beeoclock
           projectId: bee-o-clock
-          entrypoint: ./firebase/production
+          entrypoint: ./environment/production/firebase

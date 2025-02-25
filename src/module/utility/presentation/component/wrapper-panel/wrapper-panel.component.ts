@@ -1,33 +1,43 @@
-import {AfterViewInit, Component, HostBinding, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
-import {AsyncPipe, DOCUMENT} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {
 	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 import {Store} from "@ngxs/store";
-import {BeeoclockIdTokenResult, IdentityState} from "@identity/state/identity/identity.state";
+import {BeeoclockIdTokenResult, IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
-import {ServiceActions} from "@service/state/service/service.actions";
-import {MemberActions} from "@member/state/member/member.actions";
-import {MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
-import {ClientActions} from "@client/state/client/client.actions";
-import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
+import {EventRequestedActions} from "@event/infrastructure/state/event-requested/event-requested.actions";
 import {
 	GetFrontendSettingsAccountApiAdapter
-} from "@module/account/adapter/external/api/get.frontend-settings.account.api.adapter";
+} from "@module/account/infrastructure/adapter/external/api/get.frontend-settings.account.api.adapter";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
-import {ClientState} from "@client/state/client/client.state";
-import {is} from "@utility/checker";
+import {is} from "@src/core/shared/checker";
 import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
+import {VisibilityService} from "@utility/cdk/visibility.service";
+import {IsOnlineService} from "@utility/cdk/is-online.service";
+import {AbsenceModule} from "@absence/absence.module";
+import {CustomerModule} from "@customer/customer.module";
+import {MemberModule} from "@member/member.module";
+import {OrderModule} from "@order/order.module";
+import {ServiceModule} from "@service/service.module";
+import {PaymentModule} from "@payment/payment.module";
+import {BusinessProfileModule} from "@businessProfile/business-profile.module";
+import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -56,43 +66,83 @@ import {environment} from "@environment/environment";
 		RouterOutlet,
 		PageLoadingProgressBarComponent,
 		AsyncPipe,
-		WhacAMole
+		WhacAMole,
+
+		// MODULE
+		AbsenceModule,
+		CustomerModule,
+		MemberModule,
+		OrderModule,
+		ServiceModule,
+		PaymentModule,
+		BusinessProfileModule,
 	],
-	encapsulation: ViewEncapsulation.None
+	providers: [
+		{
+			provide: CURRENT_TENANT_ID,
+			useFactory: () => {
+				const tenantId = inject(TENANT_ID).value;
+				return tenantId;
+			},
+		},
+		...CustomerModule.providers,
+	],
+	encapsulation: ViewEncapsulation.None,
+	host: {
+		class: 'flex',
+	}
 })
 export default class WrapperPanelComponent extends Reactive implements OnInit, AfterViewInit, OnDestroy {
 
 	public readonly mainContainerId = inject(MAIN_CONTAINER_ID);
-	private readonly document = inject(DOCUMENT);
 	public readonly getFrontendSettingsAccountApiAdapter = inject(GetFrontendSettingsAccountApiAdapter);
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly themeService = inject(ThemeService);
 	private readonly translateService = inject(TranslateService);
+	private readonly visibilityService = inject(VisibilityService);
+	private readonly isOnlineService = inject(IsOnlineService);
 	private readonly tenantId$ = inject(TENANT_ID);
 
 	public readonly token$ = this.store.select(IdentityState.token);
 
-	@HostBinding()
-	public class = 'flex';
-
 	private checkerTimer: undefined | NodeJS.Timeout;
 	private isUserOnWebSite = true;
 
-	public readonly businessProfile$ = this.store.select(ClientState.item);
-
-	constructor() {
-		super();
-		this.initNotificationChecker();
-	}
+	public readonly businessProfile$ = this.store.select(BusinessProfileState.item);
 
 	public ngOnInit(): void {
+
+		this.initNotificationChecker();
+
+		this.isOnlineService.isOnline$.pipe(this.takeUntil(), filter(is.true)).subscribe(() => {
+
+			/**
+			 * Sync all data when the user is online
+			 */
+			if (!BaseSyncManager.isSyncing$.value) {
+				BaseSyncManager.syncAll().then();
+			}
+
+		})
+
+		this.visibilityService.visibility$.pipe(
+			this.takeUntil()
+		).subscribe((visible) => {
+
+			this.isUserOnWebSite = visible;
+			if (visible) {
+				if (!BaseSyncManager.isSyncing$.value) {
+					BaseSyncManager.syncAll().then();
+				}
+			}
+
+		});
 
 		this.connectWebSocket();
 	}
 
 	public ngAfterViewInit(): void {
-		this.initDetectorIfUserHasActiveWebsite();
 		this.initClient();
 		this.initMemberList();
 		this.initAccountFrontendSettings();
@@ -103,7 +153,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 			}
 			const {bookingSettings} = businessProfile;
 			const {autoBookOrder} = bookingSettings;
-			is.false(autoBookOrder) && this.initEventRequested();
+			if (is.false(autoBookOrder)) this.initEventRequested();
 		});
 
 	}
@@ -117,7 +167,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	}
 
 	private initClient(): void {
-		this.store.dispatch(new ClientActions.InitClient());
+		this.store.dispatch(new BusinessProfileActions.Init());
 	}
 
 	private initAccountFrontendSettings(): void {
@@ -153,12 +203,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 		}
 	}
 
-	private initDetectorIfUserHasActiveWebsite(): void {
-		this.document.onvisibilitychange = () => {
-			this.isUserOnWebSite = !this.document.hidden;
-		};
-	}
-
 	public override ngOnDestroy(): void {
 		this.store.dispatch(new CustomerActions.Init());
 		this.store.dispatch(new ServiceActions.Init());
@@ -173,19 +217,22 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 			this.store.select(IdentityState.token).pipe(filter(is.object<BeeoclockIdTokenResult>)),
 			this.tenantId$.pipe(filter(is.string))
 		])
-		.pipe(
-			this.takeUntil(),
-			map(([beeoclockTokenResult, tenantId]) => {
-				const {token} = beeoclockTokenResult;
-				return {token, tenantId};
-			}),
-			switchMap(({token, tenantId}) => {
-				this.ngxLogger.info(WrapperPanelComponent.name, 'connectWebSocket:DisconnectSocket', {token, tenantId});
-				return this.store.dispatch(new SocketActions.DisconnectSocket()).pipe(
-					map(() => ({token, tenantId}))
-				);
-			})
-		).subscribe({
+			.pipe(
+				this.takeUntil(),
+				map(([beeoclockTokenResult, tenantId]) => {
+					const {token} = beeoclockTokenResult;
+					return {token, tenantId};
+				}),
+				switchMap(({token, tenantId}) => {
+					this.ngxLogger.info(WrapperPanelComponent.name, 'connectWebSocket:DisconnectSocket', {
+						token,
+						tenantId
+					});
+					return this.store.dispatch(new SocketActions.DisconnectSocket()).pipe(
+						map(() => ({token, tenantId}))
+					);
+				})
+			).subscribe({
 			next: ({token, tenantId}) => {
 				this.ngxLogger.info(WrapperPanelComponent.name, 'connectWebSocket:ConnectSocket', {token, tenantId});
 				this.store.dispatch(new SocketActions.ConnectSocket({

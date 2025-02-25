@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {TableService} from "@utility/table.service";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 
 @Injectable()
-export class AbsenceTableService extends TableService<IAbsenceDto> {
+export class AbsenceTableService extends TableService<IAbsence.DTO> {
 	public override readonly actions = AbsenceActions;
 }

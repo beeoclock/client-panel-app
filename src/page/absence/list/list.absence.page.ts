@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
-import {AbsenceState} from "@absence/state/absence/absence.state";
+import {AbsenceState} from "@absence/infrastructure/state/absence/absence.state";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
@@ -11,12 +11,13 @@ import {
 import {
 	MobileLayoutListComponent
 } from "@absence/presentation/component/list/layout/mobile/mobile.layout.list.component";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {TableService} from "@utility/table.service";
 import {AbsenceTableService} from "@absence/presentation/component/list/absence.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {environment} from '@src/environment/environment';
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({
 	selector: 'app-list-absence-page',
@@ -37,9 +38,9 @@ import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 		}
 	]
 })
-export class ListAbsencePage extends ListPage<IAbsenceDto> implements OnDestroy, OnInit {
+export class ListAbsencePage extends ListPage<EAbsence> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<IAbsenceDto>> = this.store.select(AbsenceState.tableState)
+	public readonly tableState$: Observable<ITableState<EAbsence>> = this.store.select(AbsenceState.tableState)
 		.pipe(
 			tap(() => {
 				this.changeDetectorRef.detectChanges();
@@ -57,7 +58,7 @@ export class ListAbsencePage extends ListPage<IAbsenceDto> implements OnDestroy,
 			filters: {},
 			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,
-			pageSize: 20
+			pageSize: environment.config.pagination.pageSize
 		});
 	}
 

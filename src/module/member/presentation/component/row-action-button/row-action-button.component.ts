@@ -2,15 +2,19 @@ import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {RIMember} from "@member/domain";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'member-row-action-button-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-table-column-action [id]="id()" [hide]="hide()" (delete)="delete($event)" (open)="open()" (edit)="edit()">
+		<utility-table-column-action
+			[id]="id()"
+			[hide]="hide()"
+			(open)="open()"
+			(edit)="edit()">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->
@@ -32,13 +36,9 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<RIMember>();
+	public readonly item = input.required<IMember.EntityRaw>();
 
 	private readonly store = inject(Store);
-
-	public delete(id: string): void {
-		this.store.dispatch(new MemberActions.DeleteItem(id));
-	}
 
 	public async archive(id: string): Promise<void> {
 		await firstValueFrom(this.store.dispatch(

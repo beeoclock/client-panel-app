@@ -26,7 +26,7 @@ import {provideEnvironmentNgxMask} from "ngx-mask";
 import {tokens} from "@src/token";
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {provideServiceWorker} from '@angular/service-worker';
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {NgEventBus} from 'ng-event-bus';
 import {ngxsProviders} from "@src/ngxs";
 import * as Sentry from "@sentry/angular";
@@ -61,6 +61,8 @@ if (environment.production) {
 		replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
 		replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
 	});
+} else {
+
 }
 
 initRuntimeEnvironment();
@@ -115,14 +117,13 @@ bootstrapApplication(MainRouterOutlet, {
 			Utility.Interceptors.SourceInterceptor,
 			Utility.Interceptors.TenantIdInterceptor,
 			Utility.Interceptors.AccessTokenInterceptor,
-			Utility.Interceptors.NotificationSettingsInterceptor
 		])),
 		provideRouter(
 			routes,
 			withInMemoryScrolling({
 				scrollPositionRestoration: 'enabled'
 			}),
-			withPreloading(PreloadAllModules),
+			withPreloading(PreloadAllModules), // Don't use it, because it will preload all modules also lazy loaded and tenant modules but the module doesn't have to be loaded without tenant
 			// withViewTransitions(), // TODO add when we will control which container should have animation
 			withComponentInputBinding(),
 		),

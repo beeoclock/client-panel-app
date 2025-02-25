@@ -632,6 +632,7 @@
 					"accepted": "Accepted",
 					"cancelled": "Canceled",
 					"confirmed": "Confirmed",
+					"deleted": "Deleted",
 					"done": "Done",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
@@ -1032,6 +1033,7 @@
 			"anonymous": "Anonymous",
 			"approvalType": "Approval type",
 			"approve": "Approve",
+			"archived": "Archived",
 			"attendees": "Attendees",
 			"autoActionOnOrderInSeconds": "Automatic action start time",
 			"autoActionTypeOnOrder": "Type of automatic action",
@@ -1073,6 +1075,7 @@
 			"day": "Day",
 			"deactivate": "Deactivate",
 			"delete": "Delete",
+			"deleted": "Deleted",
 			"description": "Description",
 			"details": "Details",
 			"dismiss": "Dismiss",
@@ -1179,6 +1182,8 @@
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
 			"successfully": "Successfully",
+			"synced": "Synchronized",
+			"syncing": "Synchronization in progress…",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"time": "Time",
@@ -1199,6 +1204,7 @@
 			"year": "Year",
 			"yes": "Yes",
 			"yesterday": "Yesterday",
+			"youOffline": "You are offline!",
 			"zipCode": "Zip code"
 		},
 		"lowercase": {
@@ -1228,6 +1234,14 @@
 				"freeMovement": "Free movement",
 				"openDetails": "Open details",
 				"type": "Type"
+			}
+		},
+		"state": {
+			"plural": {
+				"active": "Active",
+				"archived": "Archived",
+				"deleted": "Deleted",
+				"inactive": "Inactive"
 			}
 		},
 		"status": {
@@ -1353,6 +1367,7 @@
 					"draft": "Draft",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
+					"deleted": "Deleted",
 					"requested": "Requested"
 				}
 			}

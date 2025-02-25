@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {TableService} from "@utility/table.service";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {IOrder} from "@core/business-logic/order/interface/i.order";
 
 @Injectable()
-export class OrderTableService extends TableService<IOrderDto> {
+export class OrderTableService extends TableService<IOrder.EntityRaw> {
 	public override readonly actions = OrderActions;
 }

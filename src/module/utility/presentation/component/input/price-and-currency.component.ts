@@ -8,7 +8,7 @@ import {
 	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgxMaskDirective} from "ngx-mask";

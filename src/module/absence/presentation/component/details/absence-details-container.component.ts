@@ -2,8 +2,8 @@ import {Component, inject, Input, OnChanges, SimpleChange, SimpleChanges, ViewEn
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
@@ -29,7 +29,7 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 	// TODO add base index of details with store and delete method
 
 	@Input()
-	public item!: IAbsenceDto;
+	public item!: IAbsence.DTO;
 
 	public readonly store = inject(Store);
 	public readonly translateService = inject(TranslateService);
@@ -39,6 +39,8 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 	public isStarted = false;
 
 	public ngOnChanges(changes: SimpleChanges & { items: SimpleChange }) {
+
+		console.log('AbsenceDetailsContainerComponent:ngOnChanges', {changes});
 
 		if (changes.item) {
 			this.buildProgressBar();

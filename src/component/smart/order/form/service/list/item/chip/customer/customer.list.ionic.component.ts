@@ -23,21 +23,21 @@ import {
 	IonSpinner,
 	IonToolbar
 } from "@ionic/angular/standalone";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FormAttendantComponent} from "@event/presentation/component/form/attendees/attendant/form.attendant.component";
 import {
 	NamesFormAttendantComponent
 } from "@event/presentation/component/form/attendees/attendant/names.form.attendant.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "@src/core/business-logic/customer";
 import {Store} from "@ngxs/store";
 import {Reactive} from "@utility/cdk/reactive";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import ObjectID from "bson-objectid";
-import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.list.customer.adapter";
 import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
 import {NGXLogger} from "ngx-logger";
+import {GlobalEventListCustomerRepository} from "@src/token";
 
 @Component({
 	selector: 'app-customer-list-ionic-component',
@@ -201,9 +201,9 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	public readonly ngxLogger = inject(NGXLogger);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
-	public readonly eventListCustomerAdapter = inject(EventListCustomerAdapter);
+	public readonly eventListCustomerAdapter = inject(GlobalEventListCustomerRepository);
 
-	protected selectedCustomer: ICustomer | undefined;
+	protected selectedCustomer: ICustomer.DTO | undefined;
 
 	public ngOnInit() {
 		if (!this.eventListCustomerAdapter.tableState.items.length) {
@@ -220,13 +220,13 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public select(customer: ICustomer) {
+	public select(customer: ICustomer.DTO) {
 		this.selectedCustomer = customer;
 		this.localCustomerForm.patchValue(customer);
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public isChecked(customer: ICustomer) {
+	public isChecked(customer: ICustomer.DTO) {
 		if (!this.selectedCustomer) return false;
 		return this.selectedCustomer._id === customer._id;
 	}

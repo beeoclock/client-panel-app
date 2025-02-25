@@ -1,5 +1,5 @@
 import {Component, inject, input, ViewEncapsulation} from '@angular/core';
-import {ICustomer} from '@customer/domain';
+import {ICustomer} from '@src/core/business-logic/customer';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
@@ -27,7 +27,7 @@ export class CustomerDetailsContainerComponent {
 
 	// TODO add base index of details with store and delete method
 
-	public readonly item = input.required<ICustomer>();
+	public readonly item = input.required<ICustomer.EntityRaw>();
 
 	public readonly store = inject(Store);
 	public readonly customerOrderListExternalWhacAMole = inject(CustomerOrderListExternalWhacAMole);

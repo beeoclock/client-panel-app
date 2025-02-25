@@ -5,7 +5,7 @@ import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.p
 import {Reactive} from "@utility/cdk/reactive";
 import {CustomerForm} from "@customer/presentation/form";
 import {SelectCustomerPushBoxComponent} from "@customer/presentation/push-box/select-customer.push-box.component";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "@src/core/business-logic/customer";
 
 @Component({
 	selector: 'app-regular-customer-type-customer',
@@ -71,7 +71,7 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 		return form.value;
 	}
 
-	public selectCustomer(customer: ICustomer) {
+	public selectCustomer(customer: ICustomer.DTO) {
 		this.form().patchValue(customer);
 	}
 

@@ -6,10 +6,10 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {ICustomer} from "@customer/domain";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
 @Component({
 	selector: 'customer-card-list-component',
@@ -24,7 +24,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 		AsyncPipe
 	]
 })
-export class CardListComponent extends TableComponent<ICustomer> {
+export class CardListComponent extends TableComponent<ECustomer> {
 
 	// public override readonly actions = CustomerActions;
 
@@ -32,7 +32,7 @@ export class CardListComponent extends TableComponent<ICustomer> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public override open(item: ICustomer) {
+	public override open(item: ECustomer) {
 		this.store.dispatch(new CustomerActions.OpenDetails(item));
 	}
 

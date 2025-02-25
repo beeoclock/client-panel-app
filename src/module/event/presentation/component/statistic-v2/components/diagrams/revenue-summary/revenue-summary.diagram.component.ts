@@ -18,15 +18,15 @@ import {PieChart, PieSeries} from "@amcharts/amcharts5/percent";
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import am5themes_Kelly from '@amcharts/amcharts5/themes/Kelly';
 import {CurrencyPipe, isPlatformBrowser, KeyValuePipe} from "@angular/common";
-import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
+import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
 import {Store} from "@ngxs/store";
-import {ClientState} from "@client/state/client/client.state";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
 import {TranslatePipe} from "@ngx-translate/core";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	standalone: true,
@@ -35,44 +35,44 @@ import {TranslatePipe} from "@ngx-translate/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 
-			<div class="flex gap-2 justify-between items-center max-w-full overflow-auto">
-				<div>
-					{{ 'analytic.widget.revenue.summary.label' | translate }}
-				</div>
-				<div class="text-black rounded-2xl bg-white px-3">
-					<ion-select aria-label="Fruit" interface="popover" [formControl]="orderServiceStatusFormControl"
-								placeholder="Select fruit">
-
-						@for (status of (OrderServiceStatusEnum | keyvalue); track status.key) {
-
-							<ion-select-option [value]="status.value">
-
-								{{ ('event.keyword.status.plural.' + status.value) | translate }}
-								&nbsp;&nbsp;
-								{{ analytic().summary.revenue.total.by.status[status.value][baseCurrency] | currency: baseCurrency: 'symbol-narrow' }}
-
-							</ion-select-option>
-
-						}
-
-					</ion-select>
-				</div>
+		<div class="flex gap-2 justify-between items-center max-w-full overflow-auto">
+			<div>
+				{{ 'analytic.widget.revenue.summary.label' | translate }}
 			</div>
-			<div class="rounded-2xl bg-white p-2 flex flex-wrap gap-2 justify-center max-w-full overflow-auto">
+			<div class="text-black rounded-2xl bg-white px-3">
+				<ion-select aria-label="Fruit" interface="popover" [formControl]="orderServiceStatusFormControl"
+							placeholder="Select fruit">
 
-				<ion-segment [formControl]="showMoneyOrCountFormControl">
-					<ion-segment-button [value]="true">
-						<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.money' | translate }}</ion-label>
-					</ion-segment-button>
-					<ion-segment-button [value]="false">
-						<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.count' | translate }}</ion-label>
-					</ion-segment-button>
-				</ion-segment>
-				<div id="chartdiv" style="width: 488px; height: 200px"></div>
+					@for (status of (OrderServiceStatusEnum | keyvalue); track status.key) {
+
+						<ion-select-option [value]="status.value">
+
+							{{ ('event.keyword.status.plural.' + status.value) | translate }}
+							&nbsp;&nbsp;
+							{{ (analytic()?.summary?.revenue?.total?.by?.status?.[status.value]?.[baseCurrency] ?? 0) | currency: baseCurrency: 'symbol-narrow' }}
+
+						</ion-select-option>
+
+					}
+
+				</ion-select>
 			</div>
-			<div class="text-neutral-400 text-sm">
-				{{ 'analytic.widget.revenue.summary.description' | translate }}
-			</div>
+		</div>
+		<div class="rounded-2xl bg-white p-2 flex flex-wrap gap-2 justify-center max-w-full overflow-auto">
+
+			<ion-segment [formControl]="showMoneyOrCountFormControl">
+				<ion-segment-button [value]="true">
+					<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.money' | translate }}</ion-label>
+				</ion-segment-button>
+				<ion-segment-button [value]="false">
+					<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.count' | translate }}</ion-label>
+				</ion-segment-button>
+			</ion-segment>
+			<div id="chartdiv" style="width: 488px; height: 200px"></div>
+		</div>
+		<div class="text-neutral-400 text-sm">
+			{{ 'analytic.widget.revenue.summary.description' | translate }}
+		</div>
 	`,
 	imports: [
 		CurrencyPipe,
@@ -96,7 +96,7 @@ export class RevenueSummaryDiagramComponent extends Reactive implements AfterVie
 	private readonly store = inject(Store);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	protected readonly baseCurrency = this.store.selectSnapshot(ClientState.baseCurrency) ?? CurrencyCodeEnum.USD;
+	protected readonly baseCurrency = this.store.selectSnapshot(BusinessProfileState.baseCurrency) ?? CurrencyCodeEnum.USD;
 
 	protected readonly OrderServiceStatusEnum = OrderServiceStatusEnum;
 

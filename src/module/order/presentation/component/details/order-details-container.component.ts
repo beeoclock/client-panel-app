@@ -1,17 +1,14 @@
 import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
-import {firstValueFrom} from 'rxjs';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {OrderActions} from "@order/state/order/order.actions";
-import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {EventActions} from "@event/state/event/event.actions";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {IAttendee_V2} from "@event/domain";
-import {IsOrganizerEnum} from "@utility/domain/enum";
+import {IsOrganizerEnum} from "@core/shared/enum";
 import {
 	ContainerChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/container.change-status.button.component";
@@ -26,7 +23,6 @@ import {
 	imports: [
 		DynamicDatePipe,
 		TranslateModule,
-		DeleteButtonComponent,
 		EditButtonComponent,
 		ContainerChangeStatusButtonComponent,
 		ListServiceFormCardOrderComponent,
@@ -38,25 +34,25 @@ export class OrderDetailsContainerComponent {
 	// TODO add base index of details with store and delete method
 
 	@Input()
-	public item!: IOrderDto;
+	public item!: IOrder.DTO;
 
 	public readonly idPrefix = 'order-details-container';
 
 	public readonly store = inject(Store);
 
-	public async delete(order: IOrderDto) {
-
-		const {status} = order;
-
-		if ([OrderStatusEnum.confirmed, OrderStatusEnum.inProgress, OrderStatusEnum.requested].includes(status)) {
-
-			return alert('You can\'t delete order with status ' + status + ', change status on one of the following: ' + OrderStatusEnum.draft + ', ' + OrderStatusEnum.cancelled + ', ' + OrderStatusEnum.rejected + ', '  + OrderStatusEnum.done);
-
-		}
-
-		await firstValueFrom(this.store.dispatch(new OrderActions.DeleteItem(order._id)));
-
-	}
+	// public async delete(order: IOrder.DTO) {
+	//
+	// 	const {status} = order;
+	//
+	// 	if ([OrderStatusEnum.confirmed, OrderStatusEnum.inProgress, OrderStatusEnum.requested].includes(status)) {
+	//
+	// 		return alert('You can\'t delete order with status ' + status + ', change status on one of the following: ' + OrderStatusEnum.draft + ', ' + OrderStatusEnum.cancelled + ', ' + OrderStatusEnum.rejected + ', '  + OrderStatusEnum.done);
+	//
+	// 	}
+	//
+	// 	await firstValueFrom(this.store.dispatch(new OrderActions.DeleteItem(order._id)));
+	//
+	// }
 
 	public openForm() {
 		if (!this.item) {

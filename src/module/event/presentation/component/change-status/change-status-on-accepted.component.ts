@@ -2,9 +2,11 @@ import {Component, inject} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
-import {EventActions} from "@event/state/event/event.actions";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
@@ -55,7 +57,7 @@ export class ChangeStatusOnAcceptedComponent extends ChangeStatusBaseComponent {
 
 		this.loading.doTrue();
 		const event = this.event();
-  event.originalData.service.status = OrderServiceStatusEnum.accepted;
+		event.originalData.service.status = OrderServiceStatusEnum.accepted;
 
 		this.store.dispatch(new EventActions.ChangeServiceStatus({
 			serviceId: event.originalData.service._id,

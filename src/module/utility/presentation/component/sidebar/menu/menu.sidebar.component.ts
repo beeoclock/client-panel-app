@@ -7,11 +7,11 @@ import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.se
 import {environment} from "@environment/environment";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {NgEventBus} from "ng-event-bus";
-import {ClientState} from "@client/state/client/client.state";
-import {is} from "@utility/checker";
+import {is} from "@src/core/shared/checker";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 import {Reactive} from "@utility/cdk/reactive";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 interface IMenuItem {
 	order: number;
@@ -48,7 +48,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 	private readonly sidebarService = inject(SidebarService);
 	private readonly tenantId$ = inject(TENANT_ID);
 
-	public readonly businessProfile$ = this.store.select(ClientState.item);
+	public readonly businessProfile$ = this.store.select(BusinessProfileState.item);
 
 	public detectAutoClose() {
 		this.sidebarService.detectAutoClose();
@@ -74,7 +74,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 
 		let path;
 
-		path = await firstValueFrom(this.store.select(ClientState.username));
+		path = await firstValueFrom(this.store.select(BusinessProfileState.username));
 
 		if (!path) {
 

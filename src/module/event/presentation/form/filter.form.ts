@@ -1,5 +1,5 @@
 import {FormControl, FormGroup} from '@angular/forms';
-import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
 
 export interface IFilterForm {
 

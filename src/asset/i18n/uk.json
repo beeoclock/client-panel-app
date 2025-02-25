@@ -632,6 +632,7 @@
 					"accepted": "Прийнято",
 					"cancelled": "Скасована",
 					"confirmed": "Підтверджено",
+					"deleted": "Видалено",
 					"done": "Виконано",
 					"inProgress": "В процесі",
 					"rejected": "Відхилено",
@@ -1032,6 +1033,7 @@
 			"anonymous": "Анонімний",
 			"approvalType": "Тип схвалення",
 			"approve": "Затвердити",
+			"archived": "Архівовано",
 			"attendees": "Учасники",
 			"autoActionOnOrderInSeconds": "Час запуску автоматичної дії",
 			"autoActionTypeOnOrder": "Тип автоматичної дії",
@@ -1073,6 +1075,7 @@
 			"day": "День",
 			"deactivate": "Деактивувати",
 			"delete": "Видалити",
+			"deleted": "Видалено",
 			"description": "Опис",
 			"details": "Деталі",
 			"dismiss": "Відхилити",
@@ -1179,6 +1182,8 @@
 			"streetAddressLineOne": "Адреса 1",
 			"streetAddressLineTwo": "Адреса 2",
 			"successfully": "Успішно",
+			"synced": "Синхронізовано",
+			"syncing": "Синхронізація триває…",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"time": "Час",
@@ -1199,6 +1204,7 @@
 			"year": "Рік",
 			"yes": "Так",
 			"yesterday": "Вчора",
+			"youOffline": "Ви офлайн!",
 			"zipCode": "Поштовий індекс"
 		},
 		"lowercase": {
@@ -1228,6 +1234,14 @@
 				"freeMovement": "Вільне переміщення",
 				"openDetails": "Відкрити деталі",
 				"type": "Тип"
+			}
+		},
+		"state": {
+			"plural": {
+				"active": "Активні",
+				"archived": "Архівовано",
+				"deleted": "Видалені",
+				"inactive": "Неактивні"
 			}
 		},
 		"status": {
@@ -1353,6 +1367,7 @@
 					"draft": "Чернетка",
 					"inProgress": "У процесі виконання",
 					"rejected": "Відхилено",
+					"deleted": "Видалено",
 					"requested": "Запит"
 				}
 			}

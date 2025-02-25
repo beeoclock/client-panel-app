@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
-import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class DurationHelper {
 
-	public durationIsRangeMode(item: IServiceDto): boolean {
+	public durationIsRangeMode(item: IService.DTO): boolean {
 		return item.configuration?.duration?.durationVersionType === DurationVersionTypeEnum.RANGE;
 	}
 

@@ -1,9 +1,9 @@
 import {HttpHandlerFn, HttpInterceptorFn, HttpRequest} from "@angular/common/http";
 import {filter, switchMap, take} from "rxjs";
 import {inject} from "@angular/core";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
+import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 import {Endpoint} from "@utility/domain/endpoint";
-import {is} from "@utility/checker";
+import {is} from "@src/core/shared/checker";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {TENANT_ID} from "@src/token";
 

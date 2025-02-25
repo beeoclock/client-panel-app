@@ -632,6 +632,7 @@
 					"accepted": "Accepteret",
 					"cancelled": "Aflyst",
 					"confirmed": "Bekræftet",
+					"deleted": "Usunto",
 					"done": "Færdig",
 					"inProgress": "I gang",
 					"rejected": "Afvist",
@@ -1032,6 +1033,7 @@
 			"anonymous": "Anonym",
 			"approvalType": "Godkendelsestype",
 			"approve": "Godkend",
+			"archived": "Arkiveret",
 			"attendees": "Deltagere",
 			"autoActionOnOrderInSeconds": "Automatisk handlings starttid",
 			"autoActionTypeOnOrder": "Type automatisk handling",
@@ -1073,6 +1075,7 @@
 			"day": "Dag",
 			"deactivate": "Deaktiver",
 			"delete": "Slet",
+			"deleted": "Slettet",
 			"description": "Beskrivelse",
 			"details": "Detaljer",
 			"dismiss": "Afvis",
@@ -1179,6 +1182,8 @@
 			"streetAddressLineOne": "Adresse 1",
 			"streetAddressLineTwo": "Adresse 2",
 			"successfully": "Med succes",
+			"synced": "Synkroniseret",
+			"syncing": "Synkronisering pågår…",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
 			"time": "Tid",
@@ -1199,6 +1204,7 @@
 			"year": "År",
 			"yes": "Ja",
 			"yesterday": "Yesterday",
+			"youOffline": "Du er offline!",
 			"zipCode": "Postnummer"
 		},
 		"lowercase": {
@@ -1228,6 +1234,14 @@
 				"freeMovement": "Fri bevægelighed",
 				"openDetails": "Åbn detaljer",
 				"type": "Type"
+			}
+		},
+		"state": {
+			"plural": {
+				"active": "Aktiv",
+				"archived": "Arkiveret",
+				"deleted": "Slettet",
+				"inactive": "Inaktiv"
 			}
 		},
 		"status": {
@@ -1353,6 +1367,7 @@
 					"draft": "Udkast",
 					"inProgress": "Igangværende",
 					"rejected": "Afvist",
+					"deleted": "Slettet",
 					"requested": "Anmodet om"
 				}
 			}

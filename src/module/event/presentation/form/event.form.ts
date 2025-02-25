@@ -2,17 +2,17 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 
 export interface IEventForm {
 	_id: FormControl<string>;
 	servicesAreProvidedInParallel: FormControl<boolean>;
-	services: FormControl<IServiceDto[]>;
+	services: FormControl<IService.DTO[]>;
 	language: FormControl<LanguageCodeEnum>;
 	note: FormControl<string>;
 	start: FormControl<string>;

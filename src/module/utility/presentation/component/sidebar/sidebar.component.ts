@@ -4,6 +4,7 @@ import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.se
 import {SIDEBAR_ID} from "@src/token";
 import {MenuSidebarComponent} from "@utility/presentation/component/sidebar/menu/menu.sidebar.component";
 import {ProfileSidebarComponent} from "@utility/presentation/component/sidebar/profile/profile.sidebar.component";
+import {SyncButtonComponent} from "@utility/presentation/component/sync-button/sync-button.component";
 
 
 @Component({
@@ -14,7 +15,8 @@ import {ProfileSidebarComponent} from "@utility/presentation/component/sidebar/p
 	imports: [
 		TranslateModule,
 		MenuSidebarComponent,
-		ProfileSidebarComponent
+		ProfileSidebarComponent,
+		SyncButtonComponent
 	],
 })
 export class SidebarComponent implements AfterViewInit {

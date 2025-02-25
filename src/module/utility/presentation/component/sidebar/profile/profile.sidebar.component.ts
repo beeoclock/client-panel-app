@@ -2,7 +2,7 @@ import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {Select} from "@ngxs/store";
-import {BeeoclockIdTokenResult, IdentityState} from "@identity/state/identity/identity.state";
+import {BeeoclockIdTokenResult, IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {Observable} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";

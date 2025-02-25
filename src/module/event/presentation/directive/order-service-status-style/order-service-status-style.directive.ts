@@ -1,6 +1,6 @@
 import {Directive, ElementRef, inject, input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 
 @Directive({
 	selector: '[orderServiceStatusStyle]',
@@ -51,6 +51,11 @@ export class OrderServiceStatusStyleDirective implements OnInit, OnChanges {
 			text: ['text-grey-400', 'border-grey-400'],
 			badge: ['bg-grey-500', 'border-grey-500', 'dark:bg-grey-900', 'dark:border-grey-800']
 		},
+		[OrderServiceStatusEnum.ready]: {
+			base: ['dark:text-blue-400'],
+			text: ['text-blue-400', 'border-blue-400'],
+			badge: ['bg-blue-500', 'border-blue-500', 'dark:bg-blue-900', 'dark:border-blue-800']
+		}
 	};
 
 	private readonly base = ['px-2', 'py-1', 'flex', 'items-center', 'justify-center', 'h-6', 'text-xs', 'rounded-full', 'border', 'uppercase'];

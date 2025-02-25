@@ -12,8 +12,9 @@ import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {OrderActions} from "@order/state/order/order.actions";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	selector: 'app-list-order-table',
@@ -33,7 +34,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 		RowActionButtonComponent
 	]
 })
-export class TableListComponent extends TableComponent<IOrderDto> {
+export class TableListComponent extends TableComponent<EOrder> {
 
 	// public override readonly actions = OrderActions;
 
@@ -74,7 +75,7 @@ export class TableListComponent extends TableComponent<IOrderDto> {
 		},
 	};
 
-	public override open(item: IOrderDto) {
+	public override open(item: IOrder.DTO) {
 		this.store.dispatch(new OrderActions.OpenDetails(item));
 	}
 

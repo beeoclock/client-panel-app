@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {Store} from "@ngxs/store";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 
@@ -34,7 +34,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 })
 export class ButtonOpenOrderDetailsComponent {
 
-	public readonly order = input.required<IOrderDto>();
+	public readonly order = input.required<IOrder.DTO>();
 
 	@HostBinding()
 	public class = 'p-4 w-full flex flex-col gap-2 border-b bg-white';

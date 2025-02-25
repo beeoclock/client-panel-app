@@ -1,16 +1,17 @@
 import {BaseEntityForm} from "@utility/base.form";
 import {FormArray, FormControl} from "@angular/forms";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {IOrderAppointmentDetailsDto} from "@order/external/interface/i-order-appointment-details.dto";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {IOrderAppointmentDetailsDto} from "@src/core/business-logic/order/interface/i-order-appointment-details.dto";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {IMeta} from "@utility/domain";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 export interface IServiceOrderForm {
 
-	serviceSnapshot: FormControl<IServiceDto>;
+	serviceSnapshot: FormControl<IService.DTO>;
 	orderAppointmentDetails: FormControl<IOrderAppointmentDetailsDto>;
 	customerNote: FormControl<string>;
+	orderId: FormControl<string>;
 
 	status: FormControl<OrderServiceStatusEnum>;
 	meta: FormControl<IMeta>;
@@ -32,6 +33,7 @@ export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IService
 			customerNote: new FormControl('', {
 				nonNullable: true,
 			}),
+			orderId: new FormControl(),
 
 		});
 
@@ -41,7 +43,7 @@ export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IService
 
 		const form = new ServiceOrderForm();
 
-		initValue && form.patchValue(initValue);
+		if (initValue) form.patchValue(initValue);
 
 		return form;
 

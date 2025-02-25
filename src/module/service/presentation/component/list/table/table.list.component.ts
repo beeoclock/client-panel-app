@@ -8,17 +8,18 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {ILanguageVersion} from "@service/domain";
-import {ServiceActions} from "@service/state/service/service.actions";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {ILanguageVersion} from "@src/core/business-logic/service";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
 import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {ITableState} from "@utility/domain/table.state";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -42,11 +43,11 @@ import {ITableState} from "@utility/domain/table.state";
 		DurationVersionHtmlHelper,
 	]
 })
-export class TableListComponent extends TableComponent<IServiceDto> {
+export class TableListComponent extends TableComponent<EService> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-	public override readonly tableState = input.required<ITableState<IServiceDto>>();
+	public override readonly tableState = input.required<ITableState<EService>>();
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;
@@ -104,7 +105,7 @@ export class TableListComponent extends TableComponent<IServiceDto> {
 		},
 	}
 
-	public override open(item: IServiceDto) {
+	public override open(item: IService.DTO) {
 		this.store.dispatch(new ServiceActions.OpenDetails(item));
 	}
 

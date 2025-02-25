@@ -1,10 +1,18 @@
-import {ChangeDetectionStrategy, Component, effect, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	effect,
+	input,
+	OnInit,
+	output,
+	viewChild,
+	ViewEncapsulation
+} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import ObjectID from "bson-objectid";
 import {FormControl} from "@angular/forms";
-import {Reactive} from "@utility/cdk/reactive";
-import {LanguageCodeEnum} from "@utility/domain/enum";
-import {RILanguageVersion} from "@service/domain";
+import {LanguageCodeEnum} from "@core/shared/enum";
+import {RILanguageVersion} from "@src/core/business-logic/service";
 
 @Component({
 	selector: 'app-language-chip-component',
@@ -39,13 +47,15 @@ import {RILanguageVersion} from "@service/domain";
 		</ion-popover>
 	`
 })
-export default class LanguageChipComponent extends Reactive implements OnInit {
+export class LanguageChipComponent implements OnInit {
 
 	public readonly initialValue = input.required<LanguageCodeEnum>();
 
 	public readonly languageVersions = input.required<RILanguageVersion[]>();
 
 	public readonly id = input<string>(ObjectID().toHexString());
+
+	public readonly languageChanges = output<LanguageCodeEnum>();
 
 	readonly selectLanguageVersionPopover = viewChild.required(IonPopover);
 
@@ -54,7 +64,6 @@ export default class LanguageChipComponent extends Reactive implements OnInit {
 	});
 
 	public constructor() {
-		super();
 		effect(() => {
 			this.languageCodeFormControl.setValue(this.initialValue());
 		});
@@ -65,8 +74,13 @@ export default class LanguageChipComponent extends Reactive implements OnInit {
 	}
 
 	public select(language: LanguageCodeEnum) {
-		this.languageCodeFormControl.setValue(language);
-		this.selectLanguageVersionPopover().dismiss().then();
+		if (this.languageCodeFormControl.value === language) {
+			this.languageCodeFormControl.setValue(language);
+			this.selectLanguageVersionPopover().dismiss().then();
+			this.languageChanges.emit(language);
+		}
 	}
 
 }
+
+export default LanguageChipComponent;

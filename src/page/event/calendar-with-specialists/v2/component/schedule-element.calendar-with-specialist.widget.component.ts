@@ -10,10 +10,10 @@ import {
 	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {RIMember} from "@member/domain";
-import {ClientState} from "@client/state/client/client.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {
+	CalendarWithSpecialistsQueries
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {DateTime} from "luxon";
 import {Store} from "@ngxs/store";
 import {filter, map, switchMap} from "rxjs";
@@ -21,6 +21,8 @@ import {Reactive} from "@utility/cdk/reactive";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {BooleanState} from "@utility/domain";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 
 interface IData {
@@ -61,7 +63,7 @@ interface IData {
 })
 export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reactive implements AfterViewInit {
 
-	public readonly member = input<RIMember | null>(null);
+	public readonly member = input<IMember.EntityRaw | null>(null);
 
 	public readonly index = input<number>(-1); // Index of instance
 
@@ -85,7 +87,7 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 		switchMap(selectedDate => {
 			this.selectedDate = selectedDate;
 			this.scrollInitialized.switchOff();
-			return this.store.select(ClientState.schedules).pipe(
+			return this.store.select(BusinessProfileState.schedules).pipe(
 				filter(Array.isArray),
 				map((schedules: RISchedule[]) =>
 					schedules.filter(

@@ -1,13 +1,12 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 
 @Component({
@@ -18,6 +17,7 @@ import {StateEnum} from "@utility/domain/enum/state.enum";
 		<utility-table-column-action
 			(activate)="activate()"
 			(deactivate)="deactivate()"
+			(archive)="archive()"
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
@@ -46,32 +46,12 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<IServiceDto>();
+	public readonly item = input.required<IService.DTO>();
 
 	private readonly translateService = inject(TranslateService);
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
 	public readonly returnUrl = this.router.url;
-
-	@Dispatch()
-	public delete() {
-
-		const question = this.translateService.instant('service.action.delete.question');
-
-		if (!confirm(question)) {
-
-			throw new Error('User canceled the action');
-		}
-		return new ServiceActions.DeleteItem(this.item()._id)
-	}
-
-	public activate(): void {
-		this.store.dispatch(new ServiceActions.UnarchiveItem(this.item()._id));
-	}
-
-	public deactivate(): void {
-		this.store.dispatch(new ServiceActions.ArchiveItem(this.item()._id));
-	}
 
 	public open(): void {
 		this.store.dispatch(new ServiceActions.OpenDetails(this.item()));
@@ -89,9 +69,31 @@ export class RowActionButtonComponent {
 		}));
 	}
 
-	public async archive(id: string): Promise<void> {
-		await firstValueFrom(this.store.dispatch(
-			new ServiceActions.ArchiveItem(id)));
+	public delete() {
+		const question = this.translateService.instant('service.action.delete.question');
+
+		if (!confirm(question)) {
+
+			throw new Error('User canceled the action');
+		}
+
+		this.setState(StateEnum.deleted);
 	}
 
+	public deactivate() {
+		this.setState(StateEnum.inactive);
+	}
+
+	public archive() {
+		this.setState(StateEnum.archived);
+	}
+
+	public activate() {
+		this.setState(StateEnum.active);
+	}
+
+	@Dispatch()
+	public setState(state: StateEnum) {
+		return new ServiceActions.SetState(this.item(), state);
+	}
 }

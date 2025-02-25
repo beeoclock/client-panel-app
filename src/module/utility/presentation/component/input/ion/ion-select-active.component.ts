@@ -3,8 +3,8 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
-import {ActiveEnum} from "@utility/domain/enum";
-import {is} from "@utility/checker";
+import {ActiveEnum} from "@core/shared/enum";
+import {is} from "@src/core/shared/checker";
 
 @Component({
 	selector: 'ion-select-active',
@@ -12,7 +12,7 @@ import {is} from "@utility/checker";
 	template: `
 		<ion-select
 			[formControl]="control()"
-			class="!min-h-0"
+			class="!min-h-0 px-4 py-3 border border-beeColor-300 rounded-2xl h-full"
 			fill="solid"
 			interface="popover">
 			@for (status of statusList; track status.id) {

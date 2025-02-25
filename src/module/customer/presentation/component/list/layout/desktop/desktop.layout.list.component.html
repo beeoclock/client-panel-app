@@ -1,7 +1,7 @@
 <customer-filter-component/>
 @if (tableState(); as data) {
 	@if (data.total) {
-		<customer-table-list-component [tableState]="data"/>
+		<customer-table-list-component class="flex flex-1 flex-col h-px" [tableState]="data"/>
 	} @else {
 		<not-found-table-data-component
 			class="block h-full"

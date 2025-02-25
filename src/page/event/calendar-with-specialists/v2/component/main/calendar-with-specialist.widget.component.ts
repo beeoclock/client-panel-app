@@ -22,22 +22,25 @@ import {
 } from "@page/event/calendar-with-specialists/v2/component/header.calendar-with-specialist.widget.component";
 import {firstValueFrom, map, switchMap} from "rxjs";
 import {IEvent_V2} from "@event/domain";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {
+	CalendarWithSpecialistsQueries
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	TimeLineCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {OrderActions} from "@order/state/order/order.actions";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {DateTime} from "luxon";
-import {ClientState} from "@client/state/client/client.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {
 	ScheduleElementCalendarWithSpecialistWidgetComponent
@@ -48,11 +51,12 @@ import {
 import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	FilterCalendarWithSpecialistComponent
 } from "@page/event/calendar-with-specialists/v2/component/main/filter/filter.calendar-with-specialist.component";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -78,20 +82,26 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	public readonly orderServiceStatusesControl: FormControl<OrderServiceStatusEnum[]> = new FormControl<OrderServiceStatusEnum[]>([], {
 		nonNullable: true
 	});
+
 	readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
+
 	public eventsBySpecialistId: {
-		[key: string]: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>[]
+		[key: string]: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>[]
 	} = {};
+
 	// Find all #column
 	@ViewChildren('column')
 	public columnList!: QueryList<ElementRef<HTMLDivElement>>;
+
 	public eventCalendarWithSpecialistWidgetComponent: EventCalendarWithSpecialistWidgetComponent | null = null;
-	mutatedOtherEventHtmlList: HTMLDivElement[] = [];
-	mouseDown = false;
-	prevMousePosition = {x: 0, y: 0};
-	whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
+
+	private mutatedOtherEventHtmlList: HTMLDivElement[] = [];
+	private mouseDown = false;
+	private prevMousePosition = {x: 0, y: 0};
+	private whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
+
 	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-	moveCallback = {
+	private moveCallback = {
 		accumulationDiffY: 0,
 		position: (htmlDivElement: HTMLElement, diffY: number) => {
 
@@ -169,15 +179,18 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
-	public readonly schedules$ = this.store.select(ClientState.schedules);
+	public readonly schedules$ = this.store.select(BusinessProfileState.schedules);
 	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
 	public readonly showTimeLine$ = this.isToday$.pipe();
 	private readonly document = inject(DOCUMENT);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly actions$ = inject(Actions);
+
 	private readonly events$ = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
 		this.takeUntil(),
 		map((items) => {
+
+			this.ngxLogger.info('CalendarWithSpecialistWidgetComponent:events$: ', items);
 
 			return items.reduce((acc, event) => {
 
@@ -224,7 +237,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 				return acc;
 
-			}, {} as { [key: string]: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>[] });
+			}, {} as { [key: string]: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>[] });
 
 		}),
 	);
@@ -235,6 +248,14 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	public get twoMinutesForPx() {
 		return this.calendarWithSpecialistLocaStateService.oneMinuteForPx * this.calendarWithSpecialistLocaStateService.movementInMinutesControl.value;
+	}
+
+	public nowOrder(target: unknown) {
+		return target as { order: IOrder.DTO; service: IOrderServiceDto; };
+	}
+
+	public nowAbsence(target: unknown) {
+		return target as IAbsence.DTO;
 	}
 
 	public async openForm() {
@@ -290,6 +311,8 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	public ngOnInit() {
 
+		this.ngxLogger.info('CalendarWithSpecialistWidgetComponent: ngOnInit');
+
 		this.detectParamsInQueryParams();
 		this.calendarWithSpecialistLocaStateService.eventCalendarWithSpecialistWidgetComponent$.pipe(
 			this.takeUntil()
@@ -298,20 +321,30 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		});
 		this.events$.pipe(this.takeUntil()).subscribe((eventsBySpecialistId) => {
 
+			console.log('CalendarWithSpecialistWidgetComponent: events$: ', eventsBySpecialistId);
 			this.eventsBySpecialistId = eventsBySpecialistId;
 			setTimeout(() => {
 				this.columnList.forEach((column) => {
 					this.findAndFixNearEventsWidthInEachColumn(column);
 				});
 			}, 0);
+			this.changeDetectorRef.detectChanges();
 		});
 
 		this.actions$
 			.pipe(
 				this.takeUntil(),
 				ofActionSuccessful(
-					AbsenceActions.DeleteItem,
-					OrderActions.DeleteItem,
+					AbsenceActions.SetState,
+					AbsenceActions.UpdateItem,
+					AbsenceActions.CreateItem,
+
+					OrderActions.ChangeStatus,
+					OrderActions.CreateItem,
+					OrderActions.UpdateItem,
+					OrderActions.SetState,
+					OrderActions.OrderedServiceStatus,
+					OrderActions.OrderedServiceState,
 				)
 			).subscribe(() => {
 			this.dispatchActionToUpdateCalendar();
@@ -355,6 +388,14 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 				this.findAndFixNearEventsWidthInEachColumn(column);
 			});
 		});
+
+		// Check if data is empty if true then dispatch action to get items
+		firstValueFrom(this.store.select(CalendarWithSpecialistsQueries.data)).then((data) => {
+			if (!data.length) {
+				this.dispatchActionToUpdateCalendar();
+			}
+		});
+
 	}
 
 	@Dispatch()
@@ -513,7 +554,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			return;
 		}
 
-		this.fixNearEventsWidth(Array.from(nearEvents)  as HTMLDivElement[], htmlDivElement, column, () => {
+		this.fixNearEventsWidth(Array.from(nearEvents) as HTMLDivElement[], htmlDivElement, column, () => {
 			this.restoreWidthOfMutatedEvents(column);
 		});
 

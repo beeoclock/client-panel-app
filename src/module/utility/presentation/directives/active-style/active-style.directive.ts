@@ -1,32 +1,26 @@
-import {Directive, ElementRef, inject, input, OnChanges, OnInit} from '@angular/core';
+import {Directive, effect, ElementRef, inject, input} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Directive({
 	selector: '[activeStyle]',
 	standalone: true,
 })
-export class ActiveStyleDirective implements OnInit, OnChanges {
+export class ActiveStyleDirective {
 
 	public readonly state = input<StateEnum>(StateEnum.active);
 
 	public readonly activeText = input<string>();
-
 	public readonly inactiveText = input<string>();
+	public readonly archiveText = input<string>();
 
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly translateService = inject(TranslateService);
 
-	public ngOnChanges(): void {
-
-		this.initActive();
-
-	}
-
-	public ngOnInit(): void {
-
-		this.initActive();
-
+	public constructor() {
+		effect(() => {
+			this.initActive();
+		});
 	}
 
 	public initActive(): void {
@@ -41,7 +35,7 @@ export class ActiveStyleDirective implements OnInit, OnChanges {
 
 			case StateEnum.archived:
 				this.elementRef.nativeElement.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-800/30', 'dark:text-red-500');
-				text = this.inactiveText() ?? this.translateService.instant('keyword.capitalize.inactive');
+				text = this.archiveText() ?? this.translateService.instant('keyword.capitalize.archived');
 				break;
 
 			case StateEnum.inactive:

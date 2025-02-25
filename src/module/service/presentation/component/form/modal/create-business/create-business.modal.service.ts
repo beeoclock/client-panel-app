@@ -10,7 +10,7 @@ import {
 	CreateBusinessComponent
 } from "@service/presentation/component/form/modal/create-business/create-business.component";
 import {ServiceForm} from "@service/presentation/form";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 
 type RESOLVE_TYPE = { (value: ServiceForm | PromiseLike<ServiceForm>): void; (arg0: ServiceForm): void; };
 type REJECT_TYPE = { (reason?: never): void; (arg0?: never): void; };

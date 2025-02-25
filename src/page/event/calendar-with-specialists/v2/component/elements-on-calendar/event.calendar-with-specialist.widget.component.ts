@@ -15,13 +15,10 @@ import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@event/domain";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {DateTime} from "luxon";
-import {RIMember} from "@member/domain";
-import {UpdateServiceOrderApiAdapter} from "@order/external/adapter/api/update.service.order.api.adapter";
-import {UpdateAbsenceApiAdapter} from "@absence/external/adapter/api/update.order.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";
@@ -32,9 +29,17 @@ import {
 	AbsenceEventCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {
+	CalendarWithSpecialistsQueries
+} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {Store} from "@ngxs/store";
+import {firstValueFrom} from "rxjs";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
+import {IMember} from "@core/business-logic/member/interface/i.member";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
-type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>;
+type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>;
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -122,18 +127,17 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	public draggable = false;
 
 	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
-	public temporaryNewMember: RIMember | null = null;
+	public temporaryNewMember: IMember.DTO | null = null;
 	public snapshotOfOriginalPosition: { top: number, height: number } | null = null;
 	public previousData: {
-		member: RIMember | undefined;
+		member: IMember.DTO | undefined;
 		htmlParent: HTMLElement | null | undefined;
 		memberId: string | undefined;
 	} | null = null;
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly store = inject(Store);
 	private readonly renderer2 = inject(Renderer2);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
-	private readonly updateAbsenceApiAdapter = inject(UpdateAbsenceApiAdapter);
 	private readonly alertController = inject(AlertController);
 	private readonly translateService = inject(TranslateService);
 	private saveInProgress = false;
@@ -221,7 +225,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		this.toggleMode(true);
 	}
 
-	public changeMember(member: RIMember) {
+	public changeMember(member: IMember.EntityRaw) {
 		this.temporaryNewMember = member;
 	}
 
@@ -323,17 +327,33 @@ export class EventCalendarWithSpecialistWidgetComponent {
 				const durationInSeconds = DateTime.fromISO(this.item.end).diff(DateTime.fromISO(this.item.start), 'seconds').seconds;
 				const editedService = this.item.originalData.service;
 				editedService.serviceSnapshot.durationVersions[0].durationInSeconds = durationInSeconds;
-				await this.updateServiceOrderApiAdapter.executeAsync(this.item.originalData.order._id, {
-					serviceSnapshot: editedService.serviceSnapshot,
-					orderAppointmentDetails: editedService.orderAppointmentDetails,
-					_id: editedService._id,
-					status: editedService.status
-				});
+
+				const {order} = this.item.originalData;
+				const action = new OrderActions.UpdateItem({
+					...order,
+					services: order.services.map(service => {
+						if (editedService._id === service._id) {
+							return {
+								...service,
+								serviceSnapshot: editedService.serviceSnapshot,
+								orderAppointmentDetails: editedService.orderAppointmentDetails,
+								_id: editedService._id,
+								status: editedService.status
+							};
+						}
+						return service;
+					})
+				})
+				const action$ = this.store.dispatch(action);
+				await firstValueFrom(action$);
 				this.item = structuredClone(this.item);
 			}
 
 			if (this.isAbsence(this.item)) {
-				await this.updateAbsenceApiAdapter.executeAsync(this.item.originalData);
+				const entity = EAbsence.fromDTO(this.item.originalData);
+				const action = new AbsenceActions.UpdateItem(entity);
+				const action$ = this.store.dispatch(action);
+				await firstValueFrom(action$);
 				this.item = structuredClone(this.item);
 			}
 
@@ -351,11 +371,11 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	}
 
-	public isOrder(event: DATA): event is IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }> {
+	public isOrder(event: DATA): event is IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }> {
 		return event.is === 'order';
 	}
 
-	public isAbsence(event: DATA): event is IEvent_V2<IAbsenceDto> {
+	public isAbsence(event: DATA): event is IEvent_V2<IAbsence.DTO> {
 		return event.is === 'absence';
 	}
 

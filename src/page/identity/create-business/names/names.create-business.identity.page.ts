@@ -3,15 +3,15 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {CreateBusinessQuery} from "@identity/query/create-business.query";
+import {CreateBusinessQuery} from "@identity/infrastructure/query/create-business.query";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {filter, map, Observable, tap} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {Select, Store} from "@ngxs/store";
-import {IdentityState} from "@identity/state/identity/identity.state";
+import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {IMember} from "@identity/domain/interface/i.member";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {IdentityActions} from "@identity/infrastructure/state/identity/identity.actions";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({

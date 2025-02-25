@@ -4,7 +4,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {CreateBusinessQuery} from "@identity/query/create-business.query";
+import {CreateBusinessQuery} from "@identity/infrastructure/query/create-business.query";
 import {ServiceItemComponent} from "@service/presentation/component/list/item/item.componen";
 import {NgForOf} from "@angular/common";
 
@@ -15,8 +15,8 @@ import {
 } from "@service/presentation/component/form/modal/create-business/create-business.modal.service";
 import {ServiceForm} from "@service/presentation/form";
 import {NGXLogger} from "ngx-logger";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 
 @Component({
@@ -45,10 +45,10 @@ export class ServicesCreateBusinessIdentityPage {
 	private readonly ngxLogger = inject(NGXLogger);
 
 	public get serviceList() {
-		return (this.servicesForm.value ?? []) as IServiceDto[];
+		return (this.servicesForm.value ?? []) as IService.DTO[];
 	}
 
-	public openServiceFormModal(service?: IServiceDto | undefined) {
+	public openServiceFormModal(service?: IService.DTO | undefined) {
 		let serviceFormToEdit = undefined;
 		if (service !== undefined) {
 			serviceFormToEdit = new ServiceForm();
@@ -72,7 +72,7 @@ export class ServicesCreateBusinessIdentityPage {
 			} else {
 				const serviceForm = this.servicesForm.controls.find((control) => control.value._id === service._id);
 				if (serviceForm) {
-					serviceForm.patchValue(newServiceForm.value as Partial<IServiceDto>);
+					serviceForm.patchValue(newServiceForm.value as Partial<IService.DTO>);
 				} else {
 					this.ngxLogger.error('Service not found');
 				}

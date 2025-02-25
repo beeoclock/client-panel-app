@@ -6,12 +6,11 @@ import {
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {BaseEntityForm} from "@utility/base.form";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {ICustomer} from "@customer/domain";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
+import {ICustomer} from "@src/core/business-logic/customer";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
-import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export const enum CustomerFormFieldsEnum {
 
@@ -34,8 +33,6 @@ export interface ICustomerForm {
 	[CustomerFormFieldsEnum.email]: FormControl<string | null>;
 	[CustomerFormFieldsEnum.phone]: FormControl<string | null>;
 
-	[CustomerFormFieldsEnum.state]: FormControl<StateEnum>;
-	[CustomerFormFieldsEnum.stateHistory]: FormControl<{state: StateEnum; setAt: string}[]>;
 	[CustomerFormFieldsEnum.customerType]: FormControl<CustomerTypeEnum>;
 
 }
@@ -125,14 +122,6 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 
 			[CustomerFormFieldsEnum.note]: new FormControl(),
 
-			[CustomerFormFieldsEnum.state]: new FormControl(StateEnum.active, {
-				nonNullable: true,
-			}),
-
-			[CustomerFormFieldsEnum.stateHistory]: new FormControl([], {
-				nonNullable: true,
-			}),
-
 			[CustomerFormFieldsEnum.customerType]: new FormControl(CustomerTypeEnum.new, {
 				nonNullable: true,
 			}),
@@ -184,7 +173,7 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 		this.removeValidators(this.unregisteredCaseValidator);
 	}
 
-	public static create(initValue: Partial<ICustomer> = {}): CustomerForm {
+	public static create(initValue: Partial<ICustomer.EntityRaw> = {}): CustomerForm {
 
 		const form = new CustomerForm();
 

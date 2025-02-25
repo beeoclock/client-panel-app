@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
-import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
+import {EventRequestedState} from "@event/infrastructure/state/event-requested/event-requested.state";
 import {Store} from "@ngxs/store";
 import {MEvent, RIEvent} from "@src/module/event/domain";
 import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf} from "@angular/common";
