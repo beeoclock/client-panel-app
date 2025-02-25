@@ -38,25 +38,27 @@ import {tap} from "rxjs";
 						@if (ordersSignal(); as ordersState) {
 
 							<!-- board category header -->
-							<div class="flex flex-row justify-between items-center sticky top-0 bg-white p-4">
+							<div class="flex flex-row justify-between items-center sticky top-0 bg-white px-4 py-2">
 								<div class="flex items-center justify-between w-full">
 									<div class="flex items-center gap-2">
 										<app-status-order-icon-component
 											class="flex text-3xl"
 											[ngClass]="{
-										'text-red-600': status === orderStatusEnum.cancelled,
-										'text-blue-600': status === orderStatusEnum.confirmed,
-										'text-green-600': status === orderStatusEnum.done,
-									  }"
+												'text-red-600': status === orderStatusEnum.cancelled,
+												'text-blue-600': status === orderStatusEnum.confirmed,
+												'text-green-600': status === orderStatusEnum.done,
+											  }"
 											[status]="status"/>
 										{{ ('order.enum.status.singular.' + status) | translate }}
 									</div>
 									<div class="flex gap-2 items-center">
-										@if (ordersState.isLoading) {
-											<div class="animate-spin">
+
+										<button class="p-2 px-3 rounded-2xl hover:bg-neutral-100 transition-all hover:cursor-pointer" (click)="refresh(status)">
+											<div [class.animate-spin]="ordersState.isLoading">
 												<i class="bi bi-arrow-clockwise"></i>
 											</div>
-										}
+										</button>
+
 										<p class="text-gray-400 text-sm">
 											{{ ordersState.items.length }} /
 											{{ ordersState.totalSize }}
@@ -92,7 +94,7 @@ import {tap} from "rxjs";
 
 									@if (ordersState.page * ordersState.pageSize >= ordersState.totalSize) {
 
-										<div class="text-beeColor-500">
+										<div class="text-beeColor-500 text-center w-full">
 											{{ 'pagination.message.allDataDownloaded' | translate }}
 										</div>
 
@@ -153,6 +155,10 @@ export class KanbanOrderComponent {
 
 	public nextPage(status: OrderStatusEnum): void {
 		this.kanbanOrderService.fetch(status).then();
+	}
+
+	public refresh(status: OrderStatusEnum): void {
+		this.kanbanOrderService.refresh(status).then();
 	}
 
 	protected readonly orderStatusEnum = OrderStatusEnum;

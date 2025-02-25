@@ -31,13 +31,54 @@ export class KanbanOrderService {
 
 	public initStatus(status: OrderStatusEnum, position: number) {
 		this._orderSignals.set(status, signal({
-			page: 1,
+			page: 0,
 			pageSize: 10,
 			totalSize: 0,
 			position,
 			isLoading: false,
 			items: [] as IOrder.EntityRaw[],
 		}));
+	}
+
+	public async refresh(status: OrderStatusEnum) {
+
+		const orderSignal = this._orderSignals.get(status);
+
+		if (!orderSignal) {
+			throw new Error('Order signal not found');
+		}
+
+		orderSignal.update((orderState) => {
+			return {
+				...orderState,
+				isLoading: true,
+			}
+		});
+
+		const newItems: IOrder.EntityRaw[] = [];
+		const {page, pageSize} = orderSignal();
+		const pages = Array.from({length: page}, (_, i) => i + 1);
+		let ts = 0;
+
+		for (const page of pages) {
+			const {items, totalSize} = await this.sharedUow.order.repository.findAsync({
+				page,
+				pageSize,
+				status,
+			});
+			ts = totalSize;
+			newItems.push(...items);
+		}
+
+		orderSignal.update((orderState) => {
+			return {
+				...orderState,
+				isLoading: false,
+				items: newItems,
+				totalSize: ts,
+			}
+		});
+
 	}
 
 	public async fetch(status: OrderStatusEnum, reset = false) {
@@ -54,21 +95,24 @@ export class KanbanOrderService {
 		}
 
 		if (reset) {
+
 			orderList.page = 1;
-		}
 
-		if (orderList.totalSize > 0 && orderList.page * orderList.pageSize >= orderList.totalSize) {
-			return;
-		}
+		} else {
 
-		if (orderList.page * orderList.pageSize === orderList.items.length) {
-			return;
+			// If all data is downloaded, do not fetch more
+			if (orderList.totalSize > 0 && orderList.page * orderList.pageSize >= orderList.totalSize) {
+				return;
+			}
+
+			orderList.page++;
+
 		}
 
 		orderSignal.update((orderState) => {
 			orderState.isLoading = true;
 			return orderState;
-		})
+		});
 
 		const {items, totalSize} = await this.sharedUow.order.repository.findAsync({
 			page: orderList.page,
@@ -78,7 +122,7 @@ export class KanbanOrderService {
 
 		orderSignal.set({
 			...orderList,
-			page: orderList.page + 1,
+			page: orderList.page,
 			isLoading: false,
 			items: orderList.items.concat(items),
 			totalSize,
