@@ -11,6 +11,8 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {tap} from "rxjs";
+import {Actions, ofActionSuccessful} from "@ngxs/store";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 
 @Component({
 	selector: 'kanban-order',
@@ -53,7 +55,9 @@ import {tap} from "rxjs";
 									</div>
 									<div class="flex gap-2 items-center">
 
-										<button class="p-2 px-3 rounded-2xl hover:bg-neutral-100 transition-all hover:cursor-pointer" (click)="refresh(status)">
+										<button
+											class="p-2 px-3 rounded-2xl hover:bg-neutral-100 transition-all hover:cursor-pointer"
+											(click)="refresh(status)">
 											<div [class.animate-spin]="ordersState.isLoading">
 												<i class="bi bi-arrow-clockwise"></i>
 											</div>
@@ -125,6 +129,23 @@ export class KanbanOrderComponent {
 
 	protected readonly kanbanOrderService = inject(KanbanOrderService);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
+	protected readonly actions = inject(Actions);
+
+	private readonly changesHandler = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			OrderActions.UpdateItem,
+			OrderActions.ChangeStatus,
+			OrderActions.SetState,
+			OrderActions.OrderedServiceStatus,
+			OrderActions.OrderedServiceState,
+		),
+		tap((value) => {
+			console.log('KanbanOrderComponent: changesHandler', value);
+			// Refresh each status
+			this.orderStatusControl.value.forEach(status => this.refresh(status));
+		}),
+	).subscribe()
 
 	public readonly orderStatusControl = new FormControl<OrderStatusEnum[]>([], {
 		nonNullable: true

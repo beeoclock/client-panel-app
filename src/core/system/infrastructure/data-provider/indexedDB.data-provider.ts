@@ -6,7 +6,7 @@ import {is} from "@core/shared/checker";
 import {takeUntil} from "rxjs/operators";
 import Dexie from "dexie";
 import {Types} from "@core/shared/types";
-import {OrderDirEnum} from "@core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {IAdapterDataProvider} from "@core/system/interface/data-provider/i.adapter.data-provider";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 
@@ -54,7 +54,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
             take(1),
             concatMap((table) => {
 
-                const {pageSize, page, orderBy, orderDir, ...filter} = options as Types.StandardQueryParams;
+                const {pageSize, page, orderBy = OrderByEnum.UPDATED_AT, orderDir = OrderDirEnum.DESC, ...filter} = options as Types.StandardQueryParams;
 
                 // Delete updatedSince from filter because it is not a field in the table, and it is not a filter field
                 delete filter.updatedSince;
