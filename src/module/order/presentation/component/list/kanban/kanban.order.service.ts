@@ -2,6 +2,7 @@ import {inject, Injectable, signal} from "@angular/core";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export type DATA = {
 	page: number;
@@ -65,6 +66,7 @@ export class KanbanOrderService {
 				page,
 				pageSize,
 				status,
+				state: StateEnum.active,
 			});
 			ts = totalSize;
 			newItems.push(...items);
@@ -118,6 +120,7 @@ export class KanbanOrderService {
 			page: orderList.page,
 			pageSize: orderList.pageSize,
 			status,
+			state: StateEnum.active,
 		});
 
 		orderSignal.set({
