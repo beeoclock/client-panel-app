@@ -6,7 +6,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
 import {
 	StatusOrderIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.order.icon.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.order.icon.component";
 
 @Component({
 	selector: 'app-status-order-chip-component',

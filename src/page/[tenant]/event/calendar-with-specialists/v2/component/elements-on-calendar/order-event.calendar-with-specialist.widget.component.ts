@@ -11,25 +11,25 @@ import {
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {IOrder} from "@src/core/business-logic/order/interface/i.order";
-import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
-import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
+import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
+import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
 import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {
 	AnybodySpecialistIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/anybody-specialist.icon.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/anybody-specialist.icon.component";
 import {
 	NoteIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/note.icon.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/note.icon.component";
 import {
 	StatusIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
 import {
 	FirstTimeIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/first-time.icon.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/first-time.icon.component";
 import {
 	BusinessNoteIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/business-note.icon.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/business-note.icon.component";
 
 @Component({
 	selector: 'app-order-event-calendar-with-specialist-widget-component',

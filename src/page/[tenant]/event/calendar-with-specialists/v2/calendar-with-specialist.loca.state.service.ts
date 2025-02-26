@@ -3,7 +3,7 @@ import {ISchedule} from "@utility/domain/interface/i.schedule";
 import {BehaviorSubject} from "rxjs";
 import {
 	EventCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 

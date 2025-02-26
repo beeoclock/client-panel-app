@@ -16,7 +16,7 @@ import {AbsenceTableService} from "@absence/presentation/component/list/absence.
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
-import {environment} from '@src/environment/environment';
+import {environment} from '@environment/environment';
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({

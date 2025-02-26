@@ -1,14 +1,14 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {combineLatest, filter, iif, of, switchMap, tap} from "rxjs";
-import {is} from "@src/core/shared/checker";
+import {is} from "@core/shared/checker";
 import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService from "./calendar-with-specialist.loca.state.service";
 import {
 	CalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
 import {NGXLogger} from "ngx-logger";
 import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";

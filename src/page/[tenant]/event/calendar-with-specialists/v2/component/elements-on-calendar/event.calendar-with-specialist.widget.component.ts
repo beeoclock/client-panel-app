@@ -13,21 +13,21 @@ import {
 } from "@angular/core";
 import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
-	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+	from "@page/[tenant]/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@event/domain";
-import {IOrder} from "@src/core/business-logic/order/interface/i.order";
-import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
-import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
+import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
+import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 import {DateTime} from "luxon";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";
 import {
 	OrderEventCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/order-event.calendar-with-specialist.widget.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/order-event.calendar-with-specialist.widget.component";
 import {
 	AbsenceEventCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {
 	CalendarWithSpecialistsQueries

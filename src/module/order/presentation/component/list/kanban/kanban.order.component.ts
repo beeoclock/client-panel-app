@@ -6,7 +6,7 @@ import {CardItemOrderComponent} from "@order/presentation/component/list/card/it
 import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
 import {
 	StatusOrderIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.order.icon.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.order.icon.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";

@@ -19,7 +19,7 @@ import {Store} from "@ngxs/store";
 import {filter, map, switchMap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import CalendarWithSpecialistLocaStateService
-	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+	from "@page/[tenant]/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {BooleanState} from "@utility/domain";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {IMember} from "@core/business-logic/member/interface/i.member";

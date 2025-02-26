@@ -31,7 +31,7 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "@src/core/shared/checker";
+import {is} from "@core/shared/checker";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
 import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";

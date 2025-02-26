@@ -1,14 +1,14 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input} from "@angular/core";
 import {
 	DateControlCalendarWithSpecialistsComponent
-} from "@page/event/calendar-with-specialists/v2/filter/date-control/date-control.calendar-with-specialists.component";
+} from "@page/[tenant]/event/calendar-with-specialists/v2/filter/date-control/date-control.calendar-with-specialists.component";
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
-import {SettingsComponent} from "@page/event/calendar-with-specialists/v2/settings/settings.component";
-import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
+import {SettingsComponent} from "@page/[tenant]/event/calendar-with-specialists/v2/settings/settings.component";
+import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import CalendarWithSpecialistLocaStateService
-	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+	from "@page/[tenant]/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IonPopover} from "@ionic/angular/standalone";
 import {Reactive} from "@utility/cdk/reactive";
 import {

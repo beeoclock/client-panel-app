@@ -201,7 +201,7 @@ export const routes: Routes = [
 								children: [
 									{
 										path: 'list',
-										loadComponent: () => import('@page/member/list/list.member.page')
+										loadComponent: () => import('@page/[tenant]/member/list/list.member.page')
 									}
 								]
 							},
@@ -210,7 +210,7 @@ export const routes: Routes = [
 								children: [
 									{
 										path: 'list',
-										loadComponent: () => import('@page/absence/list/list.absence.page')
+										loadComponent: () => import('@page/[tenant]/absence/list/list.absence.page')
 									}
 								]
 							},
@@ -219,11 +219,11 @@ export const routes: Routes = [
 								children: [
 									{
 										path: 'sms-used',
-										loadComponent: () => import('@page/analytic/sms-used/sms-used.analytic.page')
+										loadComponent: () => import('@page/[tenant]/analytic/sms-used/sms-used.analytic.page')
 									},
 									{
 										path: 'date-range-report',
-										loadComponent: () => import('@page/analytic/date-range-report/date-range-report.analytic.page')
+										loadComponent: () => import('@page/[tenant]/analytic/date-range-report/date-range-report.analytic.page')
 									},
 								]
 							},
@@ -232,7 +232,7 @@ export const routes: Routes = [
 								children: [
 									{
 										path: 'list',
-										loadComponent: () => import('@page/order/list/list.order.page')
+										loadComponent: () => import('@page/[tenant]/order/list/list.order.page')
 									}
 								]
 							},
@@ -241,19 +241,19 @@ export const routes: Routes = [
 								children: [
 									{
 										path: 'requested',
-										loadComponent: () => import('@page/event/requested/requested.event.page')
+										loadComponent: () => import('@page/[tenant]/event/requested/requested.event.page')
 									},
 									{
 										path: 'calendar',
-										loadComponent: () => import('@page/event/calendar/calendar.event.page')
+										loadComponent: () => import('@page/[tenant]/event/calendar/calendar.event.page')
 									},
 									{
 										path: 'statistic',
-										loadComponent: () => import('@page/event/statistic/statistic.event.page')
+										loadComponent: () => import('@page/[tenant]/event/statistic/statistic.event.page')
 									},
 									{
 										path: 'calendar-with-specialists',
-										loadComponent: () => import('@page/event/calendar-with-specialists/calendar-with-specialists.event.page')
+										loadComponent: () => import('@page/[tenant]/event/calendar-with-specialists/calendar-with-specialists.event.page')
 									},
 								]
 							},
@@ -262,26 +262,26 @@ export const routes: Routes = [
 								children: [
 									{
 										path: 'business-profile',
-										loadComponent: () => import('@page/client/business-profile/business-profile.page')
+										loadComponent: () => import('@page/[tenant]/client/business-profile/business-profile.page')
 									},
 									{
 										path: 'business-settings',
-										loadComponent: () => import('@page/client/business-settings/business-settings.page')
+										loadComponent: () => import('@page/[tenant]/client/business-settings/business-settings.page')
 									},
 									{
 										path: 'settings',
-										loadComponent: () => import('@page/client/settings/settings.page')
+										loadComponent: () => import('@page/[tenant]/client/settings/settings.page')
 									},
 									{
 										path: 'notification',
 										children: [
 											{
 												path: '',
-												loadComponent: () => import('@page/client/notification/notification.page')
+												loadComponent: () => import('@page/[tenant]/client/notification/notification.page')
 											},
 											{
 												path: ':id',
-												loadComponent: () => import('@page/client/notification/notification.page')
+												loadComponent: () => import('@page/[tenant]/client/notification/notification.page')
 											}
 										]
 									}
@@ -292,7 +292,7 @@ export const routes: Routes = [
 								children: [
 									{
 										path: 'list',
-										loadComponent: () => import('@page/customer/list/list.customer.page')
+										loadComponent: () => import('@page/[tenant]/customer/list/list.customer.page')
 									}
 								]
 							},
@@ -301,7 +301,7 @@ export const routes: Routes = [
 								children: [
 									{
 										path: 'list',
-										loadComponent: () => import('@page/service/list/list.service.page')
+										loadComponent: () => import('@page/[tenant]/service/list/list.service.page')
 									}
 								]
 							},
