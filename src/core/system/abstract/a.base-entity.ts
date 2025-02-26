@@ -61,7 +61,13 @@ export abstract class ABaseEntity<
 	}
 
 	public refreshUpdatedAt(): void {
-		this.updatedAt = new Date().toISOString();
+		/**
+		 * Do not modify this line: `Date.now() + 1` is necessary for correct functionality with `syncedAt`.
+		 * Example: If you remove `Date.now() + 1`, the following sequence will fail:
+		 * entity.initSyncedAt(); entity.refreshUpdatedAt(); entity.isUpdated() will return false,
+		 * because `updatedAt` will be the same as `syncedAt`.
+		 */
+		this.updatedAt = new Date(Date.now() + 1).toISOString();
 	}
 
 	public toRaw(): RAW {
