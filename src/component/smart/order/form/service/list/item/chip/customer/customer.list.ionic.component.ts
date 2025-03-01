@@ -4,6 +4,7 @@ import {
 	Component,
 	inject,
 	input,
+	OnDestroy,
 	OnInit,
 	output,
 	ViewEncapsulation
@@ -32,7 +33,6 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {ICustomer} from "@src/core/business-logic/customer";
 import {Store} from "@ngxs/store";
-import {Reactive} from "@utility/cdk/reactive";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import ObjectID from "bson-objectid";
 import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
@@ -188,7 +188,7 @@ import {GlobalEventListCustomerRepository} from "@src/token";
 		</div>
 	`
 })
-export class CustomerListIonicComponent extends Reactive implements OnInit {
+export class CustomerListIonicComponent implements OnInit, OnDestroy {
 
 	public readonly customerForm = input.required<CustomerForm>();
 
@@ -212,6 +212,10 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 			});
 		}
 		this.initLocalFormValue();
+	}
+
+	public ngOnDestroy() {
+		this.eventListCustomerAdapter.resetTableState();
 	}
 
 	public async handleInput(event: any) {
@@ -286,7 +290,7 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	private detectIfCustomerSelect() {
 		const customerForm = this.customerForm();
-  if (customerForm.value.customerType === CustomerTypeEnum.regular) {
+		if (customerForm.value.customerType === CustomerTypeEnum.regular) {
 			this.selectedCustomer = customerForm.getRawValue();
 		}
 	}

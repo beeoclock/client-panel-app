@@ -4,13 +4,13 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import * as Customer from "@src/core/business-logic/customer";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {CustomerService} from "@core/business-logic/customer/service/customer.service";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Injectable()
 export class EventListCustomerRepository {
 
 	private readonly logger = inject(NGXLogger);
-	public readonly customerService = inject(CustomerService);
+	public readonly sharedUow = inject(SharedUow);
 	public readonly tableState = TableState.create<Customer.ICustomer.EntityRaw>({
 		filters: {}
 	});
@@ -57,7 +57,7 @@ export class EventListCustomerRepository {
 
 			const inState = [StateEnum.active];
 
-			const {items, totalSize} = await this.customerService.repository.findAsync({
+			const {items, totalSize} = await this.sharedUow.customer.repository.findAsync({
 				...newTableState,
 				state: inState,
 			});

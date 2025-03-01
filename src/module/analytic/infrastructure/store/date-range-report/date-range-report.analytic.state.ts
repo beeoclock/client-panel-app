@@ -17,7 +17,7 @@ import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
 import {Analytic} from "@module/analytic/infrastructure/store/date-range-report/interface/i.analytic";
-import {OrderService} from "@core/business-logic/order/service/order.service";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export type IDateRangeAnalyticState = {
 	filterState: {
@@ -44,7 +44,7 @@ export type IDateRangeAnalyticState = {
 @Injectable()
 export class DateRangeReportAnalyticState {
 
-	protected readonly orderService = inject(OrderService);
+	protected readonly sharedUow = inject(SharedUow);
 	private readonly ngxLogger = inject(NGXLogger);
 
 	// API
@@ -137,7 +137,7 @@ export class DateRangeReportAnalyticState {
 
 			// const orders = orderQuery.fetch();
 
-			const orders = await this.orderService.db.filter((order) => {
+			const orders = await this.sharedUow.order.db.filter((order) => {
 
 				return order.services.some((service) => {
 

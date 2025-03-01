@@ -4,14 +4,14 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ActiveEnum} from "@core/shared/enum";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {ServiceService} from "@core/business-logic/service/service/service.service";
 import {IService} from "@core/business-logic/service/interface/i.service";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Injectable()
 export class ModalSelectServiceListRepository {
 
 	private readonly logger = inject(NGXLogger);
-	public readonly serviceService = inject(ServiceService);
+	public readonly sharedUow = inject(SharedUow);
 	public readonly tableState = new TableState<IService.DTO>().setFilters({
 		active: ActiveEnum.YES
 	});
@@ -41,7 +41,7 @@ export class ModalSelectServiceListRepository {
 
 			const inState = [StateEnum.active, StateEnum.archived, StateEnum.inactive];
 
-			const {items, totalSize} = await this.serviceService.repository.findAsync({
+			const {items, totalSize} = await this.sharedUow.service.repository.findAsync({
 				...params,
 				state: inState,
 			});

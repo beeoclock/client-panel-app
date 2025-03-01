@@ -5,9 +5,9 @@ import {TranslateService} from "@ngx-translate/core";
 import {IOrderState} from "@order/infrastructure/state/order/order.state";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import {OrderService} from "@core/business-logic/order/service/order.service";
 import EOrder from "@core/business-logic/order/entity/e.order";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 
 export interface IEventState {
@@ -21,7 +21,7 @@ export interface IEventState {
 @Injectable()
 export class EventState {
 
-	private readonly orderService = inject(OrderService);
+	private readonly sharedUow = inject(SharedUow);
 
 	// Change status
 	private readonly translateService = inject(TranslateService);
@@ -75,7 +75,7 @@ export class EventState {
 
 	@Action(EventActions.ChangeServiceStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: EventActions.ChangeServiceStatus): Promise<void> {
-		const foundItem = await this.orderService.repository.findByIdAsync(action.payload.orderId);
+		const foundItem = await this.sharedUow.order.repository.findByIdAsync(action.payload.orderId);
 
 		if (!foundItem) {
 			return;

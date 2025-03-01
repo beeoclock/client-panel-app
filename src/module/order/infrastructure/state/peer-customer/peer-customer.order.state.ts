@@ -6,8 +6,8 @@ import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-custome
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {OrderService} from "@core/business-logic/order/service/order.service";
 import EOrder from "@core/business-logic/order/entity/e.order";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export type IPeerCustomerOrderState = {
 	tableState: ITableState<EOrder>;
@@ -28,7 +28,7 @@ export type IPeerCustomerOrderState = {
 export class PeerCustomerOrderState {
 
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly orderService = inject(OrderService);
+	private readonly sharedUow = inject(SharedUow);
 
 	@Action(PeerCustomerOrderActions.UpdateFilters)
 	public updateFilters(
@@ -101,7 +101,7 @@ export class PeerCustomerOrderState {
 
 			const isState = [StateEnum.active, StateEnum.archived, StateEnum.inactive];
 
-			const result = await this.orderService.db.filter((order) => {
+			const result = await this.sharedUow.order.db.filter((order) => {
 				if (!isState.includes(order.state)) {
 					return false;
 				}

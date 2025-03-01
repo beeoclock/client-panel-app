@@ -11,8 +11,8 @@ import {
 	SelectServiceMultipleComponent
 } from "@service/presentation/component/select-list/select-service-multiple.component";
 import {IService} from "@src/core/business-logic/service/interface/i.service";
-import {ServiceService} from "@core/business-logic/service/service/service.service";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Component({
 	selector: 'app-select-service-list-component',
@@ -34,7 +34,7 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 })
 export class SelectServiceListComponent implements OnInit {
 
-	private readonly serviceService = inject(ServiceService);
+	private readonly sharedUow = inject(SharedUow);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	public readonly emitSelectedServiceList = output<IService.DTO[]>();
@@ -47,7 +47,7 @@ export class SelectServiceListComponent implements OnInit {
 	}
 
 	public async initServiceList() {
-		const result = await this.serviceService.repository.findAsync({
+		const result = await this.sharedUow.service.repository.findAsync({
 			pageSize: 500,
 			page: 1,
 			orderBy: OrderByEnum.UPDATED_AT,

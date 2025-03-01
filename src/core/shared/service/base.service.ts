@@ -17,6 +17,7 @@ export abstract class BaseService<ENTITY_RAW> {
 			.pipe(
 				takeUntilDestroyed(),
 				map((table) => {
+					console.log({table})
 					this.#db$.next(table);
 				})
 			)

@@ -3,8 +3,8 @@ import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {MemberService} from "@core/business-logic/member/service/member.service";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Injectable({
 	providedIn: 'root'
@@ -12,7 +12,7 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 export class ModalSelectSpecialistListRepository {
 
 	private readonly logger = inject(NGXLogger);
-	private readonly memberService = inject(MemberService);
+	private readonly sharedUow = inject(SharedUow);
 	public readonly tableState = new TableState<IMember.EntityRaw>();
 	public readonly loading$ = new BooleanStreamState(false);
 
@@ -38,7 +38,7 @@ export class ModalSelectSpecialistListRepository {
 
 			const inState = [StateEnum.active, StateEnum.archived, StateEnum.inactive];
 
-			const {items, totalSize} = await this.memberService.repository.findAsync({
+			const {items, totalSize} = await this.sharedUow.member.repository.findAsync({
 				...this.tableState.toBackendFormat(),
 				state: inState,
 			});

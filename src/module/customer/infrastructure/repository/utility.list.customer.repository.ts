@@ -3,13 +3,13 @@ import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import * as Customer from "@src/core/business-logic/customer";
 import {NGXLogger} from "ngx-logger";
-import {CustomerService} from "@core/business-logic/customer/service/customer.service";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Injectable()
 export class UtilityListCustomerRepository {
 
 	private readonly logger = inject(NGXLogger);
-	public readonly customerService = inject(CustomerService);
+	public readonly sharedUow = inject(SharedUow);
 	public readonly tableState = new TableState<Customer.ICustomer.EntityRaw>();
 	public readonly loading$ = new BooleanStreamState(false);
 
