@@ -3,12 +3,17 @@
 		<div tableColumnFlex="color">
 			{{ 'keyword.capitalize.color' | translate }}
 		</div>
-		<div tableColumnFlex="title" data-orderBy="languageVersions.title">
+		<!--		<div tableColumnFlex="title" data-orderBy="languageVersions.title">-->
+		<!--			<div class="flex gap-3 items-center">-->
+		<!--				{{ 'keyword.capitalize.title' | translate }}-->
+		<!--				<utility-sort-indicator-->
+		<!--					orderBy="languageVersions.title"-->
+		<!--					[tableState]="tableState()"/>-->
+		<!--			</div>-->
+		<!--		</div>-->
+		<div tableColumnFlex="title">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.title' | translate }}
-				<utility-sort-indicator
-					orderBy="languageVersions.title"
-					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="price">
@@ -75,7 +80,8 @@
 
 							<div
 								class="relative text-wrap flex gap-2 items-start p-2 font-sans text-xs font-bold uppercase text-neutral-900">
-								<label class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
+								<label
+									class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
 									{{ languageVersion.language }}
 								</label>
 								<div>
