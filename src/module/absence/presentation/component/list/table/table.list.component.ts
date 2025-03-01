@@ -2,7 +2,6 @@ import {Component, ViewEncapsulation} from "@angular/core";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
@@ -18,6 +17,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {DatePipe} from "@angular/common";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -26,7 +26,6 @@ import EAbsence from "@core/business-logic/absence/entity/e.absence";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TableStatePaginationComponent,
-		DynamicDatePipe,
 		SortIndicatorComponent,
 		TranslateModule,
 		BodyTableFlexDirective,
@@ -36,6 +35,7 @@ import EAbsence from "@core/business-logic/absence/entity/e.absence";
 		NoDataPipe,
 		RowActionButtonComponent,
 		StateStatusComponent,
+		DatePipe,
 	]
 })
 export class TableListComponent extends TableComponent<EAbsence> {
@@ -57,12 +57,12 @@ export class TableListComponent extends TableComponent<EAbsence> {
 			},
 			start: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			end: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			attendees: {
@@ -77,12 +77,12 @@ export class TableListComponent extends TableComponent<EAbsence> {
 			},
 			createdAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			updatedAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			action: {

@@ -101,14 +101,14 @@
 						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [state]="item.state">
 					</div>
 				</div>
-				<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
-				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
-					{{ createdAtColumn.getAttribute('data-value') }}
+				<div tableColumnFlex="createdAt">
+				<span [title]="item.createdAt | date: 'full'" class="truncate">
+					{{ item.createdAt | date: 'short' }}
 				</span>
 				</div>
-				<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
-				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
-					{{ updatedAtColumn.getAttribute('data-value') }}
+				<div tableColumnFlex="updatedAt">
+				<span [title]="item.updatedAt | date: 'full'" class="truncate">
+					{{ item.updatedAt | date: 'short' }}
 				</span>
 				</div>
 				<div tableColumnFlex="action" class="border-l sticky right-0">

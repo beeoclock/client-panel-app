@@ -2,7 +2,6 @@ import {Component, ViewEncapsulation} from "@angular/core";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
@@ -15,6 +14,7 @@ import {RowActionButtonComponent} from "@order/presentation/component/row-action
 import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import EOrder from "@core/business-logic/order/entity/e.order";
+import {DatePipe} from "@angular/common";
 
 @Component({
 	selector: 'app-list-order-table',
@@ -23,7 +23,6 @@ import EOrder from "@core/business-logic/order/entity/e.order";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TableStatePaginationComponent,
-		DynamicDatePipe,
 		SortIndicatorComponent,
 		TranslateModule,
 		BodyTableFlexDirective,
@@ -31,7 +30,8 @@ import EOrder from "@core/business-logic/order/entity/e.order";
 		RowTableFlexDirective,
 		TableTableFlexDirective,
 		NoDataPipe,
-		RowActionButtonComponent
+		RowActionButtonComponent,
+		DatePipe
 	]
 })
 export class TableListComponent extends TableComponent<EOrder> {
@@ -58,12 +58,12 @@ export class TableListComponent extends TableComponent<EOrder> {
 			},
 			createdAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			updatedAt: {
 				style: {
-					minWidth: '250px',
+					minWidth: '180px',
 				},
 			},
 			action: {

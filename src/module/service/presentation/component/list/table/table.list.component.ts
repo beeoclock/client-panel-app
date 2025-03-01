@@ -1,10 +1,9 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe} from "@angular/common";
+import {CurrencyPipe, DatePipe} from "@angular/common";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
@@ -29,7 +28,6 @@ import EService from "@core/business-logic/service/entity/e.service";
 	imports: [
 		ActiveStyleDirective,
 		TableStatePaginationComponent,
-		DynamicDatePipe,
 		SortIndicatorComponent,
 		TranslateModule,
 		BodyTableFlexDirective,
@@ -37,6 +35,7 @@ import EService from "@core/business-logic/service/entity/e.service";
 		RowTableFlexDirective,
 		TableTableFlexDirective,
 		RowActionButtonComponent,
+		DatePipe,
 	],
 	providers: [
 		CurrencyPipe,
@@ -88,12 +87,12 @@ export class TableListComponent extends TableComponent<EService> {
 			},
 			createdAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			updatedAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			action: {

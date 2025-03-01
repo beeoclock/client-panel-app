@@ -3,7 +3,6 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
@@ -16,6 +15,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import {DatePipe} from "@angular/common";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -25,7 +25,6 @@ import ECustomer from "@core/business-logic/customer/entity/e.customer";
 	imports: [
 		ActiveStyleDirective,
 		TableStatePaginationComponent,
-		DynamicDatePipe,
 		SortIndicatorComponent,
 		TranslateModule,
 		BodyTableFlexDirective,
@@ -33,7 +32,8 @@ import ECustomer from "@core/business-logic/customer/entity/e.customer";
 		RowTableFlexDirective,
 		TableTableFlexDirective,
 		NoDataPipe,
-		RowActionButtonComponent
+		RowActionButtonComponent,
+		DatePipe
 	]
 })
 export class TableListComponent extends TableComponent<ECustomer> {
@@ -74,12 +74,12 @@ export class TableListComponent extends TableComponent<ECustomer> {
 			},
 			createdAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			updatedAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			action: {

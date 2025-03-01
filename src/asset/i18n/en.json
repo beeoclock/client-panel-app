@@ -609,7 +609,7 @@
 		"keyword": {
 			"capitalize": {
 				"chronologyOfEventChanges": "Chronology of event changes",
-				"end": "Estimated End",
+				"end": "Will end",
 				"repeat": "Repeat",
 				"service": "Service",
 				"start": "Booking Start",

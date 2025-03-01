@@ -2,7 +2,6 @@ import {Component, ViewEncapsulation} from "@angular/core";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
@@ -14,6 +13,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import EMember from "@core/business-logic/member/entity/e.member";
+import {DatePipe} from "@angular/common";
 
 @Component({
 	selector: 'member-table-list-component',
@@ -22,7 +22,6 @@ import EMember from "@core/business-logic/member/entity/e.member";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TableStatePaginationComponent,
-		DynamicDatePipe,
 		SortIndicatorComponent,
 		TranslateModule,
 		BodyTableFlexDirective,
@@ -31,6 +30,7 @@ import EMember from "@core/business-logic/member/entity/e.member";
 		RowTableFlexDirective,
 		TableTableFlexDirective,
 		RowActionButtonComponent,
+		DatePipe,
 	]
 })
 export class TableListComponent extends TableComponent<EMember> {
@@ -72,12 +72,12 @@ export class TableListComponent extends TableComponent<EMember> {
 			},
 			createdAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			updatedAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			action: {

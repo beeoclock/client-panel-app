@@ -67,18 +67,17 @@
 				<div tableColumnFlex="progressStatus">
 					<state-status-component [item]="item"/>
 				</div>
-				<div tableColumnFlex="start" #startColumn
-					 [attr.data-value]="(item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time'">
-				<span [title]="startColumn.getAttribute('data-value')" class="truncate">
-					{{ startColumn.getAttribute('data-value') }}
+				<div tableColumnFlex="start">
+				<span [title]="item.start | date: 'full'" class="truncate">
+					{{ item.start | date: 'short' }}
 				</span>
 				</div>
-				<div tableColumnFlex="end" #endColumn
-					 [attr.data-value]="(item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time'">
-				<span [title]="endColumn.getAttribute('data-value')" class="truncate">
-					{{ endColumn.getAttribute('data-value') }}
+				<div tableColumnFlex="end">
+				<span [title]="item.end | date: 'full'" class="truncate">
+					{{ item.end | date: 'short' }}
 				</span>
 				</div>
+
 				<div tableColumnFlex="attendees">
 					@if (item.entireBusiness) {
 						{{ 'absence.form.inputs.entireBusiness.label' | translate }}
@@ -92,14 +91,14 @@
 					{{ item.note | noData }}
 				</span>
 				</div>
-				<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
-				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
-					{{ createdAtColumn.getAttribute('data-value') }}
+				<div tableColumnFlex="createdAt">
+				<span [title]="item.createdAt | date: 'full'" class="truncate">
+					{{ item.createdAt | date: 'short' }}
 				</span>
 				</div>
-				<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
-				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
-					{{ updatedAtColumn.getAttribute('data-value') }}
+				<div tableColumnFlex="updatedAt">
+				<span [title]="item.updatedAt | date: 'full'" class="truncate">
+					{{ item.updatedAt | date: 'short' }}
 				</span>
 				</div>
 				<div tableColumnFlex="action" class="border-l sticky right-0">

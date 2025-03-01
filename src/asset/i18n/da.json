@@ -609,7 +609,7 @@
 		"keyword": {
 			"capitalize": {
 				"chronologyOfEventChanges": "Kronologi af begivenhedsændringer",
-				"end": "Forventet slutning",
+				"end": "Slutter",
 				"repeat": "Gentag",
 				"service": "Tjeneste",
 				"start": "Bookingstart",

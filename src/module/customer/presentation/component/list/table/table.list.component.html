@@ -92,13 +92,13 @@
 					</div>
 				</div>
 				<div tableColumnFlex="createdAt">
-				<span [title]="item.createdAt | dynamicDate" class="truncate">
-					{{ item.createdAt | dynamicDate }}
+				<span [title]="item.createdAt | date: 'full'" class="truncate">
+					{{ item.createdAt | date: 'short' }}
 				</span>
 				</div>
 				<div tableColumnFlex="updatedAt">
-				<span [title]="item.updatedAt | dynamicDate" class="truncate">
-					{{ item.updatedAt | dynamicDate }}
+				<span [title]="item.updatedAt | date: 'full'" class="truncate">
+					{{ item.updatedAt | date: 'short' }}
 				</span>
 				</div>
 				<div tableColumnFlex="action" class="border-l sticky right-0">
