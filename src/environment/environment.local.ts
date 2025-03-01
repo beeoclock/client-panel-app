@@ -14,6 +14,10 @@ export const environment = {
 		analytic: 'http://localhost:3004',
 		panel: 'http://localhost:3000',
 		identity: 'http://localhost:3001',
+		ws: {
+			url: 'http://localhost:3000',
+			path: '/socket.io'
+		}
 	},
 	endpoint,
 	constant,

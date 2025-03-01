@@ -16,7 +16,7 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {IsRequiredDirective} from '@utility/presentation/directives/is-required/is-required';
 import {InvalidTooltipDirective} from '@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive';
 import intlTelInput, {Iti} from 'intl-tel-input';
-import {is} from '@utility/checker';
+import {is} from '@src/core/shared/checker';
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({

@@ -1,5 +1,5 @@
 import {inject, Injectable, LOCALE_ID} from "@angular/core";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({

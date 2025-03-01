@@ -1,4 +1,4 @@
-import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
+import {SourceNetworkEnum} from "@core/shared/enum/source.network.enum";
 import {environment} from "@environment/environment";
 
 

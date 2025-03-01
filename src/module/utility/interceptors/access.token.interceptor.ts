@@ -2,12 +2,12 @@ import {HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest} from "
 import {catchError, exhaustMap, filter, switchMap, take, throwError} from "rxjs";
 import {inject} from "@angular/core";
 import {Store} from "@ngxs/store";
-import {IdentityState} from "@identity/state/identity/identity.state";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
+import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";
+import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 import {Endpoint} from "@utility/domain/endpoint";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
-import {HttpStatusEnum} from "@utility/domain/enum/http-status.enum";
-import {is} from "@utility/checker";
+import {IdentityActions} from "@identity/infrastructure/state/identity/identity.actions";
+import {HttpStatusEnum} from "@core/shared/enum/http-status.enum";
+import {is} from "@src/core/shared/checker";
 import {TokensHttpContext} from "@src/tokens.http-context";
 
 /**

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {
 	CancelledChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/cancelled.change-status.button.component";
@@ -13,7 +13,7 @@ import {
 import {
 	RejectedChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/rejected.change-status.button.component";
-import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
+import {OrderStatusEnum} from "@src/core/business-logic/order/enum/order.status.enum";
 import {NgSwitch, NgSwitchCase} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 
@@ -79,7 +79,7 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class ContainerChangeStatusButtonComponent extends Reactive {
 
-	public readonly item = input.required<IOrderDto>();
+	public readonly item = input.required<IOrder.DTO>();
 
 	public readonly status = OrderStatusEnum;
 

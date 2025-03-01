@@ -1,12 +1,12 @@
 import {Component, inject} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {LANGUAGES} from "@utility/domain/enum";
+import {LANGUAGES} from "@core/shared/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {
 	LanguageBusinessPanelFrontendSettingsAccountApiAdapter
-} from "@module/account/adapter/external/api/language.business-panel.frontend-settings.account.api.adapter";
+} from "@module/account/infrastructure/adapter/external/api/language.business-panel.frontend-settings.account.api.adapter";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({

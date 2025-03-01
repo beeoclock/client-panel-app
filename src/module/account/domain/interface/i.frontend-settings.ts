@@ -1,4 +1,4 @@
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {ThemeEnum} from "@utility/cdk/theme.service";
 
 export interface IFrontendSettings {

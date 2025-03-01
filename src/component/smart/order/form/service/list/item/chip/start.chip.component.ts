@@ -30,7 +30,7 @@ import {DateTime} from "luxon";
 			[id]="'datetime-trigger-' + id()"
 			class="px-3 py-2 rounded-lg border border-gray-200 justify-center items-center flex">
 			<div class="text-slate-900 text-sm font-normal">
-				⏰ {{ startFormControl.value | date: 'yyyy-MM-dd&nbsp;&nbsp;HH:mm' }}
+				⏰ {{ startFormControl.value | date: 'short' }}
 			</div>
 		</button>
 		<ion-popover [trigger]="'datetime-trigger-' + id()" [keepContentsMounted]="true">

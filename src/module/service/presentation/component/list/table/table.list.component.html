@@ -3,12 +3,17 @@
 		<div tableColumnFlex="color">
 			{{ 'keyword.capitalize.color' | translate }}
 		</div>
-		<div tableColumnFlex="title" data-orderBy="languageVersions.title">
+		<!--		<div tableColumnFlex="title" data-orderBy="languageVersions.title">-->
+		<!--			<div class="flex gap-3 items-center">-->
+		<!--				{{ 'keyword.capitalize.title' | translate }}-->
+		<!--				<utility-sort-indicator-->
+		<!--					orderBy="languageVersions.title"-->
+		<!--					[tableState]="tableState()"/>-->
+		<!--			</div>-->
+		<!--		</div>-->
+		<div tableColumnFlex="title">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.title' | translate }}
-				<utility-sort-indicator
-					orderBy="languageVersions.title"
-					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="price">
@@ -25,11 +30,11 @@
 					[tableState]="tableState()"/>
 			</div>
 		</div>
-		<div tableColumnFlex="active" data-orderBy="active">
+		<div tableColumnFlex="active" data-orderBy="state">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.active' | translate }}
 				<utility-sort-indicator
-					orderBy="active"
+					orderBy="state"
 					[tableState]="tableState()"
 				/>
 			</div>
@@ -75,7 +80,8 @@
 
 							<div
 								class="relative text-wrap flex gap-2 items-start p-2 font-sans text-xs font-bold uppercase text-neutral-900">
-								<label class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
+								<label
+									class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
 									{{ languageVersion.language }}
 								</label>
 								<div>
@@ -96,19 +102,19 @@
 				<div tableColumnFlex="order">
 					{{ item.order }}
 				</div>
-				<div tableColumnFlex="active">
+				<div tableColumnFlex="state">
 					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
+						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [state]="item.state">
 					</div>
 				</div>
-				<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
-				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
-					{{ createdAtColumn.getAttribute('data-value') }}
+				<div tableColumnFlex="createdAt">
+				<span [title]="item.createdAt | date: 'full'" class="truncate">
+					{{ item.createdAt | date: 'short' }}
 				</span>
 				</div>
-				<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
-				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
-					{{ updatedAtColumn.getAttribute('data-value') }}
+				<div tableColumnFlex="updatedAt">
+				<span [title]="item.updatedAt | date: 'full'" class="truncate">
+					{{ item.updatedAt | date: 'short' }}
 				</span>
 				</div>
 				<div tableColumnFlex="action" class="border-l sticky right-0">

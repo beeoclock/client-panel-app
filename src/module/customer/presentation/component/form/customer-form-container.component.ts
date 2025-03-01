@@ -1,6 +1,6 @@
 import {Component, inject, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {ICustomer, validCustomer} from "@customer/domain";
+import {ICustomer, validCustomer} from "@src/core/business-logic/customer";
 import {TranslateModule} from "@ngx-translate/core";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
@@ -13,8 +13,8 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 
 @Component({
 	selector: 'customer-form-page',
@@ -43,7 +43,7 @@ export class CustomerFormContainerComponent implements OnInit {
 		customerType: CustomerTypeEnum.regular
 	});
 
-	public readonly item = input<ICustomer | undefined>();
+	public readonly item = input<ICustomer.DTO | undefined>();
 
 	@Input()
 	private isEditMode = false;
@@ -66,7 +66,7 @@ export class CustomerFormContainerComponent implements OnInit {
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
-		const value = this.form.getRawValue() as ICustomer;
+		const value = this.form.getRawValue() as ICustomer.DTO;
 		const validStatus = validCustomer(value);
 		if (!(validStatus.success) && validStatus.errors.length) {
 			this.ngxLogger.error('Object is invalid', validStatus);

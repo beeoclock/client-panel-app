@@ -28,6 +28,9 @@
 			"dom"
 		],
 		"paths": {
+			"@core/*": [
+				"./src/core/*"
+			],
 			"@src/*": [
 				"./src/*"
 			],
@@ -75,6 +78,12 @@
 			],
 			"@absence/*": [
 				"./src/module/absence/*"
+			],
+			"@payment/*": [
+				"./src/module/payment/*"
+			],
+			"@businessProfile/*": [
+				"./src/module/business-profile/*"
 			],
 			"@page/*": [
 				"./src/page/*"

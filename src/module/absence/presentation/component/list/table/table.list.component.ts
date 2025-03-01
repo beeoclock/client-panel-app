@@ -2,23 +2,22 @@ import {Component, ViewEncapsulation} from "@angular/core";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
 import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {
-	AbsenceProgressStatusEnum,
-	AbsenceProgressStatusPipe
-} from "@absence/presentation/pipe/absence-progress-status.pipe";
+import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
+import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {DatePipe} from "@angular/common";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -27,7 +26,6 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TableStatePaginationComponent,
-		DynamicDatePipe,
 		SortIndicatorComponent,
 		TranslateModule,
 		BodyTableFlexDirective,
@@ -36,10 +34,11 @@ import {
 		TableTableFlexDirective,
 		NoDataPipe,
 		RowActionButtonComponent,
-		AbsenceProgressStatusPipe,
+		StateStatusComponent,
+		DatePipe,
 	]
 })
-export class TableListComponent extends TableComponent<IAbsenceDto> {
+export class TableListComponent extends TableComponent<EAbsence> {
 
 	public readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum
 
@@ -58,12 +57,12 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 			},
 			start: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			end: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			attendees: {
@@ -78,12 +77,12 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 			},
 			createdAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			updatedAt: {
 				style: {
-					minWidth: '200px',
+					minWidth: '180px',
 				},
 			},
 			action: {
@@ -96,8 +95,9 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 	};
 
 	@Dispatch()
-	public override open(item: IAbsenceDto) {
-		return new AbsenceActions.OpenDetails(item);
+	public override open(item: IAbsence.DTO) {
+		const entity = EAbsence.fromDTO(item);
+		return new AbsenceActions.OpenDetails(entity);
 	}
 
 }

@@ -11,30 +11,29 @@ import {IonicModule} from "@ionic/angular";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Store} from "@ngxs/store";
-import {MemberState} from "@member/state/member/member.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {combineLatest, filter, map, Observable, startWith} from "rxjs";
-import {StatisticQueries} from "@event/state/statistic/statistic.queries";
+import {StatisticQueries} from "@event/infrastructure/state/statistic/statistic.queries";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe, CurrencyPipe, DecimalPipe, KeyValuePipe} from "@angular/common";
-import {ClientState} from "@client/state/client/client.state";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {StatisticAction} from "@event/state/statistic/statistic.action";
+import {CurrencyCodeEnum} from "@core/shared/enum";
+import {StatisticAction} from "@event/infrastructure/state/statistic/statistic.action";
 import {DateTime} from "luxon";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {is} from "@utility/checker";
+import {is} from "@src/core/shared/checker";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {IClient} from "@client/domain";
+import {IClient} from "@core/business-logic/business-profile";
 import {TranslateModule} from "@ngx-translate/core";
-import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
+import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
-import {IdentityState} from "@identity/state/identity/identity.state";
+import {IdentityState} from "@identity/infrastructure/state/identity/identity.state";
 import {
 	DateSliderControlComponent
-} from "@module/analytic/internal/presentation/component/control/date-slider/date-slider.control.component";
-import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
-import {statisticCalculator} from "@event/state/statistic/statistic.calculator";
+} from "@module/analytic/presentation/component/control/date-slider/date-slider.control.component";
+import {IntervalTypeEnum} from "@module/analytic/domain/enum/interval.enum";
+import {statisticCalculator} from "@event/infrastructure/state/statistic/statistic.calculator";
 
 @Component({
 	selector: 'event-statistic-component',
@@ -82,7 +81,7 @@ export class StatisticComponent extends Reactive implements AfterViewInit, OnIni
 		userId?: string;
 	};
 
-	@SelectSnapshot(ClientState.item)
+	@SelectSnapshot(BusinessProfileState.item)
 	public readonly clientItem: IClient | undefined;
 
 	public readonly loader$: Observable<boolean> = this.store.select(StatisticQueries.loader);
@@ -91,7 +90,7 @@ export class StatisticComponent extends Reactive implements AfterViewInit, OnIni
 	public end = DateTime.now().endOf('day');
 	public periodTitle = '';
 
-	public readonly baseCurrency$: Observable<CurrencyCodeEnum> = this.store.select(ClientState.baseCurrency).pipe(filter(is.not_undefined<CurrencyCodeEnum>));
+	public readonly baseCurrency$: Observable<CurrencyCodeEnum> = this.store.select(BusinessProfileState.baseCurrency).pipe(filter(is.not_undefined<CurrencyCodeEnum>));
 
 	public readonly calculatedStatistic$: Observable<ReturnType<typeof statisticCalculator>> = combineLatest([
 		this.store.select(MemberState.tableStateItems).pipe(

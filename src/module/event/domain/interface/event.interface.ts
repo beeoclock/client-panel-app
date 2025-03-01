@@ -1,25 +1,24 @@
-import {ICustomer} from "@customer/domain";
-import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@utility/domain/enum";
-import {IBaseEntity} from "@utility/domain";
-import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {ICustomer} from "@src/core/business-logic/customer";
+import {IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@core/shared/enum";
+import {IBaseDTO} from "@utility/domain";
+import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
+import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 export interface IEventConfiguration {
 	ignoreEventChecks: boolean; // Ignore checking if slot is busy
 }
 
-export interface IAttendee extends IBaseEntity<'Event.Attendant'> {
+export interface IAttendee extends IBaseDTO<'Event.Attendant'> {
 	isOptional: IsOptionalEnum;
 	isOrganizer: IsOrganizerEnum;
 	responseStatus: ResponseStatusEnum;
-	customer: ICustomer;
-	active: ActiveEnum;
+	customer: ICustomer.DTO;
 }
 
-export interface IEvent extends IBaseEntity<'Event'> {
+export interface IEvent extends IBaseDTO<'Event'> {
 	servicesAreProvidedInParallel?: boolean;
-	services?: IServiceDto[];
+	services?: IService.DTO[];
 	specialists?: ISpecialist[];
 	language?: LanguageCodeEnum;
 	note?: string;

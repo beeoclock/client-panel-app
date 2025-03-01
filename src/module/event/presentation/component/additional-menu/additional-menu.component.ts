@@ -1,9 +1,8 @@
 import {Component, HostBinding, inject, Input, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
-import {RIMember} from "@member/domain";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
-import {OrderActions} from "@order/state/order/order.actions";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyPipe} from "@angular/common";
@@ -14,6 +13,7 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 enum SegmentEnum {
 	ORDERING = 'ordering',
@@ -81,7 +81,8 @@ enum SegmentEnum {
 						class="flex flex-col gap-2 items-center justify-between w-full">
 						<div class="rounded-full p-3 bg-white min-h-[46px] flex items-center">
 							<ul class="leading-tight flex gap-4">
-								<li class="flex gap-1"><span>{{ selectServiceListComponent.selectedServices.length }}</span><i
+								<li class="flex gap-1">
+									<span>{{ selectServiceListComponent.selectedServices.length }}</span><i
 									class="bi bi-cart"></i></li>
 								<li><span class="text-nowrap whitespace-nowrap"
 										  [innerHTML]="durationVersionHtmlHelper.getTotalPriceValueV2(selectServiceListComponent.selectedServices)"></span>
@@ -103,14 +104,14 @@ enum SegmentEnum {
 								</span>
 								</div>
 							</div>
-							<div class="rounded-full bg-yellow-500 min-w-[46px] min-h-[46px] flex items-center justify-center">
+							<div
+								class="rounded-full bg-yellow-500 min-w-[46px] min-h-[46px] flex items-center justify-center">
 								<i class="bi bi-chevron-right"></i>
 							</div>
 						</button>
 					</div>
 
 				}
-
 				@case (SegmentEnum.ABSENCE) {
 
 					<div class="flex flex-col gap-2 mt-4">
@@ -126,76 +127,102 @@ enum SegmentEnum {
 									<div>{{ datetimeISO | dynamicDate }}</div>
 								</div>
 								<div class="grid grid-cols-4 gap-2 text-blue-950">
-									<button type="button" (click)="openAbsenceForm(5, true)" [class]="classList.absence.button">
+									<button type="button" (click)="openAbsenceForm(5, true)"
+											[class]="classList.absence.button">
 										<span class="text-2xl">5</span>
-										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+										<span
+											class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 									</button>
-									<button type="button" (click)="openAbsenceForm(10, true)" [class]="classList.absence.button">
+									<button type="button" (click)="openAbsenceForm(10, true)"
+											[class]="classList.absence.button">
 										<span class="text-2xl">10</span>
-										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+										<span
+											class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 									</button>
-									<button type="button" (click)="openAbsenceForm(15, true)" [class]="classList.absence.button">
+									<button type="button" (click)="openAbsenceForm(15, true)"
+											[class]="classList.absence.button">
 										<span class="text-2xl">15</span>
-										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+										<span
+											class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 									</button>
-									<button type="button" (click)="openAbsenceForm(30, true)" [class]="classList.absence.button">
+									<button type="button" (click)="openAbsenceForm(30, true)"
+											[class]="classList.absence.button">
 										<span class="text-2xl">30</span>
-										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+										<span
+											class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 									</button>
-									<button type="button" (click)="openAbsenceForm(45, true)" [class]="classList.absence.button">
+									<button type="button" (click)="openAbsenceForm(45, true)"
+											[class]="classList.absence.button">
 										<span class="text-2xl">45</span>
-										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+										<span
+											class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 									</button>
-									<button type="button" (click)="openAbsenceForm(60, true)" [class]="classList.absence.button">
+									<button type="button" (click)="openAbsenceForm(60, true)"
+											[class]="classList.absence.button">
 										<span class="text-2xl">1</span>
-										<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+										<span
+											class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
 									</button>
-									<button type="button" (click)="openAbsenceForm(90, true)" [class]="classList.absence.button">
+									<button type="button" (click)="openAbsenceForm(90, true)"
+											[class]="classList.absence.button">
 										<span class="text-2xl">1.5</span>
-										<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+										<span
+											class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
 									</button>
-									<button type="button" (click)="openAbsenceForm(120, true)" [class]="classList.absence.button">
+									<button type="button" (click)="openAbsenceForm(120, true)"
+											[class]="classList.absence.button">
 										<span class="text-2xl">2</span>
-										<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+										<span
+											class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
 									</button>
 								</div>
 							</div>
 						}
 						<div class="flex flex-col gap-1 mt-4">
 							<div class="text-beeColor-500 flex justify-between">
-								<div>{{ 'keyword.capitalize.from' | translate }}: {{ 'keyword.lowercase.now' | translate }}</div>
+								<div>{{ 'keyword.capitalize.from' | translate }}
+									: {{ 'keyword.lowercase.now' | translate }}
+								</div>
 								<div>{{ now | dynamicDate }}</div>
 							</div>
 							<div class="grid grid-cols-4 gap-2 text-blue-950">
-								<button type="button" (click)="openAbsenceForm(5, false)" [class]="classList.absence.button">
+								<button type="button" (click)="openAbsenceForm(5, false)"
+										[class]="classList.absence.button">
 									<span class="text-2xl">5</span><span
 									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 								</button>
-								<button type="button" (click)="openAbsenceForm(10, false)" [class]="classList.absence.button">
+								<button type="button" (click)="openAbsenceForm(10, false)"
+										[class]="classList.absence.button">
 									<span class="text-2xl">10</span><span
 									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 								</button>
-								<button type="button" (click)="openAbsenceForm(15, false)" [class]="classList.absence.button">
+								<button type="button" (click)="openAbsenceForm(15, false)"
+										[class]="classList.absence.button">
 									<span class="text-2xl">15</span><span
 									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 								</button>
-								<button type="button" (click)="openAbsenceForm(30, false)" [class]="classList.absence.button">
+								<button type="button" (click)="openAbsenceForm(30, false)"
+										[class]="classList.absence.button">
 									<span class="text-2xl">30</span><span
 									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 								</button>
-								<button type="button" (click)="openAbsenceForm(45, false)" [class]="classList.absence.button">
+								<button type="button" (click)="openAbsenceForm(45, false)"
+										[class]="classList.absence.button">
 									<span class="text-2xl">45</span><span
 									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
 								</button>
-								<button type="button" (click)="openAbsenceForm(60, false)" [class]="classList.absence.button">
+								<button type="button" (click)="openAbsenceForm(60, false)"
+										[class]="classList.absence.button">
 									<span class="text-2xl">1</span><span
 									class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
 								</button>
-								<button type="button" (click)="openAbsenceForm(90, false)" [class]="classList.absence.button">
+								<button type="button" (click)="openAbsenceForm(90, false)"
+										[class]="classList.absence.button">
 									<span class="text-2xl">1.5</span><span
 									class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
 								</button>
-								<button type="button" (click)="openAbsenceForm(120, false)" [class]="classList.absence.button">
+								<button type="button" (click)="openAbsenceForm(120, false)"
+										[class]="classList.absence.button">
 									<span class="text-2xl">2</span><span
 									class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
 								</button>
@@ -213,13 +240,13 @@ enum SegmentEnum {
 export class AdditionalMenuComponent implements OnInit {
 
 	@Input()
-	public member: RIMember | undefined;
+	public member: IMember.EntityRaw | undefined;
 
 	@Input()
 	public datetimeISO: string | undefined;
 
 	public readonly callback = input<(() => void)>(() => {
-});
+	});
 
 	@HostBinding()
 	public class = 'bg-white'
@@ -280,8 +307,8 @@ export class AdditionalMenuComponent implements OnInit {
 				callback: {
 					on: {
 						destroy: {
-							before: this.callback()
-						}
+							before: this.callback(),
+						},
 					}
 				}
 			}
@@ -291,7 +318,7 @@ export class AdditionalMenuComponent implements OnInit {
 	public openAbsenceForm(differenceInMinutes: number = 15, useDatetimeISO: boolean = true) {
 
 		const item = {
-			members: [] as RIMember[],
+			members: [] as IMember.EntityRaw[],
 			start: DateTime.now().toJSDate().toISOString(),
 			end: DateTime.now().plus({minutes: differenceInMinutes}).toJSDate().toISOString(),
 		};
@@ -309,13 +336,16 @@ export class AdditionalMenuComponent implements OnInit {
 
 		this.store.dispatch(new AbsenceActions.OpenForm({
 			componentInputs: {
-				item
+				defaultValue: item,
 			},
 			pushBoxInputs: {
 				callback: {
 					on: {
 						destroy: {
-							before: this.callback()
+							before: this.callback(),
+							after: () => {
+								this.closeSelf().then();
+							}
 						}
 					}
 				}

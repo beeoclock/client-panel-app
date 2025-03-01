@@ -4,14 +4,14 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
-import {ICustomer} from "@customer/domain";
 import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {ITableState} from "@utility/domain/table.state";
+import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
 @Component({
 	selector: 'customer-desktop-layout-list-component',
@@ -24,10 +24,14 @@ import {ITableState} from "@utility/domain/table.state";
 		TableListComponent,
 		TranslateModule,
 		AutoRefreshButtonComponent,
-	]
+	],
+	host: {
+		class: 'flex flex-col overflow-hidden h-full',
+	}
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<ICustomer> {
-	public override readonly tableState = input.required<ITableState<ICustomer> | null>();
+export class DesktopLayoutListComponent extends LayoutListComponent<ECustomer> {
+	public override readonly tableState = input.required<ITableState<ECustomer> | null>();
+
 	public openForm(): void {
 		this.store.dispatch(new CustomerActions.OpenForm());
 	}

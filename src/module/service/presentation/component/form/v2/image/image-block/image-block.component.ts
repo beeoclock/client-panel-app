@@ -3,13 +3,13 @@ import {NgForOf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormControl} from "@angular/forms";
-import {PatchBannerServiceApiAdapter} from "@service/adapter/external/api/patch.banner.service.api.adapter";
+import {PatchBannerServiceApiAdapter} from "@service/infrastructure/api/patch.banner.service.api.adapter";
 import {BooleanState} from "@utility/domain";
 import {
 	ServiceFormImageComponent
 } from "@service/presentation/component/form/v2/image/service-form-image/service-form-image.component";
 import {ServicePresentationForm} from '@src/module/service/presentation/form/service.presentation.form';
-import {DeleteBannerServiceApiAdapter} from "@service/adapter/external/api/delete.banner.service.api.adapter";
+import {DeleteBannerServiceApiAdapter} from "@service/infrastructure/api/delete.banner.service.api.adapter";
 import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 
 @Component({
@@ -46,7 +46,7 @@ export class ImageBlockComponent {
 
 			if (component.mediaState === MediaStateEnum.DELETED) {
 				const banner = component.banner();
-    if (!banner) {
+				if (!banner) {
 					continue;
 				}
 				await this.deleteBannerServiceApiAdapter.executeAsync(serviceId, banner._id);
@@ -57,7 +57,7 @@ export class ImageBlockComponent {
 			formData.append('file', component.selectedFile as Blob);
 
 			const banner = component.banner();
-   if (banner) {
+			if (banner) {
 				formData.append('_id', banner._id);
 			}
 

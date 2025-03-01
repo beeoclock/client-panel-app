@@ -3,7 +3,7 @@ import {DOCUMENT} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {IEvent} from "@event/domain";
 import {DateTime, Interval} from "luxon";
-import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
 import {Store} from "@ngxs/store";
 
 @Injectable()

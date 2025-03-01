@@ -1,5 +1,7 @@
 import hash_sum from "hash-sum";
-import {ActiveEnum, OrderByEnum, OrderDirEnum} from "./enum";
+import {ActiveEnum, OrderByEnum, OrderDirEnum} from "../../../core/shared/enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {environment} from "@environment/environment";
 
 export interface ITableState<ITEM> {
 	hashSum: string;
@@ -9,6 +11,7 @@ export interface ITableState<ITEM> {
 	filters: {
 		search?: string;
 		active?: string | ActiveEnum;
+		state?: StateEnum;
 		[key: string]: undefined | unknown;
 	};
 	page: number;
@@ -26,6 +29,7 @@ export type TableState_BackendFormat<ITEM = unknown> =
 	Pick<ITableState<ITEM>, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>
 	& ITableState<ITEM>['filters'];
 
+// FILTERS = { [key in keyof ITEM]?: ITEM[key] }
 export class TableState<ITEM> implements ITableState<ITEM> {
 
 	#filters = {};
@@ -39,7 +43,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		orderBy: OrderByEnum.CREATED_AT,
 		orderDir: OrderDirEnum.DESC,
 		page: 1,
-		pageSize: 20,
+		pageSize: environment.config.pagination.pageSize,
 	};
 
 	constructor() {
@@ -251,7 +255,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		this.#lastUpdate = (new Date()).toISOString();
 	}
 
-	public toBackendFormat(): TableState_BackendFormat {
+	public toBackendFormat<T>(): TableState_BackendFormat<T> {
 		return {
 			...this.filters,
 			orderBy: this.orderBy,

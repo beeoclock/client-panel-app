@@ -6,8 +6,8 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {FormControl} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
-import {ActiveEnum, CurrencyCodeEnum} from "@utility/domain/enum";
-import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
+import {ActiveEnum, CurrencyCodeEnum} from "@core/shared/enum";
+import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";
 import {TranslateModule} from "@ngx-translate/core";
 import {filter, take} from "rxjs";
 

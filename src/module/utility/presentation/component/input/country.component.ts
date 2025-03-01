@@ -11,7 +11,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
+import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({

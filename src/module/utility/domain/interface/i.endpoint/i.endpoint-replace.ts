@@ -1,4 +1,4 @@
-import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
+import {SourceNetworkEnum} from "@core/shared/enum/source.network.enum";
 import {TranslateService} from "@ngx-translate/core";
 
 export interface IEndpointReplace {

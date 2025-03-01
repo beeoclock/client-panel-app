@@ -5,7 +5,7 @@ import {AssignmentsForm} from "@member/presentation/form/member.form";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'member-form-assignments',
@@ -71,7 +71,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 		if (renderedComponentRef?.instance instanceof SelectServiceWhacAMoleComponent) {
 			renderedComponentRef.instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(() => {
-				const {newSelectedServiceList} = renderedComponentRef.instance as {newSelectedServiceList: IServiceDto[]};
+				const {newSelectedServiceList} = renderedComponentRef.instance as {newSelectedServiceList: IService.DTO[]};
 				const include = newSelectedServiceList.map((service) => ({service}));
 				this.form.controls.service.controls.include.patchValue(include);
 			});

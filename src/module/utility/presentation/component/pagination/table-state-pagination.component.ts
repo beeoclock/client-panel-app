@@ -3,12 +3,10 @@ import {
 	ChangeDetectorRef,
 	Component,
 	inject,
-	Input,
 	input,
 	OnChanges,
 	output,
-	SimpleChange,
-	ViewEncapsulation
+	SimpleChange
 } from '@angular/core';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from "@angular/forms";
@@ -31,12 +29,39 @@ import {BooleanState} from "@utility/domain";
 		ReactiveFormsModule,
 		TranslateModule,
 	],
-	encapsulation: ViewEncapsulation.None
+	styles: [
+		`
+			:host {
+				.pagination-page-item {
+					@apply
+					cursor-pointer
+					relative
+					inline-flex
+					items-center
+					px-4
+					py-2
+					text-sm
+					font-semibold
+					text-beeColor-900
+					dark:text-white
+					ring-1
+					ring-inset
+					ring-beeColor-300
+					dark:ring-beeDarkColor-600
+					hover:bg-beeColor-100
+					dark:hover:bg-beeDarkColor-600
+					focus:z-20
+					focus:outline-offset-0
+					first:rounded-l-md
+					last:rounded-r-md;
+				}
+			}
+        `
+	]
 })
 export class TableStatePaginationComponent implements OnChanges {
 
-	@Input()
-	public tableState!: ITableState<unknown>;
+	public readonly tableState = input.required<ITableState<unknown>>();
 
 	public readonly mobileMode = input(false);
 
@@ -64,17 +89,21 @@ export class TableStatePaginationComponent implements OnChanges {
 	public ngOnChanges(changes: { tableState: SimpleChange }): void {
 		if (changes.tableState) {
 			this.initTimerOfLastUpdate();
-			this.pages = getPaginationItems(this.tableState.page, this.tableState.maxPage, environment.config.pagination.maxLength);
+			this.pages = getPaginationItems(this.tableState().page, this.tableState().maxPage, environment.config.pagination.maxLength);
 			this.changeDetectorRef.detectChanges();
 		}
 	}
 
 	public nextPage(): void {
-		this.changePage(this.tableState.page + 1);
+		if (this.tableState().page < this.tableState().maxPage) {
+			this.changePage(this.tableState().page + 1);
+		}
 	}
 
 	public prevPage(): void {
-		this.changePage(this.tableState.page - 1);
+		if (this.tableState().page > 1) {
+			this.changePage(this.tableState().page - 1);
+		}
 	}
 
 	public changePage(page: number): void {
@@ -102,7 +131,7 @@ export class TableStatePaginationComponent implements OnChanges {
 
 	private updateLastUpdate(): void {
 
-		const ms = DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds');
+		const ms = DateTime.now().diff(DateTime.fromISO(this.tableState().lastUpdate)).as('milliseconds');
 
 		if (ms > MS_ONE_MINUTE) {
 			this.showButtonToClearCache.switchOn();

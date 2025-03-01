@@ -1,6 +1,6 @@
-import {Component, inject, input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, effect, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
-import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
+import {AbsenceTypeEnum} from "@src/core/business-logic/absence/enums/absence.type.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -10,19 +10,27 @@ import {Reactive} from "@utility/cdk/reactive";
 import {
 	MembersAbsenceFormContainerComponent
 } from "@absence/presentation/component/form/members.absence-form-container.component";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {AbsenceForm} from "@absence/presentation/form/absence.form";
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {IonDatetime, IonDatetimeButton, IonPopover} from "@ionic/angular/standalone";
+import {
+	IonDatetime,
+	IonDatetimeButton,
+	IonLabel,
+	IonPopover,
+	IonSegment,
+	IonSegmentButton
+} from "@ionic/angular/standalone";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {DateTime} from "luxon";
+import EAbsence from "@core/business-logic/absence/entity/e.absence";
 
 @Component({
 	selector: 'app-absence-form-container',
@@ -40,7 +48,10 @@ import {DateTime} from "luxon";
 		IonDatetimeButton,
 		IonPopover,
 		IonDatetime,
-		DefaultLabelDirective
+		DefaultLabelDirective,
+		IonSegment,
+		IonSegmentButton,
+		IonLabel,
 	],
 	standalone: true,
 	template: `
@@ -48,13 +59,22 @@ import {DateTime} from "luxon";
 
 			<bee-card>
 
-				<ng-select
+				<ion-segment
 					id="absence-form-type-input"
-					bindLabel="label"
-					bindValue="id"
-					[formControl]="form.controls.type"
-					[items]="types"
-					[clearable]="false"/>
+					[formControl]="form.controls.type">
+
+					@for (type of types; track type.id) {
+
+						<ion-segment-button [value]="type.id">
+							<ion-label>
+								{{ type.label }}
+							</ion-label>
+						</ion-segment-button>
+
+					}
+
+				</ion-segment>
+
 
 				<div class="divide-y rounded-xl border">
 					<div class="flex justify-between items-center p-2 ps-4">
@@ -62,11 +82,14 @@ import {DateTime} from "luxon";
 							{{ 'keyword.capitalize.start' | translate }}
 						</label>
 						<div>
-							<ion-datetime-button datetime="absence-form-start-input"></ion-datetime-button>
+							<ion-datetime-button datetime="absence-form-start-input"/>
 
 							<ion-popover [keepContentsMounted]="true">
 								<ng-template>
-									<ion-datetime [locale]="locale" id="absence-form-start-input" [formControl]="proxyForm.controls.start" [showDefaultButtons]="true" [cancelText]="'keyword.capitalize.cancel' | translate" [doneText]="'keyword.capitalize.done' | translate"></ion-datetime>
+									<ion-datetime [locale]="locale" id="absence-form-start-input"
+												  [formControl]="proxyForm.controls.start" [showDefaultButtons]="true"
+												  [cancelText]="'keyword.capitalize.cancel' | translate"
+												  [doneText]="'keyword.capitalize.done' | translate"></ion-datetime>
 								</ng-template>
 							</ion-popover>
 						</div>
@@ -77,11 +100,14 @@ import {DateTime} from "luxon";
 							{{ 'keyword.capitalize.end' | translate }}
 						</label>
 						<div>
-							<ion-datetime-button datetime="absence-form-end-input"></ion-datetime-button>
+							<ion-datetime-button datetime="absence-form-end-input"/>
 
 							<ion-popover [keepContentsMounted]="true">
 								<ng-template>
-									<ion-datetime [locale]="locale" id="absence-form-end-input" [formControl]="proxyForm.controls.end" [showDefaultButtons]="true" [cancelText]="'keyword.capitalize.cancel' | translate" [doneText]="'keyword.capitalize.done' | translate"></ion-datetime>
+									<ion-datetime [locale]="locale" id="absence-form-end-input"
+												  [formControl]="proxyForm.controls.end" [showDefaultButtons]="true"
+												  [cancelText]="'keyword.capitalize.cancel' | translate"
+												  [doneText]="'keyword.capitalize.done' | translate"></ion-datetime>
 								</ng-template>
 							</ion-popover>
 						</div>
@@ -120,9 +146,10 @@ import {DateTime} from "luxon";
 
 	`
 })
-export class AbsenceFormContainerComponent extends Reactive implements OnChanges, OnInit {
+export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
-	public readonly item = input.required<Partial<IAbsenceDto>>();
+	public readonly item = input<IAbsence.EntityRaw>();
+	public readonly defaultValue = input<Partial<IAbsence.DTO>>({});
 
 	public readonly isEditMode = input<boolean>(false);
 
@@ -138,13 +165,15 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	public ngOnChanges(changes: SimpleChanges & { item: Partial<IAbsenceDto> }) {
-
-		const {item} = changes;
-		if (item) {
-			this.detectItem();
-		}
-
+	public constructor() {
+		super();
+		effect(() => {
+			this.patchValue(this.defaultValue());
+			const item = this.item();
+			if (item) {
+				this.patchValue(item);
+			}
+		});
 	}
 
 	public ngOnInit() {
@@ -164,8 +193,8 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 		});
 	}
 
-	public detectItem(): void {
-		this.form.patchValue(this.item());
+	public patchValue(item: IAbsence.EntityRaw | Partial<IAbsence.DTO>): void {
+		this.form.patchValue(item);
 		this.form.updateValueAndValidity();
 		this.updateProxyForm();
 	}
@@ -173,17 +202,24 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
 
-		this.form.valid && await this.finishSave();
-		this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
+		if (this.form.valid) {
+			await this.finishSave();
+		} else {
+			this.ngxLogger.error('Form is invalid', this.form);
+		}
 	}
 
 	private async finishSave() {
-		const value = this.form.getRawValue();
+		const value = this.form.getRawValue() as IAbsence.DTO;
 
 		this.form.disable();
 		this.form.markAsPending();
-		!this.isEditMode() && await firstValueFrom(this.store.dispatch(new AbsenceActions.CreateItem(value)));
-		this.isEditMode() && await firstValueFrom(this.store.dispatch(new AbsenceActions.UpdateItem(value)));
+		const entity = EAbsence.fromDTO(value);
+		if (this.isEditMode()) {
+			await firstValueFrom(this.store.dispatch(new AbsenceActions.UpdateItem(entity)));
+		} else {
+			await firstValueFrom(this.store.dispatch(new AbsenceActions.CreateItem(entity)));
+		}
 		this.form.enable();
 		this.form.updateValueAndValidity();
 

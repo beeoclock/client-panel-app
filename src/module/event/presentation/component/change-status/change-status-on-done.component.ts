@@ -2,9 +2,11 @@ import {Component, inject} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
-import {EventActions} from "@event/state/event/event.actions";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
+import {EventActions} from "@event/infrastructure/state/event/event.actions";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {firstValueFrom} from "rxjs";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
@@ -19,7 +21,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 		<button
 			(click)="this.changeStatusOnDone()"
 			[disabled]="loading.isTrue"
-		type="button"
+			type="button"
 			class="
 		w-full
 		flex
@@ -57,14 +59,14 @@ export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 	public async changeStatusOnDone(): Promise<void> {
 		this.loading.doTrue();
 		const event = this.event();
-  event.originalData.service.status = OrderServiceStatusEnum.done;
+		event.originalData.service.status = OrderServiceStatusEnum.done;
 		const actionToChangeStatus$ = this.store.dispatch(new EventActions.ChangeServiceStatus({
 			serviceId: event.originalData.service._id,
 			orderId: event.originalData.order._id,
 			status: OrderServiceStatusEnum.done,
 		}));
 		await firstValueFrom(actionToChangeStatus$);
-		const actionToUpdateList$ =  this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		const actionToUpdateList$ = this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		await firstValueFrom(actionToUpdateList$);
 		const actionToUpdateDetails$ = this.store.dispatch(new EventActions.UpdateOpenedDetails(event));
 		await firstValueFrom(actionToUpdateDetails$);

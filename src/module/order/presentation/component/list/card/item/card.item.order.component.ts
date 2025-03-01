@@ -5,15 +5,17 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {OrderActions} from "@order/state/order/order.actions";
-import {IOrderServiceDto} from "@src/module/order/external/interface/i.order-service.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
 	ListServiceFormCardOrderComponent
 } from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
+import {StatusOrderChipComponent} from "@src/component/smart/order/form/chip/status.order.chip.component";
+import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
 
 @Component({
 	selector: 'app-card-item-order-component',
@@ -27,6 +29,7 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 		TranslateModule,
 		CurrencyPipe,
 		ListServiceFormCardOrderComponent,
+		StatusOrderChipComponent,
 	],
 	providers: [
 		DurationVersionHtmlHelper
@@ -37,13 +40,11 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 			<div class="flex flex-col gap-2">
 				<div class="p-2 flex flex-wrap justify-between items-center gap-8">
 
-					<div (click)="singleClick()" class="flex justify-between cursor-pointer">
-						<div class="flex-1 flex text-beeColor-500">
-
-							<div class="font-bold">
-								{{ ('order.enum.status.singular.' + orderDto.status) | translate }}
-							</div>
-						</div>
+					<div class="flex flex-1 justify-between cursor-pointer">
+						<app-status-order-chip-component
+							(statusChanges)="statusChanges($event)"
+							[initialValue]="orderDto.status"
+							[showLabel]="true"/>
 					</div>
 
 					<div class="flex items-center gap-2">
@@ -83,7 +84,7 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 					@if (orderDto.businessNote?.length) {
 						<div class="flex justify-between px-2 pb-2">
 							<div class="flex-1">
-								<div>
+								<div class="text-neutral-500">
 									{{ 'keyword.capitalize.businessNote' | translate }}
 								</div>
 								<div>
@@ -98,14 +99,14 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 })
 export class CardItemOrderComponent implements OnInit {
 
-	public readonly selectedIds = input.required<string[]>();
+	public readonly selectedIds = input<string[]>([]);
 
 	@Input({required: true})
-	public orderDto!: IOrderDto;
+	public orderDto!: IOrder.DTO;
 
-	readonly showAction = input.required<boolean>();
+	readonly showAction = input<boolean>(true);
 
-	readonly showSelectedStatus = input.required<boolean>();
+	readonly showSelectedStatus = input<boolean>(false);
 
 	@HostBinding()
 	public id!: string;
@@ -131,6 +132,25 @@ export class CardItemOrderComponent implements OnInit {
 		this.id = this.orderDto._id;
 		this.totalAmount = this.amount(this.orderDto.services);
 		this.baseCurrency = this.orderDto.services[0].serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.currency ?? CurrencyCodeEnum.USD;
+	}
+
+	public statusChanges(status: OrderStatusEnum) {
+		if (status === this.orderDto.status) {
+			return;
+		}
+		this.orderDto = {
+			...this.orderDto,
+			status,
+		};
+		this.dispatchStatus(status);
+	}
+
+	@Dispatch()
+	public dispatchStatus(status: OrderStatusEnum) {
+		return new OrderActions.ChangeStatus({
+			id: this.orderDto._id,
+			status
+		});
 	}
 
 	public amount(services: IOrderServiceDto[]): number {

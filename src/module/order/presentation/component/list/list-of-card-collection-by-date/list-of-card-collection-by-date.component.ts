@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {DateTime} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";
@@ -9,6 +9,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	standalone: true,
@@ -54,12 +55,12 @@ import {
 
 	`
 })
-export class ListOfCardCollectionByDateComponent extends TableComponent<IOrderDto> {
+export class ListOfCardCollectionByDateComponent extends TableComponent<EOrder> {
 
 	public readonly itemsWithDate = input.required<[
-    string,
-    IOrderDto[]
-][]>();
+		string,
+		IOrder.DTO[]
+	][]>();
 
 	public readonly showAction = new BooleanStreamState(true);
 	public readonly showSelectedStatus = new BooleanStreamState(false);

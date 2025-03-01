@@ -13,8 +13,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@member/presentation/form/member.form";
 import {firstValueFrom} from "rxjs";
-import {RIMember} from "@member/domain";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {SelectRoleComponent} from "@member/presentation/component/form/select-role/select-role.component";
@@ -25,7 +24,8 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {CommonModule} from "@angular/common";
 import {MemberFormAssignmentsComponent} from "@member/presentation/component/form/assignments/assignments.component";
-import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
+import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'member-form-page',
@@ -54,7 +54,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 	public readonly memberProfileStatusEnum = MemberProfileStatusEnum;
 
-	public readonly item = input<RIMember>();
+	public readonly item = input<IMember.EntityRaw>();
 
 	@Input()
 	public isEditMode = false;
@@ -63,7 +63,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 		this.detectItem();
 	}
 
-	public ngOnChanges(changes: SimpleChanges & {item: RIMember | undefined}) {
+	public ngOnChanges(changes: SimpleChanges & {item: IMember.EntityRaw | undefined}) {
 
 		const {item} = changes;
 		if (item) {
@@ -87,7 +87,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 			this.form.disable();
 			this.form.markAsPending();
-			const memberBody = this.form.getRawValue() as RIMember;
+			const memberBody = this.form.getRawValue();
 			let memberId = memberBody._id;
 			if (this.isEditMode) {
 				await firstValueFrom(this.store.dispatch(new MemberActions.UpdateItem(memberBody)));

@@ -2,7 +2,7 @@ import {Component, HostBinding, inject, input, ViewEncapsulation} from "@angular
 
 import {CurrencyPipe} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'service-item-component',
@@ -39,7 +39,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class ServiceItemComponent {
 
-	public readonly item = input.required<IServiceDto>();
+	public readonly item = input.required<IService.DTO>();
 
 	@HostBinding()
 	public class = ['inline-flex', 'items-center', 'justify-between', 'flex-col', 'md:flex-row', 'w-full', 'p-5', 'text-gray-500', 'rounded-2xl', 'dark:text-gray-400'];

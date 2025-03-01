@@ -1,12 +1,12 @@
-import {FormControl} from '@angular/forms';
-import {ActiveEnum} from "@utility/domain/enum";
+import {AbstractControl, FormControl, ValidationErrors} from '@angular/forms';
 import {BaseEntityForm} from "@utility/base.form";
-import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
+import {AbsenceTypeEnum} from "@src/core/business-logic/absence/enums/absence.type.enum";
 import {DateTime} from "luxon";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@src/core/business-logic/absence/interface/i.absence";
+import {is} from "@core/shared/checker";
 
 export type IAbsenceForm = {
-	[K in keyof IAbsenceDto]: FormControl<IAbsenceDto[K]>;
+	[K in keyof IAbsence.DTO]: FormControl<IAbsence.DTO[K]>;
 };
 
 export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
@@ -41,18 +41,34 @@ export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
 				nonNullable: true,
 			}),
 
-			active: new FormControl(ActiveEnum.YES, {
-				nonNullable: true,
-			}),
-
 			entireBusiness: new FormControl(false, {
 				nonNullable: true,
 			}),
 		});
 
+		this.initValidation();
+
 	}
 
-	public static create(initialValues: Partial<IAbsenceDto> = {}): AbsenceForm {
+	public initValidation() {
+		this.atLeastOneMemberSelectedOrEntireBusiness();
+	}
+
+	private atLeastOneMemberSelectedOrEntireBusiness() {
+		this.addValidators((control: AbstractControl): ValidationErrors | null => {
+
+			const value = control.getRawValue();
+			if (is.object(value)) {
+				const {members, entireBusiness} = value as IAbsence.DTO;
+				if (!entireBusiness && members.length === 0) {
+					return {atLeastOneMemberSelectedOrEntireBusiness: true};
+				}
+			}
+			return null;
+		});
+	}
+
+	public static create(initialValues: Partial<IAbsence.DTO> = {}): AbsenceForm {
 		const form = new AbsenceForm();
 		form.patchValue(initialValues);
 		return form;

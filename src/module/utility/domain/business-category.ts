@@ -1,5 +1,5 @@
-import {BusinessCategoryEnum, BusinessCategoryIconEnum} from "@utility/domain/enum/business-category.enum";
-import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
+import {BusinessCategoryEnum, BusinessCategoryIconEnum} from "@core/shared/enum/business-category.enum";
+import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 
 export class BusinessCategory {
 

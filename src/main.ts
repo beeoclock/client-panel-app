@@ -1,9 +1,7 @@
 import {bootstrapApplication, HammerModule} from '@angular/platform-browser';
 import {MainRouterOutlet} from '@src/main.router-outlet';
 import {enableProdMode, ErrorHandler, importProvidersFrom, isDevMode, provideZoneChangeDetection} from '@angular/core';
-import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@src/environment/environment';
-import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
 import {
 	HTTP_INTERCEPTORS,
 	HttpClient,
@@ -21,7 +19,6 @@ import {
 	withPreloading
 } from '@angular/router';
 import {routes} from '@src/routers';
-import {browserLocalPersistence} from "@firebase/auth";
 import {IonicModule} from "@ionic/angular";
 import {Utility} from "@utility/index";
 import {initRuntimeEnvironment} from "@src/runtime.environment";
@@ -29,10 +26,8 @@ import {provideEnvironmentNgxMask} from "ngx-mask";
 import {tokens} from "@src/token";
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {provideServiceWorker} from '@angular/service-worker';
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
 import {NgEventBus} from 'ng-event-bus';
-import {getMessaging, provideMessaging} from "@angular/fire/messaging";
-import {getAnalytics, provideAnalytics} from "@angular/fire/analytics";
 import {ngxsProviders} from "@src/ngxs";
 import * as Sentry from "@sentry/angular";
 
@@ -42,6 +37,8 @@ import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
 import {SocketIoModule} from "ngx-socket-io";
+import {IsOnlineService} from "@utility/cdk/is-online.service";
+import {firebase} from "@src/firebase";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -64,12 +61,15 @@ if (environment.production) {
 		replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
 		replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
 	});
+} else {
+
 }
 
 initRuntimeEnvironment();
 
 bootstrapApplication(MainRouterOutlet, {
 	providers: [
+		IsOnlineService,
 		...tokens,
 		NgEventBus,
 		provideZoneChangeDetection({
@@ -78,22 +78,7 @@ bootstrapApplication(MainRouterOutlet, {
 
 		}),
 		provideEnvironmentNgxMask(),
-		provideFirebaseApp(() =>
-			initializeApp(environment.firebase.options)
-		),
-		provideAnalytics(() => getAnalytics()),
-		provideMessaging(() => getMessaging()),
-		provideAuth(() => {
-			const auth = getAuth();
-			auth.setPersistence(browserLocalPersistence)
-				.catch((error) => {
-					console.error(error);
-				});
-			if (environment.firebase.emulator.all || environment.firebase.emulator.authorization) {
-				connectAuthEmulator(auth, 'http://localhost:9099');
-			}
-			return auth;
-		}),
+		...firebase,
 		importProvidersFrom(
 			HammerModule,
 			LoggerModule.forRoot({
@@ -132,14 +117,13 @@ bootstrapApplication(MainRouterOutlet, {
 			Utility.Interceptors.SourceInterceptor,
 			Utility.Interceptors.TenantIdInterceptor,
 			Utility.Interceptors.AccessTokenInterceptor,
-			Utility.Interceptors.NotificationSettingsInterceptor
 		])),
 		provideRouter(
 			routes,
 			withInMemoryScrolling({
 				scrollPositionRestoration: 'enabled'
 			}),
-			withPreloading(PreloadAllModules),
+			withPreloading(PreloadAllModules), // Don't use it, because it will preload all modules also lazy loaded and tenant modules but the module doesn't have to be loaded without tenant
 			// withViewTransitions(), // TODO add when we will control which container should have animation
 			withComponentInputBinding(),
 		),

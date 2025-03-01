@@ -10,34 +10,32 @@ import {
 import {RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {CreateBusinessQuery} from "@identity/query/create-business.query";
+import {CreateBusinessQuery} from "@identity/infrastructure/query/create-business.query";
 import {NgClass} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {BooleanState} from "@utility/domain";
-import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
+import {IdentityApiAdapter} from "@identity/infrastructure/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
 import {IBusinessClient} from "@identity/domain/interface/RIBusinessClient";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {IdentityActions} from "@identity/infrastructure/state/identity/identity.actions";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
-import {
-	UpdateBusinessProfileApiAdapter
-} from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
-import * as Client from "@client/domain";
-import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
-import {IAddress} from "@client/domain/interface/i.address";
+import {PutApi} from "@businessProfile/infrastructure/api/put.api";
+import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
+import {IAddress} from "@core/business-logic/business-profile/interface/i.address";
 import {
 	PatchMediaGalleryClientApiAdapter
-} from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
-import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.service.api.adapter";
-import {
-	ModalSelectSpecialistListAdapter
-} from "@member/adapter/external/component/modal-select-specialist.list.adapter";
+} from "@client/infrastructure/api/media/gallery/patch.media.gallery.client.api.adapter";
+import {PostApi} from "@service/infrastructure/api/post.api";
 
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {
+	ModalSelectSpecialistListRepository
+} from "@member/infrastructure/repository/modal-select-specialist.list.repository";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
 
 const enum Status {
 	Success = 'success',
@@ -100,11 +98,11 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	public readonly store = inject(Store);
 	public readonly tenantId$ = inject(TENANT_ID);
 	public readonly allStepsFinishedWithSuccess = new BooleanState(false);
-	public readonly modalSelectSpecialistListAdapter = inject(ModalSelectSpecialistListAdapter);
+	public readonly modalSelectSpecialistListRepository = inject(ModalSelectSpecialistListRepository);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly createServiceApiAdapter = inject(CreateServiceApiAdapter);
-	private readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
+	private readonly createServiceApiAdapter = inject(PostApi);
+	private readonly updateBusinessProfileApiAdapter = inject(PutApi);
 	private readonly translateService = inject(TranslateService);
 	public readonly steps = [
 		{
@@ -227,10 +225,12 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	}
 
 	private async stepAddBusinessProfile(): Promise<void> {
-		let body: Client.IClient = {
+		const tenantId = this.tenantId$.value as string;
+		let body = {
+			_id: tenantId,
 			schedules: this.createBusinessQuery.getSchedulesForm().value,
 			published: this.createBusinessQuery.publishedControl().value
-		}
+		} as IBusinessProfile.DTO;
 		if (this.createBusinessQuery.getServiceProvideTypeControl().value !== ServiceProvideTypeEnum.Online) {
 			body = {
 				...body,
@@ -241,9 +241,11 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	}
 
 	private async stepAddBusinessSettings(): Promise<void> {
-		const body: Client.IClient = {
+		const tenantId = this.tenantId$.value as string;
+		const body = {
+			_id: tenantId,
 			businessSettings: this.createBusinessQuery.getBusinessSettings().value,
-		}
+		} as IBusinessProfile.DTO;
 		await this.updateBusinessProfileApiAdapter.executeAsync(body);
 	}
 
@@ -267,16 +269,16 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 
 	private async stepAddServices(): Promise<void> {
 
-		if (!this.modalSelectSpecialistListAdapter.tableState.total) {
+		if (!this.modalSelectSpecialistListRepository.tableState.total) {
 
-			this.modalSelectSpecialistListAdapter.resetTableState();
-			await this.modalSelectSpecialistListAdapter.getPageAsync();
+			this.modalSelectSpecialistListRepository.resetTableState();
+			await this.modalSelectSpecialistListRepository.getPageAsync();
 
 		}
 
 		const requestList$ = this.createBusinessQuery.getServicesForm()
 			.value?.map((service) => {
-				return this.createServiceApiAdapter.executeAsync(service as IServiceDto);
+				return this.createServiceApiAdapter.executeAsync(service as IService.DTO);
 			});
 
 		if (!requestList$) {

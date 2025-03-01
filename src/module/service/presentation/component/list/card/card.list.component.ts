@@ -6,12 +6,12 @@ import {
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {ILanguageVersion} from "@service/domain";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ILanguageVersion} from "@src/core/business-logic/service";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -30,7 +30,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		ServiceTableService
 	],
 })
-export class CardListComponent extends TableComponent<IServiceDto> {
+export class CardListComponent extends TableComponent<EService> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
@@ -39,7 +39,7 @@ export class CardListComponent extends TableComponent<IServiceDto> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public list: IServiceDto[] = [];
+	public list: EService[] = [];
 
 	public constructor() {
 		super();
@@ -62,7 +62,7 @@ export class CardListComponent extends TableComponent<IServiceDto> {
 		return firstFoundOption ?? languageVersions[0];
 	}
 
-	public override open(item: IServiceDto): void {
+	public override open(item: EService): void {
 		this.store.dispatch(new ServiceActions.OpenDetails(item));
 	}
 

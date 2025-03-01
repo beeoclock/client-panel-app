@@ -124,10 +124,12 @@
 												{{ item?.specialists?.[0]?.member?.firstName }}
 												{{ item?.specialists?.[0]?.member?.lastName }}
 											</div>
+
 											@for (attendee of (item?.attendees ?? []); track attendee._id) {
 												<event-attendee-card-component
 													[attendee]="attendee"/>
 											}
+
 											@if (item?.note?.length) {
 												<div (click)="singleClick(item)">
 													<hr class="mt-2">

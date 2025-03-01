@@ -1,12 +1,12 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {ICustomer} from "@customer/domain";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {ICustomer} from "@src/core/business-logic/customer";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	selector: 'customer-row-action-button-component',
@@ -16,12 +16,13 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		<utility-table-column-action
 			(activate)="activate()"
 			(deactivate)="deactivate()"
+			(archive)="archive()"
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
 			[hide]="hide()"
 			[id]="id()"
-			[active]="item().active">
+			[state]="item().state">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->
@@ -42,7 +43,7 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<ICustomer>();
+	public readonly item = input.required<ICustomer.EntityRaw>();
 
 	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
 
@@ -51,7 +52,6 @@ export class RowActionButtonComponent {
 	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
 
-	@Dispatch()
 	public delete() {
 
 		const question = this.translateService.instant('customer.action.delete.question');
@@ -61,20 +61,24 @@ export class RowActionButtonComponent {
 			throw new Error('User canceled the action');
 		}
 
-		return new CustomerActions.DeleteItem(this.item()._id);
+		this.setState(StateEnum.deleted);
 	}
 
-	public activate(): void {
-		this.store.dispatch(new CustomerActions.UnarchiveItem(this.item()._id));
+	public deactivate() {
+		this.setState(StateEnum.inactive);
 	}
 
-	public deactivate(): void {
-		this.store.dispatch(new CustomerActions.ArchiveItem(this.item()._id));
+	public archive() {
+		this.setState(StateEnum.archived);
 	}
 
-	public async archive(id: string): Promise<void> {
-		await firstValueFrom(this.store.dispatch(
-			new CustomerActions.ArchiveItem(id)));
+	public activate() {
+		this.setState(StateEnum.active);
+	}
+
+	@Dispatch()
+	public setState(state: StateEnum) {
+		return new CustomerActions.SetState(this.item(), state);
 	}
 
 	public open(): void {

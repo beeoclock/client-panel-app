@@ -19,7 +19,9 @@
 					"options": {
 						"allowedCommonJsDependencies": [
 							"hash-sum",
-							"typescript-debounce-decorator"
+							"typescript-debounce-decorator",
+							"typia",
+							"bson-objectid"
 						],
 						"outputPath": "dist",
 						"index": "src/index.html",
@@ -48,12 +50,12 @@
 								"src/manifest.webmanifest",
 								{
 									"glob": "firebase-messaging-sw.js",
-									"input": "environments/production/",
+									"input": "environment/production/firebase/",
 									"output": "./"
 								},
 								{
 									"glob": "robots.txt",
-									"input": "environments/production/",
+									"input": "environment/production/",
 									"output": "./"
 								}
 							],
@@ -84,12 +86,12 @@
 								"src/manifest.webmanifest",
 								{
 									"glob": "firebase-messaging-sw.js",
-									"input": "environments/develop/",
+									"input": "environment/develop/firebase",
 									"output": "./"
 								},
 								{
 									"glob": "robots.txt",
-									"input": "environments/develop/",
+									"input": "environment/develop/",
 									"output": "./"
 								}
 							],

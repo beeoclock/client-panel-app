@@ -3,9 +3,9 @@ import {inject, Injectable} from "@angular/core";
 import {DurationHelper} from "@utility/helper/duration.helper";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {CurrencyPipe} from "@angular/common";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {BASE_CURRENCY} from "@src/token";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 @Injectable()
 export class DurationVersionHtmlHelper {
@@ -15,7 +15,7 @@ export class DurationVersionHtmlHelper {
 	private readonly currencyPipe = inject(CurrencyPipe);
 	private readonly baseCurrency = inject(BASE_CURRENCY);
 
-	public getDurationValue(item: IServiceDto): string {
+	public getDurationValue(item: IService.DTO): string {
 		const {durationVersions} = item;
 		if (this.durationHelper.durationIsRangeMode(item) && durationVersions.length > 1) {
 			const [fromDurationVersion, toDurationVersion] = durationVersions;
@@ -35,7 +35,7 @@ export class DurationVersionHtmlHelper {
 		return `<div class="text-neutral-500">${result.join(' / ')}</div>`;
 	}
 
-	public getPriceValue(item: IServiceDto): string {
+	public getPriceValue(item: IService.DTO): string {
 		const {durationVersions} = item;
 		if (this.durationHelper.durationIsRangeMode(item) && durationVersions.length > 1) {
 			const [fromDurationVersion, toDurationVersion] = durationVersions;
@@ -68,7 +68,7 @@ export class DurationVersionHtmlHelper {
 	 * V2
 	 */
 
-	public getTotalDurationValueV2(items: IServiceDto[]): string {
+	public getTotalDurationValueV2(items: IService.DTO[]): string {
 		let totalDurationInSeconds = 0;
 		items.forEach((item) => {
 			const {durationVersions} = item;
@@ -87,7 +87,7 @@ export class DurationVersionHtmlHelper {
 		return `${durationFrom}`;
 	}
 
-	public getTotalPriceValueV2(items: IServiceDto[]): string {
+	public getTotalPriceValueV2(items: IService.DTO[]): string {
 		const baseCurrency = this.baseCurrency.value ?? CurrencyCodeEnum.USD;
 
 		if (!items?.length) {

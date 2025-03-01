@@ -3,8 +3,9 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
 import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {OrderActions} from "@order/state/order/order.actions";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	selector: 'app-order-row-action-button-component',
@@ -15,9 +16,12 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 					(activate)="activate()"
 					(deactivate)="deactivate()"-->
 		<utility-table-column-action
-			(delete)="delete()"
+			[hide]="['deactivate', 'activate']"
 			(open)="open()"
 			(edit)="edit()"
+			(delete)="delete()"
+			(deactivate)="deactivate()"
+			(activate)="activate()"
 			[id]="id()"/>
 	`,
 	imports: [
@@ -29,7 +33,7 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<IOrderDto>();
+	public readonly item = input.required<IOrder.DTO>();
 
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
@@ -44,21 +48,26 @@ export class RowActionButtonComponent {
 
 			throw new Error('User canceled the action');
 		}
-		this.store.dispatch(new OrderActions.DeleteItem(this.item()._id));
+
+		this.store.dispatch(new OrderActions.SetState(
+			this.item(),
+			StateEnum.deleted
+		));
 	}
 
-	// public activate(): void {
-	// 	this.store.dispatch(new OrderActions.UnarchiveItem(this.item._id));
-	// }
-	//
-	// public deactivate(): void {
-	// 	this.store.dispatch(new OrderActions.ArchiveItem(this.item._id));
-	// }
-	//
-	// public async archive(id: string): Promise<void> {
-	// 	await firstValueFrom(this.store.dispatch(
-	// 		new OrderActions.ArchiveItem(id)));
-	// }
+	public activate(): void {
+		this.store.dispatch(new OrderActions.SetState(
+			this.item(),
+			StateEnum.active
+		));
+	}
+
+	public deactivate(): void {
+		this.store.dispatch(new OrderActions.SetState(
+			this.item(),
+			StateEnum.archived
+		));
+	}
 
 	public open(): void {
 		this.store.dispatch(new OrderActions.OpenDetails(this.item()));

@@ -1,9 +1,11 @@
 import {IAttendee, IEvent, IEventConfiguration, RMIEvent} from "@event/domain";
-import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
-import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
-import {LanguageCodeEnum} from "@utility/domain/enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
+import {DurationVersionTypeEnum} from "@src/core/business-logic/service/enum/duration-version-type.enum";
+import {LanguageCodeEnum} from "@core/shared/enum";
+import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {Types} from "@src/core/shared/types";
+import {IService} from "@core/business-logic/service/interface/i.service";
 
 export class MEvent implements RMIEvent {
 
@@ -15,13 +17,15 @@ export class MEvent implements RMIEvent {
 	public readonly updatedAt!: string;
 	public readonly object!: 'Event';
 	public readonly servicesAreProvidedInParallel!: boolean;
-	public readonly services!: IServiceDto[];
+	public readonly services!: IService.DTO[];
 	public readonly note!: string;
 	public readonly language!: LanguageCodeEnum;
 	public readonly attendees!: IAttendee[];
 	public readonly timeZone!: string;
 	public readonly configuration!: IEventConfiguration;
 	public readonly specialists!: ISpecialist[];
+	public readonly state!: StateEnum;
+	public readonly stateHistory!: { state: StateEnum; setAt: string & Types.DateTime; }[];
 
 	constructor(initialValue?: Partial<IEvent>) {
 		if (initialValue) {

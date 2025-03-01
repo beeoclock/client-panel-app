@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
-import {NgSwitch, NgSwitchCase} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {SIDEBAR_ID} from "@src/token";
 import {MenuSidebarComponent} from "@utility/presentation/component/sidebar/menu/menu.sidebar.component";
 import {ProfileSidebarComponent} from "@utility/presentation/component/sidebar/profile/profile.sidebar.component";
+import {SyncButtonComponent} from "@utility/presentation/component/sync-button/sync-button.component";
 
 
 @Component({
@@ -15,9 +15,8 @@ import {ProfileSidebarComponent} from "@utility/presentation/component/sidebar/p
 	imports: [
 		TranslateModule,
 		MenuSidebarComponent,
-		NgSwitch,
-		NgSwitchCase,
-		ProfileSidebarComponent
+		ProfileSidebarComponent,
+		SyncButtonComponent
 	],
 })
 export class SidebarComponent implements AfterViewInit {

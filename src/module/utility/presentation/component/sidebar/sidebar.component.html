@@ -1,5 +1,6 @@
 <aside [id]="sidebarId"
-			 class="
+	   class="
+	   flex flex-col
        	z-30
         fixed
         top-0
@@ -17,12 +18,17 @@
         dark:bg-beeDarkColor-900
         dark:border-beeDarkColor-800">
 
-	<ng-container [ngSwitch]="sidebarService.currentContent">
+	@switch (sidebarService.currentContent) {
 
-		<utility-sidebar-menu-component *ngSwitchCase="sidebarService.sidebarContentEnum.MENU"/>
-		<utility-sidebar-profile-component *ngSwitchCase="sidebarService.sidebarContentEnum.PROFILE"/>
+		@case (sidebarService.sidebarContentEnum.MENU) {
+			<utility-sidebar-menu-component class="flex-1"/>
+		}
+		@case (sidebarService.sidebarContentEnum.PROFILE) {
+			<utility-sidebar-profile-component class="flex-1"/>
+		}
 
-	</ng-container>
+	}
 
+	<sync-button-component/>
 
 </aside>

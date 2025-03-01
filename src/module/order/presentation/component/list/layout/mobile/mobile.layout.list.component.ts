@@ -5,13 +5,12 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardListComponent} from "@order/presentation/component/list/card/card.list.component";
-import {FilterComponent} from "@order/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {OrderActions} from "@order/state/order/order.actions";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	selector: 'app-order-mobile-layout-list-component',
@@ -22,16 +21,18 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 		CardListComponent,
 		NotFoundTableDataComponent,
 		TranslateModule,
-		FilterComponent,
 		AutoRefreshButtonComponent,
 		NgClass,
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<IOrderDto> {
+export class MobileLayoutListComponent extends LayoutListComponent<EOrder> {
 
 	public readonly showButtonGoToForm = input(true);
 
-	readonly cardListComponents = viewChildren(CardListComponent);
+	/**
+	 * Used external
+	 */
+	public readonly cardListComponents = viewChildren(CardListComponent);
 
 	public openForm(): void {
 		this.store.dispatch(new OrderActions.OpenForm());

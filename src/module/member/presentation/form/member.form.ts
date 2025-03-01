@@ -1,14 +1,15 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {RIMember} from "@member/domain";
-import {RoleEnum} from "@utility/domain/enum/role.enum";
-import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
-import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {RoleEnum} from "@core/shared/enum/role.enum";
+import {RESPONSE_IMemberMedia} from "@src/core/business-logic/member/interface/i.member-media";
+import {MemberProfileStatusEnum} from "@src/core/business-logic/member/enums/member-profile-status.enum";
+import {BaseEntityForm} from "@utility/base.form";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 export interface IAssignments_ServiceForm {
 	full: FormControl<boolean>;
 	include: FormControl<{
-		service: IServiceDto;
+		service: IService.DTO;
 	}[]>;
 }
 
@@ -54,24 +55,25 @@ export class AssignmentsForm extends FormGroup<IAssignmentsForm> {
 }
 
 export interface IMemberForm {
-	_id: FormControl<string>;
 	email: FormControl<string>;
+	phone: FormControl<string>;
 	avatar: FormControl<RESPONSE_IMemberMedia>;
 	firstName: FormControl<string>;
 	lastName: FormControl<string>;
 	role: FormControl<RoleEnum>;
 	profileStatus: FormControl<MemberProfileStatusEnum>;
+
 	assignments: AssignmentsForm;
 
 	// TODO role or/and permission
 }
 
-export class MemberForm extends FormGroup<IMemberForm> {
+export class MemberForm extends BaseEntityForm<'MemberDto', IMemberForm> {
 
 	constructor() {
-		super({
-			_id: new FormControl(),
+		super('MemberDto', {
 			email: new FormControl(),
+			phone: new FormControl(),
 			avatar: new FormControl(),
 			firstName: new FormControl(),
 			lastName: new FormControl(),
@@ -90,7 +92,7 @@ export class MemberForm extends FormGroup<IMemberForm> {
 		this.controls.email.setValidators([Validators.email, Validators.required]);
 	}
 
-	public static create(initValue: Partial<RIMember> = {}): MemberForm {
+	public static create(initValue: Partial<IMember.DTO> = {}): MemberForm {
 
 		const form = new MemberForm();
 

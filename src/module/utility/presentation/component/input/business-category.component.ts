@@ -2,7 +2,7 @@ import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
+import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";

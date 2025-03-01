@@ -9,9 +9,10 @@ import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {ServiceActions} from "@service/state/service/service.actions";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
+import EService from "@core/business-logic/service/entity/e.service";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'service-desktop-layout-list-component',
@@ -26,9 +27,10 @@ import {TableListComponent} from "@service/presentation/component/list/table/tab
 		TableListComponent,
 	],
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<IServiceDto> {
+export class DesktopLayoutListComponent extends LayoutListComponent<EService> {
 
-	openForm() {
-		this.store.dispatch(new ServiceActions.OpenForm());
+	@Dispatch()
+	public openForm() {
+		return new ServiceActions.OpenForm();
 	}
 }

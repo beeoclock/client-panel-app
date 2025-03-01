@@ -1,7 +1,7 @@
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {CustomerForm} from "@customer/presentation/form";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
+import {IAttendeeDto} from "@src/core/business-logic/order/interface/i-order-appointment-details.dto";
 
 
 export interface IAttendeeDtoForm {

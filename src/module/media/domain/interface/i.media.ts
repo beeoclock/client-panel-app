@@ -1,9 +1,8 @@
-import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
-import {IBaseEntity} from "@utility/domain";
+import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
+import {IBaseDTO} from "@utility/domain";
 
-export interface IMedia extends IBaseEntity<'MediaDto'> {
+export interface IMedia extends IBaseDTO<'MediaDto'> {
 	mediaType?: MediaTypeEnum;
-	_id: string;
 	url: string;
 	metadata: {
 		object: "MediaMetadataDto";

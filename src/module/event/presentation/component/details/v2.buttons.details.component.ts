@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgTemplateOutlet} from "@angular/common";
 import {
@@ -6,13 +6,10 @@ import {
 } from "@event/presentation/component/change-status/change-status-on-accepted.component";
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {IEvent_V2} from "@event/domain";
-import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {Store} from "@ngxs/store";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
 import {NGXLogger} from "ngx-logger";
-import {OrderActions} from "@order/state/order/order.actions";
 import {
 	ChangeStatusOnRejectedComponent
 } from "@event/presentation/component/change-status/change-status-on-rejected.component";
@@ -28,7 +25,6 @@ import {
 		NgTemplateOutlet,
 		ChangeStatusOnAcceptedComponent,
 		ChangeStatusOnDoneComponent,
-		EditButtonComponent,
 		ChangeStatusOnRejectedComponent,
 		ChangeStatusOnCancelledComponent,
 	],
@@ -36,14 +32,12 @@ import {
 
 		@if (isRequested) {
 			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
-			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToAcceptEvent"/>
 
 		}
 
 		@if (inProgress) {
 
-			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
 		}
 
@@ -51,19 +45,16 @@ import {
 		@if (isAccepted) {
 
 			<ng-container *ngTemplateOutlet="ButtonToCancelledEvent"/>
-			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
 		}
 
 		@if (isDone) {
 
-			<edit-button-component (click)="editEvent()"/>
 			<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 		}
 
 		@if (isNegative) {
 
-			<edit-button-component (click)="editEvent()"/>
 			<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 		}
 
@@ -109,17 +100,17 @@ import {
 <!--		<hr>-->
 
 <!--		<event-delete-button-component [event]="event"/>-->
-	`
+	`,
+	host: {
+		class: 'flex justify-between flex-col gap-4 bg-white p-4 border-y'
+	}
 })
 export class V2ButtonsDetailsComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
-		order: IOrderDto;
+		order: IOrder.DTO;
 		service: IOrderServiceDto;
 	}>>();
-
-	@HostBinding()
-	public class = 'flex justify-between flex-col gap-4 bg-white p-4 border-y';
 
 	public isNegative = false;
 	public isDone = false;
@@ -128,22 +119,9 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 	public isRequested = false;
 
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly store = inject(Store);
-
-	public editEvent() {
-
-		this.store.dispatch(new OrderActions.OpenOrderServiceForm({
-			orderId: this.event().originalData.order._id,
-			item: this.event().originalData.service,
-			isEditMode: true
-		}));
-
-	}
 
 	public openFormToRepeat() {
-
 		this.ngxLogger.info('V2ButtonsDetailsComponent:openFormToRepeat');
-
 	}
 
 	public ngOnChanges(changes: SimpleChanges & { event: SimpleChange }) {
@@ -152,7 +130,7 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 
 		if (event) {
 			const {currentValue} = event;
-			const {originalData} = currentValue as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+			const {originalData} = currentValue as IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>;
 			const {status} = originalData.service;
 			this.isNegative = [OrderServiceStatusEnum.cancelled, OrderServiceStatusEnum.rejected].includes(status);
 			this.isDone = [OrderServiceStatusEnum.done].includes(status);

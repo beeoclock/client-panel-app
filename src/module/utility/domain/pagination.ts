@@ -1,9 +1,9 @@
 import {TypeGuard} from '@p4ck493/ts-type-guard';
-import {OrderByEnum} from '@utility/domain/enum';
+import {OrderByEnum} from '@core/shared/enum';
 import {getPaginationItems} from "@utility/domain/pagination.items";
 import hash_sum from "hash-sum";
 import {getMaxPage} from "@utility/domain/max-page";
-import {is} from "@utility/checker";
+import {is} from "@src/core/shared/checker";
 
 export interface IPagination_Configuration {
   checkPageSizeBeforeSet: boolean;

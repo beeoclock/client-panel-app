@@ -1,14 +1,14 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, output, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {FormControl} from "@angular/forms";
-import {RIMember} from "@member/domain";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {MemberState} from "@member/state/member/member.state";
+import {MemberState} from "@member/infrastructure/state/member/member.state";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
-import {SpecialistModel} from "@service/domain/model/specialist.model";
+import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
+import {SpecialistModel} from "@src/core/business-logic/service/model/specialist.model";
 import {TranslateModule} from "@ngx-translate/core";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'app-specialist-chip-component',
@@ -26,7 +26,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
 		<!-- Button to show selected specialist and place where user can change selected specialist -->
 		<button
-			[id]="'select-specialist' + id()"
+			[id]="'select-specialist-' + id()"
 			class="p-1 rounded-lg border border-gray-200 justify-center items-center flex">
 
 			@if (specialistFormControl.value; as specialist) {
@@ -62,7 +62,7 @@ import {TranslateModule} from "@ngx-translate/core";
 		</button>
 
 		<!-- Control to select specialist -->
-		<ion-popover #selectSpecialistPopover [trigger]="'select-specialist' + id()">
+		<ion-popover #selectSpecialistPopover [trigger]="'select-specialist-' + id()">
 			<ng-template>
 				<ion-list>
 					@for (member of members; track member._id) {
@@ -93,12 +93,12 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class SpecialistChipComponent extends Reactive implements OnInit {
 
-	public readonly initialValue = input<SpecialistModel | RIMember | null>(null);
+	public readonly initialValue = input<SpecialistModel | IMember.EntityRaw | null>(null);
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
 	@SelectSnapshot(MemberState.activeMembers)
-	public readonly members!: RIMember[];
+	public readonly members!: IMember.EntityRaw[];
 
 	public readonly specialistChanges = output<ISpecialist>();
 
@@ -110,14 +110,14 @@ export class SpecialistChipComponent extends Reactive implements OnInit {
 
 	public initSpecialist() {
 		const initialValue = this.initialValue();
-  if (initialValue instanceof SpecialistModel) {
+		if (initialValue instanceof SpecialistModel) {
 			this.setSpecialist(initialValue);
 		} else {
 			this.setMemberAsSpecialist(initialValue);
 		}
 	}
 
-	public setMemberAsSpecialist(member: RIMember | null) {
+	public setMemberAsSpecialist(member: IMember.EntityRaw | null) {
 		if (!member) {
 			return;
 		}

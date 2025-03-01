@@ -3,18 +3,15 @@ import {IAttendee, IEvent_V2} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
-import {ICustomer} from "@customer/domain";
-import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {
-	OrderServiceStatusStyleDirective
-} from "@event/presentation/directive/order-service-status-style/order-service-status-style.directive";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {IOrder} from "@src/core/business-logic/order/interface/i.order";
+import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
+import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
+import {ICustomer} from "@src/core/business-logic/customer";
+import {OrderServiceStatusEnum} from "@src/core/business-logic/order/enum/order-service.status.enum";
+import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
@@ -23,7 +20,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	imports: [
 		TranslateModule,
 		NgClass,
-		OrderServiceStatusStyleDirective,
 		PrimaryLinkButtonDirective,
 		PrimaryLinkStyleDirective,
 	],
@@ -32,19 +28,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		DurationVersionHtmlHelper,
 	],
 	template: `
-
-		<div class="p-2 flex justify-between">
-			@if (isPreview()) {
-				<div
-					class="px-2 py-1 flex items-center justify-center h-6 text-xs rounded-full border text-white uppercase bg-blue-500 border-blue-500 dark:bg-blue-900 dark:text-blue-400 dark:border-blue-800">
-					{{ 'keyword.capitalize.preview' | translate }}
-				</div>
-			} @else {
-				@if (status) {
-					<div orderServiceStatusStyle [status]="status"></div>
-				}
-			}
-		</div>
 		<div class="border-t border-gray-100">
 			<dl class="divide-y divide-gray-100">
 				<div class="p-2">
@@ -139,7 +122,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 export class V2GeneralDetailsComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
-		order: IOrderDto;
+		order: IOrder.DTO;
 		service: IOrderServiceDto;
 	}>>();
 
@@ -152,7 +135,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	public readonly attendantMap: {
 		specialists: ISpecialist[];
-		customers: ICustomer[];
+		customers: ICustomer.DTO[];
 	} = {
 		specialists: [],
 		customers: [],
@@ -173,7 +156,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 			this.attendantMap.specialists = [];
 			this.attendantMap.customers = [];
 
-			const {attendees} = event.currentValue as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+			const {attendees} = event.currentValue as IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>;
 			attendees.forEach((attendee) => {
 				(attendee.is === 'specialist') && this.attendantMap.specialists.push(attendee.originalData as ISpecialist);
 				(attendee.is === 'customer') && this.attendantMap.customers.push((attendee.originalData as IAttendee).customer);
@@ -197,7 +180,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 	}
 
 	@Dispatch()
-	public openCustomerDetails(customer: ICustomer) {
+	public openCustomerDetails(customer: ICustomer.DTO) {
 		return new CustomerActions.OpenDetailsById(customer._id);
 	}
 

@@ -45,5 +45,5 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
-firebase/production/dist
-firebase/develop/dist
+environment/production/firebase/dist
+environment/develop/firebase/dist

@@ -6,7 +6,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 import {ThemeService} from "@utility/cdk/theme.service";
 import {
 	ThemeBusinessPanelFrontendSettingsAccountApiAdapter
-} from "@module/account/adapter/external/api/theme.business-panel.frontend-settings.account.api.adapter";
+} from "@module/account/infrastructure/adapter/external/api/theme.business-panel.frontend-settings.account.api.adapter";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({

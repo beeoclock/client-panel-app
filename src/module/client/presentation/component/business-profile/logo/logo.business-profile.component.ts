@@ -7,7 +7,7 @@ import {
 } from "@client/presentation/component/business-profile/logo/image.logo.business-profile/image.logo.business-profile.component";
 import {
 	PatchMediaLogoClientApiAdapter
-} from "@client/adapter/external/api/media/logo/patch.media.logo.client.api.adapter";
+} from "@client/infrastructure/api/media/logo/patch.media.logo.client.api.adapter";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 
@@ -35,15 +35,20 @@ export class LogoBusinessProfileComponent {
 	public async save(): Promise<void> {
 
 		const imageLogoBusinessProfileComponent = this.imageLogoBusinessProfileComponent();
-  if (imageLogoBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
+		if (imageLogoBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
 			return;
 		}
+
+		// const file = imageLogoBusinessProfileComponent.selectedFile;
+		// if (file) {
+		// 	this.updateClientLogo$(file);
+		// }
 
 		const formData = new FormData();
 		formData.append('file', imageLogoBusinessProfileComponent.selectedFile as Blob);
 
 		const banner = imageLogoBusinessProfileComponent.banner();
-  if (banner) {
+		if (banner) {
 			formData.append('_id', banner._id);
 		}
 		await this.patchMediaLogoClientApiAdapter.executeAsync(formData);
@@ -51,5 +56,10 @@ export class LogoBusinessProfileComponent {
 		imageLogoBusinessProfileComponent.mediaState = MediaStateEnum.NOT_CHANGED;
 
 	}
+
+	// @Dispatch()
+	// private updateClientLogo$(file: Blob): ClientActions.UpdateClientLogo {
+	// 	return new ClientActions.UpdateClientLogo(file);
+	// }
 
 }

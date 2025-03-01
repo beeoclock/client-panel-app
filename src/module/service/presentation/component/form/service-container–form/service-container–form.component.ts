@@ -14,7 +14,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {PricesBlockComponent} from "@service/presentation/component/form/v2/prices/prices-block.component";
 import {ServiceForm} from "@service/presentation/form/service.form";
 import {filter, firstValueFrom, map} from "rxjs";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 
 import {Store} from "@ngxs/store";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -23,19 +23,17 @@ import {ImageBlockComponent} from "@service/presentation/component/form/v2/image
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
-import {
-	SwitchActiveBlockComponent
-} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {ServicePresentationForm} from "@service/presentation/form/service.presentation.form";
-import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
+import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
 import {ServicesFormComponent} from "@service/presentation/component/form/v2/service/services.form.component";
-import {ClientState} from "@client/state/client/client.state";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
-import {is} from "@utility/checker";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {is} from "@src/core/shared/checker";
+import {CurrencyCodeEnum} from "@core/shared/enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -48,7 +46,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		ReactiveFormsModule,
 		TranslateModule,
 		PricesBlockComponent,
-		SwitchActiveBlockComponent,
 		PrimaryButtonDirective,
 		AsyncPipe,
 		ButtonSaveContainerComponent,
@@ -63,7 +60,7 @@ export class ServiceContainerFormComponent implements OnInit {
 
 	public readonly isEditMode = input(false);
 
-	public readonly item = input<IServiceDto | null>(null);
+	public readonly item = input<IService.DTO | null>(null);
 
 	public readonly form = new ServiceForm();
 	public readonly presentationForm = new ServicePresentationForm({
@@ -78,6 +75,8 @@ export class ServiceContainerFormComponent implements OnInit {
 				size: 0,
 				width: 0
 			},
+			state: StateEnum.active,
+			stateHistory: [],
 			createdAt: '',
 			updatedAt: '',
 		}]
@@ -89,7 +88,7 @@ export class ServiceContainerFormComponent implements OnInit {
 	public readonly router = inject(Router);
 	public readonly ngxLogger = inject(NGXLogger);
 
-	public readonly currencyList$ = this.store.select(ClientState.baseCurrency).pipe(
+	public readonly currencyList$ = this.store.select(BusinessProfileState.baseCurrency).pipe(
 		filter(is.not_undefined<CurrencyCodeEnum>),
 		map((currency) => [currency]),
 		map((currencies) => {
@@ -100,7 +99,7 @@ export class ServiceContainerFormComponent implements OnInit {
 		}),
 	);
 
-	// public readonly currencyList$ = this.store.select(ClientState.currencies).pipe(
+	// public readonly currencyList$ = this.store.select(BusinessProfileState.currencies).pipe(
 	// 	map((currencies) => {
 	// 		if (!currencies) {
 	// 			return Object.values(CurrencyCodeEnum);
@@ -118,7 +117,7 @@ export class ServiceContainerFormComponent implements OnInit {
 	// 	}),
 	// );
 
-	public readonly availableLanguages$ = this.store.select(ClientState.availableLanguages);
+	public readonly availableLanguages$ = this.store.select(BusinessProfileState.availableLanguages);
 
 	public ngOnInit(): void {
 		this.detectItem();
@@ -126,7 +125,7 @@ export class ServiceContainerFormComponent implements OnInit {
 
 	public detectItem(): void {
 		const item = this.item();
-  if (this.isEditMode() && item) {
+		if (this.isEditMode() && item) {
 
 			const {durationVersions, languageVersions, presentation, ...rest} = item;
 
@@ -175,14 +174,14 @@ export class ServiceContainerFormComponent implements OnInit {
 		) {
 			this.form.disable();
 			this.form.markAsPending();
-			const value = this.form.getRawValue() as IServiceDto;
+			const value = this.form.getRawValue() as unknown as IService.DTO;
 			if (this.isEditMode()) {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(value)));
 				await this.imageBlock().save(value._id);
 			} else {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.CreateItem(value)));
 				const item = this.item();
-    if (item) {
+				if (item) {
 					await this.imageBlock().save(item._id);
 				}
 			}

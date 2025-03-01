@@ -19,29 +19,30 @@ import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
-import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
 import {
 	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
-import {OrderActions} from "@order/state/order/order.actions";
-import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
-import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/create.payment.api.adapter";
-import {RIMember} from "@member/domain";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {ICustomer} from "@customer/domain";
+import {ICustomer} from "@src/core/business-logic/customer";
 import {
 	ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
-import {lastValueFrom} from "rxjs";
-import {PaymentActions} from "@module/payment/state/payment/payment.actions";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {firstValueFrom, lastValueFrom} from "rxjs";
+import {PaymentActions} from "@module/payment/infrastructure/state/payment/payment.actions";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
+import {IPayment} from "@src/core/business-logic/payment/interface/i.payment";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IMember} from "@core/business-logic/member/interface/i.member";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -94,12 +95,12 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	public readonly setupPartialData = input<{
 		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: RIMember;
-		serviceList?: IServiceDto[];
-		customer?: ICustomer;
+		defaultMemberForService?: IMember.EntityRaw;
+		serviceList?: IService.DTO[];
+		customer?: ICustomer.EntityRaw;
 	}>({});
-	public readonly orderDto = input<Partial<IOrderDto>>({});
-	public readonly paymentDto = input<Partial<IPaymentDto>>({});
+	public readonly orderDto = input<Partial<IOrder.DTO>>({});
+	public readonly paymentDto = input<Partial<IPayment.DTO>>({});
 	public readonly isEditMode = input<boolean>(false);
 	public readonly firstStepOnInit = input<{
 		openServiceForm: boolean;
@@ -109,20 +110,15 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		serviceFormWasOpened: false
 	});
 
-	// TODO: add input of callback and call it on save
-
-	public readonly form: CreateOrderForm = new CreateOrderForm();
+	public readonly form: CreateOrderForm = CreateOrderForm.create();
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
-	private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
-
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
-	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer }>({});
+	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer.DTO }>({});
 
 	public ngOnChanges(changes: SimpleChanges & {
 		orderDto: SimpleChange;
@@ -131,8 +127,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	}) {
 
 		const {orderDto, paymentDto} = changes;
-		orderDto && this.patchOrderValue(orderDto);
-		paymentDto && this.form.controls.payment.patchValue(paymentDto.currentValue);
+		if (orderDto) this.patchOrderValue(orderDto);
+		if (paymentDto) this.form.controls.payment.patchValue(paymentDto.currentValue);
 		if (this.isEditMode()) {
 			this.updatePaymentFormWithOrderDto(orderDto.currentValue);
 		}
@@ -163,7 +159,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 			return;
 		}
 		await this.finishSave();
-		this.whacAMaleProvider.destroyComponent(AdditionalMenuComponent);
+		await this.whacAMaleProvider.destroyComponent(AdditionalMenuComponent);
 	}
 
 	/**
@@ -171,10 +167,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	 * @param item
 	 * @private
 	 */
-	private dispatchPutOrderAction$(item: IOrderDto) {
-		const action = new OrderActions.PutItem({
-			item
-		});
+	private dispatchPutOrderAction$(item: IOrder.DTO) {
+		const action = new OrderActions.UpdateItem(item);
 		return this.store.dispatch(action);
 	}
 
@@ -183,15 +177,15 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	 * @param item
 	 * @private
 	 */
-	private dispatchPutPaymentAction$(item: IPaymentDto) {
-		const action = new PaymentActions.PutItem({
+	private dispatchPutPaymentAction$(item: IPayment.DTO) {
+		const action = new PaymentActions.Update({
 			item
 		});
 		return this.store.dispatch(action);
 	}
 
 	private async finishSave() {
-		const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
+		const {order, payment} = this.form.value as { order: IOrder.DTO, payment: IPayment.DTO };
 		this.form.disable();
 		this.form.markAsPending();
 
@@ -204,16 +198,18 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 			} else {
 
-				// TODO: Refactoring it into state actions
-				const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
-				this.ngxLogger.info('Order created', createOrderResponse);
+				payment.orderId = order._id;
 
-				payment.orderId = createOrderResponse._id;
 
-				if (payment.orderId) {
-					const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
-					this.ngxLogger.info('Payment created', createPaymentResponse);
-				}
+				const createOrder$ = this.store.dispatch(new OrderActions.CreateItem(order));
+				await firstValueFrom(createOrder$);
+
+				const actions$ = this.store.dispatch([
+					new PaymentActions.CreateItem(payment),
+					new CalendarWithSpecialistsAction.GetItems(),
+				]);
+
+				await firstValueFrom(actions$);
 
 			}
 
@@ -236,7 +232,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	}
 
 	private patchOrderValue(orderDto: SimpleChange) {
-		const {currentValue} = orderDto as { currentValue: IOrderDto };
+		const {currentValue} = orderDto as { currentValue: IOrder.DTO };
 		this.form.controls.order.patchValue(currentValue);
 		currentValue.services?.forEach((service) => {
 			this.form.controls.order.controls.services.pushNewOne(service);
@@ -244,7 +240,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		this.changeDetectorRef.detectChanges();
 	}
 
-	private updatePaymentFormWithOrderDto(orderDto: Partial<IOrderDto>) {
+	private updatePaymentFormWithOrderDto(orderDto: Partial<IOrder.DTO>) {
 
 		if (!orderDto) {
 			return;

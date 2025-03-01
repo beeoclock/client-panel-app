@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import * as Client from "@client/domain";
+import * as Client from "@core/business-logic/business-profile";
 import {DateTime} from "luxon";
 import {environment} from "@environment/environment";
 

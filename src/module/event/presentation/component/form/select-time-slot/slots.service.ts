@@ -4,10 +4,10 @@ import {SelectTimeComponent} from "@event/presentation/component/form/select-tim
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {DateTime} from "luxon";
-import {SlotBuildingStrategyEnum} from "@client/domain/enum/slot-building-strategy.enum";
+import {SlotBuildingStrategyEnum} from "@core/business-logic/business-profile/enum/slot-building-strategy.enum";
 import {BehaviorSubject} from "rxjs";
 import {IDayItem} from "@utility/domain/interface/i.day-item";
-import {IBusySlot} from "@order/external/interface/busy-slot/i.busy-slot";
+import {IBusySlot} from "@src/core/business-logic/order/interface/busy-slot/i.busy-slot";
 
 
 @Injectable()

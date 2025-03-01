@@ -4,13 +4,12 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@utility/layout.list.component";
-import {FilterComponent} from "@order/presentation/component/filter/filter.component";
 import {TableListComponent} from "@order/presentation/component/list/table/table.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {OrderActions} from "@order/state/order/order.actions";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import EOrder from "@core/business-logic/order/entity/e.order";
 
 @Component({
 	selector: 'app-order-desktop-layout-list-component',
@@ -18,14 +17,13 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		FilterComponent,
 		NotFoundTableDataComponent,
 		TableListComponent,
 		TranslateModule,
 		AutoRefreshButtonComponent,
 	]
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<IOrderDto> {
+export class DesktopLayoutListComponent extends LayoutListComponent<EOrder> {
 
 	public openForm(): void {
 		this.store.dispatch(new OrderActions.OpenForm());

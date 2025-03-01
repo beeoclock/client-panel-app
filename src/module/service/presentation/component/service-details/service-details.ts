@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
-import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
 
 @Component({
 	selector: 'service-detail-page',
@@ -28,13 +28,14 @@ import {RowActionButtonComponent} from "@service/presentation/component/row-acti
 })
 export class ServiceDetails {
 
-	public readonly item = input<IServiceDto | null>(null);
+	@Input({required: true})
+	public readonly item!: IService.DTO;
 
 	public readonly store = inject(Store);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public edit(): void {
-		const item = this.item();
+		const item = this.item;
 		if (!item) return;
 		this.store.dispatch(new ServiceActions.OpenForm({
 			componentInputs: {

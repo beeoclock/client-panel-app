@@ -7,14 +7,12 @@ import {
 	output,
 	ViewEncapsulation
 } from "@angular/core";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {Store} from "@ngxs/store";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
-import {ResponseListType} from "@utility/adapter/base.api.adapter";
 import {
 	SelectServiceMultipleComponent
 } from "@service/presentation/component/select-list/select-service-multiple.component";
+import {IService} from "@src/core/business-logic/service/interface/i.service";
+import {ServiceService} from "@core/business-logic/service/service/service.service";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 
 @Component({
 	selector: 'app-select-service-list-component',
@@ -22,8 +20,9 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	template: `
-		@for (service of serviceList.items; track service._id) {
-			<select-service-multiple [service]="service" (emitSelect)="select($event)" (emitDeselect)="deselect($event)"/>
+		@for (service of serviceList; track service._id) {
+			<select-service-multiple [service]="service" (emitSelect)="select($event)"
+									 (emitDeselect)="deselect($event)"/>
 		}
 	`,
 	imports: [
@@ -35,29 +34,26 @@ import {
 })
 export class SelectServiceListComponent implements OnInit {
 
-	private readonly store = inject(Store);
-	private readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
+	private readonly serviceService = inject(ServiceService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	public readonly emitSelectedServiceList = output<IServiceDto[]>();
+	public readonly emitSelectedServiceList = output<IService.DTO[]>();
 
-	public serviceList: ResponseListType<IServiceDto> = {
-		items: [],
-		totalSize: 0,
-	};
-	public readonly selectedServices: IServiceDto[] = [];
+	public serviceList: IService.DTO[] = [];
+	public readonly selectedServices: IService.DTO[] = [];
 
 	public ngOnInit() {
 		this.initServiceList().then();
 	}
 
 	public async initServiceList() {
-		this.serviceList = await this.listServiceApiAdapter.executeAsync({
+		const result = await this.serviceService.repository.findAsync({
+			pageSize: 500,
 			page: 1,
-			pageSize: 100,
-			orderBy: OrderByEnum.ORDER,
-			orderDir: OrderDirEnum.ASC,
+			orderBy: OrderByEnum.UPDATED_AT,
+			orderDir: OrderDirEnum.DESC,
 		});
+		this.serviceList = result.items;
 		this.changeDetectorRef.detectChanges();
 	}
 
@@ -65,7 +61,7 @@ export class SelectServiceListComponent implements OnInit {
 	 * Select a service
 	 * @param service
 	 */
-	public select(service: IServiceDto): void {
+	public select(service: IService.DTO): void {
 		this.selectedServices.push(service);
 		this.emitSelectedServiceList.emit(this.selectedServices);
 	}
@@ -74,7 +70,7 @@ export class SelectServiceListComponent implements OnInit {
 	 * Deselect a service
 	 * @param service
 	 */
-	public deselect(service: IServiceDto): void {
+	public deselect(service: IService.DTO): void {
 		const index = this.selectedServices.indexOf(service);
 		if (index >= 0) {
 			this.selectedServices.splice(index, 1);

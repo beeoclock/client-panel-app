@@ -1,5 +1,5 @@
 <div class="flex justify-center pb-4" [class.sm:hidden]="!mobileMode()">
-	@if (tableState.maxPage === tableState.page) {
+	@if (tableState().maxPage === tableState().page) {
 
 		<div class="text-beeColor-500">
 			{{ 'pagination.message.allDataDownloaded' | translate }}
@@ -22,7 +22,7 @@
 			<div>
 				<p class="text-sm text-beeColor-700 dark:text-beeDarkColor-400">
 
-					{{ 'keyword.capitalize.total' | translate }}: {{ tableState.total }}
+					{{ 'keyword.capitalize.total' | translate }}: {{ tableState().total }}
 					<!--        Showing-->
 					<!--        <span class="font-medium">1</span>-->
 					<!--        to-->
@@ -33,84 +33,32 @@
 				</p>
 			</div>
 			<div>
-				@if (tableState.total) {
+				@if (tableState().total) {
 
 					<nav  class="isolate inline-flex -space-x-px rounded-md shadow-sm"
 						 aria-label="Pagination">
 						<button
-							[class.disabled]="1 === tableState.page"
+							[disabled]="1 === tableState().page"
 							(click)="prevPage()"
-							class="
-            relative
-            cursor-pointer
-            inline-flex
-            items-center
-            rounded-l-md
-            px-3
-            py-2
-            text-beeColor-900
-            dark:text-white
-            ring-1
-            ring-inset
-            ring-beeColor-300
-            dark:ring-beeDarkColor-600
-            hover:bg-beeColor-100
-            dark:hover:bg-beeDarkColor-600
-            focus:z-20
-            focus:outline-offset-0">
+							class="pagination-page-item">
 							<span class="sr-only">{{ 'keyword.capitalize.previous' | translate }}</span>
 							<i class="bi bi-arrow-left"></i>
 						</button>
 						@for (page of pages; track $index) {
 
 							<button
-								[class.disabled]="isNaN(page)"
-								[class.bg-beeColor-100]="tableState.page === page"
-								[class.dark:bg-beeDarkColor-700]="tableState.page === page"
+								[disabled]="isNaN(page)"
+								[class.bg-beeColor-100]="tableState().page === page"
+								[class.dark:bg-beeDarkColor-700]="tableState().page === page"
 								(click)="changePage(page)"
-								class="
-            cursor-pointer
-            relative
-            inline-flex
-            items-center
-            px-4
-            py-2
-            text-sm
-            font-semibold
-            text-beeColor-900
-            dark:text-white
-            ring-1
-            ring-inset
-            ring-beeColor-300
-            dark:ring-beeDarkColor-600
-            hover:bg-beeColor-100
-            dark:hover:bg-beeDarkColor-600
-            focus:z-20
-            focus:outline-offset-0">
+								class="pagination-page-item">
 								{{ isNaN(page) ? '...' : page }}
 							</button>
 						}
 						<button
-							[class.disabled]="tableState.maxPage === tableState.page"
+							[disabled]="tableState().maxPage === tableState().page"
 							(click)="nextPage()"
-							class="
-            relative
-            cursor-pointer
-            inline-flex
-            items-center
-            rounded-r-md
-            px-3
-            py-2
-            text-beeColor-900
-            dark:text-white
-            ring-1
-            ring-inset
-            ring-beeColor-300
-            dark:ring-beeDarkColor-600
-            hover:bg-beeColor-100
-            dark:hover:bg-beeDarkColor-600
-            focus:z-20
-            focus:outline-offset-0">
+							class="pagination-page-item">
 							<span class="sr-only">{{ 'keyword.capitalize.next' | translate }}</span>
 							<i class="bi bi-arrow-right"></i>
 						</button>

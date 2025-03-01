@@ -7,7 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {
 	GalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
-import {CreateBusinessQuery} from "@identity/query/create-business.query";
+import {CreateBusinessQuery} from "@identity/infrastructure/query/create-business.query";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({

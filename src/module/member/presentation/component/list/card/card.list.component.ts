@@ -5,9 +5,9 @@ import {
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {RIMember} from "@member/domain";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {MemberActions} from "@member/state/member/member.actions";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import EMember from "@core/business-logic/member/entity/e.member";
 
 @Component({
 	selector: 'member-card-list-component',
@@ -21,15 +21,9 @@ import {MemberActions} from "@member/state/member/member.actions";
 		CardComponent,
 	]
 })
-export class CardListComponent extends TableComponent<RIMember> {
+export class CardListComponent extends TableComponent<EMember> {
 
-	// public override readonly actions = MemberActions;
-	//
-	// public showAction = new BooleanStreamState(true);
-	//
-	// public showSelectedStatus = new BooleanStreamState(false);
-
-	public override open(item: RIMember) {
+	public override open(item: EMember) {
 		this.store.dispatch(new MemberActions.OpenDetails(item));
 	}
 

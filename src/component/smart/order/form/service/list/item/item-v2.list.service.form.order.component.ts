@@ -1,33 +1,31 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	HostBinding,
-	inject,
-	input,
-	OnChanges,
-	output,
-	SimpleChanges,
-	ViewEncapsulation
-} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, output, ViewEncapsulation} from "@angular/core";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {RIMember} from "@member/domain";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
-import {
-	SpecialistChipComponent
-} from "@src/component/smart/order/form/service/list/item/chip/specialist.chip.component";
 import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {PriceChipComponent} from "@src/component/smart/order/form/service/list/item/chip/price.chip.component";
 import {DurationChipComponent} from "@src/component/smart/order/form/service/list/item/chip/duration.chip.component";
 import {StartChipComponent} from "@src/component/smart/order/form/service/list/item/chip/start.chip.component";
 import LanguageChipComponent from "@src/component/smart/order/form/service/list/item/chip/language.chip.component";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
 import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
-import {ICustomer} from "@customer/domain";
-import {SpecialistModel} from "@service/domain/model/specialist.model";
+import {ICustomer} from "@src/core/business-logic/customer";
+import {SpecialistModel} from "@src/core/business-logic/service/model/specialist.model";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {is} from "@src/core/shared/checker";
+import {IAttendeeDto} from "@core/business-logic/order/interface/i-order-appointment-details.dto";
+import {IService} from "@core/business-logic/service/interface/i.service";
+import {IMember} from "@core/business-logic/member/interface/i.member";
+import {
+	ServiceChipComponent
+} from "@src/component/smart/order/form/service/list/item/chip/service/service.chip.component";
+import {
+	SpecialistChipComponent
+} from "@src/component/smart/order/form/service/list/item/chip/specialist.chip.component";
+import StatusChipComponent from "@src/component/smart/order/form/service/list/item/chip/status.chip.component";
+import {LanguageCodeEnum} from "@core/shared/enum";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -42,22 +40,16 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 		StartChipComponent,
 		LanguageChipComponent,
 		PrimaryLinkButtonDirective,
+		ServiceChipComponent,
+		StatusChipComponent,
 	],
 	template: `
 		<div class="justify-start items-start gap-1 flex w-full">
 			<div class="justify-start gap-1.5 flex flex-1">
-				<div class="block py-0.5 min-h-[32px]">
-					<div
-						class="h-full rounded-xl w-2 flex items-center"
-						[style.background-color]="service.presentation.color">
-						{{ service.presentation.color ? '' : '❓' }}
-					</div>
-				</div>
-				<div class="justify-start items-center flex">
-					<div class="text-black text-sm font-bold">
-						{{ service.languageVersions[0]?.title }}
-					</div>
-				</div>
+				<app-service-chip-component
+					[id]="id()"
+					(serviceChanges)="handleServiceChanges($event)"
+					[initialValue]="service"/>
 			</div>
 			<button primaryLink (click)="deleteMe.emit()"
 					class="w-8 h-8 p-1.5 rounded-lg justify-center items-center flex">
@@ -67,8 +59,13 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 		<div class="justify-start items-start flex">
 			<div class="justify-start items-start gap-2 flex flex-wrap">
 				<app-language-chip-component
+					(languageChanges)="handleLanguageChanges($event)"
 					[initialValue]="service.languageVersions[0].language"
 					[languageVersions]="service.languageVersions"
+					[id]="id()"/>
+				<app-status-chip-component
+					(statusChanges)="handleStatusChanges()"
+					[control]="item().control.controls.status"
 					[id]="id()"/>
 				<app-start-chip-component
 					[id]="id()"
@@ -94,22 +91,22 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 			</div>
 		</div>
 
-	`
+	`,
+	host: {
+		class: 'flex-col justify-start items-start p-3 gap-2 flex'
+	}
 })
-export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnChanges {
-
-	@HostBinding()
-	public class = 'flex-col justify-start items-start p-3 gap-2 flex';
+export class ItemV2ListServiceFormOrderComponent extends Reactive {
 
 	public readonly item = input.required<{
-    service: IServiceDto;
-    control: ServiceOrderForm;
-}>();
+		service: IService.DTO;
+		control: ServiceOrderForm;
+	}>();
 
 	public readonly setupPartialData = input<{
-    defaultAppointmentStartDateTimeIso?: string;
-    defaultMemberForService?: RIMember;
-}>({});
+		defaultAppointmentStartDateTimeIso?: string;
+		defaultMemberForService?: IMember.DTO;
+	}>({});
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
@@ -119,18 +116,15 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 
 	readonly #ngxLogger = inject(NGXLogger);
 
-	public ngOnChanges(changes: SimpleChanges) {
-		this.#ngxLogger.debug('ItemV2ListServiceFormOrderComponent:ngOnChanges', changes);
-	}
 
 	public get initialSpecialistOrMember() {
 		const specialist = this.item().control.getRawValue().orderAppointmentDetails.specialists[0];
 
-		if (specialist?.member?.firstName?.length) return SpecialistModel.create(specialist);
+		if (is.object_not_empty(specialist)) return SpecialistModel.create(specialist);
 
 		const member = this.setupPartialData().defaultMemberForService;
 
-		if (member?.firstName?.length) return SpecialistModel.create({member});
+		if (is.object_not_empty(member)) return SpecialistModel.create({member});
 
 		return null;
 	}
@@ -144,11 +138,11 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	}
 
 	public handlePriceChanges(price: number) {
-		this.#ngxLogger.debug('handlePriceChanges', this.id(), price);
 		const {serviceSnapshot} = this.item().control.getRawValue();
-
 		// Check if the price is the same as the previous price, if so, return early
+
 		if (serviceSnapshot.durationVersions[0].prices[0].price === price) return;
+		this.#ngxLogger.debug('handlePriceChanges', this.id(), price);
 
 		const copyServiceSnapshot = structuredClone(serviceSnapshot);
 		copyServiceSnapshot.durationVersions[0].prices[0].price = price;
@@ -157,12 +151,12 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	}
 
 	public handleSpecialistChanges(specialist: ISpecialist) {
-		this.#ngxLogger.debug('handleSpecialistChanges', this.id(), specialist);
 		const {orderAppointmentDetails} = this.item().control.getRawValue();
 
 		const {0: previousSpecialist} = orderAppointmentDetails.specialists;
 
 		if (previousSpecialist && previousSpecialist.member._id === specialist.member._id) return;
+		this.#ngxLogger.debug('handleSpecialistChanges', this.id(), specialist);
 
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.specialists = [specialist];
@@ -170,13 +164,36 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		this.saveChanges.emit();
 	}
 
+	public handleServiceChanges(service: IService.DTO) {
+		this.#ngxLogger.debug('handleServiceChanges', this.id(), service);
+		let {serviceSnapshot} = this.item().control.getRawValue();
+
+		const languageVersions = service.languageVersions.filter(({language}) => {
+			return language === serviceSnapshot.languageVersions[0].language;
+		});
+
+		if (!languageVersions.length) {
+			languageVersions.push(service.languageVersions[0]);
+		}
+
+		serviceSnapshot = {
+			...serviceSnapshot,
+			...service,
+			languageVersions,
+			durationVersions: serviceSnapshot.durationVersions,
+		};
+
+		this.item().control.controls.serviceSnapshot.patchValue(serviceSnapshot);
+		this.saveChanges.emit();
+	}
+
 	public handleDurationChanges(duration: number) {
-		this.#ngxLogger.debug('handleDurationChanges', this.id(), duration);
 		const {serviceSnapshot} = this.item().control.getRawValue();
 		const {durationInSeconds} = serviceSnapshot.durationVersions[0];
 
 		// Check if the duration is the same as the previous duration, if so, return early
 		if (durationInSeconds === duration) return;
+		this.#ngxLogger.debug('handleDurationChanges', this.id(), duration);
 
 		const copyServiceSnapshot = structuredClone(serviceSnapshot);
 		copyServiceSnapshot.durationVersions[0].durationInSeconds = duration;
@@ -190,12 +207,25 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		this.saveChanges.emit();
 	}
 
-	public handleStartChanges(start: string) {
-		this.#ngxLogger.debug('handleStartChanges', this.id(), start);
+	public handleLanguageChanges(language: LanguageCodeEnum) {
+		this.#ngxLogger.debug('handleLanguageChanges', this.id());
 		const {orderAppointmentDetails} = this.item().control.getRawValue();
+		orderAppointmentDetails.languageCodes = [language];
+		// TODO take service from repository and replace languageVersions
+		this.saveChanges.emit();
+	}
 
+	public handleStatusChanges() {
+		this.#ngxLogger.debug('handleStatusChanges', this.id());
+		this.saveChanges.emit();
+	}
+
+	public handleStartChanges(start: string) {
+		const {orderAppointmentDetails} = this.item().control.getRawValue();
 		// Check if the start is the same as the previous start, if so, return early
+
 		if (orderAppointmentDetails.start === start) return;
+		this.#ngxLogger.debug('handleStartChanges', this.id(), start);
 
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.start = start;
@@ -204,18 +234,22 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		this.saveChanges.emit();
 	}
 
-	public handleCustomerChanges(customer: ICustomer) {
+	public handleCustomerChanges(customer: ICustomer.DTO) {
 		this.#ngxLogger.debug('handleCustomerChanges', this.id(), customer);
 		const {orderAppointmentDetails} = this.item().control.getRawValue();
 
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
-		copyOrderAppointmentDetails.attendees = [{
-			customer,
-			_id: ObjectID().toHexString(),
-			createdAt: DateTime.now().toJSDate().toISOString(),
-			updatedAt: DateTime.now().toJSDate().toISOString(),
-			object: "AttendeeDto",
-		}];
+		copyOrderAppointmentDetails.attendees = [
+			{
+				customer,
+				_id: ObjectID().toHexString(),
+				createdAt: DateTime.now().toJSDate().toISOString(),
+				updatedAt: DateTime.now().toJSDate().toISOString(),
+				object: "AttendeeDto",
+				state: StateEnum.active,
+				stateHistory: [],
+			} as unknown as IAttendeeDto
+		];
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
 	}
