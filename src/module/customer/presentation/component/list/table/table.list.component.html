@@ -30,12 +30,17 @@
 		<div tableColumnFlex="note">
 			{{ 'keyword.capitalize.note' | translate }}
 		</div>
-		<div tableColumnFlex="state" data-orderBy="state">
+<!--		<div tableColumnFlex="state" data-orderBy="state">-->
+<!--			<div class="flex gap-3 items-center">-->
+<!--				{{ 'keyword.capitalize.active' | translate }}-->
+<!--				<utility-sort-indicator-->
+<!--					orderBy="state"-->
+<!--					[tableState]="tableState()"/>-->
+<!--			</div>-->
+<!--		</div>-->
+		<div tableColumnFlex="state">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.active' | translate }}
-				<utility-sort-indicator
-					orderBy="state"
-					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="createdAt" data-orderBy="createdAt">
