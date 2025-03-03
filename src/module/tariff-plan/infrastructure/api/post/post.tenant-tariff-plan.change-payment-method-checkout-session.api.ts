@@ -4,7 +4,7 @@ import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-p
 import {TariffPlanEndpointEnum} from "@tariffPlan/infrastructure/endpoint/tariff-plan.endpoint";
 
 @Injectable()
-export class PostTenantTariffPlanCancelApi extends BaseApiAdapter<ITariffPlan.DTO, [ITariffPlan.DTO]> {
+export class PostTenantTariffPlanChangePaymentMethodCheckoutSessionApi extends BaseApiAdapter<ITariffPlan.DTO, [ITariffPlan.DTO]> {
 
 	/**
 	 * @param body

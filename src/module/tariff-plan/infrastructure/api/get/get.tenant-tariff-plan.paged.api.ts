@@ -9,7 +9,7 @@ import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-p
 
 
 @Injectable()
-export class GetItemApi extends BaseApiAdapter<ITariffPlan.DTO, [string]> {
+export class GetTenantTariffPlanPagedApi extends BaseApiAdapter<ITariffPlan.DTO, [string]> {
 
 	/**
 	 * GET PAGED LIST BY FILTERS AND PARAMS

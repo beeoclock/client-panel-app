@@ -31,7 +31,6 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 @NgModule({
 	imports: [
 		NgxsModule.forFeature([
-			DateRangeReportAnalyticState,
 			PeerCustomerOrderState,
 			AbsenceState,
 
