@@ -43,7 +43,6 @@ export const tariffPlanEndpoint: EndpointCollectionType = {
 	PATCH: {
 		[TariffPlanEndpointEnum.PATCH__TENANT_TARIFF_PLAN__CHANGE]: {
 			source: SourceNetworkEnum.tariffPlan,
-			replace: true,
 			header: {
 				authorization: true,
 				tenantId: true,

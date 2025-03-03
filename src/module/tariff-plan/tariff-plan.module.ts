@@ -72,6 +72,7 @@ export class TariffPlanModule {
      * @private
      */
     private readonly syncManager = inject(SyncManager);
+    private readonly tariffPlanStore = inject(TariffPlanStore);
     private readonly tariffPlanService = inject(TariffPlanService);
     private readonly sharedUow = inject(SharedUow);
 

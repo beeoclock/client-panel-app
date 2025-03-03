@@ -1,27 +1,24 @@
 import {Injectable} from '@angular/core';
-import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
+import {BaseApiAdapter, ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";
-import {HttpContext} from "@angular/common/http";
-import {TokensHttpContext} from "@src/tokens.http-context";
 import {TariffPlanEndpointEnum} from "@tariffPlan/infrastructure/endpoint/tariff-plan.endpoint";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
+import {Types} from "@core/shared/types";
 
 
 @Injectable()
-export class GetTenantTariffPlanPagedApi extends BaseApiAdapter<ITariffPlan.DTO, [string]> {
+export class GetTenantTariffPlanPagedApi extends BaseApiAdapter<ResponseListType<ITariffPlan.DTO>, [Types.QueryParams]> {
 
-	/**
-	 * GET PAGED LIST BY FILTERS AND PARAMS
-	 * @param id
-	 */
-	@TypeGuard([is.string])
-	public override execute$(id: string) {
-		return this.httpClient.get<ITariffPlan.DTO>(TariffPlanEndpointEnum.GET__TENANT_TARIFF_PLAN__PAGED, {
-			context: new HttpContext().set(TokensHttpContext.REPLACE, {
-				id,
-			}),
-		});
-	}
+    /**
+     * GET PAGED LIST BY FILTERS AND PARAMS
+     * @param params
+     */
+    @TypeGuard([is.object_not_empty])
+    public override execute$(params: Types.QueryParams) {
+        return this.httpClient.get<ResponseListType<ITariffPlan.DTO>>(TariffPlanEndpointEnum.GET__TENANT_TARIFF_PLAN__PAGED, {
+            params,
+        });
+    }
 
 }

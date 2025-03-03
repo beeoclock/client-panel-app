@@ -4,14 +4,14 @@ import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-p
 import {TariffPlanEndpointEnum} from "@tariffPlan/infrastructure/endpoint/tariff-plan.endpoint";
 
 @Injectable()
-export class PatchTenantTariffPlanChangeApi extends BaseApiAdapter<ITariffPlan.DTO, [ITariffPlan.DTO]> {
+export class PatchTenantTariffPlanChangeApi extends BaseApiAdapter<string, [ITariffPlan.DTO]> {
 
 	/**
 	 * @param body
 	 */
 	public override execute$(body: ITariffPlan.DTO) {
 
-		return this.httpClient.patch<ITariffPlan.DTO>(TariffPlanEndpointEnum.PATCH__TENANT_TARIFF_PLAN__CHANGE, body);
+		return this.httpClient.patch<string>(TariffPlanEndpointEnum.PATCH__TENANT_TARIFF_PLAN__CHANGE, body);
 	}
 
 }
