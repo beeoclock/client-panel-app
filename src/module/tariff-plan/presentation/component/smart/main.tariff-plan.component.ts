@@ -3,7 +3,7 @@ import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tari
 import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {CurrencyCodePipe} from "@utility/presentation/pipes/currency-code.pipe";
-import {NgClass} from "@angular/common";
+import {DecimalPipe, NgClass} from "@angular/common";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 
@@ -14,7 +14,8 @@ import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 	selector: 'main-tariff-plan-component',
 	imports: [
 		CurrencyCodePipe,
-		NgClass
+		NgClass,
+		DecimalPipe
 	],
 	template: `
 		<section id="tariffs"
@@ -66,7 +67,11 @@ import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 										<div class="flex flex-col w-[250px]">
 											<div class="flex items-center">
 												<p class="flex font-bold mb-2 text-[64px] items-baseline gap-1">
-													{{ convertToMonth(item.prices[0].value) }}
+													@if (billingCycleEnum.yearly === subscriptionType) {
+														{{ item.prices[0].priceBreakdown.monthly | number: '1.0-0' }}
+													} @else {
+														{{ item.prices[0].value }}
+													}
 													<span class="font-bold mb-1 text-2xl mr-1.5">
 													{{ item.prices[0].currency | currencyCode }}
 												</span>
@@ -163,13 +168,6 @@ export class MainTariffPlanComponent implements OnInit {
 
 	public toggleSubscription(type: BillingCycleEnum) {
 		this.subscriptionType = type;
-	}
-
-	public convertToMonth(value: number): number {
-		if (this.subscriptionType === BillingCycleEnum.yearly) {
-			return Math.round(value / 12);
-		}
-		return value;
 	}
 
 }

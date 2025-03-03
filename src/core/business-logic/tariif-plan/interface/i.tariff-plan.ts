@@ -21,7 +21,11 @@ export namespace ITariffPlan {
 		region: RegionCodeEnum;
 		value: number;
 		currency: CurrencyCodeEnum;
-		languageVersions: ILanguageVersion[]
+		languageVersions: ILanguageVersion[];
+		priceBreakdown: {
+			monthly: number;
+			yearly: number;
+		};
 	}
 
 	export interface IPluginAttachment {

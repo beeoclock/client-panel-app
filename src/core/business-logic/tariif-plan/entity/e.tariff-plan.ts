@@ -2,7 +2,7 @@ import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {ActiveEnum} from "@core/shared/enum";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
 import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
-import {TypeTariffPlanEnum} from "../../../shared/enum/type.tariff-plan.enum";
+import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 
 export class ETariffPlan extends ABaseEntity<'TariffPlanDto', ITariffPlan.DTO, ITariffPlan.EntityRaw> implements ITariffPlan.EntityRaw {
 
