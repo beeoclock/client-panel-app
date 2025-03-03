@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, Signal, ViewEncapsulation} from "@angular/core";
 import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tariff-plane.store";
 import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
-import {TypeTariffPlanEnum} from "@core/business-logic/tariif-plan/enum/type.tariff-plan.enum";
+import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {CurrencyCodePipe} from "@utility/presentation/pipes/currency-code.pipe";
 import {NgClass} from "@angular/common";
 import {SharedUow} from "@core/shared/uow/shared.uow";
@@ -17,9 +17,9 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 	],
 	template: `
 		<section id="tariffs"
-				 class="flex w-full justify-center items-center lg:min-h-[810px] phone:py-10 phone:px-5 lg:px-5 xl:px-0">
-			<div class="flex flex-col w-full max-w-[1080px] gap-10 phone:gap-3">
-				<div class="flex w-full items-center phone:flex-col phone:items-start phone:gap-2.5">
+				 class="flex w-full justify-center items-center">
+			<div class="flex flex-col w-full gap-10">
+				<div class="flex w-full items-center p-5">
 					<div class="w-full flex flex-col px-2.5">
 						<h2 class="font-bold text-[40px]">Tariffs</h2>
 						<p class="font-normal text-base">Choose the best option for your business</p>
@@ -44,7 +44,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 				</div>
 
 				<div
-					class="flex gap-5 p-5 flex-col lg:flex-row">
+					class="flex gap-5 p-5 flex-col lg:flex-row overflow-auto">
 
 					@for (item of items(); track item._id) {
 

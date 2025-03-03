@@ -3,7 +3,7 @@ import {Tools} from "@core/shared/tools";
 import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 import {RegionCodeEnum} from "@core/shared/enum/region-code.enum";
-import {TypeTariffPlanEnum} from "@core/business-logic/tariif-plan/enum/type.tariff-plan.enum";
+import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 
 

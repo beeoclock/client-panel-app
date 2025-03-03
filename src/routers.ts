@@ -6,8 +6,10 @@ import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
 import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
 import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tariff-plane.store";
 import {GetApi} from "@tariffPlan/infrastructure/api/get/get.api";
-import {GetTenantTariffPlanActualApi} from "@tariffPlan/infrastructure/api/get/get.tenant-tariff-plan.actual.api";
-import {GetTenantTariffPlanPagedApi} from "@tariffPlan/infrastructure/api/get/get.tenant-tariff-plan.paged.api";
+import {
+	GetTenantTariffPlanActualApi
+} from "@tariffPlanHistory/infrastructure/api/get/get.tenant-tariff-plan.actual.api";
+import {GetTenantTariffPlanPagedApi} from "@tariffPlanHistory/infrastructure/api/get/get.tenant-tariff-plan.paged.api";
 import {GetItemApi} from "@tariffPlan/infrastructure/api/get/get-item.api";
 import {PatchTenantTariffPlanChangeApi} from "@tariffPlan/infrastructure/api/patch/patch.tenant-tariff-plan.change.api";
 import {PostStripeWebhookApi} from "@tariffPlan/infrastructure/api/post/post.stripe-webhook.api";
@@ -15,6 +17,9 @@ import {PostTenantTariffPlanCancelApi} from "@tariffPlan/infrastructure/api/post
 import {
 	PostTenantTariffPlanChangePaymentMethodCheckoutSessionApi
 } from "@tariffPlan/infrastructure/api/post/post.tenant-tariff-plan.change-payment-method-checkout-session.api";
+import {
+	TariffPlanHistoryStore
+} from "@tariffPlanHistory/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -186,6 +191,7 @@ export const routes: Routes = [
 		},
 		providers: [
 			TariffPlanStore,
+			TariffPlanHistoryStore,
 
 			// Api
 			GetApi,

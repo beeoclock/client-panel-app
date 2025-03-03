@@ -8,10 +8,12 @@ import {NGXLogger} from "ngx-logger";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {PatchTenantTariffPlanChangeApi} from "@tariffPlan/infrastructure/api/patch/patch.tenant-tariff-plan.change.api";
 import {Router} from "@angular/router";
-import {GetTenantTariffPlanPagedApi} from "@tariffPlan/infrastructure/api/get/get.tenant-tariff-plan.paged.api";
+import {GetTenantTariffPlanPagedApi} from "@tariffPlanHistory/infrastructure/api/get/get.tenant-tariff-plan.paged.api";
 import {environment} from "@environment/environment";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
-import {GetTenantTariffPlanActualApi} from "@tariffPlan/infrastructure/api/get/get.tenant-tariff-plan.actual.api";
+import {
+	GetTenantTariffPlanActualApi
+} from "@tariffPlanHistory/infrastructure/api/get/get.tenant-tariff-plan.actual.api";
 
 export interface ITariffPlanState {
 	items: ETariffPlan[];

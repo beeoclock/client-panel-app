@@ -88,6 +88,9 @@
 			"@tariffPlan/*": [
 				"./src/module/tariff-plan/*"
 			],
+			"@tariffPlanHistory/*": [
+				"./src/module/tariff-plan-history/*"
+			],
 			"@page/*": [
 				"./src/page/*"
 			]

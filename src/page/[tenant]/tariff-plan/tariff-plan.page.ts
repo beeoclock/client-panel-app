@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/core";
-import MainTariffPlanComponent from "@tariffPlan/presentation/component/smart/main.tarif-plan.component";
+import MainTariffPlanComponent from "@tariffPlan/presentation/component/smart/main.tariff-plan.component";
 
 @Component({
 	selector: 'tariff-plan-page',
