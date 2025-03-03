@@ -85,6 +85,9 @@
 			"@businessProfile/*": [
 				"./src/module/business-profile/*"
 			],
+			"@tariffPlan/*": [
+				"./src/module/tariff-plan/*"
+			],
 			"@page/*": [
 				"./src/page/*"
 			]

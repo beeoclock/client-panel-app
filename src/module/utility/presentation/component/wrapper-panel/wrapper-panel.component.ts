@@ -38,6 +38,7 @@ import {BusinessProfileModule} from "@businessProfile/business-profile.module";
 import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {TariffPlanModule} from "@tariffPlan/tariff-plan.module";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -76,6 +77,7 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 		ServiceModule,
 		PaymentModule,
 		BusinessProfileModule,
+		TariffPlanModule,
 	],
 	providers: [
 		{
