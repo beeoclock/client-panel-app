@@ -1,35 +1,28 @@
-import {inject, Injectable, OnDestroy} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {ApiDataProvider} from "@customer/infrastructure/data-provider/api.data-provider";
 import {CustomerRepository} from "@customer/infrastructure/repository/customer.repository";
 import EAbsence, {ECustomer} from "@core/business-logic/customer/entity/e.customer";
 import {ICustomer} from "@core/business-logic/customer";
 import {TENANT_ID} from "@src/token";
-import {filter, Subject, tap} from "rxjs";
+import {filter, tap} from "rxjs";
 import {is} from "@core/shared/checker";
-import {takeUntil} from "rxjs/operators";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Injectable()
-export class SyncManager extends BaseSyncManager<ICustomer.DTO, ECustomer> implements OnDestroy {
+export class SyncManager extends BaseSyncManager<ICustomer.DTO, ECustomer> {
 
 	protected readonly apiDataProvider = inject(ApiDataProvider);
 	protected readonly repository = inject(CustomerRepository);
 	protected readonly toEntity = EAbsence.fromDTO;
 
-	private readonly destroy$ = new Subject<void>();
-
 	public constructor() {
 		super('customer');
 		inject(TENANT_ID).pipe(
-			takeUntil(this.destroy$),
+			takeUntilDestroyed(),
 			filter(is.string),
 			tap(this.setTenantId.bind(this))
 		).subscribe();
-	}
-
-	public ngOnDestroy() {
-		this.destroy$.next();
-		this.destroy$.complete();
 	}
 
 }
