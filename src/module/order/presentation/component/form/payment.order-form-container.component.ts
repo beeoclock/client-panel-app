@@ -44,23 +44,23 @@ import {SwitchComponent} from "@utility/presentation/component/switch/switch.com
 				</li>
 			</ul>
 
-			<div>
+<!--			<div>-->
 
-				<ion-segment [formControl]="paymentForm.controls.method">
+<!--				<ion-segment [formControl]="paymentForm.controls.method">-->
 
-					@for (option of paymentMethodOptions; track option.value) {
+<!--					@for (option of paymentMethodOptions; track option.value) {-->
 
-						<ion-segment-button id="order-form-inputs-payment-method" [value]="option.value">
-							<ion-label>
-								{{ option.label }}
-							</ion-label>
-						</ion-segment-button>
+<!--						<ion-segment-button id="order-form-inputs-payment-method" [value]="option.value">-->
+<!--							<ion-label>-->
+<!--								{{ option.label }}-->
+<!--							</ion-label>-->
+<!--						</ion-segment-button>-->
 
-					}
+<!--					}-->
 
-				</ion-segment>
+<!--				</ion-segment>-->
 
-			</div>
+<!--			</div>-->
 
 			<div>
 				<utility-switch-component
