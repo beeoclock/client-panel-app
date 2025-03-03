@@ -5,6 +5,7 @@ import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {CurrencyCodePipe} from "@utility/presentation/pipes/currency-code.pipe";
 import {NgClass} from "@angular/common";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 
 @Component({
 	standalone: true,
@@ -28,16 +29,16 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 						<button
 							id="monthly-button"
 							class="text-sm font-semibold font-inter px-5 py-[5px] rounded-[66px] h-[40px] transition-colors duration-300"
-							[ngClass]="{ 'bg-[#E5E5E5]': subscriptionType === 'monthly'}"
-							(click)="toggleSubscription('monthly')"
+							[ngClass]="{ 'bg-[#E5E5E5]': subscriptionType === billingCycleEnum.monthly}"
+							(click)="toggleSubscription(billingCycleEnum.monthly)"
 						>
 							Monthly
 						</button>
 						<button
 							id="annual-button"
 							class="text-sm font-semibold font-inter px-5 py-[5px] rounded-[66px] h-[40px] transition-colors duration-300"
-							[ngClass]="{ 'bg-[#E5E5E5]': subscriptionType === 'annual' }"
-							(click)="toggleSubscription('annual')">
+							[ngClass]="{ 'bg-[#E5E5E5]': subscriptionType === billingCycleEnum.yearly }"
+							(click)="toggleSubscription(billingCycleEnum.yearly)">
 							Annual
 						</button>
 					</div>
@@ -65,7 +66,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 										<div class="flex flex-col w-[250px]">
 											<div class="flex items-center">
 												<p class="flex font-bold mb-2 text-[64px] items-baseline gap-1">
-													{{ item.prices[0].value }}
+													{{ convertToMonth(item.prices[0].value) }}
 													<span class="font-bold mb-1 text-2xl mr-1.5">
 													{{ item.prices[0].currency | currencyCode }}
 												</span>
@@ -141,7 +142,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 					applied to future payments. 🚀</p>
 			</div>
 		</section>
-    `
+	`
 })
 export class MainTariffPlanComponent implements OnInit {
 
@@ -156,12 +157,21 @@ export class MainTariffPlanComponent implements OnInit {
 	}
 
 	public readonly typeTariffPlanEnum = TypeTariffPlanEnum;
+	public readonly billingCycleEnum = BillingCycleEnum;
 
-	public subscriptionType: 'monthly' | 'annual' = 'monthly';
+	public subscriptionType: BillingCycleEnum = BillingCycleEnum.monthly;
 
-	public toggleSubscription(type: 'monthly' | 'annual') {
+	public toggleSubscription(type: BillingCycleEnum) {
 		this.subscriptionType = type;
 	}
 
+	public convertToMonth(value: number): number {
+		if (this.subscriptionType === BillingCycleEnum.yearly) {
+			return Math.round(value / 12);
+		}
+		return value;
+	}
+
 }
+
 export default MainTariffPlanComponent;
