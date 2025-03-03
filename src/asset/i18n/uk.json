@@ -1363,11 +1363,11 @@
 				"singular": {
 					"cancelled": "Скасовано",
 					"confirmed": "Підтверджено",
+					"deleted": "Видалено",
 					"done": "Виконано",
 					"draft": "Чернетка",
 					"inProgress": "У процесі виконання",
 					"rejected": "Відхилено",
-					"deleted": "Видалено",
 					"requested": "Запит"
 				}
 			}
@@ -1569,7 +1569,8 @@
 		"settings": "Налаштування",
 		"statistic": "Статистика",
 		"switch-business-client": "Змінити контекст",
-		"table": "Таблиця"
+		"table": "Таблиця",
+		"tariffPlan": "Тарифи"
 	},
 	"sign-out": {
 		"button": {

@@ -4,6 +4,17 @@ import {canMatchBecauseTenantId} from "@utility/can-match/can-match-because-tena
 import WrapperIdentityComponent from "@utility/presentation/component/wrapper-identity/wrapper-identity.component";
 import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
 import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
+import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tariff-plane.store";
+import {GetApi} from "@tariffPlan/infrastructure/api/get/get.api";
+import {GetTenantTariffPlanActualApi} from "@tariffPlan/infrastructure/api/get/get.tenant-tariff-plan.actual.api";
+import {GetTenantTariffPlanPagedApi} from "@tariffPlan/infrastructure/api/get/get.tenant-tariff-plan.paged.api";
+import {GetItemApi} from "@tariffPlan/infrastructure/api/get/get-item.api";
+import {PatchTenantTariffPlanChangeApi} from "@tariffPlan/infrastructure/api/patch/patch.tenant-tariff-plan.change.api";
+import {PostStripeWebhookApi} from "@tariffPlan/infrastructure/api/post/post.stripe-webhook.api";
+import {PostTenantTariffPlanCancelApi} from "@tariffPlan/infrastructure/api/post/post.tenant-tariff-plan.cancel.api";
+import {
+	PostTenantTariffPlanChangePaymentMethodCheckoutSessionApi
+} from "@tariffPlan/infrastructure/api/post/post.tenant-tariff-plan.change-payment-method-checkout-session.api";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -173,9 +184,21 @@ export const routes: Routes = [
 		data: {
 			authGuardPipe: redirectUnauthorizedToLogin
 		},
-		// providers: [
-		//     importProvidersFrom(NgxsModule.forFeature([EventRequestedState])),
-		// ],
+		providers: [
+			TariffPlanStore,
+
+			// Api
+			GetApi,
+			GetTenantTariffPlanActualApi,
+			GetTenantTariffPlanPagedApi,
+			GetItemApi,
+
+			PatchTenantTariffPlanChangeApi,
+
+			PostStripeWebhookApi,
+			PostTenantTariffPlanCancelApi,
+			PostTenantTariffPlanChangePaymentMethodCheckoutSessionApi,
+		],
 		children: [
 			{
 				path: '',
@@ -195,6 +218,10 @@ export const routes: Routes = [
 								path: '',
 								pathMatch: 'full',
 								redirectTo: '/identity/corridor',
+							},
+							{
+								path: 'tariff-plan',
+								loadComponent: () => import('@page/[tenant]/tariff-plan/tariff-plan.page')
 							},
 							{
 								path: 'member',

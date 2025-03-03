@@ -1363,11 +1363,11 @@
 				"singular": {
 					"cancelled": "Cancelled",
 					"confirmed": "Confirmed",
+					"deleted": "Deleted",
 					"done": "Done",
 					"draft": "Draft",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
-					"deleted": "Deleted",
 					"requested": "Requested"
 				}
 			}
@@ -1569,7 +1569,8 @@
 		"settings": "Settings",
 		"statistic": "Statistics",
 		"switch-business-client": "Change context",
-		"table": "Table"
+		"table": "Table",
+		"tariffPlan": "Tariffs"
 	},
 	"sign-out": {
 		"button": {

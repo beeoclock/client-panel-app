@@ -1363,11 +1363,11 @@
 				"singular": {
 					"cancelled": "Aflyst",
 					"confirmed": "Bekræftet",
+					"deleted": "Slettet",
 					"done": "Færdig",
 					"draft": "Udkast",
 					"inProgress": "Igangværende",
 					"rejected": "Afvist",
-					"deleted": "Slettet",
 					"requested": "Anmodet om"
 				}
 			}
@@ -1569,7 +1569,8 @@
 		"settings": "Indstillinger",
 		"statistic": "Statistik",
 		"switch-business-client": "Skift kontekst",
-		"table": "Tabel"
+		"table": "Tabel",
+		"tariffPlan": "Tariffer"
 	},
 	"sign-out": {
 		"button": {

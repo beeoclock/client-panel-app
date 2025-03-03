@@ -1,11 +1,10 @@
-import {patchState, signalStore, withComputed, withHooks, withMethods, withState} from "@ngrx/signals";
+import {patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState} from "@ngrx/signals";
 import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
-import {computed, inject} from "@angular/core";
+import {computed, inject, Injector, runInInjectionContext} from "@angular/core";
 import {TENANT_ID} from "@src/token";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {NGXLogger} from "ngx-logger";
-import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {PatchTenantTariffPlanChangeApi} from "@tariffPlan/infrastructure/api/patch/patch.tenant-tariff-plan.change.api";
 import {Router} from "@angular/router";
@@ -31,80 +30,116 @@ export const TariffPlanStore = signalStore(
 	withComputed(({items}) => ({
 		itemsCount: computed(() => items().length),
 	})),
-	withMethods((store) => {
+	withProps((store) => {
+		return {
+			sharedUow: inject(SharedUow),
+			ngxLogger: inject(NGXLogger),
+			isOnlineService: inject(IsOnlineService),
+			injector: inject(Injector),
+		}
+	}),
+	withMethods(({sharedUow, ngxLogger, isOnlineService, injector, ...store}) => {
 		return {
 			async fillItems(): Promise<void> {
 				try {
-					const {items} = await inject(SharedUow).tariffPlan.repository.findAsync({
+					const {items} = await sharedUow.tariffPlan.repository.findAsync({
 						page: 1,
 						pageSize: environment.config.pagination.pageSize,
-						state: StateEnum.active,
-						orderDir: OrderDirEnum.DESC,
+						// state: StateEnum.active,
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-expect-error
+						state: null,
+						orderDir: OrderDirEnum.ASC,
 						orderBy: OrderByEnum.UPDATED_AT,
 					});
+					console.log({items})
 					patchState(store, (state) => {
-						state.items = items.map(ETariffPlan.fromRaw);
-						return state;
+						return {
+							...state,
+							items: items.map(ETariffPlan.fromRaw)
+						};
 					});
 				} catch (e) {
-					inject(NGXLogger).error(e);
+					ngxLogger.error(e);
 				}
 			},
 			async changeTariffPlanOnto(item: ETariffPlan) {
-				const checkoutSessionUrl = await inject(PatchTenantTariffPlanChangeApi).executeAsync(item);
-				if (checkoutSessionUrl.length) {
-					await inject(Router).navigateByUrl(checkoutSessionUrl);
-				} else {
-					// It is a goode case, because it means that business has set card to pay and the tariff plan is active
+				try {
+					await runInInjectionContext(injector, async () => {
+						const isOffline = isOnlineService.isOffline();
+						if (isOffline) {
+							return;
+						}
+						const checkoutSessionUrl = await inject(PatchTenantTariffPlanChangeApi).executeAsync(item);
+						if (checkoutSessionUrl.length) {
+							await inject(Router).navigateByUrl(checkoutSessionUrl);
+						} else {
+							// It is a goode case, because it means that business has set card to pay and the tariff plan is active
 
-					// Read comment for the endpoint at response 200
-					// https://api-dev.beeoclock.com/tariff-plan/documentation/swagger/v1#/default/TenantTariffPlanController_changeTariffPlan
+							// Read comment for the endpoint at response 200
+							// https://api-dev.beeoclock.com/tariff-plan/documentation/swagger/v1#/default/TenantTariffPlanController_changeTariffPlan
+						}
+					});
+				} catch (e) {
+					ngxLogger.error(e);
 				}
 			},
 			async fetchHistory() {
-				const isOffline = inject(IsOnlineService).isOffline();
+				const isOffline = isOnlineService.isOffline();
 				if (isOffline) {
 					return;
 				}
 				try {
-					const {items} = await inject(GetTenantTariffPlanPagedApi).executeAsync({
-						page: 1,
-						pageSize: environment.config.pagination.pageSize,
-						orderDir: OrderDirEnum.DESC,
-						orderBy: OrderByEnum.UPDATED_AT,
-					});
-					patchState(store, (state) => {
-						state.history = items.map(ETariffPlan.fromRaw);
-						return state;
+					await runInInjectionContext(injector, async () => {
+						const {items} = await inject(GetTenantTariffPlanPagedApi).executeAsync({
+							page: 1,
+							pageSize: environment.config.pagination.pageSize,
+							orderDir: OrderDirEnum.DESC,
+							orderBy: OrderByEnum.UPDATED_AT,
+						});
+						patchState(store, (state) => {
+							return {
+								...state,
+								history: items.map(ETariffPlan.fromRaw),
+							};
+						});
 					});
 				} catch (e) {
-					inject(NGXLogger).error(e);
+					ngxLogger.error(e);
 				}
 			},
 			async fetchActual() {
-				const isOffline = inject(IsOnlineService).isOffline();
+				const isOffline = isOnlineService.isOffline();
 				if (isOffline) {
 					return;
 				}
 				try {
-					const actual = await inject(GetTenantTariffPlanActualApi).executeAsync();
-					patchState(store, (state) => {
-						state.actual = ETariffPlan.fromRaw(actual);
-						return state;
+					await runInInjectionContext(injector, async () => {
+						const actual = await inject(GetTenantTariffPlanActualApi).executeAsync();
+						patchState(store, (state) => {
+							return {
+								...state,
+								actual: ETariffPlan.fromRaw(actual),
+							};
+						});
 					});
 				} catch (e) {
-					inject(NGXLogger).error(e);
+					ngxLogger.error(e);
 				}
 			},
+			async init() {
+				await this.fillItems();
+				await this.fetchHistory();
+				await this.fetchActual();
+				console.log(store.items(), store.actual(), store.history());
+			}
 		}
 	}),
 	withHooks((store) => {
 		return {
 			onInit() {
 				inject(TENANT_ID).pipe(takeUntilDestroyed()).subscribe(() => {
-					store.fillItems();
-					store.fetchHistory();
-					store.fetchActual();
+					store.init();
 				});
 			},
 		};

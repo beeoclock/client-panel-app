@@ -1363,11 +1363,11 @@
 				"singular": {
 					"cancelled": "Anulowane",
 					"confirmed": "Potwierdzono",
+					"deleted": "Usunięte",
 					"done": "Gotowe",
 					"draft": "Wersja robocza",
 					"inProgress": "W toku",
 					"rejected": "Odrzucono",
-					"deleted": "Usunięte",
 					"requested": "Żądany"
 				}
 			}
@@ -1569,7 +1569,8 @@
 		"settings": "Ustawienia",
 		"statistic": "Statystyki",
 		"switch-business-client": "Zmień kontekst",
-		"table": "Tabela"
+		"table": "Tabela",
+		"tariffPlan": "Tariffs"
 	},
 	"sign-out": {
 		"button": {

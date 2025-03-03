@@ -26,4 +26,8 @@ export class MemberService extends BaseService<ENTITY_RAW> {
 		return null;
 	}
 
+	public async count() {
+		return this.db.count();
+	}
+
 }
