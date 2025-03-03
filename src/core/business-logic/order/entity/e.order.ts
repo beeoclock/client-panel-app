@@ -51,7 +51,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 	 *
 	 * @param state
 	 */
-	public changeOrderState(state: StateEnum): void {
+	public override changeState(state: StateEnum): void {
 		this.state = state;
 		this.stateHistory.push({
 			state,
@@ -110,7 +110,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 		const newOrderState = this.determineOrderState();
 
 		if (newOrderState) {
-			this.changeOrderState(newOrderState);
+			this.changeState(newOrderState);
 		}
 	}
 
