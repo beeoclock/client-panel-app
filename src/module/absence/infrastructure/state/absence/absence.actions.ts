@@ -42,7 +42,7 @@ export namespace AbsenceActions {
 	// API
 
 	export class Init extends BaseActions.Init {
-		public static override readonly type = '[Service State] Init';
+		public static override readonly type = '[Absence State] Init';
 	}
 
 	export class GetList extends BaseActions.GetList {
