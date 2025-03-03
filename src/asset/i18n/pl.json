@@ -1126,6 +1126,7 @@
 			"ordering": "Zamawianie",
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
+			"paid": "Zapłacone",
 			"payer": "Płatnik",
 			"payment": "Płatność",
 			"paymentMethod": "Metoda płatności",
@@ -1363,11 +1364,11 @@
 				"singular": {
 					"cancelled": "Anulowane",
 					"confirmed": "Potwierdzono",
+					"deleted": "Usunięte",
 					"done": "Gotowe",
 					"draft": "Wersja robocza",
 					"inProgress": "W toku",
 					"rejected": "Odrzucono",
-					"deleted": "Usunięte",
 					"requested": "Żądany"
 				}
 			}
