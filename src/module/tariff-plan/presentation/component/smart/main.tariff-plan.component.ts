@@ -48,52 +48,56 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 
 					@for (item of items(); track item._id) {
 
-						<div
-							class="flex justify-between flex-col h-[600px] transition-transform duration-300 bg-white shadow-lg rounded-2xl gap-5 px-5 py-3 w-full">
-							<div class="flex flex-col">
-								<div class="flex justify-between items-center mb-1">
-									<h2 class="text-2xl font-bold text-[#FFD429] uppercase">
-										{{ item.type }}
-									</h2>
-									@if (item.type === typeTariffPlanEnum.Free) {
-										<p class="font-light text-xs">No need card</p>
-									}
-								</div>
-								<div class="flex justify-center">
-									<div class="flex flex-col w-[250px]">
-										<div class="flex items-center">
-											<p class="flex font-bold mb-2 text-[64px] items-baseline gap-1">
-												{{ item.prices[0].value }}
-												<span class="font-bold mb-1 text-2xl mr-1.5">
+						@if (item.billingCycle === subscriptionType) {
+
+							<div
+								class="flex justify-between min-w-[340px] flex-col h-[600px] transition-transform duration-300 bg-white shadow-lg rounded-2xl gap-5 px-5 py-3">
+								<div class="flex flex-col">
+									<div class="flex justify-between items-center mb-1">
+										<h2 class="text-2xl font-bold text-[#FFD429] uppercase">
+											{{ item.type }}
+										</h2>
+										@if (item.type === typeTariffPlanEnum.Free) {
+											<p class="font-light text-xs">No need card</p>
+										}
+									</div>
+									<div class="flex justify-center">
+										<div class="flex flex-col w-[250px]">
+											<div class="flex items-center">
+												<p class="flex font-bold mb-2 text-[64px] items-baseline gap-1">
+													{{ item.prices[0].value }}
+													<span class="font-bold mb-1 text-2xl mr-1.5">
 													{{ item.prices[0].currency | currencyCode }}
 												</span>
-											</p>
-											<div class="flex flex-col">
-												<span class="font-medium text-sm text-[#CACACA]">per business</span>
-												<span class="font-medium text-sm text-[#CACACA]">per month</span>
+												</p>
+												<div class="flex flex-col">
+													<span class="font-medium text-sm text-[#CACACA]">per business</span>
+													<span class="font-medium text-sm text-[#CACACA]">per month</span>
+												</div>
 											</div>
-										</div>
-										<ul
-											class="[&>li]:text-sm [&>li]:font-medium [&>li]:mb-1 [&>li]:h-[26px] [&>li]:flex [&>li]:items-center">
-											<li class="flex gap-2 first:font-bold">
-												<i class="bi bi-check-lg"></i>
-												<span>Users {{ item.specialistLimit }} {{ membersCount }}</span>
-											</li>
-											@for (feature of item.features; track feature) {
-												<li class="flex gap-2">
+											<ul
+												class="[&>li]:text-sm [&>li]:font-medium [&>li]:mb-1 [&>li]:h-[26px] [&>li]:flex [&>li]:items-center">
+												<li class="flex gap-2 first:font-bold">
 													<i class="bi bi-check-lg"></i>
-													<span>{{ feature }}</span>
+													<span>Users {{ item.specialistLimit }} {{ membersCount }}</span>
 												</li>
-											}
-										</ul>
+												@for (feature of item.features; track feature) {
+													<li class="flex gap-2">
+														<i class="bi bi-check-lg"></i>
+														<span>{{ feature }}</span>
+													</li>
+												}
+											</ul>
+										</div>
 									</div>
 								</div>
+								<button
+									class="bg-[#FFD429] font-bold text-xl py-4 px-5 transition-all duration-150 ease-in-out active:scale-95 hover:bg-[#FFC800] rounded-[10px] w-full uppercase">
+									Get Started
+								</button>
 							</div>
-							<button
-								class="bg-[#FFD429] font-bold text-xl py-4 px-5 transition-all duration-150 ease-in-out active:scale-95 hover:bg-[#FFC800] rounded-[10px] w-full uppercase">
-								Get Started
-							</button>
-						</div>
+
+						}
 
 					}
 
