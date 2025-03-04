@@ -107,7 +107,7 @@ export class SharedUow {
 
 	public get tariffPlan() {
 		if (!this.#tariffPlan) {
-			throw new Error('TariffService is not initialized');
+			throw new Error('tariffPlanService is not initialized');
 		}
 		return this.#tariffPlan;
 	}
@@ -118,7 +118,7 @@ export class SharedUow {
 
 	public get tariffPlanHistory() {
 		if (!this.#tariffPlanHistory) {
-			throw new Error('tariffPlanHistory is not initialized');
+			throw new Error('tariffPlanHistoryService is not initialized');
 		}
 		return this.#tariffPlanHistory;
 	}
