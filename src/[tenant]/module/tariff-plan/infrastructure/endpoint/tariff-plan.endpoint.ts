@@ -9,9 +9,6 @@ export enum TariffPlanEndpointEnum {
 
 	PATCH__TENANT_TARIFF_PLAN__CHANGE = '/api/v1/tenantTariffPlan/change',
 
-	GET__TENANT_TARIFF_PLAN__ACTUAL = '/api/v1/tenantTariffPlan/actual',
-	GET__TENANT_TARIFF_PLAN__PAGED = '/api/v1/tenantTariffPlan/paged',
-
 	GET = '/api/v1/paged',
 	GET_ITEM = '/api/v1/{id}',
 }
@@ -50,20 +47,6 @@ export const tariffPlanEndpoint: EndpointCollectionType = {
 		},
 	},
 	GET: {
-		[TariffPlanEndpointEnum.GET__TENANT_TARIFF_PLAN__PAGED]: {
-			source: SourceNetworkEnum.tariffPlan,
-			header: {
-				authorization: true,
-				tenantId: true,
-			}
-		},
-		[TariffPlanEndpointEnum.GET__TENANT_TARIFF_PLAN__ACTUAL]: {
-			source: SourceNetworkEnum.tariffPlan,
-			header: {
-				authorization: true,
-				tenantId: true,
-			}
-		},
 		[TariffPlanEndpointEnum.GET]: {
 			source: SourceNetworkEnum.tariffPlan,
 			header: {

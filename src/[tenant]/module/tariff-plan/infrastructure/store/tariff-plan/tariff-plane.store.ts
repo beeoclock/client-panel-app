@@ -8,23 +8,15 @@ import {NGXLogger} from "ngx-logger";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {PatchTenantTariffPlanChangeApi} from "@tariffPlan/infrastructure/api/patch/patch.tenant-tariff-plan.change.api";
 import {Router} from "@angular/router";
-import {GetTenantTariffPlanPagedApi} from "@tariffPlanHistory/infrastructure/api/get/get.tenant-tariff-plan.paged.api";
 import {environment} from "@environment/environment";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
-import {
-	GetTenantTariffPlanActualApi
-} from "@tariffPlanHistory/infrastructure/api/get/get.tenant-tariff-plan.actual.api";
 
 export interface ITariffPlanState {
 	items: ETariffPlan[];
-	history: ETariffPlan[];
-	actual: ETariffPlan | null;
 }
 
 const initialState: ITariffPlanState = {
 	items: [],
-	history: [],
-	actual: null,
 };
 
 export const TariffPlanStore = signalStore(
@@ -86,54 +78,9 @@ export const TariffPlanStore = signalStore(
 					ngxLogger.error(e);
 				}
 			},
-			async fetchHistory() {
-				const isOffline = isOnlineService.isOffline();
-				if (isOffline) {
-					return;
-				}
-				try {
-					await runInInjectionContext(injector, async () => {
-						const {items} = await inject(GetTenantTariffPlanPagedApi).executeAsync({
-							page: 1,
-							pageSize: environment.config.pagination.pageSize,
-							orderDir: OrderDirEnum.DESC,
-							orderBy: OrderByEnum.UPDATED_AT,
-						});
-						patchState(store, (state) => {
-							return {
-								...state,
-								history: items.map(ETariffPlan.fromRaw),
-							};
-						});
-					});
-				} catch (e) {
-					ngxLogger.error(e);
-				}
-			},
-			async fetchActual() {
-				const isOffline = isOnlineService.isOffline();
-				if (isOffline) {
-					return;
-				}
-				try {
-					await runInInjectionContext(injector, async () => {
-						const actual = await inject(GetTenantTariffPlanActualApi).executeAsync();
-						patchState(store, (state) => {
-							return {
-								...state,
-								actual: ETariffPlan.fromRaw(actual),
-							};
-						});
-					});
-				} catch (e) {
-					ngxLogger.error(e);
-				}
-			},
 			async init() {
 				await this.fillItems();
-				await this.fetchHistory();
-				await this.fetchActual();
-				console.log(store.items(), store.actual(), store.history());
+				console.log(store.items());
 			}
 		}
 	}),

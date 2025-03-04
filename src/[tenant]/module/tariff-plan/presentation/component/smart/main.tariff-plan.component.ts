@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewEncapsulation} from "@angular/core";
 import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {CurrencyCodePipe} from "@utility/presentation/pipes/currency-code.pipe";
@@ -7,6 +7,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 import {TranslatePipe} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
+import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
 
 @Component({
 	standalone: true,
@@ -95,7 +96,18 @@ import {ActivatedRoute} from "@angular/router";
 												class="[&>li]:text-sm [&>li]:font-medium [&>li]:mb-1 [&>li]:h-[26px] [&>li]:flex [&>li]:items-center">
 												<li class="flex gap-2 first:font-bold">
 													<i class="bi bi-check-lg"></i>
-													<span>Users {{ item.specialistLimit }} {{ membersCount }}</span>
+													<span>Users {{ item.specialistLimit }}</span>
+													@if (this.actual.tariffPlan.type === item.type) {
+														@if (membersCount() === item.specialistLimit) {
+															<span class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-gray-800 text-white">
+															exhausted
+														</span>
+														} @else {
+															<span class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-green-800 text-white">
+															{{membersCount()}} / {{ item.specialistLimit ?? '∞' }}
+														</span>
+														}
+													}
 												</li>
 												@for (feature of item.features; track feature) {
 													<li class="flex gap-2">
@@ -107,10 +119,23 @@ import {ActivatedRoute} from "@angular/router";
 										</div>
 									</div>
 								</div>
-								<button
-									class="bg-[#FFD429] font-bold text-xl py-4 px-5 transition-all duration-150 ease-in-out active:scale-95 hover:bg-[#FFC800] rounded-[10px] w-full uppercase">
-									{{ 'keyword.capitalize.upgradeTo' | translate }} {{ item.type }}
-								</button>
+
+								@if (this.actual.tariffPlan.type === item.type) {
+
+									<button
+										disabled
+										class="font-bold text-xl py-4 px-5 text-neutral-400 w-full capitalize">
+										{{ 'keyword.capitalize.chosen' | translate }}
+									</button>
+
+								} @else {
+
+									<button
+										class="bg-[#FFD429] font-bold text-xl py-4 px-5 hover:bg-[#FFC800] rounded-[10px] w-full capitalize">
+										{{ 'keyword.capitalize.upgradeTo' | translate }} {{ item.type }}
+									</button>
+
+								}
 							</div>
 
 						}
@@ -124,13 +149,14 @@ import {ActivatedRoute} from "@angular/router";
 			<div class="bg-white rounded-2xl p-1 w-full">
 				<a href="#"
 				   class="text-yellow-700 cursor-pointer hover:bg-yellow-100 rounded-2xl transition-all flex gap-2 p-3">
-					<span>{{ 'tariffPlan.links.billing.label' | translate}}</span>
+					<span>{{ 'tariffPlan.links.billing.label' | translate }}</span>
 					<i class="bi bi-box-arrow-up-right"></i>
 				</a>
 			</div>
 		</section>
 		<section class="flex flex-col w-full p-5">
-			<div class="bg-white rounded-2xl p-3 px-4 prose max-w-full" [innerHTML]="'tariffPlan.documentation.switchingToAnotherPlan' | translate">
+			<div class="bg-white rounded-2xl p-3 px-4 prose max-w-full"
+				 [innerHTML]="'tariffPlan.documentation.switchingToAnotherPlan' | translate">
 			</div>
 		</section>
 	`
@@ -140,11 +166,15 @@ export class MainTariffPlanComponent implements OnInit {
 	private readonly sharedUow = inject(SharedUow);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	public readonly items: ETariffPlan[] = this.activatedRoute.snapshot.data.tariffPlanItems;
+	public readonly historyItems: ETariffPlanHistory[] = this.activatedRoute.snapshot.data.tariffPlanHistoryItems;
+	public readonly actual: ETariffPlanHistory = this.activatedRoute.snapshot.data.tariffPlanActual;
 
-	public membersCount = 0;
+	public readonly membersCount = signal(0);
 
 	public ngOnInit() {
-		this.sharedUow.member.count().then(count => this.membersCount = count);
+		this.sharedUow.member.count().then((count) => {
+			this.membersCount.set(count);
+		});
 	}
 
 	public readonly typeTariffPlanEnum = TypeTariffPlanEnum;

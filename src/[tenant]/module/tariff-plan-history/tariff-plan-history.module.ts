@@ -2,7 +2,7 @@ import {inject, NgModule} from "@angular/core";
 import {ApiDataProvider} from "@tariffPlanHistory/infrastructure/data-provider/api.data-provider";
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {TariffPlanHistoryService} from "@core/business-logic/tariif-plan-history/service/tariff-plan.service";
+import {TariffPlanHistoryService} from "@core/business-logic/tariif-plan-history/service/tariff-plan-history.service";
 import {
 	TariffPlanHistoryDexieAdapterIndexedDBDataProvider
 } from "@tariffPlanHistory/infrastructure/data-provider/indexedDB/adapter/tariff-plan-history.dexie.adapter.indexedDB.data-provider";
@@ -23,7 +23,7 @@ import {GetTenantTariffPlanPagedApi} from "@tariffPlanHistory/infrastructure/api
 
 		GetTenantTariffPlanActualApi,
 		GetTenantTariffPlanPagedApi,
-		
+
 		// Data Provider
 		ApiDataProvider,
 		TariffPlanHistoryIndexedDBDataProvider,

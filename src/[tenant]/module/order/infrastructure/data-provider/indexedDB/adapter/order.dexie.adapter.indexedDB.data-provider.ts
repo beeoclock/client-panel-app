@@ -7,7 +7,7 @@ import {IOrder} from "@core/business-logic/order/interface/i.order";
 @Injectable()
 export class OrderDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IOrder.EntityRaw> {
 
-	protected readonly columns = '_id,createdAt,updatedAt';
+	protected readonly columns = '_id,state,createdAt,updatedAt';
 	protected readonly moduleName = 'order';
 	protected readonly version = 1;
 

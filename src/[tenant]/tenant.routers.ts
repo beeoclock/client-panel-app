@@ -3,6 +3,10 @@ import {AuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import {canMatchBecauseTenantId} from "@utility/can-match/can-match-because-tenant.id";
 import TenantRouterOutletComponent from "@[tenant]/tenant.router-outlet.component";
 import {tariffPlanItemsResolver} from "@tariffPlan/presentation/resolver/tariff-plan-items.resolver";
+import {
+	tariffPlanHistoryItemsResolver
+} from "@tariffPlanHistory/presentation/resolver/tariff-plan-history-items.resolver";
+import {tariffPlanActualResolver} from "@tariffPlanHistory/presentation/resolver/tariff-plan-actual.resolver";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 
@@ -40,6 +44,8 @@ export const tenantRouters: Routes = [
 										path: 'overview',
 										resolve: {
 											tariffPlanItems: tariffPlanItemsResolver,
+											tariffPlanHistoryItems: tariffPlanHistoryItemsResolver,
+											tariffPlanActual: tariffPlanActualResolver,
 										},
 										loadComponent: () => import('@page/tariff-plan/tariff-plan.page')
 									}

@@ -7,7 +7,7 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 @Injectable()
 export class MemberDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IMember.EntityRaw> {
 
-	protected readonly columns = '_id,createdAt,updatedAt,firstName,lastName,email,phone';
+	protected readonly columns = '_id,state,createdAt,updatedAt,firstName,lastName,email,phone';
 	protected readonly moduleName = 'member';
 	protected readonly version = 1;
 

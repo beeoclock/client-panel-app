@@ -1,5 +1,4 @@
 import {patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState} from "@ngrx/signals";
-import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
 import {computed, inject} from "@angular/core";
 import {TENANT_ID} from "@src/token";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -10,11 +9,13 @@ import {environment} from "@environment/environment";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
 
 export interface ITariffPlanHistoryState {
-	items: ETariffPlan[];
+	items: ETariffPlanHistory[];
+	actual: ETariffPlanHistory | null;
 }
 
 const initialState: ITariffPlanHistoryState = {
 	items: [],
+	actual: null,
 };
 
 export const TariffPlanHistoryStore = signalStore(
@@ -30,15 +31,32 @@ export const TariffPlanHistoryStore = signalStore(
 	}),
 	withMethods(({sharedUow, ngxLogger, ...store}) => {
 		return {
+			async fillActual() {
+				try {
+					const {items} = await sharedUow.tariffPlanHistory.repository.findAsync({
+						page: 1,
+						pageSize: 1,
+						status: 'active',
+						// state: StateEnum.active,
+						orderDir: OrderDirEnum.ASC,
+						orderBy: OrderByEnum.UPDATED_AT,
+					});
+					patchState(store, (state) => {
+						return {
+							...state,
+							actual: items.map(ETariffPlanHistory.fromRaw)[0],
+						};
+					});
+				} catch (e) {
+					ngxLogger.error(e);
+				}
+			},
 			async fillItems(): Promise<void> {
 				try {
 					const {items} = await sharedUow.tariffPlanHistory.repository.findAsync({
 						page: 1,
 						pageSize: environment.config.pagination.pageSize,
 						// state: StateEnum.active,
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-expect-error
-						state: null,
 						orderDir: OrderDirEnum.ASC,
 						orderBy: OrderByEnum.UPDATED_AT,
 					});
@@ -55,6 +73,7 @@ export const TariffPlanHistoryStore = signalStore(
 			},
 			async init() {
 				await this.fillItems();
+				await this.fillActual();
 				console.log(store.items());
 			}
 		}

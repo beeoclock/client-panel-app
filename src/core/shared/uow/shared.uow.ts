@@ -7,7 +7,7 @@ import {CustomerService} from "@core/business-logic/customer/service/customer.se
 import {BusinessProfileService} from "@core/business-logic/business-profile/service/business-profile.service";
 import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
 import {TariffPlanService} from "@core/business-logic/tariif-plan/service/tariff-plan.service";
-import {TariffPlanHistoryService} from "@core/business-logic/tariif-plan-history/service/tariff-plan.service";
+import {TariffPlanHistoryService} from "@core/business-logic/tariif-plan-history/service/tariff-plan-history.service";
 
 /**
  * Shared Unit of Work
@@ -123,7 +123,7 @@ export class SharedUow {
 		return this.#tariffPlanHistory;
 	}
 
-	public set tariffPlanHistory(value: TariffPlanService) {
+	public set tariffPlanHistory(value: TariffPlanHistoryService) {
 		this.#tariffPlanHistory = value;
 	}
 
