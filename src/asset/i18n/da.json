@@ -1627,6 +1627,38 @@
 		"page": {
 			"subtitle": "Vælg den bedste løsning til din virksomhed",
 			"title": "Tariffer"
+		},
+		"features": {
+			"unlimitedPlugins": {
+				"label": "Ubegrænsede plugins"
+			},
+			"emailNotification": {
+				"label": "E-mail notifikation"
+			},
+			"smsNotification": {
+				"label": "SMS notifikation"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"seoOptimization": {
+				"label": "SEO-pakke"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Betalingsbekræftelse"
+			},
+			"adminPanel": {
+				"label": "Administrationspanel"
+			},
+			"publicPage": {
+				"label": "Offentlig side"
+			},
+			"publicRestApi": {
+				"label": "Offentlig REST API"
+			},
+			"assistantAI": {
+				"label": "Assistent AI"
+			}
 		}
 	},
 	"updateAvailable": {

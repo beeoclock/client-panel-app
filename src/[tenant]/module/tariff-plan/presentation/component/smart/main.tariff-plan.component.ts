@@ -112,7 +112,7 @@ import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/
 												@for (feature of item.features; track feature) {
 													<li class="flex gap-2">
 														<i class="bi bi-check-lg"></i>
-														<span>{{ feature }}</span>
+														<span>{{ ('tariffPlan.features.' + feature + '.label') | translate }}</span>
 													</li>
 												}
 											</ul>

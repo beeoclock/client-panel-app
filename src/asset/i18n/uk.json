@@ -1627,6 +1627,38 @@
 		"page": {
 			"subtitle": "Оберіть найкращий варіант для вашого бізнесу",
 			"title": "Тарифи"
+		},
+		"features": {
+			"unlimitedPlugins": {
+				"label": "Необмежені плагіни"
+			},
+			"emailNotification": {
+				"label": "Сповіщення на email"
+			},
+			"smsNotification": {
+				"label": "Сповіщення SMS"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"seoOptimization": {
+				"label": "SEO-пакет"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Підтвердження оплати"
+			},
+			"adminPanel": {
+				"label": "Адміністративна панель"
+			},
+			"publicPage": {
+				"label": "Публічна сторінка"
+			},
+			"publicRestApi": {
+				"label": "Публічний REST API"
+			},
+			"assistantAI": {
+				"label": "Помічник AI"
+			}
 		}
 	},
 	"updateAvailable": {

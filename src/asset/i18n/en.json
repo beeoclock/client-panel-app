@@ -1627,6 +1627,38 @@
 		"page": {
 			"subtitle": "Choose the best option for your business",
 			"title": "Tariffs"
+		},
+		"features": {
+			"unlimitedPlugins": {
+				"label": "Plugins unlimited"
+			},
+			"emailNotification": {
+				"label": "Email notification"
+			},
+			"smsNotification": {
+				"label": "SMS Notification"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"seoOptimization": {
+				"label": "SEO Package"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Payment Confirmation"
+			},
+			"adminPanel": {
+				"label": "Admin panel"
+			},
+			"publicPage": {
+				"label": "Public page"
+			},
+			"publicRestApi": {
+				"label": "Public rest api"
+			},
+			"assistantAI": {
+				"label": "Assistant AI"
+			}
 		}
 	},
 	"updateAvailable": {

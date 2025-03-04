@@ -1627,6 +1627,38 @@
 		"page": {
 			"subtitle": "Wybierz najlepszą opcję dla swojej firmy",
 			"title": "Taryfy"
+		},
+		"features": {
+			"unlimitedPlugins": {
+				"label": "Nieograniczone wtyczki"
+			},
+			"emailNotification": {
+				"label": "Powiadomienie e-mail"
+			},
+			"smsNotification": {
+				"label": "Powiadomienie SMS"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"seoOptimization": {
+				"label": "Pakiet SEO"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Potwierdzenie płatności"
+			},
+			"adminPanel": {
+				"label": "Panel administracyjny"
+			},
+			"publicPage": {
+				"label": "Strona publiczna"
+			},
+			"publicRestApi": {
+				"label": "Publiczny REST API"
+			},
+			"assistantAI": {
+				"label": "Asystent AI"
+			}
 		}
 	},
 	"updateAvailable": {
