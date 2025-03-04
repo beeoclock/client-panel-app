@@ -8,6 +8,7 @@ import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 import {TranslatePipe} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
+import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tariff-plane.store";
 
 @Component({
 	standalone: true,
@@ -131,6 +132,7 @@ import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/
 								} @else {
 
 									<button
+										(click)="upgradeTo(item)"
 										class="bg-[#FFD429] font-bold text-xl py-4 px-5 hover:bg-[#FFC800] rounded-[10px] w-full capitalize">
 										{{ 'keyword.capitalize.upgradeTo' | translate }} {{ item.type }}
 									</button>
@@ -163,6 +165,7 @@ import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/
 })
 export class MainTariffPlanComponent implements OnInit {
 
+	private readonly tariffPlanStore = inject(TariffPlanStore);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	public readonly items: ETariffPlan[] = this.activatedRoute.snapshot.data.tariffPlanItems;
@@ -175,6 +178,10 @@ export class MainTariffPlanComponent implements OnInit {
 		this.sharedUow.member.count().then((count) => {
 			this.membersCount.set(count);
 		});
+	}
+
+	public upgradeTo(item: ETariffPlan) {
+		this.tariffPlanStore.changeTariffPlanOnto(item);
 	}
 
 	public readonly typeTariffPlanEnum = TypeTariffPlanEnum;
