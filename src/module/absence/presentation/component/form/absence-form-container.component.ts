@@ -136,7 +136,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 				@if (errorsSignal(); as errors) {
 					@for (error of (errors | keyvalue); track error.key) {
 						<div class="flex">
-							<span class="text-centerinline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+							<span class="text-center inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
 								{{ ('form.validation.' + error.key) | translate: error.value }}
 							</span>
 						</div>
