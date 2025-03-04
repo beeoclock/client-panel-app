@@ -11,6 +11,8 @@ import {Router} from "@angular/router";
 import {environment} from "@environment/environment";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
 
+import {StateEnum} from "@core/shared/enum/state.enum";
+
 export interface ITariffPlanState {
 	items: ETariffPlan[];
 }
@@ -39,10 +41,7 @@ export const TariffPlanStore = signalStore(
 					const {items} = await sharedUow.tariffPlan.repository.findAsync({
 						page: 1,
 						pageSize: environment.config.pagination.pageSize,
-						// state: StateEnum.active,
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-expect-error
-						state: null,
+						state: StateEnum.active,
 						orderDir: OrderDirEnum.ASC,
 						orderBy: OrderByEnum.UPDATED_AT,
 					});

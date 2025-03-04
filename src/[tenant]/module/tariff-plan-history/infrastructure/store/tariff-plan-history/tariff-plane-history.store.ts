@@ -8,6 +8,8 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {environment} from "@environment/environment";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
 
+import {StateEnum} from "@core/shared/enum/state.enum";
+
 export interface ITariffPlanHistoryState {
 	items: ETariffPlanHistory[];
 	actual: ETariffPlanHistory | null;
@@ -37,7 +39,7 @@ export const TariffPlanHistoryStore = signalStore(
 						page: 1,
 						pageSize: 1,
 						status: 'active',
-						// state: StateEnum.active,
+						state: StateEnum.active,
 						orderDir: OrderDirEnum.ASC,
 						orderBy: OrderByEnum.UPDATED_AT,
 					});
