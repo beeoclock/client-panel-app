@@ -12,7 +12,7 @@ export class ETariffPlan extends ABaseEntity<'TariffPlanDto', ITariffPlan.DTO, I
 	prices!: ITariffPlan.IPrice[];
 	isPerSpecialist!: boolean;
 	billingCycle!: BillingCycleEnum;
-	specialistLimit!: number;
+	specialistLimit!: number | null;
 	features!: string[];
 	active!: ActiveEnum;
 	pluginAttachment!: ITariffPlan.IPluginAttachment;

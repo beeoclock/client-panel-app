@@ -1081,6 +1081,7 @@
 			"details": "Szczegóły",
 			"dismiss": "Odrzuć",
 			"done": "Gotowe",
+			"downgradeTo": "Obniż do",
 			"downloadMore": "Pobierz więcej",
 			"duration": "Czas trwania",
 			"earliestBooking": "Najbliższy termin rezerwacji",
@@ -1619,6 +1620,38 @@
 		"documentation": {
 			"switchingToAnotherPlan": "<p>     <strong>Zmiana na inny plan</strong> </p> <p>     Uaktualnienie lub zmiana planu jest bezproblemowa! Kiedy przełączysz się na nowy plan, system automatycznie      obliczy różnicę między twoim obecnym a nowym planem, zapewniając płynne przejście. </p> <p>     🔹 Jak to działa: </p> <ol>     <li>Natychmiastowa aktywacja – Twój nowy plan zostanie aktywowany od razu po zmianie.</li>     <li>Proporcjonalne dostosowanie – System odliczy pozostałą wartość z poprzedniego planu          i zastosuje ją do nowego.     </li>     <li>Automatyczne rozliczenie – Zapłacisz tylko różnicę, co zapewnia uczciwe naliczanie opłat.</li>     <li>Brak przerw w działaniu – Twoje obecne funkcje pozostaną aktywne podczas przetwarzania aktualizacji.     </li> </ol> <p>💡 Możesz uaktualnić plan w dowolnym momencie i płacić tylko za to, co wykorzystujesz. Jeśli obniżysz plan,      skorygowana kwota zostanie zastosowana do przyszłych płatności. 🚀</p>"
 		},
+		"features": {
+			"adminPanel": {
+				"label": "Panel administracyjny"
+			},
+			"assistantAI": {
+				"label": "Asystent AI"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Potwierdzenie płatności"
+			},
+			"emailNotification": {
+				"label": "Powiadomienie e-mail"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"publicPage": {
+				"label": "Strona publiczna"
+			},
+			"publicRestApi": {
+				"label": "Publiczny REST API"
+			},
+			"seoOptimization": {
+				"label": "Pakiet SEO"
+			},
+			"smsNotification": {
+				"label": "Powiadomienie SMS"
+			},
+			"unlimitedPlugins": {
+				"label": "Nieograniczone wtyczki"
+			}
+		},
 		"links": {
 			"billing": {
 				"label": "Historia rozliczeń i powiązane karty płatnicze"
@@ -1627,38 +1660,6 @@
 		"page": {
 			"subtitle": "Wybierz najlepszą opcję dla swojej firmy",
 			"title": "Taryfy"
-		},
-		"features": {
-			"unlimitedPlugins": {
-				"label": "Nieograniczone wtyczki"
-			},
-			"emailNotification": {
-				"label": "Powiadomienie e-mail"
-			},
-			"smsNotification": {
-				"label": "Powiadomienie SMS"
-			},
-			"jsonLD": {
-				"label": "JSON LD"
-			},
-			"seoOptimization": {
-				"label": "Pakiet SEO"
-			},
-			"confirmationAfterUserPayment": {
-				"label": "Potwierdzenie płatności"
-			},
-			"adminPanel": {
-				"label": "Panel administracyjny"
-			},
-			"publicPage": {
-				"label": "Strona publiczna"
-			},
-			"publicRestApi": {
-				"label": "Publiczny REST API"
-			},
-			"assistantAI": {
-				"label": "Asystent AI"
-			}
 		}
 	},
 	"updateAvailable": {

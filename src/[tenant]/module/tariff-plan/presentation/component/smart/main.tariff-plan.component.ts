@@ -61,9 +61,9 @@ import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tari
 						@if (item.billingCycle === subscriptionType) {
 
 							<div
-								class="flex justify-between min-w-[340px] flex-col h-[600px] transition-transform duration-300 bg-white shadow-lg rounded-2xl gap-5 px-5 py-3">
+								class="flex justify-between min-w-[340px] flex-col h-[600px] transition-transform duration-300 bg-white shadow-lg rounded-2xl gap-5 px-3 py-3">
 								<div class="flex flex-col">
-									<div class="flex justify-between items-center mb-1">
+									<div class="flex px-2 justify-between items-center mb-1">
 										<h2 class="text-2xl font-bold text-[#FFD429] uppercase">
 											{{ item.type }}
 										</h2>
@@ -100,12 +100,14 @@ import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tari
 													<span>Users {{ item.specialistLimit }}</span>
 													@if (this.actual.tariffPlan.type === item.type) {
 														@if (membersCount() === item.specialistLimit) {
-															<span class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-gray-800 text-white">
+															<span
+																class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-gray-800 text-white">
 															exhausted
 														</span>
 														} @else {
-															<span class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-green-800 text-white">
-															{{membersCount()}} / {{ item.specialistLimit ?? '∞' }}
+															<span
+																class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-green-800 text-white">
+															{{ membersCount() }} / {{ item.specialistLimit ?? '∞' }}
 														</span>
 														}
 													}
@@ -125,17 +127,43 @@ import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tari
 
 									<button
 										disabled
-										class="font-bold text-xl py-4 px-5 text-neutral-400 w-full capitalize">
+										class="font-bold text-xl py-4 px-5 text-neutral-400 w-full normal-case">
 										{{ 'keyword.capitalize.chosen' | translate }}
 									</button>
 
 								} @else {
 
-									<button
-										(click)="upgradeTo(item)"
-										class="bg-[#FFD429] font-bold text-xl py-4 px-5 hover:bg-[#FFC800] rounded-[10px] w-full capitalize">
-										{{ 'keyword.capitalize.upgradeTo' | translate }} {{ item.type }}
-									</button>
+									@if (loading()?._id === item._id) {
+
+										<button
+											disabled
+											class="text-xl bg-[#FFD429] rounded-2xl text-yellow-900 py-4 px-5 w-full">
+											<div class="animate-spin">
+												<i class="bi bi-arrow-repeat"></i>
+											</div>
+										</button>
+
+									} @else {
+
+										@if (isUpgrade(item)) {
+
+											<button
+												(click)="upgradeTo(item)"
+												class="bg-[#FFD429] font-bold text-xl py-4 px-5 hover:bg-[#FFC800] rounded-2xl w-full normal-case">
+												{{ 'keyword.capitalize.upgradeTo' | translate }} {{ item.type }}
+											</button>
+
+										} @else {
+
+											<button
+												(click)="upgradeTo(item)"
+												class="font-bold text-xl py-4 px-5 w-full normal-case">
+												{{ 'keyword.capitalize.downgradeTo' | translate }} {{ item.type }}
+											</button>
+
+										}
+
+									}
 
 								}
 							</div>
@@ -173,6 +201,7 @@ export class MainTariffPlanComponent implements OnInit {
 	public readonly actual: ETariffPlanHistory = this.activatedRoute.snapshot.data.tariffPlanActual;
 
 	public readonly membersCount = signal(0);
+	public readonly loading = signal<null | ETariffPlan>(null);
 
 	public ngOnInit() {
 		this.sharedUow.member.count().then((count) => {
@@ -180,8 +209,17 @@ export class MainTariffPlanComponent implements OnInit {
 		});
 	}
 
-	public upgradeTo(item: ETariffPlan) {
-		this.tariffPlanStore.changeTariffPlanOnto(item);
+	public async upgradeTo(item: ETariffPlan) {
+		this.loading.set(item);
+		await this.tariffPlanStore.changeTariffPlanOnto(item);
+		this.loading.set(null);
+	}
+
+	public isUpgrade(item: ETariffPlan): boolean {
+		if (item.specialistLimit) {
+			return item.specialistLimit > this.membersCount();
+		}
+		return true;
 	}
 
 	public readonly typeTariffPlanEnum = TypeTariffPlanEnum;

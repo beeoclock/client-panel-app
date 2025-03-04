@@ -40,7 +40,7 @@ export namespace ITariffPlan {
 		prices: IPrice[];
 		isPerSpecialist: boolean;
 		billingCycle: BillingCycleEnum;
-		specialistLimit: number;
+		specialistLimit: number | null;
 		features: string[];
 		active: ActiveEnum;
 		pluginAttachment: IPluginAttachment;
