@@ -12,7 +12,7 @@ import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone"
 import ObjectID from "bson-objectid";
 import {FormControl} from "@angular/forms";
 import {LanguageCodeEnum} from "@core/shared/enum";
-import {RILanguageVersion} from "@src/core/business-logic/service";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
 	selector: 'app-language-chip-component',
@@ -36,11 +36,13 @@ import {RILanguageVersion} from "@src/core/business-logic/service";
 		<ion-popover [trigger]="'select-language-version-' + id()">
 			<ng-template>
 				<ion-list>
-					@for (languageVersion of languageVersions(); track languageVersion.language) {
-						<ion-item [button]="true" lines="full" [detail]="false"
-								  (click)="select(languageVersion.language)">
-							<ion-label class="uppercase">{{ languageVersion.language }}</ion-label>
-						</ion-item>
+					@if (serviceEntity(); as service) {
+						@for (languageVersion of service.languageVersions; track languageVersion.language) {
+							<ion-item [button]="true" lines="full" [detail]="false"
+									  (click)="select(languageVersion.language)">
+								<ion-label class="uppercase">{{ languageVersion.language }}</ion-label>
+							</ion-item>
+						}
 					}
 				</ion-list>
 			</ng-template>
@@ -49,9 +51,9 @@ import {RILanguageVersion} from "@src/core/business-logic/service";
 })
 export class LanguageChipComponent implements OnInit {
 
-	public readonly initialValue = input.required<LanguageCodeEnum>();
+	public readonly serviceEntity = input.required<EService | null>();
 
-	public readonly languageVersions = input.required<RILanguageVersion[]>();
+	public readonly initialValue = input.required<LanguageCodeEnum>();
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
@@ -74,7 +76,7 @@ export class LanguageChipComponent implements OnInit {
 	}
 
 	public select(language: LanguageCodeEnum) {
-		if (this.languageCodeFormControl.value === language) {
+		if (this.languageCodeFormControl.value !== language) {
 			this.languageCodeFormControl.setValue(language);
 			this.selectLanguageVersionPopover().dismiss().then();
 			this.languageChanges.emit(language);
