@@ -64,7 +64,7 @@ export const TariffPlanStore = signalStore(
 						if (isOffline) {
 							return;
 						}
-						const checkoutSessionUrl = await inject(PatchTenantTariffPlanChangeApi).executeAsync(item);
+						const {url: checkoutSessionUrl} = await inject(PatchTenantTariffPlanChangeApi).executeAsync(item);
 						if (checkoutSessionUrl.length) {
 							await inject(Router).navigateByUrl(checkoutSessionUrl);
 						} else {
