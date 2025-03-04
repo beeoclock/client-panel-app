@@ -321,7 +321,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		});
 		this.events$.pipe(this.takeUntil()).subscribe((eventsBySpecialistId) => {
 
-			console.log('CalendarWithSpecialistWidgetComponent: events$: ', eventsBySpecialistId);
 			this.eventsBySpecialistId = eventsBySpecialistId;
 			setTimeout(() => {
 				this.columnList.forEach((column) => {

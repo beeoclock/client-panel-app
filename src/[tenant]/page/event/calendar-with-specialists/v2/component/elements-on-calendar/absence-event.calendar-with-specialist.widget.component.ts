@@ -137,7 +137,6 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 
 	private async openAbsenceDetails(event: IEvent_V2<IAbsence.DTO>) {
 		const entity = EAbsence.fromDTO(event.originalData);
-		console.log('entity: ', entity);
 		this.store.dispatch(new AbsenceActions.OpenDetails(entity));
 	}
 

@@ -62,7 +62,6 @@ export const TariffPlanHistoryStore = signalStore(
 						orderDir: OrderDirEnum.ASC,
 						orderBy: OrderByEnum.UPDATED_AT,
 					});
-					console.log({items})
 					patchState(store, (state) => {
 						return {
 							...state,
@@ -76,7 +75,6 @@ export const TariffPlanHistoryStore = signalStore(
 			async init() {
 				await this.fillItems();
 				await this.fillActual();
-				console.log(store.items());
 			}
 		}
 	}),

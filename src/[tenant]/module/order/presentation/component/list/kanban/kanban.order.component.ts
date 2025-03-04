@@ -141,7 +141,6 @@ export class KanbanOrderComponent {
 			OrderActions.OrderedServiceState,
 		),
 		tap((value) => {
-			console.log('KanbanOrderComponent: changesHandler', value);
 			// Refresh each status
 			this.orderStatusControl.value.forEach(status => this.refresh(status));
 		}),

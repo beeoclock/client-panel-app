@@ -86,7 +86,6 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		{
 			provide: PushChangesSyncManager,
 			useFactory: () => {
-				console.log('AbsenceModule:PushChangesSyncManager');
 				return new PushChangesSyncManager(
 					inject(AbsenceIndexedDBDataProvider),
 				);
