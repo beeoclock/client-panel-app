@@ -93,6 +93,10 @@ export class CalendarWithSpecialistsState {
 					return acc;
 				}
 
+				if (order.state !== StateEnum.active) {
+					return acc;
+				}
+
 				order.services.forEach((service) => {
 
 					// Check if the order is in the correct status
@@ -173,6 +177,10 @@ export class CalendarWithSpecialistsState {
 
 			}, [] as IEvent_V2[]),
 			...absences.reduce((acc, absence) => {
+
+				if (absence.state !== StateEnum.active) {
+					return acc;
+				}
 
 				const start = DateTime.fromISO(absence.start);
 				const end = DateTime.fromISO(absence.end);

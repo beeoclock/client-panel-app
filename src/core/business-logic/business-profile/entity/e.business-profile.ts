@@ -43,9 +43,12 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 	contacts!: IContact[];
 	gallery!: Required<IMedia>[];
 	description!: string;
-	username: string | null = null;
+	username!: string | null;
 	facilities!: FacilityEnum[];
 
+	public override initBeforeConstructor() {
+		this.username = null;
+	}
 
 	public override toDTO(): IBusinessProfile.DTO {
 		return EBusinessProfile.toDTO(this);
