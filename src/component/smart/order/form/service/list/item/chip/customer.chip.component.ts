@@ -18,6 +18,7 @@ import {ICustomer} from "@src/core/business-logic/customer";
 import {
 	CustomerListIonicComponent
 } from "@src/component/smart/order/form/service/list/item/chip/customer/customer.list.ionic.component";
+import ECustomer from "@core/business-logic/customer/entity/e.customer";
 
 @Component({
 	selector: 'app-customer-chip-component',
@@ -89,7 +90,7 @@ export class CustomerChipComponent extends Reactive implements OnInit {
 
 	public ngOnInit() {
 		const initialValue = this.initialValue();
-  if (initialValue) {
+		if (initialValue) {
 			this.customerForm.patchValue(initialValue);
 			this.#changeDetectorRef.detectChanges();
 		}
@@ -99,11 +100,17 @@ export class CustomerChipComponent extends Reactive implements OnInit {
 
 	protected doDone(save: boolean = true) {
 		if (this.customerForm.valid) {
+			this.customerPopover().dismiss().then();
 			if (save) {
+				const existCustomer = this.initialValue();
 				const rawValue = this.customerForm.getRawValue();
+				if (existCustomer) {
+					if (ECustomer.isEqual(rawValue, existCustomer)) {
+						return;
+					}
+				}
 				this.customerChanges.emit(rawValue);
 			}
-			this.customerPopover().dismiss().then();
 		}
 	}
 }
