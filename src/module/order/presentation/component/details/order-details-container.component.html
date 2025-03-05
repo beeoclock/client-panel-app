@@ -30,6 +30,24 @@
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.payment' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
+					@if (payment(); as payment) {
+						@if (payment.status === paymentStatusEnum.succeeded) {
+							<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
+						{{ 'keyword.capitalize.paid' | translate }}
+					</span>
+						} @else {
+							<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+						{{ 'keyword.capitalize.notPaid' | translate }}
+					</span>
+						}
+					}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">

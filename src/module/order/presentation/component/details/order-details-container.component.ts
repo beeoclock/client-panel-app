@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, OnChanges, signal, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
@@ -8,13 +8,16 @@ import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import {IOrderServiceDto} from "@src/core/business-logic/order/interface/i.order-service.dto";
 import {EventActions} from "@event/infrastructure/state/event/event.actions";
 import {IAttendee_V2} from "@event/domain";
-import {IsOrganizerEnum} from "@core/shared/enum";
+import {IsOrganizerEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {
 	ContainerChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/container.change-status.button.component";
 import {
 	ListServiceFormCardOrderComponent
 } from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
+import {PaymentStatusEnum} from "@core/business-logic/payment/enum/payment.status.enum";
+import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Component({
 	selector: 'order-detail-page',
@@ -29,16 +32,37 @@ import {
 	],
 	standalone: true
 })
-export class OrderDetailsContainerComponent {
+export class OrderDetailsContainerComponent implements OnChanges {
 
 	// TODO add base index of details with store and delete method
 
 	@Input()
 	public item!: IOrder.DTO;
 
+	public readonly payment = signal<IPayment.DTO | null>(null);
+
 	public readonly idPrefix = 'order-details-container';
 
 	public readonly store = inject(Store);
+	public readonly sharedUow = inject(SharedUow);
+
+	public ngOnChanges(changes: SimpleChanges) {
+		this.initPayment().then();
+	}
+
+	public async initPayment() {
+		if (!this.item) {
+			return;
+		}
+		const {items: {0: payment}} = await this.sharedUow.payment.repository.findAsync({
+			orderId: this.item._id,
+			page: 1,
+			pageSize: 1,
+			orderBy: OrderByEnum.CREATED_AT,
+			orderDir: OrderDirEnum.DESC,
+		});
+		this.payment.set(payment);
+	}
 
 	// public async delete(order: IOrder.DTO) {
 	//
@@ -100,4 +124,5 @@ export class OrderDetailsContainerComponent {
 
 	}
 
+	protected readonly paymentStatusEnum = PaymentStatusEnum;
 }
