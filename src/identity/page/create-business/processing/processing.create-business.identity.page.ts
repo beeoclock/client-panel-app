@@ -57,6 +57,10 @@ const enum Status {
 		LoaderComponent,
 		WithTenantIdPipe
 	],
+	providers: [
+		PostApi,
+		PutApi,
+	],
 	encapsulation: ViewEncapsulation.None
 })
 export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
