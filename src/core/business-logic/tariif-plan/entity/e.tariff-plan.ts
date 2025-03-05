@@ -1,7 +1,5 @@
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {ActiveEnum} from "@core/shared/enum";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
-import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 
 export class ETariffPlan extends ABaseEntity<'TariffPlanDto', ITariffPlan.DTO, ITariffPlan.EntityRaw> implements ITariffPlan.EntityRaw {
@@ -11,10 +9,8 @@ export class ETariffPlan extends ABaseEntity<'TariffPlanDto', ITariffPlan.DTO, I
 	type!: TypeTariffPlanEnum;
 	prices!: ITariffPlan.IPrice[];
 	isPerSpecialist!: boolean;
-	billingCycle!: BillingCycleEnum;
 	specialistLimit!: number | null;
 	features!: string[];
-	active!: ActiveEnum;
 	pluginAttachment!: ITariffPlan.IPluginAttachment;
 
 
@@ -27,8 +23,6 @@ export class ETariffPlan extends ABaseEntity<'TariffPlanDto', ITariffPlan.DTO, I
 			object: data.object,
 			_id: data._id,
 
-			active: data.active,
-			billingCycle: data.billingCycle,
 			features: data.features,
 			isPerSpecialist: data.isPerSpecialist,
 			pluginAttachment: data.pluginAttachment,

@@ -1,31 +1,34 @@
 import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {Tools} from "@core/shared/tools";
-import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 import {RegionCodeEnum} from "@core/shared/enum/region-code.enum";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
+import {Types} from "@core/shared/types";
 import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
-
 
 export namespace ITariffPlan {
 
 	export interface ILanguageVersion {
-		object: "LanguageVersionDto";
 		title: string;
 		description: string;
 		language: LanguageCodeEnum;
 	}
 
+	export interface IValue {
+		billingCycle: BillingCycleEnum;
+		beforeDiscount: number;
+		afterDiscount: number;
+	}
+
 	export interface IPrice {
-		country: CountryCodeEnum;
+		values: IValue[];
+		country?: CountryCodeEnum;
 		region: RegionCodeEnum;
-		value: number;
 		currency: CurrencyCodeEnum;
 		languageVersions: ILanguageVersion[];
-		priceBreakdown: {
-			monthly: number;
-			yearly: number;
-		};
+		createdAt: string & Types.DateTime;
+		updatedAt: string & Types.DateTime;
 	}
 
 	export interface IPluginAttachment {
@@ -39,17 +42,15 @@ export namespace ITariffPlan {
 		type: TypeTariffPlanEnum;
 		prices: IPrice[];
 		isPerSpecialist: boolean;
-		billingCycle: BillingCycleEnum;
 		specialistLimit: number | null;
 		features: string[];
-		active: ActiveEnum;
 		pluginAttachment: IPluginAttachment;
+
 	}
 
 	export type EntityRaw = IBaseEntityRaw<'TariffPlanDto'> & DTO & {};
 
 }
-
 
 export const isTariffPlan = Tools.createIs<ITariffPlan.DTO>();
 export const validTariffPlan = Tools.createValidate<ITariffPlan.DTO>();

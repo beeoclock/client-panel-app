@@ -9,6 +9,7 @@ import EBusinessProfile from "@core/business-logic/business-profile/entity/e.bus
 import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 
 interface IBusinessProfileState {
 	item: IBusinessProfile.EntityRaw | undefined;
@@ -96,6 +97,11 @@ export class BusinessProfileState {
 	@Selector()
 	public static baseCurrency(state: IBusinessProfileState): CurrencyCodeEnum | undefined {
 		return state.item?.businessSettings?.baseCurrency;
+	}
+
+	@Selector()
+	public static country(state: IBusinessProfileState): CountryCodeEnum | undefined {
+		return state.item?.addresses?.[0]?.country;
 	}
 
 	@Selector()
