@@ -95,7 +95,6 @@ export const TariffPlanStore = signalStore(
             },
             async init() {
                 await this.fillItems();
-                await this.fetchBillingLink();
             }
         }
     }),

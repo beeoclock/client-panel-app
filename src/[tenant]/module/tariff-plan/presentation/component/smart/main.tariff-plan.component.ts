@@ -197,12 +197,18 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 		<section class="flex w-full items-center p-5">
 			<div>
 				<div class="bg-white rounded-2xl p-1 w-full">
-					<a [href]="billingLink()"
-					   target="_blank"
-					   class="text-yellow-700 cursor-pointer hover:bg-yellow-100 rounded-2xl transition-all flex gap-2 p-3">
+					<button
+						(click)="openBillingLink()"
+						[disabled]="billingLinkIsLoading()"
+						class="text-yellow-700 cursor-pointer hover:bg-yellow-100 rounded-2xl transition-all flex gap-2 p-3">
 						<span>{{ 'tariffPlan.links.billing.label' | translate }}</span>
+						@if (billingLinkIsLoading()) {
+							<span class="animate-spin">
+								<i class="bi bi-arrow-repeat"></i>
+							</span>
+						}
 						<i class="bi bi-box-arrow-up-right"></i>
-					</a>
+					</button>
 				</div>
 			</div>
 		</section>
@@ -211,7 +217,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 				 [innerHTML]="'tariffPlan.documentation.switchingToAnotherPlan' | translate">
 			</div>
 		</section>
-    `
+	`
 })
 export class MainTariffPlanComponent implements OnInit {
 
@@ -227,7 +233,7 @@ export class MainTariffPlanComponent implements OnInit {
 	readonly #country = this.store.selectSnapshot(BusinessProfileState.country)
 	readonly #baseLanguage = this.store.selectSnapshot(BusinessProfileState.baseLanguage)
 
-	public readonly billingLink = this.tariffPlanStore.billingLink;
+	public readonly billingLinkIsLoading = signal(false);
 	public readonly membersCount = signal(0);
 	public readonly loading = signal<null | ETariffPlan>(null);
 
@@ -242,6 +248,20 @@ export class MainTariffPlanComponent implements OnInit {
 		this.loading.set(item);
 		await this.tariffPlanStore.changeTariffPlanOnto(item);
 		this.loading.set(null);
+	}
+
+	public openBillingLink() {
+		this.billingLinkIsLoading.set(true);
+		this.tariffPlanStore.fetchBillingLink().then(() => {
+			const billingLink = this.tariffPlanStore.billingLink();
+			if (!billingLink) {
+				// TODO: Show message
+				return;
+			}
+			window.open(billingLink, '_blank');
+		}).finally(() => {
+			this.billingLinkIsLoading.set(false);
+		});
 	}
 
 	public isUpgrade(item: ETariffPlan): boolean {

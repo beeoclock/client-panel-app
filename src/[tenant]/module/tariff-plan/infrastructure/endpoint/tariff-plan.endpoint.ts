@@ -48,6 +48,13 @@ export const tariffPlanEndpoint: EndpointCollectionType = {
 		},
 	},
 	GET: {
+		[TariffPlanEndpointEnum.GET_BILLING_PORTAL]: {
+			source: SourceNetworkEnum.tariffPlan,
+			header: {
+				authorization: true,
+				tenantId: true,
+			}
+		},
 		[TariffPlanEndpointEnum.GET]: {
 			source: SourceNetworkEnum.tariffPlan,
 			header: {
