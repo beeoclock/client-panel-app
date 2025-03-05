@@ -193,6 +193,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 			<div>
 				<div class="bg-white rounded-2xl p-1 w-full">
 					<a [href]="billingLink()"
+					   target="_blank"
 					   class="text-yellow-700 cursor-pointer hover:bg-yellow-100 rounded-2xl transition-all flex gap-2 p-3">
 						<span>{{ 'tariffPlan.links.billing.label' | translate }}</span>
 						<i class="bi bi-box-arrow-up-right"></i>
