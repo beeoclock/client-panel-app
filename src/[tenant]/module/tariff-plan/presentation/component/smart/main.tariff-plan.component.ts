@@ -113,7 +113,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 											class="[&>li]:text-sm [&>li]:font-medium [&>li]:mb-1 [&>li]:h-[26px] [&>li]:flex [&>li]:items-center">
 											<li class="flex gap-2 first:font-bold">
 												<i class="bi bi-check-lg"></i>
-												<span>Users {{ item.specialistLimit }}</span>
+												<span>Users {{ item.specialistLimit ?? '∞' }}</span>
 												@if (this.actual.tariffPlan.type === item.type) {
 													@if (membersCount() === item.specialistLimit) {
 														<span
