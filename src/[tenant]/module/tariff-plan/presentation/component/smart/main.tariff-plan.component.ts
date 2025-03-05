@@ -190,12 +190,14 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 			</div>
 		</section>
 		<section class="flex w-full items-center p-5">
-			<div class="bg-white rounded-2xl p-1 w-full">
-				<a href="#"
-				   class="text-yellow-700 cursor-pointer hover:bg-yellow-100 rounded-2xl transition-all flex gap-2 p-3">
-					<span>{{ 'tariffPlan.links.billing.label' | translate }}</span>
-					<i class="bi bi-box-arrow-up-right"></i>
-				</a>
+			<div>
+				<div class="bg-white rounded-2xl p-1 w-full">
+					<a href="#"
+					   class="text-yellow-700 cursor-pointer hover:bg-yellow-100 rounded-2xl transition-all flex gap-2 p-3">
+						<span>{{ 'tariffPlan.links.billing.label' | translate }}</span>
+						<i class="bi bi-box-arrow-up-right"></i>
+					</a>
+				</div>
 			</div>
 		</section>
 		<section class="flex flex-col w-full p-5">
