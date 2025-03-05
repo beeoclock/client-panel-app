@@ -10,13 +10,16 @@ import {PatchTenantTariffPlanChangeApi} from "@tariffPlan/infrastructure/api/pat
 import {environment} from "@environment/environment";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {GetBillingPortalApi} from "@tariffPlan/infrastructure/api/get/get.billing-portal.api";
 
 export interface ITariffPlanState {
     items: ETariffPlan[];
+	billingLink: string;
 }
 
 const initialState: ITariffPlanState = {
     items: [],
+	billingLink: '',
 };
 
 export const TariffPlanStore = signalStore(
@@ -30,9 +33,10 @@ export const TariffPlanStore = signalStore(
             ngxLogger: inject(NGXLogger),
             isOnlineService: inject(IsOnlineService),
             patchTenantTariffPlanChangeApi: inject(PatchTenantTariffPlanChangeApi),
+			getBillingPortalApi: inject(GetBillingPortalApi),
         }
     }),
-    withMethods(({sharedUow, ngxLogger, isOnlineService, patchTenantTariffPlanChangeApi, ...store}) => {
+    withMethods(({sharedUow, ngxLogger, isOnlineService, patchTenantTariffPlanChangeApi, getBillingPortalApi, ...store}) => {
         return {
             async fillItems(): Promise<void> {
                 try {
@@ -68,6 +72,23 @@ export const TariffPlanStore = signalStore(
                         // Read comment for the endpoint at response 200
                         // https://api-dev.beeoclock.com/tariff-plan/documentation/swagger/v1#/default/TenantTariffPlanController_changeTariffPlan
                     }
+                } catch (e) {
+                    ngxLogger.error(e);
+                }
+            },
+            async fetchBillingLink() {
+                try {
+                    const isOffline = isOnlineService.isOffline();
+                    if (isOffline) {
+                        return;
+                    }
+                    const url = await getBillingPortalApi.executeAsync();
+                    patchState(store, (state) => {
+						return {
+							...state,
+							billingLink: url,
+						};
+					});
                 } catch (e) {
                     ngxLogger.error(e);
                 }

@@ -19,6 +19,7 @@ import {PostTenantTariffPlanCancelApi} from "@tariffPlan/infrastructure/api/post
 import {
 	PostTenantTariffPlanChangePaymentMethodCheckoutSessionApi
 } from "@tariffPlan/infrastructure/api/post/post.tenant-tariff-plan.change-payment-method-checkout-session.api";
+import {GetBillingPortalApi} from "@tariffPlan/infrastructure/api/get/get.billing-portal.api";
 
 @NgModule({
 	providers: [
@@ -27,6 +28,7 @@ import {
 		// Api
 		GetApi,
 		GetItemApi,
+		GetBillingPortalApi,
 
 		PatchTenantTariffPlanChangeApi,
 

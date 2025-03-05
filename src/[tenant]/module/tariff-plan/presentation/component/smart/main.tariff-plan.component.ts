@@ -192,7 +192,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 		<section class="flex w-full items-center p-5">
 			<div>
 				<div class="bg-white rounded-2xl p-1 w-full">
-					<a href="#"
+					<a [href]="billingLink()"
 					   class="text-yellow-700 cursor-pointer hover:bg-yellow-100 rounded-2xl transition-all flex gap-2 p-3">
 						<span>{{ 'tariffPlan.links.billing.label' | translate }}</span>
 						<i class="bi bi-box-arrow-up-right"></i>
@@ -221,6 +221,7 @@ export class MainTariffPlanComponent implements OnInit {
 	readonly #country = this.store.selectSnapshot(BusinessProfileState.country)
 	readonly #baseLanguage = this.store.selectSnapshot(BusinessProfileState.baseLanguage)
 
+	public readonly billingLink = this.tariffPlanStore.billingLink;
 	public readonly membersCount = signal(0);
 	public readonly loading = signal<null | ETariffPlan>(null);
 

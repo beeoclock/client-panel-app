@@ -9,6 +9,7 @@ export enum TariffPlanEndpointEnum {
 
 	PATCH__TENANT_TARIFF_PLAN__CHANGE = '/api/v1/tenantTariffPlan/change',
 
+	GET_BILLING_PORTAL = '/api/v1/tenantTariffPlan/billing-portal',
 	GET = '/api/v1/paged',
 	GET_ITEM = '/api/v1/{id}',
 }
