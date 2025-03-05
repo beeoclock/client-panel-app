@@ -665,6 +665,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "At least one field must be filled",
+			"atLeastOneMemberSelectedOrEntireBusiness": "You must select at least one member or choose the entire business.",
 			"durationFormatInvalid": "Valid format is hours:minutes (00:00)",
 			"email": "Invalid E-mail format",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
@@ -677,6 +678,7 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "The end time must be longer than the start time"
 			},
+			"startBeforeEnd": "The start date must be before the end date.",
 			"whitespace": "Remove all spaces"
 		}
 	},

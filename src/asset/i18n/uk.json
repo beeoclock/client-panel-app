@@ -665,6 +665,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Хоча б одне поле має бути заповнене",
+			"atLeastOneMemberSelectedOrEntireBusiness": "Ви повинні вибрати принаймні одного учасника або весь бізнес.",
 			"durationFormatInvalid": "Правильний формат: години:хвилини (00:00)",
 			"email": "Неправильний формат E-mail",
 			"emailOrPhoneRequired": "Введи номер телефону або E-mail",
@@ -676,6 +677,7 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "Час закінчення повинен бути більше початку"
 			},
+			"startBeforeEnd": "Дата початку має бути раніше, ніж дата завершення.",
 			"username": "Ім'я користувача може містити тільки літери, цифри, знак підкреслення (_) та крапку (.)",
 			"whitespace": "Видали всі пробіли"
 		}

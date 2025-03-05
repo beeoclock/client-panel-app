@@ -665,6 +665,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Mindst et felt skal udfyldes",
+			"atLeastOneMemberSelectedOrEntireBusiness": "Du skal vælge mindst ét medlem eller hele virksomheden.",
 			"durationFormatInvalid": "Gyldigt format er timer:minutter (00:00)",
 			"email": "Ugyldigt e-mail-format",
 			"emailOrPhoneRequired": "E-mail eller telefonnummer er påkrævet",
@@ -676,6 +677,7 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "Sluttidspunktet skal være længere end starttidspunktet"
 			},
+			"startBeforeEnd": "Startdatoen skal være før slutdatoen.",
 			"username": "Brugernavnet kan kun indeholde bogstaver, tal, en understregning (_) og et punktum (.).",
 			"whitespace": "Fjern alle mellemrum"
 		}
