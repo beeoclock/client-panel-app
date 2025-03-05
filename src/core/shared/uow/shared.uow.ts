@@ -6,6 +6,8 @@ import {MemberService} from "@core/business-logic/member/service/member.service"
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 import {BusinessProfileService} from "@core/business-logic/business-profile/service/business-profile.service";
 import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
+import {TariffPlanService} from "@core/business-logic/tariif-plan/service/tariff-plan.service";
+import {TariffPlanHistoryService} from "@core/business-logic/tariif-plan-history/service/tariff-plan-history.service";
 
 /**
  * Shared Unit of Work
@@ -23,6 +25,8 @@ export class SharedUow {
 	#customer!: CustomerService;
 	#businessProfile!: BusinessProfileService;
 	#absence!: AbsenceService;
+	#tariffPlan!: TariffPlanService;
+	#tariffPlanHistory!: TariffPlanHistoryService;
 
 	public get service() {
 		if (!this.#service) {
@@ -99,6 +103,28 @@ export class SharedUow {
 
 	public set absence(value: AbsenceService) {
 		this.#absence = value;
+	}
+
+	public get tariffPlan() {
+		if (!this.#tariffPlan) {
+			throw new Error('tariffPlanService is not initialized');
+		}
+		return this.#tariffPlan;
+	}
+
+	public set tariffPlan(value: TariffPlanService) {
+		this.#tariffPlan = value;
+	}
+
+	public get tariffPlanHistory() {
+		if (!this.#tariffPlanHistory) {
+			throw new Error('tariffPlanHistoryService is not initialized');
+		}
+		return this.#tariffPlanHistory;
+	}
+
+	public set tariffPlanHistory(value: TariffPlanHistoryService) {
+		this.#tariffPlanHistory = value;
 	}
 
 }

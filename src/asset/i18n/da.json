@@ -1054,6 +1054,7 @@
 			"changesFrom": "Fra",
 			"changesTo": "Til",
 			"chooseImage": "Vælg billede",
+			"chosen": "Udvalgt",
 			"city": "By",
 			"clearCache": "Opdater cache",
 			"clickToUpload": "Klik for at uploade",
@@ -1080,6 +1081,7 @@
 			"details": "Detaljer",
 			"dismiss": "Afvis",
 			"done": "Færdig",
+			"downgradeTo": "Nedgradering til",
 			"downloadMore": "Download mere",
 			"duration": "Varighed",
 			"earliestBooking": "Tidligste bookingtid",
@@ -1112,11 +1114,13 @@
 			"members": "Medlemmer",
 			"menu": "Menu",
 			"month": "Måned",
+			"monthly": "Månedligt",
 			"name": "Navn",
 			"next": "Næste",
 			"nextStep": "Næste skridt",
 			"no": "Nej",
 			"noData": "Ingen data",
+			"noNeedCard": "Intet behov for kort",
 			"notSpecified": "Ikke specificeret",
 			"notYetStarted": "Nog niet begonnen",
 			"note": "Note",
@@ -1197,12 +1201,14 @@
 			"unknown": "Ukendt",
 			"update": "Opdateret",
 			"updatedAt": "Opdateret kl",
+			"upgradeTo": "Opgrader til",
 			"warning": "Advarsel",
 			"week": "Uge",
 			"workdays": "Arbejdsdage",
 			"workingHours": "Arbejdstimer",
 			"writePrice": "Skriv pris",
 			"year": "År",
+			"yearly": "Årligt",
 			"yes": "Ja",
 			"yesterday": "Yesterday",
 			"youOffline": "Du er offline!",
@@ -1570,7 +1576,8 @@
 		"settings": "Indstillinger",
 		"statistic": "Statistik",
 		"switch-business-client": "Skift kontekst",
-		"table": "Tabel"
+		"table": "Tabel",
+		"tariffPlan": "Tariffer"
 	},
 	"sign-out": {
 		"button": {
@@ -1608,6 +1615,52 @@
 			"numberOfServicesProvided": "Antal leverede tjenester",
 			"revenue": "Indtægter",
 			"topService": "Den mest populære tjeneste"
+		}
+	},
+	"tariffPlan": {
+		"documentation": {
+			"switchingToAnotherPlan": "<p>     <strong>Skift til en anden plan</strong> </p> <p>     Opgradering eller ændring af din plan er problemfri! Når du skifter til en ny plan, vil systemet automatisk      beregne forskellen mellem din nuværende og nye plan, hvilket sikrer en glidende overgang. </p> <p>     🔹 Sådan fungerer det: </p> <ol>     <li>Øjeblikkelig aktivering – Din nye plan aktiveres med det samme efter ændringen.</li>     <li>Pro-rata justering – Systemet fratrækker den resterende værdi af din tidligere plan og          anvender den på den nye.     </li>     <li>Automatisk fakturering – Du betaler kun forskellen, så du bliver opkrævet retfærdigt.</li>     <li>Ingen serviceafbrydelser – Dine eksisterende funktioner forbliver aktive, mens opgraderingen behandles.     </li> </ol> <p>💡 Du kan opgradere når som helst og kun betale for det, du bruger. Hvis du nedgraderer, vil det justerede beløb      blive anvendt på fremtidige betalinger. 🚀</p>"
+		},
+		"features": {
+			"adminPanel": {
+				"label": "Administrationspanel"
+			},
+			"assistantAI": {
+				"label": "Assistent AI"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Betalingsbekræftelse"
+			},
+			"emailNotification": {
+				"label": "E-mail notifikation"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"publicPage": {
+				"label": "Offentlig side"
+			},
+			"publicRestApi": {
+				"label": "Offentlig REST API"
+			},
+			"seoOptimization": {
+				"label": "SEO-pakke"
+			},
+			"smsNotification": {
+				"label": "SMS notifikation"
+			},
+			"unlimitedPlugins": {
+				"label": "Ubegrænsede plugins"
+			}
+		},
+		"links": {
+			"billing": {
+				"label": "Faktureringshistorik og tilknyttede betalingskort"
+			}
+		},
+		"page": {
+			"subtitle": "Vælg den bedste løsning til din virksomhed",
+			"title": "Tariffer"
 		}
 	},
 	"updateAvailable": {

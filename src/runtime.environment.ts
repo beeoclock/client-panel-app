@@ -22,6 +22,7 @@ export const RuntimeEnvironment: {
     analytic: undefined,
     panel: undefined,
     identity: undefined,
+    tariffPlan: undefined,
   }
 };
 

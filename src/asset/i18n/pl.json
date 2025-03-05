@@ -1054,6 +1054,7 @@
 			"changesFrom": "Z",
 			"changesTo": "Na",
 			"chooseImage": "Wybierz plik",
+			"chosen": "Wybrane",
 			"city": "Miasto",
 			"clearCache": "Wyczyść Cache",
 			"clickToUpload": "Kliknij, aby przesłać",
@@ -1080,6 +1081,7 @@
 			"details": "Szczegóły",
 			"dismiss": "Odrzuć",
 			"done": "Gotowe",
+			"downgradeTo": "Obniż do",
 			"downloadMore": "Pobierz więcej",
 			"duration": "Czas trwania",
 			"earliestBooking": "Najbliższy termin rezerwacji",
@@ -1112,11 +1114,13 @@
 			"members": "Członkowie",
 			"menu": "Menu",
 			"month": "Miesiąc",
+			"monthly": "Miesięcznie",
 			"name": "Nazwa",
 			"next": "Dalej",
 			"nextStep": "Dalej",
 			"no": "Nie",
 			"noData": "Brak danych",
+			"noNeedCard": "Karta płatnicza nie jest potrzebna",
 			"notSpecified": "Nie określono",
 			"notYetStarted": "Jeszcze nie rozpoczęto",
 			"note": "Notatka",
@@ -1197,12 +1201,14 @@
 			"unknown": "Nieznany",
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
+			"upgradeTo": "Zaktualizuj do",
 			"warning": "Uwaga",
 			"week": "Tydzień",
 			"workdays": "Dni pracy",
 			"workingHours": "Godziny pracy",
 			"writePrice": "Wpisz cenę",
 			"year": "Rok",
+			"yearly": "Rocznie",
 			"yes": "Tak",
 			"yesterday": "Wczoraj",
 			"youOffline": "Jesteś offline!",
@@ -1570,7 +1576,8 @@
 		"settings": "Ustawienia",
 		"statistic": "Statystyki",
 		"switch-business-client": "Zmień kontekst",
-		"table": "Tabela"
+		"table": "Tabela",
+		"tariffPlan": "Taryfy"
 	},
 	"sign-out": {
 		"button": {
@@ -1608,6 +1615,52 @@
 			"numberOfServicesProvided": "Liczba świadczonych usług",
 			"revenue": "Utarg",
 			"topService": "Najpopularniejsza usługa"
+		}
+	},
+	"tariffPlan": {
+		"documentation": {
+			"switchingToAnotherPlan": "<p>     <strong>Zmiana na inny plan</strong> </p> <p>     Uaktualnienie lub zmiana planu jest bezproblemowa! Kiedy przełączysz się na nowy plan, system automatycznie      obliczy różnicę między twoim obecnym a nowym planem, zapewniając płynne przejście. </p> <p>     🔹 Jak to działa: </p> <ol>     <li>Natychmiastowa aktywacja – Twój nowy plan zostanie aktywowany od razu po zmianie.</li>     <li>Proporcjonalne dostosowanie – System odliczy pozostałą wartość z poprzedniego planu          i zastosuje ją do nowego.     </li>     <li>Automatyczne rozliczenie – Zapłacisz tylko różnicę, co zapewnia uczciwe naliczanie opłat.</li>     <li>Brak przerw w działaniu – Twoje obecne funkcje pozostaną aktywne podczas przetwarzania aktualizacji.     </li> </ol> <p>💡 Możesz uaktualnić plan w dowolnym momencie i płacić tylko za to, co wykorzystujesz. Jeśli obniżysz plan,      skorygowana kwota zostanie zastosowana do przyszłych płatności. 🚀</p>"
+		},
+		"features": {
+			"adminPanel": {
+				"label": "Panel administracyjny"
+			},
+			"assistantAI": {
+				"label": "Asystent AI"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Potwierdzenie płatności"
+			},
+			"emailNotification": {
+				"label": "Powiadomienie e-mail"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"publicPage": {
+				"label": "Strona publiczna"
+			},
+			"publicRestApi": {
+				"label": "Publiczny REST API"
+			},
+			"seoOptimization": {
+				"label": "Pakiet SEO"
+			},
+			"smsNotification": {
+				"label": "Powiadomienie SMS"
+			},
+			"unlimitedPlugins": {
+				"label": "Nieograniczone wtyczki"
+			}
+		},
+		"links": {
+			"billing": {
+				"label": "Historia rozliczeń i powiązane karty płatnicze"
+			}
+		},
+		"page": {
+			"subtitle": "Wybierz najlepszą opcję dla swojej firmy",
+			"title": "Taryfy"
 		}
 	},
 	"updateAvailable": {
