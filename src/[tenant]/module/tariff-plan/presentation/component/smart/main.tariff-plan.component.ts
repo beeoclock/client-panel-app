@@ -206,8 +206,9 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 							<span class="animate-spin">
 								<i class="bi bi-arrow-repeat"></i>
 							</span>
+						} @else {
+							<i class="bi bi-box-arrow-up-right"></i>
 						}
-						<i class="bi bi-box-arrow-up-right"></i>
 					</button>
 				</div>
 			</div>
@@ -349,6 +350,9 @@ export class MainTariffPlanComponent implements OnInit {
 		const {item, subscriptionType, country, language} = params;
 		return item.prices.reduce((acc, price) => {
 			if (price.country !== country) {
+				if (price.country) {
+					return acc;
+				}
 				const thePriceCountryIsInRegions = regionsWithCountryCodeRecord[price.region].includes(country);
 				if (!thePriceCountryIsInRegions) {
 					return acc;
