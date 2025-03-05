@@ -22,7 +22,6 @@ import {IdentityActions} from "@src/identity/module/identity/infrastructure/stat
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {PutApi} from "@businessProfile/infrastructure/api/put.api";
-import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {IAddress} from "@core/business-logic/business-profile/interface/i.address";
 import {
 	PatchMediaGalleryClientApiAdapter
@@ -235,12 +234,10 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 			schedules: this.createBusinessQuery.getSchedulesForm().value,
 			published: this.createBusinessQuery.publishedControl().value
 		} as IBusinessProfile.DTO;
-		if (this.createBusinessQuery.getServiceProvideTypeControl().value !== ServiceProvideTypeEnum.Online) {
-			body = {
-				...body,
-				addresses: [this.createBusinessQuery.getAddressForm().value as IAddress],
-			};
-		}
+		body = {
+			...body,
+			addresses: [this.createBusinessQuery.getAddressForm().value as IAddress],
+		};
 		await this.updateBusinessProfileApiAdapter.executeAsync(body);
 	}
 
