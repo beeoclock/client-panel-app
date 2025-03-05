@@ -86,7 +86,8 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 														{{ (item.prices[0].values[0].beforeDiscount / 12) | number: '1.0-0' }}
 														{{ item.prices[0].currency | currencyCode }}
 													</p>
-													<span class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-600 text-white">
+													<span
+														class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-600 text-white">
 														10%
 													</span>
 												</div>
@@ -104,7 +105,8 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 												</p>
 												<div class="flex flex-col">
 													@if (billingCycleEnum.yearly === subscriptionType) {
-														<span class="font-medium text-sm text-[#CACACA]">per month</span>
+														<span
+															class="font-medium text-sm text-[#CACACA]">per month</span>
 													}
 												</div>
 											</div>
@@ -114,17 +116,19 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 											<li class="flex gap-2 first:font-bold">
 												<i class="bi bi-check-lg"></i>
 												<span>Users {{ item.specialistLimit ?? '∞' }}</span>
-												@if (this.actual.tariffPlan.type === item.type) {
-													@if (membersCount() === item.specialistLimit) {
-														<span
-															class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-gray-800 text-white">
+												@if (this.actual) {
+													@if (this.actual.tariffPlan.type === item.type) {
+														@if (membersCount() === item.specialistLimit) {
+															<span
+																class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-gray-800 text-white">
 															exhausted
 														</span>
-													} @else {
-														<span
-															class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-green-800 text-white">
+														} @else {
+															<span
+																class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-green-800 text-white">
 															{{ membersCount() }} / {{ item.specialistLimit ?? '∞' }}
 														</span>
+														}
 													}
 												}
 											</li>
@@ -138,49 +142,50 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 									</div>
 								</div>
 							</div>
-
-							@if (this.actual.tariffPlan.type === item.type) {
-
-								<button
-									disabled
-									class="font-bold text-xl py-4 px-5 text-neutral-400 w-full normal-case">
-									{{ 'keyword.capitalize.chosen' | translate }}
-								</button>
-
-							} @else {
-
-								@if (loading()?._id === item._id) {
+							@if (this.actual) {
+								@if (this.actual.tariffPlan.type === item.type) {
 
 									<button
 										disabled
-										class="text-xl bg-[#FFD429] rounded-2xl text-yellow-900 py-4 px-5 w-full">
-										<div class="animate-spin">
-											<i class="bi bi-arrow-repeat"></i>
-										</div>
+										class="font-bold text-xl py-4 px-5 text-neutral-400 w-full normal-case">
+										{{ 'keyword.capitalize.chosen' | translate }}
 									</button>
 
 								} @else {
 
-									@if (isUpgrade(item)) {
+									@if (loading()?._id === item._id) {
 
 										<button
-											(click)="upgradeTo(item)"
-											class="bg-[#FFD429] font-bold text-xl py-4 px-5 hover:bg-[#FFC800] rounded-2xl w-full normal-case">
-											{{ 'keyword.capitalize.upgradeTo' | translate }} {{ item.type }}
+											disabled
+											class="text-xl bg-[#FFD429] rounded-2xl text-yellow-900 py-4 px-5 w-full">
+											<div class="animate-spin">
+												<i class="bi bi-arrow-repeat"></i>
+											</div>
 										</button>
 
 									} @else {
 
-										<button
-											(click)="upgradeTo(item)"
-											class="font-bold text-xl py-4 px-5 w-full normal-case">
-											{{ 'keyword.capitalize.downgradeTo' | translate }} {{ item.type }}
-										</button>
+										@if (isUpgrade(item)) {
+
+											<button
+												(click)="upgradeTo(item)"
+												class="bg-[#FFD429] font-bold text-xl py-4 px-5 hover:bg-[#FFC800] rounded-2xl w-full normal-case">
+												{{ 'keyword.capitalize.upgradeTo' | translate }} {{ item.type }}
+											</button>
+
+										} @else {
+
+											<button
+												(click)="upgradeTo(item)"
+												class="font-bold text-xl py-4 px-5 w-full normal-case">
+												{{ 'keyword.capitalize.downgradeTo' | translate }} {{ item.type }}
+											</button>
+
+										}
 
 									}
 
 								}
-
 							}
 						</div>
 
