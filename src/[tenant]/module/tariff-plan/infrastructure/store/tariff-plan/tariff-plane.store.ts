@@ -82,7 +82,7 @@ export const TariffPlanStore = signalStore(
                     if (isOffline) {
                         return;
                     }
-                    const url = await getBillingPortalApi.executeAsync();
+                    const {url} = await getBillingPortalApi.executeAsync();
                     patchState(store, (state) => {
 						return {
 							...state,
@@ -95,6 +95,7 @@ export const TariffPlanStore = signalStore(
             },
             async init() {
                 await this.fillItems();
+                await this.fetchBillingLink();
             }
         }
     }),
