@@ -52,6 +52,20 @@ export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
 
 	public initValidation() {
 		this.atLeastOneMemberSelectedOrEntireBusiness();
+		this.startBeforeEnd();
+	}
+
+	private startBeforeEnd() {
+		this.addValidators((control: AbstractControl): ValidationErrors | null => {
+			const value = control.getRawValue();
+			if (is.object(value)) {
+				const {start, end} = value as IAbsence.DTO;
+				if (DateTime.fromISO(start) >= DateTime.fromISO(end)) {
+					return {startBeforeEnd: true};
+				}
+			}
+			return null;
+		});
 	}
 
 	private atLeastOneMemberSelectedOrEntireBusiness() {

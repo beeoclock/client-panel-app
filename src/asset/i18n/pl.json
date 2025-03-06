@@ -665,6 +665,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Co najmniej jedno pole musi być wypełnione",
+			"atLeastOneMemberSelectedOrEntireBusiness": "Musisz wybrać co najmniej jednego członka lub całą firmę.",
 			"durationFormatInvalid": "Prawidłowy format to godziny:minuty (00:00)",
 			"email": "Nieprawidłowy format adresu e-mail",
 			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
@@ -676,6 +677,7 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "Czas zakończenia musi być dłuższy niż czas rozpoczęcia"
 			},
+			"startBeforeEnd": "Data rozpoczęcia musi być wcześniejsza niż data zakończenia.",
 			"username": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenie (_) i kropkę (.).",
 			"whitespace": "Usuń wszystkie spacje"
 		}
@@ -1121,6 +1123,7 @@
 			"no": "Nie",
 			"noData": "Brak danych",
 			"noNeedCard": "Karta płatnicza nie jest potrzebna",
+			"notPaid": "Nieopłacone",
 			"notSpecified": "Nie określono",
 			"notYetStarted": "Jeszcze nie rozpoczęto",
 			"note": "Notatka",

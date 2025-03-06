@@ -13,7 +13,7 @@ import {
 import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, map} from "rxjs";
 import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {AbsenceForm} from "@absence/presentation/form/absence.form";
 import {
@@ -31,6 +31,8 @@ import {
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {DateTime} from "luxon";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {KeyValuePipe} from "@angular/common";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-absence-form-container',
@@ -52,6 +54,7 @@ import EAbsence from "@core/business-logic/absence/entity/e.absence";
 		IonSegment,
 		IonSegmentButton,
 		IonLabel,
+		KeyValuePipe,
 	],
 	standalone: true,
 	template: `
@@ -130,13 +133,23 @@ import EAbsence from "@core/business-logic/absence/entity/e.absence";
 					[entireBusiness]="form.controls.entireBusiness"
 					[members]="form.controls.members"/>
 
+				@if (errorsSignal(); as errors) {
+					@for (error of (errors | keyvalue); track error.key) {
+						<div class="flex">
+							<span class="text-center inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+								{{ ('form.validation.' + error.key) | translate: error.value }}
+							</span>
+						</div>
+					}
+				}
+
 			</bee-card>
 			<utility-button-save-container-component class="bottom-0">
 				<button
 					type="button"
 					primary
 					[isLoading]="form.pending"
-					[disabled]="form.disabled"
+					[disabled]="form.disabled || form.invalid"
 					[scrollToFirstError]="true"
 					(click)="save()">
 					{{ 'keyword.capitalize.save' | translate }}
@@ -149,7 +162,9 @@ import EAbsence from "@core/business-logic/absence/entity/e.absence";
 export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
 	public readonly item = input<IAbsence.EntityRaw>();
-	public readonly defaultValue = input<Partial<IAbsence.DTO>>({});
+	public readonly defaultValue = input<Partial<IAbsence.DTO>>({
+		entireBusiness: true,
+	});
 
 	public readonly isEditMode = input<boolean>(false);
 
@@ -164,6 +179,8 @@ export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
+
+	public readonly errorsSignal = toSignal(this.form.statusChanges.pipe(map(() => this.form.errors)))
 
 	public constructor() {
 		super();

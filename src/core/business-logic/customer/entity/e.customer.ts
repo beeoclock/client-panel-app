@@ -69,6 +69,32 @@ export class ECustomer extends ABaseEntity<'CustomerDto', ICustomer.DTO, ICustom
 	// 	entity: Tools.createRandom<ICustomer.Entity>(),
 	// };
 
+	public static isEqual(...customers: ICustomer.DTO[]): boolean {
+		if (customers.length < 2) {
+			throw new Error('At least 2 customers are required to compare');
+		}
+		const item = customers[0];
+		return customers.every((customer, index) => {
+			if (index === 0) {
+				return true;
+			}
+			if (item.customerType !== customer.customerType) {
+				return false;
+			}
+			switch (customer.customerType) {
+				case CustomerTypeEnum.anonymous:
+				case CustomerTypeEnum.new:
+					return true;
+				case CustomerTypeEnum.regular:
+					return item._id === customer._id;
+				case CustomerTypeEnum.unregistered:
+					return item.firstName === customer.firstName && item.lastName === customer.lastName;
+				default:
+					throw new Error(`Unknown customer type: ${customer.customerType}`);
+
+			}
+		});
+	}
 }
 
 export default ECustomer;
