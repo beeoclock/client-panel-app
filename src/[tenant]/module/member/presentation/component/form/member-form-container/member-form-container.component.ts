@@ -26,6 +26,7 @@ import {CommonModule} from "@angular/common";
 import {MemberFormAssignmentsComponent} from "@member/presentation/component/form/assignments/assignments.component";
 import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {RoleEnum} from "@core/shared/enum/role.enum";
 
 @Component({
 	selector: 'member-form-page',
@@ -46,6 +47,8 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 })
 export class MemberFormContainerComponent implements OnInit, OnChanges {
 
+	public readonly roleEnum = RoleEnum;
+
 	readonly avatarContainerComponent = viewChild.required(AvatarContainerComponent);
 
 	private readonly store = inject(Store);
@@ -63,7 +66,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 		this.detectItem();
 	}
 
-	public ngOnChanges(changes: SimpleChanges & {item: IMember.EntityRaw | undefined}) {
+	public ngOnChanges(changes: SimpleChanges & { item: IMember.EntityRaw | undefined }) {
 
 		const {item} = changes;
 		if (item) {
@@ -74,7 +77,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 	public detectItem(): void {
 		const item = this.item();
-  if (this.isEditMode && item) {
+		if (this.isEditMode && item) {
 			this.isEditMode = true;
 			this.form = MemberForm.create(item);
 			this.form.updateValueAndValidity();

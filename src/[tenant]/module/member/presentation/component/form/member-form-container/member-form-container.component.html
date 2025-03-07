@@ -30,7 +30,14 @@
 				[control]="form.controls.lastName"
 				[label]="'keyword.capitalize.lastName' | translate"/>
 
-			<member-select-role [control]="form.controls.role"/>
+			@if (roleEnum.OWNER === item()?.role) {
+
+			} @else {
+
+				<member-select-role [control]="form.controls.role"/>
+
+			}
+
 			<!--        <div class="bg-white border rounded-lg p-4 mt-4">-->
 			<!--          <strong>{{ 'keyword.capitalize.permission' | translate }}</strong>-->
 			<!--          <div>-->
