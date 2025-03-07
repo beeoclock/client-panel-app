@@ -15,6 +15,8 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {is} from "@core/shared/checker";
+import {SPECIALIST_LIMIT} from "@[tenant]/tenant.token";
 
 export type IMemberState = IBaseState<EMember>;
 
@@ -37,6 +39,7 @@ export class MemberState {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly specialistLimit$ = inject(SPECIALIST_LIMIT);
 
 	// Application layer
 
@@ -201,6 +204,14 @@ export class MemberState {
 
 	@Action(MemberActions.CreateItem)
 	public async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
+		const specialistLimit = this.specialistLimit$.value;
+
+		const actualMembersCount = await this.sharedUow.member.count();
+
+		if (is.number(specialistLimit) && specialistLimit <= actualMembersCount) {
+			return;
+		}
+
 		await this.sharedUow.member.repository.createAsync(EMember.fromDTO(action.payload));
 		ctx.dispatch(new MemberActions.GetList());
 		await this.closeForm();

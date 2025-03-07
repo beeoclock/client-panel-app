@@ -1,11 +1,15 @@
-import {Component, input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {FilterForm} from "@member/presentation/form/filter.form";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {SPECIALIST_LIMIT} from "@[tenant]/tenant.token";
+import {is} from "@core/shared/checker";
+import {SharedUow} from "@core/shared/uow/shared.uow";
+import {ToastController} from "@ionic/angular";
 
 @Component({
 	selector: 'member-filter-component',
@@ -18,12 +22,12 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 	template: `
 
 		<utility-default-panel-component>
-<!--			<ion-select-active class="px-4 py-2 border border-beeColor-300 rounded-2xl" [control]="form.controls.active"/>-->
+			<!--			<ion-select-active class="px-4 py-2 border border-beeColor-300 rounded-2xl" [control]="form.controls.active"/>-->
 			<div class="flex-1">
 				<form class="flex items-center">
 					<label for="simple-search" class="sr-only">Search</label>
 					<div class="relative w-full">
-<!--						<utility-search-input-component [control]="form.controls.phrase"/>-->
+						<!--						<utility-search-input-component [control]="form.controls.phrase"/>-->
 					</div>
 				</form>
 			</div>
@@ -49,12 +53,32 @@ export class FilterComponent extends BaseFilterComponent {
 	public override readonly actions = MemberActions;
 	public override readonly state = MemberState;
 
-	constructor() {
+	private readonly specialistLimit$ = inject(SPECIALIST_LIMIT);
+	private readonly sharedUow = inject(SharedUow);
+	private readonly toastController = inject(ToastController);
+	private readonly translateService = inject(TranslateService);
+
+	public constructor() {
 		super();
 		super.initHandlers();
 	}
 
-	public openForm() {
+	public async openForm() {
+
+		const specialistLimit = this.specialistLimit$.value;
+		const actualMembersCount = await this.sharedUow.member.count();
+
+		if (is.number(specialistLimit) && specialistLimit <= actualMembersCount) {
+			const toast = await this.toastController.create({
+				message: this.translateService.instant('member.toast.limit'),
+				color: 'warning',
+				duration: 5_000,
+				position: 'top',
+			});
+			await toast.present();
+			return;
+		}
+
 		this.store.dispatch(new MemberActions.OpenForm());
 	}
 

@@ -1316,7 +1316,10 @@
 				"edit": "Edycja członka zespołu"
 			}
 		},
-		"title": "Członek"
+		"title": "Członek",
+		"toast": {
+			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodać więcej członków zespołu."
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Ustawienia Powiadomień Klienta",
