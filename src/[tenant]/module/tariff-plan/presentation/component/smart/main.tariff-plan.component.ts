@@ -80,17 +80,19 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 								<div class="flex justify-center">
 									<div class="flex flex-col w-[250px]">
 										<div class="flex flex-col justify-center">
-											@if (subscriptionType === billingCycleEnum.yearly) {
-												<div class="flex gap-2 mt-2">
-													<p class="flex font-bold gap-1 line-through">
-														{{ (item.prices[0].values[0].beforeDiscount / 12) | number: '1.0-0' }}
-														{{ item.prices[0].currency | currencyCode }}
-													</p>
-													<span
-														class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-600 text-white">
-														10%
-													</span>
-												</div>
+											@if (item.type !== typeTariffPlanEnum.Free) {
+												@if (subscriptionType === billingCycleEnum.yearly) {
+													<div class="flex gap-2 mt-2">
+														<p class="flex font-bold gap-1 line-through">
+															{{ (item.prices[0].values[0].beforeDiscount / 12) | number: '1.0-0' }}
+															{{ item.prices[0].currency | currencyCode }}
+														</p>
+														<span
+															class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-600 text-white">
+															10%
+														</span>
+													</div>
+												}
 											}
 											<div class="flex items-center gap-1">
 												<p class="flex font-bold text-[64px] items-baseline gap-1">
@@ -104,9 +106,11 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 												</span>
 												</p>
 												<div class="flex flex-col">
-													@if (billingCycleEnum.yearly === subscriptionType) {
-														<span
-															class="font-medium text-sm text-[#CACACA]">per month</span>
+													@if (item.type !== typeTariffPlanEnum.Free) {
+														@if (billingCycleEnum.yearly === subscriptionType) {
+															<span
+																class="font-medium text-sm text-[#CACACA]">per month</span>
+														}
 													}
 												</div>
 											</div>
