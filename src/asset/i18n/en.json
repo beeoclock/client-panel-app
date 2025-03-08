@@ -1635,7 +1635,7 @@
 				"label": "Payment Confirmation"
 			},
 			"emailNotification": {
-				"label": "Email notification"
+				"label": "Email notifications"
 			},
 			"jsonLD": {
 				"label": "JSON LD"
@@ -1650,7 +1650,7 @@
 				"label": "SEO Package"
 			},
 			"smsNotification": {
-				"label": "SMS Notification"
+				"label": "SMS Notifications"
 			},
 			"unlimitedPlugins": {
 				"label": "Plugins unlimited"
