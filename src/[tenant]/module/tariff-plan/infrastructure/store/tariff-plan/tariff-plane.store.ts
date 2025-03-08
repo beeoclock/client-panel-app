@@ -2,7 +2,7 @@ import {patchState, signalStore, withComputed, withHooks, withMethods, withProps
 import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
 import {computed, inject} from "@angular/core";
 import {TENANT_ID} from "@src/token";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {NGXLogger} from "ngx-logger";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
@@ -27,8 +27,9 @@ export const TariffPlanStore = signalStore(
     withComputed(({items}) => ({
         itemsCount: computed(() => items().length),
     })),
-    withProps((store) => {
+    withProps(({items}) => {
         return {
+			items$: toObservable<ETariffPlan[]>(items),
             sharedUow: inject(SharedUow),
             ngxLogger: inject(NGXLogger),
             isOnlineService: inject(IsOnlineService),
