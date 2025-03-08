@@ -80,8 +80,6 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 
 		this.analyticsService.logEvent('business_profile_page_initialized');
 
-		this.store.dispatch(new BusinessProfileActions.Init());
-
 		this.item$.pipe(this.takeUntil()).subscribe((item) => {
 
 			const {socialNetworkLinks, schedules, contacts, addresses, ...data} = item;

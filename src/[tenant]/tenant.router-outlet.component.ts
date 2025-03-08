@@ -103,13 +103,10 @@ export default class TenantRouterOutletComponent extends Reactive implements OnI
 		this.initNotificationChecker();
 
 		this.isOnlineService.isOnline$.pipe(this.takeUntil(), filter(is.true)).subscribe(() => {
-
 			/**
 			 * Sync all data when the user is online
 			 */
-			if (!BaseSyncManager.isSyncing$.value) {
-				BaseSyncManager.syncAll().then();
-			}
+			BaseSyncManager.syncAll().then();
 
 		})
 
@@ -119,9 +116,7 @@ export default class TenantRouterOutletComponent extends Reactive implements OnI
 
 			this.isUserOnWebSite = visible;
 			if (visible) {
-				if (!BaseSyncManager.isSyncing$.value) {
-					BaseSyncManager.syncAll().then();
-				}
+				BaseSyncManager.syncAll().then();
 			}
 
 		});

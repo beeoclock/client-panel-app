@@ -13,7 +13,6 @@ export const countryResolver: ResolveFn<CountryCodeEnum> = () => {
 
 	return store.select(BusinessProfileState.country)
 		.pipe(
-			tap((result) => console.log({result})),
 			filter(is.string_not_empty<CountryCodeEnum>),
 			take(1),
 		);
