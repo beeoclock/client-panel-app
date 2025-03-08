@@ -32,7 +32,6 @@ import {environment} from "@environment/environment";
 import {VisibilityService} from "@utility/cdk/visibility.service";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
 import {CustomerModule} from "@customer/customer.module";
-import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 
@@ -131,7 +130,6 @@ export default class TenantRouterOutletComponent extends Reactive implements OnI
 	}
 
 	public ngAfterViewInit(): void {
-		this.initClient();
 		this.initMemberList();
 		this.initAccountFrontendSettings();
 
@@ -152,10 +150,6 @@ export default class TenantRouterOutletComponent extends Reactive implements OnI
 
 	private initEventRequested(): void {
 		this.store.dispatch(new EventRequestedActions.GetList());
-	}
-
-	private initClient(): void {
-		this.store.dispatch(new BusinessProfileActions.Init());
 	}
 
 	private initAccountFrontendSettings(): void {

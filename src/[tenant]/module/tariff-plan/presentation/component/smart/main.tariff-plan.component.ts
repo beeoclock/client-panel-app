@@ -9,8 +9,6 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
 import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tariff-plane.store";
-import {Store} from "@ngxs/store";
-import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
 import {LanguageCodeEnum} from "@core/shared/enum";
@@ -119,7 +117,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 											class="[&>li]:text-sm [&>li]:font-medium [&>li]:mb-1 [&>li]:h-[26px] [&>li]:flex [&>li]:items-center">
 											<li class="flex gap-2 first:font-bold">
 												<i class="bi bi-check-lg"></i>
-												<span>Users {{ item.specialistLimit ?? '∞' }}</span>
+												<span>{{ 'keyword.capitalize.members' | translate }} {{ item.specialistLimit ?? '∞' }}</span>
 												@if (this.actual) {
 													@if (this.actual.tariffPlan.type === item.type) {
 														@if (membersCount() === item.specialistLimit) {
@@ -227,16 +225,15 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 export class MainTariffPlanComponent implements OnInit {
 
 	private readonly tariffPlanStore = inject(TariffPlanStore);
-	private readonly store = inject(Store);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	public readonly historyItems: ETariffPlanHistory[] = this.activatedRoute.snapshot.data.tariffPlanHistoryItems;
 	public readonly actual: ETariffPlanHistory = this.activatedRoute.snapshot.data.tariffPlanActual;
+	public readonly country: CountryCodeEnum = this.activatedRoute.snapshot.data.country;
+	public readonly baseLanguage: LanguageCodeEnum = this.activatedRoute.snapshot.data.baseLanguage;
 	public readonly items: ETariffPlan[] = [];
 
 	readonly #items: ETariffPlan[] = this.activatedRoute.snapshot.data.tariffPlanItems;
-	readonly #country = this.store.selectSnapshot(BusinessProfileState.country)
-	readonly #baseLanguage = this.store.selectSnapshot(BusinessProfileState.baseLanguage)
 
 	public readonly billingLinkIsLoading = signal(false);
 	public readonly membersCount = signal(0);
@@ -288,14 +285,8 @@ export class MainTariffPlanComponent implements OnInit {
 
 	private prepareItems() {
 		this.items.length = 0;
-		const country = this.#country;
-		if (!country) {
-			return;
-		}
-		const language = this.#baseLanguage;
-		if (!language) {
-			return;
-		}
+		const country = this.country;
+		const language = this.baseLanguage;
 		this.#items.forEach((item) => {
 			const priceForSubscriptionTypeAndCountry = this.takePriceForParams({
 				item,

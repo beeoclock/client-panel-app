@@ -28,7 +28,7 @@ export class BusinessProfileState {
 	private readonly sharedUow = inject(SharedUow);
 
 	@Action(BusinessProfileActions.Init)
-	public async getItem(ctx: StateContext<IBusinessProfileState>): Promise<void> {
+	public async init(ctx: StateContext<IBusinessProfileState>): Promise<void> {
 
 		ctx.dispatch(new AppActions.PageLoading(true));
 

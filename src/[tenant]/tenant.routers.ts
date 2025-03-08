@@ -7,6 +7,9 @@ import {
 	tariffPlanHistoryItemsResolver
 } from "@tariffPlanHistory/presentation/resolver/tariff-plan-history-items.resolver";
 import {tariffPlanActualResolver} from "@tariffPlanHistory/presentation/resolver/tariff-plan-actual.resolver";
+import {countryResolver} from "@businessProfile/presentation/resolver/country.resolver";
+import {baseLanguageResolver} from "@businessProfile/presentation/resolver/base-language.resolver";
+import {businessProfileResolver} from "@businessProfile/presentation/resolver/business-profile.resolver";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 
@@ -26,6 +29,9 @@ export const tenantRouters: Routes = [
 			{
 				path: ':tenantId',
 				canMatch: [canMatchBecauseTenantId],
+				resolve: {
+					businessProfile: businessProfileResolver,
+				},
 				children: [
 					{
 						path: '',
@@ -46,6 +52,8 @@ export const tenantRouters: Routes = [
 											tariffPlanItems: tariffPlanItemsResolver,
 											tariffPlanHistoryItems: tariffPlanHistoryItemsResolver,
 											tariffPlanActual: tariffPlanActualResolver,
+											country: countryResolver,
+											baseLanguage: baseLanguageResolver,
 										},
 										loadComponent: () => import('@page/tariff-plan/tariff-plan.page')
 									}
