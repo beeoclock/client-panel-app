@@ -49,44 +49,66 @@
 			"@app/*": [
 				"./src/app/*"
 			],
-			"@module/*": [
-				"./src/module/*"
+			"@page/*": [
+				"./src/identity/page/*",
+				"./src/[tenant]/page/*"
+			],
+			"@[tenant]/*": [
+				"./src/[tenant]/*"
+			],
+
+			// utility
+			"@utility/*": [
+				"./src/utility/*"
+			],
+
+			// identity
+			"@identity/*": [
+				"./src/identity/*",
+			],
+
+			// tenant
+			"@analytic/*": [
+				"./src/[tenant]/module/analytic/*",
+			],
+			"@media/*": [
+				"./src/[tenant]/module/media/*",
+			],
+			"@account/*": [
+				"./src/[tenant]/module/account/*",
 			],
 			"@client/*": [
-				"./src/module/client/*"
+				"./src/[tenant]/module/client/*",
 			],
 			"@customer/*": [
-				"./src/module/customer/*"
+				"./src/[tenant]/module/customer/*",
 			],
 			"@event/*": [
-				"./src/module/event/*"
-			],
-			"@identity/*": [
-				"./src/module/identity/*"
+				"./src/[tenant]/module/event/*",
 			],
 			"@service/*": [
-				"./src/module/service/*"
-			],
-			"@utility/*": [
-				"./src/module/utility/*"
+				"./src/[tenant]/module/service/*",
 			],
 			"@member/*": [
-				"./src/module/member/*"
+				"./src/[tenant]/module/member/*",
 			],
 			"@order/*": [
-				"./src/module/order/*"
+				"./src/[tenant]/module/order/*",
 			],
 			"@absence/*": [
-				"./src/module/absence/*"
+				"./src/[tenant]/module/absence/*",
 			],
 			"@payment/*": [
-				"./src/module/payment/*"
+				"./src/[tenant]/module/payment/*",
 			],
 			"@businessProfile/*": [
-				"./src/module/business-profile/*"
+				"./src/[tenant]/module/business-profile/*",
 			],
-			"@page/*": [
-				"./src/page/*"
+			"@tariffPlan/*": [
+				"./src/[tenant]/module/tariff-plan/*",
+			],
+			"@tariffPlanHistory/*": [
+				"./src/[tenant]/module/tariff-plan-history/*"
 			]
 		}
 	},

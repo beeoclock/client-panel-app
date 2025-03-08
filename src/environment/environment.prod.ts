@@ -10,6 +10,7 @@ export const environment = {
 		analytic: 'https://api.beeoclock.com/analytic',
 		panel: 'https://api.beeoclock.com/panel',
 		identity: 'https://api.beeoclock.com/identity',
+		tariffPlan: 'https://api.beeoclock.com/tariff-plan',
 		ws: {
 			url: 'https://api.beeoclock.com',
 			path: '/ws/panel/socket.io'
