@@ -1316,7 +1316,10 @@
 				"edit": "Rediger et teammedlem"
 			}
 		},
-		"title": "Medlem"
+		"title": "Medlem",
+		"toast": {
+			"limit": "Grænsen er nået. Opgrader til en højere plan for at tilføje flere teammedlemmer."
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Kunde Notifikationsindstillinger",

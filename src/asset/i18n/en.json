@@ -1316,7 +1316,10 @@
 				"edit": "Edit a team member"
 			}
 		},
-		"title": "Member"
+		"title": "Member",
+		"toast": {
+			"limit": "Limit reached. Upgrade to a higher plan to add more team members."
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Customer Notification Settings",

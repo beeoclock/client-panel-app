@@ -1,9 +1,12 @@
-import {Component, inject, input, ViewEncapsulation} from "@angular/core";
+import {Component, computed, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import EMember from "@core/business-logic/member/entity/e.member";
+import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
 
 @Component({
 	selector: 'member-row-action-button-component',
@@ -13,7 +16,12 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 		<utility-table-column-action
 			[id]="id()"
 			[hide]="hide()"
+			[state]="statusAsState()"
 			(open)="open()"
+			(delete)="delete()"
+			(deactivate)="deactivate()"
+			(activate)="activate()"
+			(archive)="archive()"
 			(edit)="edit()">
 			<!--			<li>-->
 			<!--				<a-->
@@ -37,12 +45,46 @@ export class RowActionButtonComponent {
 	public readonly id = input.required<string>();
 
 	public readonly item = input.required<IMember.EntityRaw>();
+	public readonly statusAsState = computed(() => {
+		switch (this.item().profileStatus) {
+			case MemberProfileStatusEnum.active:
+				return StateEnum.active;
+			default:
+				return StateEnum.inactive;
+		}
+	});
 
 	private readonly store = inject(Store);
 
-	public async archive(id: string): Promise<void> {
-		await firstValueFrom(this.store.dispatch(
-			new MemberActions.ArchiveItem(id)));
+	public activate() {
+		// this.setState(StateEnum.active);
+		this.setStatus(MemberProfileStatusEnum.active);
+	}
+
+	public deactivate() {
+		// this.setState(StateEnum.inactive);
+		this.setStatus(MemberProfileStatusEnum.suspended);
+	}
+
+	public delete() {
+		this.setStatus(MemberProfileStatusEnum.deleted);
+		// this.setState(StateEnum.deleted);
+	}
+
+	public archive() {
+		this.setState(StateEnum.archived);
+	}
+
+	@Dispatch()
+	public setState(state: StateEnum) {
+		const entity = EMember.fromRaw(this.item());
+		return new MemberActions.SetState(entity, state);
+	}
+
+	@Dispatch()
+	public setStatus(status: MemberProfileStatusEnum) {
+		const entity = EMember.fromRaw(this.item());
+		return new MemberActions.SetStatus(entity, status);
 	}
 
 	public open() {
