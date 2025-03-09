@@ -508,6 +508,9 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	 * @returns {Promise<void>}
 	 */
 	public static async syncAll(): Promise<void> {
+		if(this.isSyncing$.value) {
+			return;
+		}
 		this.isSyncing$.next(true);
 		// Take updatedSince from the last sync state
 		for (const manager of this.register.values()) {

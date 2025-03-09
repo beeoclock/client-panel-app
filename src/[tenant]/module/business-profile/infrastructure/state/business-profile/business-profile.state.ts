@@ -1,7 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {INotificationsSettings} from "@core/business-logic/business-profile";
-import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CurrencyCodeEnum, LanguageCodeEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {BASE_CURRENCY} from "@src/token";
@@ -30,8 +29,6 @@ export class BusinessProfileState {
 	@Action(BusinessProfileActions.Init)
 	public async init(ctx: StateContext<IBusinessProfileState>): Promise<void> {
 
-		ctx.dispatch(new AppActions.PageLoading(true));
-
 		const {items} = await this.sharedUow.businessProfile.repository.findAsync({
 			page: 1,
 			pageSize: 1,
@@ -48,8 +45,6 @@ export class BusinessProfileState {
 		if (item) {
 			this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
 		}
-
-		ctx.dispatch(new AppActions.PageLoading(false));
 
 	}
 

@@ -13,7 +13,6 @@ export const baseLanguageResolver: ResolveFn<LanguageCodeEnum> = () => {
 
 	return store.select(BusinessProfileState.baseLanguage)
 		.pipe(
-			tap((result) => console.log({result})),
 			filter(is.string_not_empty<LanguageCodeEnum>),
 			take(1),
 		);
