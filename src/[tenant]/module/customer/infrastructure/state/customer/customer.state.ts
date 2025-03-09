@@ -14,6 +14,7 @@ import ECustomer from "@core/business-logic/customer/entity/e.customer";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {Router} from "@angular/router";
 
 export type ICustomerState = IBaseState<ECustomer>;
 
@@ -31,6 +32,7 @@ const defaults = baseDefaults<ECustomer>({
 @Injectable()
 export class CustomerState {
 
+	private readonly router = inject(Router);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -101,17 +103,19 @@ export class CustomerState {
 	@Action(CustomerActions.OpenDetails)
 	public async openDetailsAction(ctx: StateContext<ICustomerState>, {payload}: CustomerActions.OpenDetails) {
 
-		const title = await this.translateService.instant('customer.details.title');
+		// const title = await this.translateService.instant('customer.details.title');
 
-		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+		await this.router.navigate([{outlets: {second: ['customer', payload._id]}}]);
 
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			componentInputs: {
-				item: payload
-			},
-			component: CustomerDetailsContainerComponent,
-		});
+		// const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+		//
+		// await this.whacAMaleProvider.buildItAsync({
+		// 	title,
+		// 	componentInputs: {
+		// 		item: payload
+		// 	},
+		// 	component: CustomerDetailsContainerComponent,
+		// });
 
 	}
 

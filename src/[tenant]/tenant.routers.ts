@@ -27,6 +27,11 @@ export const tenantRouters: Routes = [
 				redirectTo: '/identity/corridor',
 			},
 			{
+				path: 'customer/:id',
+				outlet: 'second',
+				loadComponent: () => import('@customer/presentation/component/details/customer-details-container.component')
+			},
+			{
 				path: ':tenantId',
 				canMatch: [canMatchBecauseTenantId],
 				resolve: {
