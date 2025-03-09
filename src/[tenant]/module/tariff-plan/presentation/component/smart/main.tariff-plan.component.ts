@@ -28,7 +28,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 		<section id="tariffs"
 				 class="flex w-full justify-center items-center">
 			<div class="flex flex-col w-full gap-10">
-				<div class="flex w-full items-center p-5">
+				<div class="flex w-full items-center gap-4 px-5 pt-5 md:p-5 flex-col md:flex-row">
 					<div class="w-full flex flex-col px-2.5">
 						<h2 class="font-bold text-[40px]">
 							{{ 'tariffPlan.page.title' | translate }}
@@ -63,7 +63,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 
 
 						<div
-							class="flex justify-between min-w-[340px] flex-col h-[600px] transition-transform duration-300 bg-white shadow-lg rounded-2xl gap-5 px-3 py-3">
+							class="flex justify-between min-w-[300px] flex-col h-[600px] transition-transform duration-300 bg-white shadow-lg rounded-2xl gap-5 px-3 py-3">
 							<div class="flex flex-col">
 								<div class="flex px-2 justify-between items-center mb-1">
 									<h2 class="text-2xl font-bold text-[#FFD429] uppercase">
