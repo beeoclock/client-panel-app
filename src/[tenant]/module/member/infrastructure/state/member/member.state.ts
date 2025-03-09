@@ -312,6 +312,30 @@ export class MemberState {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
 
+	@Action(MemberActions.SetState)
+	public async setState(ctx: StateContext<IMemberState>, {item, state}: MemberActions.SetState) {
+		const foundItems = await this.sharedUow.member.repository.findByIdAsync(item._id);
+		if (foundItems) {
+			const entity = EMember.fromRaw(foundItems);
+			entity.changeState(state);
+			await this.sharedUow.member.repository.updateAsync(entity);
+			await this.updateOpenedDetails(ctx, {payload: entity});
+			ctx.dispatch(new MemberActions.GetList());
+		}
+	}
+
+	@Action(MemberActions.SetStatus)
+	public async SetStatus(ctx: StateContext<IMemberState>, {item, status}: MemberActions.SetStatus) {
+		const foundItems = await this.sharedUow.member.repository.findByIdAsync(item._id);
+		if (foundItems) {
+			const entity = EMember.fromRaw(foundItems);
+			entity.changeStatus(status);
+			await this.sharedUow.member.repository.updateAsync(entity);
+			await this.updateOpenedDetails(ctx, {payload: entity});
+			ctx.dispatch(new MemberActions.GetList());
+		}
+	}
+
 	// Selectors
 
 	@Selector()
