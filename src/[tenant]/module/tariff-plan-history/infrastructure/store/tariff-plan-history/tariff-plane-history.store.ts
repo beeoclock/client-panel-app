@@ -9,6 +9,7 @@ import {environment} from "@environment/environment";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
 
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {SPECIALIST_LIMIT} from "@[tenant]/tenant.token";
 
 export interface ITariffPlanHistoryState {
 	items: ETariffPlanHistory[];
@@ -29,11 +30,12 @@ export const TariffPlanHistoryStore = signalStore(
 		return {
 			actual$: toObservable<ETariffPlanHistory | null>(actual),
 			items$: toObservable<ETariffPlanHistory[]>(items),
+			specialistLimit$: inject(SPECIALIST_LIMIT),
 			sharedUow: inject(SharedUow),
 			ngxLogger: inject(NGXLogger),
 		}
 	}),
-	withMethods(({sharedUow, ngxLogger, ...store}) => {
+	withMethods(({sharedUow, ngxLogger, specialistLimit$, ...store}) => {
 		return {
 			async fillActual() {
 				try {
@@ -45,10 +47,12 @@ export const TariffPlanHistoryStore = signalStore(
 						orderDir: OrderDirEnum.ASC,
 						orderBy: OrderByEnum.UPDATED_AT,
 					});
+					const actual = items.map(ETariffPlanHistory.fromRaw)[0];
+					specialistLimit$.next(actual.tariffPlan.specialistLimit);
 					patchState(store, (state) => {
 						return {
 							...state,
-							actual: items.map(ETariffPlanHistory.fromRaw)[0],
+							actual,
 						};
 					});
 				} catch (e) {

@@ -1,6 +1,8 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import EMember from "@core/business-logic/member/entity/e.member";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
 
 export namespace MemberActions {
 
@@ -47,10 +49,6 @@ export namespace MemberActions {
 		public static override readonly type = '[Member API] Get List';
 	}
 
-	export class ArchiveItem extends BaseActions.ArchiveItem {
-		public static override readonly type = '[Member API] Archive Item';
-	}
-
 	export class GetItem extends BaseActions.GetItem {
 		public static override readonly type = '[Member API] Get Item';
 	}
@@ -71,6 +69,26 @@ export namespace MemberActions {
 
 	export class UpdateTableState extends BaseActions.UpdateTableState<EMember> {
 		public static override readonly type = '[Member State] Update Table State';
+	}
+
+	export class SetState {
+		public static readonly type = '[Member API] SetState';
+
+		constructor(
+			public readonly item: EMember,
+			public readonly state: StateEnum,
+		) {
+		}
+	}
+
+	export class SetStatus {
+		public static readonly type = '[Member API] SetStatus';
+
+		constructor(
+			public readonly item: EMember,
+			public readonly status: MemberProfileStatusEnum,
+		) {
+		}
 	}
 
 }

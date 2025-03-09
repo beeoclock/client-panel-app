@@ -30,6 +30,10 @@ export class EMember extends ABaseEntity<'MemberDto', IMember.DTO, IMember.Entit
 	phone!: string;
 	assignments!: IAssignments;
 
+	public changeStatus(status: MemberProfileStatusEnum): void {
+		this.profileStatus = status;
+		this.refreshUpdatedAt();
+	}
 
 	public override toDTO(): IMember.DTO {
 		return EMember.toDTO(this);

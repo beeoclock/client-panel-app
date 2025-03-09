@@ -14,10 +14,13 @@ import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tari
 import {
 	TariffPlanHistoryStore
 } from "@tariffPlanHistory/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
+import {tenantTokens} from "@[tenant]/tenant.token";
 import {BusinessProfileStore} from "@businessProfile/infrastructure/store/business-profile/business-profile.store";
 
 @NgModule({
 	providers: [
+		...tenantTokens,
+
 		BusinessProfileStore,
 		TariffPlanStore,
 		TariffPlanHistoryStore,
