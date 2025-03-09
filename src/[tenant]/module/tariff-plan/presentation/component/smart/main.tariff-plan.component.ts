@@ -9,8 +9,6 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
 import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tariff-plane.store";
-import {Store} from "@ngxs/store";
-import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
 import {LanguageCodeEnum} from "@core/shared/enum";
@@ -80,17 +78,19 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 								<div class="flex justify-center">
 									<div class="flex flex-col w-[250px]">
 										<div class="flex flex-col justify-center">
-											@if (subscriptionType === billingCycleEnum.yearly) {
-												<div class="flex gap-2 mt-2">
-													<p class="flex font-bold gap-1 line-through">
-														{{ (item.prices[0].values[0].beforeDiscount / 12) | number: '1.0-0' }}
-														{{ item.prices[0].currency | currencyCode }}
-													</p>
-													<span
-														class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-600 text-white">
-														10%
-													</span>
-												</div>
+											@if (item.type !== typeTariffPlanEnum.Free) {
+												@if (subscriptionType === billingCycleEnum.yearly) {
+													<div class="flex gap-2 mt-2">
+														<p class="flex font-bold gap-1 line-through">
+															{{ (item.prices[0].values[0].beforeDiscount / 12) | number: '1.0-0' }}
+															{{ item.prices[0].currency | currencyCode }}
+														</p>
+														<span
+															class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-600 text-white">
+															10%
+														</span>
+													</div>
+												}
 											}
 											<div class="flex items-center gap-1">
 												<p class="flex font-bold text-[64px] items-baseline gap-1">
@@ -104,9 +104,11 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 												</span>
 												</p>
 												<div class="flex flex-col">
-													@if (billingCycleEnum.yearly === subscriptionType) {
-														<span
-															class="font-medium text-sm text-[#CACACA]">per month</span>
+													@if (item.type !== typeTariffPlanEnum.Free) {
+														@if (billingCycleEnum.yearly === subscriptionType) {
+															<span
+																class="font-medium text-sm text-[#CACACA]">per month</span>
+														}
 													}
 												</div>
 											</div>
@@ -115,7 +117,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 											class="[&>li]:text-sm [&>li]:font-medium [&>li]:mb-1 [&>li]:h-[26px] [&>li]:flex [&>li]:items-center">
 											<li class="flex gap-2 first:font-bold">
 												<i class="bi bi-check-lg"></i>
-												<span>Users {{ item.specialistLimit ?? '∞' }}</span>
+												<span>{{ 'keyword.capitalize.members' | translate }} {{ item.specialistLimit ?? '∞' }}</span>
 												@if (this.actual) {
 													@if (this.actual.tariffPlan.type === item.type) {
 														@if (membersCount() === item.specialistLimit) {
@@ -223,16 +225,15 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 export class MainTariffPlanComponent implements OnInit {
 
 	private readonly tariffPlanStore = inject(TariffPlanStore);
-	private readonly store = inject(Store);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	public readonly historyItems: ETariffPlanHistory[] = this.activatedRoute.snapshot.data.tariffPlanHistoryItems;
 	public readonly actual: ETariffPlanHistory = this.activatedRoute.snapshot.data.tariffPlanActual;
+	public readonly country: CountryCodeEnum = this.activatedRoute.snapshot.data.country;
+	public readonly baseLanguage: LanguageCodeEnum = this.activatedRoute.snapshot.data.baseLanguage;
 	public readonly items: ETariffPlan[] = [];
 
 	readonly #items: ETariffPlan[] = this.activatedRoute.snapshot.data.tariffPlanItems;
-	readonly #country = this.store.selectSnapshot(BusinessProfileState.country)
-	readonly #baseLanguage = this.store.selectSnapshot(BusinessProfileState.baseLanguage)
 
 	public readonly billingLinkIsLoading = signal(false);
 	public readonly membersCount = signal(0);
@@ -284,14 +285,8 @@ export class MainTariffPlanComponent implements OnInit {
 
 	private prepareItems() {
 		this.items.length = 0;
-		const country = this.#country;
-		if (!country) {
-			return;
-		}
-		const language = this.#baseLanguage;
-		if (!language) {
-			return;
-		}
+		const country = this.country;
+		const language = this.baseLanguage;
 		this.#items.forEach((item) => {
 			const priceForSubscriptionTypeAndCountry = this.takePriceForParams({
 				item,

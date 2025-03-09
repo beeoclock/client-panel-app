@@ -1,7 +1,7 @@
 import {patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState} from "@ngrx/signals";
 import {computed, inject} from "@angular/core";
 import {TENANT_ID} from "@src/token";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {NGXLogger} from "ngx-logger";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
@@ -26,8 +26,10 @@ export const TariffPlanHistoryStore = signalStore(
 	withComputed(({items}) => ({
 		itemsCount: computed(() => items().length),
 	})),
-	withProps((store) => {
+	withProps(({items, actual}) => {
 		return {
+			actual$: toObservable<ETariffPlanHistory | null>(actual),
+			items$: toObservable<ETariffPlanHistory[]>(items),
 			specialistLimit$: inject(SPECIALIST_LIMIT),
 			sharedUow: inject(SharedUow),
 			ngxLogger: inject(NGXLogger),
