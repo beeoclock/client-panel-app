@@ -7,7 +7,7 @@ import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/inter
 @Injectable()
 export class TariffPlanHistoryDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<ITariffPlanHistory.EntityRaw> {
 
-	protected readonly columns = '_id,state,createdAt,updatedAt';
+	protected readonly columns = '_id,state,status,createdAt,updatedAt';
 	protected readonly moduleName = 'tariff-plan-history';
 	protected readonly version = 1;
 

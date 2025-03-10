@@ -7,5 +7,5 @@ export const tenantTokens = [
 	{
 		provide: SPECIALIST_LIMIT,
 		useValue: new BehaviorSubject(0)
-	}
+	},
 ]

@@ -9,6 +9,9 @@ import {
 } from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {merge} from "rxjs";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {
+	TariffPlanHistoryStore
+} from "@tariffPlanHistory/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
 
 export interface SocketStateModel {
 	connected: boolean;
@@ -39,8 +42,10 @@ export type SocketMessages = Array<IOrder.DTO>;
 export class SocketState {
 	private socket: Socket | undefined;
 	private readonly store: Store = inject(Store);
+	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
 
-	private syncAll = () => {
+	private onAny = () => {
+		this.tariffPlanHistoryStore.init().then();
 		BaseSyncManager.syncAll().then();
 	};
 
@@ -85,8 +90,8 @@ export class SocketState {
 			SocketEventTypes.AbsenceUpdated,
 			SocketEventTypes.AbsenceDeleted,
 		];
-		
-		socket.onAny(this.syncAll);
+
+		socket.onAny(this.onAny);
 
 		const events$ = handleEventTypes.map(event => socket.fromEvent(event));
 		merge(...events$).pipe(tap((message: unknown) => {
