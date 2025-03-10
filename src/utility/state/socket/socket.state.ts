@@ -8,6 +8,7 @@ import {
 	CalendarWithSpecialistsAction
 } from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {merge} from "rxjs";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 
 export interface SocketStateModel {
 	connected: boolean;
@@ -37,7 +38,11 @@ export type SocketMessages = Array<IOrder.DTO>;
 @Injectable()
 export class SocketState {
 	private socket: Socket | undefined;
-	private store: Store = inject(Store);
+	private readonly store: Store = inject(Store);
+
+	private syncAll = () => {
+		BaseSyncManager.syncAll().then();
+	};
 
 	@Selector()
 	static isConnected(state: SocketStateModel): boolean {
@@ -59,6 +64,7 @@ export class SocketState {
 
 		const config: SocketIoConfig = {url, options};
 		this.socket = new Socket(config);
+		const {socket} = this;
 
 		this.socket.connect();
 
@@ -79,7 +85,9 @@ export class SocketState {
 			SocketEventTypes.AbsenceUpdated,
 			SocketEventTypes.AbsenceDeleted,
 		];
-		const {socket} = this;
+		
+		socket.onAny(this.syncAll);
+
 		const events$ = handleEventTypes.map(event => socket.fromEvent(event));
 		merge(...events$).pipe(tap((message: unknown) => {
 			ctx.dispatch(new SocketActions.SocketMessageReceived(message));
