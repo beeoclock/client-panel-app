@@ -45,8 +45,9 @@ export class SocketState {
 	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
 
 	private onAny = () => {
-		this.tariffPlanHistoryStore.init().then();
-		BaseSyncManager.syncAll().then();
+		BaseSyncManager.syncAll().then(() => {
+			this.tariffPlanHistoryStore.init().then();
+		});
 	};
 
 	@Selector()
