@@ -288,7 +288,7 @@ export class MainTariffPlanSmartComponent implements OnInit {
 	public readonly typeTariffPlanEnum = TypeTariffPlanEnum;
 	public readonly billingCycleEnum = BillingCycleEnum;
 
-	public subscriptionType: BillingCycleEnum = BillingCycleEnum.monthly;
+	public subscriptionType: BillingCycleEnum = this.actual.tariffPlan.prices[0].values[0].billingCycle;
 
 	public setSubscriptionType(type: BillingCycleEnum) {
 		this.subscriptionType = type;
