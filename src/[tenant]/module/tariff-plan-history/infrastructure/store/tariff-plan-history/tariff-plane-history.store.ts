@@ -7,8 +7,6 @@ import {NGXLogger} from "ngx-logger";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {environment} from "@environment/environment";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
-
-import {StateEnum} from "@core/shared/enum/state.enum";
 import {SPECIALIST_LIMIT} from "@[tenant]/tenant.token";
 
 export interface ITariffPlanHistoryState {
@@ -39,20 +37,12 @@ export const TariffPlanHistoryStore = signalStore(
 		return {
 			async fillActual() {
 				try {
-					const {items} = await sharedUow.tariffPlanHistory.repository.findAsync({
-						page: 1,
-						pageSize: 1,
-						status: 'active',
-						state: StateEnum.active,
-						orderDir: OrderDirEnum.ASC,
-						orderBy: OrderByEnum.UPDATED_AT,
-					});
-					const actual = items.map(ETariffPlanHistory.fromRaw)[0];
-					specialistLimit$.next(actual.tariffPlan.specialistLimit);
+					const actualTariffPlanEntity = await sharedUow.tariffPlanHistory.getActualTariffPlanEntity();
+					specialistLimit$.next(actualTariffPlanEntity.tariffPlan.specialistLimit);
 					patchState(store, (state) => {
 						return {
 							...state,
-							actual,
+							actual: actualTariffPlanEntity,
 						};
 					});
 				} catch (e) {

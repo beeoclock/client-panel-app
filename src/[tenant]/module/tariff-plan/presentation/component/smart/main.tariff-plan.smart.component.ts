@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	effect,
+	inject,
+	OnInit,
+	Signal,
+	signal,
+	ViewEncapsulation
+} from "@angular/core";
 import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {CurrencyCodePipe} from "@utility/presentation/pipes/currency-code.pipe";
@@ -12,6 +21,9 @@ import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tari
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
 import {LanguageCodeEnum} from "@core/shared/enum";
+import {
+	TariffPlanHistoryStore
+} from "@tariffPlanHistory/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
 
 @Component({
 	standalone: true,
@@ -41,7 +53,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 						<button
 							id="monthly-button"
 							class="text-sm font-semibold font-inter px-5 py-[5px] rounded-[66px] h-[40px] transition-colors duration-300"
-							[ngClass]="{ 'bg-[#E5E5E5]': subscriptionType === billingCycleEnum.monthly}"
+							[ngClass]="{ 'bg-[#E5E5E5]': subscriptionType() === billingCycleEnum.monthly}"
 							(click)="setSubscriptionType(billingCycleEnum.monthly)"
 						>
 							{{ 'keyword.capitalize.monthly' | translate }}
@@ -49,7 +61,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 						<button
 							id="annual-button"
 							class="text-sm font-semibold font-inter px-5 py-[5px] rounded-[66px] h-[40px] transition-colors duration-300"
-							[ngClass]="{ 'bg-[#E5E5E5]': subscriptionType === billingCycleEnum.yearly }"
+							[ngClass]="{ 'bg-[#E5E5E5]': subscriptionType() === billingCycleEnum.yearly }"
 							(click)="setSubscriptionType(billingCycleEnum.yearly)">
 							{{ 'keyword.capitalize.yearly' | translate }}
 						</button>
@@ -79,7 +91,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 									<div class="flex flex-col w-[250px]">
 										<div class="flex flex-col justify-center">
 											@if (item.type !== typeTariffPlanEnum.Free) {
-												@if (subscriptionType === billingCycleEnum.yearly) {
+												@if (subscriptionType() === billingCycleEnum.yearly) {
 													<div class="flex gap-2 mt-2">
 														<p class="flex font-bold gap-1 line-through">
 															{{ (item.prices[0].values[0].beforeDiscount / 12) | number: '1.0-0' }}
@@ -94,7 +106,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 											}
 											<div class="flex items-center gap-1">
 												<p class="flex font-bold text-[64px] items-baseline gap-1">
-													@if (subscriptionType === billingCycleEnum.yearly) {
+													@if (subscriptionType() === billingCycleEnum.yearly) {
 														{{ (item.prices[0].values[0].afterDiscount / 12) | number: '1.0-0' }}
 													} @else {
 														{{ item.prices[0].values[0].afterDiscount | number: '1.0-0' }}
@@ -105,7 +117,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 												</p>
 												<div class="flex flex-col">
 													@if (item.type !== typeTariffPlanEnum.Free) {
-														@if (billingCycleEnum.yearly === subscriptionType) {
+														@if (billingCycleEnum.yearly === subscriptionType()) {
 															<span
 																class="font-medium text-sm text-[#CACACA]">per month</span>
 														}
@@ -117,8 +129,8 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 											<li class="flex gap-2 first:font-bold">
 												<i class="bi bi-check-lg"></i>
 												<span>{{ 'keyword.capitalize.members' | translate }} {{ item.specialistLimit ?? '∞' }}</span>
-												@if (this.actual) {
-													@if (this.actual.tariffPlan.type === item.type) {
+												@if (this.actual(); as actual) {
+													@if (actual.tariffPlan.type === item.type) {
 														@if (membersCount() === item.specialistLimit) {
 															<span
 																class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-gray-800 text-white">
@@ -143,9 +155,9 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 									</div>
 								</div>
 							</div>
-							@if (this.actual) {
+							@if (this.actual(); as actual) {
 
-								@if (isTheSameTariffPlan(item, this.actual.tariffPlan)) {
+								@if (isTheSameTariffPlan(item, actual.tariffPlan)) {
 
 									<button
 										disabled
@@ -177,7 +189,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 
 										} @else {
 
-											@if (this.actual.tariffPlan.type === item.type) {
+											@if (actual.tariffPlan.type === item.type) {
 
 												<button
 													(click)="upgradeTo(item)"
@@ -237,10 +249,11 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 export class MainTariffPlanSmartComponent implements OnInit {
 
 	private readonly tariffPlanStore = inject(TariffPlanStore);
+	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	public readonly historyItems: ETariffPlanHistory[] = this.activatedRoute.snapshot.data.tariffPlanHistoryItems;
-	public readonly actual: ETariffPlanHistory = this.activatedRoute.snapshot.data.tariffPlanActual;
+	public readonly actual: Signal<ETariffPlanHistory | null> = this.tariffPlanHistoryStore.actual;
 	public readonly country: CountryCodeEnum = this.activatedRoute.snapshot.data.country;
 	public readonly baseLanguage: LanguageCodeEnum = this.activatedRoute.snapshot.data.baseLanguage;
 	public readonly items: ETariffPlan[] = [];
@@ -288,10 +301,19 @@ export class MainTariffPlanSmartComponent implements OnInit {
 	public readonly typeTariffPlanEnum = TypeTariffPlanEnum;
 	public readonly billingCycleEnum = BillingCycleEnum;
 
-	public subscriptionType: BillingCycleEnum = this.actual.tariffPlan.prices[0].values[0].billingCycle;
+	public constructor() {
+		effect(() => {
+			const actual = this.actual();
+			if (actual) {
+				this.subscriptionType.set(actual.tariffPlan.prices[0].values[0].billingCycle);
+			}
+		});
+	}
+
+	public readonly subscriptionType = signal(BillingCycleEnum.monthly);
 
 	public setSubscriptionType(type: BillingCycleEnum) {
-		this.subscriptionType = type;
+		this.subscriptionType.set(type);
 		this.prepareItems();
 	}
 
@@ -302,7 +324,7 @@ export class MainTariffPlanSmartComponent implements OnInit {
 		this.#items.forEach((item) => {
 			const priceForSubscriptionTypeAndCountry = this.takePriceForParams({
 				item,
-				subscriptionType: this.subscriptionType,
+				subscriptionType: this.subscriptionType(),
 				country,
 				language,
 			});
@@ -384,7 +406,7 @@ export class MainTariffPlanSmartComponent implements OnInit {
 
 	public isTheSameTariffPlan(item: ETariffPlan, actualTariffPlan: ITariffPlan.DTO): boolean {
 		const {prices: {0: {values: {0: {billingCycle}}}}, type} = actualTariffPlan;
-		if (this.subscriptionType === billingCycle) {
+		if (this.subscriptionType() === billingCycle) {
 			return item.type === type;
 		}
 		if (item.type === TypeTariffPlanEnum.Free && type === TypeTariffPlanEnum.Free) {

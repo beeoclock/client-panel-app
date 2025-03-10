@@ -16,6 +16,8 @@ import {
 } from "@tariffPlanHistory/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
 import {tenantTokens} from "@[tenant]/tenant.token";
 import {BusinessProfileStore} from "@businessProfile/infrastructure/store/business-profile/business-profile.store";
+import {SocketState} from "@utility/state/socket/socket.state";
+import {NgxsModule} from "@ngxs/store";
 
 @NgModule({
 	providers: [
@@ -26,6 +28,7 @@ import {BusinessProfileStore} from "@businessProfile/infrastructure/store/busine
 		TariffPlanHistoryStore,
 	],
 	imports: [
+		NgxsModule.forFeature([SocketState]),
 		RouterModule.forChild(tenantRouters),
 
 		// MODULE
