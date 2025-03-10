@@ -387,7 +387,7 @@ export class MainTariffPlanSmartComponent implements OnInit {
 		if (this.subscriptionType === billingCycle) {
 			return item.type === type;
 		}
-		if (item.type === TypeTariffPlanEnum.Free) {
+		if (item.type === TypeTariffPlanEnum.Free && type === TypeTariffPlanEnum.Free) {
 			return true;
 		}
 		return false;
