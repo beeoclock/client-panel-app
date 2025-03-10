@@ -17,7 +17,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	selector: 'main-tariff-plan-component',
+	selector: 'main-tariff-plan-smart-component',
 	imports: [
 		CurrencyCodePipe,
 		NgClass,
@@ -113,8 +113,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 												</div>
 											</div>
 										</div>
-										<ul
-											class="[&>li]:text-sm [&>li]:font-medium [&>li]:mb-1 [&>li]:h-[26px] [&>li]:flex [&>li]:items-center">
+										<ul class="[&>li]:text-sm [&>li]:font-medium [&>li]:mb-1 [&>li]:h-[26px] [&>li]:flex [&>li]:items-center">
 											<li class="flex gap-2 first:font-bold">
 												<i class="bi bi-check-lg"></i>
 												<span>{{ 'keyword.capitalize.members' | translate }} {{ item.specialistLimit ?? '∞' }}</span>
@@ -123,13 +122,13 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 														@if (membersCount() === item.specialistLimit) {
 															<span
 																class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-gray-800 text-white">
-															exhausted
-														</span>
+																{{ 'keyword.capitalize.exhausted' | translate }}
+															</span>
 														} @else {
 															<span
 																class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-green-800 text-white">
-															{{ membersCount() }} / {{ item.specialistLimit ?? '∞' }}
-														</span>
+																{{ membersCount() }} / {{ item.specialistLimit ?? '∞' }}
+															</span>
 														}
 													}
 												}
@@ -145,7 +144,8 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 								</div>
 							</div>
 							@if (this.actual) {
-								@if (this.actual.tariffPlan.type === item.type) {
+
+								@if (isTheSameTariffPlan(item, this.actual.tariffPlan)) {
 
 									<button
 										disabled
@@ -177,11 +177,23 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 
 										} @else {
 
-											<button
-												(click)="upgradeTo(item)"
-												class="font-bold text-xl py-4 px-5 w-full normal-case">
-												{{ 'keyword.capitalize.downgradeTo' | translate }} {{ item.type }}
-											</button>
+											@if (this.actual.tariffPlan.type === item.type) {
+
+												<button
+													(click)="upgradeTo(item)"
+													class="font-bold text-xl py-4 px-5 w-full normal-case">
+													{{ 'keyword.capitalize.switchTo' | translate }} {{ item.type }}
+												</button>
+
+											} @else {
+
+												<button
+													(click)="upgradeTo(item)"
+													class="font-bold text-xl py-4 px-5 w-full normal-case">
+													{{ 'keyword.capitalize.downgradeTo' | translate }} {{ item.type }}
+												</button>
+
+											}
 
 										}
 
@@ -222,7 +234,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 		</section>
 	`
 })
-export class MainTariffPlanComponent implements OnInit {
+export class MainTariffPlanSmartComponent implements OnInit {
 
 	private readonly tariffPlanStore = inject(TariffPlanStore);
 	private readonly sharedUow = inject(SharedUow);
@@ -370,9 +382,19 @@ export class MainTariffPlanComponent implements OnInit {
 		}, <ITariffPlan.IPrice[]>[]);
 	}
 
+	public isTheSameTariffPlan(item: ETariffPlan, actualTariffPlan: ITariffPlan.DTO): boolean {
+		const {prices: {0: {values: {0: {billingCycle}}}}, type} = actualTariffPlan;
+		if (this.subscriptionType === billingCycle) {
+			return item.type === type;
+		}
+		if (item.type === TypeTariffPlanEnum.Free) {
+			return true;
+		}
+		return false;
+	}
 }
 
-export default MainTariffPlanComponent;
+export default MainTariffPlanSmartComponent;
 
 enum RegionEnum {
 	EU = 'EU',
