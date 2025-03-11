@@ -292,10 +292,7 @@ export class MainTariffPlanSmartComponent implements OnInit {
 	}
 
 	public isUpgrade(item: ETariffPlan): boolean {
-		if (item.specialistLimit) {
-			return item.specialistLimit > this.membersCount();
-		}
-		return true;
+		return item.prices[0].values[0].beforeDiscount > (this.actual()?.tariffPlan.prices[0].values[0].beforeDiscount ?? 0)
 	}
 
 	public readonly typeTariffPlanEnum = TypeTariffPlanEnum;
