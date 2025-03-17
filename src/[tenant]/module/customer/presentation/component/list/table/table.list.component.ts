@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from "@angular/core";
+import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {ICustomer} from "@core/business-logic/customer";
@@ -9,12 +9,13 @@ import {
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 import {DatePipe} from "@angular/common";
+import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 
 @Component({
 	selector: 'customer-table-list-component',
 	template: `
 		<app-table-ngx-datatable-smart-component
-			[columnList]="columns"
+			[columnList]="columnList()"
 			[loadData]="this.loadData.bind(this)"
 			[actionColumn]="{
 				name: '',
@@ -29,12 +30,17 @@ import {DatePipe} from "@angular/common";
 				[item]="row"
 				[id]="row._id"/>
 		</ng-template>
+		<ng-template #stateCellTemplate let-row="row">
+			<div activeStyle [state]="row.state">
+			</div>
+		</ng-template>
 	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TableNgxDatatableSmartComponent,
-		RowActionButtonComponent
+		RowActionButtonComponent,
+		ActiveStyleDirective
 	],
 	providers: [
 		DatePipe
@@ -44,8 +50,9 @@ import {DatePipe} from "@angular/common";
 	},
 })
 export class TableListComponent extends TableComponent<ECustomer> {
+	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 
-	public readonly columns: TableColumn[] = [
+	public readonly columns = signal<TableColumn<ECustomer>[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.firstName'),
 			prop: 'firstName',
@@ -75,6 +82,13 @@ export class TableListComponent extends TableComponent<ECustomer> {
 			sortable: true,
 		},
 		{
+			name: this.translateService.instant('keyword.capitalize.active'),
+			prop: 'state',
+			minWidth: 160,
+			width: 160,
+			sortable: true,
+		},
+		{
 			name: this.translateService.instant('keyword.capitalize.createdAt'),
 			prop: 'createdAt',
 			minWidth: 240,
@@ -90,8 +104,17 @@ export class TableListComponent extends TableComponent<ECustomer> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
-	];
+	]);
 
+	public readonly columnList = computed(() => {
+		const columns = this.columns();
+		const stateCellTemplate = this.stateCellTemplate();
+		if (stateCellTemplate) {
+			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
+		}
+		return columns;
+
+	});
 
 	public loadData(page: number, pageSize: number, orderBy: string, orderDir: string) {
 

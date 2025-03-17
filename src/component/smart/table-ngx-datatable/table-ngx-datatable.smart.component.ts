@@ -438,6 +438,11 @@ export class TableNgxDatatableSmartComponent {
 
 	});
 
+	public reset() {
+		this.cache.clear();
+		this.page.set(0);
+	}
+
 	public rowDragEvents($event: any) {
 		console.log($event);
 	}
