@@ -25,7 +25,11 @@ import EMember from "@core/business-logic/member/entity/e.member";
 		TableListComponent,
 		AutoRefreshButtonComponent,
 		AutoRefreshButtonComponent,
-	]
+	],
+	host: {
+
+		class: 'flex flex-col overflow-hidden h-full',
+	}
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<EMember> {
 	public override readonly tableState = input.required<ITableState<EMember> | null>();

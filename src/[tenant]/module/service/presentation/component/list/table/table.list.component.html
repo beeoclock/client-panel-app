@@ -64,32 +64,8 @@
 		@for (item of tableState().items; track item._id) {
 			<div tableRowFlex="body" (click)="doubleClick(item)">
 				<div tableColumnFlex="color">
-					@if (item.presentation?.color) {
-
-						<div class="h-10 w-10 rounded-full"
-							 [style.background-color]="item.presentation?.color ?? ''"></div>
-					} @else {
-						<div class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-100">
-							❓
-						</div>
-					}
 				</div>
 				<div tableColumnFlex="title">
-					<div class="flex flex-col divide-y w-full rounded-lg border">
-						@for (languageVersion of item.languageVersions; track languageVersion.language) {
-
-							<div
-								class="relative text-wrap flex gap-2 items-start p-2 font-sans text-xs font-bold uppercase text-neutral-900">
-								<label
-									class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
-									{{ languageVersion.language }}
-								</label>
-								<div>
-									{{ languageVersion.title }}
-								</div>
-							</div>
-						}
-					</div>
 				</div>
 				<div tableColumnFlex="price">
 				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">
@@ -106,19 +82,6 @@
 					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
 						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [state]="item.state">
 					</div>
-				</div>
-				<div tableColumnFlex="createdAt">
-				<span [title]="item.createdAt | date: 'full'" class="truncate">
-					{{ item.createdAt | date: 'short' }}
-				</span>
-				</div>
-				<div tableColumnFlex="updatedAt">
-				<span [title]="item.updatedAt | date: 'full'" class="truncate">
-					{{ item.updatedAt | date: 'short' }}
-				</span>
-				</div>
-				<div tableColumnFlex="action" class="border-l sticky right-0">
-					<service-row-action-button-component [item]="item" [id]="item._id"/>
 				</div>
 			</div>
 		}

@@ -84,6 +84,7 @@
 		"@p4ck493/checker": "0.0.2",
 		"@p4ck493/ts-type-guard": "1.0.3",
 		"@sentry/angular": "9.5.0",
+		"@swimlane/ngx-datatable": "21.0.0-alpha.1",
 		"bootstrap-icons": "1.11.3",
 		"bson-objectid": "2.0.4",
 		"dexie": "4.0.11",

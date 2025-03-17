@@ -10,22 +10,22 @@ import {
 	AutoRefreshButtonComponent
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
-import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
 import EService from "@core/business-logic/service/entity/e.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
 
 @Component({
 	selector: 'service-desktop-layout-list-component',
 	templateUrl: './desktop.layout.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		FilterComponent,
-		NotFoundTableDataComponent,
-		TranslateModule,
-		AutoRefreshButtonComponent,
-		TableListComponent,
-	],
+    imports: [
+        FilterComponent,
+        NotFoundTableDataComponent,
+        TranslateModule,
+        AutoRefreshButtonComponent,
+        TableListComponent,
+    ],
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<EService> {
 

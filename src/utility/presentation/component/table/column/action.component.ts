@@ -1,93 +1,125 @@
-import {Component, inject, input, output} from "@angular/core";
+import {ChangeDetectionStrategy, Component, computed, inject, input, output} from "@angular/core";
 import {Router} from "@angular/router";
-import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {Placement} from "@popperjs/core/lib/enums";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {IonContent, IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
+import ObjectID from "bson-objectid";
 
 @Component({
 	selector: 'utility-table-column-action',
 	standalone: true,
 	imports: [
-		DropdownComponent,
-		TranslateModule
+		TranslateModule,
+		IonPopover,
+		IonContent,
+		IonList,
+		IonItem,
+		IonLabel,
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	styles: [
+		`
+			:host {
+				.button {
+					@apply
+					text-beeColor-800
+					dark:text-beeDarkColor-100
+					border-beeColor-200
+					border
+					hover:bg-beeColor-300
+					focus:outline-none
+					font-medium
+					rounded-2xl
+					text-sm
+					px-3
+					py-2
+					text-center
+					inline-flex
+					items-center
+					dark:bg-beeDarkColor-600
+					dark:hover:bg-beeDarkColor-700
+				}
+			}
+		`
 	],
 	template: `
-		<utility-dropdown [placement]="placement()" [offsetDistance]="offsetDistance()" [threeDot]="true"
-						  [id]="'table-row-' + id()">
-			<ng-container content>
-				@if (!hide().includes('details')) {
-					<li>
-						<button
-							type="button"
-							(click)="open.emit(id())"
-							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-							<i class="bi bi-eye"></i>
-							{{ 'keyword.capitalize.details' | translate }}
-						</button>
-					</li>
-				}
-				@if (!hide().includes('edit')) {
-					<li>
-						<button
-							type="button"
-							(click)="edit.emit(id())"
-							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-							<i class="bi bi-pencil"></i>
-							{{ 'keyword.capitalize.edit' | translate }}
-						</button>
-					</li>
-				}
-				<ng-content/>
-				@if (!hide().includes('delete')) {
-					<li>
-						<button
-							(click)="delete.emit(id())"
-							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-							<i class="bi bi-trash"></i>
-							{{ 'keyword.capitalize.delete' | translate }}
-						</button>
-					</li>
-				}
-				@if (!hide().includes('activate')) {
-					@if (state() !== stateEnum.active) {
-						<li>
-							<button
-								(click)="activate.emit(id())"
-								class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-								<i class="bi bi-toggle-on"></i>
-								{{ 'keyword.capitalize.activate' | translate }}
-							</button>
-						</li>
-					}
-				}
-				@if (!hide().includes('deactivate')) {
-					@if (state() === stateEnum.active) {
-						<li>
-							<button
-								(click)="deactivate.emit(id())"
-								class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-								<i class="bi bi-toggle-off"></i>
-								{{ 'keyword.capitalize.deactivate' | translate }}
-							</button>
-						</li>
-					}
-				}
-			</ng-container>
-		</utility-dropdown>
+
+		<button class="button"
+				[id]="'click-trigger' + buttonId()"
+				type="button">
+			<i class="bi bi-three-dots-vertical"></i>
+		</button>
+		<ion-popover #popover [trigger]="'click-trigger' + buttonId()" side="left" triggerAction="click">
+			<ng-template>
+				<ion-content>
+
+					<ion-list>
+
+						@if (!hide().includes('details')) {
+
+							<ion-item button lines="full" (click)="open.emit(id()); popover.dismiss()">
+								<ion-label>
+									<i class="bi bi-eye"></i>
+									{{ 'keyword.capitalize.details' | translate }}
+								</ion-label>
+							</ion-item>
+						}
+						@if (!hide().includes('edit')) {
+							<ion-item button lines="full" (click)="edit.emit(id()); popover.dismiss()">
+								<ion-label>
+									<i class="bi bi-pencil"></i>
+									{{ 'keyword.capitalize.edit' | translate }}
+								</ion-label>
+							</ion-item>
+						}
+						<ng-content/>
+						@if (!hide().includes('delete')) {
+							<ion-item button lines="full" (click)="delete.emit(id()); popover.dismiss()">
+								<ion-label>
+									<i class="bi bi-trash"></i>
+									{{ 'keyword.capitalize.delete' | translate }}
+								</ion-label>
+							</ion-item>
+						}
+						@if (!hide().includes('activate')) {
+							@if (state() !== stateEnum.active) {
+								<ion-item button lines="full" (click)="activate.emit(id()); popover.dismiss()">
+									<ion-label>
+										<i class="bi bi-toggle-on"></i>
+										{{ 'keyword.capitalize.activate' | translate }}
+									</ion-label>
+								</ion-item>
+							}
+						}
+						@if (!hide().includes('deactivate')) {
+							@if (state() === stateEnum.active) {
+								<ion-item button lines="full" (click)="deactivate.emit(id()); popover.dismiss()">
+									<ion-label>
+										<i class="bi bi-toggle-off"></i>
+										{{ 'keyword.capitalize.deactivate' | translate }}
+									</ion-label>
+								</ion-item>
+							}
+						}
+					</ion-list>
+
+				</ion-content>
+			</ng-template>
+		</ion-popover>
+
 	`
 })
 export class ActionComponent {
 
 	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
 
+	public readonly prefix = input<string>(new ObjectID().toHexString());
+
 	public readonly id = input.required<string>();
 
+	public readonly buttonId = computed(() => this.prefix() + '_' + this.id());
+
 	public readonly state = input<StateEnum>(StateEnum.active);
-
-	public readonly placement = input<Placement>('auto');
-
-	public readonly offsetDistance = input(26);
 
 	public readonly edit = output<string>();
 

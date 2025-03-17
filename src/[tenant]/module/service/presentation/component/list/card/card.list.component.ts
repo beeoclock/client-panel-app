@@ -3,7 +3,7 @@ import {AsyncPipe, CurrencyPipe} from "@angular/common";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ILanguageVersion} from "@core/business-logic/service";
@@ -32,7 +32,6 @@ import EService from "@core/business-logic/service/entity/e.service";
 })
 export class CardListComponent extends TableComponent<EService> {
 
-	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public showAction = new BooleanStreamState(true);

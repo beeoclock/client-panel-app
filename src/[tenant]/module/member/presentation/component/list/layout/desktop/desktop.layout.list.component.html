@@ -1,7 +1,7 @@
 <member-filter-component/>
 @if (tableState(); as data) {
 	@if (data.total) {
-		<member-table-list-component [tableState]="data"/>
+		<member-table-list-component class="flex flex-1 flex-col h-px" [tableState]="data"/>
 
 	} @else {
 		<not-found-table-data-component

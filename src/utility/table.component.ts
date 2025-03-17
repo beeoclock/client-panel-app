@@ -9,7 +9,8 @@ import {
 	Input,
 	input,
 	Output,
-	Renderer2
+	Renderer2,
+	TemplateRef
 } from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -21,11 +22,16 @@ import {OrderByEnum} from "@core/shared/enum";
 import {TableService} from "@utility/table.service";
 import {Reactive} from "@utility/cdk/reactive";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
+import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
+import {DatePipe} from "@angular/common";
+import {TranslateService} from "@ngx-translate/core";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Component({
 	selector: 'utility-table-component',
 	providers: [TableService],
-	template: ``
+	template: ``,
 })
 export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive implements AfterViewInit {
 
@@ -44,7 +50,16 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 		});
 	}
 
+
+	public readonly sharedUow = inject(SharedUow);
+	public readonly datePipe = inject(DatePipe);
+	public readonly anyDateConvert = (obj: IAbsence.EntityRaw, prop: TableColumnProp) => {
+		const value = obj[prop as keyof IAbsence.EntityRaw] as string;
+		return this.datePipe.transform(value, 'short');
+	};
+
 	public readonly router = inject(Router);
+	public readonly translateService = inject(TranslateService);
 	public readonly tableService = inject(TableService);
 	public readonly activatedRoute = inject(ActivatedRoute);
 	public readonly renderer2 = inject(Renderer2);
@@ -94,6 +109,13 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 
 	public pageChange($event: number): void {
 		this.tableService.pageChange($event);
+	}
+
+	public setCellTemplateRef(columns: TableColumn<ITEM>[], prop: TableColumnProp, cellTemplate: TemplateRef<any>) {
+		const column = columns.find(column => column.prop === prop);
+		if (column) {
+			column.cellTemplate = cellTemplate;
+		}
 	}
 
 	public open(item: ITEM): void {

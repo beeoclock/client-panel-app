@@ -1,95 +1,108 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {
-	TableStatePaginationComponent
-} from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
-import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {ICustomer} from "@core/business-logic/customer";
-import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
-import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
-import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
-import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
-import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
+import {
+	TableNgxDatatableSmartComponent
+} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 import {DatePipe} from "@angular/common";
 
 @Component({
 	selector: 'customer-table-list-component',
-	templateUrl: './table.list.component.html',
+	template: `
+		<app-table-ngx-datatable-smart-component
+			[columnList]="columns"
+			[loadData]="this.loadData.bind(this)"
+			[actionColumn]="{
+				name: '',
+				cellTemplate: actionCellTemplate,
+				sortable: false,
+				frozenRight: true,
+				minWidth: 56,
+				width: 56
+			}"/>
+		<ng-template #actionCellTemplate let-row="row">
+			<customer-row-action-button-component
+				[item]="row"
+				[id]="row._id"/>
+		</ng-template>
+	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		ActiveStyleDirective,
-		TableStatePaginationComponent,
-		SortIndicatorComponent,
-		TranslateModule,
-		BodyTableFlexDirective,
-		ColumnTableFlexDirective,
-		RowTableFlexDirective,
-		TableTableFlexDirective,
-		NoDataPipe,
-		RowActionButtonComponent,
+		TableNgxDatatableSmartComponent,
+		RowActionButtonComponent
+	],
+	providers: [
 		DatePipe
-	]
+	],
+	host: {
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
+	},
 })
 export class TableListComponent extends TableComponent<ECustomer> {
 
-	public readonly tableConfiguration = {
-		columns: {
-			email: {
-				style: {
-					minWidth: '250px',
-					flexGrow: 1,
-				},
-			},
-			lastName: {
-				style: {
-					minWidth: '150px',
-				},
-			},
-			firstName: {
-				style: {
-					minWidth: '120px',
-				},
-			},
-			phone: {
-				style: {
-					minWidth: '200px',
-				},
-			},
-			state: {
-				style: {
-					minWidth: '120px',
-				},
-			},
-			note: {
-				style: {
-					minWidth: '260px',
-					maxWidth: '260px',
-				},
-			},
-			createdAt: {
-				style: {
-					minWidth: '180px',
-				},
-			},
-			updatedAt: {
-				style: {
-					minWidth: '180px',
-				},
-			},
-			action: {
-				classList: ['bg-white', 'justify-center'],
-				style: {
-					minWidth: '75px',
-				},
-			},
+	public readonly columns: TableColumn[] = [
+		{
+			name: this.translateService.instant('keyword.capitalize.firstName'),
+			prop: 'firstName',
+			minWidth: 140,
+			width: 140,
+			sortable: true
 		},
-	};
+		{
+			name: this.translateService.instant('keyword.capitalize.lastName'),
+			prop: 'lastName',
+			minWidth: 140,
+			width: 140,
+			sortable: true
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.email'),
+			prop: 'email',
+			minWidth: 300,
+			width: 300,
+			sortable: true
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.phone'),
+			prop: 'phone',
+			minWidth: 160,
+			width: 160,
+			sortable: true,
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.createdAt'),
+			prop: 'createdAt',
+			minWidth: 240,
+			width: 240,
+			sortable: true,
+			$$valueGetter: this.anyDateConvert,
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.updatedAt'),
+			prop: 'updatedAt',
+			minWidth: 240,
+			width: 240,
+			sortable: true,
+			$$valueGetter: this.anyDateConvert,
+		},
+	];
+
+
+	public loadData(page: number, pageSize: number, orderBy: string, orderDir: string) {
+
+		return this.sharedUow.customer.repository.findAsync({
+			page,
+			pageSize,
+			orderDir,
+			orderBy,
+		});
+
+	}
 
 	public override open(item: ICustomer.EntityRaw) {
 		this.store.dispatch(new CustomerActions.OpenDetails(item));
