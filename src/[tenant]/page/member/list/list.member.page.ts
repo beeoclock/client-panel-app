@@ -1,19 +1,23 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe} from '@angular/common';
+import {Component, effect, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {AsyncPipe, DatePipe} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {Observable, tap} from "rxjs";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";
 import {
-	DesktopLayoutListComponent
-} from "@member/presentation/component/list/layout/desktop/desktop.layout.list.component";
-import {
 	MobileLayoutListComponent
 } from "@member/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {MemberTableService} from "@member/presentation/component/list/member.table.service";
 import EMember from "@core/business-logic/member/entity/e.member";
+import {
+	TableNgxDatatableSmartResource
+} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+import {
+	DesktopLayoutListComponent
+} from "@member/presentation/component/list/layout/desktop/desktop.layout.list.component";
+import {MemberTableNgxDatatableSmartResource} from "@page/member/list/member.table-ngx-datatable.resource";
 
 @Component({
 	selector: 'app-list-member-page',
@@ -22,16 +26,20 @@ import EMember from "@core/business-logic/member/entity/e.member";
 	imports: [
 		TranslateModule,
 		AsyncPipe,
-		MobileLayoutListComponent,
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
 	],
 	standalone: true,
 	providers: [
+		DatePipe,
 		{
 			provide: TableService,
 			useClass: MemberTableService
-		}
+		},
+		{
+			provide: TableNgxDatatableSmartResource,
+			useClass: MemberTableNgxDatatableSmartResource,
+		},
 	]
 })
 export class ListMemberPage extends ListPage<EMember> implements OnInit {
@@ -42,6 +50,16 @@ export class ListMemberPage extends ListPage<EMember> implements OnInit {
 				this.changeDetectorRef.detectChanges();
 			})
 		);
+
+	public readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource)
+
+	public constructor() {
+		super();
+		effect(() => {
+			const filters = this.filters();
+			this.tableNgxDatatableSmartResource.filters.set(filters);
+		});
+	}
 
 	public override ngOnInit() {
 		super.ngOnInit();

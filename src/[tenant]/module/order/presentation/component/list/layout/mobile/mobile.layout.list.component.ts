@@ -1,17 +1,10 @@
 import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
-import {NgClass} from "@angular/common";
-import {
-	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardListComponent} from "@order/presentation/component/list/card/card.list.component";
 import LayoutListComponent from "@utility/layout.list.component";
-import {
-	AutoRefreshButtonComponent
-} from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
-import EOrder from "@core/business-logic/order/entity/e.order";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {NgClass} from "@angular/common";
 
 @Component({
 	selector: 'app-order-mobile-layout-list-component',
@@ -19,14 +12,11 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		CardListComponent,
-		NotFoundTableDataComponent,
 		TranslateModule,
-		AutoRefreshButtonComponent,
 		NgClass,
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<EOrder> {
+export class MobileLayoutListComponent extends LayoutListComponent {
 
 	public readonly showButtonGoToForm = input(true);
 

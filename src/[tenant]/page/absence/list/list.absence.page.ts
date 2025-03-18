@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, effect, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
 import {AbsenceState} from "@absence/infrastructure/state/absence/absence.state";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
-import {AsyncPipe} from "@angular/common";
+import {AsyncPipe, DatePipe} from "@angular/common";
 import {
 	DesktopLayoutListComponent
 } from "@absence/presentation/component/list/layout/desktop/desktop.layout.list.component";
@@ -18,6 +18,10 @@ import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.acti
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {environment} from '@environment/environment';
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {
+	TableNgxDatatableSmartResource
+} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+import {AbsenceTableNgxDatatableSmartResource} from "@page/absence/list/absence.table-ngx-datatable.resource";
 
 @Component({
 	selector: 'app-list-absence-page',
@@ -32,10 +36,15 @@ import EAbsence from "@core/business-logic/absence/entity/e.absence";
 	],
 	standalone: true,
 	providers: [
+		DatePipe,
 		{
 			provide: TableService,
 			useClass: AbsenceTableService
-		}
+		},
+		{
+			provide: TableNgxDatatableSmartResource,
+			useClass: AbsenceTableNgxDatatableSmartResource,
+		},
 	]
 })
 export class ListAbsencePage extends ListPage<EAbsence> implements OnDestroy, OnInit {
@@ -46,6 +55,17 @@ export class ListAbsencePage extends ListPage<EAbsence> implements OnDestroy, On
 				this.changeDetectorRef.detectChanges();
 			})
 		);
+
+	public readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource)
+
+	public constructor() {
+		super();
+		effect(() => {
+			const filters = this.filters();
+			this.tableNgxDatatableSmartResource.filters.set(filters);
+		});
+	}
+
 
 	public override ngOnInit() {
 		super.ngOnInit();

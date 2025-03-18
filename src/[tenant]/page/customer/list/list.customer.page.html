@@ -2,9 +2,10 @@
 
 	@if (isMobile$ | async) {
 		<customer-mobile-layout-list-component
-			[tableState]="tableState$ | async"/>
+			(filters)="filters.set($event)"
+			/>
 	} @else {
-		<customer-desktop-layout-list-component/>
+		<customer-desktop-layout-list-component (filters)="filters.set($event)"/>
 	}
 
 } @else {

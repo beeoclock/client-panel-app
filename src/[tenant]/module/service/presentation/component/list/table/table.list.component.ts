@@ -2,10 +2,8 @@ import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsu
 import {TableComponent} from "@utility/table.component";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
-	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartComponent
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
-import {CurrencyPipe, DatePipe} from "@angular/common";
 import EService from "@core/business-logic/service/entity/e.service";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
@@ -21,8 +19,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		<app-table-ngx-datatable-smart-component
 			(activate)="activate($event)"
 			[columnList]="columnList()"
-			[filters]="filters()"
-			[loadData]="this.loadData.bind(this)"
 			[rowHeight]="50"
 			[actionColumn]="{
 				name: '',
@@ -76,11 +72,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	imports: [
 		TableNgxDatatableSmartComponent,
 		RowActionButtonComponent,
-	],
-	providers: [
-		DatePipe,
-		CurrencyPipe,
-		DurationVersionHtmlHelper,
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
@@ -168,18 +159,6 @@ export class TableListComponent extends TableComponent<EService> {
 		return columns;
 
 	});
-
-	public loadData({page, pageSize, orderBy, orderDir, filters}: AsyncLoadDataFunctionParams) {
-
-		return this.sharedUow.service.repository.findAsync({
-			page,
-			pageSize,
-			orderDir,
-			orderBy,
-			...filters,
-		});
-
-	}
 
 	public activate($event: ActivateEvent<EService>) {
 		switch ($event.type) {

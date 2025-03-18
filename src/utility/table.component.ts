@@ -27,7 +27,6 @@ import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/ta
 import {DatePipe} from "@angular/common";
 import {TranslateService} from "@ngx-translate/core";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {FiltersType} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 
 @Component({
 	selector: 'utility-table-component',
@@ -39,7 +38,6 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 	@Input()
 	public goToDetailsOnSingleClick = true;
 
-	public readonly filters = input<FiltersType>({});
 	public readonly tableState = input<ITableState<ITEM>>();
 
 	@Output()

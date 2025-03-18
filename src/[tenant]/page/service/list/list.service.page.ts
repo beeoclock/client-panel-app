@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe} from '@angular/common';
+import {ChangeDetectionStrategy, Component, effect, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
@@ -13,8 +13,16 @@ import {ServiceActions} from "@service/infrastructure/state/service/service.acti
 import {environment} from "@environment/environment";
 import EService from "@core/business-logic/service/entity/e.service";
 import {
+	TableNgxDatatableSmartResource
+} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+import {
+	MobileLayoutListComponent
+} from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
+import {
 	DesktopLayoutListComponent
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
+import {ServiceTableNgxDatatableSmartResource} from "@page/service/list/service.table-ngx-datatable.resource";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'app-list-service-page',
@@ -23,21 +31,28 @@ import {
 	imports: [
 		AsyncPipe,
 		TranslateModule,
+		MobileLayoutListComponent,
 		DesktopLayoutListComponent,
 	],
 	providers: [
+		DatePipe,
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
 		{
 			provide: TableService,
 			useClass: ServiceTableService
-		}
+		},
+		{
+			provide: TableNgxDatatableSmartResource,
+			useClass: ServiceTableNgxDatatableSmartResource,
+		},
 	],
 	template: `
 		@if (initialized.isOn) {
 			@if (isMobile$ | async) {
-				<!--<service-mobile-layout-list-component-->
-				<!--[tableState]="tableState$ | async"/>-->
+				<service-mobile-layout-list-component (filters)="filters.set($event)" />
 			} @else {
-				<service-desktop-layout-list-component/>
+				<service-desktop-layout-list-component (filters)="filters.set($event)" />
 			}
 
 		} @else {
@@ -57,6 +72,16 @@ export class ListServicePage extends ListPage<EService> implements OnInit, OnDes
 				this.changeDetectorRef.detectChanges();
 			})
 		);
+
+	public readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource)
+
+	public constructor() {
+		super();
+		effect(() => {
+			const filters = this.filters();
+			this.tableNgxDatatableSmartResource.filters.set(filters);
+		});
+	}
 
 	public override ngOnInit() {
 		super.ngOnInit();

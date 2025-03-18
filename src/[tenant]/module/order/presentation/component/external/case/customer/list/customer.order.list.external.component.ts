@@ -40,12 +40,10 @@ import EOrder from "@core/business-logic/order/entity/e.order";
 				<app-order-mobile-layout-list-component
 					[showButtonGoToForm]="false"
 					[isPage]="false"
-					[tableState]="tableService.tableState"
 				/>
 			} @else {
 
-				<app-order-desktop-layout-list-component
-					[tableState]="tableService.tableState"/>
+				<app-order-desktop-layout-list-component />
 			}
 		} @else {
 

@@ -4,7 +4,7 @@ import {Store} from "@ngxs/store";
 import {firstValueFrom, map} from "rxjs";
 import {clearObjectClone} from "@utility/domain/clear.object";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
-import {FiltersType} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+import {FiltersType} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'utility-base-filter-component',

@@ -2,10 +2,8 @@ import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} 
 import {TableComponent} from "@utility/table.component";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
-	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartComponent
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
-import {DatePipe} from "@angular/common";
 import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
 import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 import {IMember} from "@core/business-logic/member";
@@ -18,9 +16,7 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 	template: `
 		<app-table-ngx-datatable-smart-component
 			(activate)="activate($event)"
-			[filters]="filters()"
 			[columnList]="columnList()"
-			[loadData]="this.loadData.bind(this)"
 			[actionColumn]="{
 				name: '',
 				cellTemplate: actionCellTemplate,
@@ -98,7 +94,7 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 			{{ ('member.enum.profileStatus.' + row.profileStatus) | translate }}
 		</ng-template>
 		<ng-template #emailCellTemplate let-row="row">
-			<a [title]="row.email"  class="truncate" href="mailto:{{ row.email }}">{{ row.email }}</a>
+			<a [title]="row.email" class="truncate" href="mailto:{{ row.email }}">{{ row.email }}</a>
 		</ng-template>
 		<ng-template #roleCellTemplate let-row="row">
 			{{ 'role.' + row.role | translate }}
@@ -110,9 +106,6 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 		TableNgxDatatableSmartComponent,
 		RowActionButtonComponent,
 		TranslatePipe
-	],
-	providers: [
-		DatePipe
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
@@ -211,22 +204,6 @@ export class TableListComponent extends TableComponent<EMember> {
 		return columns;
 
 	});
-
-	public loadData({page, pageSize, orderBy, orderDir, filters}: AsyncLoadDataFunctionParams) {
-
-		if (orderBy === 'fullName') {
-			orderBy = 'firstName';
-		}
-
-		return this.sharedUow.member.repository.findAsync({
-			page,
-			pageSize,
-			orderDir,
-			orderBy,
-			...filters,
-		});
-
-	}
 
 	public activate($event: ActivateEvent<IMember.EntityRaw>) {
 		switch ($event.type) {

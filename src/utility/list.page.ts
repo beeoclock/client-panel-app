@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, Input, OnInit} from "@angular/core";
+import {ChangeDetectorRef, Component, inject, Input, OnInit, signal} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom, of} from "rxjs";
 import {BooleanState} from "@utility/domain";
@@ -7,6 +7,7 @@ import {BaseActions} from "@utility/state/base/base.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import {TableService} from "@utility/table.service";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {FiltersType} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'utility-list-page',
@@ -23,6 +24,7 @@ export abstract class ListPage<ITEM> extends Reactive implements OnInit {
 	protected readonly windowWidthSizeService = inject(WindowWidthSizeService);
 	protected readonly tableService: TableService<ITEM> = inject(TableService);
 
+	public readonly filters = signal<FiltersType>({});
 	protected readonly getListParams?: Record<string, unknown>;
 
 	public initialized = new BooleanState(false);

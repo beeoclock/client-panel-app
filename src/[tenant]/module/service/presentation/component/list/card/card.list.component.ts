@@ -1,8 +1,5 @@
-import {Component, effect, inject, ViewEncapsulation} from "@angular/core";
+import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, CurrencyPipe} from "@angular/common";
-import {
-	TableStatePaginationComponent
-} from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -12,6 +9,14 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 import EService from "@core/business-logic/service/entity/e.service";
+import {
+	AutoRefreshButtonComponent
+} from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -19,16 +24,21 @@ import EService from "@core/business-logic/service/entity/e.service";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		TableStatePaginationComponent,
 		TranslateModule,
 		CardComponent,
-		AsyncPipe
+		AsyncPipe,
+		AutoRefreshButtonComponent,
+		NotFoundTableDataComponent,
+		CardIonListSmartComponent,
 	],
 	providers: [
 		CurrencyPipe,
 		DurationVersionHtmlHelper,
 		ServiceTableService
 	],
+	host: {
+		class: 'block flex-1'
+	},
 })
 export class CardListComponent extends TableComponent<EService> {
 
@@ -38,27 +48,6 @@ export class CardListComponent extends TableComponent<EService> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public list: EService[] = [];
-
-	public constructor() {
-		super();
-		effect(() => {
-			const tableState = this.tableState();
-			if (tableState) {
-
-				const {page, items} = tableState;
-
-				if (page === 1) {
-					// Якщо це перша сторінка, оновлюємо список повністю
-					this.list = [...items];
-				} else if (this.list.length > 0 && page > 1) {
-					// Якщо це не перша сторінка, додаємо нові елементи
-					this.list = [...this.list, ...items];
-				}
-			}
-		})
-	}
-
 	public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
 		const firstFoundOption = languageVersions.find(({language}) => language === this.translateService.currentLang);
 		return firstFoundOption ?? languageVersions[0];
@@ -66,6 +55,11 @@ export class CardListComponent extends TableComponent<EService> {
 
 	public override open(item: EService): void {
 		this.store.dispatch(new ServiceActions.OpenDetails(item));
+	}
+
+	@Dispatch()
+	public openForm() {
+		return new ServiceActions.OpenForm();
 	}
 
 }

@@ -1,20 +1,6 @@
-<div class="block max-w-full" [ngClass]="{
+<div class="flex flex-col max-w-full" [ngClass]="{
 'overflow-x-auto h-[calc(100dvh-80px)] md:h-[calc(100vh-65px)]': isPage()
 }">
-	<app-absence-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>
-	@if (tableState(); as data) {
-		@if (data.total) {
-			<app-absence-card-list-component [tableState]="data"/>
-		} @else {
-
-			<not-found-table-data-component
-				class="block h-full"
-				(clickListener)="openForm()"
-				[showLinkToForm]="true"
-				[linkLabel]="'absence.button.create' | translate"
-				[label]="'keyword.capitalize.dataNotFound' | translate">
-				<app-absence-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
-			</not-found-table-data-component>
-		}
-	}
+	<app-absence-filter-component (filters)="filters.emit($event)" [showButtonGoToForm]="showButtonGoToForm()"/>
+	<app-absence-card-list-component/>
 </div>

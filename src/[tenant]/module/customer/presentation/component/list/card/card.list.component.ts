@@ -1,8 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe} from "@angular/common";
-import {
-	TableStatePaginationComponent
-} from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -10,6 +7,14 @@ import {CustomerActions} from "@customer/infrastructure/state/customer/customer.
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {
+	AutoRefreshButtonComponent
+} from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'customer-card-list-component',
@@ -17,16 +22,19 @@ import ECustomer from "@core/business-logic/customer/entity/e.customer";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		TableStatePaginationComponent,
 		TranslateModule,
 		CardComponent,
 		NoDataPipe,
-		AsyncPipe
-	]
+		AsyncPipe,
+		CardIonListSmartComponent,
+		NotFoundTableDataComponent,
+		AutoRefreshButtonComponent
+	],
+	host: {
+		class: 'block flex-1'
+	},
 })
 export class CardListComponent extends TableComponent<ECustomer> {
-
-	// public override readonly actions = CustomerActions;
 
 	public showAction = new BooleanStreamState(true);
 
@@ -34,6 +42,10 @@ export class CardListComponent extends TableComponent<ECustomer> {
 
 	public override open(item: ECustomer) {
 		this.store.dispatch(new CustomerActions.OpenDetails(item));
+	}
+	@Dispatch()
+	public openForm() {
+		return new CustomerActions.OpenForm();
 	}
 
 }

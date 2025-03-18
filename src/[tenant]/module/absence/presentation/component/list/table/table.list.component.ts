@@ -14,10 +14,8 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
-	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartComponent
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
-import {DatePipe} from "@angular/common";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
@@ -27,7 +25,6 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 	template: `
 		<app-table-ngx-datatable-smart-component
 			(activate)="activate($event)"
-			[filters]="filters()"
 			[actionColumn]="{
 				name: '',
 				cellTemplate: actionCellTemplate,
@@ -36,8 +33,7 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 				minWidth: 56,
 				width: 56
 			}"
-			[columnList]="columnList()"
-			[loadData]="this.loadData.bind(this)"/>
+			[columnList]="columnList()"/>
 
 		<ng-template #actionCellTemplate let-row="row">
 			<app-absence-row-action-button-component
@@ -50,16 +46,13 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 		</ng-template>
 
 
-    `,
+	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		DatePipe
-	],
 	imports: [
 		TableNgxDatatableSmartComponent,
 		StateStatusComponent,
@@ -152,18 +145,6 @@ export class TableListComponent extends TableComponent<EAbsence> {
 		return columns;
 
 	});
-
-	public loadData({page, pageSize, orderBy, orderDir, filters}: AsyncLoadDataFunctionParams) {
-
-		return this.sharedUow.absence.repository.findAsync({
-			page,
-			pageSize,
-			orderDir,
-			orderBy,
-			...filters,
-		});
-
-	}
 
 	public activate($event: ActivateEvent<IAbsence.DTO>) {
 		switch ($event.type) {

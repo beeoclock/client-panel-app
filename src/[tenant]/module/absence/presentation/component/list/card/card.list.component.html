@@ -1,104 +1,111 @@
-@if (tableState(); as tableState) {
-	<div class="flex flex-col divide-y divide-neutral-200 my-4"
-		 [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-		@for (item of tableState.items; track item._id) {
-			<bee-card (click)="singleClick(item)"
-					  class="focus:bg-beeColor-100 active:bg-beeColor-100 cursor-pointer transition-all hover:bg-beeColor-100 text-sm border-2 rounded-none border-transparent hover:border-blue-500"
-					  [class.!border-green-500]="selectedIds.includes(item._id)">
-				<div class="flex justify-between items-center gap-2">
+<card-ion-list-smart-component [itemTemplate]="itemTemplate">
 
-					<div class="flex gap-2 justify-between flex-1">
-						<div class="flex-1">
-							<div>
-								{{ 'absence.form.inputs.type.label' | translate }}
-							</div>
-							<div class="font-bold flex gap-2">
-								{{ ('absence.type.' + item.type + '.label') | translate }}
-							</div>
+	<ng-template #itemTemplate let-item="item">
+
+		<bee-card
+			(click)="singleClick(item)"
+			class="focus:bg-beeColor-100 active:bg-beeColor-100 cursor-pointer transition-all hover:bg-beeColor-100 text-sm border-2 rounded-none border-transparent hover:border-blue-500"
+			[class.!border-green-500]="selectedIds.includes(item._id)">
+			<div class="flex justify-between items-center gap-2">
+
+				<div class="flex gap-2 justify-between flex-1">
+					<div class="flex-1">
+						<div>
+							{{ 'absence.form.inputs.type.label' | translate }}
 						</div>
-					</div>
-
-					<div class="flex justify-between flex-1">
-
-						<div class="flex-1 self-start">
-							<div>
-								{{ 'keyword.capitalize.attendees' | translate }}
-							</div>
-							<div class="font-bold">
-								@if (item.entireBusiness) {
-
-									{{ 'absence.form.inputs.entireBusiness.label' | translate }}
-								} @else {
-
-									{{ item?.members?.length ?? 0 }}
-								}
-							</div>
-						</div>
-
-						<div class="flex gap-2">
-
-							<div>
-								<state-status-component [item]="item"/>
-							</div>
-
-							@if (tableService.showSelectedStatus.state$ | async) {
-
-								<div>
-									@if (selectedIds.includes(item._id)) {
-										<div
-											class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
-											{{ 'keyword.capitalize.selected' | translate }}
-										</div>
-									} @else {
-										<div
-											class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
-											{{ 'keyword.capitalize.select' | translate }}
-										</div>
-									}
-								</div>
-							}
-
+						<div class="font-bold flex gap-2">
+							{{ ('absence.type.' + item.type + '.label') | translate }}
 						</div>
 					</div>
 				</div>
-				<div class="grid grid-cols-2 gap-2">
 
-					<div class="flex justify-between">
-						<div class="flex-1">
-							<div>
-								{{ 'keyword.capitalize.start' | translate }}
-							</div>
-							<div class="font-bold">
-								{{ item.start | dynamicDate }}
-							</div>
+				<div class="flex justify-between flex-1">
+
+					<div class="flex-1 self-start">
+						<div>
+							{{ 'keyword.capitalize.attendees' | translate }}
+						</div>
+						<div class="font-bold">
+							@if (item.entireBusiness) {
+
+								{{ 'absence.form.inputs.entireBusiness.label' | translate }}
+							} @else {
+
+								{{ item?.members?.length ?? 0 }}
+							}
 						</div>
 					</div>
-					<div class="flex justify-between">
-						<div class="flex-1">
+
+					<div class="flex gap-2">
+
+						<div>
+							<state-status-component [item]="item"/>
+						</div>
+
+						@if (tableService.showSelectedStatus.state$ | async) {
+
 							<div>
-								{{ 'keyword.capitalize.end' | translate }}
+								@if (selectedIds.includes(item._id)) {
+									<div
+										class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+										{{ 'keyword.capitalize.selected' | translate }}
+									</div>
+								} @else {
+									<div
+										class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+										{{ 'keyword.capitalize.select' | translate }}
+									</div>
+								}
 							</div>
-							<div class="font-bold">
-								{{ item.end | dynamicDate }}
-							</div>
+						}
+
+					</div>
+				</div>
+			</div>
+			<div class="grid grid-cols-2 gap-2">
+
+				<div class="flex justify-between">
+					<div class="flex-1">
+						<div>
+							{{ 'keyword.capitalize.start' | translate }}
+						</div>
+						<div class="font-bold">
+							{{ item.start | dynamicDate }}
 						</div>
 					</div>
 				</div>
 				<div class="flex justify-between">
 					<div class="flex-1">
 						<div>
-							{{ 'keyword.capitalize.note' | translate }}
+							{{ 'keyword.capitalize.end' | translate }}
 						</div>
 						<div class="font-bold">
-							{{ item.note | noData }}
+							{{ item.end | dynamicDate }}
 						</div>
 					</div>
 				</div>
-			</bee-card>
-		}
-	</div>
-	<utility-table-state-pagination-component
-		[mobileMode]="true"
-		(page)="pageChange($event)"
-		[tableState]="tableState"/>
-}
+			</div>
+			<div class="flex justify-between">
+				<div class="flex-1">
+					<div>
+						{{ 'keyword.capitalize.note' | translate }}
+					</div>
+					<div class="font-bold">
+						{{ item.note | noData }}
+					</div>
+				</div>
+			</div>
+		</bee-card>
+
+	</ng-template>
+
+	<not-found-table-data-component
+		class="block h-full"
+		(clickListener)="openForm()"
+		[showLinkToForm]="true"
+		[linkLabel]="'absence.button.create' | translate"
+		[label]="'keyword.capitalize.dataNotFound' | translate">
+		<app-absence-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+	</not-found-table-data-component>
+
+</card-ion-list-smart-component>
