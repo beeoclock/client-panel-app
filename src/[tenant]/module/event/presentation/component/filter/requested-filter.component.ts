@@ -5,7 +5,6 @@ import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {EventRequestedState} from "@event/infrastructure/state/event-requested/event-requested.state";
-import {EventRequestedActions} from "@event/infrastructure/state/event-requested/event-requested.actions";
 import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
@@ -29,7 +28,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 export class FilterComponent extends BaseFilterComponent {
 
 	public override readonly form = new FilterForm();
-	public override readonly actions = EventRequestedActions;
 	public override readonly state = EventRequestedState;
 
 	constructor() {

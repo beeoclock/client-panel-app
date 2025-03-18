@@ -1,7 +1,8 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
-import {Store} from "@ngxs/store";
-import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
+import {
+	TableNgxDatatableSmartResource
+} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'app-absence-auto-refresh-component',
@@ -20,12 +21,12 @@ export class AutoRefreshButtonComponent {
 
 	public readonly resetParams = input(false);
 
-	private readonly store = inject(Store);
+	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
 
 	public forceRefresh() {
-		this.store.dispatch(new AbsenceActions.GetList({
-			resetPage: this.resetPage(),
-			resetParams: this.resetParams(),
+		this.tableNgxDatatableSmartResource.reset().parameters.update((parameters) => ({
+			...parameters,
+			page: 1,
 		}))
 	}
 

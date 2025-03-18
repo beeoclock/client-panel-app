@@ -50,7 +50,6 @@ export class FilterComponent extends BaseFilterComponent {
 	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
-	public override readonly actions = MemberActions;
 	public override readonly state = MemberState;
 
 	private readonly specialistLimit$ = inject(SPECIALIST_LIMIT);

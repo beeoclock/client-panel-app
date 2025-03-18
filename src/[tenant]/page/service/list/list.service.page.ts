@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, effect, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
@@ -50,9 +50,9 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 	template: `
 		@if (initialized.isOn) {
 			@if (isMobile$ | async) {
-				<service-mobile-layout-list-component (filters)="filters.set($event)" />
+				<service-mobile-layout-list-component />
 			} @else {
-				<service-desktop-layout-list-component (filters)="filters.set($event)" />
+				<service-desktop-layout-list-component />
 			}
 
 		} @else {
@@ -72,16 +72,6 @@ export class ListServicePage extends ListPage<EService> implements OnInit, OnDes
 				this.changeDetectorRef.detectChanges();
 			})
 		);
-
-	public readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource)
-
-	public constructor() {
-		super();
-		effect(() => {
-			const filters = this.filters();
-			this.tableNgxDatatableSmartResource.filters.set(filters);
-		});
-	}
 
 	public override ngOnInit() {
 		super.ngOnInit();

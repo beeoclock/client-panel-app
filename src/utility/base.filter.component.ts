@@ -1,10 +1,12 @@
 import {Reactive} from "@utility/cdk/reactive";
-import {Component, inject, output} from "@angular/core";
+import {Component, effect, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
-import {firstValueFrom, map} from "rxjs";
+import {map} from "rxjs";
 import {clearObjectClone} from "@utility/domain/clear.object";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
-import {FiltersType} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+import {
+	TableNgxDatatableSmartResource
+} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'utility-base-filter-component',
@@ -14,6 +16,7 @@ import {FiltersType} from "@src/component/smart/table-ngx-datatable/table-ngx-da
 export abstract class BaseFilterComponent extends Reactive {
 
 	private readonly windowWidthSizeService = inject(WindowWidthSizeService);
+	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
 
 	public get isMobile$() {
 		return this.windowWidthSizeService.isMobile$;
@@ -25,28 +28,28 @@ export abstract class BaseFilterComponent extends Reactive {
 
 	protected readonly store = inject(Store);
 	protected readonly form: any;
-	protected readonly actions: any;
 	protected readonly state: any;
 
-	public readonly filters = output<FiltersType>();
+	public constructor() {
+		super();
+		effect(() => {
+
+			const filters = this.tableNgxDatatableSmartResource.filters();
+			Object.keys(filters).forEach((key) => {
+				if (!this.form.controls[key]) {
+					return;
+				}
+				this.form.controls[key].patchValue(filters[key], {
+					emitEvent: false,
+					onlySelf: true,
+				});
+			})
+
+		});
+	}
 
 	public initHandlers() {
 
-		this.store.select(this.state.tableState)
-			.pipe(
-				this.takeUntil(),
-			)
-			.subscribe(({filters}: any) => {
-				Object.keys(filters).forEach((key) => {
-					if (!this.form.controls[key]) {
-						return;
-					}
-					this.form.controls[key].patchValue(filters[key], {
-						emitEvent: false,
-						onlySelf: true,
-					});
-				})
-			});
 		this.form.valueChanges.pipe(
 			this.takeUntil(),
 			map(clearObjectClone)
@@ -55,11 +58,7 @@ export abstract class BaseFilterComponent extends Reactive {
 				emitEvent: false,
 				onlySelf: true
 			});
-			this.filters.emit(filters);
-			if (this.actions) {
-				await firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({filters})));
-				await firstValueFrom(this.store.dispatch(new this.actions.GetList()));
-			}
+			this.tableNgxDatatableSmartResource.filters.set(filters);
 			this.form.enable({
 				emitEvent: false,
 				onlySelf: true
@@ -68,9 +67,10 @@ export abstract class BaseFilterComponent extends Reactive {
 
 	}
 
-	public forceRefresh(resetPage = false) {
-		if (this.actions) {
-			this.store.dispatch(new this.actions.GetList({resetPage}));
-		}
+	public forceRefresh() {
+		this.tableNgxDatatableSmartResource.reset().parameters.update((parameters) => ({
+			...parameters,
+			page: 1,
+		}));
 	}
 }

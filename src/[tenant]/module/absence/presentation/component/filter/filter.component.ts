@@ -84,7 +84,6 @@ export class FilterComponent extends BaseFilterComponent {
 	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
-	public override readonly actions = AbsenceActions;
 	public override readonly state = AbsenceState;
 
 	constructor() {

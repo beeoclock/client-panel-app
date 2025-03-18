@@ -1,5 +1,5 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
-import {Action, Selector, State, StateContext} from "@ngxs/store";
+import {Action, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
@@ -219,7 +219,6 @@ export class CustomerState {
 	@Action(CustomerActions.CreateItem)
 	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
 		await this.sharedUow.customer.repository.createAsync(ECustomer.fromDTO(action.payload));
-		ctx.dispatch(new CustomerActions.GetList());
 		await this.closeForm();
 	}
 
@@ -232,7 +231,6 @@ export class CustomerState {
 				...item,
 			});
 			await this.sharedUow.customer.repository.updateAsync(entity);
-			ctx.dispatch(new CustomerActions.GetList());
 			await this.closeForm();
 			await this.updateOpenedDetails(ctx, {payload: entity});
 		}
@@ -249,7 +247,6 @@ export class CustomerState {
 			entity.changeState(state);
 			await this.sharedUow.customer.repository.updateAsync(entity);
 			await this.updateOpenedDetails(ctx, {payload: entity});
-			ctx.dispatch(new CustomerActions.GetList());
 		}
 	}
 
@@ -313,28 +310,6 @@ export class CustomerState {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
 
-	}
-
-	// Selectors
-
-	@Selector()
-	public static itemData(state: ICustomerState) {
-		return state.item.data;
-	}
-
-	@Selector()
-	public static tableStateItems(state: ICustomerState) {
-		return state.tableState.items;
-	}
-
-	@Selector()
-	public static tableState(state: ICustomerState) {
-		return state.tableState;
-	}
-
-	@Selector()
-	public static tableStateFilters(state: ICustomerState) {
-		return state.tableState.filters;
 	}
 
 }

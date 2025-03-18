@@ -8,7 +8,7 @@ import {FilterComponent} from "@service/presentation/component/filter/filter.com
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<service-filter-component (filters)="filters.emit($event)"/>
+		<service-filter-component />
 		<service-table-list-component class="flex flex-1 flex-col h-px"/>
 
 	`,

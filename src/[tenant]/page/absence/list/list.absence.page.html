@@ -1,11 +1,11 @@
 @if (initialized.isOn) {
 	@if (isMobile$ | async) {
 
-		<app-absence-mobile-layout-list-component (filters)="filters.set($event)"/>
+		<app-absence-mobile-layout-list-component/>
 
 	} @else {
 
-		<absence-desktop-layout-list-component (filters)="filters.set($event)" />
+		<absence-desktop-layout-list-component />
 	}
 
 } @else {

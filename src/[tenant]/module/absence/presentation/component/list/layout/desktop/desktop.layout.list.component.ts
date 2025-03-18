@@ -8,7 +8,7 @@ import LayoutListComponent from "@utility/layout.list.component";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<app-absence-filter-component (filters)="filters.emit($event)"/>
+		<app-absence-filter-component/>
 		<app-list-absence-table class="flex flex-1 flex-col h-px"/>
 	`,
 	imports: [

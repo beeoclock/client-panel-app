@@ -8,8 +8,7 @@ import LayoutListComponent from "@utility/layout.list.component";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<member-filter-component
-			(filters)="filters.emit($event)"/>
+		<member-filter-component/>
 
 		<member-table-list-component class="flex flex-1 flex-col h-px"/>
 

@@ -2,9 +2,6 @@ import {ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsu
 import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
-import {Observable, tap} from "rxjs";
-import {ITableState} from "@utility/domain/table.state";
-import {CustomerState} from "@customer/infrastructure/state/customer/customer.state";
 import {
 	MobileLayoutListComponent
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
@@ -38,12 +35,5 @@ export class CustomerExternalListComponent extends ListPage<ECustomer> {
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
-
-	public readonly tableState$: Observable<ITableState<ECustomer>> = this.store.select(CustomerState.tableState)
-		.pipe(
-			tap((tableState) => {
-				this.changeDetectorRef.detectChanges();
-			})
-		);
 
 }

@@ -338,15 +338,6 @@ export class MemberState {
 
 	// Selectors
 
-	@Selector()
-	public static itemData(state: IMemberState) {
-		return state.item.data;
-	}
-
-	@Selector()
-	public static tableStateItems(state: IMemberState) {
-		return state.tableState.items;
-	}
 
 	@Selector()
 	public static tableState(state: IMemberState) {

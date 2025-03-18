@@ -2,10 +2,10 @@
 
 	@if (isMobile$ | async) {
 
-		<member-mobile-layout-list-component (filters)="filters.set($event)" />
+		<member-mobile-layout-list-component />
 	} @else {
 
-		<member-desktop-layout-list-component (filters)="filters.set($event)" />
+		<member-desktop-layout-list-component />
 	}
 } @else {
 

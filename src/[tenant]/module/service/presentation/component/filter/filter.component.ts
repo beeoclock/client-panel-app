@@ -84,7 +84,6 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
-	public override readonly actions = ServiceActions;
 	public override readonly state = ServiceState;
 
 	public ngOnInit() {

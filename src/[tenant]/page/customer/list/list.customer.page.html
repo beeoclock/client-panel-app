@@ -1,11 +1,9 @@
 @if (initialized.isOn) {
 
 	@if (isMobile$ | async) {
-		<customer-mobile-layout-list-component
-			(filters)="filters.set($event)"
-			/>
+		<customer-mobile-layout-list-component/>
 	} @else {
-		<customer-desktop-layout-list-component (filters)="filters.set($event)"/>
+		<customer-desktop-layout-list-component />
 	}
 
 } @else {

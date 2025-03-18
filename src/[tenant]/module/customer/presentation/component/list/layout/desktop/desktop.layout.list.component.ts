@@ -8,7 +8,7 @@ import LayoutListComponent from "@utility/layout.list.component";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<customer-filter-component (filters)="filters.emit($event)"/>
+		<customer-filter-component  />
 		<customer-table-list-component class="flex flex-1 flex-col h-px"/>
 	`,
 	imports: [

@@ -77,7 +77,6 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 	public readonly orderStatusControl = input.required<FormControl<OrderStatusEnum[]>>();
 
 	public override readonly form = new FilterForm();
-	public override readonly actions = OrderActions;
 	public override readonly state = OrderState;
 
 	private readonly translateService = inject(TranslateService);

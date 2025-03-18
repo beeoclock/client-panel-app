@@ -1,4 +1,4 @@
-import {Component, effect, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
@@ -50,16 +50,6 @@ export class ListMemberPage extends ListPage<EMember> implements OnInit {
 				this.changeDetectorRef.detectChanges();
 			})
 		);
-
-	public readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource)
-
-	public constructor() {
-		super();
-		effect(() => {
-			const filters = this.filters();
-			this.tableNgxDatatableSmartResource.filters.set(filters);
-		});
-	}
 
 	public override ngOnInit() {
 		super.ngOnInit();
