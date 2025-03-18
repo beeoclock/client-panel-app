@@ -1,9 +1,10 @@
 import {Reactive} from "@utility/cdk/reactive";
-import {Component, inject} from "@angular/core";
+import {Component, inject, output} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom, map} from "rxjs";
 import {clearObjectClone} from "@utility/domain/clear.object";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
+import {FiltersType} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 
 @Component({
 	selector: 'utility-base-filter-component',
@@ -27,7 +28,9 @@ export abstract class BaseFilterComponent extends Reactive {
 	protected readonly actions: any;
 	protected readonly state: any;
 
-	initHandlers() {
+	public readonly filters = output<FiltersType>();
+
+	public initHandlers() {
 
 		this.store.select(this.state.tableState)
 			.pipe(
@@ -52,8 +55,11 @@ export abstract class BaseFilterComponent extends Reactive {
 				emitEvent: false,
 				onlySelf: true
 			});
-			await firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({filters})));
-			await firstValueFrom(this.store.dispatch(new this.actions.GetList()));
+			this.filters.emit(filters);
+			if (this.actions) {
+				await firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({filters})));
+				await firstValueFrom(this.store.dispatch(new this.actions.GetList()));
+			}
 			this.form.enable({
 				emitEvent: false,
 				onlySelf: true
@@ -63,6 +69,8 @@ export abstract class BaseFilterComponent extends Reactive {
 	}
 
 	public forceRefresh(resetPage = false) {
-		this.store.dispatch(new this.actions.GetList({resetPage}))
+		if (this.actions) {
+			this.store.dispatch(new this.actions.GetList({resetPage}));
+		}
 	}
 }

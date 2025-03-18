@@ -2,6 +2,7 @@ import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} 
 import {TableComponent} from "@utility/table.component";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
+	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartComponent
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {DatePipe} from "@angular/common";
@@ -10,11 +11,14 @@ import {MemberActions} from "@member/infrastructure/state/member/member.actions"
 import {IMember} from "@core/business-logic/member";
 import EMember from "@core/business-logic/member/entity/e.member";
 import {TranslatePipe} from "@ngx-translate/core";
+import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 
 @Component({
 	selector: 'member-table-list-component',
 	template: `
 		<app-table-ngx-datatable-smart-component
+			(activate)="activate($event)"
+			[filters]="filters()"
 			[columnList]="columnList()"
 			[loadData]="this.loadData.bind(this)"
 			[actionColumn]="{
@@ -208,7 +212,7 @@ export class TableListComponent extends TableComponent<EMember> {
 
 	});
 
-	public loadData(page: number, pageSize: number, orderBy: string, orderDir: string) {
+	public loadData({page, pageSize, orderBy, orderDir, filters}: AsyncLoadDataFunctionParams) {
 
 		if (orderBy === 'fullName') {
 			orderBy = 'firstName';
@@ -219,8 +223,25 @@ export class TableListComponent extends TableComponent<EMember> {
 			pageSize,
 			orderDir,
 			orderBy,
+			...filters,
 		});
 
+	}
+
+	public activate($event: ActivateEvent<IMember.EntityRaw>) {
+		switch ($event.type) {
+			case "checkbox":
+				break;
+			case "click":
+				break;
+			case "dblclick":
+				this.open($event.row);
+				break;
+			case "keydown":
+				break;
+			case "mouseenter":
+				break;
+		}
 	}
 
 	public override open(item: IMember.EntityRaw) {

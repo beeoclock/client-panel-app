@@ -14,16 +14,20 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
+	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartComponent
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {DatePipe} from "@angular/common";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
+import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 
 @Component({
 	selector: 'app-list-absence-table',
 	template: `
 		<app-table-ngx-datatable-smart-component
+			(activate)="activate($event)"
+			[filters]="filters()"
 			[actionColumn]="{
 				name: '',
 				cellTemplate: actionCellTemplate,
@@ -64,12 +68,6 @@ import {RowActionButtonComponent} from "@absence/presentation/component/row-acti
 	]
 })
 export class TableListComponent extends TableComponent<EAbsence> {
-
-	@Dispatch()
-	public override open(item: IAbsence.DTO) {
-		const entity = EAbsence.fromDTO(item);
-		return new AbsenceActions.OpenDetails(entity);
-	}
 
 	public readonly stateStatusTemplate = viewChild<TemplateRef<any>>('stateStatusTemplate');
 
@@ -155,17 +153,40 @@ export class TableListComponent extends TableComponent<EAbsence> {
 
 	});
 
-
-	public loadData(page: number, pageSize: number, orderBy: string, orderDir: string) {
+	public loadData({page, pageSize, orderBy, orderDir, filters}: AsyncLoadDataFunctionParams) {
 
 		return this.sharedUow.absence.repository.findAsync({
 			page,
 			pageSize,
 			orderDir,
 			orderBy,
+			...filters,
 		});
 
 	}
+
+	public activate($event: ActivateEvent<IAbsence.DTO>) {
+		switch ($event.type) {
+			case "checkbox":
+				break;
+			case "click":
+				break;
+			case "dblclick":
+				this.open($event.row);
+				break;
+			case "keydown":
+				break;
+			case "mouseenter":
+				break;
+		}
+	}
+
+	@Dispatch()
+	public override open(item: IAbsence.DTO) {
+		const entity = EAbsence.fromDTO(item);
+		return new AbsenceActions.OpenDetails(entity);
+	}
+
 
 }
 

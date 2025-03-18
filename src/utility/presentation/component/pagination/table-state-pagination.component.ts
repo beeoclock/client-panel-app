@@ -61,7 +61,7 @@ import {BooleanState} from "@utility/domain";
 })
 export class TableStatePaginationComponent implements OnChanges {
 
-	public readonly tableState = input.required<ITableState<unknown>>();
+	public readonly tableState = input<ITableState<unknown>>();
 
 	public readonly mobileMode = input(false);
 
@@ -88,21 +88,30 @@ export class TableStatePaginationComponent implements OnChanges {
 
 	public ngOnChanges(changes: { tableState: SimpleChange }): void {
 		if (changes.tableState) {
-			this.initTimerOfLastUpdate();
-			this.pages = getPaginationItems(this.tableState().page, this.tableState().maxPage, environment.config.pagination.maxLength);
-			this.changeDetectorRef.detectChanges();
+			const tableState = this.tableState();
+			if (tableState) {
+				this.initTimerOfLastUpdate();
+				this.pages = getPaginationItems(tableState.page, tableState.maxPage, environment.config.pagination.maxLength);
+				this.changeDetectorRef.detectChanges();
+			}
 		}
 	}
 
 	public nextPage(): void {
-		if (this.tableState().page < this.tableState().maxPage) {
-			this.changePage(this.tableState().page + 1);
+		const tableState = this.tableState();
+		if (tableState) {
+			if (tableState.page < tableState.maxPage) {
+				this.changePage(tableState.page + 1);
+			}
 		}
 	}
 
 	public prevPage(): void {
-		if (this.tableState().page > 1) {
-			this.changePage(this.tableState().page - 1);
+		const tableState = this.tableState();
+		if (tableState) {
+			if (tableState.page > 1) {
+				this.changePage(tableState.page - 1);
+			}
 		}
 	}
 
@@ -130,23 +139,27 @@ export class TableStatePaginationComponent implements OnChanges {
 	}
 
 	private updateLastUpdate(): void {
+		const tableState = this.tableState();
+		if (tableState) {
 
-		const ms = DateTime.now().diff(DateTime.fromISO(this.tableState().lastUpdate)).as('milliseconds');
+			const ms = DateTime.now().diff(DateTime.fromISO(tableState.lastUpdate)).as('milliseconds');
 
-		if (ms > MS_ONE_MINUTE) {
-			this.showButtonToClearCache.switchOn();
-		} else {
-			this.showButtonToClearCache.switchOff();
-		}
-
-		this.lastUpdate = humanizeDuration(
-			ms,
-			{
-				round: true,
-				units: ['m'],
-				language: this.translateService.currentLang,
+			if (ms > MS_ONE_MINUTE) {
+				this.showButtonToClearCache.switchOn();
+			} else {
+				this.showButtonToClearCache.switchOff();
 			}
-		);
+
+			this.lastUpdate = humanizeDuration(
+				ms,
+				{
+					round: true,
+					units: ['m'],
+					language: this.translateService.currentLang,
+				}
+			);
+
+		}
 
 	}
 

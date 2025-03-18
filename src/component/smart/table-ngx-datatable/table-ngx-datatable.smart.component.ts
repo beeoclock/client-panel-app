@@ -1,9 +1,11 @@
 import {
 	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	computed,
 	inject,
 	input,
+	output,
 	resource,
 	ResourceRef,
 	signal
@@ -11,13 +13,32 @@ import {
 import {ColumnMode, DatatableComponent, SortEvent, SortPropDir} from "@swimlane/ngx-datatable";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {PageEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
+import {ActivateEvent, DragEventData, PageEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 import {ReactiveFormsModule} from "@angular/forms";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {
+	AutoRefreshButtonComponent
+} from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {TranslatePipe} from "@ngx-translate/core";
 
-type AsyncLoadDataFunction = (page: number, pageSize: number, orderBy: string, orderDir: string) => Promise<{
+export type FiltersType = {
+	[key: string]: string | null | undefined | boolean | number;
+};
+
+export type AsyncLoadDataFunctionParams = {
+	page: number;
+	pageSize: number;
+	orderBy: string;
+	orderDir: string;
+	filters: FiltersType
+};
+
+export type AsyncLoadDataFunction = (params: AsyncLoadDataFunctionParams) => Promise<{
 	items: IBaseEntityRaw<string>[],
 	totalSize: number
 }>;
@@ -25,311 +46,65 @@ type AsyncLoadDataFunction = (page: number, pageSize: number, orderBy: string, o
 @Component({
 	selector: 'app-table-ngx-datatable-smart-component',
 	template: `
-		<ngx-datatable
-			class="h-full"
-			[rows]="rows"
-			[reorderable]="true"
-			[rowDraggable]="true"
-			[columns]="columns()"
-			[columnMode]="ColumnMode.force"
-			[headerHeight]="50"
-			[loadingIndicator]="isLoading() > 0"
-			[ghostLoadingIndicator]="isLoading() > 0"
-			[scrollbarV]="true"
-			[footerHeight]="50"
-			[rowHeight]="rowHeight()"
-			[externalPaging]="true"
-			[externalSorting]="true"
-			[limit]="pageSize()"
-			[count]="totalSize()"
-			[offset]="page()"
-			[sorts]="sorts()"
-			(sort)="setSort($event)"
-			(rowDragEvents)="rowDragEvents($event)"
-			(page)="setPage($event)">
-			<div loading-indicator class="custom-loading-indicator">loading...</div>
-		</ngx-datatable>
+		@if (rows.length || resource.isLoading()) {
+
+			<ngx-datatable
+				class="h-full"
+				[rows]="rows"
+				[reorderable]="true"
+				[rowDraggable]="rowDraggable()"
+				[columns]="columns()"
+				[columnMode]="ColumnMode.force"
+				[headerHeight]="50"
+				[loadingIndicator]="isLoading() > 0"
+				[ghostLoadingIndicator]="isLoading() > 0"
+				[scrollbarV]="true"
+				[footerHeight]="50"
+				[rowHeight]="rowHeight()"
+				[externalPaging]="true"
+				[externalSorting]="true"
+				[limit]="pageSize()"
+				[count]="totalSize()"
+				[offset]="page()"
+				[sorts]="sorts()"
+				(activate)="onActivate($event)"
+				(sort)="setSort($event)"
+				(rowDragEvents)="onRowDragEvents($event)"
+				(page)="setPage($event)">
+				<div loading-indicator class="flex h-full w-full items-center justify-center">
+					<div>
+						loading...
+					</div>
+				</div>
+			</ngx-datatable>
+
+		} @else {
+<!--
+				(clickListener)="openForm()"-->
+			<not-found-table-data-component
+				class="block h-full"
+				[showLinkToForm]="true"
+				[linkLabel]="'keyword.capitalize.add-service' | translate"
+				[label]="'keyword.capitalize.dataNotFound' | translate">
+				<service-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+			</not-found-table-data-component>
+
+		}
+
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		DatatableComponent,
 		ReactiveFormsModule,
+		AutoRefreshButtonComponent,
+		NotFoundTableDataComponent,
+		TranslatePipe,
 	],
 	standalone: true,
 	host: {
 		class: 'h-full',
 	},
-	styles: [
-		`
-			:host {
-
-				ngx-datatable::ng-deep {
-
-					@apply bg-white;
-
-					datatable-header {
-
-						@apply border-b;
-
-						.datatable-header-inner {
-
-							@apply h-full;
-
-							.datatable-row-center {
-
-								@apply flex h-full items-center;
-
-								datatable-header-cell {
-
-									@apply px-2;
-
-									.datatable-header-cell-template-wrap {
-
-										.datatable-icon-sort-unset {
-
-										}
-
-										.sort-desc {
-
-											&:before {
-												content: "\\F573";
-												display: inline-block;
-												font-family: "bootstrap-icons" !important;
-												font-style: normal;
-												font-weight: normal !important;
-												font-variant: normal;
-												text-transform: none;
-												line-height: 1;
-												vertical-align: -0.125em;
-												-webkit-font-smoothing: antialiased;
-											}
-
-										}
-
-										.sort-asc {
-
-											&:before {
-												content: "\\F571";
-												display: inline-block;
-												font-family: "bootstrap-icons" !important;
-												font-style: normal;
-												font-weight: normal !important;
-												font-variant: normal;
-												text-transform: none;
-												line-height: 1;
-												vertical-align: -0.125em;
-												-webkit-font-smoothing: antialiased;
-											}
-
-										}
-
-										.sort-btn {
-
-										}
-
-										.datatable-icon-up {
-
-										}
-
-									}
-
-								}
-
-							}
-
-							.datatable-row-right {
-
-								//@apply flex h-full items-center bg-white border-l;
-								@apply h-0;
-
-								datatable-header-cell {
-
-									@apply px-2;
-
-									.datatable-header-cell-template-wrap {
-
-
-									}
-
-								}
-
-							}
-
-						}
-
-					}
-
-					datatable-body {
-
-						overflow: auto;
-
-						datatable-selection {
-
-							datatable-row-wrapper {
-
-								datatable-body-row {
-
-									@apply border-b;
-
-									datatable-body-cell {
-
-										@apply flex items-center px-2;
-
-									}
-
-									.datatable-row-right {
-
-										@apply bg-white border-l;
-
-										datatable-body-cell {
-
-											@apply flex h-full items-center px-2;
-
-										}
-
-									}
-
-								}
-
-							}
-
-						}
-
-					}
-
-					datatable-footer {
-
-						@apply border-t;
-
-						.page-count {
-							@apply px-2
-						}
-
-						datatable-pager {
-
-							@apply pr-2;
-
-							.pager {
-
-								@apply border rounded-md divide-x;
-
-								li {
-
-									&:first-child {
-
-										a {
-											@apply rounded-l-md;
-										}
-
-									}
-
-									&:last-child {
-
-										a {
-											@apply rounded-r-md;
-										}
-
-									}
-
-									a {
-
-										@apply
-										cursor-pointer
-										relative
-										inline-flex
-										items-center
-										px-4
-										py-2
-										text-sm
-										font-semibold
-										text-beeColor-900
-										dark:text-white
-										dark:ring-beeDarkColor-600
-										hover:bg-beeColor-100
-										dark:hover:bg-beeDarkColor-600
-										focus:z-20
-										focus:outline-offset-0;
-
-
-										.datatable-icon-right:before {
-											content: "\\F285";
-											display: inline-block;
-											font-family: "bootstrap-icons" !important;
-											font-style: normal;
-											font-weight: normal !important;
-											font-variant: normal;
-											text-transform: none;
-											line-height: 1;
-											vertical-align: -0.125em;
-											-webkit-font-smoothing: antialiased;
-										}
-
-										.datatable-icon-skip:before {
-											content: "\\F277";
-											display: inline-block;
-											font-family: "bootstrap-icons" !important;
-											font-style: normal;
-											font-weight: normal !important;
-											font-variant: normal;
-											text-transform: none;
-											line-height: 1;
-											vertical-align: -0.125em;
-											-webkit-font-smoothing: antialiased;
-										}
-
-										.datatable-icon-left:before {
-											content: "\\F284";
-											display: inline-block;
-											font-family: "bootstrap-icons" !important;
-											font-style: normal;
-											font-weight: normal !important;
-											font-variant: normal;
-											text-transform: none;
-											line-height: 1;
-											vertical-align: -0.125em;
-											-webkit-font-smoothing: antialiased;
-										}
-
-										.datatable-icon-down:before {
-											content: "\\eb28";
-										}
-
-										.datatable-icon-prev:before {
-											content: "\\F276";
-											display: inline-block;
-											font-family: "bootstrap-icons" !important;
-											font-style: normal;
-											font-weight: normal !important;
-											font-variant: normal;
-											text-transform: none;
-											line-height: 1;
-											vertical-align: -0.125em;
-											-webkit-font-smoothing: antialiased;
-										}
-
-									}
-
-									&.pages {
-
-
-									}
-
-									&.active {
-
-										a {
-											@apply bg-beeColor-100 dark:bg-beeDarkColor-700;
-										}
-
-									}
-
-								}
-							}
-						}
-					}
-				}
-			}
-		`
-	],
+	styleUrl: './table-ngx-datatable.smart.component.scss',
 })
 export class TableNgxDatatableSmartComponent {
 
@@ -338,10 +113,32 @@ export class TableNgxDatatableSmartComponent {
 		orderDir: OrderDirEnum.ASC,
 	});
 	public readonly rowHeight = input<number | 'auto'>(50);
+	public readonly filters = input<FiltersType>({});
 	public readonly columnList = input.required<TableColumn[]>();
+	public readonly rowDraggable = input<boolean>(false);
 	public readonly loadData = input.required<AsyncLoadDataFunction>();
 
 	public readonly actionColumn = input<TableColumn | null>(null);
+
+	public readonly activate = output<ActivateEvent<any>>();
+	public readonly rowDragEvents = output<DragEventData>();
+
+	public readonly totalSize = signal<number>(0);
+	public readonly page = signal<number>(0);
+	public readonly pageSize = signal<number>(0);
+	public readonly sort = signal<{ orderBy: string; orderDir: OrderDirEnum; }>({
+		orderBy: OrderByEnum.UPDATED_AT,
+		orderDir: OrderDirEnum.ASC,
+	});
+	public offset = 0;
+
+	public rows: IBaseEntityRaw<string>[] = [];
+
+	public readonly cache = new Map<number, boolean>();
+
+	public readonly ColumnMode = ColumnMode;
+
+	public readonly isLoading = signal(0);
 
 	public readonly sorts = computed(() => {
 		const defaultSort = this.defaultSort();
@@ -364,24 +161,8 @@ export class TableNgxDatatableSmartComponent {
 		return columns;
 	});
 
-	public readonly totalSize = signal<number>(0);
-	public readonly page = signal<number>(0);
-	public readonly pageSize = signal<number>(0);
-	public readonly sort = signal<{ orderBy: string; orderDir: OrderDirEnum; }>({
-		orderBy: OrderByEnum.UPDATED_AT,
-		orderDir: OrderDirEnum.ASC,
-	});
-	public offset = 0;
-
-	public rows: IBaseEntityRaw<string>[] = [];
-
-	public readonly cache = new Map<number, boolean>();
-
-	public readonly ColumnMode = ColumnMode;
-
-	public readonly isLoading = signal(0);
-
 	public readonly sharedUow = inject(SharedUow);
+	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	public readonly resource: ResourceRef<{
 		items: IBaseEntityRaw<string>[],
@@ -394,6 +175,7 @@ export class TableNgxDatatableSmartComponent {
 			page: this.page(),
 			pageSize: this.pageSize(),
 			sort: this.sort(),
+			filters: this.filters(),
 		}),
 
 		defaultValue: {
@@ -403,19 +185,26 @@ export class TableNgxDatatableSmartComponent {
 
 		// Define an async loader that retrieves data.
 		// The resource calls this function every time the `request` value changes.
-		loader: async ({request: {page, pageSize, sort: {orderBy, orderDir}}}) => {
+		loader: async ({request: {page, pageSize, sort: {orderBy, orderDir}, filters}}) => {
 
 			this.cache.set(page, true);
 
 			// Counter of pending API calls
 			this.isLoading.set(this.isLoading() + 1);
 
-			const {items, totalSize} = await this.loadData()(page, pageSize, orderBy, orderDir);
+			const {items, totalSize} = await this.loadData()({
+				page,
+				pageSize,
+				orderBy,
+				orderDir,
+				filters,
+			});
 
 			// Create array to store data if missing
 			// The array should have the correct number of with "holes" for missing data
 			if (!this.rows?.length) {
 				this.rows = new Array<ECustomer>(totalSize || 0);
+				this.changeDetectorRef.detectChanges();
 			}
 
 			if (this.totalSize() !== totalSize) {
@@ -443,8 +232,12 @@ export class TableNgxDatatableSmartComponent {
 		this.page.set(0);
 	}
 
-	public rowDragEvents($event: any) {
-		console.log($event);
+	public onRowDragEvents($event: DragEventData) {
+		this.rowDragEvents.emit($event)
+	}
+
+	public onActivate($event: ActivateEvent<unknown>) {
+		this.activate.emit($event);
 	}
 
 	public setSort($event: SortEvent) {

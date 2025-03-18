@@ -11,20 +11,22 @@ import EOrder from "@core/business-logic/order/entity/e.order";
 @Component({
 	selector: 'app-order-card-list-component',
 	template: `
-		<div class="flex flex-col items-center justify-center gap-4 my-4"
-			 [class.h-[calc(100vh-134px)]]="!tableState().items.length">
-			@for (item of tableState().items; track item._id) {
-				<app-card-item-order-component
-					[showAction]="(tableService.showAction.state$ | async) ?? false"
-					[showSelectedStatus]="(tableService.showSelectedStatus.state$ | async) ?? false"
-					[selectedIds]="selectedIds"
-					[orderDto]="item"/>
-			}
-		</div>
-		<utility-table-state-pagination-component
-			[mobileMode]="true"
-			(page)="pageChange($event)"
-			[tableState]="tableState()"/>
+		@if (tableState(); as tableState) {
+			<div class="flex flex-col items-center justify-center gap-4 my-4"
+				 [class.h-[calc(100vh-134px)]]="!tableState.items.length">
+				@for (item of tableState.items; track item._id) {
+					<app-card-item-order-component
+						[showAction]="(tableService.showAction.state$ | async) ?? false"
+						[showSelectedStatus]="(tableService.showSelectedStatus.state$ | async) ?? false"
+						[selectedIds]="selectedIds"
+						[orderDto]="item"/>
+				}
+			</div>
+			<utility-table-state-pagination-component
+				[mobileMode]="true"
+				(page)="pageChange($event)"
+				[tableState]="tableState"/>
+		}
 	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,

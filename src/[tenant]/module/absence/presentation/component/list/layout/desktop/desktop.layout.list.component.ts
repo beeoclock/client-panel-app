@@ -1,38 +1,24 @@
-import {Component, input, ViewEncapsulation} from "@angular/core";
-import {
-	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
-import {TranslateModule} from "@ngx-translate/core";
-import LayoutListComponent from "@utility/layout.list.component";
-import {FilterComponent} from "@absence/presentation/component/filter/filter.component";
+import {Component, ViewEncapsulation} from "@angular/core";
 import {TableListComponent} from "@absence/presentation/component/list/table/table.list.component";
-import {
-	AutoRefreshButtonComponent
-} from "@absence/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
-import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {ITableState} from "@utility/domain/table.state";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {FilterComponent} from "@absence/presentation/component/filter/filter.component";
+import LayoutListComponent from "@utility/layout.list.component";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
-	selector: 'app-absence-desktop-layout-list-component',
-	templateUrl: './desktop.layout.list.component.html',
+	selector: 'absence-desktop-layout-list-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
+	template: `
+		<app-absence-filter-component
+			(filters)="filters.set($event)"/>
+
+		<app-list-absence-table class="flex flex-1 flex-col h-px" [filters]="filters()"/>
+
+	`,
 	imports: [
-		FilterComponent,
-		NotFoundTableDataComponent,
 		TableListComponent,
-		TranslateModule,
-		AutoRefreshButtonComponent,
-	]
+		FilterComponent
+	],
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<EAbsence> {
-	public override readonly tableState = input.required<ITableState<EAbsence> | null>();
-
-	@Dispatch()
-	public openForm() {
-		return new AbsenceActions.OpenForm()
-	}
-
+export class DesktopLayoutListComponent extends LayoutListComponent<EService> {
 }

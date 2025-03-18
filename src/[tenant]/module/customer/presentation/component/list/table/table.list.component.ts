@@ -5,16 +5,20 @@ import {ICustomer} from "@core/business-logic/customer";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
+	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartComponent
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 import {DatePipe} from "@angular/common";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
+import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 
 @Component({
 	selector: 'customer-table-list-component',
 	template: `
 		<app-table-ngx-datatable-smart-component
+			(activate)="activate($event)"
+			[filters]="filters()"
 			[columnList]="columnList()"
 			[loadData]="this.loadData.bind(this)"
 			[actionColumn]="{
@@ -116,15 +120,32 @@ export class TableListComponent extends TableComponent<ECustomer> {
 
 	});
 
-	public loadData(page: number, pageSize: number, orderBy: string, orderDir: string) {
+	public loadData({page, pageSize, orderBy, orderDir, filters}: AsyncLoadDataFunctionParams) {
 
 		return this.sharedUow.customer.repository.findAsync({
 			page,
 			pageSize,
 			orderDir,
 			orderBy,
+			...filters,
 		});
 
+	}
+
+	public activate($event: ActivateEvent<ICustomer.EntityRaw>) {
+		switch ($event.type) {
+			case "checkbox":
+				break;
+			case "click":
+				break;
+			case "dblclick":
+				this.open($event.row);
+				break;
+			case "keydown":
+				break;
+			case "mouseenter":
+				break;
+		}
 	}
 
 	public override open(item: ICustomer.EntityRaw) {

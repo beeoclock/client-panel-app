@@ -44,14 +44,17 @@ export class CardListComponent extends TableComponent<EService> {
 		super();
 		effect(() => {
 			const tableState = this.tableState();
-			const {page, items} = tableState;
+			if (tableState) {
 
-			if (page === 1) {
-				// Якщо це перша сторінка, оновлюємо список повністю
-				this.list = [...items];
-			} else if (this.list.length > 0 && page > 1) {
-				// Якщо це не перша сторінка, додаємо нові елементи
-				this.list = [...this.list, ...items];
+				const {page, items} = tableState;
+
+				if (page === 1) {
+					// Якщо це перша сторінка, оновлюємо список повністю
+					this.list = [...items];
+				} else if (this.list.length > 0 && page > 1) {
+					// Якщо це не перша сторінка, додаємо нові елементи
+					this.list = [...this.list, ...items];
+				}
 			}
 		})
 	}

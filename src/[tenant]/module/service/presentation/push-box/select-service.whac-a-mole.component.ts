@@ -24,6 +24,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import EService from "@core/business-logic/service/entity/e.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
 	selector: 'utility-modal-select-service-component',
@@ -33,6 +34,9 @@ import EService from "@core/business-logic/service/entity/e.service";
 	imports: [
 		TranslateModule,
 		ServiceExternalListComponent
+	],
+	providers: [
+		DatePipe,
 	],
 	template: `
 		<service-external-list-component [useTableStateFromStore]="useTableStateFromStore()" [tableState]="tableState()"

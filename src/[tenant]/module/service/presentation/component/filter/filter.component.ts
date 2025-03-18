@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, input, OnInit} from '@angular/core';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@service/presentation/form/filter.form";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
@@ -13,6 +13,7 @@ import {
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {IonSelectStateComponent} from "@utility/presentation/component/input/ion/ion-select-state.component";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'service-filter-component',
@@ -78,7 +79,7 @@ import {IonSelectStateComponent} from "@utility/presentation/component/input/ion
 		</ng-template>
 	`
 })
-export class FilterComponent extends BaseFilterComponent {
+export class FilterComponent extends BaseFilterComponent implements OnInit {
 
 	public readonly showButtonGoToForm = input(true);
 
@@ -86,12 +87,12 @@ export class FilterComponent extends BaseFilterComponent {
 	public override readonly actions = ServiceActions;
 	public override readonly state = ServiceState;
 
-	constructor() {
-		super();
+	public ngOnInit() {
 		super.initHandlers();
 	}
 
-	public openForm(): void {
-		this.store.dispatch(new ServiceActions.OpenForm());
+	@Dispatch()
+	public openForm() {
+		return new ServiceActions.OpenForm();
 	}
 }

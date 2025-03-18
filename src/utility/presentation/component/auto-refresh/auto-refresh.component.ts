@@ -84,7 +84,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 
 	public readonly emitter = output<void>();
 
-	public readonly control = new FormControl(60, {
+	public readonly control = new FormControl(AutoRefreshTime.OFF, {
 		nonNullable: true,
 	});
 

@@ -13,6 +13,7 @@ import {
 import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
 import {ITableState} from "@utility/domain/table.state";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'customer-mobile-layout-list-component',
@@ -35,9 +36,9 @@ export class MobileLayoutListComponent extends LayoutListComponent<ECustomer> {
 
 	readonly cardListComponents = viewChildren(CardListComponent);
 
-	public openForm(): void {
-		this.store.dispatch(new CustomerActions.OpenForm());
+	@Dispatch()
+	public openForm() {
+		return new CustomerActions.OpenForm();
 	}
 
-	protected readonly open = open;
 }

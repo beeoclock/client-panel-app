@@ -11,6 +11,7 @@ import {
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 import EOrder from "@core/business-logic/order/entity/e.order";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'app-order-mobile-layout-list-component',
@@ -34,8 +35,9 @@ export class MobileLayoutListComponent extends LayoutListComponent<EOrder> {
 	 */
 	public readonly cardListComponents = viewChildren(CardListComponent);
 
-	public openForm(): void {
-		this.store.dispatch(new OrderActions.OpenForm());
+	@Dispatch()
+	public openForm() {
+		return new OrderActions.OpenForm();
 	}
 
 }
