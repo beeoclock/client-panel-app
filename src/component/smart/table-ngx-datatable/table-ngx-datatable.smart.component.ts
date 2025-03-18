@@ -65,7 +65,7 @@ export type AsyncLoadDataFunction = (params: AsyncLoadDataFunctionParams) => Pro
 				[externalSorting]="true"
 				[limit]="pageSize()"
 				[count]="totalSize()"
-				[offset]="page()"
+				[offset]="offsetPage()"
 				[sorts]="sorts()"
 				(activate)="onActivate($event)"
 				(sort)="setSort($event)"
@@ -123,14 +123,27 @@ export class TableNgxDatatableSmartComponent {
 	public readonly activate = output<ActivateEvent<any>>();
 	public readonly rowDragEvents = output<DragEventData>();
 
+	public readonly parameters = signal<{
+		page: number;
+		pageSize: number;
+		orderBy: string;
+		orderDir: OrderDirEnum;
+		[key: string]: string | null | undefined | boolean | number;
+	}>({
+		page: 0,
+		pageSize: 0,
+		orderBy: OrderByEnum.UPDATED_AT,
+		orderDir: OrderDirEnum.ASC,
+	});
+
 	public readonly totalSize = signal<number>(0);
+	public readonly offsetPage = signal<number>(0);
 	public readonly page = signal<number>(0);
 	public readonly pageSize = signal<number>(0);
 	public readonly sort = signal<{ orderBy: string; orderDir: OrderDirEnum; }>({
 		orderBy: OrderByEnum.UPDATED_AT,
 		orderDir: OrderDirEnum.ASC,
 	});
-	public offset = 0;
 
 	public rows: IBaseEntityRaw<string>[] = [];
 
@@ -172,10 +185,7 @@ export class TableNgxDatatableSmartComponent {
 		// Define a reactive request computation.
 		// The request value recomputes whenever any read signals change.
 		request: () => ({
-			page: this.page(),
-			pageSize: this.pageSize(),
-			sort: this.sort(),
-			filters: this.filters(),
+			parameters: this.parameters(),
 		}),
 
 		defaultValue: {
@@ -185,7 +195,7 @@ export class TableNgxDatatableSmartComponent {
 
 		// Define an async loader that retrieves data.
 		// The resource calls this function every time the `request` value changes.
-		loader: async ({request: {page, pageSize, sort: {orderBy, orderDir}, filters}}) => {
+		loader: async ({request: {parameters: {page, pageSize, orderBy, orderDir, ...filters}}}) => {
 
 			this.cache.set(page, true);
 
@@ -202,7 +212,7 @@ export class TableNgxDatatableSmartComponent {
 
 			// Create array to store data if missing
 			// The array should have the correct number of with "holes" for missing data
-			if (!this.rows?.length) {
+			if (!this.rows?.length || this.rows.length !== totalSize) {
 				this.rows = new Array<ECustomer>(totalSize || 0);
 				this.changeDetectorRef.detectChanges();
 			}
@@ -213,7 +223,7 @@ export class TableNgxDatatableSmartComponent {
 
 			// Calc starting row offset
 			// This is the position to insert the new data
-			const start = page * pageSize;
+			const start = (page - 1) * pageSize;
 
 			// Set rows to our new rows for display
 			this.rows.splice(start, pageSize, ...items);
@@ -229,7 +239,10 @@ export class TableNgxDatatableSmartComponent {
 
 	public reset() {
 		this.cache.clear();
-		this.page.set(0);
+		// Set all rows to null
+		this.rows = Array(this.totalSize());
+		this.page.set(1);
+		return this;
 	}
 
 	public onRowDragEvents($event: DragEventData) {
@@ -242,10 +255,12 @@ export class TableNgxDatatableSmartComponent {
 
 	public setSort($event: SortEvent) {
 		const {sorts: {0: {dir, prop}}} = $event;
+		this.reset();
 		this.sort.set({
 			orderBy: prop as string,
 			orderDir: dir as OrderDirEnum,
 		});
+		this.updateParameters();
 	}
 
 	public setPage(pageInfo: PageEvent) {
@@ -253,13 +268,11 @@ export class TableNgxDatatableSmartComponent {
 		// This is the page the UI is currently displaying
 		// The current page is based on the UI pagesize and scroll position
 		// Pagesize can change depending on browser size
-		this.offset = pageInfo.offset;
+		this.offsetPage.set(pageInfo.offset);
 
 		// Calculate row offset in the UI using pageInfo
 		// This is the scroll position in rows
 		const rowOffset = pageInfo.offset * pageInfo.pageSize;
-
-		const page = Math.floor(rowOffset / pageInfo.pageSize);
 
 		// We keep a index of server loaded pages so we don't load same data twice
 		// This is based on the server page not the UI
@@ -268,10 +281,24 @@ export class TableNgxDatatableSmartComponent {
 			this.cache.clear();
 		}
 
+		const page = Math.floor(rowOffset / pageInfo.pageSize) + 1;
+
+		this.page.set(page);
+
 		if (this.cache.get(page)) {
 			return;
 		}
 
-		this.page.set(page);
+		this.updateParameters();
+	}
+
+	public updateParameters() {
+		this.parameters.set({
+			page: this.page(),
+			pageSize: this.pageSize(),
+			orderBy: this.sort().orderBy,
+			orderDir: this.sort().orderDir,
+			...this.filters(),
+		});
 	}
 }

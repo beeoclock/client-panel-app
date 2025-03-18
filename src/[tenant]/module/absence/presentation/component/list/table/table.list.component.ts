@@ -88,7 +88,7 @@ export class TableListComponent extends TableComponent<EAbsence> {
 			// cellTemplate: stateStatusTemplateRef,
 		},
 		{
-			name: this.translateService.instant('event.keyword.capitalize.start'),
+			name: this.translateService.instant('keyword.capitalize.start'),
 			prop: 'start',
 			minWidth: 180,
 			width: 180,
@@ -97,7 +97,7 @@ export class TableListComponent extends TableComponent<EAbsence> {
 			$$valueGetter: this.anyDateConvert,
 		},
 		{
-			name: this.translateService.instant('event.keyword.capitalize.end'),
+			name: this.translateService.instant('keyword.capitalize.end'),
 			prop: 'end',
 			minWidth: 180,
 			width: 180,
