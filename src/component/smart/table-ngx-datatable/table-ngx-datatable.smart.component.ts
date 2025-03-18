@@ -186,6 +186,7 @@ export class TableNgxDatatableSmartComponent {
 		// The request value recomputes whenever any read signals change.
 		request: () => ({
 			parameters: this.parameters(),
+			filters: this.filters(),
 		}),
 
 		defaultValue: {
@@ -195,7 +196,7 @@ export class TableNgxDatatableSmartComponent {
 
 		// Define an async loader that retrieves data.
 		// The resource calls this function every time the `request` value changes.
-		loader: async ({request: {parameters: {page, pageSize, orderBy, orderDir, ...filters}}}) => {
+		loader: async ({request: {parameters: {page, pageSize, orderBy, orderDir}, filters}}) => {
 
 			this.cache.set(page, true);
 
@@ -298,7 +299,6 @@ export class TableNgxDatatableSmartComponent {
 			pageSize: this.pageSize(),
 			orderBy: this.sort().orderBy,
 			orderDir: this.sort().orderDir,
-			...this.filters(),
 		});
 	}
 }
