@@ -27,6 +27,7 @@ import {
 import {
 	ConfirmChangeTariffPlanModalController
 } from "@tariffPlan/presentation/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.modal.controller";
+import {ModalController} from "@ionic/angular/standalone";
 
 @Component({
 	standalone: true,
@@ -40,6 +41,7 @@ import {
 		DecimalPipe,
 	],
 	providers: [
+		ModalController,
 		ConfirmChangeTariffPlanModalController,
 	],
 	template: `
@@ -105,7 +107,7 @@ import {
 														</p>
 														<span
 															class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-600 text-white">
-															10%
+															{{ item.getPricesWithCalculatedDiscount()[0].values[0].discountInPercent }}%
 														</span>
 													</div>
 												}
@@ -280,8 +282,12 @@ export class MainTariffPlanSmartComponent implements OnInit {
 
 	public async upgradeTo(item: ETariffPlan) {
 		this.loading.set(item);
-		await this.confirmChangeTariffPlanModalController.present(item)
-		// await this.tariffPlanStore.changeTariffPlanOnto(item);
+		const actual = this.actual();
+		if (actual) {
+			await this.confirmChangeTariffPlanModalController.present(item, actual);
+		} else {
+			// TODO: Show Error
+		}
 
 		this.loading.set(null);
 	}

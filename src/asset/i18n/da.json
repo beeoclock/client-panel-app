@@ -1666,6 +1666,35 @@
 				"label": "Faktureringshistorik og tilknyttede betalingskort"
 			}
 		},
+		"modal": {
+			"confirm-changes": {
+				"content": {
+					"additional": {
+						"one": "✅ Je plan wordt onmiddellijk geüpgraded",
+						"two": "✅ Volgende betaling wordt overeenkomstig aangepast"
+					},
+					"currentTariffPlan": {
+						"daysRemaining": {
+							"label": "Resterende dagen"
+						},
+						"daysUsed": {
+							"label": "Dagen Gebruikt"
+						},
+						"label": "Huidig plan",
+						"remainingCredit": {
+							"label": "Resterend krediet"
+						}
+					},
+					"newTariffPlan": {
+						"differenceToPay": {
+							"label": "Verschil te betalen"
+						},
+						"label": "Nieuw plan"
+					}
+				},
+				"title": "Bevestig de wijziging van het tariefplan"
+			}
+		},
 		"page": {
 			"subtitle": "Vælg den bedste løsning til din virksomhed",
 			"title": "Tariffer"

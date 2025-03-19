@@ -1666,6 +1666,35 @@
 				"label": "Historia rozliczeń i powiązane karty płatnicze"
 			}
 		},
+		"modal": {
+			"confirm-changes": {
+				"content": {
+					"additional": {
+						"one": "✅ Twój plan zostanie natychmiast zaktualizowany.",
+						"two": "✅ Kolejna płatność zostanie odpowiednio dostosowana"
+					},
+					"currentTariffPlan": {
+						"daysRemaining": {
+							"label": "Pozostałe dni"
+						},
+						"daysUsed": {
+							"label": "Wykorzystane dni"
+						},
+						"label": "Aktualny plan",
+						"remainingCredit": {
+							"label": "Pozostały kredyt"
+						}
+					},
+					"newTariffPlan": {
+						"differenceToPay": {
+							"label": "Różnica do zapłaty"
+						},
+						"label": "Nowy plan"
+					}
+				},
+				"title": "Potwierdzenie zmiany planu taryfowego"
+			}
+		},
 		"page": {
 			"subtitle": "Wybierz najlepszą opcję dla swojej firmy",
 			"title": "Taryfy"

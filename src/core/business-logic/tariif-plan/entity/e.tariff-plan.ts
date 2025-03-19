@@ -13,6 +13,20 @@ export class ETariffPlan extends ABaseEntity<'TariffPlanDto', ITariffPlan.DTO, I
 	features!: string[];
 	pluginAttachment!: ITariffPlan.IPluginAttachment;
 
+	public getPricesWithCalculatedDiscount(): ITariffPlan.IPriceWithDiscount[] {
+		return structuredClone(this.prices).map(price => {
+			return {
+				...price,
+				values: price.values.map(value => {
+					const {afterDiscount, beforeDiscount} = value;
+					return {
+						...value,
+						discountInPercent: Math.round((1 - afterDiscount / beforeDiscount) * 100),
+					}
+				})
+			}
+		})
+	}
 
 	public override toDTO(): ITariffPlan.DTO {
 		return ETariffPlan.toDTO(this);
