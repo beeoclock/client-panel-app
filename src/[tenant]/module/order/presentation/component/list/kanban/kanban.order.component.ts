@@ -76,8 +76,9 @@ import {OrderActions} from "@order/infrastructure/state/order/order.actions";
 								@for (item of ordersState.items; track item._id) {
 
 									<div>
-										<div class="flex justify-end pe-4">
-											<div class="text-neutral-400 text-sm">#{{ $index + 1 }}</div>
+										<div class="flex justify-between px-4">
+											<div class="text-neutral-400 text-sm">{{ $index + 1 }}</div>
+											<div class="text-neutral-400 text-sm uppercase">#...{{ item._id.slice(-5) }}</div>
 										</div>
 										<app-card-item-order-component [orderDto]="item"/>
 									</div>

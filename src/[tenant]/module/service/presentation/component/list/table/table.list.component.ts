@@ -92,7 +92,7 @@ export class TableListComponent extends TableComponent<EService> {
 			prop: 'title',
 			minWidth: 200,
 			width: 200,
-			sortable: true
+			sortable: false
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.price'),
