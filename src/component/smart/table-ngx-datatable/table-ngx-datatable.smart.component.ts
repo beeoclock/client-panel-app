@@ -22,6 +22,7 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
+	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
@@ -104,8 +105,19 @@ export class TableNgxDatatableSmartComponent {
 	public readonly activate = output<ActivateEvent<any>>();
 	public readonly rowDragEvents = output<DragEventData>();
 
-	public readonly offsetPage = signal<number>(0);
-	public readonly page = signal<number>(0);
+	public readonly offsetPage = computed(() => {
+		// Current page number is determined by last call to setPage
+		// This is the page the UI is currently displaying
+		// The current page is based on the UI pagesize and scroll position
+		// Pagesize can change depending on browser size
+		const {page} = this.parameters();
+		return (page - 1);
+	});
+
+	public readonly page = computed(() => {
+		const {page} = this.parameters();
+		return page;
+	});
 	public readonly pageSize = signal<number>(0);
 	public readonly sort = signal<{ orderBy: string; orderDir: OrderDirEnum; }>({
 		orderBy: OrderByEnum.UPDATED_AT,
@@ -165,8 +177,6 @@ export class TableNgxDatatableSmartComponent {
 
 	public reset() {
 		this.tableNgxDatatableSmartResource.reset();
-		this.page.set(1);
-		return this;
 	}
 
 	public onRowDragEvents($event: DragEventData) {
@@ -184,15 +194,10 @@ export class TableNgxDatatableSmartComponent {
 			orderBy: prop as string,
 			orderDir: dir as OrderDirEnum,
 		});
-		this.updateParameters();
+		this.updateParameters({ page: 1});
 	}
 
 	public setPage(pageInfo: PageEvent) {
-		// Current page number is determined by last call to setPage
-		// This is the page the UI is currently displaying
-		// The current page is based on the UI pagesize and scroll position
-		// Pagesize can change depending on browser size
-		this.offsetPage.set(pageInfo.offset);
 
 		// Calculate row offset in the UI using pageInfo
 		// This is the scroll position in rows
@@ -207,21 +212,18 @@ export class TableNgxDatatableSmartComponent {
 
 		const page = Math.floor(rowOffset / pageInfo.pageSize) + 1;
 
-		this.page.set(page);
-
-		if (this.cache.get(page)) {
-			return;
-		}
-
-		this.updateParameters();
+		this.updateParameters({page});
 	}
 
-	public updateParameters() {
-		this.parameters.set({
+	public updateParameters(patch: Partial<AsyncLoadDataFunctionParams> = {}) {
+		const {orderBy, orderDir} = this.sort();
+		this.parameters.update((parameters) => ({
+			...parameters,
 			page: this.page(),
 			pageSize: this.pageSize(),
-			orderBy: this.sort().orderBy,
-			orderDir: this.sort().orderDir,
-		});
+			orderBy,
+			orderDir,
+			...patch,
+		}));
 	}
 }

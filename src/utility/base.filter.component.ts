@@ -68,7 +68,8 @@ export abstract class BaseFilterComponent extends Reactive {
 	}
 
 	public forceRefresh() {
-		this.tableNgxDatatableSmartResource.reset().parameters.update((parameters) => ({
+		this.tableNgxDatatableSmartResource.reset();
+		this.tableNgxDatatableSmartResource.parameters.update((parameters) => ({
 			...parameters,
 			page: 1,
 		}));

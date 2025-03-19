@@ -15,6 +15,10 @@ import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {AbsenceTableNgxDatatableSmartResource} from "@page/absence/list/absence.table-ngx-datatable.resource";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ofActionSuccessful} from "@ngxs/store";
+import {tap} from "rxjs";
+import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 
 @Component({
 	selector: 'app-list-absence-page',
@@ -41,6 +45,18 @@ import {AbsenceTableNgxDatatableSmartResource} from "@page/absence/list/absence.
 	]
 })
 export class ListAbsencePage extends ListPage<EAbsence> implements OnDestroy, OnInit {
+
+	public readonly actionsSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			AbsenceActions.UpdateItem,
+			AbsenceActions.CreateItem,
+			AbsenceActions.SetState,
+		),
+		tap((payload) => {
+			this.tableNgxDatatableSmartResource.refreshDiscoveredPages();
+		})
+	).subscribe();
 
 	public override ngOnInit() {
 		super.ngOnInit();

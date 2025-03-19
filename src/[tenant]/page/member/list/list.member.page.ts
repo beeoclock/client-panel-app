@@ -2,9 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
-import {Observable, tap} from "rxjs";
-import {MemberState} from "@member/infrastructure/state/member/member.state";
-import {ITableState} from "@utility/domain/table.state";
+import {tap} from "rxjs";
 import {
 	MobileLayoutListComponent
 } from "@member/presentation/component/list/layout/mobile/mobile.layout.list.component";
@@ -18,6 +16,9 @@ import {
 	DesktopLayoutListComponent
 } from "@member/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {MemberTableNgxDatatableSmartResource} from "@page/member/list/member.table-ngx-datatable.resource";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ofActionSuccessful} from "@ngxs/store";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
 
 @Component({
 	selector: 'app-list-member-page',
@@ -44,12 +45,18 @@ import {MemberTableNgxDatatableSmartResource} from "@page/member/list/member.tab
 })
 export class ListMemberPage extends ListPage<EMember> implements OnInit {
 
-	public readonly tableState$: Observable<ITableState<EMember>> = this.store.select(MemberState.tableState)
-		.pipe(
-			tap(() => {
-				this.changeDetectorRef.detectChanges();
-			})
-		);
+	public readonly actionsSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			MemberActions.UpdateItem,
+			MemberActions.CreateItem,
+			MemberActions.SetState,
+			MemberActions.SetStatus,
+		),
+		tap((payload) => {
+			this.tableNgxDatatableSmartResource.refreshDiscoveredPages();
+		})
+	).subscribe();
 
 	public override ngOnInit() {
 		super.ngOnInit();

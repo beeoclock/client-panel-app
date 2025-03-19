@@ -1,8 +1,9 @@
-import {Injectable, resource, ResourceRef, signal} from "@angular/core";
+import {computed, Injectable, resource, ResourceRef, signal} from "@angular/core";
 import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {is} from "@core/shared/checker";
 
 export type FiltersType = {
 	[key: string]: string | null | undefined | boolean | number;
@@ -25,33 +26,57 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 		throw new Error('Not implemented');
 	}
 
-	public readonly parameters = signal<{
-		page: number;
-		pageSize: number;
-		orderBy: string;
-		orderDir: OrderDirEnum;
-		[key: string]: string | null | undefined | boolean | number;
-	}>({
+	public readonly parameters = signal<AsyncLoadDataFunctionParams>({
 		page: 0,
 		pageSize: 0,
 		orderBy: OrderByEnum.UPDATED_AT,
 		orderDir: OrderDirEnum.ASC,
+		filters: {},
 	});
 
-	public readonly filters = signal<FiltersType>({});
+	public readonly filters = signal<FiltersType>({
+		state: StateEnum.active,
+	});
+
+	public filtersHistory: FiltersType = {};
 
 	public readonly isLoading = signal(0);
 
 	public readonly cache = new Map<number, boolean>();
 	public readonly totalSize = signal<number>(0);
 
-	public rows: IBaseEntityRaw<string>[] = [];
+	public readonly mergedParameters = computed(() => {
+
+		const parameters = this.parameters();
+		const filters = this.filters();
+		const filtersHistory = this.filtersHistory;
+		let patch: Partial<AsyncLoadDataFunctionParams> = {};
+
+		if (is.not_compare(filters, filtersHistory)) {
+			this.reset();
+			patch = {
+				...patch,
+				page: 1,
+			};
+			this.filtersHistory = filters;
+		}
+
+		console.log({filters, filtersHistory, patch, parameters});
+
+		return {
+			...parameters,
+			filters,
+			...patch,
+		};
+
+	});
+
+	public rows: ITEM[] = [];
 
 	public reset() {
 		this.cache.clear();
 		// Set all rows to null
 		this.rows = Array(this.totalSize());
-		return this;
 	}
 
 	public readonly resource: ResourceRef<{
@@ -62,8 +87,7 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 		// Define a reactive request computation.
 		// The request value recomputes whenever any read signals change.
 		request: () => ({
-			parameters: this.parameters(),
-			filters: this.filters(),
+			parameters: this.mergedParameters(),
 		}),
 
 		defaultValue: {
@@ -73,7 +97,16 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 		// Define an async loader that retrieves data.
 		// The resource calls this function every time the `request` value changes.
-		loader: async ({request: {parameters: {page, pageSize, orderBy, orderDir}, filters}}) => {
+		loader: async ({request: {parameters: {page, pageSize, orderBy, orderDir, filters}}}) => {
+
+			const currentTotalSize = this.totalSize();
+
+			if (this.cache.get(page)) {
+				return {
+					items: this.rows.slice((page - 1) * pageSize, page * pageSize),
+					totalSize: currentTotalSize,
+				};
+			}
 
 			this.cache.set(page, true);
 
@@ -91,11 +124,11 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 			// Create array to store data if missing
 			// The array should have the correct number of with "holes" for missing data
 			if (!this.rows?.length || this.rows.length !== totalSize) {
-				this.rows = new Array<ECustomer>(totalSize || 0);
+				this.rows = new Array<ITEM>(totalSize || 0);
 				// this.changeDetectorRef.detectChanges();
 			}
 
-			if (this.totalSize() !== totalSize) {
+			if (currentTotalSize !== totalSize) {
 				this.totalSize.set(totalSize);
 			}
 
@@ -114,5 +147,16 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 		},
 
 	});
+
+	public refreshDiscoveredPages() {
+		this.cache.clear();
+		const currentPage = this.parameters().page;
+		for (let page = 1; page <= currentPage; page++) {
+			this.parameters.update((parameters) => ({
+				...parameters,
+				page
+			}));
+		}
+	}
 
 }

@@ -15,6 +15,10 @@ import {
 	DesktopLayoutListComponent
 } from "@customer/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {CustomerTableNgxDatatableSmartResource} from "@page/customer/list/customer.table-ngx-datatable.resource";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ofActionSuccessful} from "@ngxs/store";
+import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {tap} from "rxjs";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -41,6 +45,18 @@ import {CustomerTableNgxDatatableSmartResource} from "@page/customer/list/custom
 	]
 })
 export class ListCustomerPage extends ListPage<ECustomer> implements OnDestroy, OnInit {
+
+	public readonly actionsSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			CustomerActions.UpdateItem,
+			CustomerActions.CreateItem,
+			CustomerActions.SetState,
+		),
+		tap((payload) => {
+			this.tableNgxDatatableSmartResource.refreshDiscoveredPages();
+		})
+	).subscribe();
 
 	public override ngOnInit() {
 		super.ngOnInit();

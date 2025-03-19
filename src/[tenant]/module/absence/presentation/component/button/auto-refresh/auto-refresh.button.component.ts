@@ -24,7 +24,8 @@ export class AutoRefreshButtonComponent {
 	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
 
 	public forceRefresh() {
-		this.tableNgxDatatableSmartResource.reset().parameters.update((parameters) => ({
+		this.tableNgxDatatableSmartResource.reset();
+			this.tableNgxDatatableSmartResource.parameters.update((parameters) => ({
 			...parameters,
 			page: 1,
 		}))
