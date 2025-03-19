@@ -17,8 +17,6 @@ export type AsyncLoadDataFunctionParams = {
 	filters: FiltersType
 };
 
-export type AsyncLoadDataFunction<ITEM extends IBaseEntityRaw<string>> = (params: AsyncLoadDataFunctionParams) => Promise<ResponseListType<ITEM>>;
-
 @Injectable()
 export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>> {
 
@@ -125,7 +123,6 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 			// The array should have the correct number of with "holes" for missing data
 			if (!this.rows?.length || this.rows.length !== totalSize) {
 				this.rows = new Array<ITEM>(totalSize || 0);
-				// this.changeDetectorRef.detectChanges();
 			}
 
 			if (currentTotalSize !== totalSize) {
