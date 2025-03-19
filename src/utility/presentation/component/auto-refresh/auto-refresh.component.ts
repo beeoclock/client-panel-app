@@ -3,7 +3,6 @@ import {NgForOf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IonicModule} from "@ionic/angular";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "@core/shared/checker";
 import {filter} from "rxjs";
@@ -11,6 +10,7 @@ import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {AutoRefreshStorageService} from "@utility/presentation/component/auto-refresh/auto-refresh.storage.service";
 import {VisibilityService} from "@utility/cdk/visibility.service";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 
 enum AutoRefreshTime {
 	OFF = 0,
@@ -71,9 +71,10 @@ const allowedAutoRefreshTimes = [
 		FormsModule,
 		LinkButtonDirective,
 		TranslateModule,
-		IonicModule,
 		NgForOf,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		IonSelect,
+		IonSelectOption,
 	]
 })
 export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit {

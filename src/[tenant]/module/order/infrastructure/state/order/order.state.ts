@@ -18,7 +18,7 @@ import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
 import {OverlayEventDetail} from "@ionic/core/dist/types/utils/overlays-interface";
-import {ModalController} from "@ionic/angular";
+import {ModalController} from "@ionic/angular/standalone";
 import {
 	NotificationSettingsComponent
 } from "@order/presentation/component/notification-settings/notification-settings.component";

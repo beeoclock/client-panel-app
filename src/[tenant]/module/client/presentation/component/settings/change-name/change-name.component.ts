@@ -3,7 +3,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ChangeNameForm} from "@client/presentation/form/change-name.form";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {ChangeNameClientAdapter} from "@src/identity/module/identity/infrastructure/module/change-name.client.adapter";
-import {ToastController} from "@ionic/angular";
+import {ToastController} from "@ionic/angular/standalone";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 
 @Component({

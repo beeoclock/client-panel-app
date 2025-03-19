@@ -21,12 +21,12 @@ import {Analytic} from "@analytic/infrastructure/store/date-range-report/interfa
 import {Store} from "@ngxs/store";
 import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
 import {CurrencyCodeEnum} from "@core/shared/enum";
-import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
 import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {IonLabel, IonSegment, IonSegmentButton, IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 
 @Component({
 	standalone: true,
@@ -82,9 +82,13 @@ import {BusinessProfileState} from "@businessProfile/infrastructure/state/busine
 		</div>
 	`,
 	imports: [
-		IonicModule,
 		ReactiveFormsModule,
-		TranslatePipe
+		TranslatePipe,
+		IonSegment,
+		IonLabel,
+		IonSegmentButton,
+		IonSelectOption,
+		IonSelect,
 	],
 	host: {
 		class: 'block max-w-full rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2'

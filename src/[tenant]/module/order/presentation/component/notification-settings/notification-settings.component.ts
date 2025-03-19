@@ -1,15 +1,32 @@
 import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from '@angular/core';
-import {IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
+import {
+	IonButton,
+	IonButtons,
+	IonContent,
+	IonHeader,
+	IonItem,
+	IonTitle,
+	IonToggle,
+	IonToolbar,
+	ModalController
+} from "@ionic/angular/standalone";
 
 @Component({
 	selector: 'cpa-notification-setting',
 	standalone: true,
 	imports: [
-		IonicModule,
 		TranslateModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		IonItem,
+		IonToggle,
+		IonContent,
+		IonHeader,
+		IonToolbar,
+		IonTitle,
+		IonButtons,
+		IonButton,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './notification-settings.component.html',

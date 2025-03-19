@@ -9,7 +9,7 @@ import {
 import {Observable} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {AlertController} from "@ionic/angular";
+import {AlertController} from "@ionic/angular/standalone";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 import {LogoutService} from "@utility/presentation/component/logout/logout.service";
 

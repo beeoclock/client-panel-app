@@ -20,7 +20,7 @@ import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-ser
 import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 import {DateTime} from "luxon";
 import {NGXLogger} from "ngx-logger";
-import {AlertController} from "@ionic/angular";
+import {AlertController} from "@ionic/angular/standalone";
 import {TranslateService} from "@ngx-translate/core";
 import {
 	OrderEventCalendarWithSpecialistWidgetComponent

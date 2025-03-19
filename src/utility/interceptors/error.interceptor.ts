@@ -1,7 +1,7 @@
 import {HttpErrorResponse, HttpInterceptorFn} from "@angular/common/http";
 import {catchError, throwError} from 'rxjs';
 import {inject} from "@angular/core";
-import {IonicSafeString, ToastController} from "@ionic/angular";
+import {IonicSafeString, ToastController} from "@ionic/angular/standalone";
 import {HttpStatusEnum} from "@core/shared/enum/http-status.enum";
 
 /**

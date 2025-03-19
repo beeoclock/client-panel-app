@@ -24,6 +24,9 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 import {
 	TariffPlanHistoryStore
 } from "@tariffPlanHistory/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
+import {
+	ConfirmChangeTariffPlanModalController
+} from "@tariffPlan/presentation/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.modal.controller";
 
 @Component({
 	standalone: true,
@@ -35,6 +38,9 @@ import {
 		NgClass,
 		TranslatePipe,
 		DecimalPipe,
+	],
+	providers: [
+		ConfirmChangeTariffPlanModalController,
 	],
 	template: `
 		<section id="tariffs"
@@ -249,6 +255,7 @@ import {
 export class MainTariffPlanSmartComponent implements OnInit {
 
 	private readonly tariffPlanStore = inject(TariffPlanStore);
+	private readonly confirmChangeTariffPlanModalController = inject(ConfirmChangeTariffPlanModalController);
 	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly activatedRoute = inject(ActivatedRoute);
@@ -273,7 +280,9 @@ export class MainTariffPlanSmartComponent implements OnInit {
 
 	public async upgradeTo(item: ETariffPlan) {
 		this.loading.set(item);
-		await this.tariffPlanStore.changeTariffPlanOnto(item);
+		await this.confirmChangeTariffPlanModalController.present(item)
+		// await this.tariffPlanStore.changeTariffPlanOnto(item);
+
 		this.loading.set(null);
 	}
 

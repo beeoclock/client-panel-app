@@ -2,9 +2,9 @@ import {ChangeDetectionStrategy, Component, inject, input, OnInit, ViewEncapsula
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IonicModule} from "@ionic/angular";
 import {ActiveEnum} from "@core/shared/enum";
 import {is} from "@core/shared/checker";
+import {IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 
 @Component({
 	selector: 'ion-select-active',
@@ -27,7 +27,8 @@ import {is} from "@core/shared/checker";
 		NgSelectModule,
 		ReactiveFormsModule,
 		TranslateModule,
-		IonicModule,
+		IonSelect,
+		IonSelectOption,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

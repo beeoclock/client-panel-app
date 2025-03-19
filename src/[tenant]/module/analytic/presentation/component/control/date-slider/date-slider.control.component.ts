@@ -14,13 +14,25 @@ import {
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {DateTime, Interval} from "luxon";
 import {DatePipe, DOCUMENT} from "@angular/common";
-import {IonDatetime, IonicModule, IonModal} from "@ionic/angular";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {environment} from "@environment/environment";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {IntervalTypeEnum} from "@analytic/domain/enum/interval.enum";
 import {NGXLogger} from "ngx-logger";
+import {
+	IonDatetime,
+	IonDatetimeButton,
+	IonItem,
+	IonLabel,
+	IonList,
+	IonModal,
+	IonPicker,
+	IonPickerColumn,
+	IonPickerColumnOption,
+	IonSegment,
+	IonSegmentButton
+} from "@ionic/angular/standalone";
 
 
 @Component({
@@ -30,11 +42,21 @@ import {NGXLogger} from "ngx-logger";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		IonicModule,
 		TranslateModule,
 		DatePipe,
 		ReactiveFormsModule,
-		PrimaryButtonDirective
+		PrimaryButtonDirective,
+		IonModal,
+		IonDatetime,
+		IonList,
+		IonItem,
+		IonLabel,
+		IonPicker,
+		IonPickerColumn,
+		IonPickerColumnOption,
+		IonSegmentButton,
+		IonSegment,
+		IonDatetimeButton,
 	]
 })
 export class DateSliderControlComponent extends Reactive implements OnChanges, OnInit {

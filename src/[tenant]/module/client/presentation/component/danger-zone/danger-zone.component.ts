@@ -2,7 +2,7 @@ import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {
 	DeleteBusinessClientClientAdapter
 } from "@src/identity/module/identity/infrastructure/module/delete-business-client.client.adapter";
-import {AlertController} from "@ionic/angular";
+import {AlertController} from "@ionic/angular/standalone";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {Router} from "@angular/router";

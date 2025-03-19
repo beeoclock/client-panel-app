@@ -1,7 +1,6 @@
 import {Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {Router, RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
-import {IonicModule} from "@ionic/angular";
 import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
@@ -30,7 +29,6 @@ import {DateTime} from "luxon";
 	imports: [
 		RouterLink,
 		TranslateModule,
-		IonicModule,
 		NgForOf,
 		ReactiveFormsModule,
 		FormsModule,

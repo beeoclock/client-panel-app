@@ -6,7 +6,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {ToastController} from "@ionic/angular";
+import {ToastController} from "@ionic/angular/standalone";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ForgotPasswordApiAdapter} from "@src/identity/module/identity/infrastructure/api/forgot-password.api.adapter";
 import {NgOptimizedImage} from "@angular/common";

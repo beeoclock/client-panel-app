@@ -9,7 +9,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import {SPECIALIST_LIMIT} from "@[tenant]/tenant.token";
 import {is} from "@core/shared/checker";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {ToastController} from "@ionic/angular";
+import {ToastController} from "@ionic/angular/standalone";
 
 @Component({
 	selector: 'member-filter-component',

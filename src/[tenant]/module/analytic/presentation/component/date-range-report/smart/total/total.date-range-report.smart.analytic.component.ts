@@ -7,7 +7,6 @@ import {
 import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {MemberState} from "@member/infrastructure/state/member/member.state";
-import {IonicModule} from "@ionic/angular";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {filter, tap} from "rxjs";
 import {
@@ -42,7 +41,6 @@ import {IMember} from "@core/business-logic/member/interface/i.member";
 	imports: [
 		AsyncPipe,
 		TranslateModule,
-		IonicModule,
 		ReactiveFormsModule,
 		MemberRadioTailwindcssComponent,
 		DateSliderControlComponent,

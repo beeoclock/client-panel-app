@@ -10,7 +10,6 @@ import {PaymentStatusEnum} from "@core/business-logic/payment/enum/payment.statu
 import {PaymentMethodEnum} from "@core/business-logic/payment/enum/payment.method.enum";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
 import {BASE_CURRENCY} from '@src/token';
-import {IonicModule} from "@ionic/angular";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 
 @Component({
@@ -23,7 +22,6 @@ import {SwitchComponent} from "@utility/presentation/component/switch/switch.com
 		CurrencyPipe,
 		NgSelectModule,
 		ReactiveFormsModule,
-		IonicModule,
 		SwitchComponent
 	],
 	standalone: true,

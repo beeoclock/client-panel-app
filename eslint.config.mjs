@@ -46,6 +46,19 @@ export default [
 				prefix: "app",
 				style: "kebab-case",
 			}],
+
+			"@typescript-eslint/no-restricted-imports": [
+				"error",
+				{
+					"paths": [
+						{
+							"name": "@ionic/angular",
+							"message": "Please import Ionic standalone components instead: `import {IonButton} from '@ionic/angular/standalone'`.",
+							"allowTypeImports": true
+						}
+					]
+				}
+			],
 		},
 	},
 

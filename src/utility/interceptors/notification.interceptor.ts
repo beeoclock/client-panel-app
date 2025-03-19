@@ -1,6 +1,6 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
 import {inject, Injectable, Injector} from "@angular/core";
-import {ToastController} from "@ionic/angular";
+import {ToastController} from "@ionic/angular/standalone";
 import {Endpoint} from "@utility/domain/endpoint";
 import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 import {EndpointInterface} from "@utility/domain/interface/i.endpoint/i.endpoint-replace";

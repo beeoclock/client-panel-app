@@ -9,11 +9,19 @@ import {combineLatest, map, switchMap, tap} from "rxjs";
 import {
 	CalendarWithSpecialistsAction
 } from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
-import {IonDatetime, IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {DateTime} from "luxon";
 import {Reactive} from "@utility/cdk/reactive";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {
+	IonDatetime,
+	IonDatetimeButton,
+	IonItem,
+	IonLabel,
+	IonList,
+	IonModal,
+	ModalController
+} from "@ionic/angular/standalone";
 
 @Component({
 	selector: 'event-date-control-calendar-with-specialists-component',
@@ -77,8 +85,13 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	imports: [
 		TranslateModule,
 		AsyncPipe,
-		IonicModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		IonModal,
+		IonDatetimeButton,
+		IonDatetime,
+		IonItem,
+		IonList,
+		IonLabel,
 	],
 	encapsulation: ViewEncapsulation.None
 })
