@@ -38,7 +38,9 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 		state: StateEnum.active,
 	});
 
-	public filtersHistory: FiltersType = {};
+	public filtersHistory: FiltersType = {
+		state: StateEnum.active,
+	};
 
 	public readonly isLoading = signal(0);
 
@@ -60,8 +62,6 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 			};
 			this.filtersHistory = filters;
 		}
-
-		console.log({filters, filtersHistory, patch, parameters});
 
 		return {
 			...parameters,

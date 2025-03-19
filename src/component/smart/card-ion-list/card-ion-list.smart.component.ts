@@ -6,6 +6,7 @@ import {
 	effect,
 	inject,
 	input,
+	OnInit,
 	signal,
 	TemplateRef,
 	ViewEncapsulation
@@ -77,7 +78,7 @@ import {NgTemplateOutlet} from "@angular/common";
 
 	`
 })
-export class CardIonListSmartComponent {
+export class CardIonListSmartComponent implements OnInit {
 
 	public readonly itemTemplate = input.required<TemplateRef<any>>();
 

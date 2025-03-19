@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
@@ -19,6 +19,7 @@ import {
 	templateUrl: './card.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		TranslateModule,
 		AsyncPipe,

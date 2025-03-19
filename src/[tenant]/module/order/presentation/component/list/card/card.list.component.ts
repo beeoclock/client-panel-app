@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe} from "@angular/common";
 import {
 	TableStatePaginationComponent
@@ -30,6 +30,7 @@ import EOrder from "@core/business-logic/order/entity/e.order";
 	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		TableStatePaginationComponent,
 		TranslateModule,
