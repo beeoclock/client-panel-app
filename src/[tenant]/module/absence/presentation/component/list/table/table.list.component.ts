@@ -92,6 +92,9 @@ export class TableListComponent extends TableComponent<EAbsence> {
 			minWidth: 140,
 			width: 140,
 			sortable: false,
+			$$valueGetter: (obj: IAbsence.EntityRaw, prop: TableColumnProp) => {
+				return this.translateService.instant(`absence.type.${obj.type}.label`);
+			},
 		},
 		{
 			name: this.translateService.instant('absence.form.inputs.type.progressStatus'),
