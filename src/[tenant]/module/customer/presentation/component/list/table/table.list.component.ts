@@ -79,8 +79,8 @@ export class TableListComponent extends TableComponent<ECustomer> {
 			sortable: true,
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.node'),
-			prop: 'node',
+			name: this.translateService.instant('keyword.capitalize.note'),
+			prop: 'note',
 			minWidth: 160,
 			width: 160,
 			sortable: false,
