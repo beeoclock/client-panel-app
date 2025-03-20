@@ -15,13 +15,6 @@ import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {ReactiveFormsModule} from "@angular/forms";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {
-	AutoRefreshButtonComponent
-} from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {
-	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
-import {TranslatePipe} from "@ngx-translate/core";
-import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
@@ -73,9 +66,6 @@ import {
 	imports: [
 		DatatableComponent,
 		ReactiveFormsModule,
-		AutoRefreshButtonComponent,
-		NotFoundTableDataComponent,
-		TranslatePipe,
 	],
 	standalone: true,
 	host: {
