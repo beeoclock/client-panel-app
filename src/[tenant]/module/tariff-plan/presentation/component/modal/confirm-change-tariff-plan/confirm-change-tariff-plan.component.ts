@@ -25,7 +25,7 @@ import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
 	selector: 'app-confirm-change-tariff-plan-component',
 	standalone: true,
 	host: {
-		class: 'p-4 flex flex-col justify-between gap-4'
+		class: 'p-4 flex flex-col justify-between gap-4 h-full overflow-auto'
 	},
 	template: `
 

@@ -13,7 +13,7 @@ export const tariffPlanActualResolver: ResolveFn<ETariffPlanHistory> = () => {
 	const store = inject(TariffPlanHistoryStore);
 
 	store.fillActual();
-	return store.actual$.pipe(
+	return store.effectivePlan$.pipe(
 		filter(is.not_null_or_undefined<ETariffPlanHistory>),
 		take(1),
 	);

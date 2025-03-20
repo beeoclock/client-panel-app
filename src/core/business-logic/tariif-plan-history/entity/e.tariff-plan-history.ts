@@ -6,7 +6,7 @@ import {Types} from "@core/shared/types";
 export class ETariffPlanHistory extends ABaseEntity<'TariffPlanDto', ITariffPlanHistory.DTO, ITariffPlanHistory.EntityRaw> implements ITariffPlanHistory.EntityRaw {
 
 	startDate!: string & Types.DateTime;
-	status!: "active";
+	status! : ITariffPlanHistory.StatusEnum;
 	expiredAt?: (string & Types.DateTime) | undefined;
 	tariffPlan!: ITariffPlan.DTO;
 
