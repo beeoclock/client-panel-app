@@ -19,6 +19,7 @@ export namespace ITariffPlan {
 		billingCycle: BillingCycleEnum;
 		beforeDiscount: number;
 		afterDiscount: number;
+		discountPercentage: number;
 	}
 
 	export interface IPrice {
@@ -50,17 +51,6 @@ export namespace ITariffPlan {
 
 	export type EntityRaw = IBaseEntityRaw<'TariffPlanDto'> & DTO & {};
 
-	/**
-	 * Additional interfaces
-	 */
-
-	export interface IValueWithDiscount extends IValue {
-		discountInPercent: number;
-	}
-
-	export interface IPriceWithDiscount extends IPrice {
-		values: IValueWithDiscount[];
-	}
 
 }
 

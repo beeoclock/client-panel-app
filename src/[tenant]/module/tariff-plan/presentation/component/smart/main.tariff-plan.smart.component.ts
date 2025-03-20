@@ -107,7 +107,7 @@ import {ModalController} from "@ionic/angular/standalone";
 														</p>
 														<span
 															class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-600 text-white">
-															{{ item.getPricesWithCalculatedDiscount()[0].values[0].discountInPercent }}%
+															{{ item.prices[0].values[0].discountPercentage }}%
 														</span>
 													</div>
 												}
