@@ -10,6 +10,14 @@ import {
 import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {TranslatePipe} from "@ngx-translate/core";
+import {
+	AutoRefreshButtonComponent
+} from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -24,7 +32,20 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 				frozenRight: true,
 				minWidth: 56,
 				width: 56
-			}"/>
+			}">
+
+			<not-found-table-data-component
+				class="block h-full"
+				(clickListener)="openForm()"
+				[showLinkToForm]="true"
+				[linkLabel]="'customer.button.create' | translate"
+				[label]="'keyword.capitalize.dataNotFound' | translate">
+
+				<customer-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+
+			</not-found-table-data-component>
+
+		</app-table-ngx-datatable-smart-component>
 		<ng-template #actionCellTemplate let-row="row">
 			<customer-row-action-button-component
 				[item]="row"
@@ -40,7 +61,11 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 	imports: [
 		TableNgxDatatableSmartComponent,
 		RowActionButtonComponent,
-		ActiveStyleDirective
+		ActiveStyleDirective,
+		AutoRefreshButtonComponent,
+		NotFoundTableDataComponent,
+		TranslatePipe,
+		AutoRefreshButtonComponent
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
@@ -138,6 +163,11 @@ export class TableListComponent extends TableComponent<ECustomer> {
 
 	public override open(item: ICustomer.EntityRaw) {
 		this.store.dispatch(new CustomerActions.OpenDetails(item));
+	}
+
+	@Dispatch()
+	public openForm() {
+		return new CustomerActions.OpenForm();
 	}
 
 }

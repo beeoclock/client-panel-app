@@ -10,6 +10,13 @@ import {IMember} from "@core/business-logic/member";
 import EMember from "@core/business-logic/member/entity/e.member";
 import {TranslatePipe} from "@ngx-translate/core";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
+import {
+	AutoRefreshButtonComponent
+} from "@member/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'member-table-list-component',
@@ -24,7 +31,19 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 				frozenRight: true,
 				minWidth: 56,
 				width: 56
-			}"/>
+			}">
+
+
+			<not-found-table-data-component
+				class="block h-full"
+				(clickListener)="openForm()"
+				[showLinkToForm]="true"
+				[linkLabel]="'member.button.create' | translate"
+				[label]="'keyword.capitalize.dataNotFound' | translate">
+				<member-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+			</not-found-table-data-component>
+
+		</app-table-ngx-datatable-smart-component>
 		<ng-template #actionCellTemplate let-row="row">
 			<member-row-action-button-component
 				[item]="row"
@@ -105,7 +124,9 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 	imports: [
 		TableNgxDatatableSmartComponent,
 		RowActionButtonComponent,
-		TranslatePipe
+		TranslatePipe,
+		AutoRefreshButtonComponent,
+		NotFoundTableDataComponent
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
@@ -223,6 +244,11 @@ export class TableListComponent extends TableComponent<EMember> {
 
 	public override open(item: IMember.EntityRaw) {
 		this.store.dispatch(new MemberActions.OpenDetails(item));
+	}
+
+	@Dispatch()
+	public openForm() {
+		return new MemberActions.OpenForm();
 	}
 
 }

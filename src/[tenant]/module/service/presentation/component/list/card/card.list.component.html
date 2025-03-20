@@ -70,14 +70,14 @@
 	</ng-template>
 
 
-		<not-found-table-data-component
-			class="block h-full"
-			(clickListener)="openForm()"
-			[showLinkToForm]="true"
-			[linkLabel]="'keyword.capitalize.add-service' | translate"
-			[label]="'keyword.capitalize.dataNotFound' | translate">
-			<service-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
-		</not-found-table-data-component>
+	<not-found-table-data-component
+		class="block h-full"
+		(clickListener)="openForm()"
+		[showLinkToForm]="true"
+		[linkLabel]="'keyword.capitalize.add-service' | translate"
+		[label]="'keyword.capitalize.dataNotFound' | translate">
+		<service-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+	</not-found-table-data-component>
 
 
 </card-ion-list-smart-component>

@@ -63,15 +63,8 @@ import {
 			</ngx-datatable>
 
 		} @else {
-			<!--
-							(clickListener)="openForm()"-->
-			<not-found-table-data-component
-				class="block h-full"
-				[showLinkToForm]="true"
-				[linkLabel]="'keyword.capitalize.add-service' | translate"
-				[label]="'keyword.capitalize.dataNotFound' | translate">
-				<service-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
-			</not-found-table-data-component>
+
+			<ng-content select="not-found-table-data-component"/>
 
 		}
 

@@ -19,6 +19,13 @@ import {
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
+import {
+	AutoRefreshButtonComponent
+} from "@absence/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -33,7 +40,18 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 				minWidth: 56,
 				width: 56
 			}"
-			[columnList]="columnList()"/>
+			[columnList]="columnList()">
+
+			<not-found-table-data-component
+				class="block h-full"
+				(clickListener)="openForm()"
+				[showLinkToForm]="true"
+				[linkLabel]="'absence.button.create' | translate"
+				[label]="'keyword.capitalize.dataNotFound' | translate">
+				<app-absence-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+			</not-found-table-data-component>
+
+		</app-table-ngx-datatable-smart-component>
 
 		<ng-template #actionCellTemplate let-row="row">
 			<app-absence-row-action-button-component
@@ -57,6 +75,9 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 		TableNgxDatatableSmartComponent,
 		StateStatusComponent,
 		RowActionButtonComponent,
+		AutoRefreshButtonComponent,
+		NotFoundTableDataComponent,
+		TranslatePipe,
 
 	]
 })
@@ -166,6 +187,11 @@ export class TableListComponent extends TableComponent<EAbsence> {
 	public override open(item: IAbsence.DTO) {
 		const entity = EAbsence.fromDTO(item);
 		return new AbsenceActions.OpenDetails(entity);
+	}
+
+	@Dispatch()
+	public openForm() {
+		return new AbsenceActions.OpenForm();
 	}
 
 

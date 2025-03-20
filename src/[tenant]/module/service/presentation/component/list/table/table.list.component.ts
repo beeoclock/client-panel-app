@@ -11,6 +11,13 @@ import {ServiceActions} from "@service/infrastructure/state/service/service.acti
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {
+	AutoRefreshButtonComponent
+} from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -27,7 +34,17 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 				frozenRight: true,
 				minWidth: 56,
 				width: 56
-			}"/>
+			}">
+
+			<not-found-table-data-component
+				class="block h-full"
+				(clickListener)="openForm()"
+				[showLinkToForm]="true"
+				[linkLabel]="'keyword.capitalize.add-service' | translate"
+				[label]="'keyword.capitalize.dataNotFound' | translate">
+				<service-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+			</not-found-table-data-component>
+		</app-table-ngx-datatable-smart-component>
 
 		<ng-template #actionCellTemplate let-row="row">
 			<service-row-action-button-component
@@ -72,6 +89,9 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	imports: [
 		TableNgxDatatableSmartComponent,
 		RowActionButtonComponent,
+		AutoRefreshButtonComponent,
+		NotFoundTableDataComponent,
+		TranslatePipe,
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
