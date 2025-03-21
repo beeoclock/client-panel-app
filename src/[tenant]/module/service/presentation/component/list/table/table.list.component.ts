@@ -18,6 +18,10 @@ import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
+import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
+import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {LanguageCodeEnum} from "@core/shared/enum";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -77,11 +81,9 @@ import {TranslatePipe} from "@ngx-translate/core";
 
 			}
 		</ng-template>
-
-		<ng-template #titleCellTemplate let-row="row">
-
-			{{ row.languageVersions[0].title }}
-
+		<ng-template #stateCellTemplate let-row="row">
+			<div activeStyle [state]="row.state">
+			</div>
 		</ng-template>
 	`,
 	standalone: true,
@@ -92,6 +94,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 		AutoRefreshButtonComponent,
 		NotFoundTableDataComponent,
 		TranslatePipe,
+		ActiveStyleDirective,
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
@@ -99,19 +102,21 @@ import {TranslatePipe} from "@ngx-translate/core";
 })
 export class TableListComponent extends TableComponent<EService> {
 
+	public readonly availableLanguages = toSignal(this.store.select(BusinessProfileState.availableLanguages));
+
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
+	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly durationCellTemplate = viewChild<TemplateRef<any>>('durationCellTemplate');
 	public readonly priceCellTemplate = viewChild<TemplateRef<any>>('priceCellTemplate');
-	public readonly titleCellTemplate = viewChild<TemplateRef<any>>('titleCellTemplate');
 	public readonly colorCellTemplate = viewChild<TemplateRef<any>>('colorCellTemplate');
 
 	public readonly columns = signal<TableColumn<EService>[]>([
 		{
-			name: this.translateService.instant('keyword.capitalize.title'),
-			prop: 'title',
-			minWidth: 200,
-			width: 200,
+			name: this.translateService.instant('keyword.capitalize.color'),
+			prop: 'color',
+			minWidth: 50,
+			width: 50,
 			sortable: false
 		},
 		{
@@ -131,6 +136,13 @@ export class TableListComponent extends TableComponent<EService> {
 		{
 			name: this.translateService.instant('keyword.capitalize.order'),
 			prop: 'order',
+			minWidth: 160,
+			width: 160,
+			sortable: false,
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.status'),
+			prop: 'state',
 			minWidth: 160,
 			width: 160,
 			sortable: false,
@@ -166,14 +178,19 @@ export class TableListComponent extends TableComponent<EService> {
 			this.setCellTemplateRef(columns, 'color', colorCellTemplate);
 		}
 
-		const titleCellTemplate = this.titleCellTemplate();
-		if (titleCellTemplate) {
-			this.setCellTemplateRef(columns, 'title', titleCellTemplate);
-		}
-
 		const priceCellTemplate = this.priceCellTemplate();
 		if (priceCellTemplate) {
 			this.setCellTemplateRef(columns, 'price', priceCellTemplate);
+		}
+
+		const stateCellTemplate = this.stateCellTemplate();
+		if (stateCellTemplate) {
+			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
+		}
+
+		const availableLanguages = this.availableLanguages();
+		if (availableLanguages?.length) {
+			this.setTitlesColumnsByAvailableLanguages(columns, availableLanguages);
 		}
 
 		return columns;
@@ -203,6 +220,55 @@ export class TableListComponent extends TableComponent<EService> {
 	@Dispatch()
 	public openForm() {
 		return new ServiceActions.OpenForm();
+	}
+
+	private setTitlesColumnsByAvailableLanguages(columns: TableColumn<EService>[], availableLanguages: LanguageCodeEnum[]) {
+
+		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'color') + 1;
+		const name = this.translateService.instant('keyword.capitalize.title');
+
+		if (availableLanguages.length < 2) {
+
+			const language = availableLanguages[0];
+
+			columns.splice(pushAfterIndex, 0, {
+				name: name,
+				prop: 'title',
+				minWidth: 240,
+				width: 240,
+				sortable: false,
+				$$valueGetter: (row: EService) => this.getTitleForLanguage(row, language)
+			})
+
+		} else {
+
+			for (const language of availableLanguages) {
+
+				columns.splice(pushAfterIndex, 0, {
+					name: `${name} (${language})`,
+					prop: `title-${language}`,
+					minWidth: 240,
+					width: 240,
+					sortable: false,
+					$$valueGetter: (row: EService) => this.getTitleForLanguage(row, language)
+				})
+
+			}
+
+		}
+
+	}
+
+	public getTitleForLanguage(row: EService, languageCode: LanguageCodeEnum): string {
+
+		let title = '-';
+		const languageVersion = row.languageVersions.find(({language}) => language === languageCode);
+		if (languageVersion) {
+			title = languageVersion.title;
+		}
+
+		return title;
+
 	}
 
 }

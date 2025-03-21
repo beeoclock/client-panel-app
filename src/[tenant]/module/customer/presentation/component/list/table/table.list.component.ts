@@ -137,10 +137,12 @@ export class TableListComponent extends TableComponent<ECustomer> {
 
 	public readonly columnList = computed(() => {
 		const columns = this.columns();
+
 		const stateCellTemplate = this.stateCellTemplate();
 		if (stateCellTemplate) {
 			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
 		}
+
 		return columns;
 
 	});
