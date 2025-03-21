@@ -3,6 +3,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 
 export type DATA = {
 	page: number;
@@ -67,6 +68,8 @@ export class KanbanOrderService {
 				pageSize,
 				status,
 				state: StateEnum.active,
+				orderDir: OrderDirEnum.ASC,
+				orderBy: OrderByEnum.CREATED_AT,
 			});
 			ts = totalSize;
 			newItems.push(...items);
@@ -121,6 +124,8 @@ export class KanbanOrderService {
 			pageSize: orderList.pageSize,
 			status,
 			state: StateEnum.active,
+			orderDir: OrderDirEnum.ASC,
+			orderBy: OrderByEnum.CREATED_AT,
 		});
 
 		orderSignal.set({

@@ -10,9 +10,9 @@ import {
 import {TranslatePipe} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {tap} from "rxjs";
-import {Actions, ofActionSuccessful} from "@ngxs/store";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {filter, tap} from "rxjs";
+import {Actions} from "@ngxs/store";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 
 @Component({
 	selector: 'kanban-order',
@@ -132,20 +132,23 @@ export class KanbanOrderComponent {
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
 	protected readonly actions = inject(Actions);
 
-	private readonly changesHandler = this.actions.pipe(
+	private preSyncingValue = false;
+
+	public readonly syncAllSubscription = BaseSyncManager.isSyncing$.pipe(
 		takeUntilDestroyed(),
-		ofActionSuccessful(
-			OrderActions.UpdateItem,
-			OrderActions.ChangeStatus,
-			OrderActions.SetState,
-			OrderActions.OrderedServiceStatus,
-			OrderActions.OrderedServiceState,
-		),
-		tap((value) => {
-			// Refresh each status
-			this.orderStatusControl.value.forEach(status => this.refresh(status));
-		}),
-	).subscribe()
+		filter((isSyncing) => {
+			if (this.preSyncingValue !== isSyncing) {
+				this.preSyncingValue = isSyncing;
+				if (!isSyncing) {
+					return true;
+				}
+			}
+			return false;
+		})
+	).subscribe(() => {
+		// Refresh each status
+		this.orderStatusControl.value.forEach(status => this.refresh(status));
+	});
 
 	public readonly orderStatusControl = new FormControl<OrderStatusEnum[]>([], {
 		nonNullable: true

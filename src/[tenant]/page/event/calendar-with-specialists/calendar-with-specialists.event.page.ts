@@ -3,6 +3,15 @@ import MembersV2ContainerWeekCalendarComponent
 	from "@page/event/calendar-with-specialists/v2/members.container.week-calendar.component";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {Store} from "@ngxs/store";
+import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {filter} from "rxjs";
+import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
+import {
+	CalendarWithSpecialistsAction
+} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 
 @Component({
 	selector: 'app-event-calendar-with-specialists-page',
@@ -17,8 +26,30 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 })
 export default class CalendarWithSpecialistsEventPage implements OnInit {
 
+	readonly #store = inject(Store);
 	readonly #ngxLogger = inject(NGXLogger);
 	readonly #analyticsService = inject(AnalyticsService);
+
+	private preSyncingValue = false;
+
+	public readonly syncAllSubscription = BaseSyncManager.isSyncing$.pipe(
+		takeUntilDestroyed(),
+		filter((isSyncing) => {
+			if (this.preSyncingValue !== isSyncing) {
+				this.preSyncingValue = isSyncing;
+				if (!isSyncing) {
+					return true;
+				}
+			}
+			return false;
+		})
+	).subscribe(() => {
+		this.#store.dispatch([
+			new MemberActions.GetList(),
+			new BusinessProfileActions.Init(),
+			new CalendarWithSpecialistsAction.GetItems(),
+		])
+	});
 
 	public ngOnInit(): void {
 		this.#ngxLogger.info('CalendarWithSpecialistsEventPage initialized');
