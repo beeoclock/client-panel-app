@@ -12,33 +12,63 @@ import {SPECIALIST_LIMIT} from "@[tenant]/tenant.token";
 export interface ITariffPlanHistoryState {
 	items: ETariffPlanHistory[];
 	actual: ETariffPlanHistory | null;
+	trial: ETariffPlanHistory | null;
+	effectivePlan: ETariffPlanHistory | null;
 }
 
 const initialState: ITariffPlanHistoryState = {
 	items: [],
 	actual: null,
+	trial: null,
+	effectivePlan: null,
 };
 
 export const TariffPlanHistoryStore = signalStore(
 	withState(initialState),
-	withComputed(({items}) => ({
+	withComputed(({items, trial}) => ({
 		itemsCount: computed(() => items().length),
+		hasTrial: computed(() => !!trial()),
 	})),
-	withProps(({items, actual}) => {
+	withProps(({items, effectivePlan}) => {
 		return {
-			actual$: toObservable<ETariffPlanHistory | null>(actual),
+			effectivePlan$: toObservable<ETariffPlanHistory | null>(effectivePlan),
 			items$: toObservable<ETariffPlanHistory[]>(items),
-			specialistLimit$: inject(SPECIALIST_LIMIT),
 			sharedUow: inject(SharedUow),
 			ngxLogger: inject(NGXLogger),
+			specialistLimit$: inject(SPECIALIST_LIMIT),
 		}
 	}),
-	withMethods(({sharedUow, ngxLogger, specialistLimit$, ...store}) => {
+	withMethods(({sharedUow, ngxLogger, trial, actual, specialistLimit$, ...store}) => {
 		return {
+			fillEffectivePlan() {
+				const effectivePlan = trial() || actual();
+				if (effectivePlan) {
+					specialistLimit$.next(effectivePlan.tariffPlan.specialistLimit);
+				}
+				patchState(store, (state) => {
+					return {
+						...state,
+						effectivePlan,
+					};
+				});
+			},
+			async fillTrial() {
+				try {
+					const trialTariffPlanEntity = await sharedUow.tariffPlanHistory.getTrialTariffPlanEntity();
+					patchState(store, (state) => {
+						return {
+							...state,
+							trial: trialTariffPlanEntity,
+						};
+					});
+					this.fillEffectivePlan();
+				} catch (e) {
+					ngxLogger.error(e);
+				}
+			},
 			async fillActual() {
 				try {
 					const actualTariffPlanEntity = await sharedUow.tariffPlanHistory.getActualTariffPlanEntity();
-					specialistLimit$.next(actualTariffPlanEntity.tariffPlan.specialistLimit);
 					patchState(store, (state) => {
 						return {
 							...state,
@@ -54,7 +84,6 @@ export const TariffPlanHistoryStore = signalStore(
 					const {items} = await sharedUow.tariffPlanHistory.repository.findAsync({
 						page: 1,
 						pageSize: environment.config.pagination.pageSize,
-						// state: StateEnum.active,
 						orderDir: OrderDirEnum.ASC,
 						orderBy: OrderByEnum.UPDATED_AT,
 					});
@@ -64,6 +93,7 @@ export const TariffPlanHistoryStore = signalStore(
 							items: items.map(ETariffPlanHistory.fromRaw)
 						};
 					});
+					this.fillEffectivePlan();
 				} catch (e) {
 					ngxLogger.error(e);
 				}
@@ -71,6 +101,7 @@ export const TariffPlanHistoryStore = signalStore(
 			async init() {
 				await this.fillItems();
 				await this.fillActual();
+				await this.fillTrial();
 			}
 		}
 	}),

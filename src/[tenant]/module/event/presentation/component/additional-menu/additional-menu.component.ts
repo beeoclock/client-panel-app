@@ -11,9 +11,9 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {SelectServiceListComponent} from "@service/presentation/component/select-list/select-service-list.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
-import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";
 
 enum SegmentEnum {
 	ORDERING = 'ordering',
@@ -29,8 +29,10 @@ enum SegmentEnum {
 		DynamicDatePipe,
 		SelectServiceListComponent,
 		CustomerChipComponent,
-		IonicModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		IonSegment,
+		IonSegmentButton,
+		IonLabel,
 	],
 	providers: [CurrencyPipe, DurationVersionHtmlHelper],
 	template: `

@@ -24,6 +24,10 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 import {
 	TariffPlanHistoryStore
 } from "@tariffPlanHistory/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
+import {
+	ConfirmChangeTariffPlanModalController
+} from "@tariffPlan/presentation/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.modal.controller";
+import {ModalController} from "@ionic/angular/standalone";
 
 @Component({
 	standalone: true,
@@ -35,6 +39,10 @@ import {
 		NgClass,
 		TranslatePipe,
 		DecimalPipe,
+	],
+	providers: [
+		ModalController,
+		ConfirmChangeTariffPlanModalController,
 	],
 	template: `
 		<section id="tariffs"
@@ -99,7 +107,7 @@ import {
 														</p>
 														<span
 															class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-600 text-white">
-															10%
+															{{ item.prices[0].values[0].discountPercentage }}%
 														</span>
 													</div>
 												}
@@ -129,7 +137,7 @@ import {
 											<li class="flex gap-2 first:font-bold">
 												<i class="bi bi-check-lg"></i>
 												<span>{{ 'keyword.capitalize.members' | translate }} {{ item.specialistLimit ?? '∞' }}</span>
-												@if (this.actual(); as actual) {
+												@if (this.effectivePlan(); as actual) {
 													@if (actual.tariffPlan.type === item.type) {
 														@if (membersCount() === item.specialistLimit) {
 															<span
@@ -155,7 +163,7 @@ import {
 									</div>
 								</div>
 							</div>
-							@if (this.actual(); as actual) {
+							@if (this.effectivePlan(); as actual) {
 
 								@if (isTheSameTariffPlan(item, actual.tariffPlan)) {
 
@@ -249,11 +257,12 @@ import {
 export class MainTariffPlanSmartComponent implements OnInit {
 
 	private readonly tariffPlanStore = inject(TariffPlanStore);
+	private readonly confirmChangeTariffPlanModalController = inject(ConfirmChangeTariffPlanModalController);
 	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	public readonly historyItems: ETariffPlanHistory[] = this.activatedRoute.snapshot.data.tariffPlanHistoryItems;
-	public readonly actual: Signal<ETariffPlanHistory | null> = this.tariffPlanHistoryStore.actual;
+	public readonly effectivePlan: Signal<ETariffPlanHistory | null> = this.tariffPlanHistoryStore.effectivePlan;
 	public readonly country: CountryCodeEnum = this.activatedRoute.snapshot.data.country;
 	public readonly baseLanguage: LanguageCodeEnum = this.activatedRoute.snapshot.data.baseLanguage;
 	public readonly items: ETariffPlan[] = [];
@@ -273,7 +282,13 @@ export class MainTariffPlanSmartComponent implements OnInit {
 
 	public async upgradeTo(item: ETariffPlan) {
 		this.loading.set(item);
-		await this.tariffPlanStore.changeTariffPlanOnto(item);
+		const actual = this.effectivePlan();
+		if (actual) {
+			await this.confirmChangeTariffPlanModalController.present(item, actual);
+		} else {
+			// TODO: Show Error
+		}
+
 		this.loading.set(null);
 	}
 
@@ -292,7 +307,7 @@ export class MainTariffPlanSmartComponent implements OnInit {
 	}
 
 	public isUpgrade(item: ETariffPlan): boolean {
-		return item.prices[0].values[0].beforeDiscount > (this.actual()?.tariffPlan.prices[0].values[0].beforeDiscount ?? 0)
+		return item.prices[0].values[0].beforeDiscount > (this.effectivePlan()?.tariffPlan.prices[0].values[0].beforeDiscount ?? 0)
 	}
 
 	public readonly typeTariffPlanEnum = TypeTariffPlanEnum;
@@ -300,7 +315,7 @@ export class MainTariffPlanSmartComponent implements OnInit {
 
 	public constructor() {
 		effect(() => {
-			const actual = this.actual();
+			const actual = this.effectivePlan();
 			if (actual) {
 				this.subscriptionType.set(actual.tariffPlan.prices[0].values[0].billingCycle);
 			}

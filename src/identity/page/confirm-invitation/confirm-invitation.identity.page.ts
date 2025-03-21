@@ -18,7 +18,7 @@ import {
 } from "@src/identity/module/identity/infrastructure/api/confirm-invitation.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
-import {ToastController} from "@ionic/angular";
+import {ToastController} from "@ionic/angular/standalone";
 import {Reactive} from "@utility/cdk/reactive";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 

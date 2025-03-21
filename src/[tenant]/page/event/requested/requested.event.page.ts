@@ -8,7 +8,6 @@ import {EventRequestedState} from "@event/infrastructure/state/event-requested/e
 import {
 	ListOfCardCollectionByDateComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
-import {IonicModule} from "@ionic/angular";
 import {TableService} from "@utility/table.service";
 import {RequestedEventTableService} from "@event/presentation/component/requsted/requested.event.table.service";
 
@@ -20,7 +19,6 @@ import {RequestedEventTableService} from "@event/presentation/component/requsted
 	imports: [
 		TranslateModule,
 		ListOfCardCollectionByDateComponent,
-		IonicModule
 	],
 	standalone: true,
 	providers: [

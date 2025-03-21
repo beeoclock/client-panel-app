@@ -3,7 +3,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {IonicModule, IonModal} from "@ionic/angular";
+import {IonModal} from "@ionic/angular/standalone";
 
 @Component({
 	selector: 'bee-form-badge-input',
@@ -84,7 +84,7 @@ import {IonicModule, IonModal} from "@ionic/angular";
 		InvalidTooltipDirective,
 		HasErrorDirective,
 		DefaultLabelDirective,
-		IonicModule
+		IonModal
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

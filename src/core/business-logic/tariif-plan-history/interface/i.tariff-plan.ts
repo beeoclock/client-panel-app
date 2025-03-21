@@ -5,9 +5,15 @@ import {Types} from "@core/shared/types";
 
 export namespace ITariffPlanHistory {
 
+	export enum StatusEnum {
+		active = 'active',
+		inactive = 'inactive',
+		trial = 'trial',
+	}
+
 	export interface DTO extends IBaseDTO<'TariffPlanDto'> {
-		startDate: string & Types.DateTime; // TODO: Change into statedAt
-		status: 'active'; // TODO: Add other statuses
+		startDate: string & Types.DateTime;
+		status: StatusEnum;
 		expiredAt?: string & Types.DateTime;
 		tariffPlan: ITariffPlan.DTO;
 	}

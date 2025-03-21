@@ -3,7 +3,6 @@ import {Router, RouterLink} from "@angular/router";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {IonicModule} from "@ionic/angular";
 import {
 	CalendarEventsComponent
 } from "@utility/presentation/component/widget/calendar-events/calendar-events.component";
@@ -18,7 +17,6 @@ import {
 		CardComponent,
 		TranslateModule,
 		PrimaryLinkButtonDirective,
-		IonicModule,
 		CalendarEventsComponent
 	]
 })

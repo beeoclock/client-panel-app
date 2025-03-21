@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ToastController} from "@ionic/angular";
+import {ToastController} from "@ionic/angular/standalone";
 import {
 	ChangePhoneNumberClientAdapter
 } from "@src/identity/module/identity/infrastructure/module/change-phone-number.client.adapter";

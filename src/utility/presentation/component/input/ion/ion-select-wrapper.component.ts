@@ -2,8 +2,8 @@ import {Component, input, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
-import {IonicModule} from "@ionic/angular";
 import {NgForOf} from "@angular/common";
+import {IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 
 @Component({
 	selector: 'ion-select-wrapper',
@@ -28,8 +28,9 @@ import {NgForOf} from "@angular/common";
 		NgSelectModule,
 		ReactiveFormsModule,
 		TranslateModule,
-		IonicModule,
-		NgForOf
+		NgForOf,
+		IonSelect,
+		IonSelectOption,
 	],
 })
 export class IonSelectWrapperComponent {

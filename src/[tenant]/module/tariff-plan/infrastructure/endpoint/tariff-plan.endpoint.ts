@@ -4,6 +4,7 @@ import {SourceNetworkEnum} from "@core/shared/enum/source.network.enum";
 export enum TariffPlanEndpointEnum {
 	POST__STRIPE_WEBHOOK = '/api/v1/stripe-webhook',
 
+	POST__TENANT_TARIFF_PLAN__CHANGE_AMOUNT = '/api/v1/tenantTariffPlan/change-amount',
 	POST__TENANT_TARIFF_PLAN__CANCEL = '/api/v1/tenantTariffPlan/cancel',
 	POST__TENANT_TARIFF_PLAN__CHANGE_PAYMENT_METHOD_CHECKOUT_SESSION = '/api/v1/tenantTariffPlan/change-payment-method-checkout-session',
 
@@ -16,6 +17,13 @@ export enum TariffPlanEndpointEnum {
 
 export const tariffPlanEndpoint: EndpointCollectionType = {
 	POST: {
+		[TariffPlanEndpointEnum.POST__TENANT_TARIFF_PLAN__CHANGE_AMOUNT]: {
+			source: SourceNetworkEnum.tariffPlan,
+			header: {
+				authorization: true,
+				tenantId: true,
+			}
+		},
 		[TariffPlanEndpointEnum.POST__STRIPE_WEBHOOK]: {
 			source: SourceNetworkEnum.tariffPlan,
 			header: {

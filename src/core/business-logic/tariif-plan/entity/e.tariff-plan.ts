@@ -13,7 +13,6 @@ export class ETariffPlan extends ABaseEntity<'TariffPlanDto', ITariffPlan.DTO, I
 	features!: string[];
 	pluginAttachment!: ITariffPlan.IPluginAttachment;
 
-
 	public override toDTO(): ITariffPlan.DTO {
 		return ETariffPlan.toDTO(this);
 	}

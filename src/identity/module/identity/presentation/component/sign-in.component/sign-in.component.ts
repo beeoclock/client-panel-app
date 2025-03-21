@@ -19,7 +19,7 @@ import {firstValueFrom} from "rxjs";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {ToastController} from "@ionic/angular";
+import {ToastController} from "@ionic/angular/standalone";
 import {NGXLogger} from "ngx-logger";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 import {is} from "@core/shared/checker";

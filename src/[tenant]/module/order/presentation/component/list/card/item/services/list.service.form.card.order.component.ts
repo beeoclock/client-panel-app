@@ -16,7 +16,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {LanguageCodeEnum} from "@core/shared/enum";
-import {AlertController} from "@ionic/angular";
+import {AlertController} from "@ionic/angular/standalone";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";

@@ -121,10 +121,14 @@ export default class BusinessSettingsPage extends Reactive implements OnInit, On
 			this.form.disable();
 			this.form.markAsPending();
 
-			await Promise.all([
-				// Save data
-				firstValueFrom(this.saveBusinessProfile(value) as unknown as Observable<unknown>),
-			]);
+			try {
+				await Promise.all([
+					// Save data
+					firstValueFrom(this.saveBusinessProfile(value) as unknown as Observable<unknown>),
+				]);
+			} catch (e) {
+				this.ngxLogger.error(e);
+			}
 
 			this.store.dispatch(new AppActions.PageLoading(false));
 			this.form.enable();
