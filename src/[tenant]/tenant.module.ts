@@ -18,9 +18,15 @@ import {tenantTokens} from "@[tenant]/tenant.token";
 import {BusinessProfileStore} from "@businessProfile/infrastructure/store/business-profile/business-profile.store";
 import {SocketState} from "@utility/state/socket/socket.state";
 import {NgxsModule} from "@ngxs/store";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @NgModule({
 	providers: [
+		{
+			provide: SharedUow,
+			useClass: SharedUow,
+		},
+
 		...tenantTokens,
 
 		BusinessProfileStore,
