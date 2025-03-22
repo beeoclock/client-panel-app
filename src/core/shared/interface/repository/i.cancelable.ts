@@ -1,4 +1,6 @@
-export interface ICancelable<T> {
-    cancel$(item: T): unknown;
-    cancelAsync(item: T): Promise<unknown>;
+import {Observable} from "rxjs";
+
+export interface ICancelable<OPTIONS, RETURN> {
+	cancel$(options: OPTIONS): Observable<RETURN>;
+	cancelAsync(options: OPTIONS): Promise<RETURN>;
 }

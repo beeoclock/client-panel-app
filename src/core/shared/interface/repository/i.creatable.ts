@@ -1,4 +1,6 @@
-export interface ICreatable<T> {
-    create$(item: T): unknown;
-    createAsync(item: T): Promise<unknown>;
+import {Observable} from "rxjs";
+
+export interface ICreatable<OPTIONS, RETURN> {
+	create$(options: OPTIONS): Observable<RETURN>;
+	createAsync(options: OPTIONS): Promise<RETURN>;
 }
