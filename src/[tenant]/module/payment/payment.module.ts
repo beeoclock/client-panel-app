@@ -42,15 +42,22 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		// Repository
 		{
 			provide: PaymentRepository,
-			useFactory: () => new PaymentRepository(
-				inject(PaymentIndexedDBDataProvider),
-			)
+			useFactory: () => {
+				const dataProvider = inject(PaymentIndexedDBDataProvider);
+				const repository = new PaymentRepository();
+				repository.setDataProvider(dataProvider);
+				return repository;
+			},
 		},
 		{
 			provide: PaymentService,
-			useFactory: () => new PaymentService(
-				inject(PaymentRepository),
-			)
+			useFactory: () => {
+				const repository = inject(PaymentRepository);
+				const service = new PaymentService();
+				service.repository = repository;
+				service.initDbHandler();
+				return service;
+			},
 		},
 
 		// Sync Manger

@@ -46,15 +46,22 @@ import {GetBillingPortalApi} from "@tariffPlan/infrastructure/api/get/get.billin
 		// Repository
 		{
 			provide: TariffPlanRepository,
-			useFactory: () => new TariffPlanRepository(
-				inject(TariffPlanIndexedDBDataProvider),
-			)
+			useFactory: () => {
+				const dataProvider = inject(TariffPlanIndexedDBDataProvider);
+				const repository = new TariffPlanRepository();
+				repository.setDataProvider(dataProvider);
+				return repository;
+			},
 		},
 		{
 			provide: TariffPlanService,
-			useFactory: () => new TariffPlanService(
-				inject(TariffPlanRepository),
-			)
+			useFactory: () => {
+				const repository = inject(TariffPlanRepository);
+				const service = new TariffPlanService();
+				service.repository = repository;
+				service.initDbHandler();
+				return service;
+			},
 		},
 
 		// Sync Manger

@@ -69,15 +69,22 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		// Repository
 		{
 			provide: AbsenceRepository,
-			useFactory: () => new AbsenceRepository(
-				inject(AbsenceIndexedDBDataProvider),
-			)
+			useFactory: () => {
+				const dataProvider = inject(AbsenceIndexedDBDataProvider);
+				const repository = new AbsenceRepository();
+				repository.setDataProvider(dataProvider);
+				return repository;
+			},
 		},
 		{
 			provide: AbsenceService,
-			useFactory: () => new AbsenceService(
-				inject(AbsenceRepository),
-			)
+			useFactory: () => {
+				const repository = inject(AbsenceRepository);
+				const service = new AbsenceService();
+				service.repository = repository;
+				service.initDbHandler();
+				return service;
+			},
 		},
 
 		// Sync Manger

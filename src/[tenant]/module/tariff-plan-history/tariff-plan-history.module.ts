@@ -34,15 +34,22 @@ import {GetTenantTariffPlanPagedApi} from "@tariffPlanHistory/infrastructure/api
 		// Repository
 		{
 			provide: TariffPlanHistoryRepository,
-			useFactory: () => new TariffPlanHistoryRepository(
-				inject(TariffPlanHistoryIndexedDBDataProvider),
-			)
+			useFactory: () => {
+				const dataProvider = inject(TariffPlanHistoryIndexedDBDataProvider);
+				const repository = new TariffPlanHistoryRepository();
+				repository.setDataProvider(dataProvider);
+				return repository;
+			},
 		},
 		{
 			provide: TariffPlanHistoryService,
-			useFactory: () => new TariffPlanHistoryService(
-				inject(TariffPlanHistoryRepository),
-			)
+			useFactory: () => {
+				const repository = inject(TariffPlanHistoryRepository);
+				const service = new TariffPlanHistoryService();
+				service.repository = repository;
+				service.initDbHandler();
+				return service;
+			},
 		},
 
 		// Sync Manger

@@ -45,15 +45,22 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		// Repository
 		{
 			provide: CustomerRepository,
-			useFactory: () => new CustomerRepository(
-				inject(CustomerIndexedDBDataProvider),
-			)
+			useFactory: () => {
+				const dataProvider = inject(CustomerIndexedDBDataProvider);
+				const repository = new CustomerRepository();
+				repository.setDataProvider(dataProvider);
+				return repository;
+			},
 		},
 		{
 			provide: CustomerService,
-			useFactory: () => new CustomerService(
-				inject(CustomerRepository),
-			)
+			useFactory: () => {
+				const repository = inject(CustomerRepository);
+				const service = new CustomerService();
+				service.repository = repository;
+				service.initDbHandler();
+				return service;
+			},
 		},
 		EventListCustomerRepository,
 		{

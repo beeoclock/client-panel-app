@@ -38,15 +38,22 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		// Repository
 		{
 			provide: BusinessProfileRepository,
-			useFactory: () => new BusinessProfileRepository(
-				inject(BusinessProfileIndexedDBDataProvider),
-			)
+			useFactory: () => {
+				const dataProvider = inject(BusinessProfileIndexedDBDataProvider);
+				const repository = new BusinessProfileRepository();
+				repository.setDataProvider(dataProvider);
+				return repository;
+			},
 		},
 		{
 			provide: BusinessProfileService,
-			useFactory: () => new BusinessProfileService(
-				inject(BusinessProfileRepository),
-			)
+			useFactory: () => {
+				const repository = inject(BusinessProfileRepository);
+				const service = new BusinessProfileService();
+				service.repository = repository;
+				service.initDbHandler();
+				return service;
+			},
 		},
 
 		// Sync Manger

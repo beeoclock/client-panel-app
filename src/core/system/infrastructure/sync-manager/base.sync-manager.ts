@@ -251,9 +251,9 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	}
 
 	public async initPushData() {
-		if ('db$' in this.repository.dataProvider) {
+		if ('db$' in this.repository.getDataProvider()) {
 
-			const {db$} = this.repository.dataProvider as { db$: Observable<Table<ENTITY>> };
+			const {db$} = this.repository.getDataProvider() as unknown as { db$: Observable<Table<ENTITY>> };
 			const table = await firstValueFrom(db$);
 			const localChanges = await table.filter((item) => {
 
@@ -459,8 +459,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	}
 
 	private async putEntity(entity: ENTITY) {
-		if ('db$' in this.repository.dataProvider) {
-			const {db$} = this.repository.dataProvider as { db$: Observable<Table<ENTITY>> };
+		if ('db$' in this.repository.getDataProvider()) {
+			const {db$} = this.repository.getDataProvider() as unknown as { db$: Observable<Table<ENTITY>> };
 			const table = await firstValueFrom(db$);
 			// Use buildPut instead of put to avoid conflicts, because this.repository.updateSync use db.table.put and it call hooks
 			await table.put(entity);

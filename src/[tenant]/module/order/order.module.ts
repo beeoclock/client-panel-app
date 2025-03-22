@@ -40,15 +40,22 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		// Repository
 		{
 			provide: OrderRepository,
-			useFactory: () => new OrderRepository(
-				inject(OrderIndexedDBDataProvider),
-			)
+			useFactory: () => {
+				const dataProvider = inject(OrderIndexedDBDataProvider);
+				const repository = new OrderRepository();
+				repository.setDataProvider(dataProvider);
+				return repository;
+			},
 		},
 		{
 			provide: OrderService,
-			useFactory: () => new OrderService(
-				inject(OrderRepository),
-			)
+			useFactory: () => {
+				const repository = inject(OrderRepository);
+				const service = new OrderService();
+				service.repository = repository;
+				service.initDbHandler();
+				return service;
+			},
 		},
 
 		// Sync Manger

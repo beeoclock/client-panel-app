@@ -1,11 +1,9 @@
-import {Injectable} from "@angular/core";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {BaseService} from "@core/shared/service/base.service";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
 type ENTITY_RAW = IMember.EntityRaw;
 
-@Injectable()
 export class MemberService extends BaseService<ENTITY_RAW> {
 
 	public async findOneByEmailPhone(either: {

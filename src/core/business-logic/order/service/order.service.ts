@@ -1,11 +1,9 @@
-import {Injectable} from "@angular/core";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
 import {BaseService} from "@core/shared/service/base.service";
 
 type ENTITY_RAW = IOrder.EntityRaw;
 
-@Injectable()
 export class OrderService extends BaseService<ENTITY_RAW> {
 
 	/**

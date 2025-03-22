@@ -3,14 +3,17 @@ import {DataProvider} from "@core/system/infrastructure/data-provider/data-provi
 import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {Types} from "@core/shared/types";
 import {firstValueFrom, Observable} from "rxjs";
-import {Injectable} from "@angular/core";
 
-@Injectable()
 export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IRepository<ITEM, ID_TYPE> {
 
-	constructor(
-		public readonly dataProvider: DataProvider<ITEM, ID_TYPE>
-	) {
+	#dataProvider!: DataProvider<ITEM, ID_TYPE>
+
+	public getDataProvider(): DataProvider<ITEM, ID_TYPE> {
+		return this.#dataProvider;
+	}
+
+	public setDataProvider(value: DataProvider<ITEM, ID_TYPE>) {
+		this.#dataProvider = value;
 	}
 
 	/**
@@ -58,7 +61,7 @@ export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IReposit
 	 * @param options
 	 */
 	public find$(options: Types.FindQueryParams): Observable<ResponseListType<ITEM>> {
-		return this.dataProvider.find$(options);
+		return this.getDataProvider().find$(options);
 	}
 
 	/**
@@ -66,7 +69,7 @@ export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IReposit
 	 * @param id
 	 */
 	public findById$(id: ID_TYPE): Observable<ITEM | undefined> {
-		return this.dataProvider.findById$(id);
+		return this.getDataProvider().findById$(id);
 	}
 
 	/**
@@ -74,7 +77,7 @@ export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IReposit
 	 * @param item
 	 */
 	public create$(item: ITEM): Observable<ITEM> {
-		return this.dataProvider.create$(item);
+		return this.getDataProvider().create$(item);
 	}
 
 	/**
@@ -82,7 +85,7 @@ export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IReposit
 	 * @param item
 	 */
 	public update$(item: ITEM): Observable<ITEM> {
-		return this.dataProvider.update$(item);
+		return this.getDataProvider().update$(item);
 	}
 
 	/**
@@ -90,7 +93,7 @@ export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IReposit
 	 * @param item
 	 */
 	public delete$(item: ITEM): Observable<boolean> {
-		return this.dataProvider.delete$(item);
+		return this.getDataProvider().delete$(item);
 	}
 
 }

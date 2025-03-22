@@ -42,15 +42,22 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		// Repository
 		{
 			provide: ServiceRepository,
-			useFactory: () => new ServiceRepository(
-				inject(ServiceIndexedDBDataProvider),
-			)
+			useFactory: () => {
+				const dataProvider = inject(ServiceIndexedDBDataProvider);
+				const repository = new ServiceRepository();
+				repository.setDataProvider(dataProvider);
+				return repository;
+			},
 		},
 		{
 			provide: ServiceService,
-			useFactory: () => new ServiceService(
-				inject(ServiceRepository),
-			)
+			useFactory: () => {
+				const repository = inject(ServiceRepository);
+				const service = new ServiceService();
+				service.repository = repository;
+				service.initDbHandler();
+				return service;
+			},
 		},
 
 		// Sync Manger
