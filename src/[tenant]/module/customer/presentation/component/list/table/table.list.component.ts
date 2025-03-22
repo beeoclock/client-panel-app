@@ -152,9 +152,9 @@ export class TableListComponent extends TableComponent<ECustomer> {
 			case "checkbox":
 				break;
 			case "click":
+				this.open($event.row);
 				break;
 			case "dblclick":
-				this.open($event.row);
 				break;
 			case "keydown":
 				break;
