@@ -3,16 +3,14 @@ import {PushChangesSyncManager} from '@absence/infrastructure/sync-manager/push.
 import {AbsenceIndexedDBDataProvider} from '@absence/infrastructure/data-provider/indexedDB/absence.indexedDB.data-provider';
 
 export class PushChangesSyncManagerFactory {
-    create(): PushChangesSyncManager {
-        return new PushChangesSyncManager(
-            inject(AbsenceIndexedDBDataProvider)
-        );
-    }
     public static provide(): Provider {
         return {
             provide: PushChangesSyncManager,
-            useFactory: (factory: PushChangesSyncManagerFactory) => factory.create(),
-            deps: [PushChangesSyncManagerFactory],
+            useFactory: () => {
+                return new PushChangesSyncManager(
+                    inject(AbsenceIndexedDBDataProvider)
+                );
+            },
         };
     }
 } 

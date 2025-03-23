@@ -110,12 +110,36 @@ export class AbsenceState {
 
 		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
+		const ref = AbsenceDetailsContainerComponent;
+
+		const foundComponentRef = this.whacAMaleProvider.getComponentRef(ref);
+
+		if (foundComponentRef) {
+
+
+			const instance = foundComponentRef.instance.renderedComponentRef?.instance;
+
+			if (!instance) {
+				this.ngxLogger.error('AbsenceState.openDetailsAction', 'instance is not defined');
+				return;
+			}
+
+			if ('item' in instance) {
+				const {_id} = instance.item;
+				if (_id === payload._id) {
+					ctx.dispatch(new AbsenceActions.CloseDetails());
+					return;
+				}
+			}
+
+		}
+
 		await this.whacAMaleProvider.buildItAsync({
 			title,
-			component: AbsenceDetailsContainerComponent,
 			componentInputs: {
 				item: payload
 			},
+			component: ref,
 		});
 
 	}

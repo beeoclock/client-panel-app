@@ -105,12 +105,37 @@ export class CustomerState {
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
+		const ref = CustomerDetailsContainerComponent;
+
+		const foundComponentRef = this.whacAMaleProvider.getComponentRef(ref);
+
+		if (foundComponentRef) {
+
+			const instance = foundComponentRef.instance.renderedComponentRef?.instance;
+
+			
+
+			if (!instance) {
+				this.ngxLogger.error('CustomerState.openDetailsAction', 'instance is not defined');
+				return;
+			}
+
+			if ('item' in instance) {
+				const {_id} = instance.item();
+				if (_id === payload._id) {
+					ctx.dispatch(new CustomerActions.CloseDetails());
+					return;
+				}
+			}
+
+		}
+
 		await this.whacAMaleProvider.buildItAsync({
 			title,
 			componentInputs: {
 				item: payload
 			},
-			component: CustomerDetailsContainerComponent,
+			component: ref,
 		});
 
 	}
@@ -118,7 +143,6 @@ export class CustomerState {
 	@Action(CustomerActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<ICustomerState>, {payload: id}: CustomerActions.OpenDetailsById) {
 
-		const title = await this.translateService.instant('customer.details.title');
 		const item = await this.sharedUow.customer.repository.findByIdAsync(id);
 
 		if (!item) {
@@ -126,13 +150,7 @@ export class CustomerState {
 			return;
 		}
 
-		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
-
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			component: CustomerDetailsContainerComponent,
-			componentInputs: {item},
-		});
+		ctx.dispatch(new CustomerActions.OpenDetails(item));
 
 	}
 

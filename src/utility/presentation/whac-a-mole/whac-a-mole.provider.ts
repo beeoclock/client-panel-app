@@ -23,7 +23,11 @@ export class WhacAMoleProvider<COMPONENT> {
   public updateWhacAMoleComponentAsync(args: WhacAMoleBuildItArgsType) {
     return new Promise<ComponentRef<WhacAMoleWrapper<COMPONENT>>>((resolve, reject) => {
       const componentRef = this.pushBoxContainer?.updatePushBoxComponent?.(args);
-      !componentRef ? reject() : resolve(componentRef);
+      if (!componentRef) {
+        reject();
+      } else {
+        resolve(componentRef);
+      }
     });
   }
 
@@ -53,6 +57,17 @@ export class WhacAMoleProvider<COMPONENT> {
     this.componentRefMapByComponentName.delete(selector);
 
     return true;
+  }
+
+  public getComponentRef(component: Type<unknown>) {
+    const componentMirror = reflectComponentType(component);
+
+    if (!componentMirror) {
+      this.ngxLogger.error('WhacAMole.isComponentOpened', 'value of `component` property is not a component');
+      return false;
+    }
+
+    return this.componentRefMapByComponentName.get(componentMirror.selector)?.find((componentRef) => componentRef.instance.renderedComponent === component);
   }
 
   public registerContainer(pushBoxContainer: WhacAMole) {

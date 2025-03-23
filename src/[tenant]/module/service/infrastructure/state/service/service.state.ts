@@ -104,12 +104,36 @@ export class ServiceState {
 
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
+		const ref = ServiceDetails;
+
+		const foundComponentRef = this.whacAMaleProvider.getComponentRef(ref);
+
+		if (foundComponentRef) {
+
+
+			const instance = foundComponentRef.instance.renderedComponentRef?.instance;
+
+			if (!instance) {
+				this.ngxLogger.error('ServiceState.openDetailsAction', 'instance is not defined');
+				return;
+			}
+
+			if ('item' in instance) {
+				const {_id} = instance.item;
+				if (_id === payload._id) {
+					ctx.dispatch(new ServiceActions.CloseDetails());
+					return;
+				}
+			}
+
+		}
+
 		await this.whacAMaleProvider.buildItAsync({
 			title,
 			componentInputs: {
 				item: payload
 			},
-			component: ServiceDetails,
+			component: ref,
 		});
 
 	}
@@ -117,7 +141,6 @@ export class ServiceState {
 	@Action(ServiceActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenDetailsById) {
 
-		const title = this.translateService.instant('service.details.title');
 		const item = await this.sharedUow.service.repository.findByIdAsync(id);
 
 		if (!item) {
@@ -125,14 +148,7 @@ export class ServiceState {
 			return;
 		}
 
-		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
-
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			showLoading: true,
-			component: ServiceDetails,
-			componentInputs: {item},
-		});
+		ctx.dispatch(new ServiceActions.OpenDetails(item));
 
 	}
 

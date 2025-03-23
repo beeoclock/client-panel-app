@@ -110,12 +110,36 @@ export class MemberState {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
+		const ref = MemberDetailsContainerComponent;
+
+		const foundComponentRef = this.whacAMaleProvider.getComponentRef(ref);
+
+		if (foundComponentRef) {
+
+
+			const instance = foundComponentRef.instance.renderedComponentRef?.instance;
+
+			if (!instance) {
+				this.ngxLogger.error('MemberState.openDetails', 'instance is not defined');
+				return;
+			}
+
+			if ('item' in instance) {
+				const {_id} = instance.item;
+				if (_id === payload._id) {
+					ctx.dispatch(new MemberActions.CloseDetails());
+					return;
+				}
+			}
+
+		}
+
 		await this.whacAMaleProvider.buildItAsync({
 			title,
 			componentInputs: {
 				item: payload
 			},
-			component: MemberDetailsContainerComponent,
+			component: ref,
 		});
 
 	}
@@ -123,23 +147,14 @@ export class MemberState {
 	@Action(MemberActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenDetailsById) {
 
-		const title = await this.translateService.instant('member.details.title');
 		const item = await this.sharedUow.member.repository.findByIdAsync(id);
 
 		if (!item) {
 			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
 			return;
 		}
-
-		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
-
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			component: MemberDetailsContainerComponent,
-			componentInputs: {
-				item
-			},
-		});
+		
+		ctx.dispatch(new MemberActions.OpenDetails(item));
 
 	}
 
