@@ -27,6 +27,9 @@ import {EventState} from "@event/infrastructure/state/event/event.state";
 import {CalendarState} from "@event/infrastructure/state/calendar/calendar.state";
 import {PushChangesSyncManager} from "@absence/infrastructure/sync-manager/push.changes.sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {AbsenceRepositoryFactory} from "@absence/infrastructure/factories/absence-repository.factory";
+import {AbsenceServiceFactory} from "@absence/infrastructure/factories/absence-service.factory";
+import {PushChangesSyncManagerFactory} from "@absence/infrastructure/factories/push-changes-sync-manager.factory";
 
 @NgModule({
 	imports: [
@@ -39,9 +42,6 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 
 			// Sms Module
 			SmsUsedAnalyticState,
-
-			// Date Module
-			DateRangeReportAnalyticState,
 
 			// Calendar Module
 			CalendarState,
@@ -66,25 +66,23 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		// Adapter
 		AbsenceDexieAdapterIndexedDBDataProvider,
 
+		// Factory
+		AbsenceRepositoryFactory,
+		AbsenceServiceFactory,
+		PushChangesSyncManagerFactory,
+
 		// Repository
 		{
 			provide: AbsenceRepository,
-			useFactory: () => {
-				const dataProvider = inject(AbsenceIndexedDBDataProvider);
-				const repository = new AbsenceRepository();
-				repository.setDataProvider(dataProvider);
-				return repository;
-			},
+			useFactory: (factory: AbsenceRepositoryFactory) => factory.create(),
+			deps: [AbsenceRepositoryFactory],
 		},
+
+		// Service
 		{
 			provide: AbsenceService,
-			useFactory: () => {
-				const repository = inject(AbsenceRepository);
-				const service = new AbsenceService();
-				service.repository = repository;
-				service.initDbHandler();
-				return service;
-			},
+			useFactory: (factory: AbsenceServiceFactory) => factory.create(),
+			deps: [AbsenceServiceFactory],
 		},
 
 		// Sync Manger
@@ -92,27 +90,20 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 
 		{
 			provide: PushChangesSyncManager,
-			useFactory: () => {
-				return new PushChangesSyncManager(
-					inject(AbsenceIndexedDBDataProvider),
-				);
-			},
+			useFactory: (factory: PushChangesSyncManagerFactory) => factory.create(),
+			deps: [PushChangesSyncManagerFactory],
 		},
 
 	]
 })
 export class AbsenceModule {
 
-	/**
-	 * Don't remove this, it's declared here to be created in run time
-	 * @private
-	 */
-	private readonly syncManager = inject(SyncManager);
-	private readonly pushChangesSyncManager = inject(PushChangesSyncManager);
-	private readonly absenceService = inject(AbsenceService);
-	private readonly sharedUow = inject(SharedUow);
-
-	public constructor() {
+	constructor(
+		private readonly syncManager: SyncManager,
+		private readonly pushChangesSyncManager: PushChangesSyncManager,
+		private readonly absenceService: AbsenceService,
+		private readonly sharedUow: SharedUow
+	) {
 		this.sharedUow.absence = this.absenceService;
 	}
 
