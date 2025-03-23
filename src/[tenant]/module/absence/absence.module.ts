@@ -1,5 +1,4 @@
-import {inject, NgModule} from "@angular/core";
-import {AbsenceRepository} from "@absence/infrastructure/repository/absence.repository";
+import {NgModule} from "@angular/core";
 import {ApiDataProvider} from "@absence/infrastructure/data-provider/api.data-provider";
 import {
 	AbsenceIndexedDBDataProvider
@@ -66,33 +65,12 @@ import {PushChangesSyncManagerFactory} from "@absence/infrastructure/factories/p
 		// Adapter
 		AbsenceDexieAdapterIndexedDBDataProvider,
 
-		// Factory
-		AbsenceRepositoryFactory,
-		AbsenceServiceFactory,
-		PushChangesSyncManagerFactory,
-
-		// Repository
-		{
-			provide: AbsenceRepository,
-			useFactory: (factory: AbsenceRepositoryFactory) => factory.create(),
-			deps: [AbsenceRepositoryFactory],
-		},
-
-		// Service
-		{
-			provide: AbsenceService,
-			useFactory: (factory: AbsenceServiceFactory) => factory.create(),
-			deps: [AbsenceServiceFactory],
-		},
+		AbsenceRepositoryFactory.provide(),
+		AbsenceServiceFactory.provide(),
+		PushChangesSyncManagerFactory.provide(),
 
 		// Sync Manger
 		SyncManager,
-
-		{
-			provide: PushChangesSyncManager,
-			useFactory: (factory: PushChangesSyncManagerFactory) => factory.create(),
-			deps: [PushChangesSyncManagerFactory],
-		},
 
 	]
 })
@@ -102,7 +80,7 @@ export class AbsenceModule {
 		private readonly syncManager: SyncManager,
 		private readonly pushChangesSyncManager: PushChangesSyncManager,
 		private readonly absenceService: AbsenceService,
-		private readonly sharedUow: SharedUow
+		private readonly sharedUow: SharedUow,
 	) {
 		this.sharedUow.absence = this.absenceService;
 	}
