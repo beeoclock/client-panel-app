@@ -1,6 +1,12 @@
 import {bootstrapApplication, HammerModule} from '@angular/platform-browser';
 import {MainRouterOutlet} from '@src/main.router-outlet';
-import {enableProdMode, ErrorHandler, importProvidersFrom, isDevMode, provideZoneChangeDetection} from '@angular/core';
+import {
+	enableProdMode,
+	ErrorHandler,
+	importProvidersFrom,
+	isDevMode,
+	provideExperimentalZonelessChangeDetection
+} from '@angular/core';
 import {environment} from '@src/environment/environment';
 import {
 	HTTP_INTERCEPTORS,
@@ -72,11 +78,7 @@ bootstrapApplication(MainRouterOutlet, {
 		IsOnlineService,
 		...tokens,
 		NgEventBus,
-		provideZoneChangeDetection({
-			eventCoalescing: true,
-			runCoalescing: true,
-
-		}),
+		provideExperimentalZonelessChangeDetection(),
 		provideEnvironmentNgxMask(),
 		...firebase,
 		provideIonicAngular({
