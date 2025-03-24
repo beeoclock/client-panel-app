@@ -13,7 +13,6 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@member/presentation/form/member.form";
 import {firstValueFrom} from "rxjs";
-import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {SelectRoleComponent} from "@member/presentation/component/form/select-role/select-role.component";
@@ -27,6 +26,7 @@ import {MemberFormAssignmentsComponent} from "@member/presentation/component/for
 import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {RoleEnum} from "@core/shared/enum/role.enum";
+import {MemberDataActions} from "@member/presentation/state/data/member.data.actions";
 
 @Component({
 	selector: 'member-form-page',
@@ -93,9 +93,9 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 			const memberBody = this.form.getRawValue();
 			let memberId = memberBody._id;
 			if (this.isEditMode) {
-				await firstValueFrom(this.store.dispatch(new MemberActions.UpdateItem(memberBody)));
+				await firstValueFrom(this.store.dispatch(new MemberDataActions.UpdateItem(memberBody)));
 			} else {
-				await firstValueFrom(this.store.dispatch(new MemberActions.CreateItem(memberBody)));
+				await firstValueFrom(this.store.dispatch(new MemberDataActions.CreateItem(memberBody)));
 				memberId = this.item()?._id ?? memberId;
 			}
 

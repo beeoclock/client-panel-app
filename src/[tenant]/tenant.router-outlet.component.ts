@@ -13,7 +13,6 @@ import {
 } from "@identity/module/identity/infrastructure/state/identity/identity.state";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
-import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
@@ -33,6 +32,7 @@ import {IsOnlineService} from "@utility/cdk/is-online.service";
 import {CustomerModule} from "@customer/customer.module";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {MemberDataActions} from "@member/presentation/state/data/member.data.actions";
 
 @Component({
 	selector: 'tenant-router-outlet-component',
@@ -139,7 +139,7 @@ export default class TenantRouterOutletComponent extends Reactive implements OnI
 	}
 
 	private initMemberList(): void {
-		this.store.dispatch(new MemberActions.GetList());
+		this.store.dispatch(new MemberDataActions.GetList());
 	}
 
 	private initEventRequested(): void {
@@ -181,7 +181,7 @@ export default class TenantRouterOutletComponent extends Reactive implements OnI
 
 	public override ngOnDestroy(): void {
 		this.store.dispatch(new ServiceActions.Init());
-		this.store.dispatch(new MemberActions.Init());
+		this.store.dispatch(new MemberDataActions.Init());
 		this.store.dispatch(new EventRequestedActions.Init());
 		this.store.dispatch(new SocketActions.DisconnectSocket());
 		super.ngOnDestroy();

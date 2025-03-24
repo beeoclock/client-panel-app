@@ -1,12 +1,13 @@
 import {Component, computed, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {Store} from "@ngxs/store";
-import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import EMember from "@core/business-logic/member/entity/e.member";
 import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
+import {MemberDataActions} from "@member/presentation/state/data/member.data.actions";
+import {MemberPresentationActions} from "@member/presentation/state/presentation/member.presentation.actions";
 
 @Component({
 	selector: 'member-row-action-button-component',
@@ -78,20 +79,20 @@ export class RowActionButtonComponent {
 	@Dispatch()
 	public setState(state: StateEnum) {
 		const entity = EMember.fromRaw(this.item());
-		return new MemberActions.SetState(entity, state);
+		return new MemberDataActions.SetState(entity, state);
 	}
 
 	@Dispatch()
 	public setStatus(status: MemberProfileStatusEnum) {
 		const entity = EMember.fromRaw(this.item());
-		return new MemberActions.SetStatus(entity, status);
+		return new MemberDataActions.SetStatus(entity, status);
 	}
 
 	public open() {
-		this.store.dispatch(new MemberActions.OpenDetails(this.item()));
+		this.store.dispatch(new MemberPresentationActions.OpenDetails(this.item()));
 	}
 
 	public edit() {
-		this.store.dispatch(new MemberActions.OpenFormToEditById(this.id()));
+		this.store.dispatch(new MemberPresentationActions.OpenFormToEditById(this.id()));
 	}
 }

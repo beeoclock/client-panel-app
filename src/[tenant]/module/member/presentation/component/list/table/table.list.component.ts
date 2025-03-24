@@ -5,7 +5,6 @@ import {
 	TableNgxDatatableSmartComponent
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
-import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {IMember} from "@core/business-logic/member";
 import EMember from "@core/business-logic/member/entity/e.member";
 import {TranslatePipe} from "@ngx-translate/core";
@@ -17,6 +16,7 @@ import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {MemberPresentationActions} from "@member/presentation/state/presentation/member.presentation.actions";
 
 @Component({
 	selector: 'member-table-list-component',
@@ -243,12 +243,12 @@ export class TableListComponent extends TableComponent<EMember> {
 	}
 
 	public override open(item: IMember.EntityRaw) {
-		this.store.dispatch(new MemberActions.OpenDetails(item));
+		this.store.dispatch(new MemberPresentationActions.OpenDetails(item));
 	}
 
 	@Dispatch()
 	public openForm() {
-		return new MemberActions.OpenForm();
+		return new MemberPresentationActions.OpenForm();
 	}
 
 }

@@ -1,27 +1,16 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
-import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
-import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import {environment} from "@environment/environment";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {AbsencePresentationActions} from "@absence/presentation/state/presentation/absence.presentation.actions";
 
-export type IAbsenceState = IBaseState<EAbsence>;
-
-const defaults = baseDefaults<EAbsence>({
-	filters: {},
-	orderBy: OrderByEnum.CREATED_AT,
-	orderDir: OrderDirEnum.DESC,
-	pageSize: environment.config.pagination.pageSize,
-});
+export type IAbsenceState = object;
 
 @State<IAbsenceState>({
 	name: 'absencePresentation',
-	defaults,
+	defaults: {},
 })
 @Injectable()
 export class AbsencePresentationState {
@@ -31,8 +20,6 @@ export class AbsencePresentationState {
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly sharedUow = inject(SharedUow);
-
-	// Application layer
 
 	@Action(AbsencePresentationActions.CloseDetails)
 	public async closeDetailsAction() {

@@ -5,13 +5,13 @@ import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {Store} from "@ngxs/store";
-import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter} from "rxjs";
 import {BusinessProfileActions} from "@businessProfile/infrastructure/state/business-profile/business-profile.actions";
 import {
 	CalendarWithSpecialistsAction
 } from "@event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
+import {MemberDataActions} from "@member/presentation/state/data/member.data.actions";
 
 @Component({
 	selector: 'app-event-calendar-with-specialists-page',
@@ -45,7 +45,7 @@ export default class CalendarWithSpecialistsEventPage implements OnInit {
 		})
 	).subscribe(() => {
 		this.#store.dispatch([
-			new MemberActions.GetList(),
+			new MemberDataActions.GetList(),
 			new BusinessProfileActions.Init(),
 			new CalendarWithSpecialistsAction.GetItems(),
 		])

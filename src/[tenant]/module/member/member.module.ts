@@ -14,14 +14,16 @@ import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@member/infrastructure/api/get-item.api";
 import {MemberService} from "@core/business-logic/member/service/member.service";
 import {NgxsModule} from "@ngxs/store";
-import {MemberState} from "@member/presentation/state/member/member.state";
 import {PushChangesSyncManager} from "@member/infrastructure/sync-manager/push.changes.sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {MemberDataState} from "@member/presentation/state/data/member.data.state";
+import {MemberPresentationState} from "@member/presentation/state/presentation/member.presentation.state";
 
 @NgModule({
 	imports: [
 		NgxsModule.forFeature([
-			MemberState,
+			MemberDataState,
+			MemberPresentationState,
 		]),
 	],
 	providers: [

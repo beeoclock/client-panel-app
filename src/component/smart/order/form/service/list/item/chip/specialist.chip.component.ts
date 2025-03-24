@@ -2,13 +2,13 @@ import {ChangeDetectionStrategy, Component, input, OnInit, output, ViewEncapsula
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {FormControl} from "@angular/forms";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {MemberState} from "@member/presentation/state/member/member.state";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
 import {SpecialistModel} from "@src/core/business-logic/service/model/specialist.model";
 import {TranslateModule} from "@ngx-translate/core";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {MemberDataState} from "@member/presentation/state/data/member.data.state";
 
 @Component({
 	selector: 'app-specialist-chip-component',
@@ -97,7 +97,7 @@ export class SpecialistChipComponent extends Reactive implements OnInit {
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
-	@SelectSnapshot(MemberState.activeMembers)
+	@SelectSnapshot(MemberDataState.activeMembers)
 	public readonly members!: IMember.EntityRaw[];
 
 	public readonly specialistChanges = output<ISpecialist>();

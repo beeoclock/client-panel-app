@@ -3,17 +3,17 @@ import {Store} from "@ngxs/store";
 import {delay, filter, iif, of, switchMap, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 import {AsyncPipe} from "@angular/common";
-import {MemberState} from "@member/presentation/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";
 import {Reactive} from "@utility/cdk/reactive";
 import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
 import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
-import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {NGXLogger} from "ngx-logger";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {MemberDataState} from "@member/presentation/state/data/member.data.state";
+import {MemberDataActions} from "@member/presentation/state/data/member.data.actions";
 
 @Component({
 	selector: 'app-event-v2-members-container-week-calendar-component',
@@ -35,7 +35,7 @@ export default class MembersV2ContainerWeekCalendarComponent extends Reactive im
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 
-	public readonly item$ = this.store.select(MemberState.tableState).pipe(
+	public readonly item$ = this.store.select(MemberDataState.tableState).pipe(
 		this.takeUntil(),
 		// If tableState is empty then wait one second and try call initMemberList use iif and delay
 		switchMap((tableState) => {
@@ -58,7 +58,7 @@ export default class MembersV2ContainerWeekCalendarComponent extends Reactive im
 
 	@Dispatch()
 	private initMemberList() {
-		return new MemberActions.GetList()
+		return new MemberDataActions.GetList()
 	}
 
 	public ngOnInit(): void {

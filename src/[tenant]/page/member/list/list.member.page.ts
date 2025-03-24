@@ -18,7 +18,7 @@ import {
 import {MemberTableNgxDatatableSmartResource} from "@page/member/list/member.table-ngx-datatable.resource";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
-import {MemberActions} from "@member/presentation/state/member/member.actions";
+import {MemberDataActions} from "@member/presentation/state/data/member.data.actions";
 
 @Component({
 	selector: 'app-list-member-page',
@@ -48,10 +48,10 @@ export class ListMemberPage extends ListPage<EMember> implements OnInit {
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
 		ofActionSuccessful(
-			MemberActions.UpdateItem,
-			MemberActions.CreateItem,
-			MemberActions.SetState,
-			MemberActions.SetStatus,
+			MemberDataActions.UpdateItem,
+			MemberDataActions.CreateItem,
+			MemberDataActions.SetState,
+			MemberDataActions.SetStatus,
 		),
 		tap((payload) => {
 			this.tableNgxDatatableSmartResource.refreshDiscoveredPages();

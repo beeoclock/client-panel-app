@@ -6,7 +6,6 @@ import {
 } from "@analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
 import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {MemberState} from "@member/presentation/state/member/member.state";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {filter, tap} from "rxjs";
 import {
@@ -32,6 +31,7 @@ import {IntervalTypeEnum} from "@analytic/domain/enum/interval.enum";
 import {DateTime} from "luxon";
 import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {MemberDataState} from "@member/presentation/state/data/member.data.state";
 
 @Component({
 	standalone: true,
@@ -98,7 +98,7 @@ export class TotalDateRangeReportSmartAnalyticComponent extends Reactive impleme
 			this.changeDetectorRef.detectChanges();
 		})
 	);
-	public readonly activeMembers$ = this.store.select(MemberState.activeMembers).pipe(
+	public readonly activeMembers$ = this.store.select(MemberDataState.activeMembers).pipe(
 		filter(is.not_null<IMember.EntityRaw[]>),
 		tap((activeMembers) => {
 			activeMembers.forEach((member) => {

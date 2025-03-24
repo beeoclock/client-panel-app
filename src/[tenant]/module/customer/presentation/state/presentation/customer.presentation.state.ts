@@ -1,27 +1,16 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
-import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
-import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
-import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {CustomerPresentationActions} from "@customer/presentation/state/presentation/customer.presentation.actions";
 
-export type ICustomerState = IBaseState<ECustomer>;
+export type ICustomerPresentationState = object;
 
-const defaults = baseDefaults<ECustomer>({
-	filters: {},
-	orderBy: OrderByEnum.CREATED_AT,
-	orderDir: OrderDirEnum.DESC,
-	pageSize: environment.config.pagination.pageSize
-});
-
-@State<ICustomerState>({
+@State<ICustomerPresentationState>({
 	name: 'customerPresentation',
-	defaults,
+	defaults: {},
 })
 @Injectable()
 export class CustomerPresentationState {
@@ -32,7 +21,6 @@ export class CustomerPresentationState {
 
 	private readonly sharedUow = inject(SharedUow);
 
-	// Application layer
 
 	@Action(CustomerPresentationActions.CloseDetails)
 	public async closeDetails() {
@@ -53,7 +41,7 @@ export class CustomerPresentationState {
 	}
 
 	@Action(CustomerPresentationActions.UpdateOpenedDetails)
-	public async updateOpenedDetails(ctx: StateContext<ICustomerState>, {payload}: CustomerPresentationActions.UpdateOpenedDetails) {
+	public async updateOpenedDetails(ctx: StateContext<ICustomerPresentationState>, {payload}: CustomerPresentationActions.UpdateOpenedDetails) {
 
 		import("@customer/presentation/component/details/customer-details-container.component")
 			.then(async ({CustomerDetailsContainerComponent}) => {
@@ -94,7 +82,7 @@ export class CustomerPresentationState {
 	}
 
 	@Action(CustomerPresentationActions.OpenDetails)
-	public async openDetailsAction(ctx: StateContext<ICustomerState>, {payload}: CustomerPresentationActions.OpenDetails) {
+	public async openDetailsAction(ctx: StateContext<ICustomerPresentationState>, {payload}: CustomerPresentationActions.OpenDetails) {
 
 		const title = await this.translateService.instant('customer.details.title');
 
@@ -135,7 +123,7 @@ export class CustomerPresentationState {
 	}
 
 	@Action(CustomerPresentationActions.OpenDetailsById)
-	public async openDetailsById(ctx: StateContext<ICustomerState>, {payload: id}: CustomerPresentationActions.OpenDetailsById) {
+	public async openDetailsById(ctx: StateContext<ICustomerPresentationState>, {payload: id}: CustomerPresentationActions.OpenDetailsById) {
 
 		const item = await this.sharedUow.customer.repository.findByIdAsync(id);
 
@@ -149,7 +137,7 @@ export class CustomerPresentationState {
 	}
 
 	@Action(CustomerPresentationActions.OpenFormToEditById)
-	public async openFormToEditById(ctx: StateContext<ICustomerState>, action: CustomerPresentationActions.OpenFormToEditById) {
+	public async openFormToEditById(ctx: StateContext<ICustomerPresentationState>, action: CustomerPresentationActions.OpenFormToEditById) {
 
 		const title = await this.translateService.instant('customer.form.title.edit');
 		const item = await this.sharedUow.customer.repository.findByIdAsync(action.payload);
@@ -175,7 +163,7 @@ export class CustomerPresentationState {
 	}
 
 	@Action(CustomerPresentationActions.OpenForm)
-	public async openForm(ctx: StateContext<ICustomerState>, {payload}: CustomerPresentationActions.OpenForm): Promise<void> {
+	public async openForm(ctx: StateContext<ICustomerPresentationState>, {payload}: CustomerPresentationActions.OpenForm): Promise<void> {
 
 		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
 

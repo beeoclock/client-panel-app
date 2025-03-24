@@ -1,15 +1,15 @@
 import {Component, inject, input} from '@angular/core';
 import {FilterForm} from "@member/presentation/form/filter.form";
-import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {MemberState} from "@member/presentation/state/member/member.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {SPECIALIST_LIMIT} from "@[tenant]/tenant.token";
 import {is} from "@core/shared/checker";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {ToastController} from "@ionic/angular/standalone";
+import {MemberDataState} from "@member/presentation/state/data/member.data.state";
+import {MemberPresentationActions} from "@member/presentation/state/presentation/member.presentation.actions";
 
 @Component({
 	selector: 'member-filter-component',
@@ -50,7 +50,7 @@ export class FilterComponent extends BaseFilterComponent {
 	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
-	public override readonly state = MemberState;
+	public override readonly state = MemberDataState;
 
 	private readonly specialistLimit$ = inject(SPECIALIST_LIMIT);
 	private readonly sharedUow = inject(SharedUow);
@@ -78,7 +78,7 @@ export class FilterComponent extends BaseFilterComponent {
 			return;
 		}
 
-		this.store.dispatch(new MemberActions.OpenForm());
+		this.store.dispatch(new MemberPresentationActions.OpenForm());
 	}
 
 }
