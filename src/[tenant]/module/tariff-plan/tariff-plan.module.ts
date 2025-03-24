@@ -24,13 +24,12 @@ import {GetBillingPortalApi} from "@tariffPlan/infrastructure/api/get/get.billin
 @NgModule({
 	providers: [
 
-
 		// Api
 		GetApi,
 		GetItemApi,
 		GetBillingPortalApi,
 
-		PatchTenantTariffPlanChangeApi,
+		PatchTenantTariffPlanChangeApi.Request,
 
 		PostStripeWebhookApi,
 		PostTenantTariffPlanCancelApi,

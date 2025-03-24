@@ -3,17 +3,29 @@ import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
 import {TariffPlanEndpointEnum} from "@tariffPlan/infrastructure/endpoint/tariff-plan.endpoint";
 
-type Response = {url: string;};
+export namespace PatchTenantTariffPlanChangeApi {
 
-@Injectable()
-export class PatchTenantTariffPlanChangeApi extends BaseApiAdapter<Response, [ITariffPlan.DTO]> {
+	export type Response = { url: string; };
+	export type Body = {
+		redirectUrl: {
+			cancelRedirectUrl: string;
+			successRedirectUrl: string;
+		};
+		tariffPlan: ITariffPlan.DTO;
+	};
 
-	/**
-	 * @param body
-	 */
-	public override execute$(body: ITariffPlan.DTO) {
+	@Injectable()
+	export class Request extends BaseApiAdapter<Response, [Body]> {
 
-		return this.httpClient.patch<Response>(TariffPlanEndpointEnum.PATCH__TENANT_TARIFF_PLAN__CHANGE, body);
+		/**
+		 * @param body
+		 */
+		public override execute$(body: Body) {
+
+			return this.httpClient.patch<Response>(TariffPlanEndpointEnum.PATCH__TENANT_TARIFF_PLAN__CHANGE, body);
+		}
+
 	}
+
 
 }

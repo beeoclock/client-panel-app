@@ -33,7 +33,7 @@ export const TariffPlanStore = signalStore(
             sharedUow: inject(SharedUow),
             ngxLogger: inject(NGXLogger),
             isOnlineService: inject(IsOnlineService),
-            patchTenantTariffPlanChangeApi: inject(PatchTenantTariffPlanChangeApi),
+            patchTenantTariffPlanChangeApi: inject(PatchTenantTariffPlanChangeApi.Request),
 			getBillingPortalApi: inject(GetBillingPortalApi),
         }
     }),
@@ -64,7 +64,13 @@ export const TariffPlanStore = signalStore(
                     if (isOffline) {
                         return;
                     }
-                    const {url: checkoutSessionUrl} = await patchTenantTariffPlanChangeApi.executeAsync(item);
+                    const {url: checkoutSessionUrl} = await patchTenantTariffPlanChangeApi.executeAsync({
+						redirectUrl: {
+							cancelRedirectUrl: window.location.origin,
+							successRedirectUrl: window.location.origin,
+						},
+						tariffPlan: item,
+					});
                     if (checkoutSessionUrl.length) {
                         window.location.href = checkoutSessionUrl;
                     } else {
