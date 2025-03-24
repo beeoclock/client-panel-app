@@ -18,7 +18,7 @@ import {
 import {MemberTableNgxDatatableSmartResource} from "@page/member/list/member.table-ngx-datatable.resource";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
-import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {MemberActions} from "@member/presentation/state/member/member.actions";
 
 @Component({
 	selector: 'app-list-member-page',

@@ -2,7 +2,7 @@ import {createPropertySelectors, Selector} from "@ngxs/store";
 import {
 	CalendarWithSpecialistsState,
 	ICalendarWithSpecialist
-} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
+} from "@event/presentation/state/calendar-with-specialists/calendar–with-specialists.state";
 import {DateTime} from "luxon";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";

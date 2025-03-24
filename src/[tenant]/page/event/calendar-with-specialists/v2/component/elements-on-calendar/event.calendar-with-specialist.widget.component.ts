@@ -31,10 +31,10 @@ import {
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {
 	CalendarWithSpecialistsQueries
-} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
+} from "@event/presentation/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
 import {AbsenceDataActions} from "@[tenant]/module/absence/presentation/state/data/absence.data.actions";

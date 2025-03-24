@@ -1,7 +1,7 @@
 import {StateContext} from "@ngxs/store";
-import {ICalendarState} from "@event/infrastructure/state/calendar/calendar.state";
+import {ICalendarState} from "@event/presentation/state/calendar/calendar.state";
 import {DateTime} from "luxon";
-import {GetListCalendarAction} from "@event/infrastructure/state/calendar/actions/get-list.calendar.action";
+import {GetListCalendarAction} from "@event/presentation/state/calendar/actions/get-list.calendar.action";
 
 export class PushPrevCalendarAction {
 	public static readonly type = '[Calendar State] Push Prev';

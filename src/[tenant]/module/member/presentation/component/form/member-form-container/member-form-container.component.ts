@@ -13,7 +13,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@member/presentation/form/member.form";
 import {firstValueFrom} from "rxjs";
-import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {SelectRoleComponent} from "@member/presentation/component/form/select-role/select-role.component";

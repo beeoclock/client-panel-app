@@ -12,7 +12,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import EOrder from "@core/business-logic/order/entity/e.order";
 import {DatePipe} from "@angular/common";
 

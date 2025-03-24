@@ -11,7 +11,7 @@ import {
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Store} from "@ngxs/store";
-import {MemberState} from "@member/infrastructure/state/member/member.state";
+import {MemberState} from "@member/presentation/state/member/member.state";
 import {filter, map, startWith, tap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe} from "@angular/common";

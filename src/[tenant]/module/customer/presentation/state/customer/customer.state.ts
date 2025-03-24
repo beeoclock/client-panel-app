@@ -1,7 +1,7 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
@@ -113,7 +113,7 @@ export class CustomerState {
 
 			const instance = foundComponentRef.instance.renderedComponentRef?.instance;
 
-			
+
 
 			if (!instance) {
 				this.ngxLogger.error('CustomerState.openDetailsAction', 'instance is not defined');

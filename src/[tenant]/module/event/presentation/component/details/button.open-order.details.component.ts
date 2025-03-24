@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, effect, inject, input, signal, ViewEncapsulation} from "@angular/core";
 import {IOrder} from "@src/core/business-logic/order/interface/i.order";
 import {Store} from "@ngxs/store";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";

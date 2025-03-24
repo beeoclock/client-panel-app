@@ -4,7 +4,7 @@ import {FilterForm} from "@event/presentation/form/filter.form";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
-import {EventRequestedState} from "@event/infrastructure/state/event-requested/event-requested.state";
+import {EventRequestedState} from "@event/presentation/state/event-requested/event-requested.state";
 import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({

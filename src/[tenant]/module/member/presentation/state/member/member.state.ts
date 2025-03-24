@@ -1,7 +1,7 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
@@ -153,7 +153,7 @@ export class MemberState {
 			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
 			return;
 		}
-		
+
 		ctx.dispatch(new MemberActions.OpenDetails(item));
 
 	}

@@ -6,7 +6,7 @@ import {SocketActions} from "@utility/state/socket/socket.actions";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {
 	CalendarWithSpecialistsAction
-} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
 import {merge} from "rxjs";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {

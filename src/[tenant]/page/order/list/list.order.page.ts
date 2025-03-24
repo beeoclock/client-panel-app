@@ -3,7 +3,7 @@ import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableService} from "@utility/table.service";
 import {OrderTableService} from "@order/presentation/component/list/order.table.service";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import EOrder from "@core/business-logic/order/entity/e.order";
 import {KanbanOrderComponent} from "@order/presentation/component/list/kanban/kanban.order.component";
 import {

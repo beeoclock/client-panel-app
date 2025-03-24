@@ -25,7 +25,7 @@ import {CreateOrderForm} from "@order/presentation/form/create.order.form";
 import {
 	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@core/business-logic/customer";
 import {
@@ -38,7 +38,7 @@ import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.p
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 import {
 	CalendarWithSpecialistsAction
-} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
 import {IPayment} from "@core/business-logic/payment/interface/i.payment";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {IOrder} from "@core/business-logic/order/interface/i.order";

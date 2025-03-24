@@ -19,6 +19,7 @@ import {BusinessProfileStore} from "@businessProfile/infrastructure/store/busine
 import {SocketState} from "@utility/state/socket/socket.state";
 import {NgxsModule} from "@ngxs/store";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {EventModule} from "@event/event.module";
 
 @NgModule({
 	providers: [
@@ -47,6 +48,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		BusinessProfileModule,
 		TariffPlanModule,
 		TariffPlanHistoryModule,
+		EventModule,
 	],
 })
 export class TenantModule {

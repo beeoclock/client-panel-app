@@ -5,7 +5,7 @@ import {
 	TableNgxDatatableSmartComponent
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
-import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {IMember} from "@core/business-logic/member";
 import EMember from "@core/business-logic/member/entity/e.member";
 import {TranslatePipe} from "@ngx-translate/core";

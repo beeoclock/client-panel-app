@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, input, OnInit, output, ViewEncapsula
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {FormControl} from "@angular/forms";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {MemberState} from "@member/infrastructure/state/member/member.state";
+import {MemberState} from "@member/presentation/state/member/member.state";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";

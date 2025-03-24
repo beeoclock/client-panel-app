@@ -1,6 +1,6 @@
 import {StateContext} from "@ngxs/store";
-import {ICalendarState} from "@event/infrastructure/state/calendar/calendar.state";
-import {GetListCalendarAction} from "@event/infrastructure/state/calendar/actions/get-list.calendar.action";
+import {ICalendarState} from "@event/presentation/state/calendar/calendar.state";
+import {GetListCalendarAction} from "@event/presentation/state/calendar/actions/get-list.calendar.action";
 
 export class RefreshCalendarAction {
 	public static readonly type = '[Calendar State] Refresh';

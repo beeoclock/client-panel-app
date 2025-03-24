@@ -1,7 +1,7 @@
 import {Component, computed, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {Store} from "@ngxs/store";
-import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@core/shared/enum/state.enum";

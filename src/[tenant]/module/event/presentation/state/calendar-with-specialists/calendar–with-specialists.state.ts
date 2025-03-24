@@ -4,7 +4,7 @@ import {IsOrganizerEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {DateTime} from "luxon";
 import {
 	CalendarWithSpecialistsAction
-} from "@event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
 import {IAttendee_V2, IEvent_V2} from "@event/domain";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";

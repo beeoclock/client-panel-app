@@ -13,7 +13,7 @@ import {
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {
 	CalendarWithSpecialistsQueries
-} from "@event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
+} from "@event/presentation/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {DateTime} from "luxon";
 import {Store} from "@ngxs/store";
 import {filter, map, switchMap} from "rxjs";

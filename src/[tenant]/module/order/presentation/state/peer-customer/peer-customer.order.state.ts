@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {ITableState, TableState} from "@utility/domain/table.state";
-import {PeerCustomerOrderActions} from "@order/infrastructure/state/peer-customer/peer-customer.order.actions";
+import {PeerCustomerOrderActions} from "@order/presentation/state/peer-customer/peer-customer.order.actions";
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";

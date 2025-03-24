@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {TableService} from "@utility/table.service";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
 
 @Injectable()

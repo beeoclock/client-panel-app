@@ -9,7 +9,7 @@ import {
 	ButtonOpenOrderDetailsComponent
 } from "@event/presentation/component/details/button.open-order.details.component";
 import {Actions, ofActionSuccessful} from "@ngxs/store";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import {NGXLogger} from "ngx-logger";
 import {

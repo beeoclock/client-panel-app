@@ -4,9 +4,9 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {TranslateModule} from "@ngx-translate/core";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
-import {EventActions} from "@event/infrastructure/state/event/event.actions";
+import {EventActions} from "@event/presentation/state/event/event.actions";
 import {IAttendee_V2} from "@event/domain";
 import {IsOrganizerEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {

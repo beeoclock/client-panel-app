@@ -5,12 +5,12 @@ import {
 	DEFAULT_PRESENTATION_CALENDAR_TYPE,
 	PresentationCalendarType
 } from "@event/domain/enum/presentation-calendar-type.enum";
-import {PushNextCalendarAction} from "@event/infrastructure/state/calendar/actions/push.next.calendar.action";
-import {PushPrevCalendarAction} from "@event/infrastructure/state/calendar/actions/push.prev.calendar.action";
-import {GetListCalendarAction} from "@event/infrastructure/state/calendar/actions/get-list.calendar.action";
+import {PushNextCalendarAction} from "@event/presentation/state/calendar/actions/push.next.calendar.action";
+import {PushPrevCalendarAction} from "@event/presentation/state/calendar/actions/push.prev.calendar.action";
+import {GetListCalendarAction} from "@event/presentation/state/calendar/actions/get-list.calendar.action";
 import {IEvent} from "@event/domain";
-import {InitCalendarAction} from "@event/infrastructure/state/calendar/actions/init.calendar.action";
-import {RefreshCalendarAction} from "@event/infrastructure/state/calendar/actions/refresh.calendar.action";
+import {InitCalendarAction} from "@event/presentation/state/calendar/actions/init.calendar.action";
+import {RefreshCalendarAction} from "@event/presentation/state/calendar/actions/refresh.calendar.action";
 
 export interface ICalendarState {
 	calendarDataByType: { [key: string]: IEvent[] }; // key - ISO, value - events

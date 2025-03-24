@@ -6,7 +6,7 @@ import {RowActionButtonComponent} from "@order/presentation/component/row-action
 import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {

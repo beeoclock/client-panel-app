@@ -1,7 +1,7 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {Store} from "@ngxs/store";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 
 @Component({
 	selector: 'app-order-auto-refresh-component',

@@ -3,7 +3,7 @@ import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";

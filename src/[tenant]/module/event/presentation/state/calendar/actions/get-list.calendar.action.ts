@@ -1,5 +1,5 @@
 import {StateContext} from "@ngxs/store";
-import {ICalendarState} from "@event/infrastructure/state/calendar/calendar.state";
+import {ICalendarState} from "@event/presentation/state/calendar/calendar.state";
 
 export class GetListCalendarAction {
 	public static readonly type = '[Calendar API] Get List';

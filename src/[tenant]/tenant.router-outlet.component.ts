@@ -12,13 +12,13 @@ import {
 	IdentityState
 } from "@identity/module/identity/infrastructure/state/identity/identity.state";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
-import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
-import {MemberActions} from "@member/infrastructure/state/member/member.actions";
+import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
-import {EventRequestedActions} from "@event/infrastructure/state/event-requested/event-requested.actions";
+import {EventRequestedActions} from "@event/presentation/state/event-requested/event-requested.actions";
 import {
 	GetFrontendSettingsAccountApiAdapter
 } from "@account/infrastructure/adapter/external/api/get.frontend-settings.account.api.adapter";

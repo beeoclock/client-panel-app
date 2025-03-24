@@ -17,7 +17,7 @@ import {
 import {CustomerTableNgxDatatableSmartResource} from "@page/customer/list/customer.table-ngx-datatable.resource";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
-import {CustomerActions} from "@customer/infrastructure/state/customer/customer.actions";
+import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {tap} from "rxjs";
 
 @Component({

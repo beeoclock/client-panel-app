@@ -3,7 +3,7 @@ import {Action, Selector, State, StateContext, Store} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EOrder from "@core/business-logic/order/entity/e.order";

@@ -6,7 +6,7 @@ import {
 } from "@analytic/infrastructure/store/date-range-report/date-range-report.analytic.state";
 import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {MemberState} from "@member/infrastructure/state/member/member.state";
+import {MemberState} from "@member/presentation/state/member/member.state";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {filter, tap} from "rxjs";
 import {

@@ -1,12 +1,12 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
-import {EventActions} from "@event/infrastructure/state/event/event.actions";
+import {EventActions} from "@event/presentation/state/event/event.actions";
 import {TranslateService} from "@ngx-translate/core";
-import {IOrderState} from "@order/infrastructure/state/order/order.state";
+import {IOrderState} from "@order/presentation/state/order/order.state";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EOrder from "@core/business-logic/order/entity/e.order";
-import {OrderActions} from "@order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@order/presentation/state/order/order.actions";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 
 

@@ -1,5 +1,5 @@
 import {createPropertySelectors, Selector} from "@ngxs/store";
-import {CalendarState, ICalendarState} from "@event/infrastructure/state/calendar/calendar.state";
+import {CalendarState, ICalendarState} from "@event/presentation/state/calendar/calendar.state";
 import {PresentationCalendarType} from "@event/domain/enum/presentation-calendar-type.enum";
 
 export class CalendarQueries {
