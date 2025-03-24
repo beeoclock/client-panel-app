@@ -92,8 +92,6 @@ export class MemberPresentationState {
 
 		const foundComponentRef = this.whacAMaleProvider.getComponentRef(ref);
 
-		console.log(ref)
-
 		if (foundComponentRef) {
 
 			const instance = foundComponentRef.instance.renderedComponentRef?.instance;
