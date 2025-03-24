@@ -73,7 +73,7 @@ export const tenantRouters: Routes = [
 								children: [
 									{
 										path: 'list',
-										loadComponent: () => import('@page/absence/list/list.absence.page')
+										loadComponent: () => import('@absence/presentation/ui/page/grid.absence.page')
 									}
 								]
 							},

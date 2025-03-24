@@ -18,7 +18,7 @@ export type IPeerCustomerOrderState = {
 	name: 'peerCustomerOrderState',
 	defaults: {
 		tableState: new TableState<EOrder>()
-			.setOrderBy(OrderByEnum.UPDATED_AT)
+			.setOrderBy(OrderByEnum.CREATED_AT)
 			.setOrderDir(OrderDirEnum.DESC)
 			.toCache(),
 		loading: false,

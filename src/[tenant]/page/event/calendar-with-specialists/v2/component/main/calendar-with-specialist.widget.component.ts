@@ -51,7 +51,7 @@ import {
 import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
-import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
+import {AbsenceDataActions} from "@absence/presentation/state/data/absence.data.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	FilterCalendarWithSpecialistComponent
@@ -334,9 +334,9 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			.pipe(
 				this.takeUntil(),
 				ofActionSuccessful(
-					AbsenceActions.SetState,
-					AbsenceActions.UpdateItem,
-					AbsenceActions.CreateItem,
+					AbsenceDataActions.SetState,
+					AbsenceDataActions.UpdateItem,
+					AbsenceDataActions.CreateItem,
 
 					OrderActions.ChangeStatus,
 					OrderActions.CreateItem,

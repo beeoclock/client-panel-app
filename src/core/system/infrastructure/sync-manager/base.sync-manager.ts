@@ -186,8 +186,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 					 * OrderDirEnum.ASC - because we want to sync from the oldest to the newest, so if user will do refresh page (F5)
 					 * then we can sync from the last sync
 					 */
-					orderDir: OrderDirEnum.ASC,
-					orderBy: OrderByEnum.UPDATED_AT,
+					orderDir: OrderDirEnum.DESC,
+					orderBy: OrderByEnum.CREATED_AT,
 					updatedSince: new Date(0).toISOString(),
 				},
 				progress: {

@@ -85,7 +85,7 @@ export const TariffPlanHistoryStore = signalStore(
 						page: 1,
 						pageSize: environment.config.pagination.pageSize,
 						orderDir: OrderDirEnum.ASC,
-						orderBy: OrderByEnum.UPDATED_AT,
+						orderBy: OrderByEnum.CREATED_AT,
 					});
 					patchState(store, (state) => {
 						return {

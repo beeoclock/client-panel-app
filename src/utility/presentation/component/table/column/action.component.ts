@@ -46,6 +46,7 @@ import ObjectID from "bson-objectid";
 
 		<button class="button"
 				[id]="'click-trigger' + buttonId()"
+				(click)="$event.stopPropagation();"
 				type="button">
 			<i class="bi bi-three-dots-vertical"></i>
 		</button>

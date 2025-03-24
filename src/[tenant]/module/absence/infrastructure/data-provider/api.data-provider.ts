@@ -1,11 +1,11 @@
 import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 import {DataProvider} from "@core/system/infrastructure/data-provider/data-provider";
 import {inject, Injectable} from "@angular/core";
-import {PostApi} from "@absence/infrastructure/api/post.api";
-import {GetApi} from "@absence/infrastructure/api/get.api";
-import {PutApi} from "@absence/infrastructure/api/put.api";
+import {PostApi} from "@absence/infrastructure/data-source/api/post.api";
+import {GetApi} from "@absence/infrastructure/data-source/api/get.api";
+import {PutApi} from "@absence/infrastructure/data-source/api/put.api";
 import {Types} from "@core/shared/types";
-import {GetItemApi} from "@absence/infrastructure/api/get-item.api";
+import {GetItemApi} from "@absence/infrastructure/data-source/api/get-item.api";
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<IAbsence.DTO> {

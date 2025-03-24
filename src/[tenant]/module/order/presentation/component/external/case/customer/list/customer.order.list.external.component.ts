@@ -66,17 +66,20 @@ export class CustomerOrderListExternalComponent extends ListPage<EOrder> impleme
 			customerId: this.customerId(),
 		}));
 		super.ngOnInit();
-		this.store.select(PeerCustomerOrderState.tableState)
-			.pipe(
-				this.takeUntil(),
-			).subscribe((tableState) => {
-			if (tableState.page > this.tableService.tableState.page) {
-				this.tableService.tableState.addNextPageWithItems(tableState.items);
-			} else {
-				this.tableService.tableState = TableState.fromCache(tableState);
-			}
-			this.changeDetectorRef.detectChanges();
-		});
+		const tableService = this.tableService;
+		if (tableService) {
+			this.store.select(PeerCustomerOrderState.tableState)
+				.pipe(
+					this.takeUntil(),
+				).subscribe((tableState) => {
+				if (tableState.page > tableService.tableState.page) {
+					tableService.tableState.addNextPageWithItems(tableState.items);
+				} else {
+					tableService.tableState = TableState.fromCache(tableState);
+				}
+				this.changeDetectorRef.detectChanges();
+			});
+		}
 	}
 
 }

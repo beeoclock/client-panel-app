@@ -33,7 +33,7 @@
 					</div>
 				</div>
 
-				@if (tableService.showSelectedStatus.state$ | async) {
+				@if (tableService?.showSelectedStatus?.state$ | async) {
 
 					<div>
 						@if (selectedIds.includes(item._id)) {

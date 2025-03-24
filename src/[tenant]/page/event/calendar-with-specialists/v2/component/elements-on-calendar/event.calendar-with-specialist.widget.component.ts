@@ -35,9 +35,9 @@ import {
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
-import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {AbsenceDataActions} from "@[tenant]/module/absence/presentation/state/data/absence.data.actions";
 
 type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>;
 
@@ -351,7 +351,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 			if (this.isAbsence(this.item)) {
 				const entity = EAbsence.fromDTO(this.item.originalData);
-				const action = new AbsenceActions.UpdateItem(entity);
+				const action = new AbsenceDataActions.UpdateItem(entity);
 				const action$ = this.store.dispatch(action);
 				await firstValueFrom(action$);
 				this.item = structuredClone(this.item);

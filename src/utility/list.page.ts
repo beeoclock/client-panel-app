@@ -25,7 +25,7 @@ export abstract class ListPage<ITEM> extends Reactive implements OnInit {
 	protected readonly actions = inject(Actions);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
 	protected readonly windowWidthSizeService = inject(WindowWidthSizeService);
-	protected readonly tableService: TableService<ITEM> = inject(TableService);
+	protected readonly tableService: TableService<ITEM> | null = inject(TableService, {optional: true});
 	protected readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
 
 	protected readonly getListParams?: Record<string, unknown>;
@@ -47,16 +47,21 @@ export abstract class ListPage<ITEM> extends Reactive implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		let action = new this.tableService.actions.GetList();
-		if (this.getListParams) {
-			action = new this.tableService.actions.GetList({
-				queryParams: this.getListParams,
-				...BaseActions.GetList.defaultPayload
+		if (this.tableService) {
+
+			let action = new this.tableService.actions.GetList();
+			if (this.getListParams) {
+				action = new this.tableService.actions.GetList({
+					queryParams: this.getListParams,
+					...BaseActions.GetList.defaultPayload
+				});
+			}
+			firstValueFrom(this.store.dispatch(action)).then(() => {
+				this.initialized.switchOn();
+				this.changeDetectorRef.detectChanges();
 			});
-		}
-		firstValueFrom(this.store.dispatch(action)).then(() => {
+		} else {
 			this.initialized.switchOn();
-			this.changeDetectorRef.detectChanges();
-		});
+		}
 	}
 }

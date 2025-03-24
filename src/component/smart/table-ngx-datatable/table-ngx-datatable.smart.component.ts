@@ -3,6 +3,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	computed,
+	effect,
 	inject,
 	input,
 	output,
@@ -23,18 +24,21 @@ import {
 @Component({
 	selector: 'app-table-ngx-datatable-smart-component',
 	template: `
-		@if (rows.length || resource.isLoading()) {
+		@if (rows.length || resource.value().totalSize || isLoading()) {
+
+<!--
+				[ghostLoadingIndicator]="isLoading() > 0"
+				[loadingIndicator]="isLoading() > 0"-->
 
 			<ngx-datatable
 				class="h-full"
 				[rows]="rows"
 				[reorderable]="true"
+				[trackByProp]="trackByProp()"
 				[rowDraggable]="rowDraggable()"
 				[columns]="columns()"
 				[columnMode]="ColumnMode.force"
 				[headerHeight]="50"
-				[loadingIndicator]="isLoading() > 0"
-				[ghostLoadingIndicator]="isLoading() > 0"
 				[scrollbarV]="true"
 				[footerHeight]="50"
 				[rowHeight]="rowHeight()"
@@ -76,12 +80,13 @@ import {
 export class TableNgxDatatableSmartComponent {
 
 	public readonly defaultSort = input<{ orderBy: string; orderDir: OrderDirEnum; }>({
-		orderBy: OrderByEnum.UPDATED_AT,
-		orderDir: OrderDirEnum.ASC,
+		orderBy: OrderByEnum.CREATED_AT,
+		orderDir: OrderDirEnum.DESC,
 	});
 	public readonly rowHeight = input<number | 'auto'>(50);
 	public readonly columnList = input.required<TableColumn[]>();
 	public readonly rowDraggable = input<boolean>(false);
+	public readonly trackByProp = input<string>('_id');
 
 	public readonly actionColumn = input<TableColumn | null>(null);
 
@@ -103,8 +108,8 @@ export class TableNgxDatatableSmartComponent {
 	});
 	public readonly pageSize = signal<number>(0);
 	public readonly sort = signal<{ orderBy: string; orderDir: OrderDirEnum; }>({
-		orderBy: OrderByEnum.UPDATED_AT,
-		orderDir: OrderDirEnum.ASC,
+		orderBy: OrderByEnum.CREATED_AT,
+		orderDir: OrderDirEnum.DESC,
 	});
 
 	public readonly ColumnMode = ColumnMode;
@@ -133,6 +138,17 @@ export class TableNgxDatatableSmartComponent {
 	public readonly sharedUow = inject(SharedUow);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
+
+	public constructor() {
+		let previousLoadingValue = 0;
+		effect(() => {
+			const isLoading = this.isLoading();
+			if (isLoading !== previousLoadingValue) {
+				previousLoadingValue = isLoading;
+				this.changeDetectorRef.detectChanges();
+			}
+		})
+	}
 
 	public get cache() {
 		return this.tableNgxDatatableSmartResource.cache;

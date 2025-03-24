@@ -16,8 +16,8 @@ import EOrder from "@core/business-logic/order/entity/e.order";
 				 [class.h-[calc(100vh-134px)]]="!tableState.items.length">
 				@for (item of tableState.items; track item._id) {
 					<app-card-item-order-component
-						[showAction]="(tableService.showAction.state$ | async) ?? false"
-						[showSelectedStatus]="(tableService.showSelectedStatus.state$ | async) ?? false"
+						[showAction]="(tableService?.showAction?.state$ | async) ?? false"
+						[showSelectedStatus]="(tableService?.showSelectedStatus?.state$ | async) ?? false"
 						[selectedIds]="selectedIds"
 						[orderDto]="item"/>
 				}

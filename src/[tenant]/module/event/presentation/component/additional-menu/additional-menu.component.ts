@@ -2,7 +2,6 @@ import {Component, HostBinding, inject, Input, input, OnInit, viewChild, ViewEnc
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@order/infrastructure/state/order/order.actions";
-import {AbsenceActions} from "@absence/infrastructure/state/absence/absence.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyPipe} from "@angular/common";
@@ -14,6 +13,7 @@ import {CustomerChipComponent} from "@src/component/smart/order/form/service/lis
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";
+import {AbsencePresentationActions} from "@absence/presentation/state/presentation/absence.presentation.actions";
 
 enum SegmentEnum {
 	ORDERING = 'ordering',
@@ -336,7 +336,7 @@ export class AdditionalMenuComponent implements OnInit {
 
 		this.ngxLogger.info('AdditionalMenuComponent.openAbsenceForm', item);
 
-		this.store.dispatch(new AbsenceActions.OpenForm({
+		this.store.dispatch(new AbsencePresentationActions.OpenForm({
 			componentInputs: {
 				defaultValue: item,
 			},

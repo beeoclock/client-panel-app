@@ -27,8 +27,8 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 	public readonly parameters = signal<AsyncLoadDataFunctionParams>({
 		page: 0,
 		pageSize: 0,
-		orderBy: OrderByEnum.UPDATED_AT,
-		orderDir: OrderDirEnum.ASC,
+		orderBy: OrderByEnum.CREATED_AT,
+		orderDir: OrderDirEnum.DESC,
 		filters: {},
 	});
 
@@ -134,7 +134,11 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 			const start = (page - 1) * pageSize;
 
 			// Set rows to our new rows for display
-			this.rows.splice(start, pageSize, ...items);
+			const copy = this.rows.slice();
+			copy.splice(start, pageSize, ...items);
+			this.rows = copy;
+
+			// this.rows.splice(start, pageSize, ...items);
 
 			// Decrement the counter of pending API calls
 			this.isLoading.set(this.isLoading() - 1);

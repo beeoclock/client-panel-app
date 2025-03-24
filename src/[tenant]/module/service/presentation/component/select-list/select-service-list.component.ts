@@ -50,7 +50,7 @@ export class SelectServiceListComponent implements OnInit {
 		const result = await this.sharedUow.service.repository.findAsync({
 			pageSize: 500,
 			page: 1,
-			orderBy: OrderByEnum.UPDATED_AT,
+			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,
 		});
 		this.serviceList = result.items;

@@ -60,7 +60,7 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 
 	public readonly router = inject(Router);
 	public readonly translateService = inject(TranslateService);
-	public readonly tableService = inject(TableService);
+	public readonly tableService = inject(TableService, {optional: true});
 	public readonly activatedRoute = inject(ActivatedRoute);
 	public readonly renderer2 = inject(Renderer2);
 	public readonly store = inject(Store);
@@ -99,16 +99,22 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 				this.updateOrderBy(parent);
 			}
 		} else {
-			firstValueFrom(this.store.dispatch(new this.tableService.actions.UpdateTableState({
-				orderBy
-			}))).then(() => {
-				this.store.dispatch(new this.tableService.actions.GetList());
-			});
+			const tableService = this.tableService;
+			if (tableService) {
+				firstValueFrom(this.store.dispatch(new tableService.actions.UpdateTableState({
+					orderBy
+				}))).then(() => {
+					this.store.dispatch(new tableService.actions.GetList());
+				});
+
+			}
 		}
 	}
 
 	public pageChange($event: number): void {
-		this.tableService.pageChange($event);
+		if (this.tableService) {
+			this.tableService.pageChange($event);
+		}
 	}
 
 	public setCellTemplateRef(columns: TableColumn<ITEM>[], prop: TableColumnProp, cellTemplate: TemplateRef<any>) {

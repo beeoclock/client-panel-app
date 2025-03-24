@@ -57,7 +57,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 				const {
 					pageSize,
 					page,
-					orderBy = OrderByEnum.UPDATED_AT,
+					orderBy = OrderByEnum.CREATED_AT,
 					orderDir = OrderDirEnum.DESC,
 					...filter
 				} = options as Types.StandardQueryParams;
