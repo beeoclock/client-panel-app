@@ -4,14 +4,6 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 
 export namespace CustomerDataActions {
 
-	export class GetList extends BaseActions.GetList {
-		public static override readonly type = '[Customer API] Get List';
-	}
-
-	export class GetItem extends BaseActions.GetItem {
-		public static override readonly type = '[Customer API] Get Item';
-	}
-
 	export class CreateItem extends BaseActions.CreateItem<ICustomer.EntityRaw> {
 		public static override readonly type = '[Customer API] Create Item';
 	}
