@@ -8,6 +8,7 @@ export class ETariffPlanHistory extends ABaseEntity<'TariffPlanDto', ITariffPlan
 	startDate!: string & Types.DateTime;
 	status! : ITariffPlanHistory.StatusEnum;
 	expiredAt?: (string & Types.DateTime) | undefined;
+	startedAt!: string & Types.DateTime;
 	tariffPlan!: ITariffPlan.DTO;
 
 	override object = 'TariffPlanDto' as const;
