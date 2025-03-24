@@ -3,7 +3,6 @@ import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";
@@ -15,6 +14,7 @@ import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {CustomerPresentationActions} from "@customer/presentation/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'customer-card-list-component',
@@ -42,11 +42,11 @@ export class CardListComponent extends TableComponent<ECustomer> {
 	public showSelectedStatus = new BooleanStreamState(false);
 
 	public override open(item: ECustomer) {
-		this.store.dispatch(new CustomerActions.OpenDetails(item));
+		this.store.dispatch(new CustomerPresentationActions.OpenDetails(item));
 	}
 	@Dispatch()
 	public openForm() {
-		return new CustomerActions.OpenForm();
+		return new CustomerPresentationActions.OpenForm();
 	}
 
 }

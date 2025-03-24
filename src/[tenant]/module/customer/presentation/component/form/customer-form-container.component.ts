@@ -13,8 +13,8 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
-import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {CustomerTypeEnum} from "@core/business-logic/customer/enum/customer-type.enum";
+import {CustomerDataActions} from "@customer/presentation/state/data/customer.data.actions";
 
 @Component({
 	selector: 'customer-form-page',
@@ -54,7 +54,7 @@ export class CustomerFormContainerComponent implements OnInit {
 
 	public detectItem(): void {
 		const item = this.item();
-  if (this.isEditMode && item) {
+		if (this.isEditMode && item) {
 			this.isEditMode = true;
 			this.form.patchValue({
 				...item,
@@ -76,9 +76,9 @@ export class CustomerFormContainerComponent implements OnInit {
 			this.form.disable();
 			this.form.markAsPending();
 			if (this.isEditMode) {
-				await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateItem(value)));
+				await firstValueFrom(this.store.dispatch(new CustomerDataActions.UpdateItem(value)));
 			} else {
-				await firstValueFrom(this.store.dispatch(new CustomerActions.CreateItem(value)));
+				await firstValueFrom(this.store.dispatch(new CustomerDataActions.CreateItem(value)));
 			}
 			this.form.enable();
 			this.form.updateValueAndValidity();

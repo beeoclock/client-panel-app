@@ -4,9 +4,10 @@ import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {ICustomer} from "@core/business-logic/customer";
-import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {CustomerDataActions} from "@customer/presentation/state/data/customer.data.actions";
+import {CustomerPresentationActions} from "@customer/presentation/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'customer-row-action-button-component',
@@ -78,15 +79,15 @@ export class RowActionButtonComponent {
 
 	@Dispatch()
 	public setState(state: StateEnum) {
-		return new CustomerActions.SetState(this.item(), state);
+		return new CustomerDataActions.SetState(this.item(), state);
 	}
 
 	public open(): void {
-		this.store.dispatch(new CustomerActions.OpenDetails(this.item()));
+		this.store.dispatch(new CustomerPresentationActions.OpenDetails(this.item()));
 	}
 
 	public edit(): void {
-		this.store.dispatch(new CustomerActions.OpenForm({
+		this.store.dispatch(new CustomerPresentationActions.OpenForm({
 			componentInputs: {
 				isEditMode: true,
 				item: this.item()

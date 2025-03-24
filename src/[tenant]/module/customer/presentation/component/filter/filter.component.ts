@@ -1,16 +1,16 @@
 import {Component, input} from '@angular/core';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@customer/presentation/form/filter.form";
-import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
-import {CustomerState} from "@customer/presentation/state/customer/customer.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {IonSelectStateComponent} from "@utility/presentation/component/input/ion/ion-select-state.component";
+import {CustomerPresentationActions} from "@customer/presentation/state/presentation/customer.presentation.actions";
+import {CustomerDataState} from "@customer/presentation/state/data/customer.data.state";
 
 @Component({
 	selector: 'customer-filter-component',
@@ -84,7 +84,7 @@ export class FilterComponent extends BaseFilterComponent {
 	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
-	public override readonly state = CustomerState;
+	public override readonly state = CustomerDataState;
 
 	constructor() {
 		super();
@@ -92,6 +92,6 @@ export class FilterComponent extends BaseFilterComponent {
 	}
 
 	public openForm() {
-		this.store.dispatch(new CustomerActions.OpenForm());
+		this.store.dispatch(new CustomerPresentationActions.OpenForm());
 	}
 }

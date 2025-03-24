@@ -14,17 +14,19 @@ import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@customer/infrastructure/api/get-item.api";
 import {CustomerService} from "@core/business-logic/customer/service/customer.service";
 import {NgxsModule} from "@ngxs/store";
-import {CustomerState} from "@customer/presentation/state/customer/customer.state";
 import {EventListCustomerRepository} from "@customer/infrastructure/repository/event.list.customer.repository";
 import {UtilityListCustomerRepository} from "@customer/infrastructure/repository/utility.list.customer.repository";
 import {PushChangesSyncManager} from "@customer/infrastructure/sync-manager/push.changes.sync-manager";
 import {GlobalEventListCustomerRepository} from "@src/token";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {CustomerPresentationState} from "@customer/presentation/state/presentation/customer.presentation.state";
+import {CustomerDataState} from "@customer/presentation/state/data/customer.data.state";
 
 @NgModule({
 	imports: [
 		NgxsModule.forFeature([
-			CustomerState,
+			CustomerDataState,
+			CustomerPresentationState,
 		]),
 	],
 	providers: [

@@ -1,6 +1,5 @@
 import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
-import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {ICustomer} from "@core/business-logic/customer";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
@@ -18,6 +17,7 @@ import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {CustomerPresentationActions} from "@customer/presentation/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -164,12 +164,12 @@ export class TableListComponent extends TableComponent<ECustomer> {
 	}
 
 	public override open(item: ICustomer.EntityRaw) {
-		this.store.dispatch(new CustomerActions.OpenDetails(item));
+		this.store.dispatch(new CustomerPresentationActions.OpenDetails(item));
 	}
 
 	@Dispatch()
 	public openForm() {
-		return new CustomerActions.OpenForm();
+		return new CustomerPresentationActions.OpenForm();
 	}
 
 }

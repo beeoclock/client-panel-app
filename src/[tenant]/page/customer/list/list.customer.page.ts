@@ -2,8 +2,6 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe, DatePipe} from "@angular/common";
-import {TableService} from "@utility/table.service";
-import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
 import ECustomer from "@core/business-logic/customer/entity/e.customer";
 import {
 	TableNgxDatatableSmartResource
@@ -17,8 +15,8 @@ import {
 import {CustomerTableNgxDatatableSmartResource} from "@page/customer/list/customer.table-ngx-datatable.resource";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
-import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {tap} from "rxjs";
+import {CustomerDataActions} from "@customer/presentation/state/data/customer.data.actions";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -35,10 +33,6 @@ import {tap} from "rxjs";
 	providers: [
 		DatePipe,
 		{
-			provide: TableService,
-			useClass: CustomerTableService
-		},
-		{
 			provide: TableNgxDatatableSmartResource,
 			useClass: CustomerTableNgxDatatableSmartResource,
 		},
@@ -49,9 +43,9 @@ export class ListCustomerPage extends ListPage<ECustomer> implements OnDestroy, 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
 		ofActionSuccessful(
-			CustomerActions.UpdateItem,
-			CustomerActions.CreateItem,
-			CustomerActions.SetState,
+			CustomerDataActions.UpdateItem,
+			CustomerDataActions.CreateItem,
+			CustomerDataActions.SetState,
 		),
 		tap((payload) => {
 			this.tableNgxDatatableSmartResource.refreshDiscoveredPages();

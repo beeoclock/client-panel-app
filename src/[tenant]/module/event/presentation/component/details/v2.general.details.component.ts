@@ -11,8 +11,8 @@ import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-serv
 import {CustomerTypeEnum} from "@core/business-logic/customer/enum/customer-type.enum";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
-import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {CustomerPresentationActions} from "@customer/presentation/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'event-v2-general-details',
@@ -181,7 +181,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	@Dispatch()
 	public openCustomerDetails(customer: ICustomer.DTO) {
-		return new CustomerActions.OpenDetailsById(customer._id);
+		return new CustomerPresentationActions.OpenDetailsById(customer._id);
 	}
 
 }

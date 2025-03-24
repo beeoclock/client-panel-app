@@ -12,7 +12,6 @@ import {
 	IdentityState
 } from "@identity/module/identity/infrastructure/state/identity/identity.state";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
-import {CustomerActions} from "@customer/presentation/state/customer/customer.actions";
 import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
 import {MemberActions} from "@member/presentation/state/member/member.actions";
 import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
@@ -181,7 +180,6 @@ export default class TenantRouterOutletComponent extends Reactive implements OnI
 	}
 
 	public override ngOnDestroy(): void {
-		this.store.dispatch(new CustomerActions.Init());
 		this.store.dispatch(new ServiceActions.Init());
 		this.store.dispatch(new MemberActions.Init());
 		this.store.dispatch(new EventRequestedActions.Init());
