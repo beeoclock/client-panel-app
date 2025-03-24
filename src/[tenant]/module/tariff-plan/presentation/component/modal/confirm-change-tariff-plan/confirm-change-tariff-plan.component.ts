@@ -14,7 +14,7 @@ import {
 } from "@tariffPlan/infrastructure/api/post/post.tenant-tariff-plan.change-amount.api";
 import {CurrencyPipe} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan";
+import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
 import {TranslatePipe} from "@ngx-translate/core";
 import {TariffPlanStore} from "@tariffPlan/infrastructure/store/tariff-plan/tariff-plane.store";
 import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";

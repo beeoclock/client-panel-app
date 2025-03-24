@@ -4,7 +4,7 @@ import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";
 import {TariffPlanHistoryEndpointEnum} from "@tariffPlanHistory/infrastructure/endpoint/tariff-plan-history.endpoint";
 import {Types} from "@core/shared/types";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan";
+import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
 
 
 @Injectable()

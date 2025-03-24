@@ -1,7 +1,7 @@
 import {DataProvider} from "@core/system/infrastructure/data-provider/data-provider";
 import {inject, Injectable} from "@angular/core";
 import {Types} from "@core/shared/types";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan";
+import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
 import {GetTenantTariffPlanPagedApi} from "@tariffPlanHistory/infrastructure/api/get/get.tenant-tariff-plan.paged.api";
 
 @Injectable()

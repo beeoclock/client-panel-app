@@ -1,5 +1,5 @@
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan";
+import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
 import {Types} from "@core/shared/types";
 

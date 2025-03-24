@@ -6,7 +6,7 @@ import {filter, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {TariffPlanHistoryRepository} from "@tariffPlanHistory/infrastructure/repository/tariff-plan-history.repository";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan";
+import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
 
 @Injectable()

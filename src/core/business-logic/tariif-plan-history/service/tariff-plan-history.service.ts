@@ -1,5 +1,5 @@
 import {BaseService} from "@core/shared/service/base.service";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan";
+import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
 
 type ENTITY_RAW = ITariffPlanHistory.EntityRaw;

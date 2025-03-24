@@ -12,9 +12,10 @@ export namespace ITariffPlanHistory {
 	}
 
 	export interface DTO extends IBaseDTO<'TariffPlanDto'> {
-		startDate: string & Types.DateTime;
+		startedAt: string & Types.DateTime;
 		status: StatusEnum;
 		expiredAt?: string & Types.DateTime;
+		trialUntil?: string & Types.DateTime;
 		tariffPlan: ITariffPlan.DTO;
 	}
 

@@ -46,7 +46,6 @@ export namespace ITariffPlan {
 		specialistLimit: number | null;
 		features: string[];
 		pluginAttachment: IPluginAttachment;
-
 	}
 
 	export type EntityRaw = IBaseEntityRaw<'TariffPlanDto'> & DTO & {};

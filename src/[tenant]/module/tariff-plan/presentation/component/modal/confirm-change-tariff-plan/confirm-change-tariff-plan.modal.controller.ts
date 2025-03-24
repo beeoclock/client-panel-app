@@ -4,7 +4,7 @@ import {
 	ConfirmChangeTariffPlanComponent
 } from "@tariffPlan/presentation/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.component";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan";
+import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
 
 @Injectable()
 export class ConfirmChangeTariffPlanModalController {
