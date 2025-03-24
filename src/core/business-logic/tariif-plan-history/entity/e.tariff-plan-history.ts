@@ -21,7 +21,7 @@ export class ETariffPlanHistory extends ABaseEntity<'TariffPlanDto', ITariffPlan
 			object: data.object,
 			_id: data._id,
 
-			startDate: data.startDate,
+			startedAt: data.startedAt,
 			status: data.status,
 			expiredAt: data.expiredAt,
 			tariffPlan: data.tariffPlan,
