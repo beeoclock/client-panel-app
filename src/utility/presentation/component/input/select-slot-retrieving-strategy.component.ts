@@ -4,7 +4,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
-import {SlotSettingsForm} from "@client/presentation/form/slot-settings.form";
+import {SlotSettingsForm} from "@[tenant]/client/presentation/form/slot-settings.form";
 import {SlotRetrievingStrategyEnum} from "@core/shared/enum/slot-retrieving-strategy.enum";
 
 @Component({

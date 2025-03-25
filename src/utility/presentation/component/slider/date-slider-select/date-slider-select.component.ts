@@ -15,7 +15,9 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AsyncPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {Reactive} from "@utility/cdk/reactive";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
+import {
+	ButtonArrowComponent
+} from "@[tenant]/event/presentation/ui/component/form/select-time-slot/button.arrow.component";
 import {filter, Observable} from "rxjs";
 import {is} from "@core/shared/checker";
 import {NGXLogger} from "ngx-logger";

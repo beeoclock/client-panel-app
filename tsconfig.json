@@ -30,38 +30,17 @@
       "@[tenant]/*": [
         "./src/[tenant]/*"
       ],
-      "@absence/*": [
-        "./src/[tenant]/module/absence/*"
-      ],
-      "@account/*": [
-        "./src/[tenant]/module/account/*"
-      ],
-      "@analytic/*": [
-        "./src/[tenant]/module/analytic/*"
-      ],
       "@app/*": [
         "./src/app/*"
       ],
       "@asset/*": [
         "./src/asset/*"
       ],
-      "@businessProfile/*": [
-        "./src/[tenant]/module/business-profile/*"
-      ],
-      "@client/*": [
-        "./src/[tenant]/module/client/*"
-      ],
       "@core/*": [
         "./src/core/*"
       ],
-      "@customer/*": [
-        "./src/[tenant]/module/customer/*"
-      ],
       "@environment/*": [
         "./src/environment/*"
-      ],
-      "@event/*": [
-        "./src/[tenant]/module/event/*"
       ],
       "@icon/*": [
         "./src/asset/icon/*"
@@ -69,39 +48,17 @@
       "@identity/*": [
         "./src/identity/*"
       ],
-      "@media/*": [
-        "./src/[tenant]/module/media/*"
-      ],
-      "@member/*": [
-        "./src/[tenant]/module/member/*"
-      ],
-      "@order/*": [
-        "./src/[tenant]/module/order/*"
-      ],
-      "@page/*": [
-        "./src/identity/page/*",
-        "./src/[tenant]/page/*"
-      ],
-      "@payment/*": [
-        "./src/[tenant]/module/payment/*"
-      ],
       "@scss/*": [
         "./src/asset/scss/*"
-      ],
-      "@service/*": [
-        "./src/[tenant]/module/service/*"
       ],
       "@src/*": [
         "./src/*"
       ],
-      "@tariffPlan/*": [
-        "./src/[tenant]/module/tariff-plan/*"
-      ],
-      "@tariffPlanHistory/*": [
-        "./src/[tenant]/module/tariff-plan-history/*"
-      ],
       "@utility/*": [
         "./src/utility/*"
+      ],
+      "@shared-kernel/*": [
+        "./src/shared-kernel/*"
       ]
     }
   },

@@ -7,7 +7,7 @@ import {SlotBuildingStrategyEnum} from "@core/business-logic/business-profile/en
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
 import {HALF_HOUR_IN_SECONDS, ONE_HOUR_IN_SECONDS} from "@utility/domain/time";
-import {SlotSettingsForm} from "@client/presentation/form/slot-settings.form";
+import {SlotSettingsForm} from "@[tenant]/client/presentation/form/slot-settings.form";
 
 @Component({
 	selector: 'select-slot-building-strategy-component',

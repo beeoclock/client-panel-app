@@ -4,7 +4,7 @@ import {Auth} from "@angular/fire/auth";
 import {NGXLogger} from "ngx-logger";
 import {TENANT_ID} from "@src/token";
 import {Store} from "@ngxs/store";
-import {IdentityActions} from "@identity/module/identity/infrastructure/state/identity/identity.actions";
+import {IdentityActions} from "@identity/identity/presentation/state/identity/identity.actions";
 
 @Injectable({
 	providedIn: 'root'

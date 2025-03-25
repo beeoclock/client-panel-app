@@ -15,7 +15,7 @@ import {PriceChipComponent} from "@src/component/smart/order/form/service/list/i
 import {DurationChipComponent} from "@src/component/smart/order/form/service/list/item/chip/duration.chip.component";
 import {StartChipComponent} from "@src/component/smart/order/form/service/list/item/chip/start.chip.component";
 import LanguageChipComponent from "@src/component/smart/order/form/service/list/item/chip/language.chip.component";
-import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
+import {ServiceOrderForm} from "@[tenant]/order/presentation/form/service.order.form";
 import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
 import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";

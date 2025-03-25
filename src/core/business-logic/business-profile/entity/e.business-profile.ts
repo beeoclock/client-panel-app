@@ -1,6 +1,6 @@
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
-import {IMedia} from "@media/domain/interface/i.media";
+import {IMedia} from "@[tenant]/media/domain/interface/i.media";
 import {ActiveEnum} from "@core/shared/enum";
 import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";

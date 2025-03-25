@@ -149,6 +149,14 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 	});
 
+	public reload() {
+		this.reset();
+		this.parameters.update((parameters) => ({
+			...parameters,
+			page: 1,
+		}));
+	}
+
 	public refreshDiscoveredPages() {
 		this.cache.clear();
 		const currentPage = this.parameters().page;

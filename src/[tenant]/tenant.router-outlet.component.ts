@@ -7,19 +7,16 @@ import {
 	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 import {Store} from "@ngxs/store";
-import {
-	BeeoclockIdTokenResult,
-	IdentityState
-} from "@identity/module/identity/infrastructure/state/identity/identity.state";
+import {BeeoclockIdTokenResult, IdentityState} from "@identity/identity/presentation/state/identity/identity.state";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
-import {ServiceActions} from "@service/infrastructure/state/service/service.actions";
+import {ServiceActions} from "@[tenant]/service/infrastructure/state/service/service.actions";
 import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
-import {EventRequestedActions} from "@event/presentation/state/event-requested/event-requested.actions";
+import {EventRequestedActions} from "@[tenant]/event/presentation/state/event-requested/event-requested.actions";
 import {
 	GetFrontendSettingsAccountApiAdapter
-} from "@account/infrastructure/adapter/external/api/get.frontend-settings.account.api.adapter";
+} from "@[tenant]/account/infrastructure/adapter/external/api/get.frontend-settings.account.api.adapter";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
@@ -29,10 +26,12 @@ import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
 import {VisibilityService} from "@utility/cdk/visibility.service";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
-import {CustomerModule} from "@customer/customer.module";
-import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {CustomerModule} from "@[tenant]/customer/customer.module";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
-import {MemberDataActions} from "@member/presentation/state/data/member.data.actions";
+import {MemberDataActions} from "@[tenant]/member/presentation/state/data/member.data.actions";
+import {
+	BusinessProfileState
+} from "@[tenant]/business-profile/presentation/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'tenant-router-outlet-component',
