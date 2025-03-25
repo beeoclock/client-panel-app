@@ -1,4 +1,4 @@
-@if (item) {
+@if (item(); as item) {
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 			<div class="px-4 py-6 grid">
@@ -36,12 +36,12 @@
 					@if (payment(); as payment) {
 						@if (payment.status === paymentStatusEnum.succeeded) {
 							<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
-						{{ 'keyword.capitalize.paid' | translate }}
-					</span>
+								{{ 'keyword.capitalize.paid' | translate }}
+							</span>
 						} @else {
 							<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
-						{{ 'keyword.capitalize.notPaid' | translate }}
-					</span>
+								{{ 'keyword.capitalize.notPaid' | translate }}
+							</span>
 						}
 					}
 				</dd>
