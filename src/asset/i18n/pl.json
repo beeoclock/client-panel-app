@@ -1666,6 +1666,11 @@
 				"label": "Historia rozliczeń i powiązane karty płatnicze"
 			}
 		},
+		"message": {
+			"change": {
+				"success": "Zmiana planu taryfowego przebiegła pomyślnie!"
+			}
+		},
 		"modal": {
 			"confirm-changes": {
 				"content": {

@@ -1666,6 +1666,11 @@
 				"label": "Faktureringshistorik og tilknyttede betalingskort"
 			}
 		},
+		"message": {
+			"change": {
+				"success": "Ændringen af takstplanen var en succes!"
+			}
+		},
 		"modal": {
 			"confirm-changes": {
 				"content": {

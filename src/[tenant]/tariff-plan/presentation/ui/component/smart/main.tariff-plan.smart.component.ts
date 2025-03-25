@@ -14,7 +14,7 @@ import {CurrencyCodePipe} from "@utility/presentation/pipes/currency-code.pipe";
 import {DecimalPipe, NgClass} from "@angular/common";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
-import {TranslatePipe} from "@ngx-translate/core";
+import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
 import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
 import {TariffPlanStore} from "@[tenant]/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";
@@ -27,7 +27,7 @@ import {
 import {
 	ConfirmChangeTariffPlanModalController
 } from "@[tenant]/tariff-plan/presentation/ui/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.modal.controller";
-import {ModalController} from "@ionic/angular/standalone";
+import {ModalController, ToastController} from "@ionic/angular/standalone";
 
 @Component({
 	standalone: true,
@@ -179,7 +179,7 @@ import {ModalController} from "@ionic/angular/standalone";
 
 										<button
 											disabled
-											class="text-xl bg-[#FFD429] rounded-2xl text-yellow-900 py-4 px-5 w-full">
+											class="text-xl bg-[#FFD429] rounded-2xl text-yellow-900 py-4 px-2 w-full">
 											<div class="animate-spin">
 												<i class="bi bi-arrow-repeat"></i>
 											</div>
@@ -191,7 +191,7 @@ import {ModalController} from "@ionic/angular/standalone";
 
 											<button
 												(click)="upgradeTo(item)"
-												class="bg-[#FFD429] font-bold text-xl py-4 px-5 hover:bg-[#FFC800] rounded-2xl w-full normal-case">
+												class="bg-[#FFD429] font-bold text-xl py-4 px-2 hover:bg-[#FFC800] rounded-2xl w-full normal-case">
 												{{ 'keyword.capitalize.upgradeTo' | translate }} {{ item.type }}
 											</button>
 
@@ -201,7 +201,7 @@ import {ModalController} from "@ionic/angular/standalone";
 
 												<button
 													(click)="upgradeTo(item)"
-													class="font-bold text-xl py-4 px-5 w-full normal-case">
+													class="font-bold text-xl py-4 px-2 w-full normal-case">
 													{{ 'keyword.capitalize.switchTo' | translate }} {{ item.type }}
 												</button>
 
@@ -209,7 +209,7 @@ import {ModalController} from "@ionic/angular/standalone";
 
 												<button
 													(click)="upgradeTo(item)"
-													class="font-bold text-xl py-4 px-5 w-full normal-case">
+													class="font-bold text-xl py-4 px-2 w-full normal-case">
 													{{ 'keyword.capitalize.downgradeTo' | translate }} {{ item.type }}
 												</button>
 
@@ -259,7 +259,9 @@ export class MainTariffPlanSmartComponent implements OnInit {
 	private readonly tariffPlanStore = inject(TariffPlanStore);
 	private readonly confirmChangeTariffPlanModalController = inject(ConfirmChangeTariffPlanModalController);
 	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
+	private readonly toastController = inject(ToastController);
 	private readonly sharedUow = inject(SharedUow);
+	private readonly translateService = inject(TranslateService);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	public readonly historyItems: ETariffPlanHistory[] = this.activatedRoute.snapshot.data.tariffPlanHistoryItems;
 	public readonly effectivePlan: Signal<ETariffPlanHistory | null> = this.tariffPlanHistoryStore.effectivePlan;
@@ -296,13 +298,25 @@ export class MainTariffPlanSmartComponent implements OnInit {
 		this.billingLinkIsLoading.set(true);
 		this.tariffPlanStore.fetchBillingLink().then(() => {
 			const billingLink = this.tariffPlanStore.billingLink();
-			if (!billingLink) {
-				// TODO: Show message
+			if (billingLink) {
+				window.open(billingLink, '_blank');
 				return;
 			}
-			window.open(billingLink, '_blank');
+			this.confirmChangeTariffPlanModalController.close().then();
+			this.showSuccessToast();
 		}).finally(() => {
 			this.billingLinkIsLoading.set(false);
+		});
+	}
+
+	private showSuccessToast() {
+		const message = this.translateService.instant('tariffPlan.message.change.success');
+		this.toastController.create({
+			message,
+			duration: 3000,
+			color: 'success',
+		}).then((toast) => {
+			toast.present().then();
 		});
 	}
 

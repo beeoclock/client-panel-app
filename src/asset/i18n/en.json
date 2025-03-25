@@ -1666,6 +1666,11 @@
 				"label": "Billing history and linked payment cards"
 			}
 		},
+		"message": {
+			"change": {
+				"success": "The tariff plan change was successful!"
+			}
+		},
 		"modal": {
 			"confirm-changes": {
 				"content": {

@@ -24,8 +24,11 @@ export class ConfirmChangeTariffPlanModalController {
 				},
 			}
 		});
-		console.log({modal})
 		await modal.present();
 		return modal;
+	}
+
+	public close() {
+		return this.modalController.dismiss();
 	}
 }
