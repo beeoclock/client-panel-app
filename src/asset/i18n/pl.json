@@ -1670,7 +1670,7 @@
 			"confirm-changes": {
 				"content": {
 					"additional": {
-						"one": "✅ Twój plan zostanie natychmiast zaktualizowany.",
+						"one": "✅ Twój plan zostanie natychmiast zaktualizowany",
 						"two": "✅ Kolejna płatność zostanie odpowiednio dostosowana"
 					},
 					"currentTariffPlan": {
