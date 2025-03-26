@@ -2,7 +2,7 @@ import {HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest} from "@angular
 import {inject} from '@angular/core';
 import {EMPTY, firstValueFrom, from, Observable, switchMap} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
-import {AlertController} from "@ionic/angular";
+import {AlertController} from "@ionic/angular/standalone";
 import {Endpoint} from "@utility/domain/endpoint";
 import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 import {OverlayEventDetail} from "@ionic/core/dist/types/utils/overlays-interface";

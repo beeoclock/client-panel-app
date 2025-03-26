@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {NotificationCoreService} from "@utility/cdk/notification.core.service";
-import {RegisterDeviceApiAdapter} from "@identity/module/identity/infrastructure/api/register-device.api.adapter";
-import {ProviderTypeEnum} from "@identity/module/identity/domain/enum/provider-type.enum";
+import {RegisterDeviceApiAdapter} from "@identity/identity/infrastructure/api/register-device.api.adapter";
+import {ProviderTypeEnum} from "@identity/identity/domain/enum/provider-type.enum";
 import {NGXLogger} from "ngx-logger";
 
 /**

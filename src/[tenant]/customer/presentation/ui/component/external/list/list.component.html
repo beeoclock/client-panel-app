@@ -1,0 +1,18 @@
+@if (initialized.isOn) {
+
+	@if (isMobile$ | async) {
+
+		<customer-mobile-layout-list-component
+			[showButtonGoToForm]="false"
+			[isPage]="false"/>
+	} @else {
+
+		<customer-desktop-layout-list-component/>
+	}
+} @else {
+
+	<div class="p-4">
+		{{ 'keyword.capitalize.initializing' | translate }}...
+	</div>
+}
+

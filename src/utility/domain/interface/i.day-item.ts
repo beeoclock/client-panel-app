@@ -1,5 +1,5 @@
 import {DateTime} from "luxon";
-import {IEvent} from "@event/domain";
+import {IEvent} from "@[tenant]/event/domain";
 
 export interface IDayItem {
 	isPast: boolean;

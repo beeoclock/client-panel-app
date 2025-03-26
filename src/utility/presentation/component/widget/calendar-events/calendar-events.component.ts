@@ -1,14 +1,15 @@
 import {Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {Router, RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
-import {IonicModule} from "@ionic/angular";
 import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {Reactive} from "@utility/cdk/reactive";
-import {RIEvent} from "@event/domain";
+import {RIEvent} from "@[tenant]/event/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
+import {
+	EventStatusStyleDirective
+} from "@[tenant]/event/presentation/directive/event-status-style/event-status-style.directive";
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {DynamicDateHelper} from "@utility/presentation/pipes/dynamic-date/dynamic-date.helper";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
@@ -30,7 +31,6 @@ import {DateTime} from "luxon";
 	imports: [
 		RouterLink,
 		TranslateModule,
-		IonicModule,
 		NgForOf,
 		ReactiveFormsModule,
 		FormsModule,

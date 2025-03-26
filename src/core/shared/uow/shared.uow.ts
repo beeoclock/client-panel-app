@@ -1,4 +1,3 @@
-import {Injectable} from "@angular/core";
 import {ServiceService} from "@core/business-logic/service/service/service.service";
 import {PaymentService} from "@core/business-logic/payment/service/payment.service";
 import {OrderService} from "@core/business-logic/order/service/order.service";
@@ -13,9 +12,6 @@ import {TariffPlanHistoryService} from "@core/business-logic/tariif-plan-history
  * Shared Unit of Work
  * Use this class to access services from different modules, without importing them directly
  */
-@Injectable({
-	providedIn: 'root'
-})
 export class SharedUow {
 
 	#service!: ServiceService;

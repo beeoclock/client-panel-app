@@ -19,6 +19,7 @@ export namespace ITariffPlan {
 		billingCycle: BillingCycleEnum;
 		beforeDiscount: number;
 		afterDiscount: number;
+		discountPercentage: number;
 	}
 
 	export interface IPrice {
@@ -45,10 +46,10 @@ export namespace ITariffPlan {
 		specialistLimit: number | null;
 		features: string[];
 		pluginAttachment: IPluginAttachment;
-
 	}
 
 	export type EntityRaw = IBaseEntityRaw<'TariffPlanDto'> & DTO & {};
+
 
 }
 

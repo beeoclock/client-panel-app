@@ -1,0 +1,75 @@
+<!-- Hero -->
+<div
+	class="relative bg-gradient-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent">
+	<div
+		class="flex items-center flex-col justify-between lg:px-8 lg:py-14 max-w-[85rem] min-h-screen mx-auto px-4 py-4 sm:px-6">
+
+		<!-- Form -->
+		<form class="w-full max-w-sm">
+			<div class="w-full max-w-sm lg:mx-auto lg:me-0 ms-auto flex flex-col gap-4">
+				<utility-change-language-component class="self-end"/>
+				<!-- Card -->
+				<div
+					class="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900">
+					<div class="text-start">
+
+						<img alt="Bee O`clock"
+							 class="h-10 w-auto"
+							 height="278" ngSrc="/src/asset/img/logo.png" width="278">
+
+						<h1 class="block text-2xl font-bold text-gray-800 dark:text-white mt-10">
+							{{ 'identity.sign-in.hint.signInToYourAccount' | translate }}
+						</h1>
+						<p class="text-sm text-beeColor-500">
+							{{ 'identity.sign-in.hint.notAMember' | translate }}
+							<a class="font-semibold leading-6 text-blue-600 dark:text-black hover:text-blue-500" id="identity-sign-in-link-sign-up"
+							   routerLink="sign-up">
+								{{ 'keyword.capitalize.signUp' | translate }}
+							</a>
+						</p>
+					</div>
+
+					<div class="mt-5">
+						<identity-sign-in-component [initialValues]="initialLoginValues()"/>
+					</div>
+				</div>
+				<!-- End Card -->
+			</div>
+		</form>
+		<!-- End Form -->
+		<!-- ========== FOOTER ========== -->
+		<footer class="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="py-6">
+				<div class="flex flex-col justify-between items-center gap-2">
+
+					<!-- List -->
+					<ul class="flex flex-wrap items-center">
+						<li class="inline-block">
+							<button (click)="loginIntoDemoProfile()"
+									class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-blue-600 hover:bg-blue-100 focus:outline-none focus:bg-blue-100 hover:text-blue-800 focus:outline-none focus:bg-blue-100 focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:bg-blue-800/30 dark:hover:text-blue-400 dark:focus:bg-blue-800/30 dark:focus:text-blue-400"
+									role="button"
+									type="button">
+								{{ 'keyword.capitalize.tryDemoProfile' | translate }}
+							</button>
+						</li>
+					</ul>
+					<!-- End List -->
+
+					<div>
+						<p class="text-xs text-gray-600 dark:text-neutral-400">
+							{{ footerLabel }}
+						</p>
+					</div>
+					<!-- End Col -->
+				</div>
+			</div>
+		</footer>
+		<!-- ========== END FOOTER ========== -->
+
+
+	</div>
+	<!-- End Clients Section -->
+
+
+</div>
+<!-- End Hero -->

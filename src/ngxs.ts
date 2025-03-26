@@ -1,5 +1,5 @@
 import {NgxsModule} from "@ngxs/store";
-import {IdentityState} from "@src/identity/module/identity/infrastructure/state/identity/identity.state";
+import {IdentityState} from "@identity/identity/presentation/state/identity/identity.state";
 import {environment} from "@environment/environment";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsSelectSnapshotModule} from "@ngxs-labs/select-snapshot";

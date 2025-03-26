@@ -1,13 +1,14 @@
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan";
+import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
 import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
 import {Types} from "@core/shared/types";
 
 export class ETariffPlanHistory extends ABaseEntity<'TariffPlanDto', ITariffPlanHistory.DTO, ITariffPlanHistory.EntityRaw> implements ITariffPlanHistory.EntityRaw {
 
 	startDate!: string & Types.DateTime;
-	status!: "active";
+	status! : ITariffPlanHistory.StatusEnum;
 	expiredAt?: (string & Types.DateTime) | undefined;
+	startedAt!: string & Types.DateTime;
 	tariffPlan!: ITariffPlan.DTO;
 
 	override object = 'TariffPlanDto' as const;
@@ -21,7 +22,7 @@ export class ETariffPlanHistory extends ABaseEntity<'TariffPlanDto', ITariffPlan
 			object: data.object,
 			_id: data._id,
 
-			startDate: data.startDate,
+			startedAt: data.startedAt,
 			status: data.status,
 			expiredAt: data.expiredAt,
 			tariffPlan: data.tariffPlan,

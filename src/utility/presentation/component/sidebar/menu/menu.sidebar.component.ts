@@ -11,7 +11,9 @@ import {is} from "@core/shared/checker";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 import {Reactive} from "@utility/cdk/reactive";
-import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
+import {
+	BusinessProfileState
+} from "@[tenant]/business-profile/presentation/state/business-profile/business-profile.state";
 
 interface IMenuItem {
 	order: number;

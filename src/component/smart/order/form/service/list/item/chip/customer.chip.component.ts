@@ -11,7 +11,7 @@ import {
 import {IonPopover} from "@ionic/angular/standalone";
 import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
 import {TranslateModule} from "@ngx-translate/core";
-import {CustomerForm} from "@customer/presentation/form";
+import {CustomerForm} from "@[tenant]/customer/presentation/form";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@src/core/business-logic/customer";

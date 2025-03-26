@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, inject, input, OnInit, ViewEncapsula
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IonicModule} from "@ionic/angular";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 
 @Component({
 	selector: 'ion-select-state',
@@ -26,7 +26,8 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 		NgSelectModule,
 		ReactiveFormsModule,
 		TranslateModule,
-		IonicModule,
+		IonSelect,
+		IonSelectOption,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
