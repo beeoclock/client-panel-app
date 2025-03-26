@@ -665,6 +665,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Co najmniej jedno pole musi być wypełnione",
+			"atLeastOneMemberSelectedOrEntireBusiness": "Musisz wybrać co najmniej jednego członka lub całą firmę.",
 			"durationFormatInvalid": "Prawidłowy format to godziny:minuty (00:00)",
 			"email": "Nieprawidłowy format adresu e-mail",
 			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
@@ -676,6 +677,7 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "Czas zakończenia musi być dłuższy niż czas rozpoczęcia"
 			},
+			"startBeforeEnd": "Data rozpoczęcia musi być wcześniejsza niż data zakończenia.",
 			"username": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenie (_) i kropkę (.).",
 			"whitespace": "Usuń wszystkie spacje"
 		}
@@ -1006,7 +1008,7 @@
 			"hint": {
 				"mainText": "Narzędzia dostosowane do indywidualnych potrzeb",
 				"quote": "Pracuj z najlepszymi specjalistami! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock to szybkość, profesjonalizm i niezawodność.",
-				"subBainText": "Zarejestruj konto w kilka sekund i zacznij korzystać ze wszystkich funkcji Bee O'clock. \t\t\t\t\t\t\t\t\tfunkcji Bee O'clock. Skupiamy się na uzyskiwaniu wyników \t\t\t\t\t\t\t\t\ttak szybko, jak to możliwe.",
+				"subBainText": "Zarejestruj konto w kilka sekund i zacznij korzystać ze wszystkich funkcji Bee O'clock. Skupiamy się na uzyskiwaniu wyników \t\t\t\t\t\t\t\t\ttak szybko, jak to możliwe.",
 				"successfulInCurrentYear": "Twój sukces jest naszą misją w {{currentYear}}.",
 				"youHaveAnAccount": "Masz już konto?"
 			}
@@ -1054,6 +1056,7 @@
 			"changesFrom": "Z",
 			"changesTo": "Na",
 			"chooseImage": "Wybierz plik",
+			"chosen": "Wybrane",
 			"city": "Miasto",
 			"clearCache": "Wyczyść Cache",
 			"clickToUpload": "Kliknij, aby przesłać",
@@ -1080,6 +1083,7 @@
 			"details": "Szczegóły",
 			"dismiss": "Odrzuć",
 			"done": "Gotowe",
+			"downgradeTo": "Obniż do",
 			"downloadMore": "Pobierz więcej",
 			"duration": "Czas trwania",
 			"earliestBooking": "Najbliższy termin rezerwacji",
@@ -1090,6 +1094,7 @@
 			"event": "Wydarzenie",
 			"events": "Wydarzenia",
 			"every": "Każdą",
+			"exhausted": "Wyczerpany",
 			"facilities": "Udogodnienia",
 			"feature": "Funkcja",
 			"finished": "Zakończono",
@@ -1112,11 +1117,14 @@
 			"members": "Członkowie",
 			"menu": "Menu",
 			"month": "Miesiąc",
+			"monthly": "Miesięcznie",
 			"name": "Nazwa",
 			"next": "Dalej",
 			"nextStep": "Dalej",
 			"no": "Nie",
 			"noData": "Brak danych",
+			"noNeedCard": "Karta płatnicza nie jest potrzebna",
+			"notPaid": "Nieopłacone",
 			"notSpecified": "Nie określono",
 			"notYetStarted": "Jeszcze nie rozpoczęto",
 			"note": "Notatka",
@@ -1126,6 +1134,7 @@
 			"ordering": "Zamawianie",
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
+			"paid": "Zapłacone",
 			"payer": "Płatnik",
 			"payment": "Płatność",
 			"paymentMethod": "Metoda płatności",
@@ -1182,6 +1191,7 @@
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
 			"successfully": "Pomyślnie",
+			"switchTo": "Przełącz na",
 			"synced": "Zsynchronizowano",
 			"syncing": "Synchronizacja w toku…",
 			"theme": "Motyw",
@@ -1192,16 +1202,18 @@
 			"today": "Dziś",
 			"tomorrow": "Jutro",
 			"total": "Razem",
-			"tryDemoProfile": "Spróbować profilu demo",
+			"tryDemoProfile": "Spróbuj profilu demo",
 			"unknown": "Nieznany",
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
+			"upgradeTo": "Zaktualizuj do",
 			"warning": "Uwaga",
 			"week": "Tydzień",
 			"workdays": "Dni pracy",
 			"workingHours": "Godziny pracy",
 			"writePrice": "Wpisz cenę",
 			"year": "Rok",
+			"yearly": "Rocznie",
 			"yes": "Tak",
 			"yesterday": "Wczoraj",
 			"youOffline": "Jesteś offline!",
@@ -1306,7 +1318,10 @@
 				"edit": "Edycja członka zespołu"
 			}
 		},
-		"title": "Członek"
+		"title": "Członek",
+		"toast": {
+			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodać więcej członków zespołu."
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Ustawienia Powiadomień Klienta",
@@ -1363,11 +1378,11 @@
 				"singular": {
 					"cancelled": "Anulowane",
 					"confirmed": "Potwierdzono",
+					"deleted": "Usunięte",
 					"done": "Gotowe",
 					"draft": "Wersja robocza",
 					"inProgress": "W toku",
 					"rejected": "Odrzucono",
-					"deleted": "Usunięte",
 					"requested": "Żądany"
 				}
 			}
@@ -1569,7 +1584,8 @@
 		"settings": "Ustawienia",
 		"statistic": "Statystyki",
 		"switch-business-client": "Zmień kontekst",
-		"table": "Tabela"
+		"table": "Tabela",
+		"tariffPlan": "Taryfy"
 	},
 	"sign-out": {
 		"button": {
@@ -1607,6 +1623,86 @@
 			"numberOfServicesProvided": "Liczba świadczonych usług",
 			"revenue": "Utarg",
 			"topService": "Najpopularniejsza usługa"
+		}
+	},
+	"tariffPlan": {
+		"documentation": {
+			"switchingToAnotherPlan": "<p>     <strong>Zmiana na inny plan</strong> </p> <p>     Uaktualnienie lub zmiana planu jest bezproblemowa! Kiedy przełączysz się na nowy plan, system automatycznie      obliczy różnicę między twoim obecnym a nowym planem, zapewniając płynne przejście. </p> <p>     🔹 Jak to działa: </p> <ol>     <li>Natychmiastowa aktywacja – Twój nowy plan zostanie aktywowany od razu po zmianie.</li>     <li>Proporcjonalne dostosowanie – System odliczy pozostałą wartość z poprzedniego planu          i zastosuje ją do nowego.     </li>     <li>Automatyczne rozliczenie – Zapłacisz tylko różnicę, co zapewnia uczciwe naliczanie opłat.</li>     <li>Brak przerw w działaniu – Twoje obecne funkcje pozostaną aktywne podczas przetwarzania aktualizacji.     </li> </ol> <p>💡 Możesz uaktualnić plan w dowolnym momencie i płacić tylko za to, co wykorzystujesz. Jeśli obniżysz plan,      skorygowana kwota zostanie zastosowana do przyszłych płatności. 🚀</p>"
+		},
+		"features": {
+			"adminPanel": {
+				"label": "Panel administracyjny"
+			},
+			"assistantAI": {
+				"label": "Asystent AI"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Potwierdzenie płatności"
+			},
+			"emailNotification": {
+				"label": "Powiadomienie e-mail"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"publicPage": {
+				"label": "Strona publiczna"
+			},
+			"publicRestApi": {
+				"label": "Publiczny REST API"
+			},
+			"seoOptimization": {
+				"label": "Pakiet SEO"
+			},
+			"smsNotification": {
+				"label": "Powiadomienie SMS"
+			},
+			"unlimitedPlugins": {
+				"label": "Nieograniczone wtyczki"
+			}
+		},
+		"links": {
+			"billing": {
+				"label": "Historia rozliczeń i powiązane karty płatnicze"
+			}
+		},
+		"message": {
+			"change": {
+				"success": "Zmiana planu taryfowego przebiegła pomyślnie!"
+			}
+		},
+		"modal": {
+			"confirm-changes": {
+				"content": {
+					"additional": {
+						"one": "✅ Twój plan zostanie natychmiast zaktualizowany",
+						"two": "✅ Kolejna płatność zostanie odpowiednio dostosowana"
+					},
+					"currentTariffPlan": {
+						"daysRemaining": {
+							"label": "Pozostałe dni"
+						},
+						"daysUsed": {
+							"label": "Wykorzystane dni"
+						},
+						"label": "Aktualny plan",
+						"remainingCredit": {
+							"label": "Pozostały kredyt"
+						}
+					},
+					"newTariffPlan": {
+						"differenceToPay": {
+							"label": "Różnica do zapłaty"
+						},
+						"label": "Nowy plan"
+					}
+				},
+				"title": "Potwierdzenie zmiany planu taryfowego"
+			}
+		},
+		"page": {
+			"subtitle": "Wybierz najlepszą opcję dla swojej firmy",
+			"title": "Taryfy"
 		}
 	},
 	"updateAvailable": {

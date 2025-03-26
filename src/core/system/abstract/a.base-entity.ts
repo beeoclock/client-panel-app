@@ -33,9 +33,19 @@ export abstract class ABaseEntity<
 		_id: string & Types.ObjectId;
 		stateHistory: { state: StateEnum; setAt: string & Types.DateTime }[]
 	}) {
+		this.initBeforeConstructor();
 		const {stateHistory, ...rest} = data;
 		Object.assign(this, rest);
 		this.stateHistory = this.stateHistory.concat(stateHistory);
+		this.initAfterConstructor()
+	}
+
+	public initBeforeConstructor(): void {
+		// Use the function in child class to initialize the data before the constructor
+	}
+
+	public initAfterConstructor(): void {
+		// Use the function in child class to initialize the data before the constructor
 	}
 
 	public changeState(state: StateEnum): void {

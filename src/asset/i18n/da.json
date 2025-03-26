@@ -665,6 +665,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Mindst et felt skal udfyldes",
+			"atLeastOneMemberSelectedOrEntireBusiness": "Du skal vælge mindst ét medlem eller hele virksomheden.",
 			"durationFormatInvalid": "Gyldigt format er timer:minutter (00:00)",
 			"email": "Ugyldigt e-mail-format",
 			"emailOrPhoneRequired": "E-mail eller telefonnummer er påkrævet",
@@ -676,6 +677,7 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "Sluttidspunktet skal være længere end starttidspunktet"
 			},
+			"startBeforeEnd": "Startdatoen skal være før slutdatoen.",
 			"username": "Brugernavnet kan kun indeholde bogstaver, tal, en understregning (_) og et punktum (.).",
 			"whitespace": "Fjern alle mellemrum"
 		}
@@ -1054,6 +1056,7 @@
 			"changesFrom": "Fra",
 			"changesTo": "Til",
 			"chooseImage": "Vælg billede",
+			"chosen": "Udvalgt",
 			"city": "By",
 			"clearCache": "Opdater cache",
 			"clickToUpload": "Klik for at uploade",
@@ -1080,6 +1083,7 @@
 			"details": "Detaljer",
 			"dismiss": "Afvis",
 			"done": "Færdig",
+			"downgradeTo": "Nedgradering til",
 			"downloadMore": "Download mere",
 			"duration": "Varighed",
 			"earliestBooking": "Tidligste bookingtid",
@@ -1090,6 +1094,7 @@
 			"event": "Begivenhed",
 			"events": "Begivenheder",
 			"every": "Hver",
+			"exhausted": "Udmattet ",
 			"facilities": "Faciliteter",
 			"feature": "Funktion",
 			"finished": "Voltooid",
@@ -1112,11 +1117,14 @@
 			"members": "Medlemmer",
 			"menu": "Menu",
 			"month": "Måned",
+			"monthly": "Månedligt",
 			"name": "Navn",
 			"next": "Næste",
 			"nextStep": "Næste skridt",
 			"no": "Nej",
 			"noData": "Ingen data",
+			"noNeedCard": "Intet behov for kort",
+			"notPaid": "Ikke betalt",
 			"notSpecified": "Ikke specificeret",
 			"notYetStarted": "Nog niet begonnen",
 			"note": "Note",
@@ -1126,6 +1134,7 @@
 			"ordering": "Bestilling",
 			"ownOptionOfTime": "Time efter eget ønske",
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
+			"paid": "Betalt",
 			"payer": "Udbetaler",
 			"payment": "Betaling",
 			"paymentMethod": "Betalingsmetode",
@@ -1182,6 +1191,7 @@
 			"streetAddressLineOne": "Adresse 1",
 			"streetAddressLineTwo": "Adresse 2",
 			"successfully": "Med succes",
+			"switchTo": "Skift til",
 			"synced": "Synkroniseret",
 			"syncing": "Synkronisering pågår…",
 			"theme": "Tema",
@@ -1196,12 +1206,14 @@
 			"unknown": "Ukendt",
 			"update": "Opdateret",
 			"updatedAt": "Opdateret kl",
+			"upgradeTo": "Opgrader til",
 			"warning": "Advarsel",
 			"week": "Uge",
 			"workdays": "Arbejdsdage",
 			"workingHours": "Arbejdstimer",
 			"writePrice": "Skriv pris",
 			"year": "År",
+			"yearly": "Årligt",
 			"yes": "Ja",
 			"yesterday": "Yesterday",
 			"youOffline": "Du er offline!",
@@ -1306,7 +1318,10 @@
 				"edit": "Rediger et teammedlem"
 			}
 		},
-		"title": "Medlem"
+		"title": "Medlem",
+		"toast": {
+			"limit": "Grænsen er nået. Opgrader til en højere plan for at tilføje flere teammedlemmer."
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Kunde Notifikationsindstillinger",
@@ -1363,11 +1378,11 @@
 				"singular": {
 					"cancelled": "Aflyst",
 					"confirmed": "Bekræftet",
+					"deleted": "Slettet",
 					"done": "Færdig",
 					"draft": "Udkast",
 					"inProgress": "Igangværende",
 					"rejected": "Afvist",
-					"deleted": "Slettet",
 					"requested": "Anmodet om"
 				}
 			}
@@ -1569,7 +1584,8 @@
 		"settings": "Indstillinger",
 		"statistic": "Statistik",
 		"switch-business-client": "Skift kontekst",
-		"table": "Tabel"
+		"table": "Tabel",
+		"tariffPlan": "Tariffer"
 	},
 	"sign-out": {
 		"button": {
@@ -1607,6 +1623,86 @@
 			"numberOfServicesProvided": "Antal leverede tjenester",
 			"revenue": "Indtægter",
 			"topService": "Den mest populære tjeneste"
+		}
+	},
+	"tariffPlan": {
+		"documentation": {
+			"switchingToAnotherPlan": "<p>     <strong>Skift til en anden plan</strong> </p> <p>     Opgradering eller ændring af din plan er problemfri! Når du skifter til en ny plan, vil systemet automatisk      beregne forskellen mellem din nuværende og nye plan, hvilket sikrer en glidende overgang. </p> <p>     🔹 Sådan fungerer det: </p> <ol>     <li>Øjeblikkelig aktivering – Din nye plan aktiveres med det samme efter ændringen.</li>     <li>Pro-rata justering – Systemet fratrækker den resterende værdi af din tidligere plan og          anvender den på den nye.     </li>     <li>Automatisk fakturering – Du betaler kun forskellen, så du bliver opkrævet retfærdigt.</li>     <li>Ingen serviceafbrydelser – Dine eksisterende funktioner forbliver aktive, mens opgraderingen behandles.     </li> </ol> <p>💡 Du kan opgradere når som helst og kun betale for det, du bruger. Hvis du nedgraderer, vil det justerede beløb      blive anvendt på fremtidige betalinger. 🚀</p>"
+		},
+		"features": {
+			"adminPanel": {
+				"label": "Administrationspanel"
+			},
+			"assistantAI": {
+				"label": "Assistent AI"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Betalingsbekræftelse"
+			},
+			"emailNotification": {
+				"label": "E-mail notifikation"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"publicPage": {
+				"label": "Offentlig side"
+			},
+			"publicRestApi": {
+				"label": "Offentlig REST API"
+			},
+			"seoOptimization": {
+				"label": "SEO-pakke"
+			},
+			"smsNotification": {
+				"label": "SMS notifikation"
+			},
+			"unlimitedPlugins": {
+				"label": "Ubegrænsede plugins"
+			}
+		},
+		"links": {
+			"billing": {
+				"label": "Faktureringshistorik og tilknyttede betalingskort"
+			}
+		},
+		"message": {
+			"change": {
+				"success": "Ændringen af takstplanen var en succes!"
+			}
+		},
+		"modal": {
+			"confirm-changes": {
+				"content": {
+					"additional": {
+						"one": "✅ Je plan wordt onmiddellijk geüpgraded",
+						"two": "✅ Volgende betaling wordt overeenkomstig aangepast"
+					},
+					"currentTariffPlan": {
+						"daysRemaining": {
+							"label": "Resterende dagen"
+						},
+						"daysUsed": {
+							"label": "Dagen Gebruikt"
+						},
+						"label": "Huidig plan",
+						"remainingCredit": {
+							"label": "Resterend krediet"
+						}
+					},
+					"newTariffPlan": {
+						"differenceToPay": {
+							"label": "Verschil te betalen"
+						},
+						"label": "Nieuw plan"
+					}
+				},
+				"title": "Bevestig de wijziging van het tariefplan"
+			}
+		},
+		"page": {
+			"subtitle": "Vælg den bedste løsning til din virksomhed",
+			"title": "Tariffer"
 		}
 	},
 	"updateAvailable": {

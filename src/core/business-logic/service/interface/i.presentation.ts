@@ -1,4 +1,4 @@
-import {RIMedia} from "@module/media/domain/interface/i.media";
+import {RIMedia} from "@[tenant]/media/domain/interface/i.media";
 
 export interface IPresentation {
 	object: "PresentationDto";

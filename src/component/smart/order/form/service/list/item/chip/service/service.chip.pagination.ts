@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {OrderDirEnum} from "@core/shared/enum";
 import {BehaviorSubject} from "rxjs";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import EService from "@core/business-logic/service/entity/e.service";
@@ -14,8 +14,8 @@ export class ServiceChipPagination {
 	private readonly params = {
 		page: 1,
 		pageSize: 20,
-		orderBy: OrderByEnum.UPDATED_AT,
-		orderDir: OrderDirEnum.DESC,
+		orderBy: 'order',
+		orderDir: OrderDirEnum.ASC,
 	};
 
 	public readonly items$ = new BehaviorSubject<IService.DTO[]>([]);

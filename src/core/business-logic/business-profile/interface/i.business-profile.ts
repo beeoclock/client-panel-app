@@ -1,7 +1,7 @@
 import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
 import {BusinessClientStatusEnum} from "@core/business-logic/business-profile/enum/business-client-status.enum";
 import {ActiveEnum} from "@core/shared/enum";
-import {RIMedia} from "@module/media/domain/interface/i.media";
+import {RIMedia} from "@[tenant]/media/domain/interface/i.media";
 import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";

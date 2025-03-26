@@ -16,9 +16,8 @@ import {
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
-import {TableState} from "@utility/domain/table.state";
 import {Reactive} from "@utility/cdk/reactive";
-import {ServiceOrderForm, ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
+import {ServiceOrderForm, ServiceOrderFormArray} from "@[tenant]/order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
@@ -27,9 +26,11 @@ import {ICustomer} from "@src/core/business-logic/customer";
 import ObjectID from "bson-objectid";
 import {IAttendeeDto} from "@src/core/business-logic/order/interface/i-order-appointment-details.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {BusinessProfileState} from "@businessProfile/infrastructure/state/business-profile/business-profile.state";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {IMember} from "@core/business-logic/member/interface/i.member";
+import {
+	BusinessProfileState
+} from "@[tenant]/business-profile/presentation/state/business-profile/business-profile.state";
 
 @Component({
 	standalone: true,
@@ -129,17 +130,13 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 
 	public async addService() {
 
-		const {SelectServiceWhacAMoleComponent} = await import("@service/presentation/push-box/select-service.whac-a-mole.component");
+		const {SelectServiceWhacAMoleComponent} = await import("@[tenant]/service/presentation/push-box/select-service.whac-a-mole.component");
 
-		const useTableStateFromStore = true;
-		const tableState = new TableState<IService.DTO>().toCache();
 
 		const pushBoxWrapperComponentRef = await this.#whacAMaleProvider.buildItAsync({
 			component: SelectServiceWhacAMoleComponent,
 			componentInputs: {
 				multiple: false,
-				useTableStateFromStore,
-				tableState
 			}
 		});
 

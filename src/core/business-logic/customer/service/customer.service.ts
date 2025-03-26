@@ -1,10 +1,8 @@
-import {Injectable} from "@angular/core";
 import {ICustomer} from "@core/business-logic/customer";
 import {BaseService} from "@core/shared/service/base.service";
 
 type ENTITY_RAW = ICustomer.EntityRaw;
 
-@Injectable()
 export class CustomerService extends BaseService<ENTITY_RAW> {
 
 	public async findOneByEmailPhone(either: {

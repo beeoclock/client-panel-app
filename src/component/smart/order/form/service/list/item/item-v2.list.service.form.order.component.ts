@@ -1,13 +1,21 @@
-import {ChangeDetectionStrategy, Component, inject, input, output, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	effect,
+	inject,
+	input,
+	output,
+	signal,
+	ViewEncapsulation
+} from "@angular/core";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import ObjectID from "bson-objectid";
-import {Reactive} from "@utility/cdk/reactive";
 import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {PriceChipComponent} from "@src/component/smart/order/form/service/list/item/chip/price.chip.component";
 import {DurationChipComponent} from "@src/component/smart/order/form/service/list/item/chip/duration.chip.component";
 import {StartChipComponent} from "@src/component/smart/order/form/service/list/item/chip/start.chip.component";
 import LanguageChipComponent from "@src/component/smart/order/form/service/list/item/chip/language.chip.component";
-import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
+import {ServiceOrderForm} from "@[tenant]/order/presentation/form/service.order.form";
 import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
 import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
@@ -26,6 +34,8 @@ import {
 } from "@src/component/smart/order/form/service/list/item/chip/specialist.chip.component";
 import StatusChipComponent from "@src/component/smart/order/form/service/list/item/chip/status.chip.component";
 import {LanguageCodeEnum} from "@core/shared/enum";
+import {SharedUow} from "@core/shared/uow/shared.uow";
+import EService from "@core/business-logic/service/entity/e.service";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -60,8 +70,8 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 			<div class="justify-start items-start gap-2 flex flex-wrap">
 				<app-language-chip-component
 					(languageChanges)="handleLanguageChanges($event)"
+					[serviceEntity]="serviceEntity()"
 					[initialValue]="service.languageVersions[0].language"
-					[languageVersions]="service.languageVersions"
 					[id]="id()"/>
 				<app-status-chip-component
 					(statusChanges)="handleStatusChanges()"
@@ -96,10 +106,10 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 		class: 'flex-col justify-start items-start p-3 gap-2 flex'
 	}
 })
-export class ItemV2ListServiceFormOrderComponent extends Reactive {
+export class ItemV2ListServiceFormOrderComponent {
 
 	public readonly item = input.required<{
-		service: IService.DTO;
+		service: IService.DTO; // from serviceSnapshot
 		control: ServiceOrderForm;
 	}>();
 
@@ -110,12 +120,32 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive {
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
+	public readonly serviceEntity = signal<EService | null>(null);
+
+	public constructor() {
+		effect(async () => {
+
+			const {service} = this.item();
+
+			const serviceEntityRaw = await this.#sharedUow.service.repository.findByIdAsync(service._id);
+
+			if (serviceEntityRaw) {
+
+				const serviceEntity = EService.fromRaw(serviceEntityRaw);
+
+				this.serviceEntity.set(serviceEntity);
+
+			}
+
+		});
+	}
+
 	public readonly deleteMe = output<void>();
 
 	public readonly saveChanges = output<void>();
 
 	readonly #ngxLogger = inject(NGXLogger);
-
+	readonly #sharedUow = inject(SharedUow);
 
 	public get initialSpecialistOrMember() {
 		const specialist = this.item().control.getRawValue().orderAppointmentDetails.specialists[0];
@@ -207,12 +237,18 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive {
 		this.saveChanges.emit();
 	}
 
-	public handleLanguageChanges(language: LanguageCodeEnum) {
+	public async handleLanguageChanges(language: LanguageCodeEnum) {
 		this.#ngxLogger.debug('handleLanguageChanges', this.id());
-		const {orderAppointmentDetails} = this.item().control.getRawValue();
-		orderAppointmentDetails.languageCodes = [language];
-		// TODO take service from repository and replace languageVersions
-		this.saveChanges.emit();
+		const {orderAppointmentDetails, serviceSnapshot} = this.item().control.getRawValue();
+		const service = this.serviceEntity();
+		if (service) {
+			const foundServiceLanguageList = service.languageVersions.filter(({language: languageCode}) => languageCode === language);
+			if (foundServiceLanguageList.length) {
+				orderAppointmentDetails.languageCodes = [language];
+				serviceSnapshot.languageVersions = foundServiceLanguageList;
+				this.saveChanges.emit();
+			}
+		}
 	}
 
 	public handleStatusChanges() {

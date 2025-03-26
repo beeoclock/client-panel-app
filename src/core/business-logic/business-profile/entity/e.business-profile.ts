@@ -1,6 +1,6 @@
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
-import {IMedia} from "@module/media/domain/interface/i.media";
+import {IMedia} from "@[tenant]/media/domain/interface/i.media";
 import {ActiveEnum} from "@core/shared/enum";
 import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
@@ -43,9 +43,12 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 	contacts!: IContact[];
 	gallery!: Required<IMedia>[];
 	description!: string;
-	username: string | null = null;
+	username!: string | null;
 	facilities!: FacilityEnum[];
 
+	public override initBeforeConstructor() {
+		this.username = null;
+	}
 
 	public override toDTO(): IBusinessProfile.DTO {
 		return EBusinessProfile.toDTO(this);
