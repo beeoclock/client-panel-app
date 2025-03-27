@@ -286,8 +286,12 @@ export class MainTariffPlanSmartComponent implements OnInit {
 		this.loading.set(item);
 		const actual = this.effectivePlan();
 		if (actual) {
-			await this.confirmChangeTariffPlanModalController.present(item, actual);
-			this.showSuccessToast();
+			const modal = await this.confirmChangeTariffPlanModalController.present(item, actual);
+			modal.onDidDismiss().then((result) => {
+				if (result) {
+					this.showSuccessToast();
+				}
+			})
 		} else {
 			// TODO: Show Error
 		}
