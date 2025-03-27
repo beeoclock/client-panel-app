@@ -3,18 +3,15 @@ import {
 	ChangeDetectorRef,
 	Component,
 	DoCheck,
-	HostBinding,
 	inject,
 	input,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
-import {
-	NullValueAccessorDirective
-} from "@utility/presentation/directives/null-value-accessor/null-value-accessor.directive";
 
 @Component({
 	selector: 'form-input',
@@ -26,18 +23,15 @@ import {
 		InvalidTooltipDirective,
 		ReactiveFormsModule,
 		TranslateModule,
-		NullValueAccessorDirective,
 	],
 	template: `
 
-		<!-- Input Group -->
-		<div>
 			<!-- Floating Input -->
 			<div class="relative">
 				<input
+					#input
 					isRequired
 					invalidTooltip
-					emptyStringToNull
 					[class.h-16]="inputType() === 'color'"
 					[step]="step()"
 					[min]="min()"
@@ -70,9 +64,10 @@ focus:pt-6
 
 			</div>
 			<!-- End Floating Input -->
-		</div>
-		<!-- End Input Group -->
-	`
+	`,
+	host: {
+		class: 'block'
+	}
 })
 export class FormInputComponent implements DoCheck {
 
@@ -92,14 +87,15 @@ export class FormInputComponent implements DoCheck {
 
 	public readonly autocomplete = input('');
 
+	public readonly autofocus = input(false);
+
 	public readonly step = input(60); // In seconds
 
 	public readonly control = input.required<FormControl>();
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	@HostBinding()
-	public class = 'block';
+	private readonly input = viewChild<HTMLInputElement>('input');
 
 	public ngDoCheck(): void {
 		this.changeDetectorRef.detectChanges();

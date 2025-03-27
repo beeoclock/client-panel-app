@@ -27,9 +27,6 @@ import {IBusinessProfile} from "@core/business-logic/business-profile/interface/
 import {PostApi} from "@[tenant]/service/infrastructure/data-source/api/post.api";
 import {PutApi} from "@[tenant]/business-profile/infrastructure/data-source/api/put.api";
 import {
-	ModalSelectSpecialistListRepository
-} from "@[tenant]/member/infrastructure/repository/modal-select-specialist.list.repository";
-import {
 	PatchMediaGalleryClientApiAdapter
 } from "@[tenant]/client/infrastructure/data-source/api/media/gallery/patch.media.gallery.client.api.adapter";
 import {IdentityActions} from "@identity/identity/presentation/state/identity/identity.actions";
@@ -100,7 +97,6 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	public readonly store = inject(Store);
 	public readonly tenantId$ = inject(TENANT_ID);
 	public readonly allStepsFinishedWithSuccess = new BooleanState(false);
-	public readonly modalSelectSpecialistListRepository = inject(ModalSelectSpecialistListRepository);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly createServiceApiAdapter = inject(PostApi);
@@ -268,13 +264,6 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	}
 
 	private async stepAddServices(): Promise<void> {
-
-		if (!this.modalSelectSpecialistListRepository.tableState.total) {
-
-			this.modalSelectSpecialistListRepository.resetTableState();
-			await this.modalSelectSpecialistListRepository.getPageAsync();
-
-		}
 
 		const requestList$ = this.createBusinessQuery.getServicesForm()
 			.value?.map((service) => {

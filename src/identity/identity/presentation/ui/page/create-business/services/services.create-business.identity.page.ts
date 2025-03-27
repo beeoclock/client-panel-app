@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
@@ -34,13 +34,15 @@ import {ServiceItemComponent} from "@[tenant]/service/presentation/ui/component/
 		CardComponent,
 		FormButtonWithIconComponent,
 	],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServicesCreateBusinessIdentityPage {
 
 	private readonly createBusinessModalService = inject(CreateBusinessModalService);
 	private readonly translateService = inject(TranslateService);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly servicesForm = this.createBusinessQuery.getServicesForm();
 	private readonly ngxLogger = inject(NGXLogger);
 
@@ -77,6 +79,7 @@ export class ServicesCreateBusinessIdentityPage {
 					this.ngxLogger.error('Service not found');
 				}
 			}
+			this.changeDetectorRef.detectChanges();
 		});
 	}
 
