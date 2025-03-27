@@ -180,8 +180,9 @@ export class ConfirmChangeTariffPlanComponent {
 	public async confirm() {
 		this.loading.set(true);
 		const tariffPlanEntity = ETariffPlan.fromRaw(this.tariffPlan());
-		await this.tariffPlanStore.changeTariffPlanOnto(tariffPlanEntity);
+		const result = await this.tariffPlanStore.changeTariffPlanOnto(tariffPlanEntity);
 		this.loading.set(false);
+		if (result) this.closeModal()(true);
 	}
 
 }

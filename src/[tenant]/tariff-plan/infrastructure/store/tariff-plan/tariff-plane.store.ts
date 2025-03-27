@@ -64,7 +64,7 @@ export const TariffPlanStore = signalStore(
                 try {
                     const isOffline = isOnlineService.isOffline();
                     if (isOffline) {
-                        return;
+                        return false;
                     }
                     const {url: checkoutSessionUrl} = await patchTenantTariffPlanChangeApi.executeAsync({
 						redirectUrl: {
@@ -81,8 +81,10 @@ export const TariffPlanStore = signalStore(
                         // Read comment for the endpoint at response 200
                         // https://api-dev.beeoclock.com/tariff-plan/documentation/swagger/v1#/default/TenantTariffPlanController_changeTariffPlan
                     }
+					return true;
                 } catch (e) {
                     ngxLogger.error(e);
+					return false;
                 }
             },
             async fetchBillingLink() {
