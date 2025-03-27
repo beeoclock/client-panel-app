@@ -287,6 +287,8 @@ export class MainTariffPlanSmartComponent implements OnInit {
 		const actual = this.effectivePlan();
 		if (actual) {
 			await this.confirmChangeTariffPlanModalController.present(item, actual);
+			this.confirmChangeTariffPlanModalController.close().then();
+			this.showSuccessToast();
 		} else {
 			// TODO: Show Error
 		}
@@ -302,8 +304,6 @@ export class MainTariffPlanSmartComponent implements OnInit {
 				window.open(billingLink, '_blank');
 				return;
 			}
-			this.confirmChangeTariffPlanModalController.close().then();
-			this.showSuccessToast();
 		}).finally(() => {
 			this.billingLinkIsLoading.set(false);
 		});
