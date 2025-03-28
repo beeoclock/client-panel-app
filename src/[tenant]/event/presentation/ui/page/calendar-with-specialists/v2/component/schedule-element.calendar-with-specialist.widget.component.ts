@@ -126,8 +126,8 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 		).subscribe((schedules) => {
 			this.dataToBuildScheduleElements.length = 0;
 			schedules.forEach(schedule => {
-				const start = this.selectedDate.startOf('day').plus({seconds: schedule.startInSeconds});
-				const end = this.selectedDate.startOf('day').plus({seconds: schedule.endInSeconds});
+				const start = this.selectedDate.startOf('day').set({second: schedule.startInSeconds});
+				const end = this.selectedDate.startOf('day').set({second: schedule.endInSeconds});
 
 				let top = this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx;
 				top += (start.hour * this.calendarWithSpecialistLocaStateService.oneHourForPx);
