@@ -7,7 +7,7 @@ import {
 	RowActionButtonComponent
 } from "@tenant/member/presentation/component/row-action-button/row-action-button.component";
 import {IMember} from "@core/business-logic/member/interface/i.member";
-import {MemberPresentationActions} from "@tenant/member/presentation/state/presentation/member.presentation.actions";
+import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
 
 @Component({
 	selector: 'member-detail-page',

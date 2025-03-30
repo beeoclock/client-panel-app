@@ -16,8 +16,8 @@ import {MemberService} from "@core/business-logic/member/service/member.service"
 import {NgxsModule} from "@ngxs/store";
 import {PushChangesSyncManager} from "@tenant/member/infrastructure/sync-manager/push.changes.sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {MemberDataState} from "@tenant/member/presentation/state/data/member.data.state";
-import {MemberPresentationState} from "@tenant/member/presentation/state/presentation/member.presentation.state";
+import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
+import {MemberPresentationState} from "@tenant/member/infrastructure/state/presentation/member.presentation.state";
 
 @NgModule({
 	imports: [

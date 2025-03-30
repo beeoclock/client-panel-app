@@ -27,7 +27,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {IonLabel, IonSegment, IonSegmentButton, IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 
 @Component({

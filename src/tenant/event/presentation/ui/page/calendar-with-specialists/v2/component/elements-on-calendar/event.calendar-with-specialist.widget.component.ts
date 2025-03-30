@@ -31,13 +31,13 @@ import {
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {
 	CalendarWithSpecialistsQueries
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar–with-specialists.queries";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
-import {AbsenceDataActions} from "@tenant/absence/presentation/state/data/absence.data.actions";
+import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
 
 type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>;
 

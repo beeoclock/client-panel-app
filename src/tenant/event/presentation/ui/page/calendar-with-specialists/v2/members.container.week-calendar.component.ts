@@ -12,8 +12,8 @@ import CalendarWithSpecialistLocaStateService
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {NGXLogger} from "ngx-logger";
 import {IMember} from "@core/business-logic/member/interface/i.member";
-import {MemberDataState} from "@tenant/member/presentation/state/data/member.data.state";
-import {MemberDataActions} from "@tenant/member/presentation/state/data/member.data.actions";
+import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
+import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 
 @Component({
 	selector: 'app-event-v2-members-container-week-calendar-component',

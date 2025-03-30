@@ -9,8 +9,8 @@ import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {IonSelectStateComponent} from "@utility/presentation/component/input/ion/ion-select-state.component";
-import {AbsenceDataState} from "@tenant/absence/presentation/state/data/absence.data.state";
-import {AbsencePresentationActions} from "@tenant/absence/presentation/state/presentation/absence.presentation.actions";
+import {AbsenceDataState} from "@tenant/absence/infrastructure/state/data/absence.data.state";
+import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 @Component({
 	selector: 'app-absence-filter-component',

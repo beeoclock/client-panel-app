@@ -36,10 +36,10 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
 import {
 	BusinessProfileActions
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.actions";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'app-business-profile-client-page',

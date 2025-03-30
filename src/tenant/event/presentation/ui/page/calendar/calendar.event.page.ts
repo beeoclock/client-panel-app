@@ -1,20 +1,20 @@
 import {AfterViewInit, Component, inject, OnDestroy, OnInit, viewChild, ViewEncapsulation} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {CalendarQueries} from "@tenant/event/presentation/state/calendar/calendar.queries";
+import {CalendarQueries} from "@tenant/event/infrastructure/state/calendar/calendar.queries";
 import {DateTime} from "luxon";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {filter, take, withLatestFrom} from "rxjs";
 import {DEFAULT_PRESENTATION_CALENDAR_TYPE} from "@tenant/event/domain/enum/presentation-calendar-type.enum";
-import {PushPrevCalendarAction} from "@tenant/event/presentation/state/calendar/actions/push.prev.calendar.action";
-import {PushNextCalendarAction} from "@tenant/event/presentation/state/calendar/actions/push.next.calendar.action";
+import {PushPrevCalendarAction} from "@tenant/event/infrastructure/state/calendar/actions/push.prev.calendar.action";
+import {PushNextCalendarAction} from "@tenant/event/infrastructure/state/calendar/actions/push.next.calendar.action";
 import {NGXLogger} from "ngx-logger";
 import {
 	DataCalendarDomManipulationService
 } from "@tenant/event/presentation/dom-manipulation-service/data.calendar.dom-manipulation-service";
 import {TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {InitCalendarAction} from "@tenant/event/presentation/state/calendar/actions/init.calendar.action";
+import {InitCalendarAction} from "@tenant/event/infrastructure/state/calendar/actions/init.calendar.action";
 import {
 	ContainerCalendarComponent
 } from "@tenant/event/presentation/ui/component/calendar/container.calendar.component";

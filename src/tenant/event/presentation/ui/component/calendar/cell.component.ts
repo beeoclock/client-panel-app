@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 import {NGXLogger} from "ngx-logger";
 import {Store} from "@ngxs/store";
-import {RefreshCalendarAction} from "@tenant/event/presentation/state/calendar/actions/refresh.calendar.action";
+import {RefreshCalendarAction} from "@tenant/event/infrastructure/state/calendar/actions/refresh.calendar.action";
 import {
 	ScrollCalendarDomManipulationService
 } from "@tenant/event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";

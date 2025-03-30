@@ -14,10 +14,10 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {EventModule} from "@tenant/event/event.module";
 import {
 	TariffPlanHistoryStore
-} from "@tenant/tariff-plan-history/presentation/store/tariff-plan-history/tariff-plane-history.store";
+} from "@tenant/tariff-plan-history/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
 import {
 	BusinessProfileStore
-} from "@tenant/business-profile/presentation/store/business-profile/business-profile.store";
+} from "@tenant/business-profile/infrastructure/store/business-profile/business-profile.store";
 import {TariffPlanStore} from "@tenant/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";
 import {BusinessProfileModule} from "@tenant/business-profile/business-profile.module";
 import TariffPlanModule from "@tenant/tariff-plan/tariff-plan.module";

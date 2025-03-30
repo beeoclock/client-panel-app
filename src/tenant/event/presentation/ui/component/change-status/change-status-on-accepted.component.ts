@@ -4,11 +4,11 @@ import {Store} from "@ngxs/store";
 import {
 	ChangeStatusBaseComponent
 } from "@tenant/event/presentation/ui/component/change-status/change-status-base.component";
-import {EventActions} from "@tenant/event/presentation/state/event/event.actions";
+import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
 import {
 	CalendarWithSpecialistsAction
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({

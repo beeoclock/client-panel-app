@@ -18,7 +18,7 @@ import {
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
 import {tap} from "rxjs";
-import {AbsenceDataActions} from "@tenant/absence/presentation/state/data/absence.data.actions";
+import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
 
 @Component({
 	selector: 'app-list-absence-page',

@@ -23,8 +23,8 @@ import {GlobalEventListCustomerRepository} from "@src/token";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {
 	CustomerPresentationState
-} from "@tenant/customer/presentation/state/presentation/customer.presentation.state";
-import {CustomerDataState} from "@tenant/customer/presentation/state/data/customer.data.state";
+} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.state";
+import {CustomerDataState} from "@tenant/customer/infrastructure/state/data/customer.data.state";
 
 @NgModule({
 	imports: [

@@ -59,9 +59,9 @@ import {
 } from "@tenant/event/presentation/ui/component/statistic-v2/components/table/total/counter/revenue.statistic.component";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {IMember} from "@core/business-logic/member/interface/i.member";
-import {MemberDataState} from "@tenant/member/presentation/state/data/member.data.state";
+import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
 
 @Component({
 	selector: 'event-statistic-v2-component',

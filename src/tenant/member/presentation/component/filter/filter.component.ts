@@ -8,8 +8,8 @@ import {SPECIALIST_LIMIT} from "@tenant/tenant.token";
 import {is} from "@core/shared/checker";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {ToastController} from "@ionic/angular/standalone";
-import {MemberDataState} from "@tenant/member/presentation/state/data/member.data.state";
-import {MemberPresentationActions} from "@tenant/member/presentation/state/presentation/member.presentation.actions";
+import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
+import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
 
 @Component({
 	selector: 'member-filter-component',

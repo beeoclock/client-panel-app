@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {map, Observable, tap} from "rxjs";
 import {MEvent, RMIEvent} from "@tenant/event/domain";
 import {ITableState} from "@utility/domain/table.state";
-import {EventRequestedState} from "@tenant/event/presentation/state/event-requested/event-requested.state";
+import {EventRequestedState} from "@tenant/event/infrastructure/state/event-requested/event-requested.state";
 import {
 	ListOfCardCollectionByDateComponent
 } from "@tenant/event/presentation/ui/component/requsted/list-of-card-collection-by-date/list-of-card-collection-by-date.component";

@@ -15,7 +15,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {StateStatusComponent} from "@tenant/absence/presentation/ui/component/state-status/state-status.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {AbsencePresentationActions} from "@tenant/absence/presentation/state/presentation/absence.presentation.actions";
+import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 @Component({
 	selector: 'app-absence-card-list-component',

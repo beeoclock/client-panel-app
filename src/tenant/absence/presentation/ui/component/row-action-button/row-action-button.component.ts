@@ -6,8 +6,8 @@ import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
-import {AbsencePresentationActions} from "@tenant/absence/presentation/state/presentation/absence.presentation.actions";
-import {AbsenceDataActions} from "@tenant/absence/presentation/state/data/absence.data.actions";
+import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
 
 @Component({
 	selector: 'app-absence-row-action-button-component',

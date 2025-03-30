@@ -18,7 +18,7 @@ import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {MemberPresentationActions} from "@tenant/member/presentation/state/presentation/member.presentation.actions";
+import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
 
 @Component({
 	selector: 'member-table-list-component',

@@ -23,7 +23,7 @@ import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-p
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {
 	TariffPlanHistoryStore
-} from "@tenant/tariff-plan-history/presentation/store/tariff-plan-history/tariff-plane-history.store";
+} from "@tenant/tariff-plan-history/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
 import {
 	ConfirmChangeTariffPlanModalController
 } from "@tenant/tariff-plan/presentation/ui/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.modal.controller";

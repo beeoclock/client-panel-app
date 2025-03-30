@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {TableService} from "@utility/table.service";
-import {EventRequestedActions} from "@tenant/event/presentation/state/event-requested/event-requested.actions";
+import {EventRequestedActions} from "@tenant/event/infrastructure/state/event-requested/event-requested.actions";
 import {RMIEvent} from "@tenant/event/domain";
 
 @Injectable()

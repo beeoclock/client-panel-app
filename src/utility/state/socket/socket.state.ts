@@ -6,12 +6,12 @@ import {SocketActions} from "@utility/state/socket/socket.actions";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {
 	CalendarWithSpecialistsAction
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {merge} from "rxjs";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {
 	TariffPlanHistoryStore
-} from "@tenant/tariff-plan-history/presentation/store/tariff-plan-history/tariff-plane-history.store";
+} from "@tenant/tariff-plan-history/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
 
 export interface SocketStateModel {
 	connected: boolean;

@@ -5,7 +5,7 @@ import {is} from "@core/shared/checker";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {Store} from "@ngxs/store";
 
 

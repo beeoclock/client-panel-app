@@ -6,10 +6,10 @@ import {
 import {PeerCustomerOrderState} from "@tenant/order/presentation/state/peer-customer/peer-customer.order.state";
 import {
 	CalendarWithSpecialistsState
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar–with-specialists.state";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
 import {SmsUsedAnalyticState} from "@tenant/analytic/presentation/store/sms-used/sms-used.analytic.state";
-import {EventState} from "@tenant/event/presentation/state/event/event.state";
-import {CalendarState} from "@tenant/event/presentation/state/calendar/calendar.state";
+import {EventState} from "@tenant/event/infrastructure/state/event/event.state";
+import {CalendarState} from "@tenant/event/infrastructure/state/calendar/calendar.state";
 
 @NgModule({
 	imports: [

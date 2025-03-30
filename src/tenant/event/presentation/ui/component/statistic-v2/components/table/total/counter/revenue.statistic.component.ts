@@ -6,7 +6,7 @@ import {Store} from "@ngxs/store";
 import {AsyncPipe, CurrencyPipe} from "@angular/common";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'revenue-statistic-component',

@@ -20,7 +20,7 @@ import {
 } from "@tenant/member/presentation/ui/page/list/member.table-ngx-datatable.resource";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
-import {MemberDataActions} from "@tenant/member/presentation/state/data/member.data.actions";
+import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 
 @Component({
 	selector: 'app-list-member-page',

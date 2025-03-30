@@ -13,7 +13,7 @@ import {
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {
 	CalendarWithSpecialistsQueries
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar–with-specialists.queries";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {DateTime} from "luxon";
 import {Store} from "@ngxs/store";
 import {filter, map, switchMap} from "rxjs";
@@ -23,7 +23,7 @@ import CalendarWithSpecialistLocaStateService
 import {BooleanState} from "@utility/domain";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 
 

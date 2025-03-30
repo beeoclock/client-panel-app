@@ -14,7 +14,7 @@ import {
 } from "@tenant/tariff-plan-history/infrastructure/data-provider/indexedDB/tariff-plan-history.indexedDB.data-provider";
 import {
 	TariffPlanHistoryStore
-} from "@tenant/tariff-plan-history/presentation/store/tariff-plan-history/tariff-plane-history.store";
+} from "@tenant/tariff-plan-history/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
 import {
 	GetTenantTariffPlanActualApi
 } from "@tenant/tariff-plan-history/infrastructure/data-source/api/get/get.tenant-tariff-plan.actual.api";

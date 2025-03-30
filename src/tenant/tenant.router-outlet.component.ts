@@ -13,7 +13,7 @@ import {ServiceActions} from "@tenant/service/infrastructure/state/service/servi
 import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
-import {EventRequestedActions} from "@tenant/event/presentation/state/event-requested/event-requested.actions";
+import {EventRequestedActions} from "@tenant/event/infrastructure/state/event-requested/event-requested.actions";
 import {
 	GetFrontendSettingsAccountApiAdapter
 } from "@tenant/account/infrastructure/adapter/external/api/get.frontend-settings.account.api.adapter";
@@ -28,10 +28,10 @@ import {VisibilityService} from "@utility/cdk/visibility.service";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
 import {CustomerModule} from "@tenant/customer/customer.module";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
-import {MemberDataActions} from "@tenant/member/presentation/state/data/member.data.actions";
+import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'tenant-router-outlet-component',

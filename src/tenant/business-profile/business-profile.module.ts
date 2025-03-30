@@ -16,7 +16,7 @@ import {
 } from "@tenant/business-profile/infrastructure/repository/business-profile.repository";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {PushChangesSyncManager} from "@tenant/business-profile/infrastructure/sync-manager/push.changes.sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 

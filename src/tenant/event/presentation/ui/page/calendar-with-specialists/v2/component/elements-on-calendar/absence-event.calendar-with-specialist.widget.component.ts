@@ -14,7 +14,7 @@ import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 import {TranslateModule} from "@ngx-translate/core";
 import {DateTime} from "luxon";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
-import {AbsencePresentationActions} from "@tenant/absence/presentation/state/presentation/absence.presentation.actions";
+import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 @Component({
 	selector: 'app-absence-event-calendar-with-specialist-widget-component',

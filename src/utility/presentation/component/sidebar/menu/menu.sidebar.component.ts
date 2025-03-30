@@ -13,7 +13,7 @@ import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe"
 import {Reactive} from "@utility/cdk/reactive";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 interface IMenuItem {
 	order: number;

@@ -24,7 +24,7 @@ import {firstValueFrom, map, switchMap} from "rxjs";
 import {IEvent_V2} from "@tenant/event/domain";
 import {
 	CalendarWithSpecialistsQueries
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar–with-specialists.queries";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {IOrder} from "@core/business-logic/order/interface/i.order";
 import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
@@ -32,7 +32,7 @@ import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
 import {
 	CalendarWithSpecialistsAction
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	TimeLineCalendarWithSpecialistWidgetComponent
@@ -51,14 +51,14 @@ import {
 import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
-import {AbsenceDataActions} from "@tenant/absence/presentation/state/data/absence.data.actions";
+import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	FilterCalendarWithSpecialistComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/main/filter/filter.calendar-with-specialist.component";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',

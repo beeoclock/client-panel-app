@@ -9,11 +9,11 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter} from "rxjs";
 import {
 	BusinessProfileActions
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.actions";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";
 import {
 	CalendarWithSpecialistsAction
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
-import {MemberDataActions} from "@tenant/member/presentation/state/data/member.data.actions";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
+import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 
 @Component({
 	selector: 'app-event-calendar-with-specialists-page',

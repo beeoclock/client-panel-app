@@ -5,7 +5,7 @@ import {is} from "@core/shared/checker";
 import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
 import {
 	BusinessProfileStore
-} from "@tenant/business-profile/presentation/store/business-profile/business-profile.store";
+} from "@tenant/business-profile/infrastructure/store/business-profile/business-profile.store";
 import {TENANT_ID} from "@src/token";
 
 

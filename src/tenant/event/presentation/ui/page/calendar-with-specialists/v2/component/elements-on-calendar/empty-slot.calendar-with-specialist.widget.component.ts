@@ -17,7 +17,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {
 	CalendarWithSpecialistsQueries
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar–with-specialists.queries";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {BooleanState} from "@utility/domain";

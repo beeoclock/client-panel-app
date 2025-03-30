@@ -30,7 +30,7 @@ import {IService} from "@core/business-logic/service/interface/i.service";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	standalone: true,

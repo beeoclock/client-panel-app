@@ -6,8 +6,8 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import EMember from "@core/business-logic/member/entity/e.member";
 import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
-import {MemberDataActions} from "@tenant/member/presentation/state/data/member.data.actions";
-import {MemberPresentationActions} from "@tenant/member/presentation/state/presentation/member.presentation.actions";
+import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
+import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
 
 @Component({
 	selector: 'member-row-action-button-component',

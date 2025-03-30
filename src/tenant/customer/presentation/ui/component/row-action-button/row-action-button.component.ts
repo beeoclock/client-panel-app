@@ -6,10 +6,10 @@ import {Router} from "@angular/router";
 import {ICustomer} from "@core/business-logic/customer";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {CustomerDataActions} from "@tenant/customer/presentation/state/data/customer.data.actions";
+import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/customer.data.actions";
 import {
 	CustomerPresentationActions
-} from "@tenant/customer/presentation/state/presentation/customer.presentation.actions";
+} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'customer-row-action-button-component',

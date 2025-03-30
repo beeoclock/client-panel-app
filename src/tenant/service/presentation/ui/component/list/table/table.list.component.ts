@@ -23,7 +23,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {LanguageCodeEnum} from "@core/shared/enum";
 

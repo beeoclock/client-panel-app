@@ -31,9 +31,9 @@ import {IntervalTypeEnum} from "@tenant/analytic/domain/enum/interval.enum";
 import {DateTime} from "luxon";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {IMember} from "@core/business-logic/member/interface/i.member";
-import {MemberDataState} from "@tenant/member/presentation/state/data/member.data.state";
+import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
 
 @Component({
 	standalone: true,

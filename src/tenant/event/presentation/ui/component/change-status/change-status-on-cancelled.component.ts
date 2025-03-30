@@ -7,9 +7,9 @@ import {
 } from "@tenant/event/presentation/ui/component/change-status/change-status-base.component";
 import {
 	CalendarWithSpecialistsAction
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
-import {EventActions} from "@tenant/event/presentation/state/event/event.actions";
+import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({

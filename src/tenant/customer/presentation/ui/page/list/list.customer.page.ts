@@ -18,7 +18,7 @@ import {
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
 import {tap} from "rxjs";
-import {CustomerDataActions} from "@tenant/customer/presentation/state/data/customer.data.actions";
+import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/customer.data.actions";
 
 @Component({
 	selector: 'app-list-customer-page',

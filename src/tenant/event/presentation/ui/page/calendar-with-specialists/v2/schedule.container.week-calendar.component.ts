@@ -11,7 +11,7 @@ import {
 import {NGXLogger} from "ngx-logger";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({

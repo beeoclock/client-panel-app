@@ -14,7 +14,7 @@ import {
 import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {CustomerTypeEnum} from "@core/business-logic/customer/enum/customer-type.enum";
-import {CustomerDataActions} from "@tenant/customer/presentation/state/data/customer.data.actions";
+import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/customer.data.actions";
 
 @Component({
 	selector: 'customer-form-page',

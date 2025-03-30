@@ -27,7 +27,7 @@ import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {IonLabel, IonSegment, IonSegmentButton, IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 
 @Component({

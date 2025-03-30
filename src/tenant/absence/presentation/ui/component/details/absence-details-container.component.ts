@@ -10,7 +10,7 @@ import {
 } from "@tenant/absence/presentation/ui/component/row-action-button/row-action-button.component";
 import {AbsenceProgressStatusEnum} from "@tenant/absence/presentation/pipe/absence-progress-status.pipe";
 import {StateStatusComponent} from "@tenant/absence/presentation/ui/component/state-status/state-status.component";
-import {AbsencePresentationActions} from "@tenant/absence/presentation/state/presentation/absence.presentation.actions";
+import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 @Component({
 	selector: 'absence-detail-page',

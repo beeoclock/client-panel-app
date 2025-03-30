@@ -12,7 +12,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
-import {MemberPresentationActions} from "@tenant/member/presentation/state/presentation/member.presentation.actions";
+import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
 
 @Component({
 	selector: 'member-card-list-component',

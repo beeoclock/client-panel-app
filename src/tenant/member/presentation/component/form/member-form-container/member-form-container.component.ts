@@ -28,7 +28,7 @@ import {
 import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {RoleEnum} from "@core/shared/enum/role.enum";
-import {MemberDataActions} from "@tenant/member/presentation/state/data/member.data.actions";
+import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 
 @Component({
 	selector: 'member-form-page',

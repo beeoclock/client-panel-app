@@ -4,7 +4,7 @@ import {filter, take} from "rxjs";
 import {is} from "@core/shared/checker";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {Store} from "@ngxs/store";
 import {LanguageCodeEnum} from "@core/shared/enum";
 

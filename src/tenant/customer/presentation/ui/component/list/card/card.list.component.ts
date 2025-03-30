@@ -16,7 +16,7 @@ import {
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	CustomerPresentationActions
-} from "@tenant/customer/presentation/state/presentation/customer.presentation.actions";
+} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'customer-card-list-component',

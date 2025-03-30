@@ -14,7 +14,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	CustomerPresentationActions
-} from "@tenant/customer/presentation/state/presentation/customer.presentation.actions";
+} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'event-v2-general-details',

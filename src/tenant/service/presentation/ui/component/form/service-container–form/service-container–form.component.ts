@@ -37,7 +37,7 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'service-form-v2-page-component',

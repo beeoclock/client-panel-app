@@ -17,7 +17,7 @@ import ECustomer from "@core/business-logic/customer/entity/e.customer";
 import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
 import {OverlayEventDetail} from "@ionic/core/dist/types/utils/overlays-interface";
 import {ModalController} from "@ionic/angular/standalone";

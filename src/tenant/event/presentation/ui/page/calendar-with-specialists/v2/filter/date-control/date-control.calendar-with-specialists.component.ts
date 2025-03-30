@@ -4,11 +4,11 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {
 	CalendarWithSpecialistsQueries
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar–with-specialists.queries";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {combineLatest, map, switchMap, tap} from "rxjs";
 import {
 	CalendarWithSpecialistsAction
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {DateTime} from "luxon";
 import {Reactive} from "@utility/cdk/reactive";

@@ -15,7 +15,7 @@ import {IonPopover} from "@ionic/angular/standalone";
 import {Reactive} from "@utility/cdk/reactive";
 import {
 	CalendarWithSpecialistsAction
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {VisibilityService} from "@utility/cdk/visibility.service";
 

@@ -40,7 +40,7 @@ import {
 } from "@tenant/event/presentation/ui/component/additional-menu/additional-menu.component";
 import {
 	CalendarWithSpecialistsAction
-} from "@tenant/event/presentation/state/calendar-with-specialists/calendar-with-specialists.action";
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {IPayment} from "@core/business-logic/payment/interface/i.payment";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {IOrder} from "@core/business-logic/order/interface/i.order";

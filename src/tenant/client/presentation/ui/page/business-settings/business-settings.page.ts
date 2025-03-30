@@ -25,10 +25,10 @@ import {
 import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {
 	BusinessProfileActions
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.actions";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
 

@@ -22,7 +22,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {
 	BusinessProfileState
-} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";

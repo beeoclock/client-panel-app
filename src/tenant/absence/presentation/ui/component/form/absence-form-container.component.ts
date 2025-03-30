@@ -32,7 +32,7 @@ import {DateTime} from "luxon";
 import EAbsence from "@core/business-logic/absence/entity/e.absence";
 import {KeyValuePipe} from "@angular/common";
 import {toSignal} from "@angular/core/rxjs-interop";
-import {AbsenceDataActions} from "@tenant/absence/presentation/state/data/absence.data.actions";
+import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
 
 @Component({
 	selector: 'app-absence-form-container',
