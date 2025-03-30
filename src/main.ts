@@ -1,6 +1,12 @@
 import {bootstrapApplication, HammerModule} from '@angular/platform-browser';
 import {MainRouterOutlet} from '@src/main.router-outlet';
-import {enableProdMode, ErrorHandler, importProvidersFrom, isDevMode, provideZoneChangeDetection} from '@angular/core';
+import {
+	enableProdMode,
+	ErrorHandler,
+	importProvidersFrom,
+	isDevMode,
+	provideExperimentalZonelessChangeDetection
+} from '@angular/core';
 import {environment} from '@src/environment/environment';
 import {
 	HTTP_INTERCEPTORS,
@@ -19,8 +25,7 @@ import {
 	withPreloading
 } from '@angular/router';
 import {routes} from '@src/routers';
-import {IonicModule} from "@ionic/angular";
-import {Utility} from "@utility/index";
+import {Utility} from "@shared/index";
 import {initRuntimeEnvironment} from "@src/runtime.environment";
 import {provideEnvironmentNgxMask} from "ngx-mask";
 import {tokens} from "@src/token";
@@ -37,8 +42,9 @@ import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
 import {SocketIoModule} from "ngx-socket-io";
-import {IsOnlineService} from "@utility/cdk/is-online.service";
+import {IsOnlineService} from "@core/cdk/is-online.service";
 import {firebase} from "@src/firebase";
+import {provideIonicAngular} from "@ionic/angular/standalone";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -72,13 +78,16 @@ bootstrapApplication(MainRouterOutlet, {
 		IsOnlineService,
 		...tokens,
 		NgEventBus,
-		provideZoneChangeDetection({
-			eventCoalescing: true,
-			runCoalescing: true,
-
-		}),
+		provideExperimentalZonelessChangeDetection(),
 		provideEnvironmentNgxMask(),
 		...firebase,
+		provideIonicAngular({
+			useSetInputAPI: true, //allow to use signal input in modals
+			mode: 'ios',
+			animated: false,
+			rippleEffect: false,
+			innerHTMLTemplatesEnabled: true,
+		}),
 		importProvidersFrom(
 			HammerModule,
 			LoggerModule.forRoot({
@@ -86,12 +95,6 @@ bootstrapApplication(MainRouterOutlet, {
 				serverLogLevel: NgxLoggerLevel.OFF,
 			}),
 			...ngxsProviders,
-			IonicModule.forRoot({
-				mode: 'ios',
-				animated: false,
-				rippleEffect: false,
-				innerHTMLTemplatesEnabled: true,
-			}),
 			SocketIoModule,
 			TranslateModule.forRoot({
 				useDefaultLang: true,

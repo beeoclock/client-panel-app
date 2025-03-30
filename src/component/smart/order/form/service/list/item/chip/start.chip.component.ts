@@ -4,7 +4,7 @@ import {DatePipe} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import ObjectID from "bson-objectid";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {DateTime} from "luxon";
 
 @Component({

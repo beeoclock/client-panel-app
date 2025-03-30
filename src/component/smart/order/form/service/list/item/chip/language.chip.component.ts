@@ -12,7 +12,7 @@ import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone"
 import ObjectID from "bson-objectid";
 import {FormControl} from "@angular/forms";
 import {LanguageCodeEnum} from "@core/shared/enum";
-import EService from "@core/business-logic/service/entity/e.service";
+import EService from "@tenant/service/domain/entity/e.service";
 
 @Component({
 	selector: 'app-language-chip-component',

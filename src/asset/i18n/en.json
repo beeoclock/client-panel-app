@@ -1094,6 +1094,7 @@
 			"event": "Event",
 			"events": "Events",
 			"every": "Every",
+			"exhausted": "Exhausted",
 			"facilities": "Facilities",
 			"feature": "Feature",
 			"finished": "Finished",
@@ -1190,6 +1191,7 @@
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
 			"successfully": "Successfully",
+			"switchTo": "Switch to",
 			"synced": "Synchronized",
 			"syncing": "Synchronization in progress…",
 			"theme": "Theme",
@@ -1316,7 +1318,10 @@
 				"edit": "Edit a team member"
 			}
 		},
-		"title": "Member"
+		"title": "Member",
+		"toast": {
+			"limit": "Limit reached. Upgrade to a higher plan to add more team members."
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Customer Notification Settings",
@@ -1659,6 +1664,40 @@
 		"links": {
 			"billing": {
 				"label": "Billing history and linked payment cards"
+			}
+		},
+		"message": {
+			"change": {
+				"success": "The tariff plan change was successful!"
+			}
+		},
+		"modal": {
+			"confirm-changes": {
+				"content": {
+					"additional": {
+						"one": "✅ Your plan will be upgraded immediately",
+						"two": "✅ Next payment will be adjusted accordingly"
+					},
+					"currentTariffPlan": {
+						"daysRemaining": {
+							"label": "Days remaining"
+						},
+						"daysUsed": {
+							"label": "Days Used"
+						},
+						"label": "Current Plan",
+						"remainingCredit": {
+							"label": "Remaining Credit"
+						}
+					},
+					"newTariffPlan": {
+						"differenceToPay": {
+							"label": "Difference to pay"
+						},
+						"label": "New plan"
+					}
+				},
+				"title": "Confirm the change of tariff plan"
 			}
 		},
 		"page": {

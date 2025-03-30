@@ -7,11 +7,11 @@ export const routes: Routes = [
 	},
 	{
 		path: '404',
-		loadComponent: () => import('@utility/presentation/page/404')
+		loadComponent: () => import('@shared/presentation/page/404')
 	},
 	{
 		path: '',
-		loadChildren: () => import('@[tenant]/tenant.module'),
+		loadChildren: () => import('@tenant/tenant.module'),
 	},
 	{
 		path: '**',

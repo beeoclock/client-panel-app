@@ -1008,7 +1008,7 @@
 			"hint": {
 				"mainText": "Narzędzia dostosowane do indywidualnych potrzeb",
 				"quote": "Pracuj z najlepszymi specjalistami! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock to szybkość, profesjonalizm i niezawodność.",
-				"subBainText": "Zarejestruj konto w kilka sekund i zacznij korzystać ze wszystkich funkcji Bee O'clock. \t\t\t\t\t\t\t\t\tfunkcji Bee O'clock. Skupiamy się na uzyskiwaniu wyników \t\t\t\t\t\t\t\t\ttak szybko, jak to możliwe.",
+				"subBainText": "Zarejestruj konto w kilka sekund i zacznij korzystać ze wszystkich funkcji Bee O'clock. Skupiamy się na uzyskiwaniu wyników \t\t\t\t\t\t\t\t\ttak szybko, jak to możliwe.",
 				"successfulInCurrentYear": "Twój sukces jest naszą misją w {{currentYear}}.",
 				"youHaveAnAccount": "Masz już konto?"
 			}
@@ -1094,6 +1094,7 @@
 			"event": "Wydarzenie",
 			"events": "Wydarzenia",
 			"every": "Każdą",
+			"exhausted": "Wyczerpany",
 			"facilities": "Udogodnienia",
 			"feature": "Funkcja",
 			"finished": "Zakończono",
@@ -1190,6 +1191,7 @@
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
 			"successfully": "Pomyślnie",
+			"switchTo": "Przełącz na",
 			"synced": "Zsynchronizowano",
 			"syncing": "Synchronizacja w toku…",
 			"theme": "Motyw",
@@ -1316,7 +1318,10 @@
 				"edit": "Edycja członka zespołu"
 			}
 		},
-		"title": "Członek"
+		"title": "Członek",
+		"toast": {
+			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodać więcej członków zespołu."
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Ustawienia Powiadomień Klienta",
@@ -1659,6 +1664,40 @@
 		"links": {
 			"billing": {
 				"label": "Historia rozliczeń i powiązane karty płatnicze"
+			}
+		},
+		"message": {
+			"change": {
+				"success": "Zmiana planu taryfowego przebiegła pomyślnie!"
+			}
+		},
+		"modal": {
+			"confirm-changes": {
+				"content": {
+					"additional": {
+						"one": "✅ Twój plan zostanie natychmiast zaktualizowany",
+						"two": "✅ Kolejna płatność zostanie odpowiednio dostosowana"
+					},
+					"currentTariffPlan": {
+						"daysRemaining": {
+							"label": "Pozostałe dni"
+						},
+						"daysUsed": {
+							"label": "Wykorzystane dni"
+						},
+						"label": "Aktualny plan",
+						"remainingCredit": {
+							"label": "Pozostały kredyt"
+						}
+					},
+					"newTariffPlan": {
+						"differenceToPay": {
+							"label": "Różnica do zapłaty"
+						},
+						"label": "Nowy plan"
+					}
+				},
+				"title": "Potwierdzenie zmiany planu taryfowego"
 			}
 		},
 		"page": {

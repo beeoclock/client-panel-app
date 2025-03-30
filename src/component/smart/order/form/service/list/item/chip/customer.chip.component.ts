@@ -9,16 +9,16 @@ import {
 	viewChild
 } from "@angular/core";
 import {IonPopover} from "@ionic/angular/standalone";
-import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {TranslateModule} from "@ngx-translate/core";
-import {CustomerForm} from "@customer/presentation/form";
+import {CustomerForm} from "@tenant/customer/presentation/form";
 import ObjectID from "bson-objectid";
-import {Reactive} from "@utility/cdk/reactive";
-import {ICustomer} from "@src/core/business-logic/customer";
+import {Reactive} from "@core/cdk/reactive";
+import {ICustomer} from "@tenant/customer/domain";
 import {
 	CustomerListIonicComponent
 } from "@src/component/smart/order/form/service/list/item/chip/customer/customer.list.ionic.component";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import ECustomer from "@tenant/customer/domain/entity/e.customer";
 
 @Component({
 	selector: 'app-customer-chip-component',

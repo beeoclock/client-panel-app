@@ -2,18 +2,18 @@ import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core
 import {RouterModule} from '@angular/router';
 import {detectorInit} from '@src/script/detector';
 import {Store} from "@ngxs/store";
-import {AppState} from "@utility/state/app/app.state";
+import {AppState} from "@shared/state/app/app.state";
 import {DOCUMENT} from "@angular/common";
-import {LanguageService} from "@utility/cdk/language.service";
+import {LanguageService} from "@core/cdk/language.service";
 import {filter} from "rxjs";
 import {is} from "@src/core/shared/checker";
-import {SplashScreenService} from "@utility/cdk/splash-screen.service";
-import {ThemeService} from "@utility/cdk/theme.service";
-import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.service";
-import {NotificationManagerService} from "@utility/cdk/notification.manager.service";
-import {AppActions} from "@utility/state/app/app.actions";
+import {SplashScreenService} from "@core/cdk/splash-screen.service";
+import {ThemeService} from "@core/cdk/theme.service";
+import {CheckForUpdatePwaService} from "@core/cdk/check-for-update-pwa.service";
+import {NotificationManagerService} from "@core/cdk/notification.manager.service";
+import {AppActions} from "@shared/state/app/app.actions";
 import {SecondRouterOutlet} from "@src/second.router-outlet";
-import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
+import {WhacAMole} from "@core/presentation/whac-a-mole/whac-a-mole";
 
 @Component({
 	selector: 'app-root',

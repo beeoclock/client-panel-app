@@ -9,7 +9,7 @@ import {
 	output,
 	ViewEncapsulation
 } from "@angular/core";
-import {CustomerForm} from "@customer/presentation/form";
+import {CustomerForm} from "@tenant/customer/presentation/form";
 import {
 	IonAvatar,
 	IonCheckbox,
@@ -24,18 +24,20 @@ import {
 	IonSpinner,
 	IonToolbar
 } from "@ionic/angular/standalone";
-import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-type.enum";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {ReactiveFormsModule} from "@angular/forms";
-import {FormAttendantComponent} from "@event/presentation/component/form/attendees/attendant/form.attendant.component";
+import {
+	FormAttendantComponent
+} from "@tenant/event/presentation/ui/component/form/attendees/attendant/form.attendant.component";
 import {
 	NamesFormAttendantComponent
-} from "@event/presentation/component/form/attendees/attendant/names.form.attendant.component";
+} from "@tenant/event/presentation/ui/component/form/attendees/attendant/names.form.attendant.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {ICustomer} from "@src/core/business-logic/customer";
+import {ICustomer} from "@tenant/customer/domain";
 import {Store} from "@ngxs/store";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import ObjectID from "bson-objectid";
-import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
+import {DefaultButtonDirective} from "@shared/presentation/directives/button/default.button.directive";
 import {NGXLogger} from "ngx-logger";
 import {GlobalEventListCustomerRepository} from "@src/token";
 
@@ -134,8 +136,7 @@ import {GlobalEventListCustomerRepository} from "@src/token";
 									(click)="select(customer)"
 									lines="full"
 									[id]="id() + 'ion-item-' + customer._id"
-									[button]="true"
-									[detailIcon]="false">
+									[button]="true">
 									<ion-avatar aria-hidden="true" slot="start">
 										<div
 											class="min-w-[36px] max-w-[36px] min-h-[36px] max-h-[36px] rounded-full bg-beeColor-400 flex justify-center items-center uppercase">
@@ -157,8 +158,7 @@ import {GlobalEventListCustomerRepository} from "@src/token";
 							}
 							@if (eventListCustomerAdapter.loading$.isFalse) {
 
-								<ion-item [id]="id() + '-ion-item-download-more'" lines="full" [button]="true"
-										  [detailIcon]="false" (click)="nextPage()">
+								<ion-item [id]="id() + '-ion-item-download-more'" lines="full" [button]="true" (click)="nextPage()">
 									<ion-label [id]="id() + '-ion-item-download-more-ion-label'">
 										{{ 'keyword.capitalize.downloadMore' | translate }}
 									</ion-label>
