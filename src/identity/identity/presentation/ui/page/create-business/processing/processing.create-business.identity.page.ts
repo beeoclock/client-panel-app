@@ -24,11 +24,11 @@ import {IAddress} from "@core/business-logic/business-profile/interface/i.addres
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
-import {PostApi} from "@[tenant]/service/infrastructure/data-source/api/post.api";
-import {PutApi} from "@[tenant]/business-profile/infrastructure/data-source/api/put.api";
+import {PostApi} from "@tenant/service/infrastructure/data-source/api/post.api";
+import {PutApi} from "@tenant/business-profile/infrastructure/data-source/api/put.api";
 import {
 	PatchMediaGalleryClientApiAdapter
-} from "@[tenant]/client/infrastructure/data-source/api/media/gallery/patch.media.gallery.client.api.adapter";
+} from "@tenant/client/infrastructure/data-source/api/media/gallery/patch.media.gallery.client.api.adapter";
 import {IdentityActions} from "@identity/identity/presentation/state/identity/identity.actions";
 import {IService} from "@core/business-logic/service/interface/i.service";
 

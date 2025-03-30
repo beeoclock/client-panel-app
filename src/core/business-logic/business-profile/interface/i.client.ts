@@ -10,7 +10,7 @@ import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 import {BusinessClientStatusEnum} from "@core/business-logic/business-profile/enum/business-client-status.enum";
-import {RIMedia} from "@[tenant]/media/domain/interface/i.media";
+import {RIMedia} from "@tenant/media/domain/interface/i.media";
 import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
 import {DeepPartial} from "@utility/base.type";
 

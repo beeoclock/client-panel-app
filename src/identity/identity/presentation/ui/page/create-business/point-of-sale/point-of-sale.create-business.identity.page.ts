@@ -15,7 +15,7 @@ import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	AddressBusinessProfileComponent
-} from "@[tenant]/client/presentation/ui/component/business-profile/address/address.business-profile.component";
+} from "@tenant/client/presentation/ui/component/business-profile/address/address.business-profile.component";
 
 @Component({
 	selector: 'app-point-of-sale-create-business-identity-page',

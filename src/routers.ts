@@ -11,7 +11,7 @@ export const routes: Routes = [
 	},
 	{
 		path: '',
-		loadChildren: () => import('@[tenant]/tenant.module'),
+		loadChildren: () => import('@tenant/tenant.module'),
 	},
 	{
 		path: '**',

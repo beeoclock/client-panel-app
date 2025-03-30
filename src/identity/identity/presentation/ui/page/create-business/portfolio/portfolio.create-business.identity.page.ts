@@ -8,7 +8,7 @@ import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/creat
 import {Reactive} from "@utility/cdk/reactive";
 import {
 	GalleryBusinessProfileComponent
-} from "@[tenant]/client/presentation/ui/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
+} from "@tenant/client/presentation/ui/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
 
 @Component({
 	selector: 'app-portfolio-create-business-identity-page',

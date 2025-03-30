@@ -1,6 +1,6 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
-import {ServiceForm, ServicesForm} from "@[tenant]/service/presentation/form";
+import {ServiceForm, ServicesForm} from "@tenant/service/presentation/form";
 import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
@@ -8,8 +8,8 @@ import {ActiveEnum} from "@core/shared/enum";
 import {DefaultServicesByBusinessCategory} from "@utility/domain/const/c.default-services-by-business-category";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
-import {BusinessSettingsForm} from "@[tenant]/client/presentation/form/business-settings.form";
-import {AddressForm, BookingSettingsForm, GalleryForm} from "@[tenant]/client/presentation/form";
+import {BusinessSettingsForm} from "@tenant/client/presentation/form/business-settings.form";
+import {AddressForm, BookingSettingsForm, GalleryForm} from "@tenant/client/presentation/form";
 
 interface IBusinessOwnerForm {
 	firstName: FormControl<string>;

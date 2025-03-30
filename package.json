@@ -37,7 +37,7 @@
 			"@app/(.*)": "<rootDir>/src/app/$1",
 			"@module/(.*)": "<rootDir>/src/module/$1",
 			"@utility/(.*)": "<rootDir>/src/utility/$1",
-			"@[tenant]/(.*)": "<rootDir>/src/[tenant]/$1",
+			"@tenant/(.*)": "<rootDir>/src/tenant/$1",
 			"@core/(.*)": "<rootDir>/src/core/$1",
 			"@shared-kernel/(.*)": "<rootDir>/src/shared-kernel/$1",
 			"@identity/(.*)": "<rootDir>/src/identity/$1"

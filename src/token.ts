@@ -3,7 +3,7 @@ import {MS_TEN_MINUTES} from "@utility/domain/const/c.time";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ThemeEnum} from "@utility/cdk/theme.service";
 import {BehaviorSubject} from "rxjs";
-import {EventListCustomerRepository} from "@[tenant]/customer/infrastructure/repository/event.list.customer.repository";
+import {EventListCustomerRepository} from "@tenant/customer/infrastructure/repository/event.list.customer.repository";
 
 // Use in [tenantId] router or in wrapper-panel.component.ts
 export const CURRENT_TENANT_ID = new InjectionToken<string>('TENANT_ID');

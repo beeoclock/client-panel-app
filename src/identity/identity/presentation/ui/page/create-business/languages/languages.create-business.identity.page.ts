@@ -7,7 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
 import {
 	ContainerBusinessSettingsComponent
-} from "@[tenant]/client/presentation/ui/component/business-settings/container.business-settings.component";
+} from "@tenant/client/presentation/ui/component/business-settings/container.business-settings.component";
 
 @Component({
 	selector: 'app-languages-create-business-identity-page',

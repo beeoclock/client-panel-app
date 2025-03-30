@@ -17,7 +17,7 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
-import {ServiceOrderForm, ServiceOrderFormArray} from "@[tenant]/order/presentation/form/service.order.form";
+import {ServiceOrderForm, ServiceOrderFormArray} from "@tenant/order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
@@ -30,7 +30,7 @@ import {IService} from "@core/business-logic/service/interface/i.service";
 import {IMember} from "@core/business-logic/member/interface/i.member";
 import {
 	BusinessProfileState
-} from "@[tenant]/business-profile/presentation/state/business-profile/business-profile.state";
+} from "@tenant/business-profile/presentation/state/business-profile/business-profile.state";
 
 @Component({
 	standalone: true,
@@ -130,7 +130,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 
 	public async addService() {
 
-		const {SelectServiceWhacAMoleComponent} = await import("@[tenant]/service/presentation/push-box/select-service.whac-a-mole.component");
+		const {SelectServiceWhacAMoleComponent} = await import("@tenant/service/presentation/push-box/select-service.whac-a-mole.component");
 
 
 		const pushBoxWrapperComponentRef = await this.#whacAMaleProvider.buildItAsync({

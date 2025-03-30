@@ -27,8 +27,8 @@
       "dom"
     ],
     "paths": {
-      "@[tenant]/*": [
-        "./src/[tenant]/*"
+      "@tenant/*": [
+        "./src/tenant/*"
       ],
       "@app/*": [
         "./src/app/*"

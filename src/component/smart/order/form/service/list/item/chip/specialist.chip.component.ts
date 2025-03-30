@@ -8,7 +8,7 @@ import {ISpecialist} from "@src/core/business-logic/service/interface/i.speciali
 import {SpecialistModel} from "@src/core/business-logic/service/model/specialist.model";
 import {TranslateModule} from "@ngx-translate/core";
 import {IMember} from "@core/business-logic/member/interface/i.member";
-import {MemberDataState} from "@[tenant]/member/presentation/state/data/member.data.state";
+import {MemberDataState} from "@tenant/member/presentation/state/data/member.data.state";
 
 @Component({
 	selector: 'app-specialist-chip-component',

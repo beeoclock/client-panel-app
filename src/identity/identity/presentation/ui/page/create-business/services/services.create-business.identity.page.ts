@@ -9,14 +9,14 @@ import {NgForOf} from "@angular/common";
 
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
-import {ServiceForm} from "@[tenant]/service/presentation/form";
+import {ServiceForm} from "@tenant/service/presentation/form";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {IService} from "@core/business-logic/service/interface/i.service";
 import {
 	CreateBusinessModalService
-} from "@[tenant]/service/presentation/ui/component/form/modal/create-business/create-business.modal.service";
-import {ServiceItemComponent} from "@[tenant]/service/presentation/ui/component/list/item/item.componen";
+} from "@tenant/service/presentation/ui/component/form/modal/create-business/create-business.modal.service";
+import {ServiceItemComponent} from "@tenant/service/presentation/ui/component/list/item/item.componen";
 
 
 @Component({

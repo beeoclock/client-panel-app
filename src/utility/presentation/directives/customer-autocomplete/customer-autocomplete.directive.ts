@@ -16,7 +16,7 @@ import {debounce} from "typescript-debounce-decorator";
 import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {
 	UtilityListCustomerRepository
-} from "@[tenant]/customer/infrastructure/repository/utility.list.customer.repository";
+} from "@tenant/customer/infrastructure/repository/utility.list.customer.repository";
 import {ICustomer} from "@core/business-logic/customer";
 import {ActiveEnum} from "@core/shared/enum";
 

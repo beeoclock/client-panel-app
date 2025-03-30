@@ -9,7 +9,7 @@ import {
 	output,
 	ViewEncapsulation
 } from "@angular/core";
-import {CustomerForm} from "@[tenant]/customer/presentation/form";
+import {CustomerForm} from "@tenant/customer/presentation/form";
 import {
 	IonAvatar,
 	IonCheckbox,
@@ -28,10 +28,10 @@ import {CustomerTypeEnum} from "@src/core/business-logic/customer/enum/customer-
 import {ReactiveFormsModule} from "@angular/forms";
 import {
 	FormAttendantComponent
-} from "@[tenant]/event/presentation/ui/component/form/attendees/attendant/form.attendant.component";
+} from "@tenant/event/presentation/ui/component/form/attendees/attendant/form.attendant.component";
 import {
 	NamesFormAttendantComponent
-} from "@[tenant]/event/presentation/ui/component/form/attendees/attendant/names.form.attendant.component";
+} from "@tenant/event/presentation/ui/component/form/attendees/attendant/names.form.attendant.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ICustomer} from "@src/core/business-logic/customer";
 import {Store} from "@ngxs/store";
