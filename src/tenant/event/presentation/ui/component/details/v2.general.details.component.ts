@@ -183,7 +183,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	@Dispatch()
 	public openCustomerDetails(customer: ICustomer.DTO) {
-		return new CustomerPresentationActions.OpenDetailsById(customer._id);
+		return new CustomerPresentationActions.OpenDetails(customer);
 	}
 
 }

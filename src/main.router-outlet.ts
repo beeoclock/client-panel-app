@@ -13,7 +13,7 @@ import {CheckForUpdatePwaService} from "@core/cdk/check-for-update-pwa.service";
 import {NotificationManagerService} from "@core/cdk/notification.manager.service";
 import {AppActions} from "@shared/state/app/app.actions";
 import {SecondRouterOutlet} from "@src/second.router-outlet";
-import {WhacAMole} from "@core/presentation/whac-a-mole/whac-a-mole";
+import {WhacAMole} from "@shared/presentation/whac-a-mole/whac-a-mole";
 
 @Component({
 	selector: 'app-root',

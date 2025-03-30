@@ -1,6 +1,7 @@
-import {Component, effect, ElementRef, inject, Renderer2, signal, ViewEncapsulation} from '@angular/core';
+import {Component, effect, ElementRef, inject, Renderer2, Type, ViewEncapsulation} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
-import {WhacAMoleResizeContainer} from "@utility/presentation/whac-a-mole/whac-a-mole.resize-container";
+import {WhacAMoleResizeContainer} from "@shared/presentation/whac-a-mole/whac-a-mole.resize-container";
+import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 
 @Component({
 	selector: 'app-second-router-outlet',
@@ -15,9 +16,12 @@ import {WhacAMoleResizeContainer} from "@utility/presentation/whac-a-mole/whac-a
 			<whac-a-mole-resize-container class="max-md:hidden" (widthChanges)="widthChanges($event)"
 										  (mouseDownUp)="mouseDownUp($event)"/>
 			<div class="flex justify-between p-1 border-b">
-				<div class="truncate font-bold p-2">Informacje o pracowniku</div>
+				<div class="truncate font-bold p-2">
+					[TODO]
+				</div>
 				<div class="flex gap-2">
-					<button (click)="close()" type="button" class="hover:bg-neutral-200 p-2 px-3 rounded-lg transition-all" title="Close">
+					<button (click)="close()" type="button"
+							class="hover:bg-neutral-200 p-2 px-3 rounded-lg transition-all" title="Close">
 						<i class="bi bi-x-lg"></i>
 					</button>
 				</div>
@@ -28,18 +32,17 @@ import {WhacAMoleResizeContainer} from "@utility/presentation/whac-a-mole/whac-a
 			</div>
 
 		</div>
-    `,
+	`,
 	host: {
 		class: 'flex transition-all relative max-md:absolute max-md:w-full max-md:z-[100] bg-white'
 	}
 })
 export class SecondRouterOutlet {
 
-	public readonly activated = signal<any>(null);
-
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly renderer2 = inject(Renderer2);
 	private readonly router = inject(Router);
+	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
 	public width = 0;
 
@@ -53,12 +56,12 @@ export class SecondRouterOutlet {
 		this.router.navigate([{outlets: {second: null}}]).then();
 	}
 
-	public activate($event: undefined) {
-		this.activated.set($event);
+	public activate($event: Type<unknown>) {
+		this.secondRouterOutletService.activated.set($event);
 	}
 
-	public deactivate($event: undefined) {
-		this.activated.set(null);
+	public deactivate($event: Type<unknown>) {
+		this.secondRouterOutletService.activated.set(null);
 	}
 
 	public mouseDownUp($event: boolean) {
@@ -75,7 +78,7 @@ export class SecondRouterOutlet {
 	}
 
 	private updateState() {
-		if (this.activated()) {
+		if (this.secondRouterOutletService.activated()) {
 			this.renderer2.setStyle(this.elementRef.nativeElement, 'margin-right', `${0}px`);
 		} else {
 			this.renderer2.setStyle(this.elementRef.nativeElement, 'margin-right', `-${this.width}px`);

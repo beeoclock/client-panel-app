@@ -10,6 +10,8 @@ import {tariffPlanItemsResolver} from "@tenant/tariff-plan/presentation/resolver
 import {countryResolver} from "@tenant/business-profile/presentation/resolver/country.resolver";
 import {baseLanguageResolver} from "@tenant/business-profile/presentation/resolver/base-language.resolver";
 import {businessProfileResolver} from "@tenant/business-profile/presentation/resolver/business-profile.resolver";
+import {customerResolver} from "@tenant/customer/presentation/resolver/customer.resolver";
+import {absenceResolver} from "@tenant/absence/presentation/ui/resolver/absence.resolver";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 
@@ -27,9 +29,60 @@ export const tenantRouters: Routes = [
 				redirectTo: '/identity/corridor',
 			},
 			{
+				path: 'customer/form',
+				outlet: 'second',
+				runGuardsAndResolvers: 'always',
+				loadComponent: () => import('@tenant/customer/presentation/ui/component/form/customer-form-container.component')
+			},
+			{
 				path: 'customer/:id',
 				outlet: 'second',
-				loadComponent: () => import('@customer/presentation/component/details/customer-details-container.component')
+				resolve: {
+					item: customerResolver,
+				},
+				runGuardsAndResolvers: 'always',
+				loadComponent: () => import('@tenant/customer/presentation/ui/component/details/customer-details-container.component')
+			},
+			{
+				path: 'customer/:id/form',
+
+				outlet: 'second',
+				resolve: {
+					item: customerResolver,
+				},
+				data: {
+					isEditMode: true
+				},
+				runGuardsAndResolvers: 'always',
+				loadComponent: () => import('@tenant/customer/presentation/ui/component/form/customer-form-container.component')
+			},
+			{
+				path: 'absence/form',
+				outlet: 'second',
+				runGuardsAndResolvers: 'always',
+				loadComponent: () => import('@tenant/absence/presentation/ui/component/form/absence-form-container.component')
+			},
+			{
+				path: 'absence/:id',
+				outlet: 'second',
+				resolve: {
+					item: absenceResolver,
+				},
+				runGuardsAndResolvers: 'always',
+				loadComponent: () => import('@tenant/absence/presentation/ui/component/details/absence-details-container.component')
+			},
+			{
+				path: 'absence/:id/form',
+
+				outlet: 'second',
+				resolve: {
+					item: absenceResolver,
+				},
+				data: {
+					isEditMode: true
+				},
+				runGuardsAndResolvers: 'always',
+				loadComponent: () => import('@tenant/absence/presentation/ui/component/form/absence-form-container.component')
 			},
 			{
 				path: ':tenantId',
