@@ -19,7 +19,7 @@ import am5themes_Kelly from '@amcharts/amcharts5/themes/Kelly';
 import {isPlatformBrowser} from "@angular/common";
 import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/interface/i.analytic";
 import {Store} from "@ngxs/store";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";

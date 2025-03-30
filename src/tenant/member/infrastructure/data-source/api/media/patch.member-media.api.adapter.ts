@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
-import {RESPONSE_IMemberMedia} from "@core/business-logic/member/interface/i.member-media";
+import {RESPONSE_IMemberMedia} from "@tenant/member/domain/interface/i.member-media";
 import {MemberMediaEndpointEnum} from "@tenant/member/infrastructure/endpoint/member-media.endpoint";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";

@@ -1,4 +1,4 @@
-import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 
 export namespace BusinessProfileActions {
 

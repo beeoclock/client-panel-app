@@ -6,15 +6,15 @@ import {TranslateService} from "@ngx-translate/core";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import EOrder from "@core/business-logic/order/entity/e.order";
+import EOrder from "@tenant/order/domain/entity/e.order";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {CustomerTypeEnum} from "@core/business-logic/customer/enum/customer-type.enum";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
-import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
+import ECustomer from "@tenant/customer/domain/entity/e.customer";
+import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
@@ -24,7 +24,7 @@ import {ModalController} from "@ionic/angular/standalone";
 import {
 	NotificationSettingsComponent
 } from "@tenant/order/presentation/ui/component/notification-settings/notification-settings.component";
-import {INotificationSettings} from "@core/business-logic/order/interface/i.notification-settings";
+import {INotificationSettings} from "@tenant/order/domain/interface/i.notification-settings";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 

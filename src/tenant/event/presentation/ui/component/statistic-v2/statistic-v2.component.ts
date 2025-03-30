@@ -18,7 +18,7 @@ import {CurrencyCodeEnum} from "@core/shared/enum";
 import {DateTime} from "luxon";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {is} from "@core/shared/checker";
-import {RIClient} from "@core/business-logic/business-profile";
+import {RIClient} from "@tenant/business-profile/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	DateSliderControlComponent
@@ -60,7 +60,7 @@ import {
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
 
 @Component({

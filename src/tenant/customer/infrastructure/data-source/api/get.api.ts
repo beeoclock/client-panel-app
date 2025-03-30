@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import * as Customer from '@core/business-logic/customer';
+import * as Customer from '@tenant/customer/domain';
 import {customerEndpointEnum} from "@tenant/customer/infrastructure/endpoint/customer.endpoint";
 import {BaseApiAdapter, ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";

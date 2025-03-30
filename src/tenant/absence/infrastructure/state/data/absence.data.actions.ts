@@ -1,6 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 
 export namespace AbsenceDataActions {
 

@@ -3,11 +3,11 @@ import {AsyncPipe, CurrencyPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {ILanguageVersion} from "@core/business-logic/service";
+import {ILanguageVersion} from "@tenant/service/domain";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import EService from "@core/business-logic/service/entity/e.service";
+import EService from "@tenant/service/domain/entity/e.service";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/service/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";

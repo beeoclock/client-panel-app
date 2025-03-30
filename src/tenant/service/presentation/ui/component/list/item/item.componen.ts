@@ -2,7 +2,7 @@ import {Component, HostBinding, inject, input, ViewEncapsulation} from "@angular
 
 import {CurrencyPipe} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Component({
 	selector: 'service-item-component',

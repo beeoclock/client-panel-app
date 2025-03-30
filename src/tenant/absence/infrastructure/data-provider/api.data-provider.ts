@@ -1,4 +1,4 @@
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {DataProvider} from "@core/system/infrastructure/data-provider/data-provider";
 import {inject, Injectable} from "@angular/core";
 import {PostApi} from "@tenant/absence/infrastructure/data-source/api/post.api";

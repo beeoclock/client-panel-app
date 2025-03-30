@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NGXLogger} from "ngx-logger";
 import {NgClass, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {CustomerTypeEnum} from "@core/business-logic/customer/enum/customer-type.enum";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {
 	NewCustomerTypeCustomerComponent
 } from "@tenant/customer/presentation/ui/component/form/by-customer-type/new.customer-type.customer.component";

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {
 	CancelledChangeStatusButtonComponent
 } from "@tenant/order/presentation/ui/component/details/change-status/buttons/cancelled.change-status.button.component";
@@ -13,7 +13,7 @@ import {
 import {
 	RejectedChangeStatusButtonComponent
 } from "@tenant/order/presentation/ui/component/details/change-status/buttons/rejected.change-status.button.component";
-import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
+import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 import {NgSwitch, NgSwitchCase} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 

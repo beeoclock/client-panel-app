@@ -5,8 +5,8 @@ import {TENANT_ID} from "@src/token";
 import {filter, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 import {PaymentRepository} from "@tenant/payment/infrastructure/repository/payment.repository";
-import EPayment from "@core/business-logic/payment/entity/e.payment";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import EPayment from "@tenant/payment/domain/entity/e.payment";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Injectable()

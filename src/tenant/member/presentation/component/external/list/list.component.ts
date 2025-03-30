@@ -11,7 +11,7 @@ import {
 import {ActiveEnum} from "@core/shared/enum";
 import {MemberTableService} from "@tenant/member/presentation/component/list/member.table.service";
 import {TableService} from "@utility/table.service";
-import EMember from "@core/business-logic/member/entity/e.member";
+import EMember from "@tenant/member/domain/entity/e.member";
 
 @Component({
 	selector: 'member-external-list-component',

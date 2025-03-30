@@ -4,9 +4,11 @@ import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
 import {environment} from "@environment/environment";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {
+	AbsencePresentationActions
+} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 export type IAbsenceState = IBaseState<EAbsence>;
 

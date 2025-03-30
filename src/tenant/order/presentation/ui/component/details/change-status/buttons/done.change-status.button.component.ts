@@ -4,7 +4,7 @@ import {
 } from "@tenant/order/presentation/ui/component/details/change-status/base.change-status.button.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
-import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
+import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 
 @Component({
 	standalone: true,

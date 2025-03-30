@@ -6,7 +6,7 @@ import {PeerCustomerOrderActions} from "@tenant/order/presentation/state/peer-cu
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import EOrder from "@core/business-logic/order/entity/e.order";
+import EOrder from "@tenant/order/domain/entity/e.order";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 
 export type IPeerCustomerOrderState = {

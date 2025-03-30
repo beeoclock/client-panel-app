@@ -12,7 +12,7 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
 import {ServiceForm} from "@tenant/service/presentation/form";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 import {
 	CreateBusinessModalService
 } from "@tenant/service/presentation/ui/component/form/modal/create-business/create-business.modal.service";

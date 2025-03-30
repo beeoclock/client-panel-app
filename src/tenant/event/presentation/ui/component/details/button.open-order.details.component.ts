@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, effect, inject, input, signal, ViewEncapsulation} from "@angular/core";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
-import {PaymentStatusEnum} from "@core/business-logic/payment/enum/payment.status.enum";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
+import {PaymentStatusEnum} from "@tenant/payment/domain/enum/payment.status.enum";
 
 @Component({
 	standalone: true,

@@ -8,9 +8,9 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {TableComponent} from "@utility/table.component";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
@@ -27,7 +27,9 @@ import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
-import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {
+	AbsencePresentationActions
+} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 @Component({
 	selector: 'app-list-absence-table',

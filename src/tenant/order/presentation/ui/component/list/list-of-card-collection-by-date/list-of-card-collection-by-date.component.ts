@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {DateTime} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";
@@ -9,7 +9,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import EOrder from "@core/business-logic/order/entity/e.order";
+import EOrder from "@tenant/order/domain/entity/e.order";
 
 @Component({
 	standalone: true,

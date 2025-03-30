@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {TableService} from "@utility/table.service";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 
 @Injectable()

@@ -2,7 +2,7 @@ import {inject, NgModule} from "@angular/core";
 import {ApiDataProvider} from "@tenant/business-profile/infrastructure/data-provider/api.data-provider";
 import {SyncManager} from "@tenant/business-profile/infrastructure/sync-manager/sync-manager";
 import {NgxsModule} from "@ngxs/store";
-import {BusinessProfileService} from "@core/business-logic/business-profile/service/business-profile.service";
+import {BusinessProfileService} from "@tenant/business-profile/domain/service/business-profile.service";
 import {
 	BusinessProfileIndexedDBDataProvider
 } from "@tenant/business-profile/infrastructure/data-provider/indexedDB/business-profile.indexedDB.data-provider";

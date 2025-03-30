@@ -7,8 +7,8 @@ import {
 import {
 	RowActionButtonComponent
 } from "@tenant/member/presentation/component/row-action-button/row-action-button.component";
-import {IMember} from "@core/business-logic/member";
-import EMember from "@core/business-logic/member/entity/e.member";
+import {IMember} from "@tenant/member/domain";
+import EMember from "@tenant/member/domain/entity/e.member";
 import {TranslatePipe} from "@ngx-translate/core";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {

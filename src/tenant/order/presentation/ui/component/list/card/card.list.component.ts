@@ -6,7 +6,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardItemOrderComponent} from "@tenant/order/presentation/ui/component/list/card/item/card.item.order.component";
-import EOrder from "@core/business-logic/order/entity/e.order";
+import EOrder from "@tenant/order/domain/entity/e.order";
 
 @Component({
 	selector: 'app-order-card-list-component',

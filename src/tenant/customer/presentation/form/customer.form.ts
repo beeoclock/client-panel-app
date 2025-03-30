@@ -6,8 +6,8 @@ import {
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {BaseEntityForm} from "@utility/base.form";
-import {CustomerTypeEnum} from "@core/business-logic/customer/enum/customer-type.enum";
-import {ICustomer} from "@core/business-logic/customer";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
+import {ICustomer} from "@tenant/customer/domain";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";

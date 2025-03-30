@@ -6,10 +6,10 @@ import {
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {DateTime} from "luxon";
-import {SlotBuildingStrategyEnum} from "@core/business-logic/business-profile/enum/slot-building-strategy.enum";
+import {SlotBuildingStrategyEnum} from "@tenant/business-profile/domain/enum/slot-building-strategy.enum";
 import {BehaviorSubject} from "rxjs";
 import {IDayItem} from "@utility/domain/interface/i.day-item";
-import {IBusySlot} from "@core/business-logic/order/interface/busy-slot/i.busy-slot";
+import {IBusySlot} from "@tenant/order/domain/interface/busy-slot/i.busy-slot";
 
 
 @Injectable()

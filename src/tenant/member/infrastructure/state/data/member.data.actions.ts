@@ -1,8 +1,8 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IMember} from "@core/business-logic/member/interface/i.member";
-import EMember from "@core/business-logic/member/entity/e.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
+import EMember from "@tenant/member/domain/entity/e.member";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
+import {MemberProfileStatusEnum} from "@tenant/member/domain/enums/member-profile-status.enum";
 
 export namespace MemberDataActions {
 

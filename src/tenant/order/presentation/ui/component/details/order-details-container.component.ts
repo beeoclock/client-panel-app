@@ -3,7 +3,7 @@ import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {
@@ -12,9 +12,9 @@ import {
 import {
 	ListServiceFormCardOrderComponent
 } from "@tenant/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";
-import {PaymentStatusEnum} from "@core/business-logic/payment/enum/payment.status.enum";
+import {PaymentStatusEnum} from "@tenant/payment/domain/enum/payment.status.enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 
 @Component({
 	selector: 'order-detail-page',

@@ -1,5 +1,5 @@
 import {signalStore, withMethods, withProps, withState} from "@ngrx/signals";
-import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
+import EBusinessProfile from "@tenant/business-profile/domain/entity/e.business-profile";
 import {inject} from "@angular/core";
 import {GetApi} from "@tenant/business-profile/infrastructure/data-source/api/get.api";
 import {SharedUow} from "@core/shared/uow/shared.uow";

@@ -3,7 +3,7 @@ import {State} from "@ngxs/store";
 import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {NGXLogger} from "ngx-logger";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 

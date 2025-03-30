@@ -25,8 +25,8 @@ import {CommonModule} from "@angular/common";
 import {
 	MemberFormAssignmentsComponent
 } from "@tenant/member/presentation/component/form/assignments/assignments.component";
-import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {MemberProfileStatusEnum} from "@tenant/member/domain/enums/member-profile-status.enum";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {RoleEnum} from "@core/shared/enum/role.enum";
 import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 

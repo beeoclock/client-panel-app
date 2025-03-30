@@ -1,10 +1,10 @@
 import {inject, Injectable} from "@angular/core";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
-import {EBusinessProfile} from "@core/business-logic/business-profile/entity/e.business-profile";
+import {EBusinessProfile} from "@tenant/business-profile/domain/entity/e.business-profile";
 import {TENANT_ID} from "@src/token";
 import {filter, tap} from "rxjs";
 import {is} from "@core/shared/checker";
-import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 import {ApiDataProvider} from "@tenant/business-profile/infrastructure/data-provider/api.data-provider";
 import {
 	BusinessProfileRepository

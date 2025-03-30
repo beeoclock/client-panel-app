@@ -21,7 +21,7 @@ import {MemberExternalListComponent} from "@tenant/member/presentation/component
 import {
 	MobileLayoutListComponent
 } from "@tenant/member/presentation/component/list/layout/mobile/mobile.layout.list.component";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 
 @Component({
 	selector: 'utility-modal-select-member-component',

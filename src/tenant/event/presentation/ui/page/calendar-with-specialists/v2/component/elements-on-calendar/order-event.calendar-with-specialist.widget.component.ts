@@ -11,9 +11,9 @@ import {
 import {IAttendee, IEvent_V2} from "@tenant/event/domain";
 import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
-import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {
 	AnybodySpecialistIconComponent

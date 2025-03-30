@@ -2,7 +2,7 @@ import {ResolveFn} from "@angular/router";
 import {inject} from "@angular/core";
 import {filter, from, switchMap} from "rxjs";
 import {is} from "@core/shared/checker";
-import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
+import EBusinessProfile from "@tenant/business-profile/domain/entity/e.business-profile";
 import {
 	BusinessProfileStore
 } from "@tenant/business-profile/infrastructure/store/business-profile/business-profile.store";

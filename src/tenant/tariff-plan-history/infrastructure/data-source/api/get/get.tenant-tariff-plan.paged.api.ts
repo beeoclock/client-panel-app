@@ -6,7 +6,7 @@ import {
 	TariffPlanHistoryEndpointEnum
 } from "@tenant/tariff-plan-history/infrastructure/endpoint/tariff-plan-history.endpoint";
 import {Types} from "@core/shared/types";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
+import {ITariffPlanHistory} from "@tenant/tariff-plan-history/domain/interface/i.tariff-plan-history";
 
 
 @Injectable()

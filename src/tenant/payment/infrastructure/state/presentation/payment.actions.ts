@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 
 export namespace PaymentActions {
 

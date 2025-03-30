@@ -14,7 +14,7 @@ import {DateTime} from "luxon";
 import {TranslateModule} from "@ngx-translate/core";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import LayoutListComponent from "@utility/layout.list.component";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/order/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
@@ -26,7 +26,7 @@ import {
 } from "@tenant/order/presentation/ui/component/list/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
 import {ITableState} from "@utility/domain/table.state";
 import {Actions} from '@ngxs/store';
-import EOrder from "@core/business-logic/order/entity/e.order";
+import EOrder from "@tenant/order/domain/entity/e.order";
 
 @Component({
 	selector: 'order-list-of-card-collection-by-date-layout',

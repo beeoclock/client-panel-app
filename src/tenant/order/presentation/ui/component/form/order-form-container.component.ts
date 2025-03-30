@@ -27,7 +27,7 @@ import {
 } from "@tenant/order/presentation/ui/component/form/payment.order-form-container.component";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {ICustomer} from "@core/business-logic/customer";
+import {ICustomer} from "@tenant/customer/domain";
 import {
 	ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/list.service.form.order.component";
@@ -41,10 +41,10 @@ import {
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
-import {IService} from "@core/business-logic/service/interface/i.service";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
+import {IService} from "@tenant/service/domain/interface/i.service";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 
 @Component({
 	selector: 'app-order-form-container',

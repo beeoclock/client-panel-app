@@ -16,16 +16,16 @@ import {DurationChipComponent} from "@src/component/smart/order/form/service/lis
 import {StartChipComponent} from "@src/component/smart/order/form/service/list/item/chip/start.chip.component";
 import LanguageChipComponent from "@src/component/smart/order/form/service/list/item/chip/language.chip.component";
 import {ServiceOrderForm} from "@tenant/order/presentation/form/service.order.form";
-import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
+import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
-import {ICustomer} from "@src/core/business-logic/customer";
-import {SpecialistModel} from "@src/core/business-logic/service/model/specialist.model";
+import {ICustomer} from "@tenant/customer/domain";
+import {SpecialistModel} from "@tenant/service/domain/model/specialist.model";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {is} from "@src/core/shared/checker";
-import {IAttendeeDto} from "@core/business-logic/order/interface/i-order-appointment-details.dto";
-import {IService} from "@core/business-logic/service/interface/i.service";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IAttendeeDto} from "@tenant/order/domain/interface/i-order-appointment-details.dto";
+import {IService} from "@tenant/service/domain/interface/i.service";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {
 	ServiceChipComponent
 } from "@src/component/smart/order/form/service/list/item/chip/service/service.chip.component";
@@ -35,7 +35,7 @@ import {
 import StatusChipComponent from "@src/component/smart/order/form/service/list/item/chip/status.chip.component";
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import EService from "@core/business-logic/service/entity/e.service";
+import EService from "@tenant/service/domain/entity/e.service";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',

@@ -5,7 +5,7 @@ import {is} from "@core/shared/checker";
 import {
 	TariffPlanHistoryEndpointEnum
 } from "@tenant/tariff-plan-history/infrastructure/endpoint/tariff-plan-history.endpoint";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
+import {ITariffPlanHistory} from "@tenant/tariff-plan-history/domain/interface/i.tariff-plan-history";
 
 
 @Injectable()

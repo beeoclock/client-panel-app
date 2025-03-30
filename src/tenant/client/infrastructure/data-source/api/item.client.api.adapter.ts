@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
-import * as Client from "@core/business-logic/business-profile";
+import * as Client from "@tenant/business-profile/domain";
 import {clientEndpointEnum} from "@tenant/client/infrastructure/endpoint/client.endpoint";
 
 @Injectable({

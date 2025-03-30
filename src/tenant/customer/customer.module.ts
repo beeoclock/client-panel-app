@@ -12,7 +12,7 @@ import {
 } from "@tenant/customer/infrastructure/data-provider/indexedDB/adapter/customer.dexie.adapter.indexedDB.data-provider";
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@tenant/customer/infrastructure/data-source/api/get-item.api";
-import {CustomerService} from "@core/business-logic/customer/service/customer.service";
+import {CustomerService} from "@tenant/customer/domain/service/customer.service";
 import {NgxsModule} from "@ngxs/store";
 import {EventListCustomerRepository} from "@tenant/customer/infrastructure/repository/event.list.customer.repository";
 import {

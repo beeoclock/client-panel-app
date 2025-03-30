@@ -15,7 +15,7 @@ import {
 } from "@tenant/order/presentation/ui/component/external/case/customer/list/customer.order.table.service";
 import {TableState} from "@utility/domain/table.state";
 import {PeerCustomerOrderActions} from "@tenant/order/presentation/state/peer-customer/peer-customer.order.actions";
-import EOrder from "@core/business-logic/order/entity/e.order";
+import EOrder from "@tenant/order/domain/entity/e.order";
 
 @Component({
 	selector: 'order-external-list-component',

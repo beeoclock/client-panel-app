@@ -3,7 +3,7 @@ import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import EMember from "@core/business-logic/member/entity/e.member";
+import EMember from "@tenant/member/domain/entity/e.member";
 import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
 import {
 	AutoRefreshButtonComponent

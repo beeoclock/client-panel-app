@@ -1,6 +1,6 @@
 import {ResolveFn} from "@angular/router";
 import {inject} from "@angular/core";
-import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
+import ETariffPlan from "@tenant/tariff-plan/domain/entity/e.tariff-plan";
 import {TariffPlanStore} from "@tenant/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";
 import {filter, take} from "rxjs";
 import {is} from "@core/shared/checker";

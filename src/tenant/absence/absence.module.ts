@@ -11,7 +11,7 @@ import {
 } from "@tenant/absence/infrastructure/data-provider/indexedDB/adapter/absence.dexie.adapter.indexedDB.data-provider";
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@tenant/absence/infrastructure/data-source/api/get-item.api";
-import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
+import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
 import {NgxsModule} from "@ngxs/store";
 import {AbsenceDataState} from "@tenant/absence/infrastructure/state/data/absence.data.state";
 import {PushChangesSyncManager} from "@tenant/absence/infrastructure/sync-manager/push.changes.sync-manager";

@@ -8,7 +8,7 @@ import {
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 

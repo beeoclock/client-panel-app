@@ -12,7 +12,7 @@ import {
 } from "@tenant/order/infrastructure/data-provider/indexedDB/adapter/order.dexie.adapter.indexedDB.data-provider";
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@tenant/order/infrastructure/data-source/api/get-item.api";
-import {OrderService} from "@core/business-logic/order/service/order.service";
+import {OrderService} from "@tenant/order/domain/service/order.service";
 import {NgxsModule} from "@ngxs/store";
 import {OrderState} from "@tenant/order/presentation/state/order/order.state";
 import {PushChangesSyncManager} from "@tenant/order/infrastructure/sync-manager/push.changes.sync-manager";

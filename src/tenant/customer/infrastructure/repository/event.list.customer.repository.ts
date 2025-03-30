@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import * as Customer from "@core/business-logic/customer";
+import * as Customer from "@tenant/customer/domain";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";

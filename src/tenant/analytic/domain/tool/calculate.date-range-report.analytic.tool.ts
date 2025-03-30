@@ -2,9 +2,9 @@ import {
 	DateRangeReportAnalyticApi
 } from "@tenant/analytic/infrastructure/data-source/api/adapter/date-range-report.analytic.api.adapter";
 import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/interface/i.analytic";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
-import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
+import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 import {is} from "@core/shared/checker";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 

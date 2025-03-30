@@ -1,10 +1,10 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RoleEnum} from "@core/shared/enum/role.enum";
-import {RESPONSE_IMemberMedia} from "@core/business-logic/member/interface/i.member-media";
-import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
+import {RESPONSE_IMemberMedia} from "@tenant/member/domain/interface/i.member-media";
+import {MemberProfileStatusEnum} from "@tenant/member/domain/enums/member-profile-status.enum";
 import {BaseEntityForm} from "@utility/base.form";
-import {IService} from "@core/business-logic/service/interface/i.service";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IService} from "@tenant/service/domain/interface/i.service";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 
 export interface IAssignments_ServiceForm {
 	full: FormControl<boolean>;

@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
 export namespace ServiceActions {

@@ -3,7 +3,7 @@ import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Injectable({

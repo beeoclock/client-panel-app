@@ -5,7 +5,7 @@ import {GetApi} from "@tenant/customer/infrastructure/data-source/api/get.api";
 import {PutApi} from "@tenant/customer/infrastructure/data-source/api/put.api";
 import {Types} from "@core/shared/types";
 import {GetItemApi} from "@tenant/customer/infrastructure/data-source/api/get-item.api";
-import {ICustomer} from "@core/business-logic/customer";
+import {ICustomer} from "@tenant/customer/domain";
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<ICustomer.DTO> {

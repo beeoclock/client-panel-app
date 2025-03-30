@@ -5,7 +5,7 @@ import {is} from "@core/shared/checker";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {TariffPlanEndpointEnum} from "@tenant/tariff-plan/infrastructure/endpoint/tariff-plan.endpoint";
-import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
+import {ITariffPlan} from "@tenant/tariff-plan/domain/interface/i.tariff-plan";
 
 
 @Injectable()

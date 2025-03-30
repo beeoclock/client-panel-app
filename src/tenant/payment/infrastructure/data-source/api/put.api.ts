@@ -3,7 +3,7 @@ import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {PaymentEndpoint} from "@tenant/payment/infrastructure/endpoint/payment.endpoint";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 
 @Injectable()
 export class PutApi extends BaseApiAdapter<IPayment.DTO, [IPayment.DTO]> {

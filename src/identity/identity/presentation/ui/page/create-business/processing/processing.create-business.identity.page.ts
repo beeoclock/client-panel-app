@@ -20,17 +20,17 @@ import {firstValueFrom} from "rxjs";
 import {IBusinessClient} from "@identity/identity/domain/interface/RIBusinessClient";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
-import {IAddress} from "@core/business-logic/business-profile/interface/i.address";
+import {IAddress} from "@tenant/business-profile/domain/interface/i.address";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
-import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 import {PostApi} from "@tenant/service/infrastructure/data-source/api/post.api";
 import {PutApi} from "@tenant/business-profile/infrastructure/data-source/api/put.api";
 import {
 	PatchMediaGalleryClientApiAdapter
 } from "@tenant/client/infrastructure/data-source/api/media/gallery/patch.media.gallery.client.api.adapter";
 import {IdentityActions} from "@identity/identity/presentation/state/identity/identity.actions";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 const enum Status {
 	Success = 'success',

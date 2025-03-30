@@ -3,7 +3,7 @@ import {memberEndpointEnum} from "@tenant/member/infrastructure/endpoint/member.
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 
 @Injectable()
 export class PostApi extends BaseApiAdapter<IMember.DTO, [IMember.DTO]> {

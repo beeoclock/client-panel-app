@@ -7,7 +7,7 @@ import {
 	EventStatusStyleDirective
 } from "@tenant/event/presentation/directive/event-status-style/event-status-style.directive";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {CustomerTypeEnum} from "@core/business-logic/customer/enum/customer-type.enum";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 
 @Component({
 	selector: 'event-general-details',

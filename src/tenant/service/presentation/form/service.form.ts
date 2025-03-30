@@ -1,13 +1,13 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum, LanguageCodeEnum} from '@core/shared/enum';
 import {CurrencyCodeEnum} from '@core/shared/enum/currency-code.enum';
-import {IDurationVersion, ILanguageVersion} from "@core/business-logic/service";
+import {IDurationVersion, ILanguageVersion} from "@tenant/service/domain";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
-import {DurationVersionTypeEnum} from "@core/business-logic/service/enum/duration-version-type.enum";
+import {DurationVersionTypeEnum} from "@tenant/service/domain/enum/duration-version-type.enum";
 import {filter} from "rxjs";
 import {is} from "@core/shared/checker";
 import {BaseEntityForm} from "@utility/base.form";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;

@@ -1,14 +1,14 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {INotificationsSettings} from "@core/business-logic/business-profile";
+import {INotificationsSettings} from "@tenant/business-profile/domain";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CurrencyCodeEnum, LanguageCodeEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {BASE_CURRENCY} from "@src/token";
-import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
+import EBusinessProfile from "@tenant/business-profile/domain/entity/e.business-profile";
 import {
 	BusinessProfileActions
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";
-import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 

@@ -12,7 +12,7 @@ import {
 } from "@tenant/payment/infrastructure/data-provider/indexedDB/adapter/payment.dexie.adapter.indexedDB.data-provider";
 import {SyncManager} from "./infrastructure/sync-manager/sync-manager";
 import {GetItemApi} from "@tenant/payment/infrastructure/data-source/api/get-item.api";
-import {PaymentService} from "@core/business-logic/payment/service/payment.service";
+import {PaymentService} from "@tenant/payment/domain/service/payment.service";
 import {NgxsModule} from "@ngxs/store";
 import {PushChangesSyncManager} from "@tenant/payment/infrastructure/sync-manager/push.changes.sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";

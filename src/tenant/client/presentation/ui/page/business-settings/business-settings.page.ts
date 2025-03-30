@@ -22,7 +22,7 @@ import {NGXLogger} from "ngx-logger";
 import {
 	NotificationSettingsComponent
 } from "@tenant/client/presentation/ui/component/business-profile/notification-settings/notification-settings.component";
-import EBusinessProfile from "@core/business-logic/business-profile/entity/e.business-profile";
+import EBusinessProfile from "@tenant/business-profile/domain/entity/e.business-profile";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
@@ -30,7 +30,7 @@ import {
 	BusinessProfileActions
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
-import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 
 @Component({
 	selector: 'client-business-settings-page',

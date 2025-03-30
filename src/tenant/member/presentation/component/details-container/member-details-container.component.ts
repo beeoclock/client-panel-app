@@ -6,7 +6,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {
 	RowActionButtonComponent
 } from "@tenant/member/presentation/component/row-action-button/row-action-button.component";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
 
 @Component({

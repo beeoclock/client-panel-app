@@ -31,7 +31,7 @@ import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.p
 import {ContainerFormComponent} from '@tenant/event/presentation/ui/component/form/container.form.component';
 import {IEvent} from "@tenant/event/domain";
 import {ActiveEnum} from "@core/shared/enum";
-import {ReservationTypeEnum} from "@core/business-logic/order/enum/reservation.type.enum";
+import {ReservationTypeEnum} from "@tenant/order/domain/enum/reservation.type.enum";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
@@ -49,16 +49,16 @@ import {
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
-import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
+import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 import {
 	OrderServiceDetailsComponent
 } from "@tenant/order/presentation/ui/component/details/service/order-service-details.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {filter} from 'rxjs';
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {RIClient} from "@core/business-logic/business-profile";
-import {IAttendeeDto} from "@core/business-logic/order/interface/i-order-appointment-details.dto";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {RIClient} from "@tenant/business-profile/domain";
+import {IAttendeeDto} from "@tenant/order/domain/interface/i-order-appointment-details.dto";
+import {IService} from "@tenant/service/domain/interface/i.service";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";

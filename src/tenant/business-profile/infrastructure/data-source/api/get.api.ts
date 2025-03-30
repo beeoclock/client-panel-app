@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseApiAdapter, ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {businessProfileEndpointEnum} from "@tenant/business-profile/infrastructure/endpoint/business-profile.endpoint";
 import {map} from "rxjs";
-import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 
 export namespace GetApi {
 

@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {TableService} from "@utility/table.service";
 import {OrderTableService} from "@tenant/order/presentation/ui/component/list/order.table.service";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
-import EOrder from "@core/business-logic/order/entity/e.order";
+import EOrder from "@tenant/order/domain/entity/e.order";
 import {KanbanOrderComponent} from "@tenant/order/presentation/ui/component/list/kanban/kanban.order.component";
 import {
 	TableNgxDatatableSmartResource

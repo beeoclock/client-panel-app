@@ -5,7 +5,7 @@ import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Injectable()
 export class GetItemApi extends BaseApiAdapter<IService.DTO, [string]> {

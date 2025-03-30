@@ -1,7 +1,7 @@
 import {inject, Injectable, signal} from "@angular/core";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 

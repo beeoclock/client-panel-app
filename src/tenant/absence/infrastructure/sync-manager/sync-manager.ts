@@ -1,9 +1,9 @@
 import {inject, Injectable} from "@angular/core";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {ApiDataProvider} from "@tenant/absence/infrastructure/data-provider/api.data-provider";
 import {AbsenceRepository} from "@tenant/absence/infrastructure/repository/absence.repository";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {TENANT_ID} from "@src/token";
 import {filter, tap} from "rxjs";
 import {is} from "@core/shared/checker";

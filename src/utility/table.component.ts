@@ -22,7 +22,7 @@ import {OrderByEnum} from "@core/shared/enum";
 import {TableService} from "@utility/table.service";
 import {Reactive} from "@utility/cdk/reactive";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {DatePipe} from "@angular/common";
 import {TranslateService} from "@ngx-translate/core";

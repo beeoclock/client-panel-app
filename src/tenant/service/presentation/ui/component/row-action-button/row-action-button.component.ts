@@ -5,7 +5,7 @@ import {ServiceActions} from "@tenant/service/infrastructure/state/service/servi
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
 

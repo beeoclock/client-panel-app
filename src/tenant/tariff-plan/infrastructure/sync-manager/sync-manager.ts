@@ -6,8 +6,8 @@ import {filter, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {TariffPlanRepository} from "@tenant/tariff-plan/infrastructure/repository/tariff-plan.repository";
-import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
-import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
+import ETariffPlan from "@tenant/tariff-plan/domain/entity/e.tariff-plan";
+import {ITariffPlan} from "@tenant/tariff-plan/domain/interface/i.tariff-plan";
 
 @Injectable()
 export class SyncManager extends BaseSyncManager<ITariffPlan.DTO, ETariffPlan> {

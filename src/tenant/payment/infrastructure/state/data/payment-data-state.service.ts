@@ -3,9 +3,9 @@ import {Action, State, StateContext} from "@ngxs/store";
 import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {PaymentActions} from "@tenant/payment/infrastructure/state/data/payment.actions";
-import EPayment from "@core/business-logic/payment/entity/e.payment";
+import EPayment from "@tenant/payment/domain/entity/e.payment";
 import {NGXLogger} from "ngx-logger";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 

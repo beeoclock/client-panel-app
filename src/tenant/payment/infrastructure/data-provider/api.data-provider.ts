@@ -5,7 +5,7 @@ import {GetApi} from "@tenant/payment/infrastructure/data-source/api/get.api";
 import {PutApi} from "@tenant/payment/infrastructure/data-source/api/put.api";
 import {Types} from "@core/shared/types";
 import {GetItemApi} from "@tenant/payment/infrastructure/data-source/api/get-item.api";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<IPayment.DTO> {

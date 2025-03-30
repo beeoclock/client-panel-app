@@ -10,7 +10,7 @@ import {
 import {
 	SelectServiceMultipleComponent
 } from "@tenant/service/presentation/ui/component/select-list/select-service-multiple.component";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 

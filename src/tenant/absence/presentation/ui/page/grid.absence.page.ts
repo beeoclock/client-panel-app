@@ -8,7 +8,7 @@ import {
 import {
 	MobileLayoutListComponent
 } from "@tenant/absence/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";

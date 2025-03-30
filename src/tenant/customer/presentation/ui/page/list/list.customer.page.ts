@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe, DatePipe} from "@angular/common";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";

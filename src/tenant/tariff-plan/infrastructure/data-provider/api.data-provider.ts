@@ -3,7 +3,7 @@ import {inject, Injectable} from "@angular/core";
 import {GetApi} from "@tenant/tariff-plan/infrastructure/data-source/api/get/get.api";
 import {Types} from "@core/shared/types";
 import {GetItemApi} from "@tenant/tariff-plan/infrastructure/data-source/api/get/get-item.api";
-import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
+import {ITariffPlan} from "@tenant/tariff-plan/domain/interface/i.tariff-plan";
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<ITariffPlan.DTO> {

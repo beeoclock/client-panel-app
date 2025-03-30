@@ -4,7 +4,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ActiveEnum} from "@core/shared/enum";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Injectable()

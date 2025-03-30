@@ -33,7 +33,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "@core/shared/checker";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
-import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
+import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 import {
 	BusinessProfileActions
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";

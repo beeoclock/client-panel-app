@@ -7,9 +7,9 @@ import {
 } from "@tenant/order/presentation/ui/component/row-action-button/row-action-button.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
-import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
+import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
 	ListServiceFormCardOrderComponent
@@ -17,7 +17,7 @@ import {
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {StatusOrderChipComponent} from "@src/component/smart/order/form/chip/status.order.chip.component";
-import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
+import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 
 @Component({
 	selector: 'app-card-item-order-component',

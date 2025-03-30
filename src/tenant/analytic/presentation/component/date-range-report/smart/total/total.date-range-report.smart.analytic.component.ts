@@ -12,7 +12,7 @@ import {
 	MemberRadioTailwindcssComponent
 } from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
 import {is} from "@core/shared/checker";
-import {RIClient} from "@core/business-logic/business-profile";
+import {RIClient} from "@tenant/business-profile/domain";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {
 	DateSliderControlComponent
@@ -32,7 +32,7 @@ import {DateTime} from "luxon";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
 
 @Component({

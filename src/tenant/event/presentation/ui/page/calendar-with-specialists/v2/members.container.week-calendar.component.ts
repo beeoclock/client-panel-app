@@ -6,12 +6,12 @@ import {AsyncPipe} from "@angular/common";
 import {ITableState} from "@utility/domain/table.state";
 import {Reactive} from "@utility/cdk/reactive";
 import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
-import {MemberProfileStatusEnum} from "@core/business-logic/member/enums/member-profile-status.enum";
+import {MemberProfileStatusEnum} from "@tenant/member/domain/enums/member-profile-status.enum";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {NGXLogger} from "ngx-logger";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
 import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 

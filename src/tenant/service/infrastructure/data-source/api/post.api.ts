@@ -3,7 +3,7 @@ import {serviceEndpointEnum} from "@tenant/service/infrastructure/endpoint/servi
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Injectable()
 export class PostApi extends BaseApiAdapter<IService.DTO, [IService.DTO]> {

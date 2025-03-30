@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BasePushChangesSyncManager} from "@core/system/infrastructure/sync-manager/base.push.changes.sync-manager";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 
 
 @Injectable()

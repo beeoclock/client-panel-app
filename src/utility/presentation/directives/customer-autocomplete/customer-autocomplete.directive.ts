@@ -17,7 +17,7 @@ import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {
 	UtilityListCustomerRepository
 } from "@tenant/customer/infrastructure/repository/utility.list.customer.repository";
-import {ICustomer} from "@core/business-logic/customer";
+import {ICustomer} from "@tenant/customer/domain";
 import {ActiveEnum} from "@core/shared/enum";
 
 @Directive({

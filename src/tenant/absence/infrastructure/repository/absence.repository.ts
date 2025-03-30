@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BaseRepository} from "@core/system/infrastructure/repository/base.repository";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 
 @Injectable()
 export class AbsenceRepository extends BaseRepository<EAbsence> {

@@ -1,8 +1,8 @@
 import {BaseEntityForm} from "@utility/base.form";
 import {FormControl} from "@angular/forms";
-import {IOrderProductDto} from "@core/business-logic/order/interface/i.order-product.dto";
-import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
-import {IOrderMetaDto} from "@core/business-logic/order/interface/i.order-meta.dto";
+import {IOrderProductDto} from "@tenant/order/domain/interface/i.order-product.dto";
+import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
+import {IOrderMetaDto} from "@tenant/order/domain/interface/i.order-meta.dto";
 import {ServiceOrderFormArray} from "@tenant/order/presentation/form/service.order.form";
 
 export interface IOrderForm {

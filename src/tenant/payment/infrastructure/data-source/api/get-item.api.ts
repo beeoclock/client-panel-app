@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 import {PaymentEndpoint} from "@tenant/payment/infrastructure/endpoint/payment.endpoint";
 
 @Injectable()

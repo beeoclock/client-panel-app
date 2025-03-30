@@ -9,7 +9,7 @@ import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {OrderState} from "@tenant/order/presentation/state/order/order.state";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {OrderStatusEnum} from '@core/business-logic/order/enum/order.status.enum';
+import {OrderStatusEnum} from '@tenant/order/domain/enum/order.status.enum';
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 
 @Component({

@@ -9,7 +9,7 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 import {
 	RowActionButtonComponent
 } from "@tenant/service/presentation/ui/component/row-action-button/row-action-button.component";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Component({
 	selector: 'service-detail-page',

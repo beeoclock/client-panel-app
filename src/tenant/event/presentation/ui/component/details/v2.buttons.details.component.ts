@@ -8,9 +8,9 @@ import {
 	ChangeStatusOnDoneComponent
 } from "@tenant/event/presentation/ui/component/change-status/change-status-on-done.component";
 import {IEvent_V2} from "@tenant/event/domain";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
-import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {NGXLogger} from "ngx-logger";
 import {
 	ChangeStatusOnRejectedComponent

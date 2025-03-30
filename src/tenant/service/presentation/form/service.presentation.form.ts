@@ -1,5 +1,5 @@
 import {FormControl, FormGroup} from "@angular/forms";
-import {IPresentation} from "@core/business-logic/service";
+import {IPresentation} from "@tenant/service/domain";
 import {RIMedia} from "@tenant/media/domain/interface/i.media";
 
 export interface IServicePresentationForm {

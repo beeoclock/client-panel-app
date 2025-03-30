@@ -17,15 +17,15 @@ import {ServiceOrderForm} from "@tenant/order/presentation/form/service.order.fo
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {AlertController} from "@ionic/angular/standalone";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
-import {IService} from "@core/business-logic/service/interface/i.service";
-import {IMember} from "@core/business-logic/member/interface/i.member";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {IService} from "@tenant/service/domain/interface/i.service";
+import {IMember} from "@tenant/member/domain/interface/i.member";
+import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({

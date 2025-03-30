@@ -8,7 +8,7 @@ import {
 	signal,
 	ViewEncapsulation
 } from "@angular/core";
-import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
+import ETariffPlan from "@tenant/tariff-plan/domain/entity/e.tariff-plan";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {CurrencyCodePipe} from "@utility/presentation/pipes/currency-code.pipe";
 import {DecimalPipe, NgClass} from "@angular/common";
@@ -16,10 +16,10 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
-import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
+import ETariffPlanHistory from "@tenant/tariff-plan-history/domain/entity/e.tariff-plan-history";
 import {TariffPlanStore} from "@tenant/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
-import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
+import {ITariffPlan} from "@tenant/tariff-plan/domain/interface/i.tariff-plan";
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {
 	TariffPlanHistoryStore

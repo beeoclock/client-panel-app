@@ -20,14 +20,14 @@ import {Reactive} from "@utility/cdk/reactive";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@tenant/order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
-import {ReservationTypeEnum} from "@src/core/business-logic/order/enum/reservation.type.enum";
+import {ReservationTypeEnum} from "@tenant/order/domain/enum/reservation.type.enum";
 import {DateTime} from "luxon";
-import {ICustomer} from "@src/core/business-logic/customer";
+import {ICustomer} from "@tenant/customer/domain";
 import ObjectID from "bson-objectid";
-import {IAttendeeDto} from "@src/core/business-logic/order/interface/i-order-appointment-details.dto";
+import {IAttendeeDto} from "@tenant/order/domain/interface/i-order-appointment-details.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {IService} from "@core/business-logic/service/interface/i.service";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IService} from "@tenant/service/domain/interface/i.service";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";

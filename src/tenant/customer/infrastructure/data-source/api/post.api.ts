@@ -3,7 +3,7 @@ import {customerEndpointEnum} from "@tenant/customer/infrastructure/endpoint/cus
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";
-import * as Customer from "@core/business-logic/customer";
+import * as Customer from "@tenant/customer/domain";
 
 @Injectable({
   providedIn: 'root'

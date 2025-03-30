@@ -9,7 +9,7 @@ import {BooleanState} from "@utility/domain";
 
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Injectable()
 export class CreateBusinessFormRepository extends Reactive implements OnDestroy {

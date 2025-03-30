@@ -1,12 +1,12 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {ICustomer} from "@core/business-logic/customer";
-import {OrderStatusEnum} from "@core/business-logic/order/enum/order.status.enum";
-import {IService} from "@core/business-logic/service/interface/i.service";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
-import {IMember} from "@core/business-logic/member/interface/i.member";
-import EOrder from "@core/business-logic/order/entity/e.order";
+import {ICustomer} from "@tenant/customer/domain";
+import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
+import {IService} from "@tenant/service/domain/interface/i.service";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
+import {IMember} from "@tenant/member/domain/interface/i.member";
+import EOrder from "@tenant/order/domain/entity/e.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 
 export namespace OrderActions {
 

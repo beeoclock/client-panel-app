@@ -8,7 +8,7 @@ import {
 } from "@tenant/member/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {MemberTableService} from "@tenant/member/presentation/component/list/member.table.service";
-import EMember from "@core/business-logic/member/entity/e.member";
+import EMember from "@tenant/member/domain/entity/e.member";
 import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";

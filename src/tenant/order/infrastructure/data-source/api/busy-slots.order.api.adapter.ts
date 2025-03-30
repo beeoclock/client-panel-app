@@ -3,7 +3,7 @@ import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";
 import {OrderEndpoint} from "@tenant/order/infrastructure/endpoint/order.endpoint";
-import {IBusySlot} from "@core/business-logic/order/interface/busy-slot/i.busy-slot";
+import {IBusySlot} from "@tenant/order/domain/interface/busy-slot/i.busy-slot";
 
 type TParams = { start: string; end: string; specialist: string | undefined; };
 

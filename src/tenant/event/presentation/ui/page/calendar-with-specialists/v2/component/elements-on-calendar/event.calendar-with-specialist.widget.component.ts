@@ -15,9 +15,9 @@ import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@tenant/event/domain";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
-import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {DateTime} from "luxon";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular/standalone";
@@ -35,8 +35,8 @@ import {
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
-import {IMember} from "@core/business-logic/member/interface/i.member";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {IMember} from "@tenant/member/domain/interface/i.member";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
 
 type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>;

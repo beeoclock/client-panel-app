@@ -11,7 +11,7 @@ import {
 	ServiceDexieAdapterIndexedDBDataProvider
 } from "@tenant/service/infrastructure/data-provider/indexedDB/adapter/service.dexie.adapter.indexedDB.data-provider";
 import {ServiceRepository} from "@tenant/service/infrastructure/repository/service.repository";
-import {ServiceService} from "@core/business-logic/service/service/service.service";
+import {ServiceService} from "@tenant/service/domain/service/service.service";
 import {SyncManager} from "@tenant/service/infrastructure/sync-manager/sync-manager";
 import {NgxsModule} from "@ngxs/store";
 import {ServiceState} from "@tenant/service/infrastructure/state/service/service.state";

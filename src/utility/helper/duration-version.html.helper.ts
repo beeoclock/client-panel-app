@@ -5,7 +5,7 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 import {CurrencyPipe} from "@angular/common";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {BASE_CURRENCY} from "@src/token";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Injectable()
 export class DurationVersionHtmlHelper {

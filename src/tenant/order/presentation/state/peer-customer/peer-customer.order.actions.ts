@@ -1,6 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {ITableState, PITableState} from "@utility/domain/table.state";
-import EOrder from "@core/business-logic/order/entity/e.order";
+import EOrder from "@tenant/order/domain/entity/e.order";
 
 export namespace PeerCustomerOrderActions {
 	// API

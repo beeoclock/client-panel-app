@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	NotFoundTableDataComponent
@@ -15,7 +15,9 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {StateStatusComponent} from "@tenant/absence/presentation/ui/component/state-status/state-status.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {
+	AbsencePresentationActions
+} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 @Component({
 	selector: 'app-absence-card-list-component',

@@ -8,16 +8,16 @@ import {
 	signal,
 	ViewEncapsulation
 } from "@angular/core";
-import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
+import {ITariffPlan} from "@tenant/tariff-plan/domain/interface/i.tariff-plan";
 import {
 	PostTenantTariffPlanChangeAmountApi
 } from "@tenant/tariff-plan/infrastructure/data-source/api/post/post.tenant-tariff-plan.change-amount.api";
 import {CurrencyPipe} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
+import {ITariffPlanHistory} from "@tenant/tariff-plan-history/domain/interface/i.tariff-plan-history";
 import {TranslatePipe} from "@ngx-translate/core";
 import {TariffPlanStore} from "@tenant/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";
-import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
+import ETariffPlan from "@tenant/tariff-plan/domain/entity/e.tariff-plan";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,

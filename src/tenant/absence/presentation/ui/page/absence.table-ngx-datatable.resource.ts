@@ -3,7 +3,7 @@ import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 
 @Injectable()

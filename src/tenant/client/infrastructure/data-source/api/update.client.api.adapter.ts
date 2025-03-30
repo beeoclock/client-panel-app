@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import * as Client from '@core/business-logic/business-profile';
+import * as Client from '@tenant/business-profile/domain';
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";

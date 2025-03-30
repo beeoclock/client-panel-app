@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {
 	DexieAdapterIndexedDBDataProvider
 } from "@core/system/infrastructure/data-provider/adapter/dexie/dexie.adapter.indexedDB.data-provider";
-import {ICustomer} from "@core/business-logic/customer";
+import {ICustomer} from "@tenant/customer/domain";
 
 @Injectable()
 export class CustomerDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<ICustomer.EntityRaw> {

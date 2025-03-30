@@ -1,6 +1,6 @@
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CellCountryPrefixEnum} from "@core/shared/enum/cell-country-prefix.enum";
-import {IContact} from "@core/business-logic/business-profile/interface/i.contact";
+import {IContact} from "@tenant/business-profile/domain/interface/i.contact";
 
 export interface IContactForm {
 

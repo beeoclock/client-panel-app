@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@core/shared/adapter/base.api.adapter";
 import {absenceEndpointEnum} from "@tenant/absence/infrastructure/endpoint/absence.endpoint";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 
 @Injectable()
 export class PostApi extends BaseApiAdapter<IAbsence.DTO, [IAbsence.DTO]> {

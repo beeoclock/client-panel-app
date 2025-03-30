@@ -1,6 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 
 export namespace AbsencePresentationActions {
 

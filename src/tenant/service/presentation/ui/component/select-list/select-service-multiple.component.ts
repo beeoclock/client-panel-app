@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, Input, output, ViewEncapsulation} from "@angular/core";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {NgStyle} from "@angular/common";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Component({
 	selector: 'select-service-multiple',

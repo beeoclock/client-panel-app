@@ -4,8 +4,8 @@ import {ApiDataProvider} from "@tenant/member/infrastructure/data-provider/api.d
 import {TENANT_ID} from "@src/token";
 import {filter, tap} from "rxjs";
 import {is} from "@core/shared/checker";
-import {IMember} from "@core/business-logic/member/interface/i.member";
-import EMember from "@core/business-logic/member/entity/e.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
+import EMember from "@tenant/member/domain/entity/e.member";
 import {MemberRepository} from "@tenant/member/infrastructure/repository/member.repository";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 

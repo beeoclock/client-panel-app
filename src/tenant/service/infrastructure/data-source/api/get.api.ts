@@ -4,7 +4,7 @@ import {BaseApiAdapter, ResponseListType} from "@core/shared/adapter/base.api.ad
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";
 import {Types} from "@core/shared/types";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Injectable()
 export class GetApi extends BaseApiAdapter<ResponseListType<IService.DTO>, [Types.FindQueryParams]> {

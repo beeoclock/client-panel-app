@@ -3,7 +3,7 @@ import {BaseApiAdapter, ResponseListType} from "@core/shared/adapter/base.api.ad
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@core/shared/checker";
 import {PaymentEndpoint} from '../../endpoint/payment.endpoint';
-import {IPayment} from "@core/business-logic/payment/interface/i.payment";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 import {Types} from "@core/shared/types";
 
 type TParams = Types.FindQueryParams;

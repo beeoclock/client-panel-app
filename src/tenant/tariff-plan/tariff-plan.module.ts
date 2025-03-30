@@ -9,7 +9,7 @@ import {
 	TariffPlanDexieAdapterIndexedDBDataProvider
 } from "@tenant/tariff-plan/infrastructure/data-provider/indexedDB/adapter/tariff-plan.dexie.adapter.indexedDB.data-provider";
 import {TariffPlanRepository} from "@tenant/tariff-plan/infrastructure/repository/tariff-plan.repository";
-import {TariffPlanService} from "@core/business-logic/tariif-plan/service/tariff-plan.service";
+import {TariffPlanService} from "@tenant/tariff-plan/domain/service/tariff-plan.service";
 import {GetApi} from "@tenant/tariff-plan/infrastructure/data-source/api/get/get.api";
 import {GetItemApi} from "@tenant/tariff-plan/infrastructure/data-source/api/get/get-item.api";
 import {

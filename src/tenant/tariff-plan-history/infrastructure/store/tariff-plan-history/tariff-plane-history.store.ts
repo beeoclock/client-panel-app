@@ -6,7 +6,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {NGXLogger} from "ngx-logger";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {environment} from "@environment/environment";
-import ETariffPlanHistory from "@core/business-logic/tariif-plan-history/entity/e.tariff-plan-history";
+import ETariffPlanHistory from "@tenant/tariff-plan-history/domain/entity/e.tariff-plan-history";
 import {SPECIALIST_LIMIT} from "@tenant/tenant.token";
 
 export interface ITariffPlanHistoryState {

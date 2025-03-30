@@ -26,9 +26,9 @@ import {
 	CalendarWithSpecialistsQueries
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
-import {IOrderServiceDto} from "@core/business-logic/order/interface/i.order-service.dto";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
 import {
 	CalendarWithSpecialistsAction
@@ -38,7 +38,7 @@ import {
 	TimeLineCalendarWithSpecialistWidgetComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {DateTime} from "luxon";
 import {RISchedule} from "@utility/domain/interface/i.schedule";

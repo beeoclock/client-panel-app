@@ -3,7 +3,7 @@ import {IndexedDBDataProvider} from "@core/system/infrastructure/data-provider/i
 import {
 	CustomerDexieAdapterIndexedDBDataProvider
 } from "@tenant/customer/infrastructure/data-provider/indexedDB/adapter/customer.dexie.adapter.indexedDB.data-provider";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import ECustomer from "@tenant/customer/domain/entity/e.customer";
 
 @Injectable()
 export class CustomerIndexedDBDataProvider extends IndexedDBDataProvider<ECustomer> {

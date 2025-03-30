@@ -1,5 +1,5 @@
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {IAddress} from "@core/business-logic/business-profile/interface/i.address";
+import {IAddress} from "@tenant/business-profile/domain/interface/i.address";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 
 export interface IAddressForm {

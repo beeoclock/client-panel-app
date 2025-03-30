@@ -4,7 +4,7 @@ import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {IMember} from "@core/business-logic/member";
+import {IMember} from "@tenant/member/domain";
 
 @Injectable()
 export class MemberTableNgxDatatableSmartResource extends TableNgxDatatableSmartResource<IMember.EntityRaw> {

@@ -3,7 +3,7 @@ import {IndexedDBDataProvider} from "@core/system/infrastructure/data-provider/i
 import {
 	AbsenceDexieAdapterIndexedDBDataProvider
 } from "@tenant/absence/infrastructure/data-provider/indexedDB/adapter/absence.dexie.adapter.indexedDB.data-provider";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 
 @Injectable()
 export class AbsenceIndexedDBDataProvider extends IndexedDBDataProvider<EAbsence> {

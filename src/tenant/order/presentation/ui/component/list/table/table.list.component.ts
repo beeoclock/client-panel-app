@@ -13,9 +13,9 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {
 	RowActionButtonComponent
 } from "@tenant/order/presentation/ui/component/row-action-button/row-action-button.component";
-import {IOrder} from "@core/business-logic/order/interface/i.order";
+import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
-import EOrder from "@core/business-logic/order/entity/e.order";
+import EOrder from "@tenant/order/domain/entity/e.order";
 import {DatePipe} from "@angular/common";
 
 @Component({

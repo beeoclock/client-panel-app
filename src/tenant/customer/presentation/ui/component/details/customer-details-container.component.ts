@@ -1,5 +1,5 @@
 import {Component, inject, input, ViewEncapsulation} from '@angular/core';
-import {ICustomer} from '@core/business-logic/customer';
+import {ICustomer} from '@tenant/customer/domain';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";

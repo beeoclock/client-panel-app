@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {CustomerDataActions} from "./customer.data.actions";

@@ -1,6 +1,6 @@
 import {Component, effect, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
-import {AbsenceTypeEnum} from "@core/business-logic/absence/enums/absence.type.enum";
+import {AbsenceTypeEnum} from "@tenant/absence/domain/enums/absence.type.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -10,7 +10,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {
 	MembersAbsenceFormContainerComponent
 } from "@tenant/absence/presentation/ui/component/form/members.absence-form-container.component";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom, map} from "rxjs";
@@ -29,7 +29,7 @@ import {
 } from "@ionic/angular/standalone";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {DateTime} from "luxon";
-import EAbsence from "@core/business-logic/absence/entity/e.absence";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {KeyValuePipe} from "@angular/common";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";

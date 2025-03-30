@@ -5,7 +5,7 @@ import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
 import {
 	NotFoundTableDataComponent

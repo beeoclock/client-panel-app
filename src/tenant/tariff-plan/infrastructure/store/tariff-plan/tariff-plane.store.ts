@@ -1,5 +1,5 @@
 import {patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState} from "@ngrx/signals";
-import ETariffPlan from "@core/business-logic/tariif-plan/entity/e.tariff-plan";
+import ETariffPlan from "@tenant/tariff-plan/domain/entity/e.tariff-plan";
 import {computed, inject} from "@angular/core";
 import {TENANT_ID} from "@src/token";
 import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";

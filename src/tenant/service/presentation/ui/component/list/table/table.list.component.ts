@@ -4,13 +4,13 @@ import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
-import EService from "@core/business-logic/service/entity/e.service";
+import EService from "@tenant/service/domain/entity/e.service";
 import {
 	RowActionButtonComponent
 } from "@tenant/service/presentation/ui/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {

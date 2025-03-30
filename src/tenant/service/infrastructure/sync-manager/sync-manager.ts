@@ -5,8 +5,8 @@ import {TENANT_ID} from "@src/token";
 import {filter, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 import {ServiceRepository} from "@tenant/service/infrastructure/repository/service.repository";
-import {IService} from "@core/business-logic/service/interface/i.service";
-import EService from "@core/business-logic/service/entity/e.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
+import EService from "@tenant/service/domain/entity/e.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Injectable()

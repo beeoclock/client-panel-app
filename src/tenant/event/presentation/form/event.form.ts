@@ -5,8 +5,8 @@ import {EventConfigurationForm} from "@tenant/event/presentation/form/configurat
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
-import {ISpecialist} from "@core/business-logic/service/interface/i.specialist";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 
 export interface IEventForm {

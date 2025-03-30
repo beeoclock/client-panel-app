@@ -3,8 +3,8 @@ import {ModalController} from "@ionic/angular/standalone";
 import {
 	ConfirmChangeTariffPlanComponent
 } from "@tenant/tariff-plan/presentation/ui/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.component";
-import {ITariffPlan} from "@core/business-logic/tariif-plan/interface/i.tariff-plan";
-import {ITariffPlanHistory} from "@core/business-logic/tariif-plan-history/interface/i.tariff-plan-history";
+import {ITariffPlan} from "@tenant/tariff-plan/domain/interface/i.tariff-plan";
+import {ITariffPlanHistory} from "@tenant/tariff-plan-history/domain/interface/i.tariff-plan-history";
 
 @Injectable()
 export class ConfirmChangeTariffPlanModalController {

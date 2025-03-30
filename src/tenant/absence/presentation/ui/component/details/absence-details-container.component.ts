@@ -2,7 +2,7 @@ import {Component, inject, Input, OnChanges, SimpleChange, SimpleChanges, ViewEn
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
 import {
@@ -10,7 +10,9 @@ import {
 } from "@tenant/absence/presentation/ui/component/row-action-button/row-action-button.component";
 import {AbsenceProgressStatusEnum} from "@tenant/absence/presentation/pipe/absence-progress-status.pipe";
 import {StateStatusComponent} from "@tenant/absence/presentation/ui/component/state-status/state-status.component";
-import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {
+	AbsencePresentationActions
+} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 @Component({
 	selector: 'absence-detail-page',

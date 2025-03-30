@@ -21,7 +21,7 @@ import {
 import {Store} from "@ngxs/store";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {BooleanState} from "@utility/domain";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 
 @Component({
 	selector: 'app-empty-slot-calendar-with-specialist-widget-component',

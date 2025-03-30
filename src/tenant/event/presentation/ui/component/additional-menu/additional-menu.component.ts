@@ -13,9 +13,11 @@ import {
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";
-import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {
+	AbsencePresentationActions
+} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 enum SegmentEnum {
 	ORDERING = 'ordering',

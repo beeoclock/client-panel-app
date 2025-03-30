@@ -1,7 +1,7 @@
 import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
-import {ICustomer} from "@core/business-logic/customer";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import {ICustomer} from "@tenant/customer/domain";
+import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent

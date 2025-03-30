@@ -7,7 +7,7 @@ import {CustomerForm} from "@tenant/customer/presentation/form";
 import {
 	SelectCustomerPushBoxComponent
 } from "@tenant/customer/presentation/push-box/select-customer.push-box.component";
-import {ICustomer} from "@core/business-logic/customer";
+import {ICustomer} from "@tenant/customer/domain";
 
 @Component({
 	selector: 'app-regular-customer-type-customer',

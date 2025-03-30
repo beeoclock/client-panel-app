@@ -4,7 +4,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {tap} from "rxjs";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
-import EService from "@core/business-logic/service/entity/e.service";
+import EService from "@tenant/service/domain/entity/e.service";
 import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";

@@ -7,7 +7,7 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import EService from "@core/business-logic/service/entity/e.service";
+import EService from "@tenant/service/domain/entity/e.service";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 

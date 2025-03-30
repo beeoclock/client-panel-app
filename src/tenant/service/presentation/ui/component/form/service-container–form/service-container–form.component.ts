@@ -34,7 +34,7 @@ import {NGXLogger} from "ngx-logger";
 import {is} from "@core/shared/checker";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";

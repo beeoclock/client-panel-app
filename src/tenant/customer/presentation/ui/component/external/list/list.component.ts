@@ -10,7 +10,7 @@ import {
 } from "@tenant/customer/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
 import {CustomerTableService} from "@tenant/customer/presentation/ui/component/list/customer.table.service";
 import {TableService} from "@utility/table.service";
-import ECustomer from "@core/business-logic/customer/entity/e.customer";
+import ECustomer from "@tenant/customer/domain/entity/e.customer";
 
 @Component({
 	selector: 'customer-external-list-component',

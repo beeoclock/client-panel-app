@@ -5,7 +5,7 @@ import {AssignmentsForm} from "@tenant/member/presentation/form/member.form";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Component({
 	selector: 'member-form-assignments',

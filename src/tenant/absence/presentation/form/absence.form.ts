@@ -1,8 +1,8 @@
 import {AbstractControl, FormControl, ValidationErrors} from '@angular/forms';
 import {BaseEntityForm} from "@utility/base.form";
-import {AbsenceTypeEnum} from "@core/business-logic/absence/enums/absence.type.enum";
+import {AbsenceTypeEnum} from "@tenant/absence/domain/enums/absence.type.enum";
 import {DateTime} from "luxon";
-import {IAbsence} from "@core/business-logic/absence/interface/i.absence";
+import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {is} from "@core/shared/checker";
 
 export type IAbsenceForm = {

@@ -4,10 +4,10 @@ import {FormControl} from "@angular/forms";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
-import {ISpecialist} from "@src/core/business-logic/service/interface/i.specialist";
-import {SpecialistModel} from "@src/core/business-logic/service/model/specialist.model";
+import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
+import {SpecialistModel} from "@tenant/service/domain/model/specialist.model";
 import {TranslateModule} from "@ngx-translate/core";
-import {IMember} from "@core/business-logic/member/interface/i.member";
+import {IMember} from "@tenant/member/domain/interface/i.member";
 import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
 
 @Component({

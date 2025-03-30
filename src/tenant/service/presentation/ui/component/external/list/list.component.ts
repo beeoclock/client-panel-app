@@ -8,7 +8,7 @@ import {
 import {
 	DesktopLayoutListComponent
 } from "@tenant/service/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
-import EService from "@core/business-logic/service/entity/e.service";
+import EService from "@tenant/service/domain/entity/e.service";
 
 @Component({
 	selector: 'service-external-list-component',

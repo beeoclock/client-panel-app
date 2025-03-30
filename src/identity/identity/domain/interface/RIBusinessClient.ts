@@ -1,7 +1,7 @@
 import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
-import {SlotBuildingStrategyEnum} from "@core/business-logic/business-profile/enum/slot-building-strategy.enum";
+import {SlotBuildingStrategyEnum} from "@tenant/business-profile/domain/enum/slot-building-strategy.enum";
 import {SlotRetrievingStrategyEnum} from "@core/shared/enum/slot-retrieving-strategy.enum";
 
 export interface RIBusinessClient {
