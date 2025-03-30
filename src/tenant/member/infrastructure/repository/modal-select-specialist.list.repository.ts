@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
-import {TableState} from "@utility/domain/table.state";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {TableState} from "@shared/domain/table.state";
+import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {IMember} from "@tenant/member/domain/interface/i.member";

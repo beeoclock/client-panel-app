@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import LayoutListComponent from "@utility/layout.list.component";
+import LayoutListComponent from "@shared/layout.list.component";
 import {TableListComponent} from "@tenant/service/presentation/ui/component/list/table/table.list.component";
 import {FilterComponent} from "@tenant/service/presentation/ui/component/filter/filter.component";
 

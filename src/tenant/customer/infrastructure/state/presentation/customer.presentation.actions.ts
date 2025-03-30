@@ -1,4 +1,4 @@
-import {BaseActions} from "@utility/state/base/base.actions";
+import {BaseActions} from "@shared/state/base/base.actions";
 import {ICustomer} from "@tenant/customer/domain";
 
 export namespace CustomerPresentationActions {

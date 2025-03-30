@@ -15,9 +15,9 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {DateTime, Interval} from "luxon";
 import {DatePipe, DOCUMENT} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {environment} from "@environment/environment";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {IntervalTypeEnum} from "@tenant/analytic/domain/enum/interval.enum";
 import {NGXLogger} from "ngx-logger";
 import {

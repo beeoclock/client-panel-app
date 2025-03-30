@@ -1,9 +1,9 @@
 import {Component, inject, Input, OnChanges, SimpleChange, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
 import {
 	RowActionButtonComponent

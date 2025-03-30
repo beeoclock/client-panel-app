@@ -1,19 +1,19 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, CurrencyPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {TableComponent} from "@utility/table.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {TableComponent} from "@shared/table.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {ILanguageVersion} from "@tenant/service/domain";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import EService from "@tenant/service/domain/entity/e.service";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/service/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {
 	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
 

@@ -1,13 +1,13 @@
 import {Component, input} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@tenant/customer/presentation/form";
-import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
+import {InvalidTooltipComponent} from "@shared/presentation/component/invalid-message/invalid-message";
 import {
 	NamesFormAttendantComponent
 } from "@tenant/event/presentation/ui/component/form/attendees/attendant/names.form.attendant.component";
-import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
+import {TelFormInputComponent} from "@shared/presentation/component/tel-form-input/tel.form.input.component";
 
 @Component({
 	selector: 'app-event-form-attendant-component',

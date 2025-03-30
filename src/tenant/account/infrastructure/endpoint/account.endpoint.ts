@@ -1,4 +1,4 @@
-import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
+import {Endpoint, EndpointCollectionType} from "@shared/domain/endpoint";
 import {SourceNetworkEnum} from "@core/shared/enum/source.network.enum";
 import {TranslateService} from "@ngx-translate/core";
 

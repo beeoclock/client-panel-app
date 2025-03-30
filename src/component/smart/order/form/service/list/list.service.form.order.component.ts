@@ -13,10 +13,10 @@ import {
 import {
 	ItemV2ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
+import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
-import {Reactive} from "@utility/cdk/reactive";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
+import {Reactive} from "@core/cdk/reactive";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@tenant/order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";

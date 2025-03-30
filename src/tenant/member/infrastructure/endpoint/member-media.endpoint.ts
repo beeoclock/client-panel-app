@@ -1,4 +1,4 @@
-import {Endpoint} from "@utility/domain/endpoint";
+import {Endpoint} from "@shared/domain/endpoint";
 import {SourceNetworkEnum} from "@core/shared/enum/source.network.enum";
 import {RequestMethodEnum} from "@core/shared/enum/request-method.enum";
 

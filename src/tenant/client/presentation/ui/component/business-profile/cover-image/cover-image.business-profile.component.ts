@@ -1,10 +1,10 @@
 import {Component, inject, input, viewChild, ViewEncapsulation} from "@angular/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf, NgIf} from "@angular/common";
-import {BooleanState} from "@utility/domain";
-import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
-import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
+import {BooleanState} from "@shared/domain";
+import {DragAndDropDirective} from "@shared/presentation/directives/drag-and-drop/drag-and-drop.directive";
+import {PlaceholderImageComponent} from "@shared/presentation/component/image/placeholder.image.component";
 import {
 	ImageCoverImageBusinessProfileComponent
 } from "@tenant/client/presentation/ui/component/business-profile/cover-image/image.cover-image.business-profile/image.cover-image.business-profile.component";
@@ -12,7 +12,7 @@ import {
 	PatchMediaBannersClientApiAdapter
 } from "@tenant/client/infrastructure/data-source/api/media/banners/patch.media.banners.client.api.adapter";
 import {RIMedia} from "@tenant/media/domain/interface/i.media";
-import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
+import {MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
 
 @Component({
 	selector: 'client-cover-image-business-profile-component',

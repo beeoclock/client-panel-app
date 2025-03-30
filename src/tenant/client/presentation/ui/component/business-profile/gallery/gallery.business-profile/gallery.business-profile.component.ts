@@ -9,11 +9,11 @@ import {
 	viewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf} from "@angular/common";
 import {GalleryForm} from "@tenant/client/presentation/form/gallery.form";
-import {BooleanState} from "@utility/domain";
+import {BooleanState} from "@shared/domain";
 import {
 	ImageGalleryBusinessProfileComponent
 } from "@tenant/client/presentation/ui/component/business-profile/gallery/image.gallery.business-profile/image.gallery.business-profile.component";
@@ -24,7 +24,7 @@ import {
 	DeleteMediaGalleryClientApiAdapter
 } from "@tenant/client/infrastructure/data-source/api/media/gallery/delete.media.gallery.client.api.adapter";
 import {RIMedia} from "@tenant/media/domain/interface/i.media";
-import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
+import {MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
 
 @Component({
 	selector: 'client-gallery-business-profile-component',

@@ -13,7 +13,7 @@ import {
 import {
 	NotificationSettingsComponent
 } from "@tenant/client/presentation/ui/component/settings/notification/notification.settings.component";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 
 @Component({
 	selector: 'client-settings-page',

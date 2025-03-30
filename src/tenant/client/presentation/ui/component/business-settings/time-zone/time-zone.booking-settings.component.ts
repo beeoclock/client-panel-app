@@ -1,11 +1,11 @@
 import {Component, inject, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {Reactive} from "@utility/cdk/reactive";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
-import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
-import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
+import {Reactive} from "@core/cdk/reactive";
+import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
+import {HasErrorDirective} from "@shared/presentation/directives/has-error/has-error.directive";
+import {InvalidTooltipDirective} from "@shared/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
+import {IsRequiredDirective} from "@shared/presentation/directives/is-required/is-required";
 import {NgSelectModule} from "@ng-select/ng-select";
 
 @Component({

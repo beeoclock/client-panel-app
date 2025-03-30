@@ -1,16 +1,16 @@
 import {AbstractControl, FormControl, Validators} from '@angular/forms';
-import {noWhitespaceValidator} from "@utility/validation/whitespace";
+import {noWhitespaceValidator} from "@shared/validation/whitespace";
 import {
 	atLeastOneFieldMustBeFilledValidator
 } from "@tenant/customer/presentation/form/validation/atLeastOneFieldMustBeFilled.validation";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {BaseEntityForm} from "@utility/base.form";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {BaseEntityForm} from "@shared/base.form";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {ICustomer} from "@tenant/customer/domain";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
-import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
+import {TelFormInputComponent} from "@shared/presentation/component/tel-form-input/tel.form.input.component";
 
 export const enum CustomerFormFieldsEnum {
 

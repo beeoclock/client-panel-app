@@ -2,14 +2,12 @@ import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from '@tenant/client/presentation/form/business-profile.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {BusinessCategoryComponent} from "@utility/presentation/component/input/business-category.component";
-import {BusinessIndustryComponent} from "@utility/presentation/component/input/business-industry.component";
-import {ServiceProvideTypeComponent} from "@utility/presentation/component/input/service-provide-type.component";
-import {
-	FormInputWithLeftHintComponent
-} from "@utility/presentation/component/input/form.input-with-left-hint.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {BusinessCategoryComponent} from "@shared/presentation/component/input/business-category.component";
+import {BusinessIndustryComponent} from "@shared/presentation/component/input/business-industry.component";
+import {ServiceProvideTypeComponent} from "@shared/presentation/component/input/service-provide-type.component";
+import {FormInputWithLeftHintComponent} from "@shared/presentation/component/input/form.input-with-left-hint.component";
 
 @Component({
 	selector: 'client-business-profile-form-component',

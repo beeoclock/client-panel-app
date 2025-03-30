@@ -13,14 +13,14 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@tenant/member/presentation/form/member.form";
 import {firstValueFrom} from "rxjs";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {SelectRoleComponent} from "@tenant/member/presentation/component/form/select-role/select-role.component";
 import {
 	AvatarContainerComponent
 } from "@tenant/member/presentation/component/form/avatar-container/avatar-container.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
 import {CommonModule} from "@angular/common";
 import {
 	MemberFormAssignmentsComponent

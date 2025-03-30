@@ -1,9 +1,9 @@
 import {Component, input} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
-import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
+import {PriceAndCurrencyComponent} from "@shared/presentation/component/input/price-and-currency.component";
 import {PriceForm} from "@tenant/service/presentation/form/service.form";
-import {DurationSelectComponent} from "@utility/presentation/component/input/duration.select.component";
+import {DurationSelectComponent} from "@shared/presentation/component/input/duration.select.component";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 
 @Component({

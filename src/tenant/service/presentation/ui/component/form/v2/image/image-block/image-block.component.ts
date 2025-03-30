@@ -1,12 +1,12 @@
 import {Component, inject, input, viewChildren} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {FormControl} from "@angular/forms";
 import {
 	PatchBannerServiceApiAdapter
 } from "@tenant/service/infrastructure/data-source/api/patch.banner.service.api.adapter";
-import {BooleanState} from "@utility/domain";
+import {BooleanState} from "@shared/domain";
 import {
 	ServiceFormImageComponent
 } from "@tenant/service/presentation/ui/component/form/v2/image/service-form-image/service-form-image.component";
@@ -14,7 +14,7 @@ import {ServicePresentationForm} from '@tenant/service/presentation/form/service
 import {
 	DeleteBannerServiceApiAdapter
 } from "@tenant/service/infrastructure/data-source/api/delete.banner.service.api.adapter";
-import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
+import {MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
 
 @Component({
 	selector: 'service-form-image-block-component',

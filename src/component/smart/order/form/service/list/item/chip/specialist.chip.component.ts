@@ -3,7 +3,7 @@ import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone"
 import {FormControl} from "@angular/forms";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import ObjectID from "bson-objectid";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {SpecialistModel} from "@tenant/service/domain/model/specialist.model";
 import {TranslateModule} from "@ngx-translate/core";

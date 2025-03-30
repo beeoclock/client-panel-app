@@ -1,8 +1,8 @@
 import {inject, Injectable} from "@angular/core";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
-import {BooleanState} from "@utility/domain";
-import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
+import {BooleanState} from "@shared/domain";
+import {WindowWidthSizeService} from "@core/cdk/window-width-size.service";
 
 @Injectable()
 export class ScrollCalendarDomManipulationService {

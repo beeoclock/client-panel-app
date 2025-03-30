@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {NGXLogger} from "ngx-logger";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 import {StatisticV2Component} from "@tenant/event/presentation/ui/component/statistic-v2/statistic-v2.component";
 import {Store} from "@ngxs/store";
 import {

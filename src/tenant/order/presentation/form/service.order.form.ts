@@ -1,9 +1,9 @@
-import {BaseEntityForm} from "@utility/base.form";
+import {BaseEntityForm} from "@shared/base.form";
 import {FormArray, FormControl} from "@angular/forms";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 import {IOrderAppointmentDetailsDto} from "@tenant/order/domain/interface/i-order-appointment-details.dto";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
-import {IMeta} from "@utility/domain";
+import {IMeta} from "@shared/domain";
 import {IService} from "@tenant/service/domain/interface/i.service";
 
 export interface IServiceOrderForm {

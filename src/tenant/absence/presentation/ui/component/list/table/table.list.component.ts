@@ -7,7 +7,7 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {TableComponent} from "@utility/table.component";
+import {TableComponent} from "@shared/table.component";
 import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import EAbsence from "@tenant/absence/domain/entity/e.absence";
@@ -25,7 +25,7 @@ import {
 } from "@tenant/absence/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {
 	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
 	AbsencePresentationActions

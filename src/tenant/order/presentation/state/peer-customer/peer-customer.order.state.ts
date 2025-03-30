@@ -1,9 +1,9 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
-import {ITableState, TableState} from "@utility/domain/table.state";
+import {ITableState, TableState} from "@shared/domain/table.state";
 import {PeerCustomerOrderActions} from "@tenant/order/presentation/state/peer-customer/peer-customer.order.actions";
-import {getMaxPage} from "@utility/domain/max-page";
+import {getMaxPage} from "@shared/domain/max-page";
 import {NGXLogger} from "ngx-logger";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import EOrder from "@tenant/order/domain/entity/e.order";

@@ -2,7 +2,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {
 	PageLoadingProgressBarComponent
-} from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
+} from "@shared/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 
 @Component({
 	selector: 'identity-router-outlet-component',

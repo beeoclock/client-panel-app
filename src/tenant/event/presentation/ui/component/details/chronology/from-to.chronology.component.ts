@@ -13,7 +13,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@core/shared/checker";
 import {DateTime} from "luxon";
-import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
+import {HumanizeDurationHelper} from "@shared/helper/humanize/humanize-duration.helper";
 
 @Component({
 	selector: 'event-from-to-chronology',

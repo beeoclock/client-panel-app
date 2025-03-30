@@ -1,15 +1,15 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 import {
 	TableStatePaginationComponent
-} from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
+} from "@shared/presentation/component/pagination/table-state-pagination.component";
+import {SortIndicatorComponent} from "@shared/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {TableComponent} from "@utility/table.component";
-import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
-import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
-import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
-import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {TableComponent} from "@shared/table.component";
+import {BodyTableFlexDirective} from "@shared/presentation/directives/talbe/flex/body.table.flex.directive";
+import {ColumnTableFlexDirective} from "@shared/presentation/directives/talbe/flex/column.table.flex.directive";
+import {RowTableFlexDirective} from "@shared/presentation/directives/talbe/flex/row.table.flex.directive";
+import {TableTableFlexDirective} from "@shared/presentation/directives/talbe/flex/table.table.flex.directive";
+import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {
 	RowActionButtonComponent
 } from "@tenant/order/presentation/ui/component/row-action-button/row-action-button.component";

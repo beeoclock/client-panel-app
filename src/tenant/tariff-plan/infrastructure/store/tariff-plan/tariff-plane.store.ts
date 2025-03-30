@@ -10,7 +10,7 @@ import {
 	PatchTenantTariffPlanChangeApi
 } from "@tenant/tariff-plan/infrastructure/data-source/api/patch/patch.tenant-tariff-plan.change.api";
 import {environment} from "@environment/environment";
-import {IsOnlineService} from "@utility/cdk/is-online.service";
+import {IsOnlineService} from "@core/cdk/is-online.service";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {GetBillingPortalApi} from "@tenant/tariff-plan/infrastructure/data-source/api/get/get.billing-portal.api";
 

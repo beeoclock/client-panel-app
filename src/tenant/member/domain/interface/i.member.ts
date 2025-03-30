@@ -1,4 +1,4 @@
-import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {MemberProfileStatusEnum} from "../enums/member-profile-status.enum";
 import {RESPONSE_IMemberMedia} from "./i.member-media";

@@ -1,14 +1,14 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, BaseState, IBaseState} from "@shared/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {MemberProfileStatusEnum} from "@tenant/member/domain/enums/member-profile-status.enum";
 import {NGXLogger} from "ngx-logger";
 import EMember from "@tenant/member/domain/entity/e.member";
 import {firstValueFrom} from "rxjs";
-import {AppActions} from "@utility/state/app/app.actions";
-import {TableState} from "@utility/domain/table.state";
-import {getMaxPage} from "@utility/domain/max-page";
+import {AppActions} from "@shared/state/app/app.actions";
+import {TableState} from "@shared/domain/table.state";
+import {getMaxPage} from "@shared/domain/max-page";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";

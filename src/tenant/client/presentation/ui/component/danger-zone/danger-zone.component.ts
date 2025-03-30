@@ -7,7 +7,7 @@ import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {Router} from "@angular/router";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TENANT_ID} from "@src/token";
 
 @Component({

@@ -7,33 +7,33 @@ import {
 	OnInit,
 	ViewEncapsulation
 } from '@angular/core';
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {DatetimeLocalInputComponent} from "@shared/presentation/component/input/datetime-local.input.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {
 	FormBusinessProfileComponent
 } from "@tenant/client/presentation/ui/component/business-profile/form-business-profile.component";
-import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
+import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
 import {
 	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/component/container/button-save/button-save.container.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {OrderForm} from "@tenant/order/presentation/form/order.form";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {ContainerFormComponent} from '@tenant/event/presentation/ui/component/form/container.form.component';
 import {IEvent} from "@tenant/event/domain";
 import {ActiveEnum} from "@core/shared/enum";
 import {ReservationTypeEnum} from "@tenant/order/domain/enum/reservation.type.enum";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
+import {HumanizeDurationPipe} from "@shared/presentation/pipes/humanize-duration.pipe";
+import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
 import {
 	AttendeeCardComponent
 } from "@tenant/event/presentation/ui/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
@@ -46,14 +46,14 @@ import {
 import {
 	EventStatusStyleDirective
 } from "@tenant/event/presentation/directive/event-status-style/event-status-style.directive";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
-import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
+import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
+import {LinkButtonDirective} from "@shared/presentation/directives/button/link.button.directive";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 import {
 	OrderServiceDetailsComponent
 } from "@tenant/order/presentation/ui/component/details/service/order-service-details.component";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {filter} from 'rxjs';
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {RIClient} from "@tenant/business-profile/domain";

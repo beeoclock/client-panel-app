@@ -11,7 +11,7 @@ import {
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {DateTime} from "luxon";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	IonDatetime,

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe} from "@angular/common";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {
 	RowActionButtonComponent
 } from "@tenant/order/presentation/ui/component/row-action-button/row-action-button.component";
@@ -10,7 +10,7 @@ import {debounce} from "typescript-debounce-decorator";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
-import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {
 	ListServiceFormCardOrderComponent
 } from "@tenant/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";

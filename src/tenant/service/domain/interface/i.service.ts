@@ -1,7 +1,7 @@
-import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {IPresentation, RIConfiguration, RIDurationVersion, RILanguageVersion, RIPrepaymentPolicy} from "../index";
-import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {RISchedule} from "@shared/domain/interface/i.schedule";
 
 export namespace IService {
 

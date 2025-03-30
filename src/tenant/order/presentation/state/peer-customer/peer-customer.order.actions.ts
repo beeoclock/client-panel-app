@@ -1,5 +1,5 @@
-import {BaseActions} from "@utility/state/base/base.actions";
-import {ITableState, PITableState} from "@utility/domain/table.state";
+import {BaseActions} from "@shared/state/base/base.actions";
+import {ITableState, PITableState} from "@shared/domain/table.state";
 import EOrder from "@tenant/order/domain/entity/e.order";
 
 export namespace PeerCustomerOrderActions {

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ISchedule} from "@utility/domain/interface/i.schedule";
+import {ISchedule} from "@shared/domain/interface/i.schedule";
 import {BehaviorSubject} from "rxjs";
 import {
 	EventCalendarWithSpecialistWidgetComponent

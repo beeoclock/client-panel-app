@@ -2,15 +2,15 @@ import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleCh
 import {IAttendee, IEvent_V2} from "@tenant/event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass} from "@angular/common";
-import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {ICustomer} from "@tenant/customer/domain";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
+import {PrimaryLinkStyleDirective} from "@shared/presentation/directives/link/primary.link.style.directive";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	CustomerPresentationActions

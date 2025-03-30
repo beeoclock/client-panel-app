@@ -1,8 +1,8 @@
 import {Component, effect, inject, input, signal, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
+import {EditButtonComponent} from "@shared/presentation/component/button/edit.button.component";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";

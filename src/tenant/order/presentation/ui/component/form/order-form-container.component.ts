@@ -13,12 +13,12 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {
 	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+} from "@shared/presentation/component/container/button-save/button-save.container.component";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {CreateOrderForm} from "@tenant/order/presentation/form/create.order.form";
@@ -26,7 +26,7 @@ import {
 	PaymentOrderFormContainerComponent
 } from "@tenant/order/presentation/ui/component/form/payment.order-form-container.component";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {ICustomer} from "@tenant/customer/domain";
 import {
 	ListServiceFormOrderComponent
@@ -34,7 +34,7 @@ import {
 import {FormsModule} from "@angular/forms";
 import {firstValueFrom, lastValueFrom} from "rxjs";
 import {PaymentActions} from "@tenant/payment/infrastructure/state/data/payment.actions";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {
 	AdditionalMenuComponent
 } from "@tenant/event/presentation/ui/component/additional-menu/additional-menu.component";

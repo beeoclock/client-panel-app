@@ -1,7 +1,7 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {RoleEnum} from "@core/shared/enum/role.enum";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 

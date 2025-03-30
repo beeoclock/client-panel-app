@@ -1,7 +1,7 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 import {TableListComponent} from "@tenant/member/presentation/component/list/table/table.list.component";
 import {FilterComponent} from "@tenant/member/presentation/component/filter/filter.component";
-import LayoutListComponent from "@utility/layout.list.component";
+import LayoutListComponent from "@shared/layout.list.component";
 
 @Component({
 	selector: 'member-desktop-layout-list-component',

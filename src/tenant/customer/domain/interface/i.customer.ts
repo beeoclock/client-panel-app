@@ -1,4 +1,4 @@
-import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {Tools} from "@core/shared/tools";
 import {Types} from "@core/shared/types";

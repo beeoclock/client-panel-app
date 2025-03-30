@@ -1,5 +1,5 @@
 import {AbsenceTypeEnum} from "../enums/absence.type.enum";
-import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {IMember} from "@tenant/member/domain/interface/i.member";
 

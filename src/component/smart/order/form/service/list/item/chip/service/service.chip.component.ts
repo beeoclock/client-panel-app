@@ -11,7 +11,7 @@ import {
 } from "@ionic/angular/standalone";
 import {FormControl} from "@angular/forms";
 import ObjectID from "bson-objectid";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {TranslateModule} from "@ngx-translate/core";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {

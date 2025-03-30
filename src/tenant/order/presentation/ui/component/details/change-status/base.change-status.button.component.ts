@@ -1,5 +1,5 @@
 import {Directive, HostBinding, HostListener, inject, input} from "@angular/core";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {Store} from "@ngxs/store";
 import {AlertController} from "@ionic/angular/standalone";

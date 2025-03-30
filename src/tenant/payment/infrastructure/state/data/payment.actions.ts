@@ -1,4 +1,4 @@
-import {BaseActions} from "@utility/state/base/base.actions";
+import {BaseActions} from "@shared/state/base/base.actions";
 import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 
 export namespace PaymentActions {

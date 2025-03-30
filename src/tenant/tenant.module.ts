@@ -8,7 +8,7 @@ import {OrderModule} from "@tenant/order/order.module";
 import {ServiceModule} from "@tenant/service/service.module";
 import {PaymentModule} from "@tenant/payment/payment.module";
 import {tenantTokens} from "@tenant/tenant.token";
-import {SocketState} from "@utility/state/socket/socket.state";
+import {SocketState} from "@shared/state/socket/socket.state";
 import {NgxsModule} from "@ngxs/store";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {EventModule} from "@tenant/event/event.module";

@@ -1,20 +1,20 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/core";
-import {TableComponent} from "@utility/table.component";
+import {TableComponent} from "@shared/table.component";
 import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/absence/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
 import {TranslatePipe} from "@ngx-translate/core";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {StateStatusComponent} from "@tenant/absence/presentation/ui/component/state-status/state-status.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {
 	AbsencePresentationActions
 } from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";

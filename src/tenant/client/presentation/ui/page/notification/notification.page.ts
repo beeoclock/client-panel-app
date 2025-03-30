@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 
 @Component({
 	selector: 'client-notification-page',

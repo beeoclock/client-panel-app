@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {
 	CancelledChangeStatusButtonComponent

@@ -1,4 +1,4 @@
-import {BaseActions} from "@utility/state/base/base.actions";
+import {BaseActions} from "@shared/state/base/base.actions";
 import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import EAbsence from "@tenant/absence/domain/entity/e.absence";
 

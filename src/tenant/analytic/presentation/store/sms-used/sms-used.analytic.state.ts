@@ -5,7 +5,7 @@ import {
 } from "@tenant/analytic/infrastructure/data-source/api/adapter/sms-used.analytic.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
-import {AppActions} from "@utility/state/app/app.actions";
+import {AppActions} from "@shared/state/app/app.actions";
 import {DateTime} from "luxon";
 import {SmsUsedAnalyticActions} from "@tenant/analytic/presentation/store/sms-used/sms-used.analytic.actions";
 

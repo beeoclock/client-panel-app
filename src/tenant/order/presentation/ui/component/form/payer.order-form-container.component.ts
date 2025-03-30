@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {
 	CustomerTypeCustomerComponent
 } from "@tenant/customer/presentation/ui/component/form/by-customer-type/customer-type.customer.component";

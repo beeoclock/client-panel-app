@@ -1,7 +1,7 @@
 import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IHistory, IHistoryV2} from "@utility/domain";
+import {IHistory, IHistoryV2} from "@shared/domain";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {DateTime} from "luxon";

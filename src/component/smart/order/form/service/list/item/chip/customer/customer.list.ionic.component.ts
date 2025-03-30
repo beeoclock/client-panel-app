@@ -35,9 +35,9 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {ICustomer} from "@tenant/customer/domain";
 import {Store} from "@ngxs/store";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import ObjectID from "bson-objectid";
-import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
+import {DefaultButtonDirective} from "@shared/presentation/directives/button/default.button.directive";
 import {NGXLogger} from "ngx-logger";
 import {GlobalEventListCustomerRepository} from "@src/token";
 

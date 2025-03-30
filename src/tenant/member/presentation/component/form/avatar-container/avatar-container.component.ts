@@ -1,7 +1,7 @@
 import {Component, inject, input, viewChild} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
-import {BooleanState} from "@utility/domain";
+import {BooleanState} from "@shared/domain";
 import {
 	PatchMemberMediaApiAdapter
 } from "@tenant/member/infrastructure/data-source/api/media/patch.member-media.api.adapter";

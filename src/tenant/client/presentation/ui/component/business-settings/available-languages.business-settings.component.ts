@@ -1,12 +1,12 @@
 import {Component, HostBinding, input} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageCodeEnum, LANGUAGES} from "@core/shared/enum";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {TranslateModule} from "@ngx-translate/core";
-import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
-import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
-import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
+import {IsRequiredDirective} from "@shared/presentation/directives/is-required/is-required";
+import {HasErrorDirective} from "@shared/presentation/directives/has-error/has-error.directive";
+import {InvalidTooltipDirective} from "@shared/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
 	selector: 'client-available-languages-business-settings-component',

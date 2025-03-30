@@ -10,7 +10,7 @@ import {
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
 
 @Component({
 	selector: 'event-change-status-on-cancelled-component',

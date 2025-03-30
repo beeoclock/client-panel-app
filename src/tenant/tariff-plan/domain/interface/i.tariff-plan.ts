@@ -1,4 +1,4 @@
-import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";

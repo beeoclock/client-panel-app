@@ -1,16 +1,16 @@
 import {Component, HostBinding, inject, Input, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyPipe} from "@angular/common";
 import {DateTime} from "luxon";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {
 	SelectServiceListComponent
 } from "@tenant/service/presentation/ui/component/select-list/select-service-list.component";
-import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {IMember} from "@tenant/member/domain/interface/i.member";

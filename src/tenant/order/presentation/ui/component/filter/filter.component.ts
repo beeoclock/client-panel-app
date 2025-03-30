@@ -1,16 +1,16 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
+import {SearchInputComponent} from '@shared/presentation/component/input/search.input.component';
 import {FilterForm} from "@tenant/order/presentation/form/filter.form";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {BaseFilterComponent} from "@utility/base.filter.component";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
+import {BaseFilterComponent} from "@shared/base.filter.component";
+import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
+import {IonSelectWrapperComponent} from "@shared/presentation/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {OrderState} from "@tenant/order/presentation/state/order/order.state";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {OrderStatusEnum} from '@tenant/order/domain/enum/order.status.enum';
-import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
+import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
 
 @Component({
 	selector: 'app-order-filter-component',

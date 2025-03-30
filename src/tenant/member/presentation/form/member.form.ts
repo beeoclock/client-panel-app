@@ -2,7 +2,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RoleEnum} from "@core/shared/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@tenant/member/domain/interface/i.member-media";
 import {MemberProfileStatusEnum} from "@tenant/member/domain/enums/member-profile-status.enum";
-import {BaseEntityForm} from "@utility/base.form";
+import {BaseEntityForm} from "@shared/base.form";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IMember} from "@tenant/member/domain/interface/i.member";
 

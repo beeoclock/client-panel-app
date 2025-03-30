@@ -8,15 +8,15 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Store} from "@ngxs/store";
 import {filter, map, startWith, tap} from "rxjs";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {AsyncPipe} from "@angular/common";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {DateTime} from "luxon";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
 import {is} from "@core/shared/checker";
 import {RIClient} from "@tenant/business-profile/domain";
 import {TranslateModule} from "@ngx-translate/core";
@@ -33,9 +33,9 @@ import {
 } from "@tenant/analytic/presentation/store/date-range-report/date-range-report.analytic.actions";
 import {
 	MemberRadioTailwindcssComponent
-} from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
+} from "@shared/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 import {
 	RevenueSummaryDiagramComponent
 } from "@tenant/event/presentation/ui/component/statistic-v2/components/diagrams/revenue-summary/revenue-summary.diagram.component";

@@ -3,7 +3,7 @@ import {Action, State, StateContext} from "@ngxs/store";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {TranslateService} from "@ngx-translate/core";
 import {IOrderState} from "@tenant/order/presentation/state/order/order.state";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EOrder from "@tenant/order/domain/entity/e.order";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";

@@ -6,9 +6,9 @@ import {ParsedToken} from "@firebase/auth";
 import {firstValueFrom} from "rxjs";
 import {IMember} from "@identity/identity/domain/interface/i.member";
 import {MemberContextApiAdapter} from "@identity/identity/infrastructure/api/member-context.api.adapter";
-import {setTimeoutTakeUntil$, setTimeoutTakeUntil$Type} from "@utility/domain/timer";
+import {setTimeoutTakeUntil$, setTimeoutTakeUntil$Type} from "@shared/domain/timer";
 import {NGXLogger} from "ngx-logger";
-import {secondsTo_hh_mm_ss, TWENTY_SECONDS} from "@utility/domain/time";
+import {secondsTo_hh_mm_ss, TWENTY_SECONDS} from "@shared/domain/time";
 
 export interface BeeoclockParsedToken extends ParsedToken {
 	clientId?: string;

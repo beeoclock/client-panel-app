@@ -1,5 +1,5 @@
 import {LanguageCodeEnum} from "@core/shared/enum";
-import {ThemeEnum} from "@utility/cdk/theme.service";
+import {ThemeEnum} from "@core/cdk/theme.service";
 
 export interface IFrontendSettings {
 	object: 'FrontendSettings';

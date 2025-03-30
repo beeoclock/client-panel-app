@@ -1,11 +1,11 @@
 import {Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
-import {NotificationCoreService} from "@utility/cdk/notification.core.service";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {NotificationCoreService} from "@core/cdk/notification.core.service";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
+import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
 import {FormControl} from "@angular/forms";
 import {NGXLogger} from "ngx-logger";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 
 @Component({
 	selector: 'client-notification-settings-page',

@@ -1,8 +1,8 @@
 import {Component, inject, Input} from '@angular/core';
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NotificationSettingsFromGroup} from "@tenant/client/presentation/form";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {NgSelectComponent} from "@ng-select/ng-select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";

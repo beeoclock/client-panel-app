@@ -3,7 +3,7 @@ import {
 	EmailLanguageBusinessSettingsComponent
 } from "@tenant/client/presentation/ui/component/business-settings/email-language.business-settings.component";
 import {BusinessSettingsForm} from "@tenant/client/presentation/form/business-settings.form";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {
 	TimeZoneBookingSettingsComponent
 } from "@tenant/client/presentation/ui/component/business-settings/time-zone/time-zone.booking-settings.component";

@@ -15,7 +15,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {ServiceExternalListComponent} from "@tenant/service/presentation/ui/component/external/list/list.component";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import EService from "@tenant/service/domain/entity/e.service";
 import {DatePipe} from "@angular/common";

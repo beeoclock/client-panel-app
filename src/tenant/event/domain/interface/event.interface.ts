@@ -1,6 +1,6 @@
 import {ICustomer} from "@tenant/customer/domain";
 import {IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@core/shared/enum";
-import {IBaseDTO} from "@utility/domain";
+import {IBaseDTO} from "@shared/domain";
 import {EventStatusEnum} from "@core/shared/enum/event-status.enum";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {IService} from "@tenant/service/domain/interface/i.service";

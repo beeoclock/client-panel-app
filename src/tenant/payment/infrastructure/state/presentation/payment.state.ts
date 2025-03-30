@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {State} from "@ngxs/store";
-import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, IBaseState} from "@shared/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {NGXLogger} from "ngx-logger";
 import {IPayment} from "@tenant/payment/domain/interface/i.payment";

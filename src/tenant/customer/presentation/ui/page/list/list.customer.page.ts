@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {ListPage} from "@utility/list.page";
+import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe, DatePipe} from "@angular/common";
-import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
@@ -40,7 +39,7 @@ import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/cu
 		},
 	]
 })
-export class ListCustomerPage extends ListPage<ECustomer> implements OnDestroy, OnInit {
+export class ListCustomerPage extends ListPage implements OnDestroy, OnInit {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),

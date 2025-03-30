@@ -8,7 +8,7 @@ import {
 import {IAttendee_V2, IEvent_V2} from "@tenant/event/domain";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
-import {clearObject} from "@utility/domain/clear.object";
+import {clearObject} from "@shared/domain/clear.object";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";

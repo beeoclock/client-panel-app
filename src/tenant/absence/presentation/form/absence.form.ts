@@ -1,5 +1,5 @@
 import {AbstractControl, FormControl, ValidationErrors} from '@angular/forms';
-import {BaseEntityForm} from "@utility/base.form";
+import {BaseEntityForm} from "@shared/base.form";
 import {AbsenceTypeEnum} from "@tenant/absence/domain/enums/absence.type.enum";
 import {DateTime} from "luxon";
 import {IAbsence} from "@tenant/absence/domain/interface/i.absence";

@@ -5,16 +5,16 @@ import {MEvent, RIEvent} from "@tenant/event/domain";
 import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf} from "@angular/common";
 import {map} from "rxjs";
 import {DateTime} from "luxon";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
 import {
 	EventStatusStyleDirective
 } from "@tenant/event/presentation/directive/event-status-style/event-status-style.directive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {HumanizeDurationPipe} from "@shared/presentation/pipes/humanize-duration.pipe";
+import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {debounce} from "typescript-debounce-decorator";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {
 	AttendeeCardComponent
 } from "@tenant/event/presentation/ui/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";

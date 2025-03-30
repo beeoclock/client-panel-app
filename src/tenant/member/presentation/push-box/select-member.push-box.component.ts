@@ -15,13 +15,14 @@ import {
 } from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {firstValueFrom} from "rxjs";
 import {MemberExternalListComponent} from "@tenant/member/presentation/component/external/list/list.component";
 import {
 	MobileLayoutListComponent
 } from "@tenant/member/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {IMember} from "@tenant/member/domain/interface/i.member";
+import {buildMemberConfigCardListToken} from "@tenant/member/presentation/component/list/card/config.card.list.token";
 
 @Component({
 	selector: 'utility-modal-select-member-component',
@@ -31,6 +32,11 @@ import {IMember} from "@tenant/member/domain/interface/i.member";
 	imports: [
 		TranslateModule,
 		MemberExternalListComponent,
+	],
+	providers: [
+		buildMemberConfigCardListToken({
+			showSelectedStatus: true,
+		}),
 	],
 	template: `
 		<member-external-list-component [mobileMode]="true"/>
@@ -68,10 +74,6 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
 		const {0: cardListComponent} = mobileLayoutListComponent.cardListComponents();
 		cardListComponent.selectedIds = this.newSelectedMemberList.map(({_id}) => _id);
-		if (cardListComponent.tableService) {
-			cardListComponent.tableService.showAction.doFalse();
-			cardListComponent.tableService.showSelectedStatus.doTrue();
-		}
 		cardListComponent.goToDetailsOnSingleClick = false;
 		cardListComponent.singleClickEmitter.pipe(this.takeUntil()).subscribe((item) => {
 			if (this.isSelected(item)) {

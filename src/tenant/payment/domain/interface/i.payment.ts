@@ -3,7 +3,7 @@ import {PaymentMethodEnum} from "../enum/payment.method.enum";
 import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";
 import {ICustomer} from "@tenant/customer/domain";
-import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {Types} from "@core/shared/types";
 

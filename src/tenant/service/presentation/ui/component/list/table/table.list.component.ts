@@ -1,5 +1,5 @@
 import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
-import {TableComponent} from "@utility/table.component";
+import {TableComponent} from "@shared/table.component";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
@@ -8,7 +8,7 @@ import EService from "@tenant/service/domain/entity/e.service";
 import {
 	RowActionButtonComponent
 } from "@tenant/service/presentation/ui/component/row-action-button/row-action-button.component";
-import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
@@ -18,9 +18,9 @@ import {
 } from "@tenant/service/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {
 	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
+import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";

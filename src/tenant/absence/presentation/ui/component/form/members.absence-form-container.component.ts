@@ -2,9 +2,9 @@ import {ChangeDetectorRef, Component, inject, input, OnInit, ViewEncapsulation} 
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
-import {Reactive} from "@utility/cdk/reactive";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
+import {Reactive} from "@core/cdk/reactive";
+import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
 import {IMember} from "@tenant/member/domain/interface/i.member";
 
 @Component({

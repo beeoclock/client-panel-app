@@ -1,4 +1,4 @@
-import {BaseActions} from "@utility/state/base/base.actions";
+import {BaseActions} from "@shared/state/base/base.actions";
 import {IMember} from "@tenant/member/domain/interface/i.member";
 import EMember from "@tenant/member/domain/entity/e.member";
 import {StateEnum} from "@core/shared/enum/state.enum";

@@ -15,7 +15,7 @@ import {
 import {AsyncPipe, DOCUMENT} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {NGXLogger} from "ngx-logger";
 import {
 	HeaderCalendarWithSpecialistWidgetComponent
@@ -41,7 +41,7 @@ import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {DateTime} from "luxon";
-import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {
 	ScheduleElementCalendarWithSpecialistWidgetComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/schedule-element.calendar-with-specialist.widget.component";

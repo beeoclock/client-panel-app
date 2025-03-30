@@ -1,14 +1,11 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, DatePipe} from '@angular/common';
-import {ListPage} from "@utility/list.page";
+import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {tap} from "rxjs";
 import {
 	MobileLayoutListComponent
 } from "@tenant/member/presentation/component/list/layout/mobile/mobile.layout.list.component";
-import {TableService} from "@utility/table.service";
-import {MemberTableService} from "@tenant/member/presentation/component/list/member.table.service";
-import EMember from "@tenant/member/domain/entity/e.member";
 import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
@@ -36,16 +33,12 @@ import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member
 	providers: [
 		DatePipe,
 		{
-			provide: TableService,
-			useClass: MemberTableService
-		},
-		{
 			provide: TableNgxDatatableSmartResource,
 			useClass: MemberTableNgxDatatableSmartResource,
 		},
 	]
 })
-export class ListMemberPage extends ListPage<EMember> implements OnInit {
+export class ListMemberPage extends ListPage implements OnInit {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),

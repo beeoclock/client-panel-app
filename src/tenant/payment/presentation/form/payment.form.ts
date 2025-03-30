@@ -2,7 +2,7 @@ import {CurrencyCodeEnum} from "@core/shared/enum";
 import {PaymentMethodEnum} from "@tenant/payment/domain/enum/payment.method.enum";
 import {PaymentProviderTypeEnum} from "@tenant/payment/domain/enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "@tenant/payment/domain/enum/payment.status.enum";
-import {BaseEntityForm} from "@utility/base.form";
+import {BaseEntityForm} from "@shared/base.form";
 import {FormControl} from "@angular/forms";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";

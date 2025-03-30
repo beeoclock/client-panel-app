@@ -13,7 +13,7 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 import ObjectID from "bson-objectid";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {ICustomer} from "@tenant/customer/domain";
 import {
 	CustomerListIonicComponent

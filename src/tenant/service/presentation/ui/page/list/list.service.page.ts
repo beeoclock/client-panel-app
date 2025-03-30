@@ -1,10 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {ListPage} from "@utility/list.page";
+import {ListPage} from "@shared/list.page";
 import {tap} from "rxjs";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
-import EService from "@tenant/service/domain/entity/e.service";
 import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
@@ -17,7 +16,7 @@ import {
 import {
 	ServiceTableNgxDatatableSmartResource
 } from "@tenant/service/presentation/ui/page/list/service.table-ngx-datatable.resource";
-import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
 
@@ -43,9 +42,9 @@ import {ofActionSuccessful} from "@ngxs/store";
 	template: `
 		@if (initialized.isOn) {
 			@if (isMobile$ | async) {
-				<service-mobile-layout-list-component />
+				<service-mobile-layout-list-component/>
 			} @else {
-				<service-desktop-layout-list-component />
+				<service-desktop-layout-list-component/>
 			}
 
 		} @else {
@@ -57,7 +56,7 @@ import {ofActionSuccessful} from "@ngxs/store";
 	`,
 	standalone: true,
 })
-export class ListServicePage extends ListPage<EService> implements OnInit, OnDestroy {
+export class ListServicePage extends ListPage implements OnInit, OnDestroy {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),

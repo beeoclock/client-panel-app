@@ -1,4 +1,4 @@
-import {BaseActions} from "@utility/state/base/base.actions";
+import {BaseActions} from "@shared/state/base/base.actions";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import EAbsence from "@tenant/absence/domain/entity/e.absence";
 

@@ -1,7 +1,7 @@
 import {Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
 
 import {CurrencyPipe} from "@angular/common";
-import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Component({

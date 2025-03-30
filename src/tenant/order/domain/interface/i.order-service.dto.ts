@@ -1,6 +1,6 @@
 import {IOrderAppointmentDetailsDto} from "./i-order-appointment-details.dto";
 import {OrderServiceStatusEnum} from "../enum/order-service.status.enum";
-import {IBaseEntityRaw, IMeta} from "@utility/domain";
+import {IBaseEntityRaw, IMeta} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {Types} from "@core/shared/types";
 import {IService} from "@tenant/service/domain/interface/i.service";

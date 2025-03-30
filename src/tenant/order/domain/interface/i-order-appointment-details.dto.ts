@@ -1,7 +1,7 @@
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {ReservationTypeEnum} from "../enum/reservation.type.enum";
-import {IBaseDTO} from "@utility/domain";
+import {IBaseDTO} from "@shared/domain";
 import {ICustomer} from "@tenant/customer/domain";
 
 export interface IAttachmentDto {

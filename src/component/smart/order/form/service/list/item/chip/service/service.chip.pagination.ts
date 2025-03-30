@@ -14,7 +14,7 @@ export class ServiceChipPagination {
 	private readonly params = {
 		page: 1,
 		pageSize: 20,
-		orderBy: 'order',
+		orderBy: 'createdAt',
 		orderDir: OrderDirEnum.ASC,
 	};
 

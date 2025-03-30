@@ -3,11 +3,11 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LANGUAGES} from "@core/shared/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {
 	LanguageBusinessPanelFrontendSettingsAccountApiAdapter
 } from "@tenant/account/infrastructure/adapter/external/api/language.business-panel.frontend-settings.account.api.adapter";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 
 @Component({
 	selector: 'client-settings-language-input-component',

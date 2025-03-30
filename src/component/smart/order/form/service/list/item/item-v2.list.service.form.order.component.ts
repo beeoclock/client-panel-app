@@ -8,7 +8,7 @@ import {
 	signal,
 	ViewEncapsulation
 } from "@angular/core";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
+import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
 import ObjectID from "bson-objectid";
 import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {PriceChipComponent} from "@src/component/smart/order/form/service/list/item/chip/price.chip.component";

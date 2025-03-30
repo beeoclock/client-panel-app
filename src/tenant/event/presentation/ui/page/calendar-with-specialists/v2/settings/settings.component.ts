@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 
 @Component({
 	selector: 'settings-component',

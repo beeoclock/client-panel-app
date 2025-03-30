@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
+import {SearchInputComponent} from '@shared/presentation/component/input/search.input.component';
 import {FilterForm} from "@tenant/event/presentation/form/filter.form";
-import {BaseFilterComponent} from "@utility/base.filter.component";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
+import {BaseFilterComponent} from "@shared/base.filter.component";
+import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
+import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
 import {EventRequestedState} from "@tenant/event/infrastructure/state/event-requested/event-requested.state";
 import {ReactiveFormsModule} from "@angular/forms";
 

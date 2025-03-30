@@ -1,10 +1,12 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {TranslateService} from "@ngx-translate/core";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {AbsencePresentationActions} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {
+	AbsencePresentationActions
+} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 export type IAbsenceState = object;
 

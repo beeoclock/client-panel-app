@@ -1,23 +1,23 @@
 import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from "@tenant/client/presentation/form/business-profile.form";
 import {Select, Store} from "@ngxs/store";
-import {AppActions} from "@utility/state/app/app.actions";
-import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {AppActions} from "@shared/state/app/app.actions";
+import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {filter, firstValueFrom, Observable} from "rxjs";
 import {
 	BookingSettingsBusinessProfileComponent
 } from "@tenant/client/presentation/ui/component/business-profile/booking-settings/booking-settings.business-profile.component";
 import {
 	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+} from "@shared/presentation/component/container/button-save/button-save.container.component";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {DangerZoneComponent} from "@tenant/client/presentation/ui/component/danger-zone/danger-zone.component";
 import {
 	ContainerBusinessSettingsComponent
 } from "@tenant/client/presentation/ui/component/business-settings/container.business-settings.component";
-import {Reactive} from "@utility/cdk/reactive";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {Reactive} from "@core/cdk/reactive";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 import {NGXLogger} from "ngx-logger";
 import {
 	NotificationSettingsComponent

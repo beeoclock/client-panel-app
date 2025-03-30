@@ -1,7 +1,6 @@
-import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
+import {Component, input, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
-import {CardListComponent} from "@tenant/order/presentation/ui/component/list/card/card.list.component";
-import LayoutListComponent from "@utility/layout.list.component";
+import LayoutListComponent from "@shared/layout.list.component";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {NgClass} from "@angular/common";
@@ -19,11 +18,6 @@ import {NgClass} from "@angular/common";
 export class MobileLayoutListComponent extends LayoutListComponent {
 
 	public readonly showButtonGoToForm = input(true);
-
-	/**
-	 * Used external
-	 */
-	public readonly cardListComponents = viewChildren(CardListComponent);
 
 	@Dispatch()
 	public openForm() {

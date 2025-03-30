@@ -1,8 +1,8 @@
 import {Component, HostBinding, inject, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
-import {Reactive} from "@utility/cdk/reactive";
+import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
+import {Reactive} from "@core/cdk/reactive";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 import {
 	SelectCustomerPushBoxComponent

@@ -1,31 +1,31 @@
 import {AfterViewInit, Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
-import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
+import {SidebarComponent} from '@shared/presentation/component/sidebar/sidebar.component';
+import {NavbarComponent} from '@shared/presentation/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
 import {AsyncPipe} from "@angular/common";
 import {
 	PageLoadingProgressBarComponent
-} from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
+} from "@shared/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 import {Store} from "@ngxs/store";
 import {BeeoclockIdTokenResult, IdentityState} from "@identity/identity/presentation/state/identity/identity.state";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
-import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
+import {MS_ONE_MINUTE} from "@shared/domain/const/c.time";
 import {EventRequestedActions} from "@tenant/event/infrastructure/state/event-requested/event-requested.actions";
 import {
 	GetFrontendSettingsAccountApiAdapter
 } from "@tenant/account/infrastructure/adapter/external/api/get.frontend-settings.account.api.adapter";
-import {ThemeService} from "@utility/cdk/theme.service";
+import {ThemeService} from "@core/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
-import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
+import {WhacAMole} from "@shared/presentation/whac-a-mole/whac-a-mole";
 import {is} from "@core/shared/checker";
-import {Reactive} from "@utility/cdk/reactive";
-import {SocketActions} from "@utility/state/socket/socket.actions";
+import {Reactive} from "@core/cdk/reactive";
+import {SocketActions} from "@shared/state/socket/socket.actions";
 import {environment} from "@environment/environment";
-import {VisibilityService} from "@utility/cdk/visibility.service";
-import {IsOnlineService} from "@utility/cdk/is-online.service";
+import {VisibilityService} from "@core/cdk/visibility.service";
+import {IsOnlineService} from "@core/cdk/is-online.service";
 import {CustomerModule} from "@tenant/customer/customer.module";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";

@@ -1,11 +1,11 @@
 import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 
-import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, IBaseState} from "@shared/state/base/base.state";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EService from "@tenant/service/domain/entity/e.service";
 import {environment} from "@environment/environment";

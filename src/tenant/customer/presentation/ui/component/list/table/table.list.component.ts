@@ -1,5 +1,5 @@
 import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
-import {TableComponent} from "@utility/table.component";
+import {TableComponent} from "@shared/table.component";
 import {ICustomer} from "@tenant/customer/domain";
 import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
@@ -9,11 +9,11 @@ import {
 import {
 	RowActionButtonComponent
 } from "@tenant/customer/presentation/ui/component/row-action-button/row-action-button.component";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
+import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
 	AutoRefreshButtonComponent

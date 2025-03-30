@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
-import {AppActions} from "@utility/state/app/app.actions";
+import {AppActions} from "@shared/state/app/app.actions";
 import {
 	DateRangeReportAnalyticApi,
 } from "@tenant/analytic/infrastructure/data-source/api/adapter/date-range-report.analytic.api.adapter";
@@ -12,7 +12,7 @@ import {
 import {DateTime} from "luxon";
 import {transformIResponseToAnalytic} from "@tenant/analytic/domain/tool/calculate.date-range-report.analytic.tool";
 import {IntervalTypeEnum} from "@tenant/analytic/domain/enum/interval.enum";
-import {IHistoryV2} from "@utility/domain";
+import {IHistoryV2} from "@shared/domain";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";

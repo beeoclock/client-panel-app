@@ -1,6 +1,6 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
-import LayoutListComponent from "@utility/layout.list.component";
+import LayoutListComponent from "@shared/layout.list.component";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 

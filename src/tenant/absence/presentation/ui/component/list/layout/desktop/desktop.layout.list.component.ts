@@ -1,7 +1,7 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 import {TableListComponent} from "@tenant/absence/presentation/ui/component/list/table/table.list.component";
 import {FilterComponent} from "@tenant/absence/presentation/ui/component/filter/filter.component";
-import LayoutListComponent from "@utility/layout.list.component";
+import LayoutListComponent from "@shared/layout.list.component";
 
 @Component({
 	selector: 'absence-desktop-layout-list-component',

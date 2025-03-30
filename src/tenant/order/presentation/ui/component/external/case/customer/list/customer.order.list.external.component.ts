@@ -4,18 +4,17 @@ import {TranslateModule} from '@ngx-translate/core';
 import {
 	DesktopLayoutListComponent
 } from "@tenant/order/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
-import {ListPage} from "@utility/list.page";
-import {PeerCustomerOrderState} from "@tenant/order/presentation/state/peer-customer/peer-customer.order.state";
+import {ListPage} from "@shared/list.page";
 import {
 	MobileLayoutListComponent
 } from "@tenant/order/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
-import {TableService} from "@utility/table.service";
-import {
-	CustomerOrderTableService
-} from "@tenant/order/presentation/ui/component/external/case/customer/list/customer.order.table.service";
-import {TableState} from "@utility/domain/table.state";
 import {PeerCustomerOrderActions} from "@tenant/order/presentation/state/peer-customer/peer-customer.order.actions";
-import EOrder from "@tenant/order/domain/entity/e.order";
+import {
+	TableNgxDatatableSmartResource
+} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+import {
+	MemberTableNgxDatatableSmartResource
+} from "@tenant/member/presentation/ui/page/list/member.table-ngx-datatable.resource";
 
 @Component({
 	selector: 'order-external-list-component',
@@ -30,9 +29,9 @@ import EOrder from "@tenant/order/domain/entity/e.order";
 	standalone: true,
 	providers: [
 		{
-			provide: TableService,
-			useClass: CustomerOrderTableService
-		}
+			provide: TableNgxDatatableSmartResource,
+			useClass: MemberTableNgxDatatableSmartResource,
+		},
 	],
 	template: `
 		@if (initialized.isOn) {
@@ -55,7 +54,7 @@ import EOrder from "@tenant/order/domain/entity/e.order";
 		}
 	`
 })
-export class CustomerOrderListExternalComponent extends ListPage<EOrder> implements OnInit {
+export class CustomerOrderListExternalComponent extends ListPage implements OnInit {
 
 	public readonly customerId = input.required<string>();
 
@@ -68,20 +67,6 @@ export class CustomerOrderListExternalComponent extends ListPage<EOrder> impleme
 			customerId: this.customerId(),
 		}));
 		super.ngOnInit();
-		const tableService = this.tableService;
-		if (tableService) {
-			this.store.select(PeerCustomerOrderState.tableState)
-				.pipe(
-					this.takeUntil(),
-				).subscribe((tableState) => {
-				if (tableState.page > tableService.tableState.page) {
-					tableService.tableState.addNextPageWithItems(tableState.items);
-				} else {
-					tableService.tableState = TableState.fromCache(tableState);
-				}
-				this.changeDetectorRef.detectChanges();
-			});
-		}
 	}
 
 }

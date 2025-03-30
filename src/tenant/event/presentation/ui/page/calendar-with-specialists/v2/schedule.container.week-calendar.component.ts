@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
 import {is} from "@core/shared/checker";
-import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
+import {ISchedule, RISchedule} from "@shared/domain/interface/i.schedule";
 import {AsyncPipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService from "./calendar-with-specialist.loca.state.service";
 import {

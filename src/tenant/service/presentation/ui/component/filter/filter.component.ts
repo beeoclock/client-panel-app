@@ -1,18 +1,18 @@
 import {Component, input, OnInit} from '@angular/core';
-import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
+import {SearchInputComponent} from '@shared/presentation/component/input/search.input.component';
 import {FilterForm} from "@tenant/service/presentation/form/filter.form";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 import {TranslateModule} from "@ngx-translate/core";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {ServiceState} from "@tenant/service/infrastructure/state/service/service.state";
-import {BaseFilterComponent} from "@utility/base.filter.component";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {BaseFilterComponent} from "@shared/base.filter.component";
+import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/service/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {ReactiveFormsModule} from "@angular/forms";
-import {IonSelectStateComponent} from "@utility/presentation/component/input/ion/ion-select-state.component";
+import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({

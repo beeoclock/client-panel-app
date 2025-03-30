@@ -1,11 +1,11 @@
 import {Component, input, output, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
-import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
-import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
-import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
-import {BaseImageComponent, MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
+import {DragAndDropDirective} from "@shared/presentation/directives/drag-and-drop/drag-and-drop.directive";
+import {PlaceholderImageComponent} from "@shared/presentation/component/image/placeholder.image.component";
+import {InvalidTooltipComponent} from "@shared/presentation/component/invalid-message/invalid-message";
+import {BaseImageComponent, MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
 import {FormControl} from "@angular/forms";
-import {file2base64} from "@utility/domain/file2base64";
+import {file2base64} from "@shared/domain/file2base64";
 
 @Component({
 	selector: 'client-image-gallery-business-profile-component',

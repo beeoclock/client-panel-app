@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
 import {AuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
-import {canMatchBecauseTenantId} from "@utility/can-match/can-match-because-tenant.id";
+import {canMatchBecauseTenantId} from "@shared/can-match/can-match-because-tenant.id";
 import TenantRouterOutletComponent from "@tenant/tenant.router-outlet.component";
 import {tariffPlanActualResolver} from "@tenant/tariff-plan-history/presentation/resolver/tariff-plan-actual.resolver";
 import {

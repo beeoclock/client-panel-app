@@ -18,18 +18,18 @@ import {ServiceActions} from "@tenant/service/infrastructure/state/service/servi
 
 import {Store} from "@ngxs/store";
 import {ActivatedRoute, Router} from "@angular/router";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
 	ImageBlockComponent
 } from "@tenant/service/presentation/ui/component/form/v2/image/image-block/image-block.component";
 import {
 	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/component/container/button-save/button-save.container.component";
 import {ServicePresentationForm} from "@tenant/service/presentation/form/service.presentation.form";
 import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
 import {ServicesFormComponent} from "@tenant/service/presentation/ui/component/form/v2/service/services.form.component";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@core/shared/checker";
 import {CurrencyCodeEnum} from "@core/shared/enum";

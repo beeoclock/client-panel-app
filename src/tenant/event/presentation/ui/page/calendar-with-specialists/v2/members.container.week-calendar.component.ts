@@ -3,8 +3,8 @@ import {Store} from "@ngxs/store";
 import {delay, filter, iif, of, switchMap, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 import {AsyncPipe} from "@angular/common";
-import {ITableState} from "@utility/domain/table.state";
-import {Reactive} from "@utility/cdk/reactive";
+import {ITableState} from "@shared/domain/table.state";
+import {Reactive} from "@core/cdk/reactive";
 import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
 import {MemberProfileStatusEnum} from "@tenant/member/domain/enums/member-profile-status.enum";
 import CalendarWithSpecialistLocaStateService

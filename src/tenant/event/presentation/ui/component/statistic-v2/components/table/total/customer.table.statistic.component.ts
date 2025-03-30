@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, input, OnChanges, ViewEncapsulation}
 import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/interface/i.analytic";
 import {TranslatePipe} from "@ngx-translate/core";
 import {CurrencyPipe, DatePipe, KeyValuePipe} from "@angular/common";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {HumanizeDurationPipe} from "@shared/presentation/pipes/humanize-duration.pipe";
 
 @Component({
 	selector: 'customer-table-statistic-component',

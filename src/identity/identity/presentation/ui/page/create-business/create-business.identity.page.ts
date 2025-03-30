@@ -2,7 +2,7 @@ import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterOutlet} from "@angular/router";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 import {
 	CreateBusinessFormRepository
 } from "@identity/identity/infrastructure/repository/create-business.form.repository";

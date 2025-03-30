@@ -1,7 +1,7 @@
 import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
 import {NgClass} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import LayoutListComponent from "@utility/layout.list.component";
+import LayoutListComponent from "@shared/layout.list.component";
 import {CardListComponent} from "@tenant/member/presentation/component/list/card/card.list.component";
 import {FilterComponent} from "@tenant/member/presentation/component/filter/filter.component";
 

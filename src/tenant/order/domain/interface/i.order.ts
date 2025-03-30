@@ -1,4 +1,4 @@
-import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {IOrderProductDto} from "./i.order-product.dto";
 import {IOrderServiceDto} from "./i.order-service.dto";

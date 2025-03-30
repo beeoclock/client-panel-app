@@ -4,14 +4,14 @@ import {SocialNetworksForm} from "@tenant/client/presentation/form/social-networ
 import {FacilityEnum} from "@core/shared/enum/facility.enum";
 import {BookingSettingsForm} from "@tenant/client/presentation/form/booking-settings.form";
 import {AddressesForm} from "@tenant/client/presentation/form/address.form";
-import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
+import {SchedulesForm} from "@shared/presentation/form/schdeule.form";
 import {ContactsForm} from "@tenant/client/presentation/form/contact.form";
 import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
-import {BusinessIndustry} from "@utility/domain/business-industry";
+import {BusinessIndustry} from "@shared/domain/business-industry";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {BusinessSettingsForm} from "@tenant/client/presentation/form/business-settings.form";
 import {is} from "@core/shared/checker";
-import {USERNAME_ANGULAR_VALIDATOR} from "@utility/validation/validators";
+import {USERNAME_ANGULAR_VALIDATOR} from "@shared/validation/validators";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from 'rxjs';
 import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";

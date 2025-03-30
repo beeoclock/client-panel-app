@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CardListComponent} from "@tenant/service/presentation/ui/component/list/card/card.list.component";
 
 import {FilterComponent} from "@tenant/service/presentation/ui/component/filter/filter.component";
-import LayoutListComponent from "@utility/layout.list.component";
+import LayoutListComponent from "@shared/layout.list.component";
 
 @Component({
 	selector: 'service-mobile-layout-list-component',

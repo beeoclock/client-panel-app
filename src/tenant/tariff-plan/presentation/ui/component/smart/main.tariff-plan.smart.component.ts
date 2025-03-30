@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 import ETariffPlan from "@tenant/tariff-plan/domain/entity/e.tariff-plan";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
-import {CurrencyCodePipe} from "@utility/presentation/pipes/currency-code.pipe";
+import {CurrencyCodePipe} from "@shared/presentation/pipes/currency-code.pipe";
 import {DecimalPipe, NgClass} from "@angular/common";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";

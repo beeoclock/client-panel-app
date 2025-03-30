@@ -1,4 +1,4 @@
-import {BaseEntityForm} from "@utility/base.form";
+import {BaseEntityForm} from "@shared/base.form";
 import {FormControl} from "@angular/forms";
 import {IOrderProductDto} from "@tenant/order/domain/interface/i.order-product.dto";
 import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";

@@ -1,9 +1,9 @@
 import {Component, inject, input} from '@angular/core';
 import {FilterForm} from "@tenant/member/presentation/form/filter.form";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {BaseFilterComponent} from "@utility/base.filter.component";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
+import {BaseFilterComponent} from "@shared/base.filter.component";
+import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
 import {SPECIALIST_LIMIT} from "@tenant/tenant.token";
 import {is} from "@core/shared/checker";
 import {SharedUow} from "@core/shared/uow/shared.uow";

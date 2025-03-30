@@ -2,12 +2,12 @@ import {Component, inject, OnInit} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {ThemeService} from "@utility/cdk/theme.service";
+import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
+import {ThemeService} from "@core/cdk/theme.service";
 import {
 	ThemeBusinessPanelFrontendSettingsAccountApiAdapter
 } from "@tenant/account/infrastructure/adapter/external/api/theme.business-panel.frontend-settings.account.api.adapter";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 
 @Component({
 	selector: 'client-settings-theme-input-component',

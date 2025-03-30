@@ -3,15 +3,15 @@ import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NgClass} from "@angular/common";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {SlotsService} from "@tenant/event/presentation/ui/component/form/select-time-slot/slots.service";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
 import {NGXLogger} from "ngx-logger";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
 import {debounceTime, filter} from "rxjs";
-import {MS_QUARTER_SECOND} from "@utility/domain/const/c.time";
+import {MS_QUARTER_SECOND} from "@shared/domain/const/c.time";
 import {EventConfigurationForm} from "@tenant/event/presentation/form/configuration.form";
-import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
+import {DatetimeLocalInputComponent} from "@shared/presentation/component/input/datetime-local.input.component";
 import {is} from "@core/shared/checker";
 
 export interface ITimeSlot {

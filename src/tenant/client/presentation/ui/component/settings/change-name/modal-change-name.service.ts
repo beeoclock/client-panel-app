@@ -3,10 +3,10 @@ import {
 	ModalButtonInterface,
 	ModalButtonRoleEnum,
 	ModalComponent
-} from "@utility/presentation/component/modal/modal.component";
-import {ModalService} from "@utility/presentation/component/modal/modal.service";
+} from "@shared/presentation/component/modal/modal.component";
+import {ModalService} from "@shared/presentation/component/modal/modal.service";
 import {TranslateService} from "@ngx-translate/core";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {Auth} from "@angular/fire/auth";
 import {ChangeNameForm} from "@tenant/client/presentation/form/change-name.form";
 import {ChangeNameComponent} from "@tenant/client/presentation/ui/component/settings/change-name/change-name.component";

@@ -9,7 +9,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
 
 @Component({
 	selector: 'event-change-status-on-accepted-component',

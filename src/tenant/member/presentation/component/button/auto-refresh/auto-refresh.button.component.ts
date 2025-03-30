@@ -1,5 +1,5 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
-import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
+import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
 import {Store} from "@ngxs/store";
 import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 

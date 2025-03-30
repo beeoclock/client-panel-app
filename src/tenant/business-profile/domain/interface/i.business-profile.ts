@@ -1,4 +1,4 @@
-import {IBaseDTO, IBaseEntityRaw} from "@utility/domain";
+import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {BusinessClientStatusEnum} from "@tenant/business-profile/domain/enum/business-client-status.enum";
 import {ActiveEnum} from "@core/shared/enum";
 import {RIMedia} from "@tenant/media/domain/interface/i.media";
@@ -8,7 +8,7 @@ import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enu
 import {ISocialNetworkLink} from "@tenant/business-profile/domain/interface/i.social-network-link";
 import {IBookingSettings} from "@tenant/business-profile/domain/interface/i.booking-settings";
 import {IAddress} from "@tenant/business-profile/domain/interface/i.address";
-import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {IContact} from "@tenant/business-profile/domain/interface/i.contact";
 import {FacilityEnum} from "@core/shared/enum/facility.enum";
 import {Tools} from "@core/shared/tools";

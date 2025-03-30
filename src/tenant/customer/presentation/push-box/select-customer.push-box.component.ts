@@ -22,7 +22,7 @@ import {
 } from "@tenant/customer/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
 import {CustomerExternalListComponent} from "@tenant/customer/presentation/ui/component/external/list/list.component";
 import {ICustomer} from "@tenant/customer/domain";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 
 @Component({
 	selector: 'customer-select-customer-whac-a-mole-component',
@@ -72,7 +72,6 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 		cardListComponent.selectedIds = this.newSelectedCustomerList.map((customer) => customer._id);
 		cardListComponent.showAction.doFalse();
 		cardListComponent.showSelectedStatus.doTrue();
-		cardListComponent.goToDetailsOnSingleClick;
 		cardListComponent.singleClickEmitter.pipe(this.takeUntil()).subscribe((item) => {
 			if (this.isSelected(item)) {
 				this.deselect(item);

@@ -6,7 +6,7 @@ import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
 import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 import {FacilityEnum} from "@core/shared/enum/facility.enum";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
-import {ISchedule} from "@utility/domain/interface/i.schedule";
+import {ISchedule} from "@shared/domain/interface/i.schedule";
 import {BusinessClientStatusEnum} from "../enum/business-client-status.enum";
 import {IBusinessSettings, INotificationsSettings} from "../interface";
 import {IAddress} from "../interface/i.address";

@@ -8,17 +8,17 @@ import {filter} from "rxjs";
 import {is} from "@core/shared/checker";
 import {ConfirmInvitationForm} from "@identity/identity/presentation/form/confirm-invitation.form";
 import {ReactiveFormsModule} from "@angular/forms";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputPasswordComponent} from "@shared/presentation/component/input/form.input.password.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
+import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
 import {ConfirmInvitationApiAdapter} from "@identity/identity/infrastructure/api/confirm-invitation.api.adapter";
 import {NGXLogger} from "ngx-logger";
-import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
+import {MS_THREE_SECONDS} from "@shared/domain/const/c.time";
 import {ToastController} from "@ionic/angular/standalone";
-import {Reactive} from "@utility/cdk/reactive";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {Reactive} from "@core/cdk/reactive";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 
 @Component({
 	selector: 'app-confirm-invitation-identity-page',

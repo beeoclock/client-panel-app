@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {ListPage} from "@utility/list.page";
+import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe, DatePipe} from "@angular/common";
 import {
@@ -8,7 +8,6 @@ import {
 import {
 	MobileLayoutListComponent
 } from "@tenant/absence/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
-import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
@@ -40,7 +39,7 @@ import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/abse
 		},
 	]
 })
-export class GridAbsencePage extends ListPage<EAbsence> implements OnDestroy, OnInit {
+export class GridAbsencePage extends ListPage implements OnDestroy, OnInit {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),

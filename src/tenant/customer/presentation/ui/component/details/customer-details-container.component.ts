@@ -1,13 +1,13 @@
 import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {ICustomer} from '@tenant/customer/domain';
 import {Store} from "@ngxs/store";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
+import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {
 	CustomerOrderListExternalWhacAMole
 } from "@tenant/order/presentation/ui/component/external/case/customer/list/customer.order.list.external.whac-a-mole";
-import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {PrimaryLinkStyleDirective} from "@shared/presentation/directives/link/primary.link.style.directive";
 import {
 	RowActionButtonComponent
 } from "@tenant/customer/presentation/ui/component/row-action-button/row-action-button.component";

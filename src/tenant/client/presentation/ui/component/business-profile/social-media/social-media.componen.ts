@@ -2,11 +2,11 @@ import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {SocialNetworksForm} from "@tenant/client/presentation/form/social-network.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf} from "@angular/common";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {
 	SocialNetworkLinkFormComponent
 } from "@tenant/client/presentation/ui/component/business-profile/social-media/social-network-link.form.component";
-import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
+import {FormButtonWithIconComponent} from "@shared/presentation/component/button/form-button-with-icon.component";
 
 @Component({
 	selector: 'client-business-profile-social-media-component',

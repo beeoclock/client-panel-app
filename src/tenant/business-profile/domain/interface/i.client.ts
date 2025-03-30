@@ -1,9 +1,9 @@
 import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ISocialNetworkLink} from "@tenant/business-profile/domain/interface/i.social-network-link";
-import {IBaseDTO} from "@utility/domain/interface";
+import {IBaseDTO} from "@shared/domain/interface";
 import {FacilityEnum} from "@core/shared/enum/facility.enum";
 import {IContact} from "@tenant/business-profile/domain/interface/i.contact";
-import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {IAddress} from "@tenant/business-profile/domain/interface/i.address";
 import {IBookingSettings} from "@tenant/business-profile/domain/interface/i.booking-settings";
 import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
@@ -12,7 +12,7 @@ import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 import {BusinessClientStatusEnum} from "@tenant/business-profile/domain/enum/business-client-status.enum";
 import {RIMedia} from "@tenant/media/domain/interface/i.media";
 import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification-condition.enum";
-import {DeepPartial} from "@utility/base.type";
+import {DeepPartial} from "@shared/base.type";
 
 export interface IBusinessSettings {
 	timeZone?: string;

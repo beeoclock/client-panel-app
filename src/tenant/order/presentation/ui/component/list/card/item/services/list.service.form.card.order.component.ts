@@ -12,7 +12,7 @@ import {
 } from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {ServiceOrderForm} from "@tenant/order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {LanguageCodeEnum} from "@core/shared/enum";

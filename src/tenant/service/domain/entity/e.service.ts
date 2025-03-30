@@ -1,6 +1,6 @@
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IService} from "../interface/i.service";
-import {ISchedule} from "@utility/domain/interface/i.schedule";
+import {ISchedule} from "@shared/domain/interface/i.schedule";
 import {IConfiguration, ILanguageVersion, IPrepaymentPolicy, IPresentation, RIDurationVersion} from "../interface";
 
 

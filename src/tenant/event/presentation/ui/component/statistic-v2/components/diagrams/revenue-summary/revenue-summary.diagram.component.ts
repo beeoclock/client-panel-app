@@ -23,7 +23,7 @@ import {Store} from "@ngxs/store";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
 	BusinessProfileState

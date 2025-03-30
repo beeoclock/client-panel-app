@@ -2,7 +2,7 @@ import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import MembersV2ContainerWeekCalendarComponent
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/members.container.week-calendar.component";
 import {NGXLogger} from "ngx-logger";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {Store} from "@ngxs/store";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";

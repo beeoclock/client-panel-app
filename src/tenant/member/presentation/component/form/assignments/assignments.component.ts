@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AssignmentsForm} from "@tenant/member/presentation/form/member.form";
-import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
-import {Reactive} from "@utility/cdk/reactive";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
+import {Reactive} from "@core/cdk/reactive";
+import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Component({

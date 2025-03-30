@@ -1,10 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {ListPage} from "@utility/list.page";
+import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
-import {TableService} from "@utility/table.service";
-import {OrderTableService} from "@tenant/order/presentation/ui/component/list/order.table.service";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
-import EOrder from "@tenant/order/domain/entity/e.order";
 import {KanbanOrderComponent} from "@tenant/order/presentation/ui/component/list/kanban/kanban.order.component";
 import {
 	TableNgxDatatableSmartResource
@@ -28,16 +25,12 @@ import {
 	`,
 	providers: [
 		{
-			provide: TableService,
-			useClass: OrderTableService
-		},
-		{
 			provide: TableNgxDatatableSmartResource,
 			useClass: MemberTableNgxDatatableSmartResource,
 		},
 	],
 })
-export default class ListOrderPage extends ListPage<EOrder> implements OnDestroy, OnInit {
+export default class ListOrderPage extends ListPage implements OnDestroy, OnInit {
 
 	public override ngOnInit() {
 		super.ngOnInit();

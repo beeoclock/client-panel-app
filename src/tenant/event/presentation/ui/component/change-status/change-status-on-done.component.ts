@@ -10,7 +10,7 @@ import {
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {firstValueFrom} from "rxjs";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
 
 @Component({
 	selector: 'event-change-status-on-done-component',

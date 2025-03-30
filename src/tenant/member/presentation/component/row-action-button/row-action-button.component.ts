@@ -1,5 +1,5 @@
 import {Component, computed, inject, input, ViewEncapsulation} from "@angular/core";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
+import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
 import {Store} from "@ngxs/store";
 import {IMember} from "@tenant/member/domain/interface/i.member";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";

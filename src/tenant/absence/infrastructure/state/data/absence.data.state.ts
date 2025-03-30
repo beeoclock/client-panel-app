@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
-import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, IBaseState} from "@shared/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
 import {environment} from "@environment/environment";

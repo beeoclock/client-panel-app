@@ -4,8 +4,8 @@ import {
 	LogoBusinessProfileComponent
 } from "@tenant/client/presentation/ui/component/business-profile/logo/logo.business-profile.component";
 import {Store} from "@ngxs/store";
-import {AppActions} from "@utility/state/app/app.actions";
-import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {AppActions} from "@shared/state/app/app.actions";
+import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {filter} from "rxjs";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {
@@ -14,25 +14,25 @@ import {
 import {
 	BusinessProfileContactPhoneComponent
 } from "@tenant/client/presentation/ui/component/business-profile/contact-phone/contact-phone.componen";
-import {SchedulesFormComponent} from "@utility/presentation/component/schedule/schedules.form.component";
+import {SchedulesFormComponent} from "@shared/presentation/component/schedule/schedules.form.component";
 import {
 	AddressBusinessProfileComponent
 } from "@tenant/client/presentation/ui/component/business-profile/address/address.business-profile.component";
 import {
 	SwitchActiveBlockComponent
-} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
+} from "@shared/presentation/component/switch/switch-active/switch-active-block.component";
 import {AsyncPipe} from "@angular/common";
 import {
 	BusinessProfileSocialMediaComponent
 } from "@tenant/client/presentation/ui/component/business-profile/social-media/social-media.componen";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
 	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/component/container/button-save/button-save.container.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {is} from "@core/shared/checker";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 import {
 	BusinessProfileActions

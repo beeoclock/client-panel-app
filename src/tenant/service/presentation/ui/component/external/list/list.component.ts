@@ -1,14 +1,13 @@
 import {ChangeDetectionStrategy, Component, viewChild, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {ListPage} from "@utility/list.page";
+import {ListPage} from "@shared/list.page";
 import {
 	MobileLayoutListComponent
 } from "@tenant/service/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
 import {
 	DesktopLayoutListComponent
 } from "@tenant/service/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
-import EService from "@tenant/service/domain/entity/e.service";
 
 @Component({
 	selector: 'service-external-list-component',
@@ -24,7 +23,7 @@ import EService from "@tenant/service/domain/entity/e.service";
 	standalone: true,
 	providers: []
 })
-export class ServiceExternalListComponent extends ListPage<EService> {
+export class ServiceExternalListComponent extends ListPage {
 
 	public readonly mobileLayoutListComponents = viewChild(MobileLayoutListComponent);
 

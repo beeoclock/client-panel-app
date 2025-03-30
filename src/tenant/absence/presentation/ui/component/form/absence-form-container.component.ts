@@ -2,11 +2,11 @@ import {Component, effect, inject, input, OnInit, ViewEncapsulation} from '@angu
 import {ReactiveFormsModule} from "@angular/forms";
 import {AbsenceTypeEnum} from "@tenant/absence/domain/enums/absence.type.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
+import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {
 	MembersAbsenceFormContainerComponent
 } from "@tenant/absence/presentation/ui/component/form/members.absence-form-container.component";
@@ -17,8 +17,8 @@ import {firstValueFrom, map} from "rxjs";
 import {AbsenceForm} from "@tenant/absence/presentation/form/absence.form";
 import {
 	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+} from "@shared/presentation/component/container/button-save/button-save.container.component";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
 	IonDatetime,
 	IonDatetimeButton,
@@ -27,7 +27,7 @@ import {
 	IonSegment,
 	IonSegmentButton
 } from "@ionic/angular/standalone";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {DateTime} from "luxon";
 import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {KeyValuePipe} from "@angular/common";

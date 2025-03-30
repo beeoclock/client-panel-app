@@ -3,12 +3,12 @@ import {NGXLogger} from "ngx-logger";
 import {
 	SelectTimeComponent
 } from "@tenant/event/presentation/ui/component/form/select-time-slot/time/select-time.component";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
+import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {DateTime} from "luxon";
 import {SlotBuildingStrategyEnum} from "@tenant/business-profile/domain/enum/slot-building-strategy.enum";
 import {BehaviorSubject} from "rxjs";
-import {IDayItem} from "@utility/domain/interface/i.day-item";
+import {IDayItem} from "@shared/domain/interface/i.day-item";
 import {IBusySlot} from "@tenant/order/domain/interface/busy-slot/i.busy-slot";
 
 

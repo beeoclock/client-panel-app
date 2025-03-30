@@ -3,8 +3,8 @@ import {
 	AttendeeCardComponent
 } from "@tenant/event/presentation/ui/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 import {CurrencyPipe, DatePipe, NgIf} from "@angular/common";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {HumanizeDurationPipe} from "@shared/presentation/pipes/humanize-duration.pipe";
+import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 

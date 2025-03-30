@@ -1,4 +1,4 @@
-import {BaseActions} from "@utility/state/base/base.actions";
+import {BaseActions} from "@shared/state/base/base.actions";
 import {IEvent, RMIEvent} from "@tenant/event/domain";
 
 export namespace EventRequestedActions {

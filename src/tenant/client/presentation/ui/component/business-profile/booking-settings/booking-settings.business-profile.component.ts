@@ -1,12 +1,12 @@
 import {Component, input, ViewEncapsulation} from "@angular/core";
 import {BookingSettingsForm} from "@tenant/client/presentation/form/booking-settings.form";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {SelectEarliestBookingComponent} from "@utility/presentation/component/input/select-earliest-booking.component";
-import {SelectLatestBookingComponent} from "@utility/presentation/component/input/select-latest-booking.component";
+import {SelectEarliestBookingComponent} from "@shared/presentation/component/input/select-earliest-booking.component";
+import {SelectLatestBookingComponent} from "@shared/presentation/component/input/select-latest-booking.component";
 import {
 	SelectSlotBuildingStrategyComponent
-} from "@utility/presentation/component/input/select-slot-building-strategy.component";
+} from "@shared/presentation/component/input/select-slot-building-strategy.component";
 import {
 	MandatoryAttendeePropertiesComponent
 } from "@tenant/client/presentation/ui/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";

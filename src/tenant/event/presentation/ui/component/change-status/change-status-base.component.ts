@@ -5,7 +5,7 @@ import {NGXLogger} from "ngx-logger";
 import {IEvent_V2} from "@tenant/event/domain";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
 
 @Component({
 	selector: 'event-change-status-base-component',

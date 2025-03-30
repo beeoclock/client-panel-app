@@ -1,4 +1,4 @@
-import {BaseActions} from "@utility/state/base/base.actions";
+import {BaseActions} from "@shared/state/base/base.actions";
 import {IEvent_V2} from "@tenant/event/domain";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 
