@@ -36,41 +36,4 @@ export namespace PaymentActions {
 		public static override readonly type = '[Payment Application] Open Form';
 	}
 
-	// API
-
-	export class Init extends BaseActions.Init {
-		public static override readonly type = '[Service State] Init';
-	}
-
-	export class GetList extends BaseActions.GetList {
-		public static override readonly type = '[Payment API] Get List';
-	}
-
-	export class GetItem extends BaseActions.GetItem {
-		public static override readonly type = '[Payment API] Get Item';
-	}
-
-	export class CreateItem extends BaseActions.CreateItem<IPayment.DTO> {
-		public static override readonly type = '[Payment API] Create Item';
-	}
-
-	export class Update {
-		public static readonly type = '[Payment API] Put Item';
-
-		public constructor(
-			public readonly payload: { item: IPayment.DTO }
-		) {
-		}
-	}
-
-	// Updates of state
-
-	export class UpdateFilters extends BaseActions.UpdateFilters {
-		public static override readonly type = '[Payment State] Update Filters';
-	}
-
-	export class UpdateTableState extends BaseActions.UpdateTableState<IPayment.DTO> {
-		public static override readonly type = '[Payment State] Update Table State';
-	}
-
 }

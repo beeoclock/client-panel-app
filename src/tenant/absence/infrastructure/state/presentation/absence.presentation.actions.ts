@@ -32,5 +32,4 @@ export namespace AbsencePresentationActions {
 		public static override readonly type = '[Absence Application] Open Form';
 	}
 
-
 }

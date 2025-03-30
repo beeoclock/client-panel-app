@@ -33,7 +33,7 @@ import {
 } from "@src/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
 import {firstValueFrom, lastValueFrom} from "rxjs";
-import {PaymentActions} from "@tenant/payment/infrastructure/state/payment/payment.actions";
+import {PaymentActions} from "@tenant/payment/infrastructure/state/data/payment.actions";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {
 	AdditionalMenuComponent
