@@ -253,3 +253,4 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	}
 
 }
+export default OrderFormContainerComponent;

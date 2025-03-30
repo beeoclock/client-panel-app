@@ -76,3 +76,4 @@ export class OrderDetailsContainerComponent {
 
 	protected readonly paymentStatusEnum = PaymentStatusEnum;
 }
+export default OrderDetailsContainerComponent;

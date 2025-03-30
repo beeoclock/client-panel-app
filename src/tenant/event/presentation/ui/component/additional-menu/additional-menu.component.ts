@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
 import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
@@ -43,12 +43,12 @@ enum SegmentEnum {
 		<div class="flex flex-col gap-2 h-full p-2">
 			<div class="flex flex-col gap-2">
 				<div class="bg-white flex gap-2 justify-between rounded-xl w-full">
-					@if (member) {
+					@if (member(); as member) {
 						<div class="text-beeColor-500">
 							{{ member.firstName }}&nbsp;{{ member.lastName }}
 						</div>
 					}
-					@if (datetimeISO) {
+					@if (datetimeISO(); as datetimeISO) {
 						<div class="text-beeColor-500">{{ datetimeISO | dynamicDate }}</div>
 					}
 				</div>
@@ -125,7 +125,7 @@ enum SegmentEnum {
 							<i class="bi bi-calendar-x"></i>
 							{{ 'keyword.capitalize.break' | translate }}
 						</div>
-						@if (datetimeISO) {
+						@if (datetimeISO(); as datetimeISO) {
 
 							<div class="flex flex-col gap-1">
 								<div class="text-beeColor-500 flex justify-between">
@@ -241,21 +241,19 @@ enum SegmentEnum {
 			}
 
 		</div>
-	`
+	`,
+	host: {
+		class: 'bg-white'
+	}
 })
 export class AdditionalMenuComponent implements OnInit {
 
-	@Input()
-	public member: IMember.EntityRaw | undefined;
+	public readonly member = input.required<IMember.EntityRaw>()
 
-	@Input()
-	public datetimeISO: string | undefined;
+	public readonly datetimeISO = input.required<string>();
 
 	public readonly callback = input<(() => void)>(() => {
 	});
-
-	@HostBinding()
-	public class = 'bg-white'
 
 	readonly selectServiceListComponent = viewChild.required(SelectServiceListComponent);
 
@@ -290,22 +288,22 @@ export class AdditionalMenuComponent implements OnInit {
 		if (!this.datetimeISO) {
 			return DateTime.now().plus({minutes}).toJSDate().toISOString();
 		}
-		return DateTime.fromISO(this.datetimeISO).plus({minutes}).toJSDate().toISOString();
+		return DateTime.fromISO(this.datetimeISO()).plus({minutes}).toJSDate().toISOString();
 	}
 
 	public openOrderForm(minutes: number = 0) {
 
-		let defaultAppointmentStartDateTimeIso = this.datetimeISO || DateTime.now().toJSDate().toISOString();
+		let defaultAppointmentStartDateTimeIso = this.datetimeISO() || DateTime.now().toJSDate().toISOString();
 		if (minutes) {
 			defaultAppointmentStartDateTimeIso = DateTime.fromISO(defaultAppointmentStartDateTimeIso).plus({minutes}).toJSDate().toISOString();
 		}
 
-		this.store.dispatch(new OrderActions.OpenForm({
+		const action = new OrderActions.OpenForm({
 			componentInputs: {
 				setupPartialData: {
 					serviceList: this.selectServiceListComponent().selectedServices,
 					defaultAppointmentStartDateTimeIso,
-					defaultMemberForService: this.member,
+					defaultMemberForService: this.member(),
 					customer: this.customerChipComponent().customerForm.getRawValue()
 				}
 			},
@@ -318,7 +316,8 @@ export class AdditionalMenuComponent implements OnInit {
 					}
 				}
 			}
-		}));
+		});
+		this.store.dispatch(action);
 	}
 
 	public openAbsenceForm(differenceInMinutes: number = 15, useDatetimeISO: boolean = true) {
@@ -329,13 +328,13 @@ export class AdditionalMenuComponent implements OnInit {
 			end: DateTime.now().plus({minutes: differenceInMinutes}).toJSDate().toISOString(),
 		};
 
-		if (this.member) {
-			item.members = [this.member];
+		if (this.member()) {
+			item.members = [this.member()];
 		}
 
-		if (useDatetimeISO && this.datetimeISO) {
-			item.start = this.datetimeISO;
-			item.end = DateTime.fromISO(this.datetimeISO).plus({minutes: differenceInMinutes}).toJSDate().toISOString();
+		if (useDatetimeISO && this.datetimeISO()) {
+			item.start = this.datetimeISO();
+			item.end = DateTime.fromISO(this.datetimeISO()).plus({minutes: differenceInMinutes}).toJSDate().toISOString();
 		}
 
 		this.ngxLogger.info('AdditionalMenuComponent.openAbsenceForm', item);
@@ -364,3 +363,5 @@ export class AdditionalMenuComponent implements OnInit {
 	}
 
 }
+
+export default AdditionalMenuComponent;

@@ -1,4 +1,4 @@
-import {inject, Injectable, reflectComponentType} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext, Store} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@shared/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
@@ -27,6 +27,10 @@ import {
 import {INotificationSettings} from "@tenant/order/domain/interface/i.notification-settings";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {Router} from "@angular/router";
+import {SecondRouterOutletService} from "@src/second.router-outlet.service";
+import OrderDetailsContainerComponent
+	from "@tenant/order/presentation/ui/component/details/order-details-container.component";
 
 export type IOrderState = IBaseState<EOrder>;
 
@@ -58,6 +62,8 @@ export class OrderState {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly router = inject(Router);
+	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
 	@Action(OrderActions.Init)
 	public async init(ctx: StateContext<IOrderState>): Promise<void> {
@@ -78,99 +84,37 @@ export class OrderState {
 
 	@Action(OrderActions.CloseDetails)
 	public async closeDetailsAction() {
-
-		const {OrderDetailsContainerComponent} = await import("@tenant/order/presentation/ui/component/details/order-details-container.component");
-
-		await this.whacAMaleProvider.destroyComponent(OrderDetailsContainerComponent);
-
+		await this.router.navigate([{outlets: {second: null}}]);
 	}
 
 	@Action(OrderActions.CloseForm)
 	public async closeFormAction() {
-
-		const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");
-
-		await this.whacAMaleProvider.destroyComponent(OrderFormContainerComponent);
-
+		await this.router.navigate([{outlets: {second: null}}]);
 	}
 
 	@Action(OrderActions.UpdateOpenedDetails)
 	public async updateOpenedDetailsAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.UpdateOpenedDetails) {
-
-		import("@tenant/order/presentation/ui/component/details/order-details-container.component")
-			.then(({OrderDetailsContainerComponent}) => {
-
-				const componentMirror = reflectComponentType(OrderDetailsContainerComponent);
-
-				if (!componentMirror) {
-					this.ngxLogger.error('OrderState.updateOpenedDetails', 'value of `component` property is not a component');
-					return;
-				}
-
-				const componentRefList = this.whacAMaleProvider.componentRefMapByComponentName.get(componentMirror.selector);
-
-				if (!componentRefList?.length) {
-					this.ngxLogger.debug('OrderState.updateOpenedDetails Did not find', componentMirror.selector, this);
-					return;
-				}
-
-				const {0: componentRef} = componentRefList;
-
-				const {renderedComponentRef} = componentRef.instance;
-
-				if (!renderedComponentRef) {
-					this.ngxLogger.error('OrderState.updateOpenedDetails', 'renderedComponentRef is not defined');
-					return;
-				}
-
-				if ('item' in renderedComponentRef.instance) {
-					const {_id} = renderedComponentRef.instance.item;
-					if (_id === payload._id) {
-						renderedComponentRef.setInput('item', payload);
-						return;
-					}
-					this.ngxLogger.error('OrderState.updateOpenedDetails', 'Item not found');
-				}
-
-			});
-
+		await this.router.navigate([{outlets: {second: ['order', payload._id]}}], {
+			onSameUrlNavigation: 'reload',
+		});
 	}
 
 	@Action(OrderActions.OpenDetails)
 	public async openDetailsAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.OpenDetails) {
 
-		const title = await this.translateService.instant('order.details.title');
+		const activated = this.secondRouterOutletService.activated();
 
-		const {OrderDetailsContainerComponent} = await import("@tenant/order/presentation/ui/component/details/order-details-container.component");
-
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			componentInputs: {
-				item: payload
-			},
-			component: OrderDetailsContainerComponent,
-		});
-
-	}
-
-	@Action(OrderActions.OpenDetailsById)
-	public async openDetailsByIdAction(ctx: StateContext<IOrderState>, {payload: id}: OrderActions.OpenDetailsById) {
-
-		const title = await this.translateService.instant('order.details.title');
-		const item = await this.sharedUow.order.repository.findByIdAsync(id);
-
-		if (!item) {
-			this.ngxLogger.error('OrderState.openDetailsById', 'Item not found');
-			return;
+		if (activated) {
+			if (activated instanceof OrderDetailsContainerComponent) {
+				const {_id} = activated.item() ?? {};
+				if (_id === payload._id) {
+					ctx.dispatch(new OrderActions.CloseDetails());
+					return;
+				}
+			}
 		}
 
-		const {OrderDetailsContainerComponent} = await import("@tenant/order/presentation/ui/component/details/order-details-container.component");
-
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			component: OrderDetailsContainerComponent,
-			componentInputs: {item},
-		});
+		await this.router.navigate([{outlets: {second: ['order', payload._id]}}]);
 
 	}
 

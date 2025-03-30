@@ -28,10 +28,6 @@ export namespace OrderActions {
 		public static override readonly type = '[Order Application] Open Details';
 	}
 
-	export class OpenDetailsById extends BaseActions.OpenDetailsById {
-		public static override readonly type = '[Order Application] Open Details By Id';
-	}
-
 	export class OpenFormToEditById extends BaseActions.OpenFormToEditById {
 		public static override readonly type = '[Order Application] Open Form To Edit By Id';
 	}

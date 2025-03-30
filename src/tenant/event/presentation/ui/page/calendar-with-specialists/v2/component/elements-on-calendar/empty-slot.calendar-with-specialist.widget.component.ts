@@ -2,6 +2,8 @@ import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
+	computed,
+	effect,
 	ElementRef,
 	HostBinding,
 	HostListener,
@@ -9,19 +11,18 @@ import {
 	input,
 	Renderer2
 } from "@angular/core";
-import {firstValueFrom} from "rxjs";
-import {
-	AdditionalMenuComponent
-} from "@tenant/event/presentation/ui/component/additional-menu/additional-menu.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {
 	CalendarWithSpecialistsQueries
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {BooleanState} from "@shared/domain";
 import {IMember} from "@tenant/member/domain/interface/i.member";
+import {Router} from "@angular/router";
+import {SecondRouterOutletService} from "@src/second.router-outlet.service";
+import AdditionalMenuComponent from "@tenant/event/presentation/ui/component/additional-menu/additional-menu.component";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-empty-slot-calendar-with-specialist-widget-component',
@@ -32,7 +33,10 @@ import {IMember} from "@tenant/member/domain/interface/i.member";
 		TranslateModule
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true
+	standalone: true,
+	host: {
+		class: 'active:bg-blue-400 relative active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer flex h-full hover:opacity-100 items-center justify-center opacity-0 px-2 rounded-md text-neutral-500 transition-all'
+	}
 })
 export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterViewInit {
 
@@ -47,14 +51,52 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
+	private readonly router = inject(Router);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
-	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
+	public readonly selectedDate = toSignal(this.selectedDate$);
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly renderer2 = inject(Renderer2);
+	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
-	@HostBinding()
-	public get class() {
-		return 'active:bg-blue-400 relative active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer flex h-full hover:opacity-100 items-center justify-center opacity-0 px-2 rounded-md text-neutral-500 transition-all';
+	public readonly datetimeISO = computed(() => {
+		const selectedDate = this.selectedDate();
+
+		if (!selectedDate) {
+			return;
+		}
+
+		const baseDateTime = selectedDate.startOf('day');
+
+		let startDateTime = baseDateTime
+			.plus({
+				minutes: this.startInMinutes(),
+			});
+
+		if (startDateTime.offset !== baseDateTime.offset) {
+
+			const offsetDifference = baseDateTime.offset - startDateTime.offset;
+			startDateTime = startDateTime.plus({hours: offsetDifference / 60});
+
+		}
+
+		return startDateTime.toJSDate().toISOString();
+	});
+
+	public constructor() {
+		effect(() => {
+			const activated = this.secondRouterOutletService.activated();
+			if (activated instanceof AdditionalMenuComponent) {
+				if (activated.datetimeISO() === this.datetimeISO() && activated.member()?._id === this.member()._id) {
+					this.showSelectedSquare(true);
+				}
+			}
+			const deactivated = this.secondRouterOutletService.deactivated();
+			if (deactivated instanceof AdditionalMenuComponent) {
+				if (deactivated.datetimeISO() === this.datetimeISO() && deactivated.member()?._id === this.member()._id) {
+					this.showSelectedSquare(false);
+				}
+			}
+		});
 	}
 
 	@HostListener('click')
@@ -75,71 +117,50 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 
 	public async openAdditionalMenu() {
 
-		this.showSelectedSquare(true);
+		// const title = this.translateService.instant('event.additionalMenu.title');
 
-		const title = this.translateService.instant('event.additionalMenu.title');
-
-		const selectedDate = await firstValueFrom(this.selectedDate$);
-
-		this.ngxLogger.debug('openAdditionalMenu:selectedDate', selectedDate);
-
-		const callback = () => {
-			this.ngxLogger.debug('Callback');
-		};
-
-		const baseDateTime = selectedDate
-			.startOf('day');
-
-		let startDateTime = baseDateTime
-			.plus({
-				minutes: this.startInMinutes(),
-			});
-
-		if (startDateTime.offset !== baseDateTime.offset) {
-
-			const offsetDifference = baseDateTime.offset - startDateTime.offset;
-			startDateTime = startDateTime.plus({hours: offsetDifference / 60});
-
-		}
-
-		const datetimeISO = startDateTime.toJSDate().toISOString();
-
-		await this.whacAMaleProvider.buildItAsync({
-			component: AdditionalMenuComponent,
-			title,
-			callback: {
-				on: {
-					destroy: {
-						after: () => {
-							this.ngxLogger.debug('Callback:destroy:after');
-							this.showSelectedSquare(false);
-						}
-					},
-					update: {
-						before: (componentInputs) => {
-							this.ngxLogger.debug('Callback:update:before', componentInputs, this);
-							if (componentInputs) {
-								const {
-									datetimeISO: datetimeISOComponent,
-									member: memberComponent
-								} = componentInputs as { datetimeISO: string; member: IMember.EntityRaw };
-
-								this.ngxLogger.debug('Callback:update:before', {datetimeISOComponent, memberComponent});
-
-								if (datetimeISOComponent !== datetimeISO || memberComponent?._id !== this.member()._id) {
-									this.showSelectedSquare(false);
-								}
-							}
-						}
-					}
-				}
-			},
-			componentInputs: {
-				datetimeISO,
-				member: this.member(),
-				callback
+		await this.router.navigate([{outlets: {second: ['additional-menu', this.member()._id]}}], {
+			queryParams: {
+				datetimeISO: this.datetimeISO()
 			}
-		});
+		})
+
+		// await this.whacAMaleProvider.buildItAsync({
+		// 	component: AdditionalMenuComponent,
+		// 	title,
+		// 	callback: {
+		// 		on: {
+		// 			destroy: {
+		// 				after: () => {
+		// 					this.ngxLogger.debug('Callback:destroy:after');
+		// 					this.showSelectedSquare(false);
+		// 				}
+		// 			},
+		// 			update: {
+		// 				before: (componentInputs) => {
+		// 					this.ngxLogger.debug('Callback:update:before', componentInputs, this);
+		// 					if (componentInputs) {
+		// 						const {
+		// 							datetimeISO: datetimeISOComponent,
+		// 							member: memberComponent
+		// 						} = componentInputs as { datetimeISO: string; member: IMember.EntityRaw };
+		//
+		// 						this.ngxLogger.debug('Callback:update:before', {datetimeISOComponent, memberComponent});
+		//
+		// 						if (datetimeISOComponent !== datetimeISO || memberComponent?._id !== this.member()._id) {
+		// 							this.showSelectedSquare(false);
+		// 						}
+		// 					}
+		// 				}
+		// 			}
+		// 		}
+		// 	},
+		// 	componentInputs: {
+		// 		datetimeISO,
+		// 		member: this.member(),
+		// 		callback
+		// 	}
+		// });
 
 	}
 

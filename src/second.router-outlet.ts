@@ -7,9 +7,10 @@ import {
 	inject,
 	Renderer2,
 	Type,
+	viewChild,
 	ViewEncapsulation
 } from '@angular/core';
-import {Router, RouterModule} from '@angular/router';
+import {Router, RouterModule, RouterOutlet} from '@angular/router';
 import {WhacAMoleResizeContainer} from "@shared/presentation/whac-a-mole/whac-a-mole.resize-container";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 
@@ -54,6 +55,8 @@ export class SecondRouterOutlet {
 	private readonly router = inject(Router);
 	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
+	public readonly routerOutlet = viewChild(RouterOutlet);
+
 	public width = 375;
 
 	@HostBinding('style.margin-right.px')
@@ -61,10 +64,25 @@ export class SecondRouterOutlet {
 
 	public constructor() {
 		effect(() => {
+			const routerOutlet =  this.routerOutlet()
+			console.log({routerOutlet})
 			this.updateState();
 		});
 		afterRender(() => {
 			this.updateState();
+			const routerOutlet =  this.routerOutlet()
+			if (routerOutlet) {
+				if (routerOutlet.isActivated) {
+					this.secondRouterOutletService.activated.set(routerOutlet.component);
+					this.secondRouterOutletService.deactivated.set(null);
+				} else {
+					const previous = this.secondRouterOutletService.activated();
+					if (previous) {
+						this.secondRouterOutletService.activated.set(null);
+						this.secondRouterOutletService.deactivated.set(previous);
+					}
+				}
+			}
 		})
 	}
 
@@ -74,10 +92,12 @@ export class SecondRouterOutlet {
 
 	public activate($event: Type<unknown>) {
 		this.secondRouterOutletService.activated.set($event);
+		this.secondRouterOutletService.deactivated.set(null);
 	}
 
 	public deactivate($event: Type<unknown>) {
 		this.secondRouterOutletService.activated.set(null);
+		this.secondRouterOutletService.deactivated.set($event);
 	}
 
 	public mouseDownUp($event: boolean) {
@@ -96,10 +116,8 @@ export class SecondRouterOutlet {
 	private updateState() {
 		if (this.secondRouterOutletService.activated()) {
 			this.marginRight = 0;
-			// this.renderer2.setStyle(this.elementRef.nativeElement, 'margin-right', `${0}px`);
 		} else {
 			this.marginRight = -this.width;
-			// this.renderer2.setStyle(this.elementRef.nativeElement, 'margin-right', `-${this.width}px`);
 		}
 	}
 }
