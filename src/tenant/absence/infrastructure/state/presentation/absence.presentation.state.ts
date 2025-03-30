@@ -14,6 +14,7 @@ import AbsenceDetailsContainerComponent
 import {
 	AbsenceFormContainerComponent
 } from "@tenant/absence/presentation/ui/component/form/absence-form-container.component";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 
 export type IAbsenceState = object;
 
@@ -75,27 +76,37 @@ export class AbsencePresentationState {
 	}
 
 	@Action(AbsencePresentationActions.OpenFormToEditById)
-	public async openFormToEditByIdAction(ctx: StateContext<IAbsenceState>, action: AbsencePresentationActions.OpenFormToEditById) {
+	public async openFormToEditByIdAction(ctx: StateContext<IAbsenceState>, {payload}: AbsencePresentationActions.OpenFormToEditById) {
 
 		const title = await this.translateService.instant('absence.form.title.edit');
-		const item = await this.sharedUow.absence.repository.findByIdAsync(action.payload);
+		const item = await this.sharedUow.absence.repository.findByIdAsync(payload);
 
 		if (!item) {
 			this.ngxLogger.error('AbsenceState.openDetailsById', 'Item not found');
 			return;
 		}
 
-
-		const {AbsenceFormContainerComponent} = await import("@tenant/absence/presentation/ui/component/form/absence-form-container.component");
-
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			component: AbsenceFormContainerComponent,
+		const action = new AbsencePresentationActions.OpenForm({
 			componentInputs: {
-				item,
+				item: EAbsence.fromRaw(item),
 				isEditMode: true,
 			},
+			pushBoxInputs: {
+				title,
+			}
 		});
+		ctx.dispatch(action);
+
+		// const {AbsenceFormContainerComponent} = await import("@tenant/absence/presentation/ui/component/form/absence-form-container.component");
+		//
+		// await this.whacAMaleProvider.buildItAsync({
+		// 	title,
+		// 	component: AbsenceFormContainerComponent,
+		// 	componentInputs: {
+		// 		item,
+		// 		isEditMode: true,
+		// 	},
+		// });
 
 	}
 

@@ -28,7 +28,7 @@ export class WhacAMoleResizeContainer extends Reactive implements OnInit {
 	@HostBinding('class.hidden')
 	public isHidden = false;
 
-	public width = +(localStorage.getItem('whac-a-mole-width') ?? '0');
+	public width = +(localStorage.getItem('whac-a-mole-width') ?? '375');
 
 	public readonly widthChanges = output<number>();
 	public readonly mouseDownUp = output<boolean>();

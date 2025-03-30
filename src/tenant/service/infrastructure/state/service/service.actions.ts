@@ -28,10 +28,6 @@ export namespace ServiceActions {
 		public static override readonly type = '[Service Application] Open Details By Id';
 	}
 
-	export class OpenFormToEditById extends BaseActions.OpenFormToEditById {
-		public static override readonly type = '[Service Application] Open Form To Edit By Id';
-	}
-
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
 		item?: IService.DTO;

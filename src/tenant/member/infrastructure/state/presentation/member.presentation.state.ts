@@ -1,10 +1,19 @@
-import {inject, Injectable, reflectComponentType} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
+import {Router} from "@angular/router";
+import {
+	AbsencePresentationActions
+} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {SecondRouterOutletService} from "@src/second.router-outlet.service";
+import MemberDetailsContainerComponent
+	from "@tenant/member/presentation/component/details-container/member-details-container.component";
+import MemberFormContainerComponent
+	from "@tenant/member/presentation/component/form/member-form-container/member-form-container.component";
 
 export type IMemberPresentationState = object;
 
@@ -20,118 +29,48 @@ export class MemberPresentationState {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly router = inject(Router);
+	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
 	@Action(MemberPresentationActions.CloseDetails)
 	public async closeDetails() {
 
-		const {MemberDetailsContainerComponent} = await import("@tenant/member/presentation/component/details-container/member-details-container.component");
-
-		await this.whacAMaleProvider.destroyComponent(MemberDetailsContainerComponent);
+		await this.router.navigate([{outlets: {second: null}}]);
 
 	}
 
 	@Action(MemberPresentationActions.CloseForm)
 	public async closeForm() {
 
-		const {MemberFormContainerComponent} = await import("@tenant/member/presentation/component/form/member-form-container/member-form-container.component");
-
-		await this.whacAMaleProvider.destroyComponent(MemberFormContainerComponent);
+		await this.router.navigate([{outlets: {second: null}}]);
 
 	}
 
 	@Action(MemberPresentationActions.UpdateOpenedDetails)
 	public async updateOpenedDetails(ctx: StateContext<IMemberPresentationState>, {payload}: MemberPresentationActions.UpdateOpenedDetails) {
 
-		import("@tenant/member/presentation/component/details-container/member-details-container.component")
-			.then(async ({MemberDetailsContainerComponent}) => {
-
-				const componentMirror = reflectComponentType(MemberDetailsContainerComponent);
-
-				if (!componentMirror) {
-					this.ngxLogger.error('MemberState.updateOpenedDetails', 'value of `component` property is not a component');
-					return;
-				}
-
-				const componentRefList = this.whacAMaleProvider.componentRefMapByComponentName.get(componentMirror.selector);
-
-				if (!componentRefList?.length) {
-					this.ngxLogger.debug('MemberState.updateOpenedDetails Did not find', componentMirror.selector, this);
-					return;
-				}
-
-				const {0: componentRef} = componentRefList;
-
-				const {renderedComponentRef} = componentRef.instance;
-
-				if (!renderedComponentRef) {
-					this.ngxLogger.error('MemberState.updateOpenedDetails', 'renderedComponentRef is not defined');
-					return;
-				}
-
-				if ('item' in renderedComponentRef.instance) {
-					const {_id} = renderedComponentRef.instance.item;
-					if (_id === payload._id) {
-						renderedComponentRef.setInput('item', payload);
-						return;
-					}
-					this.ngxLogger.error('MemberState.updateOpenedDetails', 'Item not found');
-				}
-			});
-
+		await this.router.navigate([{outlets: {second: ['member', payload._id]}}], {
+			onSameUrlNavigation: 'reload',
+		});
 
 	}
 
 	@Action(MemberPresentationActions.OpenDetails)
 	public async openDetails(ctx: StateContext<IMemberPresentationState>, {payload}: MemberPresentationActions.OpenDetails) {
 
-		const title = await this.translateService.instant('member.details.title');
+		const activated = this.secondRouterOutletService.activated();
 
-		const {MemberDetailsContainerComponent} = await import("@tenant/member/presentation/component/details-container/member-details-container.component");
-
-		const ref = MemberDetailsContainerComponent;
-
-		const foundComponentRef = this.whacAMaleProvider.getComponentRef(ref);
-
-		if (foundComponentRef) {
-
-			const instance = foundComponentRef.instance.renderedComponentRef?.instance;
-
-			if (!instance) {
-				this.ngxLogger.error('MemberState.openDetails', 'instance is not defined');
-				return;
-			}
-
-			if ('item' in instance) {
-				const {_id} = instance.item;
+		if (activated) {
+			if (activated instanceof MemberDetailsContainerComponent) {
+				const {_id} = activated.item() ?? {};
 				if (_id === payload._id) {
 					ctx.dispatch(new MemberPresentationActions.CloseDetails());
 					return;
 				}
 			}
-
 		}
 
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			componentInputs: {
-				item: payload
-			},
-			component: ref,
-		});
-
-	}
-
-	@Action(MemberPresentationActions.OpenDetailsById)
-	public async openDetailsById(ctx: StateContext<IMemberPresentationState>, {payload: id}: MemberPresentationActions.OpenDetailsById) {
-
-		const item = await this.sharedUow.member.repository.findByIdAsync(id);
-
-		if (!item) {
-			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
-			return;
-		}
-
-		ctx.dispatch(new MemberPresentationActions.OpenDetails(item));
+		await this.router.navigate([{outlets: {second: ['member', payload._id]}}]);
 
 	}
 
@@ -146,34 +85,73 @@ export class MemberPresentationState {
 			return;
 		}
 
-		await this.openForm(ctx, {
-			payload: {
-				pushBoxInputs: {
-					title,
-					id,
-				},
-				componentInputs: {
-					item,
-					isEditMode: true
-				}
+		// await this.openForm(ctx, {
+		// 	payload: {
+		// 		pushBoxInputs: {
+		// 			title,
+		// 			id,
+		// 		},
+		// 		componentInputs: {
+		// 			item,
+		// 			isEditMode: true
+		// 		}
+		// 	}
+		// });
+
+		const action = new MemberPresentationActions.OpenForm({
+			componentInputs: {
+				item,
+				isEditMode: true
+			},
+			pushBoxInputs: {
+				title,
+				id,
 			}
 		});
+
+		ctx.dispatch(action)
 
 	}
 
 	@Action(MemberPresentationActions.OpenForm)
 	public async openForm(ctx: StateContext<IMemberPresentationState>, {payload}: MemberPresentationActions.OpenForm): Promise<void> {
 
-		const {MemberFormContainerComponent} = await import("@tenant/member/presentation/component/form/member-form-container/member-form-container.component");
+		const activated = this.secondRouterOutletService.activated();
 
-		const {componentInputs, pushBoxInputs} = payload ?? {};
+		if (activated) {
+			if (activated instanceof MemberFormContainerComponent) {
+				const isEditMode = activated.isEditMode();
+				if (isEditMode) {
+					const {_id} = activated.item() ?? {};
+					if (_id === payload?.componentInputs?.item?._id) {
+						const action = new AbsencePresentationActions.CloseForm();
+						ctx.dispatch(action);
+						return;
+					}
+				} else {
+					const action = new AbsencePresentationActions.CloseForm();
+					ctx.dispatch(action);
+					return;
+				}
+			}
+		}
 
-		await this.whacAMaleProvider.buildItAsync({
-			title: this.translateService.instant('member.form.title.create'),
-			...pushBoxInputs,
-			component: MemberFormContainerComponent,
-			componentInputs,
-		});
+		if (payload?.componentInputs?.isEditMode) {
+			await this.router.navigate([{outlets: {second: ['member', payload.componentInputs.item?._id, 'form']}}]);
+		} else {
+			await this.router.navigate([{outlets: {second: ['member', 'form']}}]);
+		}
+
+		// const {MemberFormContainerComponent} = await import("@tenant/member/presentation/component/form/member-form-container/member-form-container.component");
+		//
+		// const {componentInputs, pushBoxInputs} = payload ?? {};
+		//
+		// await this.whacAMaleProvider.buildItAsync({
+		// 	title: this.translateService.instant('member.form.title.create'),
+		// 	...pushBoxInputs,
+		// 	component: MemberFormContainerComponent,
+		// 	componentInputs,
+		// });
 
 	}
 }

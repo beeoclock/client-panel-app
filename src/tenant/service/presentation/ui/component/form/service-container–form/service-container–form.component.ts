@@ -197,3 +197,5 @@ export class ServiceContainerFormComponent implements OnInit {
 	}
 
 }
+
+export default ServiceContainerFormComponent;

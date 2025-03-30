@@ -1,4 +1,14 @@
-import {Component, effect, ElementRef, inject, Renderer2, Type, ViewEncapsulation} from '@angular/core';
+import {
+	afterRender,
+	Component,
+	effect,
+	ElementRef,
+	HostBinding,
+	inject,
+	Renderer2,
+	Type,
+	ViewEncapsulation
+} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import {WhacAMoleResizeContainer} from "@shared/presentation/whac-a-mole/whac-a-mole.resize-container";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
@@ -44,12 +54,18 @@ export class SecondRouterOutlet {
 	private readonly router = inject(Router);
 	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
-	public width = 0;
+	public width = 375;
+
+	@HostBinding('style.margin-right.px')
+	public marginRight = -375;
 
 	public constructor() {
 		effect(() => {
 			this.updateState();
 		});
+		afterRender(() => {
+			this.updateState();
+		})
 	}
 
 	public close() {
@@ -79,9 +95,11 @@ export class SecondRouterOutlet {
 
 	private updateState() {
 		if (this.secondRouterOutletService.activated()) {
-			this.renderer2.setStyle(this.elementRef.nativeElement, 'margin-right', `${0}px`);
+			this.marginRight = 0;
+			// this.renderer2.setStyle(this.elementRef.nativeElement, 'margin-right', `${0}px`);
 		} else {
-			this.renderer2.setStyle(this.elementRef.nativeElement, 'margin-right', `-${this.width}px`);
+			this.marginRight = -this.width;
+			// this.renderer2.setStyle(this.elementRef.nativeElement, 'margin-right', `-${this.width}px`);
 		}
 	}
 }
