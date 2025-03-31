@@ -3,6 +3,7 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	computed,
 	DestroyRef,
 	effect,
 	inject,
@@ -91,15 +92,69 @@ import EPayment from "@tenant/payment/domain/entity/e.payment";
 })
 export class OrderFormContainerComponent {
 
-	public readonly setupPartialData = input<{
-		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: IMember.EntityRaw;
-		serviceList?: IService.DTO[];
-		customer?: ICustomer.EntityRaw;
-	}>({});
-
 	public readonly order = input<EOrder | null>(null);
 	public readonly payment = input<EPayment | null>(null);
+
+	public readonly customerJSON = input(null, {
+		transform: (value: string) => {
+			if (value) {
+				return JSON.parse(value) as ICustomer.DTO;
+			}
+			return null;
+		}
+	});
+	public readonly memberJSON = input(null, {
+		transform: (value: string) => {
+			if (value) {
+				return JSON.parse(value) as IMember.DTO;
+			}
+			return null;
+		}
+	});
+	public readonly serviceListJSON = input([] as IService.DTO[], {
+		transform: (value: string) => {
+			if (value) {
+				return JSON.parse(value) as IService.DTO[];
+			}
+			return null;
+		}
+	});
+	public readonly appointmentStartDateTimeIso = input<string | null>(null);
+
+	/**
+	 *
+	 * 		defaultAppointmentStartDateTimeIso?: string;
+	 * 		defaultMemberForService?: IMember.EntityRaw;
+	 * 		serviceList?: IService.DTO[];
+	 * 		customer?: ICustomer.EntityRaw;
+	 */
+	public readonly setupPartialData = computed(() => {
+
+		const {customerJSON, memberJSON, serviceListJSON, appointmentStartDateTimeIso} = this;
+
+		const result: any = {};
+
+		console.log(customerJSON(), memberJSON(), serviceListJSON(), appointmentStartDateTimeIso())
+
+		if (customerJSON()) {
+			result.customer = customerJSON();
+		}
+
+		if (memberJSON()) {
+			result.defaultMemberForService = memberJSON();
+		}
+
+		if (serviceListJSON()?.length) {
+			result.serviceList = serviceListJSON();
+		}
+
+		if (appointmentStartDateTimeIso()) {
+			result.defaultAppointmentStartDateTimeIso = appointmentStartDateTimeIso();
+		}
+
+		return result;
+
+	});
 
 	public readonly isEditMode = input<boolean>(false);
 	public readonly firstStepOnInit = input<{

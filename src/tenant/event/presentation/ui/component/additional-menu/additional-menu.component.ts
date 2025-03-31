@@ -1,5 +1,4 @@
 import {Component, inject, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
@@ -252,9 +251,6 @@ export class AdditionalMenuComponent implements OnInit {
 
 	public readonly datetimeISO = input.required<string>();
 
-	public readonly callback = input<(() => void)>(() => {
-	});
-
 	readonly selectServiceListComponent = viewChild.required(SelectServiceListComponent);
 
 	readonly customerChipComponent = viewChild.required(CustomerChipComponent);
@@ -275,7 +271,6 @@ export class AdditionalMenuComponent implements OnInit {
 
 	public readonly now = new Date().toISOString();
 
-	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
@@ -307,15 +302,6 @@ export class AdditionalMenuComponent implements OnInit {
 					customer: this.customerChipComponent().customerForm.getRawValue()
 				}
 			},
-			pushBoxInputs: {
-				callback: {
-					on: {
-						destroy: {
-							before: this.callback(),
-						},
-					}
-				}
-			}
 		});
 		this.store.dispatch(action);
 	}
@@ -343,23 +329,7 @@ export class AdditionalMenuComponent implements OnInit {
 			componentInputs: {
 				defaultValue: item,
 			},
-			pushBoxInputs: {
-				callback: {
-					on: {
-						destroy: {
-							before: this.callback(),
-							after: () => {
-								this.closeSelf().then();
-							}
-						}
-					}
-				}
-			}
 		}));
-	}
-
-	public async closeSelf() {
-		await this.whacAMaleProvider.destroyComponent(AdditionalMenuComponent);
 	}
 
 }

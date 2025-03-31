@@ -186,7 +186,46 @@ export class OrderState {
 		if (payload?.componentInputs?.isEditMode) {
 			await this.router.navigate([{outlets: {second: ['order', payload.componentInputs.item?._id, 'form']}}]);
 		} else {
-			await this.router.navigate([{outlets: {second: ['order', 'form']}}]);
+
+			let customerJSON = '';
+			let memberJSON = '';
+			let appointmentStartDateTimeIso = '';
+			let serviceListJSON = '';
+
+			const {componentInputs} = payload ?? {};
+			if (componentInputs) {
+				const {setupPartialData} = componentInputs;
+				if (setupPartialData) {
+					const {
+						customer,
+						defaultMemberForService: member,
+						defaultAppointmentStartDateTimeIso,
+						serviceList
+					} = setupPartialData;
+					if (customer) {
+						customerJSON = JSON.stringify(customer);
+					}
+					if (member) {
+						memberJSON = JSON.stringify(member);
+					}
+					if (defaultAppointmentStartDateTimeIso) {
+						appointmentStartDateTimeIso = defaultAppointmentStartDateTimeIso;
+					}
+					if (serviceList) {
+						serviceListJSON = JSON.stringify(serviceList);
+					}
+				}
+			}
+
+			await this.router.navigate([{outlets: {second: ['order', 'form']}}], {
+				queryParams: {
+					customerJSON,
+					memberJSON,
+					appointmentStartDateTimeIso,
+					serviceListJSON,
+				}
+			});
+
 		}
 
 		// const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");

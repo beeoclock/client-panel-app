@@ -2,6 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	effect,
 	inject,
 	input,
 	OnChanges,
@@ -53,7 +54,7 @@ import {
 					class="w-8 rounded-lg justify-center items-center flex !py-0">
 				<i class="bi bi-plus-circle text-2xl"></i>
 			</button>
-			<app-service-popover-chip-component trigger="app-list-service-form-order-component-add-service"
+			<app-service-popover-chip-component class="absolute" trigger="app-list-service-form-order-component-add-service"
 												(result)="addService($event)"/>
 		</div>
 		<div class="flex-col justify-start items-start flex">
@@ -75,9 +76,9 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 
 	public readonly setupPartialData = input<{
 		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: IMember.EntityRaw;
+		defaultMemberForService?: IMember.DTO;
 		serviceList?: IService.DTO[];
-		customer?: ICustomer.EntityRaw;
+		customer?: ICustomer.DTO;
 	}>({});
 
 	public readonly serviceOrderFormArray = input.required<ServiceOrderFormArray>();
@@ -95,6 +96,13 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 
 	readonly #translateService = inject(TranslateService);
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
+
+	public constructor() {
+		effect(() => {
+			const setupPartialData = this.setupPartialData();
+			console.log({setupPartialData})
+		});
+	}
 
 	public ngOnInit() {
 		const setupPartialData = this.setupPartialData();
