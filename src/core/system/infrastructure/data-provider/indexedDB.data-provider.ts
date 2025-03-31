@@ -1,5 +1,5 @@
 import {DataProvider} from "@core/system/infrastructure/data-provider/data-provider";
-import {inject, Injectable} from "@angular/core";
+import {inject} from "@angular/core";
 import {TENANT_ID} from "@src/token";
 import {concatMap, filter, from, map, shareReplay, switchMap, take, tap} from "rxjs";
 import {is} from "@core/shared/checker";
@@ -10,7 +10,6 @@ import {IAdapterDataProvider} from "@core/system/interface/data-provider/i.adapt
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
-@Injectable()
 export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends DataProvider<ENTITY> {
 
 	protected abstract readonly entityFieldsToSearch: string[];
@@ -23,7 +22,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 		takeUntilDestroyed(),
 		filter(is.string),
 		tap((tenant) => {
-			return this.dexieAdapterIndexedDBDataProvider.prepareTableFor(tenant);
+			this.dexieAdapterIndexedDBDataProvider.prepareTableFor(tenant);
 		}),
 		map(() => this.dexieAdapterIndexedDBDataProvider.table),
 		filter(is.object<Dexie.Table<ENTITY>>),
@@ -58,7 +57,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 				const {
 					pageSize,
 					page,
-					orderBy = OrderByEnum.UPDATED_AT,
+					orderBy = OrderByEnum.CREATED_AT,
 					orderDir = OrderDirEnum.DESC,
 					...filter
 				} = options as Types.StandardQueryParams;

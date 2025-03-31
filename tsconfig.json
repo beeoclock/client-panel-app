@@ -1,127 +1,77 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-	"compileOnSave": false,
-	"compilerOptions": {
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"baseUrl": "./",
-		"outDir": "./dist/out-tsc",
-		"forceConsistentCasingInFileNames": true,
-		"strict": true,
-		"noImplicitOverride": true,
-		"noPropertyAccessFromIndexSignature": false,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"sourceMap": true,
-		"declaration": false,
-		"downlevelIteration": true,
-		"experimentalDecorators": true,
-		"moduleResolution": "node",
-		"importHelpers": true,
-		"strictNullChecks": true,
-		"resolveJsonModule": true,
-		"target": "ES2022",
-		"module": "ES2022",
-		"useDefineForClassFields": false,
-		"lib": [
-			"ES2022",
-			"dom"
-		],
-		"paths": {
-			"@core/*": [
-				"./src/core/*"
-			],
-			"@src/*": [
-				"./src/*"
-			],
-			"@environment/*": [
-				"./src/environment/*"
-			],
-			"@asset/*": [
-				"./src/asset/*"
-			],
-			"@scss/*": [
-				"./src/asset/scss/*"
-			],
-			"@icon/*": [
-				"./src/asset/icon/*"
-			],
-			"@app/*": [
-				"./src/app/*"
-			],
-			"@page/*": [
-				"./src/identity/page/*",
-				"./src/[tenant]/page/*"
-			],
-			"@[tenant]/*": [
-				"./src/[tenant]/*"
-			],
-
-			// utility
-			"@utility/*": [
-				"./src/utility/*"
-			],
-
-			// identity
-			"@identity/*": [
-				"./src/identity/*",
-			],
-
-			// tenant
-			"@analytic/*": [
-				"./src/[tenant]/module/analytic/*",
-			],
-			"@media/*": [
-				"./src/[tenant]/module/media/*",
-			],
-			"@account/*": [
-				"./src/[tenant]/module/account/*",
-			],
-			"@client/*": [
-				"./src/[tenant]/module/client/*",
-			],
-			"@customer/*": [
-				"./src/[tenant]/module/customer/*",
-			],
-			"@event/*": [
-				"./src/[tenant]/module/event/*",
-			],
-			"@service/*": [
-				"./src/[tenant]/module/service/*",
-			],
-			"@member/*": [
-				"./src/[tenant]/module/member/*",
-			],
-			"@order/*": [
-				"./src/[tenant]/module/order/*",
-			],
-			"@absence/*": [
-				"./src/[tenant]/module/absence/*",
-			],
-			"@payment/*": [
-				"./src/[tenant]/module/payment/*",
-			],
-			"@businessProfile/*": [
-				"./src/[tenant]/module/business-profile/*",
-			],
-			"@tariffPlan/*": [
-				"./src/[tenant]/module/tariff-plan/*",
-			],
-			"@tariffPlanHistory/*": [
-				"./src/[tenant]/module/tariff-plan-history/*"
-			]
-		}
-	},
-	"angularCompilerOptions": {
-		"enableI18nLegacyMessageIdFormat": false,
-		"strictInjectionParameters": true,
-		"strictInputAccessModifiers": true,
-		"strictTemplates": true,
-		"strictStandalone": true,
-		"extendedDiagnostics": {
-			"checks": {
-				"unusedStandaloneImports": "error"
-			}
-		}
-	}
+  "compileOnSave": false,
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "paths": {
+      "@tenant/*": [
+        "./src/tenant/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@asset/*": [
+        "./src/asset/*"
+      ],
+      "@core/*": [
+        "./src/core/*"
+      ],
+      "@environment/*": [
+        "./src/environment/*"
+      ],
+      "@icon/*": [
+        "./src/asset/icon/*"
+      ],
+      "@identity/*": [
+        "./src/identity/*"
+      ],
+      "@scss/*": [
+        "./src/asset/scss/*"
+      ],
+      "@src/*": [
+        "./src/*"
+      ],
+      "@shared/*": [
+        "./src/shared/*"
+      ],
+      "@shared-kernel/*": [
+        "./src/shared-kernel/*"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "strictStandalone": true,
+    "extendedDiagnostics": {
+      "checks": {
+        "unusedStandaloneImports": "error"
+      }
+    }
+  }
 }
