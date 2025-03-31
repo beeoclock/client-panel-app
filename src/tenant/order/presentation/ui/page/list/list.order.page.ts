@@ -21,7 +21,6 @@ import {
 	standalone: true,
 	template: `
 		<kanban-order/>
-
 	`,
 	providers: [
 		{
