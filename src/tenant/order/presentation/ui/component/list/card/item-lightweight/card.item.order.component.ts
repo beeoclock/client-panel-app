@@ -222,8 +222,10 @@ export class CardItemLightweightOrderComponent {
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public constructor() {
-		afterNextRender(() => {
-			this.order.set(this.orderDto());
+		afterNextRender({
+			read: () => {
+				this.order.set(this.orderDto());
+			}
 		});
 		effect(() => {
 			const orderDto = this.orderDto();

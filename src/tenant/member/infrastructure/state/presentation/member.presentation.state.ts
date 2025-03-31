@@ -1,7 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {TranslateService} from "@ngx-translate/core";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
@@ -25,8 +24,6 @@ export type IMemberPresentationState = object;
 export class MemberPresentationState {
 
 	private readonly sharedUow = inject(SharedUow);
-
-	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly router = inject(Router);

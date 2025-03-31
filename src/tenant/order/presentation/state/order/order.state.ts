@@ -31,6 +31,7 @@ import {Router} from "@angular/router";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import OrderDetailsContainerComponent
 	from "@tenant/order/presentation/ui/component/details/order-details-container.component";
+import OrderFormContainerComponent from "@tenant/order/presentation/ui/component/form/order-form-container.component";
 
 export type IOrderState = IBaseState<EOrder>;
 
@@ -121,13 +122,13 @@ export class OrderState {
 	@Action(OrderActions.OpenFormToEditById)
 	public async openFormToEditByIdAction(ctx: StateContext<IOrderState>, action: OrderActions.OpenFormToEditById) {
 
-		const whacamoleId = 'edit-order-form-by-id-' + action.payload;
+		// const whacamoleId = 'edit-order-form-by-id-' + action.payload;
+		//
+		// if (this.whacAMaleProvider.componentRefMapById.has(whacamoleId)) {
+		// 	return;
+		// }
 
-		if (this.whacAMaleProvider.componentRefMapById.has(whacamoleId)) {
-			return;
-		}
-
-		const title = await this.translateService.instant('order.form.title.edit');
+		// const title = await this.translateService.instant('order.form.title.edit');
 		const orderDto = await this.sharedUow.order.repository.findByIdAsync(action.payload);
 
 		if (!orderDto) {
@@ -135,36 +136,69 @@ export class OrderState {
 			return;
 		}
 
-		const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");
+		// const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");
+		//
+		// const paymentEntity = await this.sharedUow.payment.findByOrderId(action.payload);
 
-		const paymentEntity = await this.sharedUow.payment.findByOrderId(action.payload);
+		// await this.whacAMaleProvider.buildItAsync({
+		// 	title,
+		// 	id: whacamoleId,
+		// 	component: OrderFormContainerComponent,
+		// 	componentInputs: {
+		// 		orderDto,
+		// 		paymentDto: paymentEntity.at(-1),
+		// 		isEditMode: true,
+		// 	},
+		// });
 
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			id: whacamoleId,
-			component: OrderFormContainerComponent,
+		ctx.dispatch(new OrderActions.OpenForm({
 			componentInputs: {
-				orderDto,
-				paymentDto: paymentEntity.at(-1),
-				isEditMode: true,
+				item: orderDto,
+				isEditMode: true
 			},
-		});
+		}));
 
 	}
 
 	@Action(OrderActions.OpenForm)
 	public async openFormAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.OpenForm): Promise<void> {
 
-		const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");
+		const activated = this.secondRouterOutletService.activated();
 
-		const {componentInputs, pushBoxInputs} = payload ?? {};
+		if (activated) {
+			if (activated instanceof OrderFormContainerComponent) {
+				const isEditMode = activated.isEditMode();
+				if (isEditMode) {
+					const {_id} = activated.order() ?? {};
+					if (_id === payload?.componentInputs?.item?._id) {
+						const action = new OrderActions.CloseForm();
+						ctx.dispatch(action);
+						return;
+					}
+				} else {
+					const action = new OrderActions.CloseForm();
+					ctx.dispatch(action);
+					return;
+				}
+			}
+		}
 
-		await this.whacAMaleProvider.buildItAsync({
-			title: this.translateService.instant('order.form.title.create'),
-			...pushBoxInputs,
-			component: OrderFormContainerComponent,
-			componentInputs,
-		});
+		if (payload?.componentInputs?.isEditMode) {
+			await this.router.navigate([{outlets: {second: ['order', payload.componentInputs.item?._id, 'form']}}]);
+		} else {
+			await this.router.navigate([{outlets: {second: ['order', 'form']}}]);
+		}
+
+		// const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");
+		//
+		// const {componentInputs, pushBoxInputs} = payload ?? {};
+		//
+		// await this.whacAMaleProvider.buildItAsync({
+		// 	title: this.translateService.instant('order.form.title.create'),
+		// 	...pushBoxInputs,
+		// 	component: OrderFormContainerComponent,
+		// 	componentInputs,
+		// });
 
 	}
 
@@ -339,7 +373,11 @@ export class OrderState {
 	}
 
 	@Action(OrderActions.OrderedServiceStatus)
-	public async orderedServiceStatus(ctx: StateContext<IOrderState>, {orderedServiceId, orderId, status}: OrderActions.OrderedServiceStatus) {
+	public async orderedServiceStatus(ctx: StateContext<IOrderState>, {
+		orderedServiceId,
+		orderId,
+		status
+	}: OrderActions.OrderedServiceStatus) {
 		const foundItems = await this.sharedUow.order.repository.findByIdAsync(orderId);
 		if (foundItems) {
 			const entity = EOrder.fromRaw(foundItems);
@@ -351,7 +389,11 @@ export class OrderState {
 	}
 
 	@Action(OrderActions.OrderedServiceState)
-	public async orderedServiceState(ctx: StateContext<IOrderState>, {orderedServiceId, orderId, state}: OrderActions.OrderedServiceState) {
+	public async orderedServiceState(ctx: StateContext<IOrderState>, {
+		orderedServiceId,
+		orderId,
+		state
+	}: OrderActions.OrderedServiceState) {
 		const foundItems = await this.sharedUow.order.repository.findByIdAsync(orderId);
 		if (foundItems) {
 			this.ngxLogger.debug('OrderState.orderedServiceState', foundItems);

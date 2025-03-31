@@ -89,6 +89,7 @@ export class CalendarWithSpecialistsState {
 
 		const data: IEvent_V2[] = [
 			...orders.reduce((acc, order) => {
+
 				if (order.services.length === 0) {
 					return acc;
 				}
@@ -117,27 +118,11 @@ export class CalendarWithSpecialistsState {
 						return;
 					}
 
-					const start = DateTime.fromISO(service.orderAppointmentDetails.start);
-
-					// Check if appointment start is in the correct range
-					if (start.hasSame(DateTime.fromISO(params.start), 'day') === false) {
-						return;
-					}
-
-					const end = DateTime.fromISO(service.orderAppointmentDetails.end);
-
-					const serviceStartTime = start.toFormat('HH:mm');
-					const serviceEndTime = end.toFormat('HH:mm');
-
-					if (serviceEndTime < serviceStartTime) {
-						return;
-					}
-
-					if (serviceStartTime < startTime && serviceEndTime < startTime) {
-						return;
-					}
-
-					if (serviceStartTime > endTime && serviceEndTime > endTime) {
+					if (
+						!(service.orderAppointmentDetails.start >= params.start && service.orderAppointmentDetails.start < params.end) &&
+						!(service.orderAppointmentDetails.end > params.start && service.orderAppointmentDetails.end <= params.end) &&
+						!(service.orderAppointmentDetails.start < params.start && service.orderAppointmentDetails.end > params.end)
+					) {
 						return;
 					}
 

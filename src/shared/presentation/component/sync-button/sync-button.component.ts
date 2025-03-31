@@ -191,8 +191,6 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 				}
 			});
 
-			// console.log('state', this.state);
-
 			const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
 			this.lastSynchronizedIn = syncState?.options?.updatedSince || new Date(0).toISOString();
 			this.changeDetectorRef.detectChanges();

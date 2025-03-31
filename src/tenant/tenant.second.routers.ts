@@ -5,6 +5,7 @@ import {memberResolver} from "@tenant/member/presentation/resolver/member.resolv
 import {serviceResolver} from "@tenant/service/presentation/resolver/service.resolver";
 import {orderResolver} from "@tenant/order/presentation/resolver/order.resolver";
 import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver";
+import {paymentByOrderIdResolver} from "@tenant/payment/presentation/resolver/payment-by-order-id.resolver";
 
 export const tenantSecondRouters: Routes = [
 	/**
@@ -152,7 +153,8 @@ export const tenantSecondRouters: Routes = [
 		path: 'order/:id/form',
 		outlet: 'second',
 		resolve: {
-			item: orderResolver,
+			order: orderResolver,
+			payment: paymentByOrderIdResolver
 		},
 		data: {
 			isEditMode: true
@@ -163,12 +165,6 @@ export const tenantSecondRouters: Routes = [
 	/**
 	 * Order
 	 */
-	// {
-	// 	path: 'order/form',
-	// 	outlet: 'second',
-	// 	runGuardsAndResolvers: 'always',
-	// 	loadComponent: () => import('@tenant/order/presentation/ui/component/form/order-form-container.component')
-	// },
 	{
 		path: 'event/:id',
 		outlet: 'second',
@@ -178,18 +174,6 @@ export const tenantSecondRouters: Routes = [
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/event/presentation/ui/component/details/container.details.component')
 	},
-	// {
-	// 	path: 'order/:id/form',
-	// 	outlet: 'second',
-	// 	resolve: {
-	// 		item: orderResolver,
-	// 	},
-	// 	data: {
-	// 		isEditMode: true
-	// 	},
-	// 	runGuardsAndResolvers: 'always',
-	// 	loadComponent: () => import('@tenant/order/presentation/ui/component/form/order-form-container.component')
-	// },
 	/**
 	 * App
 	 */

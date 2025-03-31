@@ -15,8 +15,6 @@ import {
 } from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
 import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
-import {Reactive} from "@core/cdk/reactive";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@tenant/order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
@@ -31,6 +29,9 @@ import {IMember} from "@tenant/member/domain/interface/i.member";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {
+	ServicePopoverChipComponent
+} from "@src/component/smart/order/form/service/list/item/chip/service/service-popover.chip.component";
 
 @Component({
 	standalone: true,
@@ -41,15 +42,19 @@ import {
 		ItemV2ListServiceFormOrderComponent,
 		PrimaryLinkButtonDirective,
 		TranslateModule,
+		ServicePopoverChipComponent,
 	],
 	template: `
 		<div class="h-12 px-4 py-2 bg-neutral-50 border-slate-400 justify-start items-center gap-2 flex w-full">
 			<div class="text-neutral-700 text-base font-bold w-full">
 				{{ 'keyword.capitalize.services' | translate }}
 			</div>
-			<button (click)="addService()" primaryLink class="w-8 rounded-lg justify-center items-center flex !py-0">
+			<button id="app-list-service-form-order-component-add-service" primaryLink
+					class="w-8 rounded-lg justify-center items-center flex !py-0">
 				<i class="bi bi-plus-circle text-2xl"></i>
 			</button>
+			<app-service-popover-chip-component trigger="app-list-service-form-order-component-add-service"
+												(result)="addService($event)"/>
 		</div>
 		<div class="flex-col justify-start items-start flex">
 			<div class="bg-white flex-col justify-start items-start flex divide-y border border-gray-200 rounded-2xl">
@@ -66,7 +71,7 @@ import {
 		class: 'flex-col justify-start items-start flex'
 	}
 })
-export class ListServiceFormOrderComponent extends Reactive implements OnChanges, OnInit {
+export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 
 	public readonly setupPartialData = input<{
 		defaultAppointmentStartDateTimeIso?: string;
@@ -89,7 +94,6 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 	public readonly baseLanguage!: LanguageCodeEnum;
 
 	readonly #translateService = inject(TranslateService);
-	readonly #whacAMaleProvider = inject(WhacAMoleProvider);
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
 	public ngOnInit() {
@@ -128,42 +132,8 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 		this.#changeDetectorRef.detectChanges();
 	}
 
-	public async addService() {
-
-		const {SelectServiceWhacAMoleComponent} = await import("@tenant/service/presentation/push-box/select-service.whac-a-mole.component");
-
-
-		const pushBoxWrapperComponentRef = await this.#whacAMaleProvider.buildItAsync({
-			component: SelectServiceWhacAMoleComponent,
-			componentInputs: {
-				multiple: false,
-			}
-		});
-
-		if (!pushBoxWrapperComponentRef) {
-			return;
-		}
-
-		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
-
-		if (!renderedComponentRef) {
-			return;
-		}
-
-		const {instance} = renderedComponentRef;
-
-		if (instance instanceof SelectServiceWhacAMoleComponent) {
-			instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(async () => {
-
-				const {newSelectedServiceList} = instance;
-				const {0: service} = newSelectedServiceList;
-				this.addServiceFromServiceList([service]);
-
-				await this.#whacAMaleProvider.destroyComponent(SelectServiceWhacAMoleComponent);
-
-			});
-		}
-
+	public async addService($event: IService.DTO) {
+		this.addServiceFromServiceList([$event]);
 	}
 
 	public addServiceFromServiceList(serviceList: IService.DTO[]) {
@@ -179,7 +149,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 				foundLanguageVersion = service.languageVersions[0];
 			}
 
-			let start = this.setupPartialData().defaultAppointmentStartDateTimeIso ?? DateTime.now().toJSDate().toISOString();
+			let start = this.setupPartialData()?.defaultAppointmentStartDateTimeIso ?? DateTime.now().toJSDate().toISOString();
 
 			const attendees: IAttendeeDto[] = [];
 			const lastService = this.selectedServicePlusControlList[this.selectedServicePlusControlList.length - 1];
@@ -193,18 +163,21 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 				}
 				start = orderAppointmentDetails.end ?? start;
 			} else {
-				if (setupPartialData.customer) {
-					attendees.push(
-						{
-							customer: setupPartialData.customer,
-							_id: ObjectID().toHexString(),
-							createdAt: DateTime.now().toJSDate().toISOString(),
-							updatedAt: DateTime.now().toJSDate().toISOString(),
-							object: "AttendeeDto",
-							state: StateEnum.active,
-							stateHistory: [],
-						} as unknown as IAttendeeDto
-					);
+				if (setupPartialData) {
+
+					if (setupPartialData.customer) {
+						attendees.push(
+							{
+								customer: setupPartialData.customer,
+								_id: ObjectID().toHexString(),
+								createdAt: DateTime.now().toJSDate().toISOString(),
+								updatedAt: DateTime.now().toJSDate().toISOString(),
+								object: "AttendeeDto",
+								state: StateEnum.active,
+								stateHistory: [],
+							} as unknown as IAttendeeDto
+						);
+					}
 				}
 			}
 

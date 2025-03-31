@@ -70,15 +70,16 @@ export class SecondRouterOutlet {
 	public constructor() {
 		effect(() => {
 			const routerOutlet = this.routerOutlet()
-			console.log({routerOutlet})
 			this.updateState();
 		});
-		afterNextRender(() => {
-			this.updateState();
-			const routerOutlet = this.routerOutlet();
-			if (routerOutlet) {
-				if (routerOutlet.isActivated) {
-					this.secondRouterOutletService.activated.set(routerOutlet.component);
+		afterNextRender({
+			read: () => {
+				this.updateState();
+				const routerOutlet = this.routerOutlet();
+				if (routerOutlet) {
+					if (routerOutlet.isActivated) {
+						this.secondRouterOutletService.activated.set(routerOutlet.component);
+					}
 				}
 			}
 		})
@@ -90,7 +91,6 @@ export class SecondRouterOutlet {
 
 	public activate($event: Type<unknown>) {
 		const previous = this.secondRouterOutletService.activated();
-		console.log({previous})
 		this.secondRouterOutletService.activated.set($event);
 		this.secondRouterOutletService.deactivated.set(previous);
 	}

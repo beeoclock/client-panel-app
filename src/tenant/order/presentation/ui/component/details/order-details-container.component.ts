@@ -71,7 +71,8 @@ export class OrderDetailsContainerComponent {
 		if (!this.item()) {
 			return;
 		}
-		this.store.dispatch(new OrderActions.OpenFormToEditById(this.item()?._id));
+		const action = new OrderActions.OpenFormToEditById(this.item()?._id);
+		this.store.dispatch(action);
 	}
 
 	protected readonly paymentStatusEnum = PaymentStatusEnum;
