@@ -27,8 +27,8 @@
       "dom"
     ],
     "paths": {
-      "@[tenant]/*": [
-        "./src/[tenant]/*"
+      "@tenant/*": [
+        "./src/tenant/*"
       ],
       "@app/*": [
         "./src/app/*"
@@ -54,8 +54,8 @@
       "@src/*": [
         "./src/*"
       ],
-      "@utility/*": [
-        "./src/utility/*"
+      "@shared/*": [
+        "./src/shared/*"
       ],
       "@shared-kernel/*": [
         "./src/shared-kernel/*"

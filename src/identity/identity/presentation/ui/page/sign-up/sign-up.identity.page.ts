@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 import {SignUpComponent} from "@identity/identity/presentation/component/sign-up.component/sign-up.component";
 
 @Component({

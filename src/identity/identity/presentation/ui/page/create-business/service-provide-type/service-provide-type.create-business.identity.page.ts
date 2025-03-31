@@ -1,15 +1,15 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
-import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
+import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
+import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
-import {ServiceProvideType} from "@utility/domain/service-provide-type";
+import {ServiceProvideType} from "@shared/domain/service-provide-type";
 import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 
 @Component({
 	selector: 'app-service-provide-type-create-business-identity-page',

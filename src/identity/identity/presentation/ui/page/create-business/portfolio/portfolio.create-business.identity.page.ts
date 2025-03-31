@@ -1,14 +1,14 @@
 import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
-import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
+import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
+import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {
 	GalleryBusinessProfileComponent
-} from "@[tenant]/client/presentation/ui/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
+} from "@tenant/client/presentation/ui/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
 
 @Component({
 	selector: 'app-portfolio-create-business-identity-page',

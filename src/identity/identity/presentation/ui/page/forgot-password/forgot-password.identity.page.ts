@@ -10,16 +10,16 @@ import {
 import ResetPasswordForm from "@identity/identity/presentation/form/reset-password.form";
 import {Router} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
+import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
 import {ToastController} from "@ionic/angular/standalone";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {ForgotPasswordApiAdapter} from "@identity/identity/infrastructure/api/forgot-password.api.adapter";
 import {NgOptimizedImage} from "@angular/common";
-import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {MS_THREE_SECONDS} from "@shared/domain/const/c.time";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 
 @Component({
 	selector: 'app-forgot-password-identity-page',

@@ -1,12 +1,12 @@
-import {ServiceService} from "@core/business-logic/service/service/service.service";
-import {PaymentService} from "@core/business-logic/payment/service/payment.service";
-import {OrderService} from "@core/business-logic/order/service/order.service";
-import {MemberService} from "@core/business-logic/member/service/member.service";
-import {CustomerService} from "@core/business-logic/customer/service/customer.service";
-import {BusinessProfileService} from "@core/business-logic/business-profile/service/business-profile.service";
-import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
-import {TariffPlanService} from "@core/business-logic/tariif-plan/service/tariff-plan.service";
-import {TariffPlanHistoryService} from "@core/business-logic/tariif-plan-history/service/tariff-plan-history.service";
+import {ServiceService} from "@tenant/service/domain/service/service.service";
+import {PaymentService} from "@tenant/payment/domain/service/payment.service";
+import {OrderService} from "@tenant/order/domain/service/order.service";
+import {MemberService} from "@tenant/member/domain/service/member.service";
+import {CustomerService} from "@tenant/customer/domain/service/customer.service";
+import {BusinessProfileService} from "@tenant/business-profile/domain/service/business-profile.service";
+import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
+import {TariffPlanService} from "@tenant/tariff-plan/domain/service/tariff-plan.service";
+import {TariffPlanHistoryService} from "@tenant/tariff-plan-history/domain/service/tariff-plan-history.service";
 
 /**
  * Shared Unit of Work

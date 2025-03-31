@@ -13,8 +13,8 @@ import {
 import {IonDatetime, IonPopover} from "@ionic/angular/standalone";
 import ObjectID from "bson-objectid";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {Reactive} from "@utility/cdk/reactive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {Reactive} from "@core/cdk/reactive";
+import {HumanizeDurationPipe} from "@shared/presentation/pipes/humanize-duration.pipe";
 import {DateTime} from "luxon";
 import {filter} from "rxjs";
 import {is} from "@src/core/shared/checker";

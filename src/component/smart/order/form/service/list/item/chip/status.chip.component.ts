@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, input, output, viewChild, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import ObjectID from "bson-objectid";
-import {OrderServiceStatusEnum} from "@core/business-logic/order/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {FormControl} from "@angular/forms";
 import {
 	StatusIconComponent
-} from "@[tenant]/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
 import {NgClass} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 

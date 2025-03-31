@@ -575,7 +575,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 		const states = this.loadAllSyncStates();
 		if (!states[moduleName]) {
 			states[moduleName] = {
-				[tenant]: syncState,
+				tenant: syncState,
 			};
 		} else {
 			states[moduleName][tenant] = syncState;

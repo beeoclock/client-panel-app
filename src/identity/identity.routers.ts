@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import IdentityRouterOutletComponent from "@identity/identity.router-outlet.component";
-import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
+import {tokenResolver} from "@shared/presentation/resolver/token.resolver";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
