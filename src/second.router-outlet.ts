@@ -64,6 +64,9 @@ export class SecondRouterOutlet {
 	@HostBinding('style.margin-right.px')
 	public marginRight = -375;
 
+	@HostBinding('style.right.px')
+	public right = -375;
+
 	public constructor() {
 		effect(() => {
 			const routerOutlet = this.routerOutlet()
@@ -113,8 +116,10 @@ export class SecondRouterOutlet {
 	private updateState() {
 		if (this.secondRouterOutletService.activated()) {
 			this.marginRight = 0;
+			this.right = 0;
 		} else {
 			this.marginRight = -this.width;
+			this.right = -this.width;
 		}
 	}
 }

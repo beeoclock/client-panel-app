@@ -95,7 +95,7 @@ type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsen
 		}
 	`,
 	host: {
-		class: 'absolute w-full',
+		class: 'absolute w-[calc(100%-20px)]',
 		'[class.cursor-all-scroll]': 'draggable',
 		'[class.select-none]': 'draggable'
 	}
