@@ -1,5 +1,5 @@
 import {
-	afterRender,
+	afterNextRender,
 	Component,
 	effect,
 	ElementRef,
@@ -13,6 +13,7 @@ import {
 import {Router, RouterModule, RouterOutlet} from '@angular/router';
 import {WhacAMoleResizeContainer} from "@shared/presentation/whac-a-mole/whac-a-mole.resize-container";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-second-router-outlet',
@@ -21,6 +22,7 @@ import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 	imports: [
 		RouterModule,
 		WhacAMoleResizeContainer,
+		TranslatePipe,
 	],
 	template: `
 		<div class="w-full max-md:!w-full top-0 right-0 h-screen z-50 flex flex-col lg:relative">
@@ -28,7 +30,7 @@ import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 										  (mouseDownUp)="mouseDownUp($event)"/>
 			<div class="flex justify-between p-1 border-b">
 				<div class="truncate font-bold p-2">
-					[TODO]
+					{{ routerOutlet()?.activatedRouteData?.title | translate }}
 				</div>
 				<div class="flex gap-2">
 					<button (click)="close()" type="button"
@@ -64,23 +66,16 @@ export class SecondRouterOutlet {
 
 	public constructor() {
 		effect(() => {
-			const routerOutlet =  this.routerOutlet()
+			const routerOutlet = this.routerOutlet()
 			console.log({routerOutlet})
 			this.updateState();
 		});
-		afterRender(() => {
+		afterNextRender(() => {
 			this.updateState();
-			const routerOutlet =  this.routerOutlet()
+			const routerOutlet = this.routerOutlet();
 			if (routerOutlet) {
 				if (routerOutlet.isActivated) {
 					this.secondRouterOutletService.activated.set(routerOutlet.component);
-					this.secondRouterOutletService.deactivated.set(null);
-				} else {
-					const previous = this.secondRouterOutletService.activated();
-					if (previous) {
-						this.secondRouterOutletService.activated.set(null);
-						this.secondRouterOutletService.deactivated.set(previous);
-					}
 				}
 			}
 		})
@@ -91,8 +86,10 @@ export class SecondRouterOutlet {
 	}
 
 	public activate($event: Type<unknown>) {
+		const previous = this.secondRouterOutletService.activated();
+		console.log({previous})
 		this.secondRouterOutletService.activated.set($event);
-		this.secondRouterOutletService.deactivated.set(null);
+		this.secondRouterOutletService.deactivated.set(previous);
 	}
 
 	public deactivate($event: Type<unknown>) {

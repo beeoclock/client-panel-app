@@ -11,7 +11,7 @@ import {
 	input,
 	Renderer2
 } from "@angular/core";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {
 	CalendarWithSpecialistsQueries
@@ -41,23 +41,25 @@ import {toSignal} from "@angular/core/rxjs-interop";
 export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterViewInit {
 
 	public readonly startInMinutes = input.required<number>();
-
 	public readonly durationInMinutes = input.required<number>();
-
 	public readonly member = input.required<IMember.EntityRaw>();
+
 	public readonly showSquare = new BooleanState(false);
+
 	@HostBinding('style.touch-action')
 	public touchAction = 'auto';
-	private readonly translateService = inject(TranslateService);
+
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
-	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
-	public readonly selectedDate = toSignal(this.selectedDate$);
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly renderer2 = inject(Renderer2);
 	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
+	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+	public readonly selectedDate = toSignal(this.selectedDate$);
+
+	@HostBinding('attr.data-datetime-iso')
 	public readonly datetimeISO = computed(() => {
 		const selectedDate = this.selectedDate();
 
@@ -66,18 +68,9 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 		}
 
 		const baseDateTime = selectedDate.startOf('day');
+		const minute = this.startInMinutes();
 
-		let startDateTime = baseDateTime
-			.plus({
-				minutes: this.startInMinutes(),
-			});
-
-		if (startDateTime.offset !== baseDateTime.offset) {
-
-			const offsetDifference = baseDateTime.offset - startDateTime.offset;
-			startDateTime = startDateTime.plus({hours: offsetDifference / 60});
-
-		}
+		const startDateTime = baseDateTime.set({minute,});
 
 		return startDateTime.toJSDate().toISOString();
 	});
@@ -86,6 +79,9 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 		effect(() => {
 			const activated = this.secondRouterOutletService.activated();
 			if (activated instanceof AdditionalMenuComponent) {
+				if (this.showSquare.isOn) {
+					this.showSelectedSquare(false);
+				}
 				if (activated.datetimeISO() === this.datetimeISO() && activated.member()?._id === this.member()._id) {
 					this.showSelectedSquare(true);
 				}
@@ -116,52 +112,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 	}
 
 	public async openAdditionalMenu() {
-
-		// const title = this.translateService.instant('event.additionalMenu.title');
-
-		await this.router.navigate([{outlets: {second: ['additional-menu', this.member()._id]}}], {
-			queryParams: {
-				datetimeISO: this.datetimeISO()
-			}
-		})
-
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	component: AdditionalMenuComponent,
-		// 	title,
-		// 	callback: {
-		// 		on: {
-		// 			destroy: {
-		// 				after: () => {
-		// 					this.ngxLogger.debug('Callback:destroy:after');
-		// 					this.showSelectedSquare(false);
-		// 				}
-		// 			},
-		// 			update: {
-		// 				before: (componentInputs) => {
-		// 					this.ngxLogger.debug('Callback:update:before', componentInputs, this);
-		// 					if (componentInputs) {
-		// 						const {
-		// 							datetimeISO: datetimeISOComponent,
-		// 							member: memberComponent
-		// 						} = componentInputs as { datetimeISO: string; member: IMember.EntityRaw };
-		//
-		// 						this.ngxLogger.debug('Callback:update:before', {datetimeISOComponent, memberComponent});
-		//
-		// 						if (datetimeISOComponent !== datetimeISO || memberComponent?._id !== this.member()._id) {
-		// 							this.showSelectedSquare(false);
-		// 						}
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 	},
-		// 	componentInputs: {
-		// 		datetimeISO,
-		// 		member: this.member(),
-		// 		callback
-		// 	}
-		// });
-
+		await this.router.navigate([{outlets: {second: ['additional-menu', this.member()._id, this.datetimeISO()]}}])
 	}
 
 	public showSelectedSquare(show: boolean) {

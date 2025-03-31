@@ -25,14 +25,11 @@ export class CustomerPresentationState {
 
 	@Action(CustomerPresentationActions.CloseDetails)
 	public async closeDetails() {
-
 		await this.router.navigate([{outlets: {second: null}}]);
-
 	}
 
 	@Action(CustomerPresentationActions.CloseForm)
 	public async closeForm() {
-
 		await this.router.navigate([{outlets: {second: null}}]);
 	}
 

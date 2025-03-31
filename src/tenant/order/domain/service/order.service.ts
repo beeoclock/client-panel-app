@@ -26,4 +26,8 @@ export class OrderService extends BaseService<ENTITY_RAW> {
 		).toArray();
 	}
 
+	public async findByServiceIds(ids: string[]) {
+		return this.db.filter(({services}) => services.some(({_id}) => ids.includes(_id))).toArray();
+	}
+
 }

@@ -175,7 +175,8 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	}
 
 	private async openEventDetails(event: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>) {
-		this.store.dispatch(new EventActions.OpenDetails(event));
+		const action = new EventActions.OpenDetails(event);
+		this.store.dispatch(action);
 	}
 
 }
