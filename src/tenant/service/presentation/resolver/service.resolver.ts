@@ -11,7 +11,7 @@ export const serviceResolver: ResolveFn<EOrder | undefined> = (route: ActivatedR
 	const sharedUow = inject(SharedUow);
 	const {id} = route.params;
 
-	return sharedUow.order.repository.findById$(id).pipe(
+	return sharedUow.service.repository.findById$(id).pipe(
 		filter(is.not_null_or_undefined<IOrder.EntityRaw>),
 		map((item) => EOrder.fromRaw(item)),
 	);
