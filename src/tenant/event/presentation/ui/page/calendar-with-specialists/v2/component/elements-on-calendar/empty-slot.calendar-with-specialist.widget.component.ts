@@ -78,10 +78,10 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 	public constructor() {
 		effect(() => {
 			const activated = this.secondRouterOutletService.activated();
+			if (this.showSquare.isOn) {
+				this.showSelectedSquare(false);
+			}
 			if (activated instanceof AdditionalMenuComponent) {
-				if (this.showSquare.isOn) {
-					this.showSelectedSquare(false);
-				}
 				if (activated.datetimeISO() === this.datetimeISO() && activated.member()?._id === this.member()._id) {
 					this.showSelectedSquare(true);
 				}

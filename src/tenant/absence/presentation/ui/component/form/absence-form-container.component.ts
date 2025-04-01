@@ -166,8 +166,15 @@ import {
 export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
 	public readonly item = input<IAbsence.EntityRaw>();
-	public readonly defaultValue = input<Partial<IAbsence.DTO>>({
+	public readonly defaultValue = input({
 		entireBusiness: true,
+	}, {
+		transform: (value) => {
+			if (typeof value === 'string') {
+				return JSON.parse(value) as Partial<IAbsence.DTO>;
+			}
+			return value as Partial<IAbsence.DTO>;
+		}
 	});
 
 	public readonly isEditMode = input<boolean>(false);

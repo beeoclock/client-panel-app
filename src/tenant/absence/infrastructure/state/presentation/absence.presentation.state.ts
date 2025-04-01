@@ -133,10 +133,16 @@ export class AbsencePresentationState {
 			}
 		}
 
+		const {defaultValue} = payload?.componentInputs ?? {defaultValue: {}};
+
+		const queryParams = {
+			defaultValue: JSON.stringify(defaultValue),
+		}
+
 		if (payload?.componentInputs?.isEditMode) {
-			await this.router.navigate([{outlets: {second: ['absence', payload.componentInputs.item?._id, 'form']}}]);
+			await this.router.navigate([{outlets: {second: ['absence', payload.componentInputs.item?._id, 'form']}}], {queryParams});
 		} else {
-			await this.router.navigate([{outlets: {second: ['absence', 'form']}}]);
+			await this.router.navigate([{outlets: {second: ['absence', 'form']}}], {queryParams});
 		}
 
 		// const {AbsenceFormContainerComponent} = await import("@tenant/absence/presentation/ui/component/form/absence-form-container.component");
