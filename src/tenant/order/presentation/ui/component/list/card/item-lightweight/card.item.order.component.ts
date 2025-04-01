@@ -113,7 +113,8 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 									<div
 										class="inline-flex items-center gap-2 rounded-md bg-[#F8FAFC] text-sm font-medium py-2.5 px-3 text-[#11141A]">
 										@if (group.specialist.avatar) {
-											<img class="w-[26px] h-[26px] rounded-full object-cover" [src]="group.specialist.avatar"
+											<img class="w-[26px] h-[26px] rounded-full object-cover"
+												 [src]="group.specialist.avatar"
 												 alt="Avatar">
 										} @else {
 											<div
@@ -165,9 +166,9 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 								}
 							</div>
 						}
+						<div class="flex justify-between p-2">
 
-						@if (order.businessNote?.length) {
-							<div class="flex justify-between p-2">
+							@if (order.businessNote?.length) {
 								<div class="flex-1">
 									<div class="text-neutral-500">
 										{{ 'keyword.capitalize.businessNote' | translate }}
@@ -176,13 +177,13 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 										{{ order.businessNote | noData }}
 									</div>
 								</div>
-							</div>
-						}
+							}
+						</div>
 					</div>
 				</div>
 			</bee-card>
 		}
-	`
+    `
 })
 export class CardItemLightweightOrderComponent {
 
