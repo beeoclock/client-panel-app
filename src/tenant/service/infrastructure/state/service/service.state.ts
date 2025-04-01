@@ -4,8 +4,6 @@ import {Action, State, StateContext} from "@ngxs/store";
 import {baseDefaults, IBaseState} from "@shared/state/base/base.state";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
-import {TranslateService} from "@ngx-translate/core";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EService from "@tenant/service/domain/entity/e.service";
 import {environment} from "@environment/environment";
@@ -15,6 +13,7 @@ import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import ServiceDetails from "@tenant/service/presentation/ui/component/service-details/service-details";
 import ServiceContainerFormComponent
 	from "@tenant/service/presentation/ui/component/form/service-container–form/service-container–form.component";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 export type IServiceState = IBaseState<EService>
 
@@ -34,8 +33,6 @@ export class ServiceState {
 
 	private readonly sharedUow = inject(SharedUow);
 
-	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
-	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly router = inject(Router);
 	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
@@ -169,7 +166,11 @@ export class ServiceState {
 			const entity = EService.fromRaw(foundItems);
 			entity.changeState(state);
 			await this.sharedUow.service.repository.updateAsync(entity);
-			await this.updateOpenedDetails(ctx, {payload: entity});
+			let action: unknown = new ServiceActions.UpdateOpenedDetails(entity);
+			if (entity.state === StateEnum.deleted) {
+				action = new ServiceActions.CloseDetails();
+			}
+			ctx.dispatch(action)
 		}
 	}
 

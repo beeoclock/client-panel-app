@@ -11,6 +11,7 @@ import {IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 	template: `
 		<ion-select
 			[formControl]="control()"
+			[multiple]="true"
 			class="!min-h-0 px-4 py-3 border border-beeColor-300 rounded-2xl h-full"
 			fill="solid"
 			interface="popover">
@@ -58,9 +59,5 @@ export class IonSelectStateComponent implements OnInit {
 		if (!this.addAllOption()) {
 			return;
 		}
-		this.stateList.unshift({
-			id: null,
-			label: this.translateService.instant('keyword.status.all')
-		});
 	}
 }

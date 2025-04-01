@@ -9,7 +9,7 @@ import LayoutListComponent from "@shared/layout.list.component";
 	encapsulation: ViewEncapsulation.None,
 	template: `
 		<customer-filter-component  />
-		<customer-table-list-component class="flex flex-1 flex-col h-px"/>
+		<customer-table-list-component class="flex flex-1 flex-col"/>
 	`,
 	imports: [
 		TableListComponent,

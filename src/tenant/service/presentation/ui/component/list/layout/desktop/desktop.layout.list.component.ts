@@ -9,7 +9,7 @@ import {FilterComponent} from "@tenant/service/presentation/ui/component/filter/
 	encapsulation: ViewEncapsulation.None,
 	template: `
 		<service-filter-component />
-		<service-table-list-component class="flex flex-1 flex-col h-px"/>
+		<service-table-list-component class="flex flex-1 flex-col"/>
 
 	`,
 	imports: [
