@@ -30,13 +30,15 @@ import {
 import {
 	BusinessNoteIconComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/business-note.icon.component";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-order-event-calendar-with-specialist-widget-component',
 	template: `
 		<div class="flex gap-1 items-center justify-between">
 			<div class="text-xs dark:text-sky-100">
-				{{ event().start | date: 'HH:mm' }} - {{ event().end | date: 'HH:mm' }}
+				{{ getAttendeesInformation() }}
 			</div>
 			<div class="flex gap-1">
 				<app-first-time-icon-component
@@ -48,11 +50,14 @@ import {
 				<app-status-icon-component [status]="event().originalData.service.status"/>
 			</div>
 		</div>
-		<div class="text-xs font-bold dark:text-sky-100">
-			{{ getAttendeesInformation() }}
-		</div>
+<!--		<div class="text-xs font-bold dark:text-sky-100">-->
+<!--			{{ getAttendeesInformation() }}-->
+<!--		</div>-->
 		<div class="text-xs font-medium">
 			{{ event().originalData.service.serviceSnapshot.languageVersions[0].title }}
+		</div>
+		<div class="text-xs font-medium">
+			{{ event().start | date: 'HH:mm' }} - {{ event().end | date: 'HH:mm' }}
 		</div>
 	`,
 	standalone: true,
@@ -79,6 +84,9 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	public readonly orderServiceStatusEnum = OrderServiceStatusEnum;
 	private readonly store = inject(Store);
+	private readonly translateService = inject(TranslateService);
+
+	public readonly anonymous = this.translateService.instant('keyword.capitalize.anonymous')
 
 	@HostBinding('style.background-color')
 	public get backgroundColor() {
@@ -153,6 +161,11 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 			}
 
 			const {customer} = attendant.originalData as IAttendee;
+
+			if (customer.customerType === CustomerTypeEnum.anonymous) {
+				acc.push(this.anonymous);
+				return acc;
+			}
 
 			switch (true) {
 				case !!customer?.firstName && !!customer?.lastName:
