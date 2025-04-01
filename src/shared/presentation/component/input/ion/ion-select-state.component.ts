@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -32,13 +32,11 @@ import {IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IonSelectStateComponent implements OnInit {
+export class IonSelectStateComponent {
 
 	public readonly id = input('');
 
 	public readonly control = input(new FormControl());
-
-	public readonly addAllOption = input(true);
 
 	private readonly translateService = inject(TranslateService);
 
@@ -51,13 +49,4 @@ export class IonSelectStateComponent implements OnInit {
 		label: this.translateService.instant(`keyword.state.plural.${state}`)
 	}));
 
-	public ngOnInit(): void {
-		this.initAllOption();
-	}
-
-	private initAllOption() {
-		if (!this.addAllOption()) {
-			return;
-		}
-	}
 }
