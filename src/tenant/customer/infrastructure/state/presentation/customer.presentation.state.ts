@@ -36,9 +36,26 @@ export class CustomerPresentationState {
 	@Action(CustomerPresentationActions.UpdateOpenedDetails)
 	public async updateOpenedDetails(ctx: StateContext<ICustomerPresentationState>, {payload}: CustomerPresentationActions.UpdateOpenedDetails) {
 
-		await this.router.navigate([{outlets: {second: ['customer', payload._id]}}], {
-			onSameUrlNavigation: 'reload',
-		});
+		const activated = this.secondRouterOutletService.activated();
+
+		if (activated) {
+
+			if (activated instanceof CustomerDetailsContainerComponent) {
+
+				const {_id} = activated.item() ?? {};
+
+				if (_id === payload._id) {
+
+
+					await this.router.navigate([{outlets: {second: ['customer', payload._id]}}], {
+						onSameUrlNavigation: 'reload',
+					});
+
+				}
+
+			}
+
+		}
 
 	}
 
@@ -86,7 +103,7 @@ export class CustomerPresentationState {
 		}
 
 		if (payload?.componentInputs?.isEditMode) {
-			await this.router.navigate([{outlets: {second: ['customer',  payload.componentInputs.item?._id, 'form']}}]);
+			await this.router.navigate([{outlets: {second: ['customer', payload.componentInputs.item?._id, 'form']}}]);
 		} else {
 			await this.router.navigate([{outlets: {second: ['customer', 'form']}}]);
 		}

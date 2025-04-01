@@ -46,9 +46,25 @@ export class MemberPresentationState {
 	@Action(MemberPresentationActions.UpdateOpenedDetails)
 	public async updateOpenedDetails(ctx: StateContext<IMemberPresentationState>, {payload}: MemberPresentationActions.UpdateOpenedDetails) {
 
-		await this.router.navigate([{outlets: {second: ['member', payload._id]}}], {
-			onSameUrlNavigation: 'reload',
-		});
+		const activated = this.secondRouterOutletService.activated();
+
+		if (activated) {
+
+			if (activated instanceof MemberDetailsContainerComponent) {
+
+				const {_id} = activated.item() ?? {};
+
+				if (_id === payload._id) {
+
+					await this.router.navigate([{outlets: {second: ['member', payload._id]}}], {
+						onSameUrlNavigation: 'reload',
+					});
+
+				}
+
+			}
+
+		}
 
 	}
 

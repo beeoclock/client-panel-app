@@ -51,9 +51,27 @@ export class ServiceState {
 
 	@Action(ServiceActions.UpdateOpenedDetails)
 	public async updateOpenedDetails(ctx: StateContext<IServiceState>, {payload}: ServiceActions.UpdateOpenedDetails) {
-		await this.router.navigate([{outlets: {second: ['service', payload._id]}}], {
-			onSameUrlNavigation: 'reload',
-		});
+
+		const activated = this.secondRouterOutletService.activated();
+
+		if (activated) {
+
+			if (activated instanceof ServiceDetails) {
+
+				const {_id} = activated.item() ?? {};
+
+				if (_id === payload._id) {
+
+					await this.router.navigate([{outlets: {second: ['service', payload._id]}}], {
+						onSameUrlNavigation: 'reload',
+					});
+
+				}
+
+			}
+
+		}
+
 	}
 
 	@Action(ServiceActions.OpenDetails)
