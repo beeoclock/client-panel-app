@@ -22,7 +22,7 @@ Please provide a short summary explaining what this PR does.
 ### **1. Login**
 - [ ] Log in with email and password, assert successful login
 
-### **3. Calendar**
+### **2. Calendar**
 - [ ] Create an order on the calendar, check email notification, and assert successful creation
 - [ ] assert correctly presented order on the calendar grid
 - [ ] Edit an order on the calendar, assert successful update
@@ -33,69 +33,69 @@ Please provide a short summary explaining what this PR does.
 - [ ] create order with anonymous client and assert successful creation
 - [ ] create with guest client and assert successful creation
 
-### **4. Absences**
+### **3. Absences**
 - [ ] Create an absence for a future date, assert successful creation
 - [ ] Edit an absence for a future date, assert successful update
 - [ ] Create an absence for the current time, assert successful creation
 - [ ] Click on the absence module, create an absence, assert successful creation, then deactivate and delete it
 - [ ] Verify proper state on the absence grid
 
-### **5. Clients**
-- [ ] Open the client search module, change filter to "All Status", then deactivate and activate a client, assert status change
+### **4. Clients**
+- [ ] Open the client search module, select all position on filter, then deactivate and activate a client, assert status change
 - [ ] Add a new client, assert successful creation
 - [ ] Verify proper state on the client grid
 
-### **6. Orders**
+### **5. Orders**
 - [ ] Click on the order module, modify a property, and check email notification
 
-### **7. Statistics**
+### **6. Statistics**
 - [ ] Click on the statistics module, assert successful opening
 - [ ] check the service widget, assert source information filter is correctly open, and visible:
   -	[ ] all sources
   - [ ] from panel 
   - [ ] from public panel
 
-### **8. Members**
+### **7. Members**
 - [ ] Click on the member module, add a new member, assert successful creation, then delete it
 - [ ] Verify proper state on the member grid
 - [ ] Edit a member, assert successful update
 
-### **9. Services**
+### **8. Services**
 - [ ] Click on the service module, add a new service, assert successful creation, then delete it
 - [ ] Verify proper state on the service grid
 - [ ] Edit a service, assert successful update
 - [ ] Filter services by status, assert correct results
 
-### **10. Company Settings**
+### **9. Company Settings**
 - [ ] Click on the company settings module, change "sooner book time", assert successful update
 - [ ] Change time period, assert successful update
 - [ ] Change required fields, assert successful update
 - [ ] Modify email notification settings, assert successful update when creating an order (no confirmation modal)
 
-### **11. Tariffs**
+### **10. Tariffs**
 - [ ] Click on the tariffs module, assert that all three tariffs are present
 - [ ] Change the tariff plan, assert successful update
 - [ ] Verify that the tariff description is displayed correctly
 
-### **12. Settings**
+### **11. Settings**
 - [ ] Click on the settings module, change language, and assert the update
 - [ ] Edit email, assert successful update
 
-### **13. Context Switching**
+### **12. Context Switching**
 - [ ] Click "Change Context", assert that all contexts are visible
 - [ ] Switch to another context, assert that all modules are displayed correctly
 
-### **14. Logout**
+### **13. Logout**
 - [ ] Click "Logout", verify that the user is logged out and that the login module is visible
 
-### **15. New Context Creation**
+### **14. New Context Creation**
 - [ ] click on the "Create New Context" button, assert that the introduce page is visible
 - [ ] create default context, with address and services
 - [ ] check is correctly created and become logged into new context on the calendar page
 - [ ] click on the company settings module and delete created context
 - [ ] check that user ware moved into select context page
 
-### **16. public page**
+### **15. public page**
 - [ ] click on the public page module, and assert successfully moved into public page
 
 </details>
