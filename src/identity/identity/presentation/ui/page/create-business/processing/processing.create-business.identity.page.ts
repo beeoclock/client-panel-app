@@ -178,30 +178,15 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	private async stepCreateBusiness(): Promise<void> {
 		try {
 			this.ngxLogger.debug('stepCreateBusiness');
-			const serviceProvideType = this.createBusinessQuery.getServiceProvideTypeControl().value;
-			const businessCategory = this.createBusinessQuery.getBusinessCategoryControl().value;
-			const bookingSettings = this.createBusinessQuery.getBookingSettingsControl().value;
 			const businessOwner = this.createBusinessQuery.getBusinessOwnerForm().value;
 			const body: IBusinessClient = {
 				name: this.createBusinessQuery.getBusinessNameControl().value,
-				businessIndustry: this.createBusinessQuery.getBusinessIndustryControl().value,
 			};
 
 			if (businessOwner) {
 				body.businessOwner = businessOwner;
 			}
 
-			if (serviceProvideType) {
-				body.serviceProvideType = serviceProvideType;
-			}
-
-			if (businessCategory) {
-				body.businessCategory = businessCategory;
-			}
-
-			if (bookingSettings) {
-				body.bookingSettings = bookingSettings as any;
-			}
 
 			this.ngxLogger.debug('stepCreateBusiness:body', body);
 
