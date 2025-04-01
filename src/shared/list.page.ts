@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, Input, OnInit} from "@angular/core";
+import {ChangeDetectorRef, Component, inject, input, OnInit} from "@angular/core";
 import {Actions, Store} from "@ngxs/store";
 import {of} from "rxjs";
 import {BooleanState} from "@shared/domain";
@@ -15,29 +15,26 @@ import {
 })
 export abstract class ListPage extends Reactive implements OnInit {
 
-	@Input()
-	public mobileMode = false;
+	public readonly mobileMode = input<boolean>(false);
 
 	protected readonly analyticsService = inject(AnalyticsService);
 	protected readonly store = inject(Store);
 	protected readonly actions = inject(Actions);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
 	protected readonly windowWidthSizeService = inject(WindowWidthSizeService);
-	protected readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
-
-	protected readonly getListParams?: Record<string, unknown>;
+	protected readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource, {optional: true});
 
 	public initialized = new BooleanState(false);
 
 	public get isMobile$() {
-		if (this.mobileMode) {
+		if (this.mobileMode()) {
 			return of(true);
 		}
 		return this.windowWidthSizeService.isMobile$;
 	}
 
 	public get isNotMobile$() {
-		if (this.mobileMode) {
+		if (this.mobileMode()) {
 			return of(false);
 		}
 		return this.windowWidthSizeService.isNotMobile$;

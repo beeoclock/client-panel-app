@@ -49,7 +49,7 @@ export class ListMemberPage extends ListPage implements OnInit {
 			MemberDataActions.SetStatus,
 		),
 		tap((payload) => {
-			this.tableNgxDatatableSmartResource.refreshDiscoveredPages();
+			this.tableNgxDatatableSmartResource?.refreshDiscoveredPages();
 		})
 	).subscribe();
 

@@ -9,12 +9,6 @@ import {
 	MobileLayoutListComponent
 } from "@tenant/order/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
 import {PeerCustomerOrderActions} from "@tenant/order/presentation/state/peer-customer/peer-customer.order.actions";
-import {
-	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {
-	MemberTableNgxDatatableSmartResource
-} from "@tenant/member/presentation/ui/page/list/member.table-ngx-datatable.resource";
 
 @Component({
 	selector: 'order-external-list-component',
@@ -27,12 +21,6 @@ import {
 		MobileLayoutListComponent,
 	],
 	standalone: true,
-	providers: [
-		{
-			provide: TableNgxDatatableSmartResource,
-			useClass: MemberTableNgxDatatableSmartResource,
-		},
-	],
 	template: `
 		@if (initialized.isOn) {
 
@@ -44,7 +32,7 @@ import {
 				/>
 			} @else {
 
-				<app-order-desktop-layout-list-component />
+				<app-order-desktop-layout-list-component/>
 			}
 		} @else {
 
@@ -60,7 +48,7 @@ export class CustomerOrderListExternalComponent extends ListPage implements OnIn
 
 	readonly mobileLayoutListComponents = viewChildren(MobileLayoutListComponent);
 
-	public override mobileMode = true;
+	public override mobileMode = input<boolean>(true);
 
 	public override ngOnInit() {
 		this.store.dispatch(new PeerCustomerOrderActions.UpdateFilters({

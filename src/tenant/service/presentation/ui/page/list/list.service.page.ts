@@ -66,7 +66,7 @@ export class ListServicePage extends ListPage implements OnInit, OnDestroy {
 			ServiceActions.SetState,
 		),
 		tap((payload) => {
-			this.tableNgxDatatableSmartResource.refreshDiscoveredPages();
+			this.tableNgxDatatableSmartResource?.refreshDiscoveredPages();
 		})
 	).subscribe();
 

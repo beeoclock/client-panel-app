@@ -1,7 +1,7 @@
 import {BaseActions} from "@shared/state/base/base.actions";
 import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 
-export namespace PaymentActions {
+export namespace PaymentPresentationActions {
 
 	// Application layer
 

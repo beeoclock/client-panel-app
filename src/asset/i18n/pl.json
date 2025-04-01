@@ -1070,6 +1070,7 @@
 			"country": "Kraj",
 			"create": "Utwórz",
 			"createdAt": "Utworzono",
+			"currency": "Waluta",
 			"customer": "Klient",
 			"customerNote": "Notatka od klienta",
 			"customers": "Klienty",
@@ -1138,6 +1139,7 @@
 			"payer": "Płatnik",
 			"payment": "Płatność",
 			"paymentMethod": "Metoda płatności",
+			"paymentProviderType": "Typ pÅ‚atnoÅ›ci ",
 			"paymentStatus": "Status płatności",
 			"periodOfDay": {
 				"AFTERNOON": "Popołudnie",
@@ -1463,6 +1465,9 @@
 		"providerType": {
 			"onSite": {
 				"label": "Na miejscu"
+			},
+			"stripe": {
+				"label": "Stripe"
 			}
 		},
 		"status": {
@@ -1572,6 +1577,7 @@
 		"events": "Wydarzenia",
 		"members": "Członkowie",
 		"order": "Zamówienia",
+		"payment": "Płatności",
 		"private": "Prywatne",
 		"profile": {
 			"signOut": {

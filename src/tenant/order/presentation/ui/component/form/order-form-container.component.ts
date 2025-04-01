@@ -31,7 +31,7 @@ import {
 } from "@src/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
 import {firstValueFrom, lastValueFrom} from "rxjs";
-import {PaymentActions} from "@tenant/payment/infrastructure/state/data/payment.actions";
+import {PaymentDataActions} from "@tenant/payment/infrastructure/state/data/payment.data.actions";
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
@@ -231,7 +231,7 @@ export class OrderFormContainerComponent {
 	 * @private
 	 */
 	private dispatchPutPaymentAction$(item: IPayment.DTO) {
-		const action = new PaymentActions.Update({
+		const action = new PaymentDataActions.Update({
 			item
 		});
 		return this.store.dispatch(action);
@@ -258,7 +258,7 @@ export class OrderFormContainerComponent {
 				await firstValueFrom(createOrder$);
 
 				const actions$ = this.store.dispatch([
-					new PaymentActions.CreateItem(payment),
+					new PaymentDataActions.CreateItem(payment),
 					new CalendarWithSpecialistsAction.GetItems(),
 				]);
 

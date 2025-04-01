@@ -1,7 +1,7 @@
 import {BaseActions} from "@shared/state/base/base.actions";
 import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 
-export namespace PaymentActions {
+export namespace PaymentDataActions {
 
 	export class CreateItem extends BaseActions.CreateItem<IPayment.DTO> {
 		public static override readonly type = '[Payment API] Create Item';

@@ -24,10 +24,10 @@ export class AutoRefreshButtonComponent {
 
 	public readonly resetParams = input(false);
 
-	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
+	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource, {optional: true});
 
 	public reload() {
-		this.tableNgxDatatableSmartResource.reload();
+		this.tableNgxDatatableSmartResource?.reload();
 	}
 
 }

@@ -21,14 +21,10 @@ export class AutoRefreshButtonComponent {
 
 	public readonly resetParams = input(false);
 
-	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
+	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource, {optional: true});
 
 	public forceRefresh() {
-		this.tableNgxDatatableSmartResource.reset();
-		this.tableNgxDatatableSmartResource.parameters.update((parameters) => ({
-			...parameters,
-			page: 1,
-		}))
+		this.tableNgxDatatableSmartResource?.reload();
 	}
 
 }

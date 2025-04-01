@@ -1070,6 +1070,7 @@
 			"country": "Країна",
 			"create": "Створити",
 			"createdAt": "Створено",
+			"currency": "Валюта",
 			"customer": "Клієнт",
 			"customerNote": "Примітка від клієнта",
 			"customers": "Клієнти",
@@ -1138,6 +1139,7 @@
 			"payer": "Платник",
 			"payment": "Оплата",
 			"paymentMethod": "Спосіб оплати",
+			"paymentProviderType": "Тип оплати",
 			"paymentStatus": "Статус оплати",
 			"periodOfDay": {
 				"AFTERNOON": "День",
@@ -1463,6 +1465,9 @@
 		"providerType": {
 			"onSite": {
 				"label": "На місці"
+			},
+			"stripe": {
+				"label": "Stripe"
 			}
 		},
 		"status": {
@@ -1572,6 +1577,7 @@
 		"events": "Події",
 		"members": "Команда",
 		"order": "Замовлення",
+		"payment": "Платежі",
 		"private": "Приватне",
 		"profile": {
 			"signOut": {

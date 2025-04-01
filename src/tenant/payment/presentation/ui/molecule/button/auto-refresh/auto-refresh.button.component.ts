@@ -5,11 +5,11 @@ import {
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
-	selector: 'member-auto-refresh-component',
+	selector: 'payment-auto-refresh-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-auto-refresh-component id="member-auto-refresh" (emitter)="reload()"/>
+		<utility-auto-refresh-component id="payment-auto-refresh" (emitter)="reload()"/>
 	`,
 	imports: [
 		AutoRefreshComponent

@@ -1070,6 +1070,7 @@
 			"country": "Country",
 			"create": "Create",
 			"createdAt": "Created at",
+			"currency": "Currency",
 			"customer": "Customer",
 			"customerNote": "Note from client",
 			"customers": "customers",
@@ -1138,6 +1139,7 @@
 			"payer": "Payer",
 			"payment": "Payment",
 			"paymentMethod": "Payment method",
+			"paymentProviderType": "Payment type ",
 			"paymentStatus": "Payment status",
 			"periodOfDay": {
 				"AFTERNOON": "Afternoon",
@@ -1463,6 +1465,9 @@
 		"providerType": {
 			"onSite": {
 				"label": "On site"
+			},
+			"stripe": {
+				"label": "Stripe"
 			}
 		},
 		"status": {
@@ -1572,6 +1577,7 @@
 		"events": "Events",
 		"members": "Members",
 		"order": "Orders",
+		"payment": "Payments",
 		"private": "Private",
 		"profile": {
 			"signOut": {

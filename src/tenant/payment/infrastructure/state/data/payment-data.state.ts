@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {baseDefaults, IBaseState} from "@shared/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
-import {PaymentActions} from "@tenant/payment/infrastructure/state/data/payment.actions";
+import {PaymentDataActions} from "@tenant/payment/infrastructure/state/data/payment.data.actions";
 import EPayment from "@tenant/payment/domain/entity/e.payment";
 import {NGXLogger} from "ngx-logger";
 import {IPayment} from "@tenant/payment/domain/interface/i.payment";
@@ -28,13 +28,13 @@ export class PaymentDataState {
 	private readonly sharedUow = inject(SharedUow);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	@Action(PaymentActions.CreateItem)
-	public async createItem(ctx: StateContext<IPaymentState>, action: PaymentActions.CreateItem) {
+	@Action(PaymentDataActions.CreateItem)
+	public async createItem(ctx: StateContext<IPaymentState>, action: PaymentDataActions.CreateItem) {
 		await this.sharedUow.payment.repository.createAsync(EPayment.fromDTO(action.payload));
 	}
 
-	@Action(PaymentActions.Update)
-	public async update(ctx: StateContext<IPaymentState>, {payload: {item}}: PaymentActions.Update): Promise<void> {
+	@Action(PaymentDataActions.Update)
+	public async update(ctx: StateContext<IPaymentState>, {payload: {item}}: PaymentDataActions.Update): Promise<void> {
 		const foundItems = await this.sharedUow.payment.repository.findByIdAsync(item._id);
 		if (foundItems) {
 			const entity = EPayment.fromRaw({
