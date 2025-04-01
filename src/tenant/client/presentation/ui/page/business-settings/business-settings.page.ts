@@ -69,10 +69,6 @@ export default class BusinessSettingsPage extends Reactive implements OnInit, On
 			const {socialNetworkLinks, schedules, contacts, addresses, ...data} = item;
 			this.form.patchValue(data);
 
-			this.form.controls.businessCategory.disable();
-			this.form.controls.businessIndustry.disable();
-			this.form.controls.serviceProvideType.disable();
-
 			if (socialNetworkLinks?.length) {
 				this.form.controls.socialNetworkLinks.clear();
 				socialNetworkLinks.forEach((socialNetworkLink) => {

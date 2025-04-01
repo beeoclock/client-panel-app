@@ -7,7 +7,6 @@ import {Store} from "@ngxs/store";
 import {AppActions} from "@shared/state/app/app.actions";
 import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {filter} from "rxjs";
-import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {
 	FormBusinessProfileComponent
 } from "@tenant/client/presentation/ui/component/business-profile/form-business-profile.component";
@@ -74,8 +73,6 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 	public readonly store = inject(Store);
 	public readonly analyticsService = inject(AnalyticsService);
 
-	public readonly serviceProfideType = ServiceProvideTypeEnum;
-
 	public readonly item$ = this.store.select(BusinessProfileState.item).pipe(
 		filter(Boolean)
 	);
@@ -89,9 +86,6 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 			const {socialNetworkLinks, schedules, contacts, addresses, ...data} = item;
 			this.form.patchValue(data);
 
-			this.form.controls.businessCategory.disable();
-			this.form.controls.businessIndustry.disable();
-			this.form.controls.serviceProvideType.disable();
 
 			if (socialNetworkLinks?.length) {
 				this.form.controls.socialNetworkLinks.clear();

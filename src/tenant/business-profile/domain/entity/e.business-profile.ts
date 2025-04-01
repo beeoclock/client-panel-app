@@ -2,10 +2,7 @@ import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 import {IMedia} from "@tenant/media/domain/interface/i.media";
 import {ActiveEnum} from "@core/shared/enum";
-import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
-import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 import {FacilityEnum} from "@core/shared/enum/facility.enum";
-import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {ISchedule} from "@shared/domain/interface/i.schedule";
 import {BusinessClientStatusEnum} from "../enum/business-client-status.enum";
 import {IBusinessSettings, INotificationsSettings} from "../interface";
@@ -19,7 +16,6 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 
 	override object = 'BusinessProfileDto' as const;
 
-	serviceProvideType: ServiceProvideTypeEnum | null = null;
 	publicPageSettings!: { primaryColor: string; };
 	paymentSettings!: { externalApiCredentials: { stripe: { secretKey: string; webhookSecret: string; }; }; };
 	specialSchedules = [];
@@ -30,9 +26,6 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 	name!: string;
 	logo!: Required<IMedia> | null | undefined;
 	feature!: string;
-	businessCategory!: BusinessCategoryEnum;
-	businessIndustry!: BusinessIndustryEnum;
-	serviceProfideType!: ServiceProvideTypeEnum;
 	socialNetworkLinks!: ISocialNetworkLink[];
 	businessSettings!: IBusinessSettings;
 	notificationSettings!: INotificationsSettings;
@@ -61,8 +54,6 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 			addresses: data.addresses,
 			banners: data.banners,
 			bookingSettings: data.bookingSettings,
-			businessCategory: data.businessCategory,
-			businessIndustry: data.businessIndustry,
 			businessSettings: data.businessSettings,
 			contacts: data.contacts,
 			createdAt: data.createdAt,
@@ -78,8 +69,6 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 			publicPageSettings: data.publicPageSettings,
 			published: data.published,
 			schedules: data.schedules,
-			serviceProfideType: data.serviceProfideType,
-			serviceProvideType: data.serviceProvideType,
 			socialNetworkLinks: data.socialNetworkLinks,
 			specialSchedules: data.specialSchedules,
 			state: data.state,
