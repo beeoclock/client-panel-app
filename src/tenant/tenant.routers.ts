@@ -161,6 +161,15 @@ export const tenantRouters: Routes = [
                                     }
                                 ]
                             },
+							{
+								path: 'product',
+								children: [
+									{
+										path: 'list',
+										loadComponent: () => import('@tenant/product/presentation/ui/page/list/list.product.page')
+									}
+								]
+							},
                             {
                                 path: 'customer',
                                 children: [

@@ -202,7 +202,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 		// 	}
 		// });
 		this.menu.push({
-			order: 4,
+			order: 3,
 			url: 'customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',
@@ -215,7 +215,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 5,
+			order: 4,
 			url: 'absence/list',
 			translateKey: 'sidebar.absence',
 			icon: 'bi bi-calendar2-x',
@@ -228,10 +228,23 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 6,
+			order: 5,
 			url: 'service/list',
 			translateKey: 'sidebar.services',
 			icon: 'bi bi-emoji-smile',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 6,
+			url: 'product/list',
+			translateKey: 'sidebar.products',
+			icon: 'bi bi-basket',
 			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
@@ -272,19 +285,6 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			translateKey: 'sidebar.statistic',
 			icon: 'bi bi-bar-chart',
 			beta: true,
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 10,
-			url: 'product/list',
-			translateKey: 'sidebar.products',
-			icon: 'bi bi-basket',
 			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
