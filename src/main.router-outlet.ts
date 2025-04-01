@@ -2,17 +2,18 @@ import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core
 import {RouterModule} from '@angular/router';
 import {detectorInit} from '@src/script/detector';
 import {Store} from "@ngxs/store";
-import {AppState} from "@utility/state/app/app.state";
+import {AppState} from "@shared/state/app/app.state";
 import {DOCUMENT} from "@angular/common";
-import {LanguageService} from "@utility/cdk/language.service";
+import {LanguageService} from "@core/cdk/language.service";
 import {filter} from "rxjs";
-import {is} from "@utility/checker";
-import {SplashScreenService} from "@utility/cdk/splash-screen.service";
-import {ThemeService} from "@utility/cdk/theme.service";
-import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.service";
-import {NotificationManagerService} from "@utility/cdk/notification.manager.service";
-import {AppActions} from "@utility/state/app/app.actions";
-import {Reactive} from "@utility/cdk/reactive";
+import {is} from "@src/core/shared/checker";
+import {SplashScreenService} from "@core/cdk/splash-screen.service";
+import {ThemeService} from "@core/cdk/theme.service";
+import {CheckForUpdatePwaService} from "@core/cdk/check-for-update-pwa.service";
+import {NotificationManagerService} from "@core/cdk/notification.manager.service";
+import {AppActions} from "@shared/state/app/app.actions";
+import {SecondRouterOutlet} from "@src/second.router-outlet";
+import {WhacAMole} from "@shared/presentation/whac-a-mole/whac-a-mole";
 
 @Component({
 	selector: 'app-root',
@@ -20,12 +21,23 @@ import {Reactive} from "@utility/cdk/reactive";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		RouterModule,
+		SecondRouterOutlet,
+		WhacAMole,
 	],
 	template: `
-		<router-outlet/>
+		<div class="flex-1 overflow-auto">
+			<router-outlet/>
+		</div>
+		<app-second-router-outlet/>
+
+
+		<whac-a-mole/>
 	`,
+	host: {
+		class: 'flex'
+	}
 })
-export class MainRouterOutlet extends Reactive implements AfterViewInit {
+export class MainRouterOutlet implements AfterViewInit {
 
 	private readonly store = inject(Store);
 	private readonly languageService = inject(LanguageService);
@@ -35,9 +47,7 @@ export class MainRouterOutlet extends Reactive implements AfterViewInit {
 	private readonly document = inject(DOCUMENT);
 	private readonly notificationManagerService = inject(NotificationManagerService);
 
-
-	constructor() {
-		super();
+	public constructor() {
 		this.languageService.initialize();
 		this.themeService.initialize();
 		this.checkForUpdatePwaService.initialize();

@@ -3,12 +3,12 @@ import {IonPopover} from "@ionic/angular/standalone";
 import {CurrencyPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import ObjectID from "bson-objectid";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
 import {FormControl} from "@angular/forms";
-import {Reactive} from "@utility/cdk/reactive";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
+import {Reactive} from "@core/cdk/reactive";
+import {CurrencyCodeEnum} from "@core/shared/enum";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
+import {DefaultButtonDirective} from "@shared/presentation/directives/button/default.button.directive";
 
 @Component({
 	selector: 'app-price-chip-component',

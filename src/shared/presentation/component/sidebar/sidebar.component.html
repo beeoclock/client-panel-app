@@ -1,0 +1,34 @@
+<aside [id]="sidebarId"
+	   class="
+	   flex flex-col
+       	z-30
+        fixed
+        top-0
+        w-full
+        sm:w-64
+        sm:h-dvh
+        h-[calc(100%-4rem)]
+        transition-transform
+        -translate-x-full
+        bg-white
+        border-r
+        border-beeColor-200
+        md:translate-x-16
+        translate-x-0
+        dark:bg-beeDarkColor-900
+        dark:border-beeDarkColor-800">
+
+	@switch (sidebarService.currentContent) {
+
+		@case (sidebarService.sidebarContentEnum.MENU) {
+			<utility-sidebar-menu-component class="flex-1"/>
+		}
+		@case (sidebarService.sidebarContentEnum.PROFILE) {
+			<utility-sidebar-profile-component class="flex-1"/>
+		}
+
+	}
+
+	<sync-button-component/>
+
+</aside>

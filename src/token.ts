@@ -1,9 +1,14 @@
 import {InjectionToken, LOCALE_ID} from "@angular/core";
-import {MS_TEN_MINUTES} from "@utility/domain/const/c.time";
-import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
-import {ThemeEnum} from "@utility/cdk/theme.service";
+import {MS_TEN_MINUTES} from "@shared/domain/const/c.time";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
+import {ThemeEnum} from "@core/cdk/theme.service";
 import {BehaviorSubject} from "rxjs";
+import {EventListCustomerRepository} from "@tenant/customer/infrastructure/repository/event.list.customer.repository";
 
+// Use in [tenantId] router or in wrapper-panel.component.ts
+export const CURRENT_TENANT_ID = new InjectionToken<string>('TENANT_ID');
+
+// Use global
 export const THEME = new InjectionToken<BehaviorSubject<ThemeEnum>>('THEME');
 export const ACCESS_TOKEN = new InjectionToken<BehaviorSubject<string | null>>('ACCESS_TOKEN');
 export const TENANT_ID = new InjectionToken<BehaviorSubject<string | null>>('TENANT_ID');
@@ -14,6 +19,10 @@ export const SIDEBAR_ID = new InjectionToken<string>('SIDEBAR_ID');
 export const MAIN_CONTAINER_ID = new InjectionToken<string>('MAIN_CONTAINER_ID');
 export const CACHE_TABLE_CLEAR_AFTER_MS = new InjectionToken<number>('CACHE_TABLE_CLEAR_AFTER_MS');
 
+/**
+ * Token of service per resource
+ */
+export const GlobalEventListCustomerRepository = new InjectionToken<EventListCustomerRepository>('GlobalEventListCustomerRepository');
 
 export const tokens = [
 	{

@@ -19,14 +19,14 @@
 					"options": {
 						"allowedCommonJsDependencies": [
 							"hash-sum",
-							"typescript-debounce-decorator"
+							"typescript-debounce-decorator",
+							"typia",
+							"bson-objectid"
 						],
 						"outputPath": "dist",
 						"index": "src/index.html",
 						"main": "src/main.ts",
-						"polyfills": [
-							"zone.js"
-						],
+						"polyfills": [],
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
 						"assets": [
@@ -48,12 +48,12 @@
 								"src/manifest.webmanifest",
 								{
 									"glob": "firebase-messaging-sw.js",
-									"input": "environments/production/",
+									"input": "environment/production/firebase/",
 									"output": "./"
 								},
 								{
 									"glob": "robots.txt",
-									"input": "environments/production/",
+									"input": "environment/production/",
 									"output": "./"
 								}
 							],
@@ -65,8 +65,8 @@
 								},
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "2kb",
-									"maximumError": "4kb"
+									"maximumWarning": "6kb",
+									"maximumError": "8kb"
 								}
 							],
 							"fileReplacements": [
@@ -84,12 +84,12 @@
 								"src/manifest.webmanifest",
 								{
 									"glob": "firebase-messaging-sw.js",
-									"input": "environments/develop/",
+									"input": "environment/develop/firebase",
 									"output": "./"
 								},
 								{
 									"glob": "robots.txt",
-									"input": "environments/develop/",
+									"input": "environment/develop/",
 									"output": "./"
 								}
 							],
@@ -101,8 +101,8 @@
 								},
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "2kb",
-									"maximumError": "4kb"
+									"maximumWarning": "6kb",
+									"maximumError": "8kb"
 								}
 							],
 							"fileReplacements": [

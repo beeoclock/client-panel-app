@@ -609,7 +609,7 @@
 		"keyword": {
 			"capitalize": {
 				"chronologyOfEventChanges": "Chronology of event changes",
-				"end": "Estimated End",
+				"end": "Will end",
 				"repeat": "Repeat",
 				"service": "Service",
 				"start": "Booking Start",
@@ -632,6 +632,7 @@
 					"accepted": "Accepted",
 					"cancelled": "Canceled",
 					"confirmed": "Confirmed",
+					"deleted": "Deleted",
 					"done": "Done",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
@@ -664,6 +665,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "At least one field must be filled",
+			"atLeastOneMemberSelectedOrEntireBusiness": "You must select at least one member or choose the entire business.",
 			"durationFormatInvalid": "Valid format is hours:minutes (00:00)",
 			"email": "Invalid E-mail format",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
@@ -676,6 +678,7 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "The end time must be longer than the start time"
 			},
+			"startBeforeEnd": "The start date must be before the end date.",
 			"whitespace": "Remove all spaces"
 		}
 	},
@@ -1062,6 +1065,7 @@
 			"anonymous": "Anonymous",
 			"approvalType": "Approval type",
 			"approve": "Approve",
+			"archived": "Archived",
 			"attendees": "Attendees",
 			"autoActionOnOrderInSeconds": "Automatic action start time",
 			"autoActionTypeOnOrder": "Type of automatic action",
@@ -1082,6 +1086,7 @@
 			"changesFrom": "From",
 			"changesTo": "To",
 			"chooseImage": "Choose image",
+			"chosen": "Chosen",
 			"city": "City",
 			"clearCache": "Refresh cache",
 			"clickToUpload": "Click to upload",
@@ -1095,6 +1100,7 @@
 			"country": "Country",
 			"create": "Create",
 			"createdAt": "Created at",
+			"currency": "Currency",
 			"customer": "Customer",
 			"customerNote": "Note from client",
 			"customers": "customers",
@@ -1103,10 +1109,12 @@
 			"day": "Day",
 			"deactivate": "Deactivate",
 			"delete": "Delete",
+			"deleted": "Deleted",
 			"description": "Description",
 			"details": "Details",
 			"dismiss": "Dismiss",
 			"done": "Done",
+			"downgradeTo": "Downgrade to",
 			"downloadMore": "Download more",
 			"duration": "Duration",
 			"earliestBooking": "Earliest booking time",
@@ -1117,6 +1125,7 @@
 			"event": "Event",
 			"events": "Events",
 			"every": "Every",
+			"exhausted": "Exhausted",
 			"facilities": "Facilities",
 			"feature": "Feature",
 			"finished": "Finished",
@@ -1139,11 +1148,14 @@
 			"members": "Members",
 			"menu": "Menu",
 			"month": "Month",
+			"monthly": "Monthly",
 			"name": "Name",
 			"next": "Next",
 			"nextStep": "Next step",
 			"no": "No",
 			"noData": "No data",
+			"noNeedCard": "No need card",
+			"notPaid": "Not paid",
 			"notSpecified": "Not specified",
 			"notYetStarted": "Not yet started",
 			"note": "Note",
@@ -1153,9 +1165,11 @@
 			"ordering": "Ordering",
 			"ownOptionOfTime": "Hour according to your wish",
 			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
+			"paid": "Paid",
 			"payer": "Payer",
 			"payment": "Payment",
 			"paymentMethod": "Payment method",
+			"paymentProviderType": "Payment type ",
 			"paymentStatus": "Payment status",
 			"periodOfDay": {
 				"AFTERNOON": "Afternoon",
@@ -1209,6 +1223,9 @@
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
 			"successfully": "Successfully",
+			"switchTo": "Switch to",
+			"synced": "Synchronized",
+			"syncing": "Synchronization in progress…",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"time": "Time",
@@ -1221,14 +1238,17 @@
 			"unknown": "Unknown",
 			"update": "Updated",
 			"updatedAt": "Updated at",
+			"upgradeTo": "Upgrade to",
 			"warning": "Warning",
 			"week": "Week",
 			"workdays": "Workdays",
 			"workingHours": "Working hours",
 			"writePrice": "Write price",
 			"year": "Year",
+			"yearly": "Yearly",
 			"yes": "Yes",
 			"yesterday": "Yesterday",
+			"youOffline": "You are offline!",
 			"zipCode": "Zip code",
 			"sku": "SKU",
 			"productName": "Product name",
@@ -1271,6 +1291,14 @@
 				"freeMovement": "Free movement",
 				"openDetails": "Open details",
 				"type": "Type"
+			}
+		},
+		"state": {
+			"plural": {
+				"active": "Active",
+				"archived": "Archived",
+				"deleted": "Deleted",
+				"inactive": "Inactive"
 			}
 		},
 		"status": {
@@ -1335,7 +1363,10 @@
 				"edit": "Edit a team member"
 			}
 		},
-		"title": "Member"
+		"title": "Member",
+		"toast": {
+			"limit": "Limit reached. Upgrade to a higher plan to add more team members."
+		}
 	},
 	"product": {
 		"deactivateBeforeDelete": "You cannot delete an active product",
@@ -1410,6 +1441,7 @@
 				"singular": {
 					"cancelled": "Cancelled",
 					"confirmed": "Confirmed",
+					"deleted": "Deleted",
 					"done": "Done",
 					"draft": "Draft",
 					"inProgress": "In progress",
@@ -1494,6 +1526,9 @@
 		"providerType": {
 			"onSite": {
 				"label": "On site"
+			},
+			"stripe": {
+				"label": "Stripe"
 			}
 		},
 		"status": {
@@ -1603,6 +1638,7 @@
 		"events": "Events",
 		"members": "Members",
 		"order": "Orders",
+		"payment": "Payments",
 		"private": "Private",
 		"profile": {
 			"signOut": {
@@ -1616,7 +1652,8 @@
 		"settings": "Settings",
 		"statistic": "Statistics",
 		"switch-business-client": "Change context",
-		"table": "Table"
+		"table": "Table",
+		"tariffPlan": "Tariffs"
 	},
 	"sign-out": {
 		"button": {
@@ -1654,6 +1691,86 @@
 			"numberOfServicesProvided": "Number of services provided",
 			"revenue": "Revenue",
 			"topService": "The most popular service"
+		}
+	},
+	"tariffPlan": {
+		"documentation": {
+			"switchingToAnotherPlan": "<p> \t\t\t\t\t<strong>Switching to Another Plan</strong> \t\t\t\t</p> \t\t\t\t<p> \t\t\t\t\tUpgrading or changing your plan is seamless! When you switch to a new plan, the system will \t\t\t\t\tautomatically \t\t\t\t\tcalculate the difference between your current and new plan, ensuring a smooth transition. \t\t\t\t</p> \t\t\t\t<p> \t\t\t\t\t🔹 How It Works: \t\t\t\t</p> \t\t\t\t<ol> \t\t\t\t\t<li>Instant Activation – Your new plan will be activated immediately after the change.</li> \t\t\t\t\t<li>Pro-rated Adjustment – The system will deduct the remaining value from your previous plan and \t\t\t\t\t\tapply it to \t\t\t\t\t\tthe new one. \t\t\t\t\t</li> \t\t\t\t\t<li>Automatic Billing – You’ll only pay the difference, ensuring you’re charged fairly.</li> \t\t\t\t\t<li>No Service Disruptions – Your existing features remain active while the upgrade is processed. \t\t\t\t\t</li> \t\t\t\t</ol> \t\t\t\t<p>💡 You can upgrade anytime and only pay for what you use. If you downgrade, the adjusted amount will \t\t\t\t\tbe \t\t\t\t\tapplied to future payments. 🚀</p>"
+		},
+		"features": {
+			"adminPanel": {
+				"label": "Admin panel"
+			},
+			"assistantAI": {
+				"label": "Assistant AI"
+			},
+			"confirmationAfterUserPayment": {
+				"label": "Payment Confirmation"
+			},
+			"emailNotification": {
+				"label": "Email notifications"
+			},
+			"jsonLD": {
+				"label": "JSON LD"
+			},
+			"publicPage": {
+				"label": "Public page"
+			},
+			"publicRestApi": {
+				"label": "Public rest api"
+			},
+			"seoOptimization": {
+				"label": "SEO Package"
+			},
+			"smsNotification": {
+				"label": "SMS Notifications"
+			},
+			"unlimitedPlugins": {
+				"label": "Plugins unlimited"
+			}
+		},
+		"links": {
+			"billing": {
+				"label": "Billing history and linked payment cards"
+			}
+		},
+		"message": {
+			"change": {
+				"success": "The tariff plan change was successful!"
+			}
+		},
+		"modal": {
+			"confirm-changes": {
+				"content": {
+					"additional": {
+						"one": "✅ Your plan will be upgraded immediately",
+						"two": "✅ Next payment will be adjusted accordingly"
+					},
+					"currentTariffPlan": {
+						"daysRemaining": {
+							"label": "Days remaining"
+						},
+						"daysUsed": {
+							"label": "Days Used"
+						},
+						"label": "Current Plan",
+						"remainingCredit": {
+							"label": "Remaining Credit"
+						}
+					},
+					"newTariffPlan": {
+						"differenceToPay": {
+							"label": "Difference to pay"
+						},
+						"label": "New plan"
+					}
+				},
+				"title": "Confirm the change of tariff plan"
+			}
+		},
+		"page": {
+			"subtitle": "Choose the best option for your business",
+			"title": "Tariffs"
 		}
 	},
 	"updateAvailable": {

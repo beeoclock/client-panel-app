@@ -1,0 +1,48 @@
+<div class="flex justify-between">
+	<utility-back-link-component [url]="['../']"/>
+	<utility-change-language-component/>
+</div>
+<div class="relative pt-12 pb-40 sm:py-16 lg:pt-20 xl:pb-0">
+	<div class="relative mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-3xl text-center">
+
+			<h1 class="mt-5 mb-8 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">
+				@if (firstCompany$ | async) {
+					{{ 'identity.create-business.section.names.title' | translate }}
+				} @else {
+					{{ 'identity.create-business.section.only-company.title' | translate }}
+				}
+			</h1>
+
+			<bee-card>
+
+				<form-input
+					[control]="businessNameControl"
+					[label]="'identity.create-business.form.inputs.businessName.label' | translate"
+					[placeholder]="'identity.create-business.form.inputs.businessName.placeholder' | translate"
+					id="create-business-form-input-businessName"/>
+
+				@if (firstCompany$ | async) {
+					<form-input
+						[control]="businessOwnerForm.controls.firstName"
+						[label]="'keyword.capitalize.firstName' | translate"
+						[placeholder]="'example.firstName' | translate"
+						id="create-business-form-input-businessOwner-firstName"/>
+
+					<form-input
+						[control]="businessOwnerForm.controls.lastName"
+						[label]="'keyword.capitalize.lastName' | translate"
+						[placeholder]="'example.lastName' | translate"
+						id="create-business-form-input-businessOwner-lastName"/>
+
+				}
+
+			</bee-card>
+
+			<button [disabled]="invalid" type="button" role="button" class="mt-8 disabled:pointer-events-none" primary (click)="goToNext()">
+				{{ 'keyword.capitalize.nextStep' | translate }}
+			</button>
+
+		</div>
+	</div>
+</div>

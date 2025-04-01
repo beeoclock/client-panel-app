@@ -1,0 +1,66 @@
+<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+
+	@if (availableLanguages$ | async) {
+
+		<form class="flex flex-col gap-4">
+
+			<service-form-image-block-component
+				[presentationForm]="presentationForm"/>
+
+			@if (availableLanguages$ | async; as availableLanguages) {
+
+				<service-services-form-component
+					[form]="form.controls.languageVersions"
+					[availableLanguages]="availableLanguages"/>
+			}
+
+			<service-form-prices-block-component
+				[currencyList]="(currencyList$ | async) ?? []"
+				[durationConfigurationForm]="form.controls.configuration.controls.duration"
+				[durationVersions]="form.controls.durationVersions"/>
+
+<!--			<utility-form-switch-active-block-component-->
+<!--				[label]="'service.keyword.capitalize.active' | translate"-->
+<!--				[control]="form.controls.active"/>-->
+
+			<bee-card>
+				<form-input
+					inputType="number"
+					[label]="'keyword.capitalize.order' | translate"
+					[placeholder]="'service.form.order.input.placeholder' | translate"
+					[control]="form.controls.order"/>
+
+				<div>
+					<label for="service-container-form-color-input" class="block text-sm font-medium dark:text-white">
+						{{ 'keyword.capitalize.color' | translate }}
+					</label>
+					<input
+						type="color"
+						class="p-1 h-10 w-full mb-2 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
+						id="service-container-form-color-input"
+						[formControl]="form.controls.presentation.controls.color"
+						[title]="'keyword.capitalize.color' | translate">
+					<p class="text-beeColor-500">
+						{{ 'service.form.color.input.hint' | translate }}
+					</p>
+				</div>
+
+			</bee-card>
+
+			<utility-button-save-container-component class="bottom-0">
+				<button
+					type="button"
+					primary
+					[isLoading]="form.pending"
+					[disabled]="form.disabled"
+					[scrollToFirstError]="true"
+					(click)="save()">
+					{{ 'keyword.capitalize.save' | translate }}
+				</button>
+			</utility-button-save-container-component>
+
+		</form>
+	}
+
+</div>
+
