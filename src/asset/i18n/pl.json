@@ -930,9 +930,6 @@
 				"schedules": {
 					"title": "Twoje godziny pracy"
 				},
-				"serviceProvideType": {
-					"title": "Wybierz podejście do usługi"
-				},
 				"services": {
 					"title": "Jakie usługi świadczysz?"
 				}
@@ -1181,10 +1178,7 @@
 			"phone": "Telefon",
 			"placeholder": {
 				"description": "Wprowadź szczegóły",
-				"search": "Szukaj",
-				"selectBusinessCategory": "Wybierz kategorię biznesową",
-				"selectBusinessIndustry": "Wybierz branżę biznesową",
-				"selectServiceProvideType": "Wybierz typ świadczenia usług"
+				"search": "Szukaj"
 			},
 			"portfolio": "Portfolio",
 			"preview": "Podgląd",
@@ -1206,7 +1200,6 @@
 			"send": "Wyślij",
 			"sendAgain": "Wyślij ponownie",
 			"service": "Usługa",
-			"serviceProvideType": "Typ świadczenia usług",
 			"services": "Usługi",
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
@@ -1612,11 +1605,6 @@
 			}
 		},
 		"title": "Usługa"
-	},
-	"serviceProvideType": {
-		"Mixed": "Różnie",
-		"Offline": "Offline",
-		"Online": "Online"
 	},
 	"sidebar": {
 		"absence": "Nieobecność",

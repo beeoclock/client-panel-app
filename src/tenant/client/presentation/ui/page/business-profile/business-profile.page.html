@@ -10,10 +10,8 @@
 				[label]="'client.profile.form.inputs.published.label' | translate"
 				[control]="form.controls.published"/>
 
-			@if ((item$ | async)?.serviceProfideType !== serviceProfideType.Online) {
-				<client-address-business-profile-component
-					[form]="form.controls.addresses.controls[0]"/>
-			}
+			<client-address-business-profile-component
+				[form]="form.controls.addresses.controls[0]"/>
 
 			<schedules-form-component
 				[schedulesForm]="form.controls.schedules"/>
