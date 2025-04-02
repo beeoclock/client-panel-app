@@ -28,7 +28,7 @@
 							<ion-chip>
 								{{ tag }}
 							</ion-chip>
-						}		
+						}
 					</span>
 				</dd>
 			</div>
@@ -37,7 +37,7 @@
 					{{ 'keyword.capitalize.price' | translate }}
 				</dt>
 				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					{{ product.price?.value | currency: product.price?.currency : 'symbol-narrow' }}	
+					{{ product.price?.value | currency: product.price?.currency : 'symbol-narrow' }}
 				</dd>
 			</div>
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -45,7 +45,7 @@
 					{{ 'keyword.capitalize.order' | translate }}
 				</dt>
 				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2 flex">
-					{{ product?.order | noData }}	
+					{{ product?.order | noData }}
 				</dd>
 			</div>
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -53,7 +53,7 @@
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
 				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2 flex">
-					<div activeStyle [active]="product.active"></div>
+					<div activeStyle [state]="product.state"></div>
 				</dd>
 			</div>
 		</dl>

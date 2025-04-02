@@ -4,12 +4,14 @@ import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {SearchInputComponent} from "@shared/presentation/component/input/search.input.component";
 import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
 import {BaseFilterComponent} from "@shared/base.filter.component";
-import {ProductActions} from "@tenant/product/infrastructure/state/product/product.actions";
 import {ReactiveFormsModule} from "@angular/forms";
-import {ProductState} from "@tenant/product/infrastructure/state/product/product.state";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {FilterForm} from "@tenant/product/presentation/form";
 import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
+import {
+	ProductPresentationActions
+} from "@tenant/product/infrastructure/state/presentation/product.presentation.actions";
+import {ProductDataState} from "@tenant/product/infrastructure/state/data/product.data.state";
 
 @Component({
 	selector: 'product-filter-component',
@@ -81,14 +83,14 @@ export class FilterComponent extends BaseFilterComponent {
 	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
-	public override readonly state = ProductState;
+	public override readonly state = ProductDataState;
 
-	constructor() {
+	public constructor() {
 		super();
 		super.initHandlers();
 	}
 
 	public openForm() {
-		this.store.dispatch(new ProductActions.OpenForm());
+		this.store.dispatch(new ProductPresentationActions.OpenForm());
 	}
 }

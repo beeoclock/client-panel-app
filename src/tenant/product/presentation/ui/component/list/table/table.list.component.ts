@@ -1,9 +1,6 @@
 import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from '@angular/core';
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
-import {
-	CustomerPresentationActions
-} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {
@@ -22,6 +19,14 @@ import {
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/product/presentation/ui/component/auto-refresh/auto-refresh.button.component";
+import {
+	ProductPresentationActions
+} from "@tenant/product/infrastructure/state/presentation/product.presentation.actions";
+import {LanguageCodeEnum} from "@core/shared/enum";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {
+	BusinessProfileState
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'product-table-list-component',
@@ -38,93 +43,43 @@ import {
 	],
 })
 export class TableListComponent extends TableComponent<EProduct> {
-	// public readonly tableConfiguration = {
-	// 	columns: {
-	// 		sku: {
-	// 			style: {
-	// 				minWidth: '200px',
-	// 				maxWidth: '200px',
-	// 			}
-	// 		},
-	// 		productName: {
-	// 			style: {
-	// 				minWidth: '250px',
-	// 				flexGrow: 1
-	// 			},
-	// 		},
-	// 		price: {
-	// 			style: {
-	// 				minWidth: '100px',
-	// 			},
-	// 		},
-	// 		tags: {
-	// 			style: {
-	// 				minWidth: '200px',
-	// 				maxWidth: '200px',
-	// 			},
-	// 		},
-	// 		order: {
-	// 			style: {
-	// 				minWidth: '100px'
-	// 			},
-	// 		},
-	// 		active: {
-	// 			style: {
-	// 				minWidth: '150px'
-	// 			},
-	// 		},
-	// 		createdAt: {
-	// 			style: {
-	// 				minWidth: '200px',
-	// 			},
-	// 		},
-	// 		updatedAt: {
-	// 			style: {
-	// 				minWidth: '200px',
-	// 			},
-	// 		},
-	// 		action: {
-	// 			classList: ['bg-white', 'justify-center'],
-	// 			style: {
-	// 				minWidth: '75px',
-	// 			},
-	// 		},
-	// 	},
-	// };
+
+	public readonly availableLanguages = toSignal(this.store.select(BusinessProfileState.availableLanguages));
+
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 
 	public readonly columns = signal<TableColumn<EProduct>[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.firstName'),
-			prop: 'firstName',
-			minWidth: 140,
-			width: 140,
+			prop: 'sku',
+			minWidth: 200,
+			width: 200,
 			sortable: true
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.lastName'),
-			prop: 'lastName',
+			prop: 'productName',
 			minWidth: 140,
 			width: 140,
 			sortable: true
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.email'),
-			prop: 'email',
+			prop: 'price',
 			minWidth: 300,
 			width: 300,
 			sortable: true
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.phone'),
-			prop: 'phone',
+			prop: 'tags',
 			minWidth: 160,
 			width: 160,
 			sortable: true,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.note'),
-			prop: 'note',
+			prop: 'order',
 			minWidth: 160,
 			width: 160,
 			sortable: false,
@@ -162,6 +117,11 @@ export class TableListComponent extends TableComponent<EProduct> {
 			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
 		}
 
+		const availableLanguages = this.availableLanguages();
+		if (availableLanguages?.length) {
+			this.setTitlesColumnsByAvailableLanguages(columns, availableLanguages);
+		}
+
 		return columns;
 
 	});
@@ -183,11 +143,62 @@ export class TableListComponent extends TableComponent<EProduct> {
 	}
 
 	public override open(item: IProduct.EntityRaw) {
-		// this.store.dispatch(new CustomerPresentationActions.OpenDetails(item));
+		const entity = EProduct.fromRaw(item);
+		const action = new ProductPresentationActions.OpenDetails(entity);
+		this.store.dispatch(action);
 	}
 
 	@Dispatch()
 	public openForm() {
-		return new CustomerPresentationActions.OpenForm();
+		return new ProductPresentationActions.OpenForm();
+	}
+
+	private setTitlesColumnsByAvailableLanguages(columns: TableColumn<EProduct>[], availableLanguages: LanguageCodeEnum[]) {
+
+		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'sku') + 1;
+		const name = this.translateService.instant('keyword.capitalize.title');
+
+		if (availableLanguages.length < 2) {
+
+			const language = availableLanguages[0];
+
+			columns.splice(pushAfterIndex, 0, {
+				name: name,
+				prop: 'title',
+				minWidth: 240,
+				width: 240,
+				sortable: false,
+				$$valueGetter: (row: EProduct) => this.getTitleForLanguage(row, language)
+			})
+
+		} else {
+
+			for (const language of availableLanguages) {
+
+				columns.splice(pushAfterIndex, 0, {
+					name: `${name} (${language})`,
+					prop: `title-${language}`,
+					minWidth: 240,
+					width: 240,
+					sortable: false,
+					$$valueGetter: (row: EProduct) => this.getTitleForLanguage(row, language)
+				})
+
+			}
+
+		}
+
+	}
+
+	public getTitleForLanguage(row: EProduct, languageCode: LanguageCodeEnum): string {
+
+		let title = '-';
+		const languageVersion = row.languageVersions.find(({language}) => language === languageCode);
+		if (languageVersion) {
+			title = languageVersion.title;
+		}
+
+		return title;
+
 	}
 }

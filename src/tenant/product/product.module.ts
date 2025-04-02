@@ -8,7 +8,6 @@ import {ArchiveProductApiAdapter} from "@tenant/product/infrastructure/data-sour
 import {CreateProductApiAdapter} from "@tenant/product/infrastructure/data-source/api/create.product.api.adapter";
 import {DeleteProductApiAdapter} from "@tenant/product/infrastructure/data-source/api/delete.product.api.adapter";
 import {ItemProductApiAdapter} from "@tenant/product/infrastructure/data-source/api/item.product.api.adapter";
-import {ProductState} from "@tenant/product/infrastructure/state/product/product.state";
 import {UnarchiveProductApiAdapter} from "@tenant/product/infrastructure/data-source/api/unarchive.product.api.adapter";
 import {UpdateProductApiAdapter} from "@tenant/product/infrastructure/data-source/api/update.product.api.adapter";
 import {
@@ -20,11 +19,14 @@ import {
 import {ProductRepository} from "@tenant/product/infrastructure/repository/product.repository";
 import {ProductService} from "@tenant/product/domain/service/product.service";
 import {ListProductApiAdapter} from "@tenant/product/infrastructure/data-source/api/list.product.api.adapter";
+import {ProductPresentationState} from "@tenant/product/infrastructure/state/presentation/product.presentation.state";
+import {ProductDataState} from "@tenant/product/infrastructure/state/data/product.data.state";
 
 @NgModule({
 	imports: [
 		NgxsModule.forFeature([
-			ProductState,
+			ProductDataState,
+			ProductPresentationState,
 		]),
 	],
 	providers: [

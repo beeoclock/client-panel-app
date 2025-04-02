@@ -4,14 +4,19 @@ import {IonChip} from '@ionic/angular/standalone';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {Store} from '@ngxs/store';
-import {IProduct} from '@product/domain';
-import {ProductActions} from '@product/state/product/product.actions';
-import {NoDataPipe} from '@src/module/utility/presentation/pipes/no-data.pipe';
-import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {EditButtonComponent} from '@utility/presentation/component/button/edit.button.component';
-import {ActiveStyleDirective} from '@utility/presentation/directives/active-style/active-style.directive';
-import {DynamicDatePipe} from '@utility/presentation/pipes/dynamic-date/dynamic-date.pipe';
 import {firstValueFrom} from 'rxjs';
+import {DeleteButtonComponent} from "@shared/presentation/component/button/delete.button.component";
+import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
+import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {EditButtonComponent} from "@shared/presentation/component/button/edit.button.component";
+import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
+import {IProduct} from "@tenant/product/domain";
+import {ProductDataActions} from "@tenant/product/infrastructure/state/data/product.data.actions";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {
+	ProductPresentationActions
+} from "@tenant/product/infrastructure/state/presentation/product.presentation.actions";
+import EProduct from "@tenant/product/domain/entity/e.product";
 
 @Component({
 	selector: 'product-detail-page',
@@ -30,18 +35,18 @@ import {firstValueFrom} from 'rxjs';
 	standalone: true,
 })
 export class ProductDetailsContainerComponent {
-	public readonly item = input.required<IProduct>();
+	public readonly item = input.required<IProduct.DTO>();
 
 	readonly #store = inject(Store);
 	readonly #translateService = inject(TranslateService);
 
-	public async delete(product: IProduct) {
-		if(this.item().active) {
+	public async delete(product: IProduct.DTO) {
+		if (this.item().active) {
 			alert(this.#translateService.instant('product.deactivateBeforeDelete'));
 			return;
 		}
 		await firstValueFrom(
-			this.#store.dispatch(new ProductActions.DeleteItem(product._id))
+			this.#store.dispatch(new ProductDataActions.SetState(product, StateEnum.deleted))
 		);
 	}
 
@@ -51,6 +56,8 @@ export class ProductDetailsContainerComponent {
 		if (!item) {
 			return;
 		}
-		return new ProductActions.OpenFormToEditById(item?._id);
+		return new ProductPresentationActions.OpenForm({componentInputs: {item: EProduct.fromDTO(item)}});
 	}
 }
+
+export default ProductDetailsContainerComponent;

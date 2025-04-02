@@ -1,10 +1,9 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators,} from '@angular/forms';
-import {ActiveEnum, LanguageCodeEnum} from '@utility/domain/enum';
-import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {BaseEntityForm} from '@utility/base.form';
 import {IProduct, IProductLanguageVersion} from '../interface';
 import {filter} from 'rxjs';
-import {is} from '@src/module/utility/checker';
+import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
+import {BaseEntityForm} from "@shared/base.form";
+import {is} from "@core/shared/checker";
 
 export interface IPriceForm {
 	value: FormControl<number>;
@@ -98,7 +97,7 @@ export interface IProductDtoForm {
 }
 
 export class ProductForm extends BaseEntityForm<'ProductDto', IProductDtoForm> {
-	constructor(initialValue: Partial<IProduct> = {}) {
+	constructor(initialValue: Partial<IProduct.DTO> = {}) {
 		super('ProductDto', {
 			languageVersions: new LanguageVersionsForm(),
 			price: new PriceForm(),
@@ -112,7 +111,7 @@ export class ProductForm extends BaseEntityForm<'ProductDto', IProductDtoForm> {
 		this.patchValue(initialValue);
 	}
 
-	public override patchValue(value: Partial<IProduct>): void {
+	public override patchValue(value: Partial<IProduct.DTO>): void {
 		super.patchValue(value);
 		if (value.languageVersions) {
 			this.controls.languageVersions.clear();

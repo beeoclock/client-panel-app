@@ -1,13 +1,13 @@
 import {Component, Input, input, OnInit, ViewEncapsulation,} from '@angular/core';
 import {NgClass} from '@angular/common';
-import {LanguageCodeEnum, LanguageRecord} from '@utility/domain/enum';
-import {BooleanStreamState} from '@utility/domain/boolean-stream.state';
 import {TranslateModule} from '@ngx-translate/core';
-import {Reactive} from '@utility/cdk/reactive';
-import {LanguageVersionsForm} from '@product/domain/model/product.form';
 import {ProductLanguageComponent} from './product-language.component';
-import {FormInputComponent} from '@utility/presentation/component/input/form.input.component';
-import {FormTextareaComponent} from '@utility/presentation/component/input/form.textarea.component';
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {LanguageCodeEnum, LanguageRecord} from "@core/shared/enum";
+import {Reactive} from "@core/cdk/reactive";
+import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
+import {LanguageVersionsForm} from "@tenant/product/domain/model/product.form";
 
 @Component({
 	selector: 'product-name-form-component',
@@ -17,6 +17,7 @@ import {FormTextareaComponent} from '@utility/presentation/component/input/form.
 		TranslateModule,
 		NgClass,
 		ProductLanguageComponent,
+		FormInputComponent,
 		FormInputComponent,
 		FormTextareaComponent,
 	],

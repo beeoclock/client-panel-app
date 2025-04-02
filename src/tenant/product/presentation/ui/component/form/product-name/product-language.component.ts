@@ -2,10 +2,10 @@ import {Component, input, ViewEncapsulation} from '@angular/core';
 
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {FormInputComponent} from '@utility/presentation/component/input/form.input.component';
 import {TranslateModule} from '@ngx-translate/core';
-import {FormTextareaComponent} from '@utility/presentation/component/input/form.textarea.component';
-import {LanguageVersionForm} from '@product/domain/model/product.form';
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {LanguageVersionForm} from "@tenant/product/domain/model/product.form";
 
 @Component({
 	selector: 'product-language-component',
