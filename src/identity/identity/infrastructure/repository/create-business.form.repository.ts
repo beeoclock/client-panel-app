@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy} from "@angular/core";
+import {Injectable} from "@angular/core";
 import CreateBusinessForm from "@identity/identity/presentation/form/create-business.form";
 import {NGXLogger} from "ngx-logger";
 import {TranslateService} from "@ngx-translate/core";
@@ -12,7 +12,7 @@ import {Reactive} from "@core/cdk/reactive";
 import {IService} from "@tenant/service/domain/interface/i.service";
 
 @Injectable()
-export class CreateBusinessFormRepository extends Reactive implements OnDestroy {
+export class CreateBusinessFormRepository extends Reactive {
 
 	readonly #form = new CreateBusinessForm();
 	public readonly formLocalStorageKey = 'create-business-form';
@@ -132,11 +132,6 @@ export class CreateBusinessFormRepository extends Reactive implements OnDestroy 
 
 	public saveToStorage(): void {
 		localStorage.setItem(this.formLocalStorageKey, JSON.stringify(this.form.getRawValue()));
-	}
-
-	public override ngOnDestroy() {
-		super.ngOnDestroy();
-		this.form.destroyHandlers();
 	}
 
 }

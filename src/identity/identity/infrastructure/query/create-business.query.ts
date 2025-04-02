@@ -12,20 +12,8 @@ export class CreateBusinessQuery {
 		return this.createBusinessFormRepository.form.controls.businessName;
 	}
 
-	public getBusinessCategoryControl() {
-		return this.createBusinessFormRepository.form.controls.businessCategory;
-	}
-
 	public getBookingSettingsControl() {
 		return this.createBusinessFormRepository.form.controls.bookingSettings;
-	}
-
-	public getBusinessIndustryControl() {
-		return this.createBusinessFormRepository.form.controls.businessIndustry;
-	}
-
-	public getServiceProvideTypeControl() {
-		return this.createBusinessFormRepository.form.controls.serviceProvideType;
 	}
 
 	public getBusinessOwnerForm() {

@@ -6,9 +6,6 @@ import {BookingSettingsForm} from "@tenant/client/presentation/form/booking-sett
 import {AddressesForm} from "@tenant/client/presentation/form/address.form";
 import {SchedulesForm} from "@shared/presentation/form/schdeule.form";
 import {ContactsForm} from "@tenant/client/presentation/form/contact.form";
-import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
-import {BusinessIndustry} from "@shared/domain/business-industry";
-import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
 import {BusinessSettingsForm} from "@tenant/client/presentation/form/business-settings.form";
 import {is} from "@core/shared/checker";
 import {USERNAME_ANGULAR_VALIDATOR} from "@shared/validation/validators";
@@ -24,9 +21,6 @@ export interface IBusinessProfileForm {
 
 	name: FormControl<string>;
 	username: FormControl<string | null>;
-	businessCategory: FormControl<BusinessCategoryEnum>;
-	businessIndustry: FormControl<BusinessIndustry>;
-	serviceProvideType: FormControl<ServiceProvideTypeEnum | null>;
 	feature: FormControl<string>;
 	description: FormControl<string>;
 	published: FormControl<ActiveEnum>;
@@ -64,9 +58,6 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfileForm> {
 				emailNotificationSettings: new FormGroup({sendNotificationConditionType: new FormControl()}),
 				smsNotificationSettings: new FormGroup({sendNotificationConditionType: new FormControl()}),
 			}),
-			businessCategory: new FormControl(),
-			businessIndustry: new FormControl(),
-			serviceProvideType: new FormControl(),
 			feature: new FormControl(),
 			description: new FormControl(),
 			published: new FormControl(),
@@ -113,7 +104,6 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfileForm> {
 	private initValidators(): void {
 		this.controls.name.setValidators([Validators.minLength(1), Validators.required]);
 		this.controls.description.setValidators([Validators.maxLength(1000)]);
-		this.controls.businessCategory.setValidators([Validators.required]);
 		this.controls.username.setValidators([USERNAME_ANGULAR_VALIDATOR()]);
 	}
 

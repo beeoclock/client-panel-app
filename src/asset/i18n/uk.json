@@ -900,9 +900,6 @@
 				"schedules": {
 					"title": "Твій робочий графік"
 				},
-				"serviceProvideType": {
-					"title": "Виберіть свій підхід до обслуговування"
-				},
 				"services": {
 					"title": "Які послуги надаєш?"
 				}
@@ -1151,10 +1148,7 @@
 			"phone": "Телефон",
 			"placeholder": {
 				"description": "Напиши додаткову інформацію",
-				"search": "Пошук",
-				"selectBusinessCategory": "Виберіть категорію бізнесу",
-				"selectBusinessIndustry": "Виберіть галузь бізнесу",
-				"selectServiceProvideType": "Виберіть тип обслуговування"
+				"search": "Пошук"
 			},
 			"portfolio": "Портфоліо",
 			"preview": "Попередній перегляд",
@@ -1176,7 +1170,6 @@
 			"send": "Відправити",
 			"sendAgain": "Відправити ще раз",
 			"service": "Послуга",
-			"serviceProvideType": "Тип обслуговування",
 			"services": "Послуги",
 			"signIn": "Увійти",
 			"signOut": "Вийти",
@@ -1551,11 +1544,6 @@
 			}
 		},
 		"title": "Послуга"
-	},
-	"serviceProvideType": {
-		"Mixed": "Змішаний",
-		"Offline": "Офлайн",
-		"Online": "Онлайн"
 	},
 	"sidebar": {
 		"absence": "Відсутність",
