@@ -9,6 +9,7 @@ import {PaymentStatusEnum} from "@tenant/payment/domain/enum/payment.status.enum
 export class PaymentStatusStyleDirective {
 
 	public readonly status = input.required();
+	public readonly textSize = input('text-xs',);
 
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly translateService = inject(TranslateService);
@@ -23,7 +24,7 @@ export class PaymentStatusStyleDirective {
 
 		this.elementRef.nativeElement.className = '';
 
-		this.elementRef.nativeElement.classList.add('inline-flex', 'items-center', 'gap-x-1.5', 'py-1.5', 'px-3', 'rounded-full', 'text-xs', 'font-medium');
+		this.elementRef.nativeElement.classList.add('inline-flex', 'items-center', 'gap-x-1.5', 'py-1.5', 'px-3', 'rounded-full', 'font-medium', this.textSize());
 
 		let text: string;
 

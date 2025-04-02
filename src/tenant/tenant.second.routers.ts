@@ -4,8 +4,9 @@ import {absenceResolver} from "@tenant/absence/presentation/ui/resolver/absence.
 import {memberResolver} from "@tenant/member/presentation/resolver/member.resolver";
 import {serviceResolver} from "@tenant/service/presentation/resolver/service.resolver";
 import {orderResolver} from "@tenant/order/presentation/resolver/order.resolver";
-import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver";
 import {paymentByOrderIdResolver} from "@tenant/payment/presentation/resolver/payment-by-order-id.resolver";
+import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver";
+import {paymentResolver} from "@tenant/payment/presentation/resolver/payment.resolver";
 
 export const tenantSecondRouters: Routes = [
 	/**
@@ -163,7 +164,19 @@ export const tenantSecondRouters: Routes = [
 		loadComponent: () => import('@tenant/order/presentation/ui/component/form/order-form-container.component')
 	},
 	/**
-	 * Order
+	 * Payment
+	 */
+	{
+		path: 'payment/:id',
+		outlet: 'second',
+		resolve: {
+			item: paymentResolver,
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/payment/presentation/ui/page/details/details')
+	},
+	/**
+	 * Event
 	 */
 	{
 		path: 'event/:id',
