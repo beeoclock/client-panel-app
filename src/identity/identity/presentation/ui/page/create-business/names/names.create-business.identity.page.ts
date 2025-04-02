@@ -77,7 +77,7 @@ export class NamesCreateBusinessIdentityPage {
 		if (this.invalid) {
 			return;
 		}
-		this.router.navigate(['../industry'], {relativeTo: this.activatedRoute}).then();
+		this.router.navigate(['../point-of-sale'], {relativeTo: this.activatedRoute}).then();
 	}
 
 }

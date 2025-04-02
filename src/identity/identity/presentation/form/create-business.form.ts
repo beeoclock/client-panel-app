@@ -1,13 +1,7 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SchedulesForm} from "@shared/presentation/form/schdeule.form";
-import {ServiceForm, ServicesForm} from "@tenant/service/presentation/form";
-import {BusinessCategoryEnum} from "@core/shared/enum/business-category.enum";
-import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
-import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
+import {ServicesForm} from "@tenant/service/presentation/form";
 import {ActiveEnum} from "@core/shared/enum";
-import {DefaultServicesByBusinessCategory} from "@shared/domain/const/c.default-services-by-business-category";
-import {takeUntil} from "rxjs/operators";
-import {Subject} from "rxjs";
 import {BusinessSettingsForm} from "@tenant/client/presentation/form/business-settings.form";
 import {AddressForm, BookingSettingsForm, GalleryForm} from "@tenant/client/presentation/form";
 
@@ -40,17 +34,12 @@ interface IBusinessClientForm {
 	businessSettings: BusinessSettingsForm;
 	bookingSettings: BookingSettingsForm;
 
-	businessCategory: FormControl<BusinessCategoryEnum>;
-	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
-	businessIndustry: FormControl<BusinessIndustryEnum>;
 	businessName: FormControl<string>;
 	published: FormControl<ActiveEnum>;
 	businessOwner: BusinessOwnerForm;
 }
 
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
-
-	private readonly destroy$ = new Subject<void>();
 
 	constructor() {
 		super({
@@ -63,9 +52,6 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			bookingSettings: new BookingSettingsForm(),
 			services: new ServicesForm([]),
 
-			businessCategory: new FormControl(),
-			businessIndustry: new FormControl(),
-			serviceProvideType: new FormControl(),
 			businessName: new FormControl(),
 			published: new FormControl(ActiveEnum.YES, {
 				nonNullable: true,
@@ -73,88 +59,14 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			businessOwner: new BusinessOwnerForm(),
 		});
 		this.initValidators();
-		this.initHandlers();
 	}
 
 	public initValidators(): void {
 
-		this.controls.businessIndustry.setValidators([
-			Validators.required
-		]);
-		this.controls.businessIndustry.updateValueAndValidity();
-
 		this.controls.businessName.setValidators([
 			Validators.required
 		]);
-		this.controls.businessIndustry.updateValueAndValidity();
-
-		this.controls.businessIndustry.updateValueAndValidity();
 
 	}
 
-	private initHandlers(): void {
-		this.initBusinessCategoryHandler();
-	}
-
-	private initBusinessCategoryHandler() {
-		this.controls.businessCategory.valueChanges.pipe(
-			takeUntil(this.destroy$)
-		).subscribe(() => {
-			this.fillServices();
-		})
-	}
-
-	private fillServices(): void {
-
-		this.controls.services.clear();
-
-		const businessCategory = this.controls.businessCategory.value as BusinessCategoryEnum;
-		const servicesByLanguage = DefaultServicesByBusinessCategory[this.controls.businessSettings.controls.baseLanguage.value];
-
-		if (!servicesByLanguage) {
-			return;
-		}
-
-		const servicesByBusinessCategory = servicesByLanguage[businessCategory];
-
-		if (!servicesByBusinessCategory) {
-			return;
-		}
-
-		servicesByBusinessCategory.forEach(({
-																					title,
-																					durationVersions,
-																				}) => {
-			const form = new ServiceForm();
-			form.controls.languageVersions.at(0).controls.title.setValue(title);
-
-			form.controls.durationVersions.clear();
-
-			durationVersions.forEach(({
-																	durationInSeconds,
-																	price,
-																	currency,
-																}) => {
-				form.controls.durationVersions.pushNewOne({
-					breakInSeconds: 0,
-					durationInSeconds,
-					prices: [
-						{
-							price,
-							currency,
-						}
-					]
-				});
-			});
-
-			this.controls.services.push(form);
-		});
-
-
-	}
-
-	public destroyHandlers(): void {
-		this.destroy$.next();
-		this.destroy$.complete();
-	}
 }

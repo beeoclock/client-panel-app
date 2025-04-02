@@ -11,7 +11,6 @@ import {PrimaryButtonDirective} from "@shared/presentation/directives/button/pri
 import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
-import {BusinessIndustryEnum} from "@core/shared/enum/business-industry.enum";
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	AddressBusinessProfileComponent
@@ -34,22 +33,12 @@ import {
 })
 export class PointOfSaleCreateBusinessIdentityPage implements AfterViewInit {
 
-	public backPath = 'category';
+	public backPath = 'names';
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly addressForm = this.createBusinessQuery.getAddressForm();
-	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
 
 	public ngAfterViewInit(): void {
-		const value = this.businessIndustryControl.value;
-		switch (value) {
-			case BusinessIndustryEnum.Other:
-				this.backPath = 'industry';
-				break;
-			case BusinessIndustryEnum.TeachingAndConsultation:
-				this.backPath = 'service-provide-type';
-				break;
-		}
 		this.changeDetectorRef.detectChanges();
 	}
 
