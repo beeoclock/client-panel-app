@@ -3,7 +3,7 @@ import {Action, Selector, State, StateContext, Store} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@shared/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EOrder from "@tenant/order/domain/entity/e.order";
@@ -122,34 +122,12 @@ export class OrderState {
 	@Action(OrderActions.OpenFormToEditById)
 	public async openFormToEditByIdAction(ctx: StateContext<IOrderState>, action: OrderActions.OpenFormToEditById) {
 
-		// const whacamoleId = 'edit-order-form-by-id-' + action.payload;
-		//
-		// if (this.whacAMaleProvider.componentRefMapById.has(whacamoleId)) {
-		// 	return;
-		// }
-
-		// const title = await this.translateService.instant('order.form.title.edit');
 		const orderDto = await this.sharedUow.order.repository.findByIdAsync(action.payload);
 
 		if (!orderDto) {
 			this.ngxLogger.error('OrderState.openDetailsById', 'Item not found');
 			return;
 		}
-
-		// const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");
-		//
-		// const paymentEntity = await this.sharedUow.payment.findByOrderId(action.payload);
-
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	title,
-		// 	id: whacamoleId,
-		// 	component: OrderFormContainerComponent,
-		// 	componentInputs: {
-		// 		orderDto,
-		// 		paymentDto: paymentEntity.at(-1),
-		// 		isEditMode: true,
-		// 	},
-		// });
 
 		ctx.dispatch(new OrderActions.OpenForm({
 			componentInputs: {
@@ -228,17 +206,6 @@ export class OrderState {
 
 		}
 
-		// const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");
-		//
-		// const {componentInputs, pushBoxInputs} = payload ?? {};
-		//
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	title: this.translateService.instant('order.form.title.create'),
-		// 	...pushBoxInputs,
-		// 	component: OrderFormContainerComponent,
-		// 	componentInputs,
-		// });
-
 	}
 
 	// API
@@ -265,7 +232,6 @@ export class OrderState {
 		 */
 
 		const orderEntity = EOrder.fromDTO(action.payload);
-
 
 		// Resolve new customer case
 		for (const service of orderEntity.services) {
@@ -298,11 +264,11 @@ export class OrderState {
 
 	@Action(OrderActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IOrderState>, {payload: item}: OrderActions.UpdateItem): Promise<void> {
-		const foundItems = await this.sharedUow.order.repository.findByIdAsync(item._id);
-		if (foundItems) {
+		const foundItem = await this.sharedUow.order.repository.findByIdAsync(item._id);
+		if (foundItem) {
 
 			const orderEntity = EOrder.fromRaw({
-				...foundItems,
+				...foundItem,
 				...item,
 			});
 

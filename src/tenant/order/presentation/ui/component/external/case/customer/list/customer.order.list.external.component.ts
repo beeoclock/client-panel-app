@@ -8,7 +8,7 @@ import {ListPage} from "@shared/list.page";
 import {
 	MobileLayoutListComponent
 } from "@tenant/order/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
-import {PeerCustomerOrderActions} from "@tenant/order/presentation/state/peer-customer/peer-customer.order.actions";
+import {PeerCustomerOrderActions} from "@tenant/order/infrastructure/state/peer-customer/peer-customer.order.actions";
 
 @Component({
 	selector: 'order-external-list-component',

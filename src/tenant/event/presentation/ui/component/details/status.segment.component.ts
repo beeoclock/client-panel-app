@@ -9,7 +9,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter, tap} from "rxjs";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {is} from "@core/shared/checker";
 
 @Component({
