@@ -12,6 +12,9 @@ import EOrder from "@tenant/order/domain/entity/e.order";
 import {
 	CardItemLightweightOrderComponent
 } from "@tenant/order/presentation/ui/component/list/card/item-lightweight/card.item.order.component";
+import {
+	CardItemOrderService
+} from "@tenant/order/presentation/ui/component/list/card/item-lightweight/card.item.order.service";
 
 @Component({
 	selector: 'payment-details',
@@ -27,6 +30,9 @@ import {
 		DynamicDatePipe,
 		TranslatePipe,
 		CardItemLightweightOrderComponent
+	],
+	providers: [
+		CardItemOrderService
 	],
 	template: `
 		@if (item(); as item) {
@@ -54,10 +60,12 @@ import {
 
 			<!--	Payer	-->
 			<div class="flex flex-col gap-1">
-				<div class="text-neutral-500 text-xs px-2">
+
+				<div class="text-neutral-500 text-xs px-4">
 					{{ 'keyword.capitalize.payer' | translate }}
 				</div>
-				<div class="bg-white rounded-lg shadow-sm p-4 flex flex-col gap-4 ">
+
+				<div class="bg-white rounded-2xl shadow-sm p-4 flex flex-col gap-4 ">
 
 					<div class="flex justify-between items-center">
 						<div>
@@ -66,6 +74,7 @@ import {
 					</div>
 
 				</div>
+
 			</div>
 
 			@switch (item.anchorType) {
@@ -74,10 +83,10 @@ import {
 
 					<!--	Order	-->
 					<div class="flex flex-col gap-1">
-						<div class="text-neutral-500 text-xs px-2">
+						<div class="text-neutral-500 text-xs px-4">
 							{{ 'keyword.capitalize.ordering' | translate }}
 						</div>
-						<div class="bg-white rounded-lg shadow-sm p-4 flex flex-col gap-4 ">
+						<div class="bg-white rounded-2xl shadow-sm p-4 flex flex-col gap-4 ">
 
 							<div class="flex justify-between items-center">
 								<div>
@@ -95,31 +104,16 @@ import {
 					@if (order(); as order) {
 
 						<!--	Order	-->
-						<div class="flex flex-col gap-1">
-							<div class="text-neutral-500 text-xs px-2">
-								{{ 'keyword.capitalize.ordering' | translate }}
-							</div>
-							<div class="bg-white rounded-lg shadow-sm p-4 flex flex-col gap-4 ">
-
-								<div class="flex justify-between items-center">
-
-									<div>
-
-										<div>
-											<div class="flex justify-between px-4">
-												<div class="text-neutral-400 text-sm"></div>
-												<div class="text-neutral-400 text-sm uppercase">
-													#...{{ item._id.slice(-5) }}
-												</div>
-											</div>
-											<app-card-item-lightweight-order-component [orderDto]="order"/>
-										</div>
-
-									</div>
-
+						<div>
+							<div class="flex justify-between px-4">
+								<div class="text-neutral-500 text-xs">
+									{{ 'keyword.capitalize.ordering' | translate }}
 								</div>
-
+								<div class="text-neutral-400 text-sm uppercase">
+									#...{{ item._id.slice(-5) }}
+								</div>
 							</div>
+							<app-card-item-lightweight-order-component [orderDto]="order"/>
 						</div>
 
 					}
