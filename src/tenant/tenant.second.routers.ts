@@ -29,7 +29,6 @@ export const tenantSecondRouters: Routes = [
 	},
 	{
 		path: 'customer/:id/form',
-
 		outlet: 'second',
 		resolve: {
 			item: customerResolver,
@@ -39,6 +38,18 @@ export const tenantSecondRouters: Routes = [
 		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/customer/presentation/ui/component/form/customer-form-container.component')
+	},
+	{
+		path: 'customer/:id/order',
+		outlet: 'second',
+		resolve: {
+			item: customerResolver,
+		},
+		data: {
+			isEditMode: true
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/order/presentation/ui/component/external/case/customer/list/customer.order.list.external.component')
 	},
 	/**
 	 * Absence
