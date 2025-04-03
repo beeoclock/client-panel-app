@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ICustomer, validCustomer} from "@tenant/customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
@@ -15,6 +15,9 @@ import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/customer.data.actions";
+import {
+	CustomerPresentationActions
+} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'customer-form-page',
@@ -45,8 +48,7 @@ export class CustomerFormContainerComponent implements OnInit {
 
 	public readonly item = input<ICustomer.DTO | undefined>();
 
-	@Input()
-	private isEditMode = false;
+	public readonly isEditMode = input<boolean>(false);
 
 	public ngOnInit(): void {
 		this.detectItem();
@@ -54,8 +56,7 @@ export class CustomerFormContainerComponent implements OnInit {
 
 	public detectItem(): void {
 		const item = this.item();
-		if (this.isEditMode && item) {
-			this.isEditMode = true;
+		if (this.isEditMode() && item) {
 			this.form.patchValue({
 				...item,
 				customerType: CustomerTypeEnum.regular
@@ -75,11 +76,16 @@ export class CustomerFormContainerComponent implements OnInit {
 		if (this.form.valid) {
 			this.form.disable();
 			this.form.markAsPending();
-			if (this.isEditMode) {
-				await firstValueFrom(this.store.dispatch(new CustomerDataActions.UpdateItem(value)));
+			const actions: any[] = [
+				new CustomerPresentationActions.CloseForm(),
+			]
+			if (this.isEditMode()) {
+				actions.unshift(new CustomerDataActions.UpdateItem(value));
 			} else {
-				await firstValueFrom(this.store.dispatch(new CustomerDataActions.CreateItem(value)));
+				actions.unshift(new CustomerDataActions.CreateItem(value));
 			}
+			const action$ = this.store.dispatch(actions);
+			await firstValueFrom(action$);
 			this.form.enable();
 			this.form.updateValueAndValidity();
 
@@ -88,3 +94,5 @@ export class CustomerFormContainerComponent implements OnInit {
 		}
 	}
 }
+
+export default CustomerFormContainerComponent;

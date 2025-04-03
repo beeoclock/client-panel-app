@@ -2,12 +2,15 @@ import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {TranslateService} from "@ngx-translate/core";
-import {IOrderState} from "@tenant/order/presentation/state/order/order.state";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
-import EOrder from "@tenant/order/domain/entity/e.order";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import CustomerDetailsContainerComponent
+	from "@tenant/customer/presentation/ui/component/details/customer-details-container.component";
+import {
+	CustomerPresentationActions
+} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
+import {Router} from "@angular/router";
+import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 
 
 export interface IEventState {
@@ -25,79 +28,47 @@ export class EventState {
 
 	// Change status
 	private readonly translateService = inject(TranslateService);
-	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly router = inject(Router);
+	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
-	// Application layer
-
-	@Action(EventActions.UpdateOpenedDetails)
-	public async updateOpenedDetails(ctx: StateContext<IEventState>, {payload: item}: EventActions.UpdateOpenedDetails) {
-
-		const {ContainerDetailsComponent} = await import("@tenant/event/presentation/ui/component/details/container.details.component");
-
-		this.ngxLogger.debug('EventState.updateOpenedDetails', item);
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-			component: ContainerDetailsComponent,
-			componentInputs: {
-				event: structuredClone(item)
-			},
-		}).catch((error) => {
-			this.ngxLogger.error('EventState.updateOpenedDetails', error);
-		});
-
-	}
 
 	@Action(EventActions.CloseDetails)
 	public async closeDetails(ctx: StateContext<IEventState>, action?: EventActions.CloseDetails) {
-
-		const {ContainerDetailsComponent} = await import("@tenant/event/presentation/ui/component/details/container.details.component");
-
-		await this.whacAMaleProvider.destroyComponent(ContainerDetailsComponent);
-
+		await this.router.navigate([{outlets: {second: null}}]);
 	}
 
 	@Action(EventActions.OpenDetails)
-	public async openDetails(ctx: StateContext<IEventState>, {payload: item}: EventActions.OpenDetails) {
+	public async openDetails(ctx: StateContext<IEventState>, {payload}: EventActions.OpenDetails) {
 
-		const title = this.translateService.instant('event.details.title');
+		// const title = this.translateService.instant('event.details.title');
+		//
+		// const {ContainerDetailsComponent} = await import("@tenant/event/presentation/ui/component/details/container.details.component");
+		//
+		// await this.whacAMaleProvider.buildItAsync({
+		// 	title,
+		// 	component: ContainerDetailsComponent,
+		// 	componentInputs: {
+		// 		event: item
+		// 	},
+		// });
 
-		const {ContainerDetailsComponent} = await import("@tenant/event/presentation/ui/component/details/container.details.component");
 
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			component: ContainerDetailsComponent,
-			componentInputs: {
-				event: item
-			},
-		});
+		const activated = this.secondRouterOutletService.activated();
 
-	}
-
-	@Action(EventActions.ChangeServiceStatus)
-	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: EventActions.ChangeServiceStatus): Promise<void> {
-		const foundItem = await this.sharedUow.order.repository.findByIdAsync(action.payload.orderId);
-
-		if (!foundItem) {
-			return;
+		if (activated) {
+			if (activated instanceof CustomerDetailsContainerComponent) {
+				const {_id} = activated.item() ?? {};
+				if (_id === payload._id) {
+					const action = new CustomerPresentationActions.CloseDetails();
+					ctx.dispatch(action);
+					return;
+				}
+			}
 		}
 
-		// TODO: Check if all orderService will have the same status, e.g. canceled then change status of order on canceled
+		await this.router.navigate([{outlets: {second: ['event', payload._id]}}]);
 
-		const modifiedItem = {
-			...foundItem,
-			services: foundItem.services.map((service) => {
-				if (service._id === action.payload.serviceId) {
-					return {
-						...service,
-						status: action.payload.status,
-					};
-				}
-				return service;
-			})
-		};
-
-		const entity = EOrder.fromDTO(modifiedItem);
-		ctx.dispatch(new OrderActions.UpdateItem(entity));
 	}
 
 }

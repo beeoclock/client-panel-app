@@ -39,7 +39,7 @@ import {
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {DateTime} from "luxon";
 import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {
@@ -780,7 +780,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		}, [] as HTMLElement[]);
 
 		if (!foundNearEvents.length) {
-			htmlDivElement.style.width = '100%';
+			htmlDivElement.style.width = 'calc(100% - 20px)';
 			htmlDivElement.style.transform = `translateX(0)`;
 			callbackIfNoNearEvents();
 			return;
@@ -808,17 +808,17 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 				this.mutatedOtherEventHtmlList.push(elm);
 			}
 
-			elm.style.width = `${column.clientWidth / (foundNearEvents.length + 1)}px`;
+			elm.style.width = `calc(${column.clientWidth / (foundNearEvents.length + 1)}px - ${20/(foundNearEvents.length + 1)}px)`;
 			elm.style.transform = `translateX(calc(100% * ${index + (htmlDivElementHasSmollerTop ? 1 : 0)}))`
 		});
 
-		htmlDivElement.style.width = `${column.clientWidth / (foundNearEvents.length + 1)}px`;
+		htmlDivElement.style.width = `calc(${column.clientWidth / (foundNearEvents.length + 1)}px - ${20/(foundNearEvents.length + 1)}px)`;
 		htmlDivElement.style.transform = `translateX(calc(100% * ${(htmlDivElementHasSmollerTop ? 0 : foundNearEvents.length)}))`;
 	}
 
 	protected restoreWidthOfMutatedEvents(column: HTMLElement) {
 		this.mutatedOtherEventHtmlList.forEach((element, index) => {
-			element.style.width = `${column.clientWidth / this.mutatedOtherEventHtmlList.length}px`;
+			element.style.width = `calc(${column.clientWidth / this.mutatedOtherEventHtmlList.length}px - ${20/this.mutatedOtherEventHtmlList.length}px)`;
 			element.style.transform = `translateX(calc(100% * ${index}))`;
 		});
 	};

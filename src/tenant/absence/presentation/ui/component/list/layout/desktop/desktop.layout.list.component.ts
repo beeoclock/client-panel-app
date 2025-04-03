@@ -9,7 +9,7 @@ import LayoutListComponent from "@shared/layout.list.component";
 	encapsulation: ViewEncapsulation.None,
 	template: `
 		<app-absence-filter-component/>
-		<app-list-absence-table class="flex flex-1 flex-col h-px"/>
+		<app-list-absence-table class="flex flex-1 flex-col"/>
 	`,
 	imports: [
 		TableListComponent,

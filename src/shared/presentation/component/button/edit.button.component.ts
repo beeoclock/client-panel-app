@@ -12,19 +12,10 @@ import {TranslateModule} from "@ngx-translate/core";
 	`,
 	imports: [
 		TranslateModule,
-	]
-})
-export class EditButtonComponent {
-
-	public readonly link = input<string | string[]>('form');
-
-	@HostBinding('class.w-full')
-	@Input()
-	public buttonWidthFull = false;
-
-	@HostBinding()
-	public class = `
-	cursor-pointer
+	],
+	host: {
+		class: `
+		cursor-pointer
         flex
         items-center
         justify-center
@@ -42,6 +33,15 @@ export class EditButtonComponent {
         shadow-sm
         ring-1
         ring-inset
-        ring-beeColor-300`;
+        ring-beeColor-300`
+	}
+})
+export class EditButtonComponent {
+
+	public readonly link = input<string | string[]>('form');
+
+	@HostBinding('class.w-full')
+	@Input()
+	public buttonWidthFull = false;
 
 }

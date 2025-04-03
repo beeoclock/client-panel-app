@@ -1,23 +1,14 @@
-import {ChangeDetectionStrategy, Component, inject, input, OnInit, output, ViewEncapsulation} from "@angular/core";
-import {
-	InfiniteScrollCustomEvent,
-	IonContent,
-	IonInfiniteScroll,
-	IonInfiniteScrollContent,
-	IonItem,
-	IonLabel,
-	IonList,
-	IonPopover
-} from "@ionic/angular/standalone";
+import {ChangeDetectionStrategy, Component, input, OnInit, output, ViewEncapsulation} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import ObjectID from "bson-objectid";
-import {Reactive} from "@core/cdk/reactive";
 import {TranslateModule} from "@ngx-translate/core";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {
 	ServiceChipPagination
 } from "@src/component/smart/order/form/service/list/item/chip/service/service.chip.pagination";
-import {AsyncPipe} from "@angular/common";
+import {
+	ServicePopoverChipComponent
+} from "@src/component/smart/order/form/service/list/item/chip/service/service-popover.chip.component";
 
 @Component({
 	selector: 'app-service-chip-component',
@@ -25,20 +16,14 @@ import {AsyncPipe} from "@angular/common";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		IonItem,
-		IonLabel,
-		IonList,
-		IonPopover,
 		TranslateModule,
-		AsyncPipe,
-		IonContent,
-		IonInfiniteScroll,
-		IonInfiniteScrollContent,
+		ServicePopoverChipComponent,
 	],
 	providers: [
 		ServiceChipPagination
 	],
 	template: `
+
 		<button
 			[id]="'select-service-' + id()"
 			class="ps-0 pe-2 rounded-lg border border-gray-200 justify-center items-center flex gap-1">
@@ -66,44 +51,18 @@ import {AsyncPipe} from "@angular/common";
 			}
 		</button>
 
-		<!-- Control to select specialist -->
-		<ion-popover #selectSpecialistPopover [trigger]="'select-service-' + id()">
-			<ng-template>
-				<ion-content class="popover-content">
-					<ion-list>
-						@for (service of (items$ | async); track service._id) {
-							<ion-item [button]="true" lines="full" [detail]="false"
-									  (click)="setService(service);selectSpecialistPopover.dismiss()">
-								<div
-									class="rounded-full w-4 h-4 me-3 flex items-center"
-									[style.background-color]="service.presentation.color">
-									{{ service.presentation.color ? '' : '❓' }}
-								</div>
-								<ion-label>{{ service.languageVersions[0].title }}</ion-label>
-							</ion-item>
-						}
-					</ion-list>
-					<ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-						<ion-infinite-scroll-content/>
-					</ion-infinite-scroll>
-				</ion-content>
-			</ng-template>
-		</ion-popover>
+		<app-service-popover-chip-component [trigger]="'select-service-' + id()" (result)="setService($event)"/>
 	`
 })
-export class ServiceChipComponent extends Reactive implements OnInit {
+export class ServiceChipComponent implements OnInit {
 
 	public readonly initialValue = input<IService.DTO | null>(null);
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
-	private readonly serviceChipPagination = inject(ServiceChipPagination);
-
 	public readonly serviceChanges = output<IService.DTO>();
 
 	public readonly serviceFormControl = new FormControl<IService.DTO | null>(null);
-
-	public readonly items$ = this.serviceChipPagination.items$;
 
 	public ngOnInit() {
 		this.initService();
@@ -122,12 +81,6 @@ export class ServiceChipComponent extends Reactive implements OnInit {
 			this.serviceFormControl.setValue(service);
 			this.serviceChanges.emit(service);
 		}
-	}
-
-	protected onIonInfinite(event: InfiniteScrollCustomEvent) {
-		this.serviceChipPagination.fetch().then(() => {
-			event.target.complete().then();
-		});
 	}
 
 

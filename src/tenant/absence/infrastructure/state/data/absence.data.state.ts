@@ -46,7 +46,7 @@ export class AbsenceDataState {
 			});
 			await this.sharedUow.absence.repository.updateAsync(entity);
 			ctx.dispatch(new AbsencePresentationActions.CloseForm());
-			ctx.dispatch(new AbsencePresentationActions.UpdateOpenedDetails(entity));
+			ctx.dispatch(new AbsencePresentationActions.OpenDetails(entity));
 		}
 	}
 

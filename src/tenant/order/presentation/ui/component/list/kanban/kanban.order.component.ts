@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Signal, V
 import {DATA, KanbanOrderService} from "@tenant/order/presentation/ui/component/list/kanban/kanban.order.service";
 import {NgClass} from "@angular/common";
 import {FilterComponent} from "@tenant/order/presentation/ui/component/filter/filter.component";
-import {CardItemOrderComponent} from "@tenant/order/presentation/ui/component/list/card/item/card.item.order.component";
 import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 import {
 	StatusOrderIconComponent
@@ -13,6 +12,12 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter, tap} from "rxjs";
 import {Actions} from "@ngxs/store";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {
+	CardItemLightweightOrderComponent
+} from "@tenant/order/presentation/ui/component/list/card/item-lightweight/card.item.order.component";
+import {
+	CardItemOrderService
+} from "@tenant/order/presentation/ui/component/list/card/item-lightweight/card.item.order.service";
 
 @Component({
 	selector: 'kanban-order',
@@ -21,13 +26,14 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 	standalone: true,
 	providers: [
 		KanbanOrderService,
+		CardItemOrderService,
 	],
 	imports: [
 		FilterComponent,
-		CardItemOrderComponent,
 		StatusOrderIconComponent,
 		NgClass,
 		TranslatePipe,
+		CardItemLightweightOrderComponent,
 	],
 	template: `
 		<app-order-filter-component [orderStatusControl]="orderStatusControl" class="sticky left-0"/>
@@ -78,9 +84,11 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 									<div>
 										<div class="flex justify-between px-4">
 											<div class="text-neutral-400 text-sm">{{ $index + 1 }}</div>
-											<div class="text-neutral-400 text-sm uppercase">#...{{ item._id.slice(-5) }}</div>
+											<div class="text-neutral-400 text-sm uppercase">
+												#...{{ item._id.slice(-5) }}
+											</div>
 										</div>
-										<app-card-item-order-component [orderDto]="item"/>
+										<app-card-item-lightweight-order-component [orderDto]="item"/>
 									</div>
 
 								}
@@ -121,7 +129,7 @@ import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.syn
 				</div>
 			}
 		</div>
-	`,
+    `,
 	host: {
 		class: 'flex flex-col h-full overflow-x-auto'
 	}

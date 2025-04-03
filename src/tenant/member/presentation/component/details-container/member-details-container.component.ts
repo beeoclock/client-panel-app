@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
@@ -6,8 +6,8 @@ import {NgOptimizedImage} from "@angular/common";
 import {
 	RowActionButtonComponent
 } from "@tenant/member/presentation/component/row-action-button/row-action-button.component";
-import {IMember} from "@tenant/member/domain/interface/i.member";
 import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
+import EMember from "@tenant/member/domain/entity/e.member";
 
 @Component({
 	selector: 'member-detail-page',
@@ -23,13 +23,12 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 })
 export class MemberDetailsContainerComponent {
 
-	@Input({required: true})
-	public readonly item!: IMember.EntityRaw;
+	public readonly item = input.required<EMember>();
 
 	public readonly store = inject(Store);
 
 	public openForm() {
-		const item = this.item;
+		const item = this.item();
 		if (!item) {
 			return
 		}
@@ -37,3 +36,5 @@ export class MemberDetailsContainerComponent {
 	}
 
 }
+
+export default MemberDetailsContainerComponent;

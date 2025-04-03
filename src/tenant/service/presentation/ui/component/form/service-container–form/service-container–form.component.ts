@@ -81,6 +81,7 @@ export class ServiceContainerFormComponent implements OnInit {
 			},
 			state: StateEnum.active,
 			stateHistory: [],
+			_version: '1',
 			createdAt: '',
 			updatedAt: '',
 		}]
@@ -197,3 +198,5 @@ export class ServiceContainerFormComponent implements OnInit {
 	}
 
 }
+
+export default ServiceContainerFormComponent;

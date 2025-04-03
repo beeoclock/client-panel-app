@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
@@ -9,7 +9,7 @@ import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.he
 import {
 	RowActionButtonComponent
 } from "@tenant/service/presentation/ui/component/row-action-button/row-action-button.component";
-import {IService} from "@tenant/service/domain/interface/i.service";
+import EService from "@tenant/service/domain/entity/e.service";
 
 @Component({
 	selector: 'service-detail-page',
@@ -30,14 +30,13 @@ import {IService} from "@tenant/service/domain/interface/i.service";
 })
 export class ServiceDetails {
 
-	@Input({required: true})
-	public readonly item!: IService.DTO;
+	public readonly item = input.required<EService>();
 
 	public readonly store = inject(Store);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public edit(): void {
-		const item = this.item;
+		const item = this.item();
 		if (!item) return;
 		this.store.dispatch(new ServiceActions.OpenForm({
 			componentInputs: {
@@ -49,3 +48,5 @@ export class ServiceDetails {
 
 
 }
+
+export default ServiceDetails;

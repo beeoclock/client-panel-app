@@ -33,6 +33,9 @@ import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {KeyValuePipe} from "@angular/common";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
+import {
+	AbsencePresentationActions
+} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 @Component({
 	selector: 'app-absence-form-container',
@@ -163,8 +166,15 @@ import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/abse
 export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
 	public readonly item = input<IAbsence.EntityRaw>();
-	public readonly defaultValue = input<Partial<IAbsence.DTO>>({
+	public readonly defaultValue = input({
 		entireBusiness: true,
+	}, {
+		transform: (value) => {
+			if (typeof value === 'string') {
+				return JSON.parse(value) as Partial<IAbsence.DTO>;
+			}
+			return value as Partial<IAbsence.DTO>;
+		}
 	});
 
 	public readonly isEditMode = input<boolean>(false);
@@ -233,11 +243,17 @@ export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 		this.form.disable();
 		this.form.markAsPending();
 		const entity = EAbsence.fromDTO(value);
+		const actions: any[] = [
+			new AbsencePresentationActions.CloseForm(),
+		]
 		if (this.isEditMode()) {
-			await firstValueFrom(this.store.dispatch(new AbsenceDataActions.UpdateItem(entity)));
+			actions.unshift(new AbsenceDataActions.UpdateItem(entity));
 		} else {
-			await firstValueFrom(this.store.dispatch(new AbsenceDataActions.CreateItem(entity)));
+			actions.unshift(new AbsenceDataActions.CreateItem(entity));
 		}
+		const action$ = this.store.dispatch(actions);
+		await firstValueFrom(action$);
+
 		this.form.enable();
 		this.form.updateValueAndValidity();
 
@@ -258,3 +274,5 @@ export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 		this.proxyForm.updateValueAndValidity();
 	}
 }
+
+export default AbsenceFormContainerComponent;

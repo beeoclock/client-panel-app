@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {MetaDetailsComponent} from "@tenant/event/presentation/ui/component/details/meta.details.component";
 import {IEvent_V2} from "@tenant/event/domain";
 import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
@@ -9,7 +9,7 @@ import {
 	ButtonOpenOrderDetailsComponent
 } from "@tenant/event/presentation/ui/component/details/button.open-order.details.component";
 import {Actions, ofActionSuccessful} from "@ngxs/store";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {Reactive} from "@core/cdk/reactive";
 import {NGXLogger} from "ngx-logger";
 import {
@@ -29,7 +29,7 @@ import {
 		ListServiceFormCardOrderComponent,
 	],
 	template: `
-		@if (event) {
+		@if (event(); as event) {
 <!--			<div class="p-2">-->
 <!--				<app-event-status-segment-component [event]="event"/>-->
 <!--			</div>-->
@@ -47,15 +47,14 @@ import {
 		} @else {
 			<utility-loader/>
 		}
-	`
+	`,
+	host: {
+		class: 'pb-48 block'
+	}
 })
 export class ContainerDetailsComponent extends Reactive implements OnInit {
 
-	@Input({required: true})
-	public event!: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>;
-
-	@HostBinding()
-	public class = 'pb-48 block';
+	public readonly event = input.required<IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>>();
 
 	private readonly actions$ = inject(Actions);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -73,7 +72,7 @@ export class ContainerDetailsComponent extends Reactive implements OnInit {
 			)
 			.subscribe(({payload: order}) => {
 
-				if (this.event.originalData.order._id !== order._id) {
+				if (this.event().originalData.order._id !== order._id) {
 					return;
 				}
 			});
@@ -82,7 +81,7 @@ export class ContainerDetailsComponent extends Reactive implements OnInit {
 		// 	.pipe(
 		// 		this.takeUntil(),
 		// 		ofActionSuccessful(
-		// 			OrderActions.DeleteItem,
+		// 			OrderActions.,
 		// 		)
 		// 	)
 		// 	.subscribe(({payload: orderId}) => {
@@ -100,3 +99,5 @@ export class ContainerDetailsComponent extends Reactive implements OnInit {
 	}
 
 }
+
+export default ContainerDetailsComponent;

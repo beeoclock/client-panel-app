@@ -6,6 +6,7 @@ import {ICustomer} from "@tenant/customer/domain";
 import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {Types} from "@core/shared/types";
+import {AnchorTypeEnum} from "@tenant/payment/domain/enum/anchor.type.enum";
 
 
 export namespace IPayment {
@@ -21,6 +22,7 @@ export namespace IPayment {
 		providerType?: PaymentProviderTypeEnum & Types.Default<PaymentProviderTypeEnum.onSite>;
 		status: PaymentStatusEnum & Types.Default<PaymentStatusEnum.pending>;
 		paymentDate?: string;
+		anchorType: AnchorTypeEnum & Types.Default<AnchorTypeEnum.order>;
 
 	}
 

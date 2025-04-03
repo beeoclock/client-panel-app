@@ -24,7 +24,7 @@ import {
 		<div class="flex flex-wrap gap-1">
 			<div class="w-full flex justify-between">
 				<div class="text-xs dark:text-sky-100">
-					{{ startEndTitle }}
+					{{ ('absence.type.' + event.originalData.type + '.label') | translate }}
 				</div>
 				<div class="dark:text-sky-100 absolute right-2 gap-2 flex">
 					@if (event.note) {
@@ -38,7 +38,7 @@ import {
 			</div>
 		</div>
 		<div class="text-xs font-medium">
-			{{ ('absence.type.' + event.originalData.type + '.label') | translate }}
+			{{ startEndTitle }}
 		</div>
 	`,
 	standalone: true,

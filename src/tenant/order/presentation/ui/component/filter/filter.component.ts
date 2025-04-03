@@ -6,8 +6,8 @@ import {BaseFilterComponent} from "@shared/base.filter.component";
 import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
 import {IonSelectWrapperComponent} from "@shared/presentation/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
-import {OrderState} from "@tenant/order/presentation/state/order/order.state";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
+import {OrderState} from "@tenant/order/infrastructure/state/order/order.state";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {OrderStatusEnum} from '@tenant/order/domain/enum/order.status.enum';
 import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
@@ -26,7 +26,7 @@ import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/
 		AutoRefreshComponent
 	],
 	template: `
-		<utility-default-panel-component>
+		<utility-default-panel-component class="p-2">
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full">
 					<!--					TODO: return this feature when backend will ready for it -->

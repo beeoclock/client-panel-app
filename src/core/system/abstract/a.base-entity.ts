@@ -20,6 +20,7 @@ export abstract class ABaseEntity<
 	_id: string & Types.ObjectId = new ObjectID().toHexString();
 	createdAt: string & Types.DateTime = new Date().toISOString();
 	updatedAt: string & Types.DateTime = new Date().toISOString();
+	_version!: string;
 
 	state!: StateEnum;
 	stateHistory: {

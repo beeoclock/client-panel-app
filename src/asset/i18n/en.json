@@ -700,6 +700,20 @@
 					}
 				}
 			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Product",
+						"message": "Product was successfully deleted."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Deleting a product",
+						"message": "Are you sure you want to remove the product?"
+					}
+				}
+			},
 			"/api/v1/service/{id}": {
 				"before": {
 					"accept": {
@@ -768,6 +782,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Product created",
+						"message": "Product was successfully created."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -799,6 +821,14 @@
 					"success": {
 						"header": "Event updated",
 						"message": "Event was successfully updated."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Product updated",
+						"message": "Product was successfully updated."
 					}
 				}
 			},
@@ -1028,6 +1058,10 @@
 			"addSocialMedia": "Add social media",
 			"additional": "Additional",
 			"address": "Address",
+			"all": "All",
+			"allServices": "All services",
+			"allSpecialists": "All specialists",
+			"allStatuses": "All statuses",
 			"amount": "Amount",
 			"anonymous": "Anonymous",
 			"approvalType": "Approval type",
@@ -1048,6 +1082,17 @@
 			"businessProfile": "Business profile",
 			"businessSettings": "Business settings",
 			"cancel": "Cancel",
+			"category": {
+				"create": {
+					"choose": "Choose a category",
+					"enter": "Enter a category",
+					"first": "Add the first category",
+					"tooltip": "Add categories to the list",
+					"uniqueError": "The category name must be unique"
+				},
+				"plural": "Categories",
+				"single": "Category"
+			},
 			"changeStatus": "Change status",
 			"changes": "Changes",
 			"changesFrom": "From",
@@ -1067,6 +1112,7 @@
 			"country": "Country",
 			"create": "Create",
 			"createdAt": "Created at",
+			"currency": "Currency",
 			"customer": "Customer",
 			"customerNote": "Note from client",
 			"customers": "customers",
@@ -1135,6 +1181,7 @@
 			"payer": "Payer",
 			"payment": "Payment",
 			"paymentMethod": "Payment method",
+			"paymentProviderType": "Payment type ",
 			"paymentStatus": "Payment status",
 			"periodOfDay": {
 				"AFTERNOON": "Afternoon",
@@ -1155,6 +1202,7 @@
 			"priceTimeFormatPrompt": "hours:minutes",
 			"prices": "Prices",
 			"processing": "Processing",
+			"productName": "Product name",
 			"publicPage": "Public page",
 			"reject": "Reject",
 			"role": "Role",
@@ -1172,6 +1220,7 @@
 			"signIn": "Sign in",
 			"signOut": "Sign out",
 			"signUp": "Sign up",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Social media",
 			"somethingWentWrong": "Something went wrong!",
@@ -1456,6 +1505,9 @@
 		"providerType": {
 			"onSite": {
 				"label": "On site"
+			},
+			"stripe": {
+				"label": "Stripe"
 			}
 		},
 		"status": {
@@ -1470,6 +1522,24 @@
 			},
 			"succeeded": {
 				"label": "Succeeded"
+			}
+		}
+	},
+	"product": {
+		"button": {
+			"create": "Create product"
+		},
+		"deactivateBeforeDelete": "You cannot delete an active product",
+		"details": {
+			"title": "Info about the product"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "You can name your product in the available languages"
+			},
+			"title": {
+				"create": "Add product",
+				"edit": "Edit product"
 			}
 		}
 	},
@@ -1543,6 +1613,9 @@
 	"sidebar": {
 		"absence": "Absence",
 		"addEvent": "Add event",
+		"appointments": {
+			"label": "Appointments"
+		},
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",
 		"calendar": {
@@ -1560,7 +1633,10 @@
 		"events": "Events",
 		"members": "Members",
 		"order": "Orders",
+		"payment": "Payments",
 		"private": "Private",
+		"product-tag": "Product tags",
+		"products": "Products",
 		"profile": {
 			"signOut": {
 				"header": "Logout",

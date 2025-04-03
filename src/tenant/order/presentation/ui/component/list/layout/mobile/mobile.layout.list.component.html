@@ -1,6 +1,6 @@
-<div class="block max-w-full" [ngClass]="{
+<div class="flex flex-col max-w-full h-full" [ngClass]="{
 'overflow-x-auto h-[calc(100dvh-80px)] md:h-[calc(100vh-65px)]': isPage()
 }">
-<!--	<app-order-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>-->
-
+<!--	<member-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>-->
+	<order-card-list-component />
 </div>

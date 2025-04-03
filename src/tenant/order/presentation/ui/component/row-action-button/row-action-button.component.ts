@@ -3,7 +3,7 @@ import {ActionComponent} from "@shared/presentation/component/table/column/actio
 import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
 

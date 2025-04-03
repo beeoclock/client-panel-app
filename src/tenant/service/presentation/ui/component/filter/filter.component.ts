@@ -30,7 +30,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		IonSelectStateComponent
 	],
 	template: `
-		<utility-default-panel-component>
+		<utility-default-panel-component class="p-2">
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
@@ -51,7 +51,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
 				<ng-container *ngTemplateOutlet="ServiceActiveSelect"/>
-				<service-auto-refresh-component [resetPage]="true"/>
+				<service-auto-refresh-component/>
 			</div>
 		}
 

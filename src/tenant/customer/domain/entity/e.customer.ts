@@ -21,18 +21,20 @@ export class ECustomer extends ABaseEntity<'CustomerDto', ICustomer.DTO, ICustom
 
 	public static toDTO(data: ICustomer.EntityRaw): ICustomer.DTO {
 		return {
-			_id: data._id,
-			createdAt: data.createdAt,
 			customerType: data.customerType,
-			email: data.email,
 			firstName: data.firstName,
 			lastName: data.lastName,
-			note: data.note,
-			object: data.object,
+			email: data.email,
 			phone: data.phone,
+			note: data.note,
+
+			_id: data._id,
 			state: data.state,
-			stateHistory: data.stateHistory,
+			object: data.object,
+			_version: data._version,
 			updatedAt: data.updatedAt,
+			createdAt: data.createdAt,
+			stateHistory: data.stateHistory,
 		};
 	}
 

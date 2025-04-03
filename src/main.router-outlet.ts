@@ -12,7 +12,8 @@ import {ThemeService} from "@core/cdk/theme.service";
 import {CheckForUpdatePwaService} from "@core/cdk/check-for-update-pwa.service";
 import {NotificationManagerService} from "@core/cdk/notification.manager.service";
 import {AppActions} from "@shared/state/app/app.actions";
-import {Reactive} from "@core/cdk/reactive";
+import {SecondRouterOutlet} from "@src/second.router-outlet";
+import {WhacAMole} from "@shared/presentation/whac-a-mole/whac-a-mole";
 
 @Component({
 	selector: 'app-root',
@@ -20,12 +21,23 @@ import {Reactive} from "@core/cdk/reactive";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		RouterModule,
+		SecondRouterOutlet,
+		WhacAMole,
 	],
 	template: `
-		<router-outlet/>
+		<div class="flex-1 overflow-auto">
+			<router-outlet/>
+		</div>
+		<app-second-router-outlet/>
+
+
+		<whac-a-mole/>
 	`,
+	host: {
+		class: 'flex'
+	}
 })
-export class MainRouterOutlet extends Reactive implements AfterViewInit {
+export class MainRouterOutlet implements AfterViewInit {
 
 	private readonly store = inject(Store);
 	private readonly languageService = inject(LanguageService);
@@ -35,9 +47,7 @@ export class MainRouterOutlet extends Reactive implements AfterViewInit {
 	private readonly document = inject(DOCUMENT);
 	private readonly notificationManagerService = inject(NotificationManagerService);
 
-
-	constructor() {
-		super();
+	public constructor() {
 		this.languageService.initialize();
 		this.themeService.initialize();
 		this.checkForUpdatePwaService.initialize();

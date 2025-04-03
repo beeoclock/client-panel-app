@@ -52,7 +52,7 @@ import {
 				[showLinkToForm]="true"
 				[linkLabel]="'absence.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
-				<app-absence-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+				<app-absence-auto-refresh-component/>
 			</not-found-table-data-component>
 
 		</app-table-ngx-datatable-smart-component>

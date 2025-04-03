@@ -44,17 +44,18 @@ import {NgTemplateOutlet} from "@angular/common";
 
 			<div class="flex flex-col divide-y divide-neutral-200 h-full">
 				<ion-content>
-					<ion-list>
-						@for (row of rows; track row; let index = $index) {
-
+					<ion-list [classList]="ionListClassList()">
+						@for (row of rows; track row?._id; ) {
 
 							@if (row; as item) {
 
-								<ng-container *ngTemplateOutlet="itemTemplate(); context: { item }"></ng-container>
+								<ng-container
+									*ngTemplateOutlet="itemTemplate(); context: { item, index: $index }"></ng-container>
 
 							}
 
 						}
+
 						@if (isLastPage()) {
 
 
@@ -79,6 +80,8 @@ import {NgTemplateOutlet} from "@angular/common";
 	`
 })
 export class CardIonListSmartComponent implements OnInit {
+
+	public readonly ionListClassList = input<string[]>([]);
 
 	public readonly itemTemplate = input.required<TemplateRef<any>>();
 

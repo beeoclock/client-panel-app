@@ -4,7 +4,7 @@ import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-d
 import {TranslateModule} from "@ngx-translate/core";
 import {EditButtonComponent} from "@shared/presentation/component/button/edit.button.component";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {
 	ContainerChangeStatusButtonComponent
@@ -71,8 +71,10 @@ export class OrderDetailsContainerComponent {
 		if (!this.item()) {
 			return;
 		}
-		this.store.dispatch(new OrderActions.OpenFormToEditById(this.item()?._id));
+		const action = new OrderActions.OpenFormToEditById(this.item()?._id);
+		this.store.dispatch(action);
 	}
 
 	protected readonly paymentStatusEnum = PaymentStatusEnum;
 }
+export default OrderDetailsContainerComponent;

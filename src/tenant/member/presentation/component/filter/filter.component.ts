@@ -21,7 +21,7 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 	],
 	template: `
 
-		<utility-default-panel-component>
+		<utility-default-panel-component class="p-2">
 			<!--			<ion-select-active class="px-4 py-2 border border-beeColor-300 rounded-2xl" [control]="form.controls.active"/>-->
 			<div class="flex-1">
 				<form class="flex items-center">

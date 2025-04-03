@@ -3,7 +3,7 @@ import {
 	BaseChangeStatusButtonComponent
 } from "@tenant/order/presentation/ui/component/details/change-status/base.change-status.button.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 
 @Component({

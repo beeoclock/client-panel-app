@@ -19,20 +19,20 @@ export class ETariffPlan extends ABaseEntity<'TariffPlanDto', ITariffPlan.DTO, I
 
 	public static toDTO(data: ITariffPlan.EntityRaw): ITariffPlan.DTO {
 		return {
-			object: data.object,
-			_id: data._id,
-
-			features: data.features,
 			isPerSpecialist: data.isPerSpecialist,
 			pluginAttachment: data.pluginAttachment,
 			specialistLimit: data.specialistLimit,
+			features: data.features,
 			prices: data.prices,
+			state: data.state,
 			type: data.type,
 
-			state: data.state,
-			stateHistory: data.stateHistory,
+			_id: data._id,
+			object: data.object,
+			_version: data._version,
 			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
+			stateHistory: data.stateHistory,
 		}
 	}
 

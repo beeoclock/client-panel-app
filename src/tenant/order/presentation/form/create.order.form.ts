@@ -1,70 +1,63 @@
 import {PaymentForm} from "@tenant/payment/presentation/form/payment.form";
 import {FormGroup} from "@angular/forms";
 import {OrderForm} from "@tenant/order/presentation/form/order.form";
-import {Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {DestroyRef} from "@angular/core";
 
 export interface ICreateOrderForm {
 
-    order: OrderForm;
-    payment: PaymentForm;
+	order: OrderForm;
+	payment: PaymentForm;
 
 }
 
 export class CreateOrderForm extends FormGroup<ICreateOrderForm> {
 
-    private readonly destroy$ = new Subject<void>();
+	constructor(
+		public readonly destroyRef: DestroyRef,
+	) {
 
-    constructor() {
+		super({
 
-        super({
+			order: new OrderForm(),
+			payment: new PaymentForm(),
 
-            order: new OrderForm(),
-            payment: new PaymentForm(),
+		});
 
-        });
+		this.initHandlers(destroyRef);
 
-        this.initHandlers();
+	}
 
-    }
+	public static create(destroyRef: DestroyRef, initValue = {}): CreateOrderForm {
 
-    public static create(initValue = {}): CreateOrderForm {
+		const form = new CreateOrderForm(destroyRef);
 
-        const form = new CreateOrderForm();
+		form.patchValue(initValue);
 
-        form.patchValue(initValue);
+		return form;
 
-        return form;
+	}
 
-    }
+	public initHandlers(destroyRef: DestroyRef): void {
 
-    public initHandlers(): void {
+		this.initHandlersForAmount(destroyRef);
 
-        this.initHandlersForAmount();
+	}
 
-    }
+	public initHandlersForAmount(destroyRef: DestroyRef): void {
 
-    public initHandlersForAmount(): void {
+		this.controls.order.controls.services.valueChanges.pipe(
+			takeUntilDestroyed(destroyRef)
+		).subscribe((services) => {
 
-        this.controls.order.controls.services.valueChanges.pipe(
-            takeUntil(this.destroy$)
-        ).subscribe((services) => {
+			const amount = services.reduce((acc, service) => {
+				const price = service.serviceSnapshot?.durationVersions?.[0].prices?.[0]?.price ?? 0;
+				return acc + price;
+			}, 0);
+			this.controls.payment.controls.amount.patchValue(amount);
 
-            const amount = services.reduce((acc, service) => {
-                const price = service.serviceSnapshot?.durationVersions?.[0].prices?.[0]?.price ?? 0;
-                return acc + price;
-            }, 0);
-            this.controls.payment.controls.amount.patchValue(amount);
+		});
 
-        });
-
-    }
-
-    public destroyHandlers(): void {
-
-        this.destroy$.next();
-        this.destroy$.complete();
-
-    }
+	}
 
 }

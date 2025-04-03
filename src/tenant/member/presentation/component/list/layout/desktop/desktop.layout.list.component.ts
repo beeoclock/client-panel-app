@@ -10,7 +10,7 @@ import LayoutListComponent from "@shared/layout.list.component";
 	template: `
 		<member-filter-component/>
 
-		<member-table-list-component class="flex flex-1 flex-col h-px"/>
+		<member-table-list-component class="flex flex-1 flex-col"/>
 
 	`,
 	imports: [
