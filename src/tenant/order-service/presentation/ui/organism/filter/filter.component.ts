@@ -50,7 +50,7 @@ import {
 			}
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
-			<div class="flex overflow-x-auto gap-2 my-2 px-2 p-2">
+			<div class="flex overflow-x-auto gap-2 my-2 px-2">
 				<ng-container *ngTemplateOutlet="stateSelect"/>
 				<ng-container *ngTemplateOutlet="memberSelect"/>
 				<ng-container *ngTemplateOutlet="serviceSelect"/>
