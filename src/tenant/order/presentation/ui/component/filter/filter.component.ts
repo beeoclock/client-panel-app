@@ -26,7 +26,7 @@ import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/
 		AutoRefreshComponent
 	],
 	template: `
-		<utility-default-panel-component>
+		<utility-default-panel-component class="p-2">
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full">
 					<!--					TODO: return this feature when backend will ready for it -->

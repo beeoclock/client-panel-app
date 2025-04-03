@@ -105,7 +105,7 @@ import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.he
 		CurrencyPipe,
 	],
 	host: {
-		class: 'h-[calc(100dvh-80px)] md:h-screen block'
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
 	},
 })
 export class TableListComponent extends TableComponent<EOrderService> {
