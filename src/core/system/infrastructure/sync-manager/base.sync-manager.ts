@@ -299,6 +299,9 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 				const entity = this.toEntity(item);
 				entity.initSyncedAt();
 
+				/**
+				 * Get entity from local database to check if we have local changes
+				 */
 				const entityRaw = await this.repository.findByIdAsync(item._id);
 
 				if (entityRaw) {
