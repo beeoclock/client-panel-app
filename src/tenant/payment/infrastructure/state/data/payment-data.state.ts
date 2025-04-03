@@ -30,7 +30,17 @@ export class PaymentDataState {
 
 	@Action(PaymentDataActions.CreateItem)
 	public async createItem(ctx: StateContext<IPaymentState>, action: PaymentDataActions.CreateItem) {
-		await this.sharedUow.payment.repository.createAsync(EPayment.fromDTO(action.payload));
+		let payment = EPayment.fromRaw(action.payload);
+		const foundOrder = await this.sharedUow.order.repository.findByIdAsync(payment.orderId);
+		if (!foundOrder) {
+			throw new Error('Order not found');
+		}
+		const {0: {orderAppointmentDetails: {attendees: {0: {customer}}}}} = foundOrder.services;
+		payment = EPayment.fromRaw({
+			...payment,
+			payer: customer
+		})
+		await this.sharedUow.payment.repository.createAsync(payment);
 	}
 
 	@Action(PaymentDataActions.Update)

@@ -233,7 +233,6 @@ export class OrderState {
 
 		const orderEntity = EOrder.fromDTO(action.payload);
 
-
 		// Resolve new customer case
 		for (const service of orderEntity.services) {
 			for (const attendee of service.orderAppointmentDetails.attendees) {
@@ -265,11 +264,11 @@ export class OrderState {
 
 	@Action(OrderActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IOrderState>, {payload: item}: OrderActions.UpdateItem): Promise<void> {
-		const foundItems = await this.sharedUow.order.repository.findByIdAsync(item._id);
-		if (foundItems) {
+		const foundItem = await this.sharedUow.order.repository.findByIdAsync(item._id);
+		if (foundItem) {
 
 			const orderEntity = EOrder.fromRaw({
-				...foundItems,
+				...foundItem,
 				...item,
 			});
 

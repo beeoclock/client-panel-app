@@ -43,9 +43,8 @@
         </li>
 
         <li>
-            <a
-                    [queryParams]="{force: true}"
-                    [routerLink]="'/identity/corridor'"
+            <button
+                   (click)="goToCorridor()"
                     class="flex
               items-center
               w-full
@@ -72,7 +71,7 @@
                 <span class="flex-1 ml-3 text-left whitespace-nowrap">
 				{{ 'sidebar.switch-business-client' | translate }}
 				</span>
-            </a>
+            </button>
         </li>
 
     </ul>

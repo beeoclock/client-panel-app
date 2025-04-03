@@ -1,5 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {Select} from "@ngxs/store";
 import {BeeoclockIdTokenResult, IdentityState} from "@identity/identity/presentation/state/identity/identity.state";
@@ -29,6 +29,7 @@ export class ProfileSidebarComponent {
 	private readonly translateService = inject(TranslateService);
 	private readonly alertController = inject(AlertController);
 	private readonly logoutService = inject(LogoutService);
+	private readonly router = inject(Router);
 
 	@Select(IdentityState.token)
 	public token$!: Observable<BeeoclockIdTokenResult>;
@@ -67,4 +68,11 @@ export class ProfileSidebarComponent {
 
 	}
 
+	public goToCorridor() {
+		this.router.navigate([{outlets: {second: null}}]).then(() => {
+			this.router.navigate(['/', 'identity', 'corridor', {outlets: {second: null}}], {
+				queryParams: {force: true},
+			}).then()
+		})
+	}
 }

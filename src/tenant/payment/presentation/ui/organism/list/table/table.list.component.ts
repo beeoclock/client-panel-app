@@ -20,7 +20,6 @@ import {
 } from "@tenant/payment/presentation/ui/molecule/button/auto-refresh/auto-refresh.button.component";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {CurrencyPipe} from "@angular/common";
-import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {
 	PaymentStatusStyleDirective
 } from "@shared/presentation/directives/payment-status-style/payment-status-style.directive";
@@ -74,8 +73,6 @@ export class TableListComponent extends TableComponent<EPayment> {
 
 	private readonly currencyPipe = inject(CurrencyPipe);
 
-	public readonly anonymous = this.translateService.instant('keyword.capitalize.anonymous');
-
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly statusCellTemplate = viewChild<TemplateRef<any>>('statusCellTemplate');
 
@@ -94,29 +91,7 @@ export class TableListComponent extends TableComponent<EPayment> {
 			width: 160,
 			sortable: true,
 			$$valueGetter: (obj: EPayment, prop: TableColumnProp) => {
-
-				const customer = obj?.payer;
-
-				if (!customer) {
-					return '-';
-				}
-
-				if (customer.customerType === CustomerTypeEnum.anonymous) {
-					return this.anonymous;
-				}
-
-				switch (true) {
-					case !!customer?.firstName && !!customer?.lastName:
-						return `${customer?.firstName} ${customer?.lastName}`;
-					case !!customer?.firstName:
-						return customer?.firstName;
-					case !!customer?.email:
-						return customer?.email;
-					case !!customer?.phone:
-						return customer?.phone;
-				}
-
-				return '-';
+				return EPayment.fromRaw(obj).payerToString();
 			}
 		},
 		{
