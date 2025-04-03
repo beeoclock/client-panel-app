@@ -122,34 +122,12 @@ export class OrderState {
 	@Action(OrderActions.OpenFormToEditById)
 	public async openFormToEditByIdAction(ctx: StateContext<IOrderState>, action: OrderActions.OpenFormToEditById) {
 
-		// const whacamoleId = 'edit-order-form-by-id-' + action.payload;
-		//
-		// if (this.whacAMaleProvider.componentRefMapById.has(whacamoleId)) {
-		// 	return;
-		// }
-
-		// const title = await this.translateService.instant('order.form.title.edit');
 		const orderDto = await this.sharedUow.order.repository.findByIdAsync(action.payload);
 
 		if (!orderDto) {
 			this.ngxLogger.error('OrderState.openDetailsById', 'Item not found');
 			return;
 		}
-
-		// const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");
-		//
-		// const paymentEntity = await this.sharedUow.payment.findByOrderId(action.payload);
-
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	title,
-		// 	id: whacamoleId,
-		// 	component: OrderFormContainerComponent,
-		// 	componentInputs: {
-		// 		orderDto,
-		// 		paymentDto: paymentEntity.at(-1),
-		// 		isEditMode: true,
-		// 	},
-		// });
 
 		ctx.dispatch(new OrderActions.OpenForm({
 			componentInputs: {
@@ -227,17 +205,6 @@ export class OrderState {
 			});
 
 		}
-
-		// const {OrderFormContainerComponent} = await import("@tenant/order/presentation/ui/component/form/order-form-container.component");
-		//
-		// const {componentInputs, pushBoxInputs} = payload ?? {};
-		//
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	title: this.translateService.instant('order.form.title.create'),
-		// 	...pushBoxInputs,
-		// 	component: OrderFormContainerComponent,
-		// 	componentInputs,
-		// });
 
 	}
 
