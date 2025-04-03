@@ -25,6 +25,7 @@ import {
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 
 @Component({
 	selector: 'order-service-table-list-component',
@@ -75,6 +76,54 @@ import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.he
 				{{ row.orderAppointmentDetails.specialists[0].member.firstName }}
 			</div>
 		</ng-template>
+
+		<ng-template #customerCellTemplate let-row="row">
+			<div
+				class="inline-flex items-center gap-2 text-sm font-medium text-[#11141A]">
+
+				@for (attendee of row.orderAppointmentDetails.attendees; track attendee.customer._id) {
+
+					@let customerType = attendee.customer.customerType;
+
+					@if (customerType === customerTypeEnum.anonymous) {
+
+						<div
+							class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-8 min-w-8 flex justify-center items-center font-bold text-yellow-700">
+						</div>
+
+					} @else {
+
+						@let firstName = attendee.customer.firstName ?? '';
+						@let lastName = attendee.customer.lastName ?? '';
+
+						<div
+							class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-8 min-w-8 flex justify-center items-center font-bold text-yellow-700">
+							{{ firstName[0] }}{{ lastName[0] }}
+						</div>
+
+					}
+
+					<div class="text-slate-900 text-sm font-normal">
+						@switch (customerType) {
+							@case (customerTypeEnum.unregistered) {
+								{{ attendee.customer.firstName }}
+							}
+							@case (customerTypeEnum.regular) {
+								{{ attendee.customer.firstName }} 📇
+							}
+							@case (customerTypeEnum.new) {
+								{{ attendee.customer.firstName }} 🆕
+							}
+							@case (customerTypeEnum.anonymous) {
+								{{ 'keyword.capitalize.anonymous' | translate }}
+							}
+						}
+					</div>
+
+				}
+
+			</div>
+		</ng-template>
 		<ng-template #statusCellTemplate let-row="row">
 
 			<app-order-service-status-icon-component
@@ -118,6 +167,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 	public readonly durationCellTemplate = viewChild<TemplateRef<any>>('durationCellTemplate');
 	public readonly priceCellTemplate = viewChild<TemplateRef<any>>('priceCellTemplate');
 	public readonly specialistCellTemplate = viewChild<TemplateRef<any>>('specialistCellTemplate');
+	public readonly customerCellTemplate = viewChild<TemplateRef<any>>('customerCellTemplate');
 
 	public readonly useMoneyConvert = (obj: EOrderService, prop: TableColumnProp) => {
 		return 1;
@@ -138,6 +188,13 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		{
 			name: this.translateService.instant('keyword.capitalize.specialist'),
 			prop: 'specialist',
+			minWidth: 160,
+			width: 160,
+			sortable: true,
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.customer'),
+			prop: 'customer',
 			minWidth: 160,
 			width: 160,
 			sortable: true,
@@ -169,7 +226,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.start'),
-			prop: 'start',
+			prop: 'orderAppointmentDetails.start',
 			minWidth: 160,
 			width: 160,
 			sortable: true,
@@ -180,7 +237,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.end'),
-			prop: 'end',
+			prop: 'orderAppointmentDetails.end',
 			minWidth: 160,
 			width: 160,
 			sortable: true,
@@ -243,6 +300,11 @@ export class TableListComponent extends TableComponent<EOrderService> {
 			this.setCellTemplateRef(columns, 'specialist', specialistCellTemplate);
 		}
 
+		const customerCellTemplate = this.customerCellTemplate();
+		if (customerCellTemplate) {
+			this.setCellTemplateRef(columns, 'customer', customerCellTemplate);
+		}
+
 		return columns;
 
 	});
@@ -273,4 +335,5 @@ export class TableListComponent extends TableComponent<EOrderService> {
 	}
 
 	protected readonly orderServiceStatusEnum = OrderServiceStatusEnum;
+	protected readonly customerTypeEnum = CustomerTypeEnum;
 }

@@ -7,7 +7,7 @@ import {IOrderService} from "@tenant/order-service/domain/interface/i.order-serv
 @Injectable()
 export class OrderServiceDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IOrderService.EntityRaw> {
 
-	protected readonly columns = '_id,state,createdAt,updatedAt,status,orderId';
+	protected readonly columns = '_id,state,createdAt,updatedAt,status,orderId,orderAppointmentDetails.end,orderAppointmentDetails.start';
 	protected readonly moduleName = 'orderService';
 	protected readonly version = 1;
 
