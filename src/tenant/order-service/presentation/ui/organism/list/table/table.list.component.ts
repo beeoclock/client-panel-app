@@ -62,15 +62,15 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 
 		<ng-template #specialistCellTemplate let-row="row">
 			<div
-				class="inline-flex items-center gap-2 text-sm font-medium text-[#11141A]">
+				class="flex items-center gap-2 text-sm font-medium text-[#11141A] h-full">
 				@for (specialist of row.orderAppointmentDetails.specialists; track specialist.member._id) {
 					@if (specialist?.member?.avatar?.url?.length) {
-						<img class="w-[26px] h-[26px] rounded-full object-cover"
+						<img class="w-9 h-9 rounded-full object-cover"
 							 [src]="specialist.member.avatar.url"
 							 alt="Avatar">
 					} @else {
 						<div
-							class="w-[26px] h-[26px] flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">
+							class="w-9 h-9 flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">
 							{{ specialist?.member?.firstName?.charAt(0) }}
 						</div>
 					}
@@ -90,7 +90,7 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 					@if (customerType === customerTypeEnum.anonymous) {
 
 						<div
-							class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-8 min-w-8 flex justify-center items-center font-bold text-yellow-700">
+							class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
 						</div>
 
 					} @else {
@@ -99,7 +99,7 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 						@let lastName = attendee.customer.lastName ?? '';
 
 						<div
-							class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-8 min-w-8 flex justify-center items-center font-bold text-yellow-700">
+							class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
 							{{ firstName[0] }}{{ lastName[0] }}
 						</div>
 
@@ -156,7 +156,7 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 		CurrencyPipe,
 	],
 	host: {
-		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
 	},
 })
 export class TableListComponent extends TableComponent<EOrderService> {
@@ -192,21 +192,21 @@ export class TableListComponent extends TableComponent<EOrderService> {
 			prop: 'specialist',
 			minWidth: 160,
 			width: 160,
-			sortable: true,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.customer'),
 			prop: 'customer',
 			minWidth: 160,
 			width: 160,
-			sortable: true,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.service'),
 			prop: 'service',
 			minWidth: 200,
 			width: 200,
-			sortable: true,
+			sortable: false,
 			$$valueGetter: (obj: IOrderService.EntityRaw, prop: TableColumnProp) => {
 				const {0: languageVersion} = obj.serviceSnapshot.languageVersions;
 				return languageVersion.title;
@@ -217,7 +217,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 			prop: 'price',
 			minWidth: 100,
 			width: 100,
-			sortable: true,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.duration'),
