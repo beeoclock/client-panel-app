@@ -176,6 +176,18 @@ export const tenantSecondRouters: Routes = [
 		loadComponent: () => import('@tenant/order/presentation/ui/component/form/order-form-container.component')
 	},
 	/**
+	 * Order Service
+	 */
+	// {
+	// 	path: 'order-service/:id',
+	// 	outlet: 'second',
+	// 	resolve: {
+	// 		item: orderServiceResolver,
+	// 	},
+	// 	runGuardsAndResolvers: 'always',
+	// 	loadComponent: () => import('@tenant/order-service/presentation/ui/component/details/order-service-details-container.component')
+	// },
+	/**
 	 * Payment
 	 */
 	{

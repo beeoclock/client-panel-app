@@ -31,8 +31,8 @@ import {
 } from "@tenant/order/presentation/ui/component/list/card/item-lightweight/card.item.order.service";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {
-	StatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
+	OrderServiceStatusIconComponent
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 
 @Component({
@@ -49,7 +49,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 		StatusOrderChipComponent,
 		DynamicDatePipe,
 		NgClass,
-		StatusIconComponent,
+		OrderServiceStatusIconComponent,
 	],
 	providers: [
 		DurationVersionHtmlHelper,
@@ -141,7 +141,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 											class="inline-flex shrink grow basis-0 items-center gap-1 self-stretch justify-between">
 											<div
 												class="flex items-center gap-2 text-sm line-clamp-2 font-regular leading-tight text-[#11141A]">
-												<app-status-icon-component
+												<app-order-service-status-icon-component
 													class="flex text-base"
 													[ngClass]="{
 														'text-red-600': service.status === orderServiceStatusEnum.cancelled,

@@ -47,9 +47,9 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	/**
 	 *
 	 * @param options
-	 * @param filterFn
+	 * @param filterFunction
 	 */
-	public override find$(options: Types.FindQueryParams, filterFn = this.defaultFilter.bind(this)) {
+	public override find$(options: Types.FindQueryParams, filterFunction: ((entity: ENTITY, filter: Types.StandardQueryParams) => boolean) = this.defaultFilter.bind(this)) {
 		return this.db$.pipe(
 			take(1),
 			concatMap((table) => {
@@ -73,7 +73,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 
 				// Filter entities
 				query = query.filter((entity) => {
-					return filterFn(entity, filter as Types.StandardQueryParams);
+					return filterFunction(entity, filter as Types.StandardQueryParams);
 				});
 
 				const offset = pageSize * (page - 1);
@@ -139,7 +139,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 * @param filter
 	 * @private
 	 */
-	private defaultFilter(entity: ENTITY, filter: Types.StandardQueryParams) {
+	protected defaultFilter(entity: ENTITY, filter: Types.StandardQueryParams) {
 		const {phrase, ...otherFilter} = filter;
 
 		const phraseExist = is.string(phrase);

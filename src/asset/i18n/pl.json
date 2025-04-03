@@ -1058,6 +1058,10 @@
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
+			"all": "Wszystkie",
+			"allServices": "Wszystkie usługi",
+			"allSpecialists": "Wszyscy specjaliści",
+			"allStatuses": "Wszystkie statusy",
 			"amount": "Kwota",
 			"anonymous": "Anonimowy",
 			"approvalType": "Typ homologacji",
@@ -1609,6 +1613,9 @@
 	"sidebar": {
 		"absence": "Nieobecność",
 		"addEvent": "Dodaj wydarzenie",
+		"appointments": {
+			"label": "Wizyty"
+		},
 		"businessProfile": "Profil biznesowy",
 		"businessSettings": "Ustawienia firmy",
 		"calendar": {

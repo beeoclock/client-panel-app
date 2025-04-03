@@ -1058,6 +1058,10 @@
 			"addSocialMedia": "Додати соціальну мережу",
 			"additional": "Додатково",
 			"address": "Адреса",
+			"all": "Всі",
+			"allServices": "Всі послуги",
+			"allSpecialists": "Всі спеціалісти",
+			"allStatuses": "Всі статуси",
 			"amount": "Cума",
 			"anonymous": "Анонімний",
 			"approvalType": "Тип схвалення",
@@ -1609,6 +1613,9 @@
 	"sidebar": {
 		"absence": "Відсутність",
 		"addEvent": "Додати подію",
+		"appointments": {
+			"label": "Записи"
+		},
 		"businessProfile": "Профіль компанії",
 		"businessSettings": "Налаштування компанії",
 		"calendar": {

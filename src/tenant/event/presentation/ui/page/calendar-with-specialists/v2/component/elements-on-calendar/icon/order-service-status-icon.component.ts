@@ -4,7 +4,7 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	standalone: true,
-	selector: 'app-status-icon-component',
+	selector: 'app-order-service-status-icon-component',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -36,7 +36,7 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 		IconComponent
 	]
 })
-export class StatusIconComponent {
+export class OrderServiceStatusIconComponent {
 
 	public readonly status = input.required<OrderServiceStatusEnum>();
 

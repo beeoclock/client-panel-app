@@ -175,6 +175,20 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			// 	},
 			// ]
 		});
+		this.menu.push({
+			order: 2,
+			translateKey: 'sidebar.appointments.label',
+			icon: 'bi bi-journal-check',
+			// icon: 'bi bi-calendar2-event',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: 'order-service/list',
+		});
 		// this.menu.push({
 		// 	order: 3,
 		// 	url: 'event/calendar',

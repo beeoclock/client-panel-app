@@ -1058,6 +1058,10 @@
 			"addSocialMedia": "Tilføj sociale medier",
 			"additional": "Yderligere",
 			"address": "Adresse",
+			"all": "Alle",
+			"allServices": "Alle tjenester",
+			"allSpecialists": "Alle specialister",
+			"allStatuses": "Alle statusser",
 			"amount": "Beløb",
 			"anonymous": "Anonym",
 			"approvalType": "Godkendelsestype",
@@ -1609,6 +1613,9 @@
 	"sidebar": {
 		"absence": "Fravær",
 		"addEvent": "Tilføj begivenhed",
+		"appointments": {
+			"label": "Aftaler"
+		},
 		"businessProfile": "Forretningsprofil",
 		"businessSettings": "Firma indstillinger",
 		"calendar": {

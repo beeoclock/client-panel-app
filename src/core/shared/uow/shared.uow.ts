@@ -9,6 +9,7 @@ import {TariffPlanHistoryService} from "@tenant/tariff-plan-history/domain/servi
 import {ProductService} from "@tenant/product/domain/service/product.service";
 import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
 import {ProductTagService} from "@tenant/product-tag/domain/service/product-tag.service";
+import {OrderServiceService} from "@tenant/order-service/domain/service/order-service.service";
 
 /**
  * Shared Unit of Work
@@ -19,6 +20,7 @@ export class SharedUow {
 	#service!: ServiceService;
 	#payment!: PaymentService;
 	#order!: OrderService;
+	#orderService!: OrderServiceService;
 	#member!: MemberService;
 	#customer!: CustomerService;
 	#businessProfile!: BusinessProfileService;
@@ -59,6 +61,17 @@ export class SharedUow {
 
 	public set order(value: OrderService) {
 		this.#order = value;
+	}
+
+	public get orderService() {
+		if (!this.#order) {
+			throw new Error('OrderServiceService is not initialized');
+		}
+		return this.#orderService;
+	}
+
+	public set orderService(value: OrderServiceService) {
+		this.#orderService = value;
 	}
 
 	public get member() {
