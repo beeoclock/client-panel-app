@@ -42,7 +42,7 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 				[showLinkToForm]="true"
 				[linkLabel]="'member.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
-				<member-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+				<member-auto-refresh-component/>
 			</not-found-table-data-component>
 
 		</app-table-ngx-datatable-smart-component>

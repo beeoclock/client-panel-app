@@ -24,7 +24,7 @@ import {CreateOrderForm} from "@tenant/order/presentation/form/create.order.form
 import {
 	PaymentOrderFormContainerComponent
 } from "@tenant/order/presentation/ui/component/form/payment.order-form-container.component";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {ICustomer} from "@tenant/customer/domain";
 import {
 	ListServiceFormOrderComponent

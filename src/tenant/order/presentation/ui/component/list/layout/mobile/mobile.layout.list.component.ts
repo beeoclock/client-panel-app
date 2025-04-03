@@ -1,9 +1,10 @@
 import {Component, input, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@shared/layout.list.component";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {NgClass} from "@angular/common";
+import {CardListOrderComponent} from "@tenant/order/presentation/ui/component/list/card/card.list.order.component";
 
 @Component({
 	selector: 'app-order-mobile-layout-list-component',
@@ -13,6 +14,7 @@ import {NgClass} from "@angular/common";
 	imports: [
 		TranslateModule,
 		NgClass,
+		CardListOrderComponent,
 	]
 })
 export class MobileLayoutListComponent extends LayoutListComponent {

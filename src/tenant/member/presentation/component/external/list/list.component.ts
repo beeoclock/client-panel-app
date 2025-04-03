@@ -39,4 +39,5 @@ export class MemberExternalListComponent extends ListPage {
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
 
+
 }

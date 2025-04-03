@@ -50,7 +50,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 				[showLinkToForm]="true"
 				[linkLabel]="'keyword.capitalize.add-service' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
-				<service-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+				<service-auto-refresh-component/>
 			</not-found-table-data-component>
 		</app-table-ngx-datatable-smart-component>
 

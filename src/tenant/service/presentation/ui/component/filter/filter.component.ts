@@ -51,7 +51,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
 				<ng-container *ngTemplateOutlet="ServiceActiveSelect"/>
-				<service-auto-refresh-component [resetPage]="true"/>
+				<service-auto-refresh-component/>
 			</div>
 		}
 

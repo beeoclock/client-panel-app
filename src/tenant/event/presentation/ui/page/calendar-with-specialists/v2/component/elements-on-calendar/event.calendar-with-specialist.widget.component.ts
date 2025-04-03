@@ -34,7 +34,7 @@ import {
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {IMember} from "@tenant/member/domain/interface/i.member";
 import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";

@@ -45,7 +45,7 @@ import {
 				[linkLabel]="'customer.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
 
-				<customer-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+				<customer-auto-refresh-component/>
 
 			</not-found-table-data-component>
 

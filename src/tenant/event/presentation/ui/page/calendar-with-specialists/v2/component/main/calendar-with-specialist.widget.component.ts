@@ -39,7 +39,7 @@ import {
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {DateTime} from "luxon";
 import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {
