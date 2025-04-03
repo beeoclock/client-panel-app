@@ -14,7 +14,7 @@ import {
 	RowActionButtonComponent
 } from "@tenant/order/presentation/ui/component/row-action-button/row-action-button.component";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import EOrder from "@tenant/order/domain/entity/e.order";
 import {DatePipe} from "@angular/common";
 

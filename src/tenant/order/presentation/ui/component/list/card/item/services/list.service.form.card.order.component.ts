@@ -19,7 +19,7 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 import {AlertController} from "@ionic/angular/standalone";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";

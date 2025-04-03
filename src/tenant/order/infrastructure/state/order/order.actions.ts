@@ -48,7 +48,7 @@ export namespace OrderActions {
 	// API
 
 	export class Init extends BaseActions.Init {
-		public static override readonly type = '[Service State] Init';
+		public static override readonly type = '[Order State] Init';
 	}
 
 	export class GetList extends BaseActions.GetList {

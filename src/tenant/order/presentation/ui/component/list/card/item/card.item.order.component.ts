@@ -8,7 +8,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {

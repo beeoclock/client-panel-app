@@ -3,7 +3,7 @@ import {NgxsModule} from "@ngxs/store";
 import {
 	DateRangeReportAnalyticState
 } from "@tenant/analytic/presentation/store/date-range-report/date-range-report.analytic.state";
-import {PeerCustomerOrderState} from "@tenant/order/presentation/state/peer-customer/peer-customer.order.state";
+import {PeerCustomerOrderState} from "@tenant/order/infrastructure/state/peer-customer/peer-customer.order.state";
 import {
 	CalendarWithSpecialistsState
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
