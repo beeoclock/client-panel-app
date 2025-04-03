@@ -29,21 +29,21 @@ import {
 		IonSelectStateComponent
 	],
 	template: `
-		<utility-default-panel-component class="p-2">
+		<utility-default-panel-component>
 			@if (isMobile$ | async) {
 
-				<div class="flex gap-4 justify-between w-full">
+				<div class="flex gap-4 justify-between w-full p-2">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
 				</div>
 			} @else {
 
-				<div class="flex overflow-x-auto gap-2">
+				<div class="flex overflow-x-auto gap-2 p-2">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
 					<ng-container *ngTemplateOutlet="AbsenceActiveSelect"/>
 					<ng-container *ngTemplateOutlet="AutoRefresh"/>
 				</div>
-				<div>
+				<div class="p-2">
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
 				</div>
 			}

@@ -1,6 +1,8 @@
-<utility-default-panel-component class="p-2">
-	<app-date-slider-control-component
-		[form]="filterStateFormGroup"/>
+<utility-default-panel-component>
+	<div class="p-2">
+		<app-date-slider-control-component
+			[form]="filterStateFormGroup"/>
+	</div>
 </utility-default-panel-component>
 @if (activeMembers$ | async; as activeMembers) {
 

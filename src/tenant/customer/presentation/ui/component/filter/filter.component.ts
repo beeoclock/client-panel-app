@@ -43,7 +43,7 @@ import {CustomerDataState} from "@tenant/customer/infrastructure/state/data/cust
 					<ng-container *ngTemplateOutlet="CustomerActiveSelect"></ng-container>
 					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
-				<div>
+				<div class="p-2">
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 				</div>
 			}

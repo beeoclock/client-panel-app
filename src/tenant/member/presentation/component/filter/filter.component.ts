@@ -21,9 +21,9 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 	],
 	template: `
 
-		<utility-default-panel-component class="p-2">
+		<utility-default-panel-component>
 			<!--			<ion-select-active class="px-4 py-2 border border-beeColor-300 rounded-2xl" [control]="form.controls.active"/>-->
-			<div class="flex-1">
+			<div class="flex-1 p-2">
 				<form class="flex items-center">
 					<label for="simple-search" class="sr-only">Search</label>
 					<div class="relative w-full">
@@ -33,7 +33,7 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 			</div>
 			@if (showButtonGoToForm()) {
 				<div
-					class="md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+					class="p-2 md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
 					<button type="button" primary class="!py-3 !px-4 !text-base" (click)="openForm()">
 						<i class="bi bi-plus-lg"></i>
 						<!--					<span class="hidden md:block">-->
