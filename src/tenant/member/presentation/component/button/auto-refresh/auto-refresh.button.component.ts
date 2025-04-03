@@ -1,4 +1,4 @@
-import {Component, inject, input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
 import {
 	TableNgxDatatableSmartResource
@@ -9,7 +9,7 @@ import {
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-auto-refresh-component id="member-auto-refresh" (emitter)="reload()"/>
+		<utility-auto-refresh-component id="member-auto-refresh" (emitter)="forceRefresh()"/>
 	`,
 	imports: [
 		AutoRefreshComponent
@@ -17,14 +17,10 @@ import {
 })
 export class AutoRefreshButtonComponent {
 
-	public readonly resetPage = input(false);
+	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
 
-	public readonly resetParams = input(false);
-
-	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource, {optional: true});
-
-	public reload() {
-		this.tableNgxDatatableSmartResource?.reload();
+	public forceRefresh() {
+		this.tableNgxDatatableSmartResource.reload();
 	}
 
 }
