@@ -177,16 +177,16 @@ export class TableListComponent extends TableComponent<EService> {
 			this.setCellTemplateRef(columns, 'duration', durationCellTemplate);
 		}
 
-		const colorCellTemplate = this.colorCellTemplate();
-		if (colorCellTemplate) {
-			this.setCellTemplateRef(columns, 'color', colorCellTemplate);
-		}
-
 		const priceCellTemplate = this.priceCellTemplate();
 		if (priceCellTemplate) {
 			this.setCellTemplateRef(columns, 'price', priceCellTemplate);
 		}
 
+
+		const colorCellTemplate = this.colorCellTemplate();
+		if (colorCellTemplate) {
+			this.setCellTemplateRef(columns, 'color', colorCellTemplate);
+		}
 		const stateCellTemplate = this.stateCellTemplate();
 		if (stateCellTemplate) {
 			this.setCellTemplateRef(columns, 'state', stateCellTemplate);

@@ -24,6 +24,7 @@ import {
 	OrderServiceStatusIconComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
+import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'order-service-table-list-component',
@@ -44,8 +45,34 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 			</not-found-table-data-component>
 
 		</app-table-ngx-datatable-smart-component>
+
+		<ng-template #priceCellTemplate let-row="row">
+			<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getPriceValue(row.serviceSnapshot)"></span>
+		</ng-template>
+
+		<ng-template #durationCellTemplate let-row="row">
+			<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getDurationValue(row.serviceSnapshot)"></span>
+		</ng-template>
+
 		<ng-template #stateCellTemplate let-row="row">
 			<div activeStyle [state]="row.state">
+			</div>
+		</ng-template>
+
+		<ng-template #specialistCellTemplate let-row="row">
+			<div
+				class="inline-flex items-center gap-2 text-sm font-medium text-[#11141A]">
+				@if (row.orderAppointmentDetails.specialists[0].member.avatar.url) {
+					<img class="w-[26px] h-[26px] rounded-full object-cover"
+						 [src]="row.orderAppointmentDetails.specialists[0].member.avatar.url"
+						 alt="Avatar">
+				} @else {
+					<div
+						class="w-[26px] h-[26px] flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">
+						{{ row.orderAppointmentDetails.specialists[0].member.firstName.charAt(0) }}
+					</div>
+				}
+				{{ row.orderAppointmentDetails.specialists[0].member.firstName }}
 			</div>
 		</ng-template>
 		<ng-template #statusCellTemplate let-row="row">
@@ -74,6 +101,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 		NgClass
 	],
 	providers: [
+		DurationVersionHtmlHelper,
 		CurrencyPipe,
 	],
 	host: {
@@ -82,10 +110,14 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 })
 export class TableListComponent extends TableComponent<EOrderService> {
 
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 	private readonly currencyPipe = inject(CurrencyPipe);
 
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly statusCellTemplate = viewChild<TemplateRef<any>>('statusCellTemplate');
+	public readonly durationCellTemplate = viewChild<TemplateRef<any>>('durationCellTemplate');
+	public readonly priceCellTemplate = viewChild<TemplateRef<any>>('priceCellTemplate');
+	public readonly specialistCellTemplate = viewChild<TemplateRef<any>>('specialistCellTemplate');
 
 	public readonly useMoneyConvert = (obj: EOrderService, prop: TableColumnProp) => {
 		return 1;
@@ -97,34 +129,65 @@ export class TableListComponent extends TableComponent<EOrderService> {
 
 	public readonly columns = signal<TableColumn<EOrderService>[]>([
 		{
-			name: this.translateService.instant('keyword.capitalize.dateAndTime'),
-			prop: 'paymentDate',
-			minWidth: 160,
-			width: 160,
-			sortable: true,
-			$$valueGetter: this.anyDateConvert,
-		},
-		{
 			name: this.translateService.instant('keyword.capitalize.status'),
 			prop: 'status',
+			minWidth: 80,
+			width: 80,
+			sortable: true,
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.specialist'),
+			prop: 'specialist',
 			minWidth: 160,
 			width: 160,
 			sortable: true,
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.currency'),
-			prop: 'currency',
+			name: this.translateService.instant('keyword.capitalize.service'),
+			prop: 'service',
+			minWidth: 200,
+			width: 200,
+			sortable: true,
+			$$valueGetter: (obj: IOrderService.EntityRaw, prop: TableColumnProp) => {
+				const {0: languageVersion} = obj.serviceSnapshot.languageVersions;
+				return languageVersion.title;
+			},
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.price'),
+			prop: 'price',
 			minWidth: 100,
 			width: 100,
 			sortable: true,
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.amount'),
-			prop: 'amount',
+			name: this.translateService.instant('keyword.capitalize.duration'),
+			prop: 'duration',
 			minWidth: 160,
 			width: 160,
 			sortable: true,
-			$$valueGetter: this.useMoneyConvert,
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.start'),
+			prop: 'start',
+			minWidth: 160,
+			width: 160,
+			sortable: true,
+			$$valueGetter: (obj: IOrderService.EntityRaw, prop: TableColumnProp) => {
+				const {start} = obj.orderAppointmentDetails;
+				return this.datePipe.transform(start, 'short');
+			}
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.end'),
+			prop: 'end',
+			minWidth: 160,
+			width: 160,
+			sortable: true,
+			$$valueGetter: (obj: IOrderService.EntityRaw, prop: TableColumnProp) => {
+				const {end} = obj.orderAppointmentDetails;
+				return this.datePipe.transform(end, 'short');
+			}
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.active'),
@@ -154,6 +217,17 @@ export class TableListComponent extends TableComponent<EOrderService> {
 	public readonly columnList = computed(() => {
 		const columns = this.columns();
 
+		const durationCellTemplate = this.durationCellTemplate();
+		if (durationCellTemplate) {
+			this.setCellTemplateRef(columns, 'duration', durationCellTemplate);
+		}
+
+		const priceCellTemplate = this.priceCellTemplate();
+		if (priceCellTemplate) {
+			this.setCellTemplateRef(columns, 'price', priceCellTemplate);
+		}
+
+
 		const stateCellTemplate = this.stateCellTemplate();
 		if (stateCellTemplate) {
 			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
@@ -162,6 +236,11 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		const statusCellTemplate = this.statusCellTemplate();
 		if (statusCellTemplate) {
 			this.setCellTemplateRef(columns, 'status', statusCellTemplate);
+		}
+
+		const specialistCellTemplate = this.specialistCellTemplate();
+		if (specialistCellTemplate) {
+			this.setCellTemplateRef(columns, 'specialist', specialistCellTemplate);
 		}
 
 		return columns;
