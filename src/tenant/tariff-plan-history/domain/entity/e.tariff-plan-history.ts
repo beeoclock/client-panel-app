@@ -19,18 +19,18 @@ export class ETariffPlanHistory extends ABaseEntity<'TariffPlanDto', ITariffPlan
 
 	public static toDTO(data: ITariffPlanHistory.EntityRaw): ITariffPlanHistory.DTO {
 		return {
-			object: data.object,
-			_id: data._id,
-
-			startedAt: data.startedAt,
-			status: data.status,
-			expiredAt: data.expiredAt,
 			tariffPlan: data.tariffPlan,
+			startedAt: data.startedAt,
+			expiredAt: data.expiredAt,
+			status: data.status,
 
+			_id: data._id,
 			state: data.state,
-			stateHistory: data.stateHistory,
+			object: data.object,
+			_version: data._version,
 			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
+			stateHistory: data.stateHistory,
 		};
 	}
 

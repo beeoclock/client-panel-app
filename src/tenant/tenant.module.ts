@@ -23,6 +23,7 @@ import {BusinessProfileModule} from "@tenant/business-profile/business-profile.m
 import TariffPlanModule from "@tenant/tariff-plan/tariff-plan.module";
 import {TariffPlanHistoryModule} from "@tenant/tariff-plan-history/tariff-plan-history.module";
 import {ProductModule} from "./product/product.module";
+import {ProductTagModule} from "@tenant/product-tag/product-tag.module";
 
 @NgModule({
 	providers: [
@@ -53,6 +54,7 @@ import {ProductModule} from "./product/product.module";
 		TariffPlanHistoryModule,
 		EventModule,
 		ProductModule,
+		ProductTagModule,
 	],
 })
 export class TenantModule {

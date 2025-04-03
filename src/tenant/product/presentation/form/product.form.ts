@@ -1,5 +1,5 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators,} from '@angular/forms';
-import {IProduct, IProductLanguageVersion} from '../interface';
+import {IProduct, IProductLanguageVersion} from '../../domain/interface';
 import {filter} from 'rxjs';
 import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {BaseEntityForm} from "@shared/base.form";

@@ -8,6 +8,7 @@ import {TariffPlanService} from "@tenant/tariff-plan/domain/service/tariff-plan.
 import {TariffPlanHistoryService} from "@tenant/tariff-plan-history/domain/service/tariff-plan-history.service";
 import {ProductService} from "@tenant/product/domain/service/product.service";
 import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
+import {ProductTagService} from "@tenant/product-tag/domain/service/product-tag.service";
 
 /**
  * Shared Unit of Work
@@ -23,6 +24,7 @@ export class SharedUow {
 	#businessProfile!: BusinessProfileService;
 	#absence!: AbsenceService;
 	#product!: ProductService;
+	#productTag!: ProductTagService;
 	#tariffPlan!: TariffPlanService;
 	#tariffPlanHistory!: TariffPlanHistoryService;
 
@@ -134,6 +136,17 @@ export class SharedUow {
 
 	public set product(value: ProductService) {
 		this.#product = value;
+	}
+
+	public get productTag() {
+		if (!this.#productTag) {
+			throw new Error('ProductTagService is not initialized');
+		}
+		return this.#productTag;
+	}
+
+	public set productTag(value: ProductTagService) {
+		this.#productTag = value;
 	}
 
 }

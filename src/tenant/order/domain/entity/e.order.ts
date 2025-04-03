@@ -174,18 +174,20 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 
 	public static toDTO(data: IOrder.EntityRaw): IOrder.DTO {
 		return {
-			_id: data._id,
+			notificationSettings: data.notificationSettings,
 			businessNote: data.businessNote,
-			createdAt: data.createdAt,
-			meta: data.meta,
-			object: data.object,
 			products: data.products,
 			services: data.services,
-			state: data.state,
-			stateHistory: data.stateHistory,
 			status: data.status,
+			meta: data.meta,
+
+			_id: data._id,
+			state: data.state,
+			object: data.object,
+			_version: data._version,
+			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
-			notificationSettings: data.notificationSettings,
+			stateHistory: data.stateHistory,
 		}
 	}
 

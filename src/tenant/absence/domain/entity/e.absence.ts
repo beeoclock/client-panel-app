@@ -22,19 +22,21 @@ export class EAbsence extends ABaseEntity<'AbsenceDto', IAbsence.DTO, IAbsence.E
 
 	public static toDTO(data: IAbsence.EntityRaw): IAbsence.DTO {
 		return {
-			_id: data._id,
-			createdAt: data.createdAt,
-			end: data.end,
 			entireBusiness: data.entireBusiness,
-			members: data.members,
-			note: data.note,
-			object: data.object,
-			start: data.start,
-			state: data.state,
-			stateHistory: data.stateHistory,
 			timeZone: data.timeZone,
+			members: data.members,
+			start: data.start,
 			type: data.type,
+			note: data.note,
+			end: data.end,
+
+			_id: data._id,
+			state: data.state,
+			object: data.object,
+			_version: data._version,
+			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
+			stateHistory: data.stateHistory,
 		};
 	}
 

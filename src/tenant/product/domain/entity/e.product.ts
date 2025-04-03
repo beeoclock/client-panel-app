@@ -22,20 +22,21 @@ export class EProduct extends ABaseEntity<'ProductDto', IProduct.DTO, IProduct.E
 
 	public static toDTO(data: IProduct.EntityRaw): IProduct.DTO {
 		return {
-			_id: data._id,
-			createdAt: data.createdAt,
-			object: data.object,
-			state: data.state,
 			stateHistory: data.stateHistory,
 			updatedAt: data.updatedAt,
+			createdAt: data.createdAt,
+			_version: data._version,
+			object: data.object,
+			state: data.state,
+			_id: data._id,
 
 			sku: data.sku,
-			languageVersions: data.languageVersions,
-			price: data.price,
-			active: data.active,
 			tags: data.tags,
 			order: data.order,
+			price: data.price,
 			images: data.images,
+			active: data.active,
+			languageVersions: data.languageVersions,
 		};
 	}
 
