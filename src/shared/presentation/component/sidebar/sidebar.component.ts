@@ -5,6 +5,9 @@ import {SIDEBAR_ID} from "@src/token";
 import {MenuSidebarComponent} from "@shared/presentation/component/sidebar/menu/menu.sidebar.component";
 import {ProfileSidebarComponent} from "@shared/presentation/component/sidebar/profile/profile.sidebar.component";
 import {SyncButtonComponent} from "@shared/presentation/component/sync-button/sync-button.component";
+import {
+	ConfigurationSidebarComponent
+} from "@shared/presentation/component/sidebar/configuration/configuration.sidebar.component";
 
 
 @Component({
@@ -16,7 +19,8 @@ import {SyncButtonComponent} from "@shared/presentation/component/sync-button/sy
 		TranslateModule,
 		MenuSidebarComponent,
 		ProfileSidebarComponent,
-		SyncButtonComponent
+		SyncButtonComponent,
+		ConfigurationSidebarComponent
 	],
 })
 export class SidebarComponent implements AfterViewInit {

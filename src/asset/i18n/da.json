@@ -700,25 +700,25 @@
 					}
 				}
 			},
-			"/api/v1/service/{id}": {
-				"before": {
-					"accept": {
-						"header": "Sletter en tjeneste",
-						"message": "Er du sikker på, at du vil fjerne tjenesten?"
-					}
-				}
-			},
 			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produktet er blevet slettet."
+					}
+				},
 				"before": {
 					"accept": {
 						"header": "Sletning af et produkt",
 						"message": "Er du sikker på, at du vil fjerne produktet?"
 					}
-				},
-				"after": {
-					"success": {
-					  "header": "Produkt",
-					  "message": "Produktet er blevet slettet."
+				}
+			},
+			"/api/v1/service/{id}": {
+				"before": {
+					"accept": {
+						"header": "Sletter en tjeneste",
+						"message": "Er du sikker på, at du vil fjerne tjenesten?"
 					}
 				}
 			}
@@ -782,19 +782,19 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Produkt oprettet",
+						"message": "Produktet er blevet oprettet."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
 						"header": "Tjeneste oprettet",
 						"message": "Tjenesten blev oprettet med succes."
-					}
-				}
-			},
-			"/api/v1/product": {
-				"after": {
-					"success": {
-						"header": "Produkt oprettet",
-      					"message": "Produktet er blevet oprettet."
 					}
 				}
 			}
@@ -824,14 +824,6 @@
 					}
 				}
 			},
-			"/api/v1/service/{id}": {
-				"after": {
-					"success": {
-						"header": "Tjeneste opdateret",
-						"message": "Tjenesten blev opdateret med succes."
-					}
-				}
-			},
 			"/api/v1/product/{id}": {
 				"after": {
 					"success": {
@@ -839,7 +831,15 @@
 						"message": "Produktet blev opdateret med succes."
 					}
 				}
-  			}
+			},
+			"/api/v1/service/{id}": {
+				"after": {
+					"success": {
+						"header": "Tjeneste opdateret",
+						"message": "Tjenesten blev opdateret med succes."
+					}
+				}
+			}
 		},
 		"response": {
 			"status": {
@@ -1078,6 +1078,17 @@
 			"businessProfile": "Forretningsprofil",
 			"businessSettings": "Forretningsindstillinger",
 			"cancel": "Annuller",
+			"category": {
+				"create": {
+					"choose": "Vælg en kategori",
+					"enter": "Indtast en kategori",
+					"first": "Tilføj den første kategori",
+					"tooltip": "Tilføj kategorier til listen",
+					"uniqueError": "Kategorinavnet skal være unikt"
+				},
+				"plural": "Kategorier",
+				"single": "Kategori"
+			},
 			"changeStatus": "Skift status",
 			"changes": "Ændringer",
 			"changesFrom": "Fra",
@@ -1187,6 +1198,7 @@
 			"priceTimeFormatPrompt": "timer:minutter",
 			"prices": "Priser",
 			"processing": "Behandler",
+			"productName": "Produktets navn",
 			"publicPage": "Offentlig side",
 			"reject": "Afvis",
 			"role": "Rolle",
@@ -1204,6 +1216,7 @@
 			"signIn": "Log ind",
 			"signOut": "Log ud",
 			"signUp": "Tilmeld dig",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Sociale medier",
 			"somethingWentWrong": "Noget gik galt!",
@@ -1241,21 +1254,8 @@
 			"yearly": "Årligt",
 			"yes": "Ja",
 			"yesterday": "Yesterday",
-			"zipCode": "Postnummer",
 			"youOffline": "Du er offline!",
-			"sku": "SKU",
-			"productName": "Produktets navn",
-			"category": {
-				"single": "Kategori",
-				"plural": "Kategorier",
-				"create": {
-				"tooltip": "Tilføj kategorier til listen",
-					"choose": "Vælg en kategori",
-					"first": "Tilføj den første kategori",
-					"enter": "Indtast en kategori",
-					"uniqueError": "Kategorinavnet skal være unikt"
-    			}
-  			}
+			"zipCode": "Postnummer"
 		},
 		"lowercase": {
 			"after": "efter",
@@ -1359,24 +1359,6 @@
 		"title": "Medlem",
 		"toast": {
 			"limit": "Grænsen er nået. Opgrader til en højere plan for at tilføje flere teammedlemmer."
-		}
-	},
-	"product": {
-		"deactivateBeforeDelete": "Du kan ikke slette et aktivt produkt",
-		"button": {
-			"create": "Tilføj produkt"
-		},
-		"details": {
-			"title": "Info om produktet"
-		},
-		"form": {
-			"title": {
-				"edit": "Rediger produkt",
-				"create": "Tilføj produkt"
-			},
-			"availableLanguages": {
-    			"hint": "Du kan give dit produkt et navn på de tilgængelige sprog"
-  			}
 		}
 	},
 	"notificationSetting": {
@@ -1539,6 +1521,24 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Tilføj produkt"
+		},
+		"deactivateBeforeDelete": "Du kan ikke slette et aktivt produkt",
+		"details": {
+			"title": "Info om produktet"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "Du kan give dit produkt et navn på de tilgængelige sprog"
+			},
+			"title": {
+				"create": "Tilføj produkt",
+				"edit": "Rediger produkt"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Ejer",
@@ -1628,6 +1628,8 @@
 		"order": "Indkøb",
 		"payment": "Betalinger",
 		"private": "Privat",
+		"product-tag": "Produktmærker",
+		"products": "Produkter",
 		"profile": {
 			"signOut": {
 				"header": "Log ud",
@@ -1636,7 +1638,6 @@
 		},
 		"requested": "Anmodninger",
 		"services": "Tjenester",
-		"products": "Produkter",
 		"settings": "Indstillinger",
 		"statistic": "Statistik",
 		"switch-business-client": "Skift kontekst",

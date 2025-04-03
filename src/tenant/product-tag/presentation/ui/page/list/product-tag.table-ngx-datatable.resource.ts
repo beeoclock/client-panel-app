@@ -4,10 +4,10 @@ import {
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {IProduct} from "@tenant/product/domain";
+import {IProductTag} from "@tenant/product-tag/domain";
 
 @Injectable()
-export class ProductTableNgxDatatableSmartResource extends TableNgxDatatableSmartResource<IProduct.EntityRaw> {
+export class ProductTagTableNgxDatatableSmartResource extends TableNgxDatatableSmartResource<IProductTag.EntityRaw> {
 
 	private readonly sharedUow = inject(SharedUow);
 	protected override readonly loadData = ({
@@ -18,7 +18,7 @@ export class ProductTableNgxDatatableSmartResource extends TableNgxDatatableSmar
 												filters
 											}: AsyncLoadDataFunctionParams) => {
 
-		return this.sharedUow.product.repository.findAsync({
+		return this.sharedUow.productTag.repository.findAsync({
 			page,
 			pageSize,
 			orderDir,

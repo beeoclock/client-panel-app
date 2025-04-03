@@ -6,15 +6,15 @@ import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/
 import {BaseFilterComponent} from "@shared/base.filter.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
-import {FilterForm} from "@tenant/product/presentation/form";
+import {FilterForm} from "@tenant/product-tag/presentation/form";
 import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
 import {
-	ProductPresentationActions
-} from "@tenant/product/infrastructure/state/presentation/product.presentation.actions";
-import {ProductDataState} from "@tenant/product/infrastructure/state/data/product.data.state";
+	ProductTagPresentationActions
+} from "@tenant/product-tag/infrastructure/state/presentation/product-tag.presentation.actions";
+import {ProductTagDataState} from "@tenant/product-tag/infrastructure/state/data/product-tag.data.state";
 
 @Component({
-	selector: 'product-filter-component',
+	selector: 'product-tag-filter-component',
 	standalone: true,
 	imports: [
 		DefaultPanelComponent,
@@ -31,7 +31,7 @@ import {ProductDataState} from "@tenant/product/infrastructure/state/data/produc
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full">
 					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
 				</div>
 
 			} @else {
@@ -42,7 +42,7 @@ import {ProductDataState} from "@tenant/product/infrastructure/state/data/produc
 					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
 				<div>
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
 				</div>
 			}
 		</utility-default-panel-component>
@@ -83,7 +83,7 @@ export class FilterComponent extends BaseFilterComponent {
 	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
-	public override readonly state = ProductDataState;
+	public override readonly state = ProductTagDataState;
 
 	public constructor() {
 		super();
@@ -91,6 +91,6 @@ export class FilterComponent extends BaseFilterComponent {
 	}
 
 	public openForm() {
-		this.store.dispatch(new ProductPresentationActions.OpenForm());
+		this.store.dispatch(new ProductTagPresentationActions.OpenForm());
 	}
 }

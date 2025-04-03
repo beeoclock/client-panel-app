@@ -1,6 +1,4 @@
-<app-table-ngx-datatable-smart-component
-	(activate)="activate($event)"
-	[columnList]="columnList()"
+<!--
 	[actionColumn]="{
 				name: '',
 				cellTemplate: actionCellTemplate,
@@ -8,7 +6,10 @@
 				frozenRight: true,
 				minWidth: 56,
 				width: 56
-			}">
+			}"-->
+<app-table-ngx-datatable-smart-component
+	(activate)="activate($event)"
+	[columnList]="columnList()">
 
 	<not-found-table-data-component
 		class="block h-full"
@@ -23,7 +24,7 @@
 
 </app-table-ngx-datatable-smart-component>
 <ng-template #actionCellTemplate let-row="row">
-	<product-row-action-button-component
+	<product-tag-row-action-button-component
 		[item]="row"
 		[id]="row._id"/>
 </ng-template>

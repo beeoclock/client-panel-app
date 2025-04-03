@@ -11,25 +11,24 @@ import {
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
-import EProduct from "@tenant/product/domain/entity/e.product";
-import {IProduct} from "@tenant/product/domain";
-import {
-	RowActionButtonComponent
-} from "@tenant/product/presentation/ui/component/row-action-button/row-action-button.component";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/product/presentation/ui/component/auto-refresh/auto-refresh.button.component";
-import {
-	ProductPresentationActions
-} from "@tenant/product/infrastructure/state/presentation/product.presentation.actions";
-import {LanguageCodeEnum} from "@core/shared/enum";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {
+	RowActionButtonComponent
+} from "@tenant/product-tag/presentation/ui/component/row-action-button/row-action-button.component";
+import EProductTag from "@tenant/product-tag/domain/entity/e.product-tag";
+import {IProductTag} from "@tenant/product-tag/domain";
+import {
+	ProductTagPresentationActions
+} from "@tenant/product-tag/infrastructure/state/presentation/product-tag.presentation.actions";
 
 @Component({
-	selector: 'product-table-list-component',
+	selector: 'product-tag-table-list-component',
 	templateUrl: './table.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
@@ -39,50 +38,26 @@ import {
 		TableNgxDatatableSmartComponent,
 		TranslatePipe,
 		RowActionButtonComponent,
-		AutoRefreshButtonComponent
+		AutoRefreshButtonComponent,
+		RowActionButtonComponent
 	],
+	host: {
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
+	},
 })
-export class TableListComponent extends TableComponent<EProduct> {
+export class TableListComponent extends TableComponent<EProductTag> {
 
 	public readonly availableLanguages = toSignal(this.store.select(BusinessProfileState.availableLanguages));
 
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 
-	public readonly columns = signal<TableColumn<EProduct>[]>([
+	public readonly columns = signal<TableColumn<EProductTag>[]>([
 		{
-			name: this.translateService.instant('keyword.capitalize.firstName'),
-			prop: 'sku',
+			name: this.translateService.instant('keyword.capitalize.title'),
+			prop: 'name',
 			minWidth: 200,
 			width: 200,
-			sortable: true
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.lastName'),
-			prop: 'productName',
-			minWidth: 140,
-			width: 140,
-			sortable: true
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.email'),
-			prop: 'price',
-			minWidth: 300,
-			width: 300,
-			sortable: true
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.phone'),
-			prop: 'tags',
-			minWidth: 160,
-			width: 160,
 			sortable: true,
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.note'),
-			prop: 'order',
-			minWidth: 160,
-			width: 160,
-			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.active'),
@@ -117,16 +92,11 @@ export class TableListComponent extends TableComponent<EProduct> {
 			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
 		}
 
-		const availableLanguages = this.availableLanguages();
-		if (availableLanguages?.length) {
-			this.setTitlesColumnsByAvailableLanguages(columns, availableLanguages);
-		}
-
 		return columns;
 
 	});
 
-	public activate($event: ActivateEvent<IProduct.EntityRaw>) {
+	public activate($event: ActivateEvent<IProductTag.EntityRaw>) {
 		switch ($event.type) {
 			case "checkbox":
 				break;
@@ -142,63 +112,15 @@ export class TableListComponent extends TableComponent<EProduct> {
 		}
 	}
 
-	public override open(item: IProduct.EntityRaw) {
-		const entity = EProduct.fromRaw(item);
-		const action = new ProductPresentationActions.OpenDetails(entity);
+	public override open(item: IProductTag.EntityRaw) {
+		const entity = EProductTag.fromRaw(item);
+		const action = new ProductTagPresentationActions.OpenDetails(entity);
 		this.store.dispatch(action);
 	}
 
 	@Dispatch()
 	public openForm() {
-		return new ProductPresentationActions.OpenForm();
+		return new ProductTagPresentationActions.OpenForm();
 	}
 
-	private setTitlesColumnsByAvailableLanguages(columns: TableColumn<EProduct>[], availableLanguages: LanguageCodeEnum[]) {
-
-		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'sku') + 1;
-		const name = this.translateService.instant('keyword.capitalize.title');
-
-		if (availableLanguages.length < 2) {
-
-			const language = availableLanguages[0];
-
-			columns.splice(pushAfterIndex, 0, {
-				name: name,
-				prop: 'title',
-				minWidth: 240,
-				width: 240,
-				sortable: false,
-				$$valueGetter: (row: EProduct) => this.getTitleForLanguage(row, language)
-			})
-
-		} else {
-
-			for (const language of availableLanguages) {
-
-				columns.splice(pushAfterIndex, 0, {
-					name: `${name} (${language})`,
-					prop: `title-${language}`,
-					minWidth: 240,
-					width: 240,
-					sortable: false,
-					$$valueGetter: (row: EProduct) => this.getTitleForLanguage(row, language)
-				})
-
-			}
-
-		}
-
-	}
-
-	public getTitleForLanguage(row: EProduct, languageCode: LanguageCodeEnum): string {
-
-		let title = '-';
-		const languageVersion = row.languageVersions.find(({language}) => language === languageCode);
-		if (languageVersion) {
-			title = languageVersion.title;
-		}
-
-		return title;
-
-	}
 }

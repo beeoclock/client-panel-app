@@ -700,25 +700,25 @@
 					}
 				}
 			},
-			"/api/v1/service/{id}": {
-				"before": {
-					"accept": {
-						"header": "Deleting a service",
-						"message": "Are you sure you want to remove the service?"
-					}
-				}
-			},
 			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Product",
+						"message": "Product was successfully deleted."
+					}
+				},
 				"before": {
 					"accept": {
 						"header": "Deleting a product",
 						"message": "Are you sure you want to remove the product?"
 					}
-				},
-				"after": {
-					"success": {
-						"header": "Product",
-						"message": "Product was successfully deleted."
+				}
+			},
+			"/api/v1/service/{id}": {
+				"before": {
+					"accept": {
+						"header": "Deleting a service",
+						"message": "Are you sure you want to remove the service?"
 					}
 				}
 			}
@@ -782,19 +782,19 @@
 					}
 				}
 			},
-			"/api/v1/service": {
-				"after": {
-					"success": {
-						"header": "Service created",
-						"message": "Service was successfully created."
-					}
-				}
-			},
 			"/api/v1/product": {
 				"after": {
 					"success": {
 						"header": "Product created",
 						"message": "Product was successfully created."
+					}
+				}
+			},
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Service created",
+						"message": "Service was successfully created."
 					}
 				}
 			}
@@ -824,19 +824,19 @@
 					}
 				}
 			},
-			"/api/v1/service/{id}": {
-				"after": {
-					"success": {
-						"header": "Service updated",
-						"message": "Service was successfully updated."
-					}
-				}
-			},
 			"/api/v1/product/{id}": {
 				"after": {
 					"success": {
 						"header": "Product updated",
 						"message": "Product was successfully updated."
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"after": {
+					"success": {
+						"header": "Service updated",
+						"message": "Service was successfully updated."
 					}
 				}
 			}
@@ -1078,6 +1078,17 @@
 			"businessProfile": "Business profile",
 			"businessSettings": "Business settings",
 			"cancel": "Cancel",
+			"category": {
+				"create": {
+					"choose": "Choose a category",
+					"enter": "Enter a category",
+					"first": "Add the first category",
+					"tooltip": "Add categories to the list",
+					"uniqueError": "The category name must be unique"
+				},
+				"plural": "Categories",
+				"single": "Category"
+			},
 			"changeStatus": "Change status",
 			"changes": "Changes",
 			"changesFrom": "From",
@@ -1187,6 +1198,7 @@
 			"priceTimeFormatPrompt": "hours:minutes",
 			"prices": "Prices",
 			"processing": "Processing",
+			"productName": "Product name",
 			"publicPage": "Public page",
 			"reject": "Reject",
 			"role": "Role",
@@ -1204,6 +1216,7 @@
 			"signIn": "Sign in",
 			"signOut": "Sign out",
 			"signUp": "Sign up",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Social media",
 			"somethingWentWrong": "Something went wrong!",
@@ -1242,20 +1255,7 @@
 			"yes": "Yes",
 			"yesterday": "Yesterday",
 			"youOffline": "You are offline!",
-			"zipCode": "Zip code",
-			"sku": "SKU",
-			"productName": "Product name",
-			"category": {
-				"single": "Category",
-				"plural": "Categories",
-				"create": {
-					"tooltip": "Add categories to the list",
-					"choose": "Choose a category",
-					"first": "Add the first category",
-					"enter": "Enter a category",
-					"uniqueError": "The category name must be unique"
-    			}
-  			}
+			"zipCode": "Zip code"
 		},
 		"lowercase": {
 			"after": "after",
@@ -1359,24 +1359,6 @@
 		"title": "Member",
 		"toast": {
 			"limit": "Limit reached. Upgrade to a higher plan to add more team members."
-		}
-	},
-	"product": {
-		"deactivateBeforeDelete": "You cannot delete an active product",
-		"button": {
-			"create": "Create product"
-		},
-		"details": {
-			"title": "Info about the product"
-		},
-		"form": {
-			"title": {
-				"edit": "Edit product",
-				"create": "Add product"
-			},
-			"availableLanguages": {
-    			"hint": "You can name your product in the available languages"
-  			}
 		}
 	},
 	"notificationSetting": {
@@ -1539,6 +1521,24 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Create product"
+		},
+		"deactivateBeforeDelete": "You cannot delete an active product",
+		"details": {
+			"title": "Info about the product"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "You can name your product in the available languages"
+			},
+			"title": {
+				"create": "Add product",
+				"edit": "Edit product"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Admin",
 		"OWNER": "Owner",
@@ -1628,6 +1628,8 @@
 		"order": "Orders",
 		"payment": "Payments",
 		"private": "Private",
+		"product-tag": "Product tags",
+		"products": "Products",
 		"profile": {
 			"signOut": {
 				"header": "Logout",
@@ -1636,7 +1638,6 @@
 		},
 		"requested": "Requests",
 		"services": "Services",
-		"products": "Products",
 		"settings": "Settings",
 		"statistic": "Statistics",
 		"switch-business-client": "Change context",

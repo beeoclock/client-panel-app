@@ -5,7 +5,7 @@ import {ActionComponent} from "@shared/presentation/component/table/column/actio
 import {IProduct} from "@tenant/product/domain";
 
 @Component({
-	selector: 'product-row-action-button-component',
+	selector: 'product-tag-row-action-button-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `

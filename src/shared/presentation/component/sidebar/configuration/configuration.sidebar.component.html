@@ -1,0 +1,39 @@
+<div class="h-full px-3 py-4 overflow-y-auto bg-white dark:bg-beeDarkColor-900 flex flex-col justify-between">
+
+	<ul class="space-y-2 font-medium">
+
+		<li>
+			<a
+				[routerLink]="'product-tag/list' | withTenantId"
+				[routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-800']"
+				class="flex
+              items-center
+              w-full
+              p-2
+              text-beeColor-900
+              transition
+              duration-75
+              rounded-lg
+              group
+              hover:bg-beeColor-100
+              dark:text-white
+              dark:hover:bg-beeDarkColor-800">
+				<i class="flex-shrink-0
+				                w-6
+				                h-6
+				                ms-1
+				                text-beeColor-500
+				                transition
+				                duration-75
+				                group-hover:text-beeColor-900
+				                dark:text-beeDarkColor-400
+				                dark:group-hover:text-white bi bi-tags"></i>
+				<span class="flex-1 ml-3 text-left whitespace-nowrap">
+				{{ 'sidebar.product-tag' | translate }}
+				</span>
+			</a>
+		</li>
+
+	</ul>
+
+</div>

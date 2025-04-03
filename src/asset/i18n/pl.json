@@ -700,25 +700,25 @@
 					}
 				}
 			},
-			"/api/v1/service/{id}": {
-				"before": {
-					"accept": {
-						"header": "Usuwanie usługi",
-						"message": "Czy na pewno chcesz usunąć usługę?"
-					}
-				}
-			},
 			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został usunięty."
+					}
+				},
 				"before": {
 					"accept": {
 						"header": "Usuwanie produkt",
 						"message": "Czy na pewno chcesz usunąć produkt?"
 					}
-				},
-				"after": {
-					"success": {
-						"header": "Produkt",
-						"message": "Produkt został usunięty."
+				}
+			},
+			"/api/v1/service/{id}": {
+				"before": {
+					"accept": {
+						"header": "Usuwanie usługi",
+						"message": "Czy na pewno chcesz usunąć usługę?"
 					}
 				}
 			}
@@ -782,19 +782,19 @@
 					}
 				}
 			},
-			"/api/v1/service": {
-				"after": {
-					"success": {
-						"header": "Utworzono usługę",
-						"message": "Usługa została utworzona."
-					}
-				}
-			},
 			"/api/v1/product": {
 				"after": {
 					"success": {
 						"header": "Utworzono produkt",
 						"message": "Produkt został utworzony."
+					}
+				}
+			},
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Utworzono usługę",
+						"message": "Usługa została utworzona."
 					}
 				}
 			}
@@ -824,19 +824,19 @@
 					}
 				}
 			},
-			"/api/v1/service/{id}": {
-				"after": {
-					"success": {
-						"header": "Usługa zaktualizowana",
-						"message": "Usługa została zaktualizowana."
-					}
-				}
-			},
 			"/api/v1/product/{id}": {
 				"after": {
 					"success": {
 						"header": "Produkt",
 						"message": "Produkt został zaktualizowany."
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"after": {
+					"success": {
+						"header": "Usługa zaktualizowana",
+						"message": "Usługa została zaktualizowana."
 					}
 				}
 			}
@@ -1078,6 +1078,17 @@
 			"businessProfile": "Profil biznesu",
 			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
+			"category": {
+				"create": {
+					"choose": "Wybierz kategorie",
+					"enter": "Wpisz kategorie",
+					"first": "Dodaj pierwszą kategorie",
+					"tooltip": "Dodaj kategorie do listy",
+					"uniqueError": "Nazwa kategorii musi być unikalna"
+				},
+				"plural": "Kategorie",
+				"single": "Kategoria"
+			},
 			"changeStatus": "Zmień status",
 			"changes": "Zmiany",
 			"changesFrom": "Z",
@@ -1187,6 +1198,7 @@
 			"priceTimeFormatPrompt": "godziny:minuty",
 			"prices": "Ceny",
 			"processing": "Przetwarzanie",
+			"productName": "Nazwa produktu",
 			"publicPage": "Strona publiczna",
 			"reject": "Odrzucić",
 			"role": "Rola",
@@ -1204,6 +1216,7 @@
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
 			"signUp": "Zarejestruj się",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Media społecznościowe",
 			"somethingWentWrong": "Coś poszło nie tak!",
@@ -1241,21 +1254,8 @@
 			"yearly": "Rocznie",
 			"yes": "Tak",
 			"yesterday": "Wczoraj",
-			"zipCode": "Kod pocztowy",
 			"youOffline": "Jesteś offline!",
-			"sku": "SKU",
-			"productName": "Nazwa produktu",
-			"category": {
-				"single": "Kategoria",
-				"plural": "Kategorie",
-				"create": {
-					"tooltip": "Dodaj kategorie do listy",
-					"choose": "Wybierz kategorie",
-					"first": "Dodaj pierwszą kategorie",
-					"enter": "Wpisz kategorie",
-					"uniqueError": "Nazwa kategorii musi być unikalna"
-				}
-			}
+			"zipCode": "Kod pocztowy"
 		},
 		"lowercase": {
 			"after": "za",
@@ -1359,24 +1359,6 @@
 		"title": "Członek",
 		"toast": {
 			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodać więcej członków zespołu."
-		}
-	},
-	"product": {
-		"deactivateBeforeDelete": "Nie można usunąć aktywnego produktu",
-		"button": {
-			"create": "Dodaj produkt"
-		},
-		"details": {
-			"title": "Informacje o produkcie"
-		},
-		"form": {
-			"title": {
-				"edit": "Edycja produktu",
-				"create": "Dodawanie produktu"
-			},
-			"availableLanguages": {
-				"hint": "Możesz nadać swojemu produktowi nazwę w ramach dostępnych języków"
-			}
 		}
 	},
 	"notificationSetting": {
@@ -1539,6 +1521,24 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Dodaj produkt"
+		},
+		"deactivateBeforeDelete": "Nie można usunąć aktywnego produktu",
+		"details": {
+			"title": "Informacje o produkcie"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "Możesz nadać swojemu produktowi nazwę w ramach dostępnych języków"
+			},
+			"title": {
+				"create": "Dodawanie produktu",
+				"edit": "Edycja produktu"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Właściciel",
@@ -1628,6 +1628,8 @@
 		"order": "Zamówienia",
 		"payment": "Płatności",
 		"private": "Prywatne",
+		"product-tag": "Tagi produktu",
+		"products": "Produkty",
 		"profile": {
 			"signOut": {
 				"header": "Wylogowanie",
@@ -1636,7 +1638,6 @@
 		},
 		"requested": "Zażądane",
 		"services": "Usługi",
-		"products": "Produkty",
 		"settings": "Ustawienia",
 		"statistic": "Statystyki",
 		"switch-business-client": "Zmień kontekst",
