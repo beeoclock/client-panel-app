@@ -134,8 +134,6 @@ export class OrderFormContainerComponent {
 
 		const result: any = {};
 
-		console.log(customerJSON(), memberJSON(), serviceListJSON(), appointmentStartDateTimeIso())
-
 		if (customerJSON()) {
 			result.customer = customerJSON();
 		}

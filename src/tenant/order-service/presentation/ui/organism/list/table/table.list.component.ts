@@ -63,17 +63,19 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 		<ng-template #specialistCellTemplate let-row="row">
 			<div
 				class="inline-flex items-center gap-2 text-sm font-medium text-[#11141A]">
-				@if (row.orderAppointmentDetails.specialists[0].member.avatar.url) {
-					<img class="w-[26px] h-[26px] rounded-full object-cover"
-						 [src]="row.orderAppointmentDetails.specialists[0].member.avatar.url"
-						 alt="Avatar">
-				} @else {
-					<div
-						class="w-[26px] h-[26px] flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">
-						{{ row.orderAppointmentDetails.specialists[0].member.firstName.charAt(0) }}
-					</div>
+				@for (specialist of row.orderAppointmentDetails.specialists; track specialist.member._id) {
+					@if (specialist?.member?.avatar?.url?.length) {
+						<img class="w-[26px] h-[26px] rounded-full object-cover"
+							 [src]="specialist.member.avatar.url"
+							 alt="Avatar">
+					} @else {
+						<div
+							class="w-[26px] h-[26px] flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">
+							{{ specialist?.member?.firstName?.charAt(0) }}
+						</div>
+					}
+					{{ specialist.member.firstName }}
 				}
-				{{ row.orderAppointmentDetails.specialists[0].member.firstName }}
 			</div>
 		</ng-template>
 

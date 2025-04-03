@@ -3,7 +3,6 @@ import {
 	ChangeDetectorRef,
 	Component,
 	inject,
-	Input,
 	input,
 	OnChanges,
 	OnInit,
@@ -61,15 +60,20 @@ import {
 })
 export class DateSliderControlComponent extends Reactive implements OnChanges, OnInit {
 
-	@Input({required: true})
-	public form = new FormGroup({
-		interval: new FormControl<IntervalTypeEnum>(IntervalTypeEnum.day, {
-			nonNullable: true
-		}),
-		selectedDate: new FormControl<string>(DateTime.now().toJSDate().toISOString(), {
-			nonNullable: true
-		}),
-	});
+	// @Input({required: true})
+	// public form = new FormGroup({
+	// 	interval: new FormControl<IntervalTypeEnum>(IntervalTypeEnum.day, {
+	// 		nonNullable: true
+	// 	}),
+	// 	selectedDate: new FormControl<string>(DateTime.now().toJSDate().toISOString(), {
+	// 		nonNullable: true
+	// 	}),
+	// });
+
+	public readonly form = input.required<FormGroup<{
+		interval: FormControl<IntervalTypeEnum>;
+		selectedDate: FormControl<string>;
+	}>>();
 
 	public readonly initialIntervalType = input<IntervalTypeEnum>(IntervalTypeEnum.day);
 
@@ -218,7 +222,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	public initialize() {
 
-		const {interval, selectedDate} = this.form.getRawValue();
+		const {interval, selectedDate} = this.form().getRawValue();
 		if (interval) this.intervalTypeControl.setValue(interval);
 		if (selectedDate) this.dateControl.setValue(selectedDate);
 		this.changeDetectorRef.markForCheck();
@@ -277,7 +281,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	protected getRangeInISO() {
 
-		const {interval, selectedDate} = this.form.getRawValue();
+		const {interval, selectedDate} = this.form().getRawValue();
 
 		return this.getRangeInISOByInterval(interval, selectedDate);
 	}
@@ -361,7 +365,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	private updateForm() {
 		const selectedDate = this.dateControl.getRawValue();
 		const interval = this.intervalTypeControl.getRawValue();
-		this.form.patchValue({
+		this.form().patchValue({
 			interval,
 			selectedDate,
 		});
@@ -369,7 +373,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	private updateFromAndToControls(method: 'plus' | 'minus') {
 
-		const selectedDate = this.form.controls.selectedDate.value;
+		const selectedDate = this.form().controls.selectedDate.value;
 		const intervalType = this.intervalTypeControl.value;
 
 		const {newDateTime} = this.changeInterval(selectedDate, method, intervalType);

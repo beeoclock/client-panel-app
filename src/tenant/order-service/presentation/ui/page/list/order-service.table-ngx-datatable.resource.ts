@@ -1,13 +1,17 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, signal} from "@angular/core";
 import {
 	AsyncLoadDataFunctionParams,
+	FiltersType,
 	TableNgxDatatableSmartResource
 } from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {IOrderService} from "@tenant/order-service/domain/interface/i.order-service.dto";
+import {FilterForm} from "@tenant/order-service/presentation/form/filter.form";
 
 @Injectable()
 export class OrderServiceTableNgxDatatableResource extends TableNgxDatatableSmartResource<IOrderService.EntityRaw> {
+
+	public override readonly filters = signal<FiltersType>((new FilterForm()).getRawValue() as any);
 
 	private readonly sharedUow = inject(SharedUow);
 	protected override readonly loadData = ({
