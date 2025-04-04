@@ -1,24 +1,24 @@
 import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
-import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {NgOptimizedImage} from "@angular/common";
 import {
 	RowActionButtonComponent
 } from "@tenant/member/presentation/component/row-action-button/row-action-button.component";
 import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
 import EMember from "@tenant/member/domain/entity/e.member";
+import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
 
 @Component({
 	selector: 'member-detail-page',
 	templateUrl: './member-details-container.component.html',
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		TranslateModule,
-		DynamicDatePipe,
-		NgOptimizedImage,
-		RowActionButtonComponent,
-	],
+    imports: [
+        TranslateModule,
+        NgOptimizedImage,
+        RowActionButtonComponent,
+        StandardDetailsEntityComponent,
+    ],
 	standalone: true
 })
 export class MemberDetailsContainerComponent {

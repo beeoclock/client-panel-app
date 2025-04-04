@@ -10,7 +10,9 @@ import {
 	SelectServiceListComponent
 } from "@tenant/service/presentation/ui/component/select-list/select-service-list.component";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
-import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
+import {
+	CustomerChipComponent
+} from "@shared/presentation/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {IMember} from "@tenant/member/domain/interface/i.member";
 import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";

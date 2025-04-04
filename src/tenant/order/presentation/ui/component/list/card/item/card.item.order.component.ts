@@ -16,7 +16,9 @@ import {
 } from "@tenant/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CurrencyCodeEnum} from "@core/shared/enum";
-import {StatusOrderChipComponent} from "@src/component/smart/order/form/chip/status.order.chip.component";
+import {
+	StatusOrderChipComponent
+} from "@shared/presentation/component/smart/order/form/chip/status.order.chip.component";
 import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 
 @Component({

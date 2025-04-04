@@ -13,7 +13,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {
 	ServiceChipPagination
-} from "@src/component/smart/order/form/service/list/item/chip/service/service.chip.pagination";
+} from "@shared/presentation/component/smart/order/form/service/list/item/chip/service/service.chip.pagination";
 import {AsyncPipe} from "@angular/common";
 
 @Component({

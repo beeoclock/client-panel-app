@@ -1,7 +1,9 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
-import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
+import {
+	CardIonListSmartComponent
+} from "@shared/presentation/component/smart/card-ion-list/card-ion-list.smart.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	NotFoundTableDataComponent

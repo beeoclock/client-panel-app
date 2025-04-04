@@ -5,7 +5,7 @@ import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {
 	RowActionButtonComponent
 } from "@tenant/customer/presentation/ui/component/row-action-button/row-action-button.component";

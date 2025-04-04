@@ -9,7 +9,9 @@ import {
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/absence/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
-import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
+import {
+	CardIonListSmartComponent
+} from "@shared/presentation/component/smart/card-ion-list/card-ion-list.smart.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";

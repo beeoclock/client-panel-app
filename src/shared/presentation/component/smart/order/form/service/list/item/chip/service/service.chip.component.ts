@@ -5,10 +5,10 @@ import {TranslateModule} from "@ngx-translate/core";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {
 	ServiceChipPagination
-} from "@src/component/smart/order/form/service/list/item/chip/service/service.chip.pagination";
+} from "@shared/presentation/component/smart/order/form/service/list/item/chip/service/service.chip.pagination";
 import {
 	ServicePopoverChipComponent
-} from "@src/component/smart/order/form/service/list/item/chip/service/service-popover.chip.component";
+} from "@shared/presentation/component/smart/order/form/service/list/item/chip/service/service-popover.chip.component";
 
 @Component({
 	selector: 'app-service-chip-component',

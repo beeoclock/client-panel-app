@@ -10,7 +10,7 @@ import {
 } from "@tenant/absence/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	AbsenceTableNgxDatatableSmartResource
 } from "@tenant/absence/presentation/ui/page/absence.table-ngx-datatable.resource";

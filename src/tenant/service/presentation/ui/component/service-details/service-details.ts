@@ -3,13 +3,13 @@ import {CurrencyPipe} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
-import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {
 	RowActionButtonComponent
 } from "@tenant/service/presentation/ui/component/row-action-button/row-action-button.component";
 import EService from "@tenant/service/domain/entity/e.service";
+import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
 
 @Component({
 	selector: 'service-detail-page',
@@ -19,8 +19,8 @@ import EService from "@tenant/service/domain/entity/e.service";
 	imports: [
 		TranslateModule,
 		ActiveStyleDirective,
-		DynamicDatePipe,
 		RowActionButtonComponent,
+		StandardDetailsEntityComponent,
 	],
 	providers: [
 		CurrencyPipe,
