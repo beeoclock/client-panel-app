@@ -1,72 +1,72 @@
-import {ChangeDetectionStrategy, Component, input, OnInit, viewChildren, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe} from '@angular/common';
+import {ChangeDetectionStrategy, Component, input, OnInit, viewChildren} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
-import {
-	DesktopLayoutListComponent
-} from "@tenant/order/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
 import {ListPage} from "@shared/list.page";
 import {
 	MobileLayoutListComponent
 } from "@tenant/order/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
-import {PeerCustomerOrderActions} from "@tenant/order/presentation/state/peer-customer/peer-customer.order.actions";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
-	MemberTableNgxDatatableSmartResource
-} from "@tenant/member/presentation/ui/page/list/member.table-ngx-datatable.resource";
+	OrderCustomerTableNgxDatatableSmartResource
+} from "@tenant/order/presentation/ui/component/external/case/customer/list/order.customer.table-ngx-datatable.resource";
+import {DatePipe} from "@angular/common";
+import {
+	CardItemOrderService
+} from "@tenant/order/presentation/ui/component/list/card/item-lightweight/card.item.order.service";
+import ECustomer from "@tenant/customer/domain/entity/e.customer";
 
 @Component({
 	selector: 'order-external-list-component',
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		AsyncPipe,
 		TranslateModule,
-		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
 	],
 	standalone: true,
 	providers: [
+		CardItemOrderService,
+		DatePipe,
 		{
 			provide: TableNgxDatatableSmartResource,
-			useClass: MemberTableNgxDatatableSmartResource,
+			useClass: OrderCustomerTableNgxDatatableSmartResource,
 		},
 	],
-	template: `
-		@if (initialized.isOn) {
-
-			@if (isMobile$ | async) {
-
-				<app-order-mobile-layout-list-component
-					[showButtonGoToForm]="false"
-					[isPage]="false"
-				/>
-			} @else {
-
-				<app-order-desktop-layout-list-component />
+	styles: [
+		`
+			:host::ng-deep {
+				--ion-background-color: theme('colors.neutral.100');
 			}
-		} @else {
-
-			<div class="p-4">
-				{{ 'keyword.capitalize.initializing' | translate }}...
-			</div>
-		}
+		`
+	],
+	host: {
+		class: 'bg-neutral-100'
+	},
+	template: `
+		<app-order-mobile-layout-list-component
+			[showButtonGoToForm]="false"
+			[isPage]="false"
+		/>
 	`
 })
 export class CustomerOrderListExternalComponent extends ListPage implements OnInit {
 
-	public readonly customerId = input.required<string>();
+	public readonly item = input.required<ECustomer>();
 
 	readonly mobileLayoutListComponents = viewChildren(MobileLayoutListComponent);
 
-	public override mobileMode = true;
+	public override mobileMode = input(true);
 
 	public override ngOnInit() {
-		this.store.dispatch(new PeerCustomerOrderActions.UpdateFilters({
-			customerId: this.customerId(),
-		}));
 		super.ngOnInit();
+		this.tableNgxDatatableSmartResource.filters.update((filters) => {
+			return {
+				...filters,
+				customerId: this.item()._id,
+			}
+		})
 	}
 
 }
+
+export default CustomerOrderListExternalComponent;

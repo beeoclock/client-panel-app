@@ -1,148 +1,106 @@
-<div class="bg-white">
-	<dl class="divide-y divide-gray-100">
+@if (item(); as item) {
+	<div class="bg-white">
+		<dl class="divide-y divide-gray-100">
 
-		<div class="p-2 flex justify-end">
-			<service-row-action-button-component
-				[hide]="['details']"
-				[item]="item"
-				[id]="item._id"/>
-		</div>
-
-		@if ((item.presentation?.banners ?? []).length) {
-
-			<div class="p-4 sm:gap-4 flex flex-wrap">
-				@for (banner of item.presentation?.banners; track banner._id) {
-					<div
-						class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
-						@if (banner) {
-
-							<img
-								[src]="banner"
-								class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
-								alt="Uploaded Image"/>
-						}
-					</div>
-				}
+			<div class="p-2 flex justify-end">
+				<service-row-action-button-component
+					[hide]="['details']"
+					[item]="item"
+					[id]="item._id"/>
 			</div>
-		}
-		<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-			<dt class="text-sm font-medium leading-6 text-gray-900">
-				{{ 'keyword.capitalize.order' | translate }}
-			</dt>
-			<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-				{{ item.order }}
-			</dd>
-		</div>
-		<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-			<dt class="text-sm font-medium leading-6 text-gray-900">
-				{{ 'keyword.capitalize.color' | translate }}
-			</dt>
-			<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-				@if (item.presentation?.color) {
-					<div class="h-10 w-10 rounded-full" [style.background-color]="item.presentation?.color ?? ''"></div>
-				} @else {
 
-					<div class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-100">
-						❓
-					</div>
-				}
-			</dd>
-		</div>
-		<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-			<dt class="text-sm font-medium leading-6 text-gray-900">
-				{{ 'keyword.capitalize.status' | translate }}
-			</dt>
-			<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
-				<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-					 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [state]="item.state">
-				</div>
-			</dd>
-		</div>
-		<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-			<dt class="text-sm font-medium leading-6 text-gray-900">
-				{{ 'keyword.capitalize.price' | translate }}
-			</dt>
-			<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
-				<div class="flex flex-col items-start"
-					 [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">
-				</div>
-			</dd>
-		</div>
-		<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-			<dt class="text-sm font-medium leading-6 text-gray-900">
-				{{ 'keyword.capitalize.duration' | translate }}
-			</dt>
-			<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
-				<div class="flex flex-col items-start"
-					 [innerHTML]="durationVersionHtmlHelper.getDurationValue(item)">
-				</div>
-			</dd>
-		</div>
+			@if ((item.presentation?.banners ?? []).length) {
 
-		<div class="p-4">
+				<div class="p-4 sm:gap-4 flex flex-wrap">
+					@for (banner of item.presentation?.banners; track banner._id) {
+						<div
+							class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
+							@if (banner) {
 
-			<div class="flex flex-col divide-y w-full rounded-lg border text-sm">
-				@for (languageVersion of item.languageVersions; track languageVersion.language) {
-
-					<div
-						class="relative text-wrap flex gap-2 items-start p-2 font-sans text-neutral-900">
-						<label
-							class="relative font-bold uppercase flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
-							{{ languageVersion.language }}
-						</label>
-						<div class="flex flex-col gap-1">
-							<div class="font-bold">{{ languageVersion.title }}</div>
-							<div>{{ languageVersion.description }}</div>
+								<img
+									[src]="banner.url"
+									class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+									alt="Uploaded Image"/>
+							}
 						</div>
+					}
+				</div>
+			}
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.order' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item.order }}
+				</dd>
+			</div>
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.color' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					@if (item.presentation?.color) {
+						<div class="h-10 w-10 rounded-full" [style.background-color]="item.presentation?.color ?? ''"></div>
+					} @else {
+
+						<div class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-100">
+							❓
+						</div>
+					}
+				</dd>
+			</div>
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.status' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
+					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
+						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [state]="item.state">
 					</div>
-				}
+				</dd>
 			</div>
-		</div>
-	</dl>
-</div>
-
-<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
-
-
-	<div class="text-start text-beeColor-400 text-sm px-4">
-
-		<div class="flex flex-col gap-4">
-
-			<div class="flex flex-col">
-
-				<div>
-					#
-				</div>
-				<div>
-					{{ item._id }}
-				</div>
-
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.price' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+					<div class="flex flex-col items-start"
+						 [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">
+					</div>
+				</dd>
 			</div>
-
-			<div class="flex flex-col">
-
-				<div>
-					{{ 'keyword.capitalize.createdAt' | translate }}:
-				</div>
-				<div>
-					{{ item.createdAt | dynamicDate }}
-				</div>
-
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.duration' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+					<div class="flex flex-col items-start"
+						 [innerHTML]="durationVersionHtmlHelper.getDurationValue(item)">
+					</div>
+				</dd>
 			</div>
 
-			<div class="flex flex-col">
+			<div class="p-4">
 
-				<div>
-					{{ 'keyword.capitalize.updatedAt' | translate }}:
-				</div>
-				<div>
-					{{ item.updatedAt | dynamicDate }}
-				</div>
+				<div class="flex flex-col divide-y w-full rounded-lg border text-sm">
+					@for (languageVersion of item.languageVersions; track languageVersion.language) {
 
+						<div
+							class="relative text-wrap flex gap-2 items-start p-2 font-sans text-neutral-900">
+							<label
+								class="relative font-bold uppercase flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
+								{{ languageVersion.language }}
+							</label>
+							<div class="flex flex-col gap-1">
+								<div class="font-bold">{{ languageVersion.title }}</div>
+								<div>{{ languageVersion.description }}</div>
+							</div>
+						</div>
+					}
+				</div>
 			</div>
-
-		</div>
-
+		</dl>
 	</div>
+	<standard-details-entity [item]="item"/>
 
-</div>
+}

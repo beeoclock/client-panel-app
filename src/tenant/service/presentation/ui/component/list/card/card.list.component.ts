@@ -15,7 +15,9 @@ import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
+import {
+	CardIonListSmartComponent
+} from "@shared/presentation/component/smart/card-ion-list/card-ion-list.smart.component";
 
 @Component({
 	selector: 'service-card-list-component',

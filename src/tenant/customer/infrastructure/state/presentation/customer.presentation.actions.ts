@@ -19,14 +19,6 @@ export namespace CustomerPresentationActions {
 		public static override readonly type = '[Customer Application] Open Details';
 	}
 
-	export class OpenDetailsById extends BaseActions.OpenDetailsById {
-		public static override readonly type = '[Customer Application] Open Details By Id';
-	}
-
-	export class OpenFormToEditById extends BaseActions.OpenFormToEditById {
-		public static override readonly type = '[Customer Application] Open Form To Edit By Id';
-	}
-
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
 		item?: ICustomer.DTO;

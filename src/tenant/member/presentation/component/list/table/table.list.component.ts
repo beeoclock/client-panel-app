@@ -3,7 +3,7 @@ import {TableComponent} from "@shared/table.component";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {
 	RowActionButtonComponent
 } from "@tenant/member/presentation/component/row-action-button/row-action-button.component";
@@ -42,7 +42,7 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 				[showLinkToForm]="true"
 				[linkLabel]="'member.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
-				<member-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+				<member-auto-refresh-component/>
 			</not-found-table-data-component>
 
 		</app-table-ngx-datatable-smart-component>

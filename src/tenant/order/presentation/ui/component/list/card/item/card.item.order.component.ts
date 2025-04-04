@@ -8,7 +8,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {
@@ -16,7 +16,9 @@ import {
 } from "@tenant/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CurrencyCodeEnum} from "@core/shared/enum";
-import {StatusOrderChipComponent} from "@src/component/smart/order/form/chip/status.order.chip.component";
+import {
+	StatusOrderChipComponent
+} from "@shared/presentation/component/smart/order/form/chip/status.order.chip.component";
 import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 
 @Component({

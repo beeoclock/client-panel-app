@@ -1,10 +1,8 @@
 import {Component, effect, inject, input, signal, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
-import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {EditButtonComponent} from "@shared/presentation/component/button/edit.button.component";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {
 	ContainerChangeStatusButtonComponent
@@ -15,17 +13,19 @@ import {
 import {PaymentStatusEnum} from "@tenant/payment/domain/enum/payment.status.enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {IPayment} from "@tenant/payment/domain/interface/i.payment";
+import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import EOrder from "@tenant/order/domain/entity/e.order";
 
 @Component({
 	selector: 'order-detail-page',
 	templateUrl: './order-details-container.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		DynamicDatePipe,
 		TranslateModule,
 		EditButtonComponent,
 		ContainerChangeStatusButtonComponent,
 		ListServiceFormCardOrderComponent,
+		StandardDetailsEntityComponent,
 	],
 	standalone: true
 })
@@ -33,7 +33,7 @@ export class OrderDetailsContainerComponent {
 
 	// TODO add base index of details with store and delete method
 
-	public readonly item = input.required<IOrder.DTO>();
+	public readonly item = input.required<EOrder>();
 
 	public readonly payment = signal<IPayment.DTO | null>(null);
 
@@ -71,8 +71,11 @@ export class OrderDetailsContainerComponent {
 		if (!this.item()) {
 			return;
 		}
-		this.store.dispatch(new OrderActions.OpenFormToEditById(this.item()?._id));
+		const action = new OrderActions.OpenFormToEditById(this.item()?._id);
+		this.store.dispatch(action);
 	}
 
 	protected readonly paymentStatusEnum = PaymentStatusEnum;
 }
+
+export default OrderDetailsContainerComponent;

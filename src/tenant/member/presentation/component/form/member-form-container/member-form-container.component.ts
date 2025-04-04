@@ -1,14 +1,4 @@
-import {
-	Component,
-	inject,
-	Input,
-	input,
-	OnChanges,
-	OnInit,
-	SimpleChanges,
-	viewChild,
-	ViewEncapsulation
-} from '@angular/core';
+import {Component, inject, input, OnChanges, OnInit, SimpleChanges, viewChild, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@tenant/member/presentation/form/member.form";
@@ -29,6 +19,7 @@ import {MemberProfileStatusEnum} from "@tenant/member/domain/enums/member-profil
 import {IMember} from "@tenant/member/domain/interface/i.member";
 import {RoleEnum} from "@core/shared/enum/role.enum";
 import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
+import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
 
 @Component({
 	selector: 'member-form-page',
@@ -61,8 +52,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 	public readonly item = input<IMember.EntityRaw>();
 
-	@Input()
-	public isEditMode = false;
+	public readonly isEditMode = input<boolean>(false);
 
 	public ngOnInit(): void {
 		this.detectItem();
@@ -79,8 +69,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 	public detectItem(): void {
 		const item = this.item();
-		if (this.isEditMode && item) {
-			this.isEditMode = true;
+		if (this.isEditMode() && item) {
 			this.form = MemberForm.create(item);
 			this.form.updateValueAndValidity();
 		}
@@ -94,10 +83,17 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 			this.form.markAsPending();
 			const memberBody = this.form.getRawValue();
 			let memberId = memberBody._id;
-			if (this.isEditMode) {
-				await firstValueFrom(this.store.dispatch(new MemberDataActions.UpdateItem(memberBody)));
+			const actions: any[] = [
+				new MemberPresentationActions.CloseForm(),
+			];
+			if (this.isEditMode()) {
+				actions.unshift(new MemberDataActions.UpdateItem(memberBody));
 			} else {
-				await firstValueFrom(this.store.dispatch(new MemberDataActions.CreateItem(memberBody)));
+				actions.unshift(new MemberDataActions.CreateItem(memberBody));
+			}
+			const action$ = this.store.dispatch(actions);
+			await firstValueFrom(action$);
+			if (!this.isEditMode()) {
 				memberId = this.item()?._id ?? memberId;
 			}
 
@@ -110,3 +106,5 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 		}
 	}
 }
+
+export default MemberFormContainerComponent;

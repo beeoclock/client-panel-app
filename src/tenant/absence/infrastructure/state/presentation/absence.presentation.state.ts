@@ -1,4 +1,4 @@
-import {inject, Injectable, reflectComponentType} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
@@ -7,6 +7,14 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {
 	AbsencePresentationActions
 } from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {SecondRouterOutletService} from "@src/second.router-outlet.service";
+import {Router} from "@angular/router";
+import AbsenceDetailsContainerComponent
+	from "@tenant/absence/presentation/ui/component/details/absence-details-container.component";
+import {
+	AbsenceFormContainerComponent
+} from "@tenant/absence/presentation/ui/component/form/absence-form-container.component";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 
 export type IAbsenceState = object;
 
@@ -23,149 +31,130 @@ export class AbsencePresentationState {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly sharedUow = inject(SharedUow);
 
+	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
+	private readonly router = inject(Router);
+
 	@Action(AbsencePresentationActions.CloseDetails)
 	public async closeDetailsAction() {
 
-		const {AbsenceDetailsContainerComponent} = await import("@tenant/absence/presentation/ui/component/details/absence-details-container.component");
-
-		await this.whacAMaleProvider.destroyComponent(AbsenceDetailsContainerComponent);
+		await this.router.navigate([{outlets: {second: null}}]);
 
 	}
 
 	@Action(AbsencePresentationActions.CloseForm)
 	public async closeFormAction() {
-
-		const {AbsenceFormContainerComponent} = await import("@tenant/absence/presentation/ui/component/form/absence-form-container.component");
-
-		await this.whacAMaleProvider.destroyComponent(AbsenceFormContainerComponent);
+		await this.router.navigate([{outlets: {second: null}}]);
 
 	}
 
 	@Action(AbsencePresentationActions.UpdateOpenedDetails)
 	public async updateOpenedDetailsAction(ctx: StateContext<IAbsenceState>, {payload}: AbsencePresentationActions.UpdateOpenedDetails) {
 
-		import("@tenant/absence/presentation/ui/component/details/absence-details-container.component")
-			.then(({AbsenceDetailsContainerComponent}) => {
-
-				this.ngxLogger.debug('AbsenceState.updateOpenedDetails', 'payload', payload);
-
-				const componentMirror = reflectComponentType(AbsenceDetailsContainerComponent);
-
-				if (!componentMirror) {
-					this.ngxLogger.error('AbsenceState.updateOpenedDetails', 'value of `component` property is not a component');
-					return;
-				}
-
-				const componentRefList = this.whacAMaleProvider.componentRefMapByComponentName.get(componentMirror.selector);
-
-				if (!componentRefList?.length) {
-					this.ngxLogger.debug('AbsenceState.updateOpenedDetails Did not find', componentMirror.selector, this);
-					return;
-				}
-
-				const {0: componentRef} = componentRefList;
-
-				const {renderedComponentRef} = componentRef.instance;
-
-				if (!renderedComponentRef) {
-					this.ngxLogger.error('AbsenceState.updateOpenedDetails', 'renderedComponentRef is not defined');
-					return;
-				}
-
-				if ('item' in renderedComponentRef.instance) {
-					const {_id} = renderedComponentRef.instance.item;
-					if (_id === payload._id) {
-						renderedComponentRef.setInput('item', payload);
-						renderedComponentRef.changeDetectorRef.detectChanges();
-						this.ngxLogger.debug('AbsenceState.updateOpenedDetails', 'Item updated');
-						return;
-					}
-					this.ngxLogger.error('AbsenceState.updateOpenedDetails', 'Item not found');
-				}
-
-			});
+		await this.router.navigate([{outlets: {second: ['absence', payload._id]}}], {
+			onSameUrlNavigation: 'reload',
+		});
 
 	}
 
 	@Action(AbsencePresentationActions.OpenDetails)
 	public async openDetailsAction(ctx: StateContext<IAbsenceState>, {payload}: AbsencePresentationActions.OpenDetails) {
 
-		const title = await this.translateService.instant('absence.details.title');
+		const activated = this.secondRouterOutletService.activated();
 
-		const {AbsenceDetailsContainerComponent} = await import("@tenant/absence/presentation/ui/component/details/absence-details-container.component");
-
-		const ref = AbsenceDetailsContainerComponent;
-
-		const foundComponentRef = this.whacAMaleProvider.getComponentRef(ref);
-
-		if (foundComponentRef) {
-
-
-			const instance = foundComponentRef.instance.renderedComponentRef?.instance;
-
-			if (!instance) {
-				this.ngxLogger.error('AbsenceState.openDetailsAction', 'instance is not defined');
-				return;
-			}
-
-			if ('item' in instance) {
-				const {_id} = instance.item;
+		if (activated) {
+			if (activated instanceof AbsenceDetailsContainerComponent) {
+				const {_id} = activated.item() ?? {};
 				if (_id === payload._id) {
 					ctx.dispatch(new AbsencePresentationActions.CloseDetails());
 					return;
 				}
 			}
-
 		}
 
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			componentInputs: {
-				item: payload
-			},
-			component: ref,
-		});
+		await this.router.navigate([{outlets: {second: ['absence', payload._id]}}]);
 
 	}
 
 	@Action(AbsencePresentationActions.OpenFormToEditById)
-	public async openFormToEditByIdAction(ctx: StateContext<IAbsenceState>, action: AbsencePresentationActions.OpenFormToEditById) {
+	public async openFormToEditByIdAction(ctx: StateContext<IAbsenceState>, {payload}: AbsencePresentationActions.OpenFormToEditById) {
 
 		const title = await this.translateService.instant('absence.form.title.edit');
-		const item = await this.sharedUow.absence.repository.findByIdAsync(action.payload);
+		const item = await this.sharedUow.absence.repository.findByIdAsync(payload);
 
 		if (!item) {
 			this.ngxLogger.error('AbsenceState.openDetailsById', 'Item not found');
 			return;
 		}
 
-
-		const {AbsenceFormContainerComponent} = await import("@tenant/absence/presentation/ui/component/form/absence-form-container.component");
-
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			component: AbsenceFormContainerComponent,
+		const action = new AbsencePresentationActions.OpenForm({
 			componentInputs: {
-				item,
+				item: EAbsence.fromRaw(item),
 				isEditMode: true,
 			},
+			pushBoxInputs: {
+				title,
+			}
 		});
+		ctx.dispatch(action);
+
+		// const {AbsenceFormContainerComponent} = await import("@tenant/absence/presentation/ui/component/form/absence-form-container.component");
+		//
+		// await this.whacAMaleProvider.buildItAsync({
+		// 	title,
+		// 	component: AbsenceFormContainerComponent,
+		// 	componentInputs: {
+		// 		item,
+		// 		isEditMode: true,
+		// 	},
+		// });
 
 	}
 
 	@Action(AbsencePresentationActions.OpenForm)
 	public async openFormAction(ctx: StateContext<IAbsenceState>, {payload}: AbsencePresentationActions.OpenForm): Promise<void> {
 
-		const {AbsenceFormContainerComponent} = await import("@tenant/absence/presentation/ui/component/form/absence-form-container.component");
+		const activated = this.secondRouterOutletService.activated();
 
-		const {componentInputs, pushBoxInputs} = payload ?? {};
+		if (activated) {
+			if (activated instanceof AbsenceFormContainerComponent) {
+				const isEditMode = activated.isEditMode();
+				if (isEditMode) {
+					const {_id} = activated.item() ?? {};
+					if (_id === payload?.componentInputs?.item?._id) {
+						const action = new AbsencePresentationActions.CloseForm();
+						ctx.dispatch(action);
+						return;
+					}
+				} else {
+					const action = new AbsencePresentationActions.CloseForm();
+					ctx.dispatch(action);
+					return;
+				}
+			}
+		}
 
-		await this.whacAMaleProvider.buildItAsync({
-			title: this.translateService.instant('absence.form.title.create'),
-			...(pushBoxInputs ?? {}),
-			component: AbsenceFormContainerComponent,
-			componentInputs,
-		});
+		const {defaultValue} = payload?.componentInputs ?? {defaultValue: {}};
+
+		const queryParams = {
+			defaultValue: JSON.stringify(defaultValue),
+		}
+
+		if (payload?.componentInputs?.isEditMode) {
+			await this.router.navigate([{outlets: {second: ['absence', payload.componentInputs.item?._id, 'form']}}], {queryParams});
+		} else {
+			await this.router.navigate([{outlets: {second: ['absence', 'form']}}], {queryParams});
+		}
+
+		// const {AbsenceFormContainerComponent} = await import("@tenant/absence/presentation/ui/component/form/absence-form-container.component");
+		//
+		// const {componentInputs, pushBoxInputs} = payload ?? {};
+		//
+		// await this.whacAMaleProvider.buildItAsync({
+		// 	title: this.translateService.instant('absence.form.title.create'),
+		// 	...(pushBoxInputs ?? {}),
+		// 	component: AbsenceFormContainerComponent,
+		// 	componentInputs,
+		// });
 
 	}
 

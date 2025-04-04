@@ -5,6 +5,7 @@ import {
 	HostListener,
 	inject,
 	OnInit,
+	output,
 	Renderer2,
 	ViewEncapsulation
 } from '@angular/core';
@@ -17,15 +18,20 @@ import {DOCUMENT} from "@angular/common";
 	selector: 'whac-a-mole-resize-container',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	template: ``
+	template: ``,
+	host: {
+		class: 'absolute left-0 top-0 bottom-0 w-1 bg-neutral-200 transition-all hover:bg-blue-300 hover:shadow cursor-col-resize'
+	}
 })
 export class WhacAMoleResizeContainer extends Reactive implements OnInit {
-	@HostBinding()
-	public class =
-		'absolute right-full top-0 bottom-0 w-1 bg-neutral-200 transition-all hover:bg-blue-300 hover:shadow cursor-col-resize';
 
 	@HostBinding('class.hidden')
 	public isHidden = false;
+
+	public width = +(localStorage.getItem('whac-a-mole-width') ?? '375');
+
+	public readonly widthChanges = output<number>();
+	public readonly mouseDownUp = output<boolean>();
 
 	private readonly elementRef = inject(ElementRef);
 	private readonly windowWidthSizeService = inject(WindowWidthSizeService);
@@ -36,8 +42,6 @@ export class WhacAMoleResizeContainer extends Reactive implements OnInit {
 	public readonly isNotMobile$ = this.windowWidthSizeService.isNotMobile$;
 	public isNotMobile = false;
 	public isNotTabletAndMobile = false;
-
-	public width = +(localStorage.getItem('whac-a-mole-width') ?? '0');
 
 	readonly #unlisten = {
 		mousemove: () => {
@@ -52,6 +56,7 @@ export class WhacAMoleResizeContainer extends Reactive implements OnInit {
 
 	@HostListener('mousedown', ['$event'])
 	public onMouseDown(event: MouseEvent): void {
+		this.mouseDownUp.emit(true);
 		event.preventDefault();
 
 		const startX = event.clientX;
@@ -68,6 +73,7 @@ export class WhacAMoleResizeContainer extends Reactive implements OnInit {
 		};
 
 		const onMouseUp = () => {
+			this.mouseDownUp.emit(false);
 			this.#unlisten.mousemove();
 			this.#unlisten.mouseup();
 		};
@@ -132,6 +138,7 @@ export class WhacAMoleResizeContainer extends Reactive implements OnInit {
 
 		this.renderer2.setStyle(parentElement, 'width', `${width}px`);
 		this.renderer2.setStyle(parentElementOfParentElement, 'max-width', this.isNotTabletAndMobile ? `${width}px` : '');
+		this.widthChanges.emit(width);
 	}
 
 	private deleteClasses(from: HTMLElement, ...classes: string[]) {

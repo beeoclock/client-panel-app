@@ -14,7 +14,7 @@ import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {StateStatusComponent} from "@tenant/absence/presentation/ui/component/state-status/state-status.component";
 import {
 	RowActionButtonComponent
@@ -52,7 +52,7 @@ import {
 				[showLinkToForm]="true"
 				[linkLabel]="'absence.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
-				<app-absence-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+				<app-absence-auto-refresh-component/>
 			</not-found-table-data-component>
 
 		</app-table-ngx-datatable-smart-component>

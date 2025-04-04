@@ -1,18 +1,18 @@
-import {Component, inject, Input, OnChanges, SimpleChange, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, effect, inject, input, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
 import {
 	RowActionButtonComponent
 } from "@tenant/absence/presentation/ui/component/row-action-button/row-action-button.component";
-import {AbsenceProgressStatusEnum} from "@tenant/absence/presentation/pipe/absence-progress-status.pipe";
 import {StateStatusComponent} from "@tenant/absence/presentation/ui/component/state-status/state-status.component";
 import {
 	AbsencePresentationActions
 } from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 
 @Component({
 	selector: 'absence-detail-page',
@@ -24,16 +24,16 @@ import {
 		NoDataPipe,
 		DatePipe,
 		RowActionButtonComponent,
-		StateStatusComponent
+		StateStatusComponent,
+		StandardDetailsEntityComponent
 	],
 	standalone: true
 })
-export class AbsenceDetailsContainerComponent implements OnChanges {
+export class AbsenceDetailsContainerComponent {
 
 	// TODO add base index of details with store and delete method
 
-	@Input()
-	public item!: IAbsence.DTO;
+	public readonly item = input.required<EAbsence>();
 
 	public readonly store = inject(Store);
 	public readonly translateService = inject(TranslateService);
@@ -42,24 +42,24 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 	public leftInDays = 0;
 	public isStarted = false;
 
-	public ngOnChanges(changes: SimpleChanges & { items: SimpleChange }) {
-
-		if (changes.item) {
+	public constructor() {
+		effect(() => {
 			this.buildProgressBar();
-		}
-
+		});
 	}
 
 
 	public openForm() {
-		if (!this.item) {
+		if (!this.item()) {
 			return
 		}
-		this.store.dispatch(new AbsencePresentationActions.OpenFormToEditById(this.item?._id));
+		const {_id} = this.item();
+		const action = new AbsencePresentationActions.OpenFormToEditById(_id);
+		this.store.dispatch(action);
 	}
 
 	private buildProgressBar() {
-		const {start, end} = this.item;
+		const {start, end} = this.item();
 
 		const now = new Date();
 
@@ -102,5 +102,6 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 		}
 	}
 
-	protected readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum;
 }
+
+export default AbsenceDetailsContainerComponent;

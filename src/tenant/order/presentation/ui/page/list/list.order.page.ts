@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {KanbanOrderComponent} from "@tenant/order/presentation/ui/component/list/kanban/kanban.order.component";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	MemberTableNgxDatatableSmartResource
 } from "@tenant/member/presentation/ui/page/list/member.table-ngx-datatable.resource";
@@ -21,7 +21,6 @@ import {
 	standalone: true,
 	template: `
 		<kanban-order/>
-
 	`,
 	providers: [
 		{

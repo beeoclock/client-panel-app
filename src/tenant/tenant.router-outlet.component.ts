@@ -2,7 +2,6 @@ import {AfterViewInit, Component, inject, OnDestroy, OnInit, ViewEncapsulation} 
 import {SidebarComponent} from '@shared/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@shared/presentation/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
-import {AsyncPipe} from "@angular/common";
 import {
 	PageLoadingProgressBarComponent
 } from "@shared/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
@@ -19,7 +18,6 @@ import {
 } from "@tenant/account/infrastructure/adapter/external/api/get.frontend-settings.account.api.adapter";
 import {ThemeService} from "@core/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
-import {WhacAMole} from "@shared/presentation/whac-a-mole/whac-a-mole";
 import {is} from "@core/shared/checker";
 import {Reactive} from "@core/cdk/reactive";
 import {SocketActions} from "@shared/state/socket/socket.actions";
@@ -38,29 +36,21 @@ import {
 	standalone: true,
 	template: `
 
-		@if (token$ | async) {
+        <utility-navbar-component/>
+        <utility-sidebar-component/>
 
-			<utility-navbar-component/>
-			<utility-sidebar-component/>
+        <div [id]="mainContainerId"
+             class="w-full h-[calc(100dvh-80px)] md:h-dvh overflow-y-auto sm:ml-64 md:ml-80 transition-all">
+            <utility-page-loading-progress-bar/>
+            <router-outlet/>
+        </div>
 
-			<div [id]="mainContainerId"
-				 class="w-full h-[calc(100dvh-80px)] md:h-dvh overflow-y-auto sm:ml-64 md:ml-80 transition-all">
-				<utility-page-loading-progress-bar/>
-				<router-outlet/>
-			</div>
-
-		}
-
-		<whac-a-mole/>
-
-	`,
+    `,
 	imports: [
 		SidebarComponent,
 		NavbarComponent,
 		RouterOutlet,
 		PageLoadingProgressBarComponent,
-		AsyncPipe,
-		WhacAMole,
 	],
 	providers: [
 		{
@@ -74,7 +64,7 @@ import {
 	],
 	encapsulation: ViewEncapsulation.None,
 	host: {
-		class: 'flex',
+		class: 'flex overflow-hidden',
 	}
 })
 export default class TenantRouterOutletComponent extends Reactive implements OnInit, AfterViewInit, OnDestroy {
@@ -88,8 +78,6 @@ export default class TenantRouterOutletComponent extends Reactive implements OnI
 	private readonly visibilityService = inject(VisibilityService);
 	private readonly isOnlineService = inject(IsOnlineService);
 	private readonly tenantId$ = inject(TENANT_ID);
-
-	public readonly token$ = this.store.select(IdentityState.token);
 
 	private checkerTimer: undefined | NodeJS.Timeout;
 	private isUserOnWebSite = true;

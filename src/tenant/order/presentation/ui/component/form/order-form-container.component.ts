@@ -1,15 +1,14 @@
 import {
+	afterNextRender,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	computed,
+	DestroyRef,
+	effect,
 	inject,
 	input,
-	OnChanges,
-	OnDestroy,
-	OnInit,
 	signal,
-	SimpleChange,
-	SimpleChanges,
 	ViewEncapsulation
 } from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
@@ -25,19 +24,14 @@ import {CreateOrderForm} from "@tenant/order/presentation/form/create.order.form
 import {
 	PaymentOrderFormContainerComponent
 } from "@tenant/order/presentation/ui/component/form/payment.order-form-container.component";
-import {OrderActions} from "@tenant/order/presentation/state/order/order.actions";
-import {Reactive} from "@core/cdk/reactive";
+import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
 import {ICustomer} from "@tenant/customer/domain";
 import {
 	ListServiceFormOrderComponent
-} from "@src/component/smart/order/form/service/list/list.service.form.order.component";
+} from "@shared/presentation/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
 import {firstValueFrom, lastValueFrom} from "rxjs";
 import {PaymentActions} from "@tenant/payment/infrastructure/state/data/payment.actions";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
-import {
-	AdditionalMenuComponent
-} from "@tenant/event/presentation/ui/component/additional-menu/additional-menu.component";
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
@@ -45,6 +39,9 @@ import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IOrder} from "@tenant/order/domain/interface/i.order";
 import {IMember} from "@tenant/member/domain/interface/i.member";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import EOrder from "@tenant/order/domain/entity/e.order";
+import EPayment from "@tenant/payment/domain/entity/e.payment";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -93,16 +90,72 @@ import {IMember} from "@tenant/member/domain/interface/i.member";
 		</form>
 	`
 })
-export class OrderFormContainerComponent extends Reactive implements OnInit, OnDestroy, OnChanges {
+export class OrderFormContainerComponent {
 
-	public readonly setupPartialData = input<{
-		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: IMember.EntityRaw;
-		serviceList?: IService.DTO[];
-		customer?: ICustomer.EntityRaw;
-	}>({});
-	public readonly orderDto = input<Partial<IOrder.DTO>>({});
-	public readonly paymentDto = input<Partial<IPayment.DTO>>({});
+	public readonly order = input<EOrder | null>(null);
+	public readonly payment = input<EPayment | null>(null);
+
+	public readonly customerJSON = input(null, {
+		transform: (value: string) => {
+			if (value) {
+				return JSON.parse(value) as ICustomer.DTO;
+			}
+			return null;
+		}
+	});
+	public readonly memberJSON = input(null, {
+		transform: (value: string) => {
+			if (value) {
+				return JSON.parse(value) as IMember.DTO;
+			}
+			return null;
+		}
+	});
+	public readonly serviceListJSON = input([] as IService.DTO[], {
+		transform: (value: string) => {
+			if (value) {
+				return JSON.parse(value) as IService.DTO[];
+			}
+			return null;
+		}
+	});
+	public readonly appointmentStartDateTimeIso = input<string | null>(null);
+
+	/**
+	 *
+	 * 		defaultAppointmentStartDateTimeIso?: string;
+	 * 		defaultMemberForService?: IMember.EntityRaw;
+	 * 		serviceList?: IService.DTO[];
+	 * 		customer?: ICustomer.EntityRaw;
+	 */
+	public readonly setupPartialData = computed(() => {
+
+		const {customerJSON, memberJSON, serviceListJSON, appointmentStartDateTimeIso} = this;
+
+		const result: any = {};
+
+		console.log(customerJSON(), memberJSON(), serviceListJSON(), appointmentStartDateTimeIso())
+
+		if (customerJSON()) {
+			result.customer = customerJSON();
+		}
+
+		if (memberJSON()) {
+			result.defaultMemberForService = memberJSON();
+		}
+
+		if (serviceListJSON()?.length) {
+			result.serviceList = serviceListJSON();
+		}
+
+		if (appointmentStartDateTimeIso()) {
+			result.defaultAppointmentStartDateTimeIso = appointmentStartDateTimeIso();
+		}
+
+		return result;
+
+	});
+
 	public readonly isEditMode = input<boolean>(false);
 	public readonly firstStepOnInit = input<{
 		openServiceForm: boolean;
@@ -112,46 +165,44 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		serviceFormWasOpened: false
 	});
 
-	public readonly form: CreateOrderForm = CreateOrderForm.create();
-
+	private readonly destroyRef = inject(DestroyRef);
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
-
 	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer.DTO }>({});
 
-	public ngOnChanges(changes: SimpleChanges & {
-		orderDto: SimpleChange;
-		paymentDto: SimpleChange;
-		isEditMode: SimpleChange;
-	}) {
+	public readonly form: CreateOrderForm = CreateOrderForm.create(this.destroyRef);
 
-		const {orderDto, paymentDto} = changes;
-		if (orderDto) this.patchOrderValue(orderDto);
-		if (paymentDto) this.form.controls.payment.patchValue(paymentDto.currentValue);
-		if (this.isEditMode()) {
-			this.updatePaymentFormWithOrderDto(orderDto.currentValue);
-		}
-		this.form.updateValueAndValidity();
+	public constructor() {
+		effect(() => {
 
-	}
+			const order = this.order();
+			const payment = this.payment();
 
-	public ngOnInit(): void {
-		this.form.controls.order.patchValue(this.orderDto());
-		this.form.controls.payment.patchValue(this.paymentDto());
-		this.form.updateValueAndValidity();
-		this.form.controls.order.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
-			value.services?.forEach((service) => {
-				service.orderAppointmentDetails?.attendees.forEach((attendee) => {
-					this.availableCustomersInForm.set({
-						[attendee.customer._id]: attendee.customer,
-						...this.availableCustomersInForm()
-					})
-				});
-			});
+			if (payment) this.patchPaymentValue(payment);
+			if (order) this.patchOrderValue(order);
+
+			this.form.updateValueAndValidity();
+
+			this.form.updateValueAndValidity();
+
 		});
+
+		afterNextRender({
+			read: () => {
+				this.form.controls.order.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+					value.services?.forEach((service) => {
+						service.orderAppointmentDetails?.attendees.forEach((attendee) => {
+							this.availableCustomersInForm.set({
+								[attendee.customer._id]: attendee.customer,
+								...this.availableCustomersInForm()
+							})
+						});
+					});
+				});
+			}
+		})
 	}
 
 	public async save(): Promise<void> {
@@ -161,7 +212,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 			return;
 		}
 		await this.finishSave();
-		await this.whacAMaleProvider.destroyComponent(AdditionalMenuComponent);
+		// TODO: Close second router-outlet
 	}
 
 	/**
@@ -227,29 +278,18 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		this.form.updateValueAndValidity();
 	}
 
-	public override ngOnDestroy() {
-		super.ngOnDestroy();
-		this.form.destroyHandlers();
-		this.form.controls.payment.controls.payer.destroyHandlers();
+	private patchPaymentValue(payment: EPayment) {
+		this.form.controls.payment.patchValue(payment);
 	}
 
-	private patchOrderValue(orderDto: SimpleChange) {
-		const {currentValue} = orderDto as { currentValue: IOrder.DTO };
-		this.form.controls.order.patchValue(currentValue);
-		currentValue.services?.forEach((service) => {
+	private patchOrderValue(order: EOrder) {
+		this.form.controls.order.patchValue(order);
+		order.services?.forEach((service) => {
 			this.form.controls.order.controls.services.pushNewOne(service);
 		});
 		this.changeDetectorRef.detectChanges();
 	}
 
-	private updatePaymentFormWithOrderDto(orderDto: Partial<IOrder.DTO>) {
-
-		if (!orderDto) {
-			return;
-		}
-
-		if (orderDto._id) this.form.controls.payment.controls.orderId.patchValue(orderDto._id);
-
-	}
-
 }
+
+export default OrderFormContainerComponent;

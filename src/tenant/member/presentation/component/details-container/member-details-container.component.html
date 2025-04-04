@@ -1,151 +1,112 @@
-<div class="bg-white">
-	<dl class="divide-y divide-gray-100">
-		<div class="p-2 flex justify-end">
-			<member-row-action-button-component
-				[hide]="['details']"
-				[item]="item"
-				[id]="item._id"/>
-		</div>
-		<div class="p-4 gap-4 flex">
-			@if (item?.avatar?.url?.length) {
-				<img [ngSrc]="item.avatar.url"
-					 width="192"
-					 height="192"
-					 class="min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex flex-col items-center justify-center w-full relative rounded-xl bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 object-cover"
-					 alt="">
-			} @else {
-				<div
-					class="text-neutral-400 font-extrabold text-6xl min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex items-center justify-center bg-neutral-200 rounded-xl">
-					<span class="">{{ (item.lastName ?? '')[0] }}</span>
-					<span class="">{{ (item.firstName ?? '')[0] }}</span>
-				</div>
-			}
-			<div class="flex flex-col justify-between">
-				<div class="flex flex-col gap-2">
-					<div>
-						@switch (item.profileStatus) {
-							@case ('active') {
-								<div
-									class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
-									{{ ('member.enum.profileStatus.active') | translate }}
-								</div>
-							}
-							@case ('deleted') {
-								<div
-									class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
-									{{ ('member.enum.profileStatus.deleted') | translate }}
-								</div>
-							}
-							@case ('suspended') {
-								<div
-									class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500">
-									{{ ('member.enum.profileStatus.suspended') | translate }}
-								</div>
-							}
-						}
+@if (item(); as item) {
+	<div class="bg-white">
+		<dl class="divide-y divide-gray-100">
+			<div class="p-2 flex justify-end">
+				<member-row-action-button-component
+					[hide]="['details']"
+					[item]="item"
+					[id]="item._id"/>
+			</div>
+			<div class="p-4 gap-4 flex">
+				@if (item?.avatar?.url?.length) {
+					<img [ngSrc]="item.avatar.url"
+						 width="192"
+						 height="192"
+						 class="min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex flex-col items-center justify-center w-full relative rounded-xl bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 object-cover"
+						 alt="">
+				} @else {
+					<div
+						class="text-neutral-400 font-extrabold text-6xl min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex items-center justify-center bg-neutral-200 rounded-xl">
+						<span class="">{{ (item.lastName ?? '')[0] }}</span>
+						<span class="">{{ (item.firstName ?? '')[0] }}</span>
 					</div>
-					<div>
-						<div
-							class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-white/10 dark:text-white">
-							<span>{{ 'role.' + item.role | translate }}</span>
+				}
+				<div class="flex flex-col justify-between">
+					<div class="flex flex-col gap-2">
+						<div>
+							@switch (item.profileStatus) {
+								@case ('active') {
+									<div
+										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
+										{{ ('member.enum.profileStatus.active') | translate }}
+									</div>
+								}
+								@case ('deleted') {
+									<div
+										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+										{{ ('member.enum.profileStatus.deleted') | translate }}
+									</div>
+								}
+								@case ('suspended') {
+									<div
+										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500">
+										{{ ('member.enum.profileStatus.suspended') | translate }}
+									</div>
+								}
+							}
+						</div>
+						<div>
+							<div
+								class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-white/10 dark:text-white">
+								<span>{{ 'role.' + item.role | translate }}</span>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="font-bold flex flex-col">
-					<span class="text-3xl">{{ item.lastName }}</span>
-					<span class="text-4xl">{{ item.firstName }}</span>
+					<div class="font-bold flex flex-col">
+						<span class="text-3xl">{{ item.lastName }}</span>
+						<span class="text-4xl">{{ item.firstName }}</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-			<dt class="text-sm font-medium leading-6 text-gray-900">
-				{{ 'member.form.assignments.button.label' | translate }}
-			</dt>
-			<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
-				<div>
-					@if (item.assignments.service.full) {
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'member.form.assignments.button.label' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
+					<div>
+						@if (item.assignments.service.full) {
 
-						<div
-							class="border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
-							{{ 'keyword.lowercase.all' | translate }}
-						</div>
-					} @else {
-
-						@if (item.assignments.service.include.length) {
 							<div
-								class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
-								{{ item.assignments.service.include.length }}
+								class="border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
+								{{ 'keyword.lowercase.all' | translate }}
 							</div>
 						} @else {
-							<div
-								class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
-								{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
-							</div>
+
+							@if (item.assignments.service.include.length) {
+								<div
+									class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
+									{{ item.assignments.service.include.length }}
+								</div>
+							} @else {
+								<div
+									class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
+									{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
+								</div>
+							}
 						}
-					}
-				</div>
-			</dd>
-		</div>
-		<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-			<dt class="text-sm font-medium leading-6 text-gray-900">
-				{{ 'keyword.capitalize.email' | translate }}
-			</dt>
-			<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-				{{ item.email }}
-			</dd>
-		</div>
-		<!--				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">-->
-		<!--					<dt class="text-sm font-medium leading-6 text-gray-900">-->
-		<!--						{{ 'keyword.capitalize.phone' | translate }}-->
-		<!--					</dt>-->
-		<!--					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">-->
-		<!--						{{ item.phone }}-->
-		<!--					</dd>-->
-		<!--				</div>-->
-	</dl>
-</div>
-
-<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
-
-	<div class="text-start text-beeColor-400 text-sm px-4">
-
-		<div class="flex flex-col gap-4">
-
-			<div class="flex flex-col">
-
-				<div>
-					#
-				</div>
-				<div>
-					{{ item._id }}
-				</div>
-
+					</div>
+				</dd>
 			</div>
-
-			<div class="flex flex-col">
-
-				<div>
-					{{ 'keyword.capitalize.createdAt' | translate }}:
-				</div>
-				<div>
-					{{ item.createdAt | dynamicDate }}
-				</div>
-
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.email' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item.email }}
+				</dd>
 			</div>
-
-			<div class="flex flex-col">
-
-				<div>
-					{{ 'keyword.capitalize.updatedAt' | translate }}:
-				</div>
-				<div>
-					{{ item.updatedAt | dynamicDate }}
-				</div>
-
-			</div>
-
-		</div>
-
+			<!--				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">-->
+			<!--					<dt class="text-sm font-medium leading-6 text-gray-900">-->
+			<!--						{{ 'keyword.capitalize.phone' | translate }}-->
+			<!--					</dt>-->
+			<!--					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">-->
+			<!--						{{ item.phone }}-->
+			<!--					</dd>-->
+			<!--				</div>-->
+		</dl>
 	</div>
 
-</div>
+
+	<standard-details-entity [item]="item"/>
+
+}

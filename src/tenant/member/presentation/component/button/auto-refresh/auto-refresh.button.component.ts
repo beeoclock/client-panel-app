@@ -1,7 +1,8 @@
-import {Component, inject, input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
-import {Store} from "@ngxs/store";
-import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
+import {
+	TableNgxDatatableSmartResource
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'member-auto-refresh-component',
@@ -16,17 +17,10 @@ import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member
 })
 export class AutoRefreshButtonComponent {
 
-	public readonly resetPage = input(false);
-
-	public readonly resetParams = input(false);
-
-	private readonly store = inject(Store);
+	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
 
 	public forceRefresh() {
-		this.store.dispatch(new MemberDataActions.GetList({
-			resetPage: this.resetPage(),
-			resetParams: this.resetParams(),
-		}))
+		this.tableNgxDatatableSmartResource.reload();
 	}
 
 }

@@ -24,7 +24,7 @@ import {
 } from "@tenant/service/presentation/push-box/select-service.table-ngx-datatable.resource";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'utility-modal-select-service-component',
