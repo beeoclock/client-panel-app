@@ -1,9 +1,7 @@
 import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
-import {
-	TableNgxDatatableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+
 import {TranslatePipe} from "@ngx-translate/core";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
@@ -23,6 +21,9 @@ import {CurrencyPipe} from "@angular/common";
 import {
 	PaymentStatusStyleDirective
 } from "@shared/presentation/directives/payment-status-style/payment-status-style.directive";
+import {
+	TableNgxDatatableSmartComponent
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 
 @Component({
 	selector: 'payment-table-list-component',

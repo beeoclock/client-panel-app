@@ -22,14 +22,14 @@ import {ActivateEvent, DragEventData, PageEvent} from "@swimlane/ngx-datatable/l
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {ReactiveFormsModule} from "@angular/forms";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	PagerTableNgxDataTableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/pager.table-ngx-data-table.smart.component";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
+} from "@shared/presentation/component/smart/table-ngx-datatable/pager.table-ngx-data-table.smart.component";
 
 
 @Component({

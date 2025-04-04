@@ -2,9 +2,6 @@ import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@an
 import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {
-	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {
 	PaymentTableNgxDatatableResource
 } from "@tenant/payment/presentation/ui/page/list/payment.table-ngx-datatable.resource";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -15,6 +12,9 @@ import {DatePipe} from "@angular/common";
 import {
 	DesktopLayoutListComponent
 } from "@tenant/payment/presentation/ui/organism/list/layout/desktop/desktop.layout.list.component";
+import {
+	TableNgxDatatableSmartResource
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'app-list-payment-page',
