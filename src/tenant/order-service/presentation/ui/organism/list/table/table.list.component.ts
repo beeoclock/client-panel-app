@@ -1,9 +1,6 @@
 import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
-import {
-	TableNgxDatatableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
@@ -26,6 +23,9 @@ import {
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
+import {
+	TableNgxDatatableSmartComponent
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 
 @Component({
 	selector: 'order-service-table-list-component',

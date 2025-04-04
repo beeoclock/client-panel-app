@@ -3,14 +3,14 @@ import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {DatePipe} from "@angular/common";
 import {
-	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {
 	DesktopLayoutListComponent
 } from "@tenant/order-service/presentation/ui/organism/list/layout/desktop/desktop.layout.list.component";
 import {
 	OrderServiceTableNgxDatatableResource
 } from "@tenant/order-service/presentation/ui/page/list/order-service.table-ngx-datatable.resource";
+import {
+	TableNgxDatatableSmartResource
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'app-list-order-service-page',
