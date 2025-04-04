@@ -20,5 +20,5 @@ import {
 export class NavbarComponent {
   public readonly sidebarService = inject(SidebarService);
   public readonly store = inject(Store);
-  public readonly logo = this.store.selectSnapshot(BusinessProfileState.logo)
+  public readonly logo = this.store.selectSignal(BusinessProfileState.logo)
 }

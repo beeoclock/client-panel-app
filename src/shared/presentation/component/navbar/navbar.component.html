@@ -22,7 +22,7 @@
   dark:bg-beeDarkColor-900
   dark:border-beeDarkColor-800">
 	<div class="hidden md:block absolute m-2 rounded-2xl">
-		@if (logo) {
+		@if (logo(); as logo) {
 			<img [src]="logo.url" class="" alt="Logo">
 		} @else {
 			<img src="/asset/img/logo.png" class="" alt="Logo">
