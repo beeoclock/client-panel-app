@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe, DatePipe} from "@angular/common";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	MobileLayoutListComponent
 } from "@tenant/customer/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";

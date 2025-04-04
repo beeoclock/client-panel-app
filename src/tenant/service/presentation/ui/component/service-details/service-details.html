@@ -18,7 +18,7 @@
 							@if (banner) {
 
 								<img
-									[src]="banner"
+									[src]="banner.url"
 									class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
 									alt="Uploaded Image"/>
 							}
@@ -101,51 +101,6 @@
 			</div>
 		</dl>
 	</div>
-
-	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
-
-
-		<div class="text-start text-beeColor-400 text-sm px-4">
-
-			<div class="flex flex-col gap-4">
-
-				<div class="flex flex-col">
-
-					<div>
-						#
-					</div>
-					<div>
-						{{ item._id }}
-					</div>
-
-				</div>
-
-				<div class="flex flex-col">
-
-					<div>
-						{{ 'keyword.capitalize.createdAt' | translate }}:
-					</div>
-					<div>
-						{{ item.createdAt | dynamicDate }}
-					</div>
-
-				</div>
-
-				<div class="flex flex-col">
-
-					<div>
-						{{ 'keyword.capitalize.updatedAt' | translate }}:
-					</div>
-					<div>
-						{{ item.updatedAt | dynamicDate }}
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
+	<standard-details-entity [item]="item"/>
 
 }

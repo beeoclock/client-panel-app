@@ -7,7 +7,7 @@ import {Reactive} from "@core/cdk/reactive";
 import {AnalyticsService} from "@core/cdk/analytics.service";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'utility-list-page',

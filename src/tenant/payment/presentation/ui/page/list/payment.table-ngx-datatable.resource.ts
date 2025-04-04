@@ -1,10 +1,10 @@
 import {inject, Injectable} from "@angular/core";
+import {SharedUow} from "@core/shared/uow/shared.uow";
+import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {SharedUow} from "@core/shared/uow/shared.uow";
-import {IPayment} from "@tenant/payment/domain/interface/i.payment";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Injectable()
 export class PaymentTableNgxDatatableResource extends TableNgxDatatableSmartResource<IPayment.EntityRaw> {

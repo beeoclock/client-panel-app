@@ -17,7 +17,7 @@ import {Reactive} from "@core/cdk/reactive";
 import {ICustomer} from "@tenant/customer/domain";
 import {
 	CustomerListIonicComponent
-} from "@src/component/smart/order/form/service/list/item/chip/customer/customer.list.ionic.component";
+} from "@shared/presentation/component/smart/order/form/service/list/item/chip/customer/customer.list.ionic.component";
 import ECustomer from "@tenant/customer/domain/entity/e.customer";
 
 @Component({

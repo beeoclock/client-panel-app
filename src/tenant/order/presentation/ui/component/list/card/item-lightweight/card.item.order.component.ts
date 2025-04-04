@@ -24,7 +24,9 @@ import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.d
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CurrencyCodeEnum} from "@core/shared/enum";
-import {StatusOrderChipComponent} from "@src/component/smart/order/form/chip/status.order.chip.component";
+import {
+	StatusOrderChipComponent
+} from "@shared/presentation/component/smart/order/form/chip/status.order.chip.component";
 import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
 import {
 	CardItemOrderService

@@ -6,7 +6,7 @@ import {tap} from "rxjs";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	MobileLayoutListComponent
 } from "@tenant/service/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
