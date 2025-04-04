@@ -2,7 +2,6 @@ import {Component, effect, inject, input, ViewEncapsulation} from '@angular/core
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
 import {
@@ -12,6 +11,8 @@ import {StateStatusComponent} from "@tenant/absence/presentation/ui/component/st
 import {
 	AbsencePresentationActions
 } from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import EAbsence from "@tenant/absence/domain/entity/e.absence";
 
 @Component({
 	selector: 'absence-detail-page',
@@ -23,15 +24,16 @@ import {
 		NoDataPipe,
 		DatePipe,
 		RowActionButtonComponent,
-		StateStatusComponent
+		StateStatusComponent,
+		StandardDetailsEntityComponent
 	],
 	standalone: true
 })
-export class AbsenceDetailsContainerComponent  {
+export class AbsenceDetailsContainerComponent {
 
 	// TODO add base index of details with store and delete method
 
-	public readonly item = input.required<IAbsence.DTO>();
+	public readonly item = input.required<EAbsence>();
 
 	public readonly store = inject(Store);
 	public readonly translateService = inject(TranslateService);

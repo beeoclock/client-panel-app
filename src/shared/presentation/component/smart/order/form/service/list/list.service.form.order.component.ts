@@ -13,7 +13,7 @@ import {
 } from "@angular/core";
 import {
 	ItemV2ListServiceFormOrderComponent
-} from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
+} from "@shared/presentation/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
 import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@tenant/order/presentation/form/service.order.form";
@@ -32,7 +32,7 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {
 	ServicePopoverChipComponent
-} from "@src/component/smart/order/form/service/list/item/chip/service/service-popover.chip.component";
+} from "@shared/presentation/component/smart/order/form/service/list/item/chip/service/service-popover.chip.component";
 
 @Component({
 	standalone: true,

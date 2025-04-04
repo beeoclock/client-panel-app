@@ -5,7 +5,7 @@ import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actio
 import {KanbanOrderComponent} from "@tenant/order/presentation/ui/component/list/kanban/kanban.order.component";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	MemberTableNgxDatatableSmartResource
 } from "@tenant/member/presentation/ui/page/list/member.table-ngx-datatable.resource";

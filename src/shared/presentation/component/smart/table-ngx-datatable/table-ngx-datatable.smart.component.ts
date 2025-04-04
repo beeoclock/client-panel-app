@@ -18,7 +18,7 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 
 @Component({

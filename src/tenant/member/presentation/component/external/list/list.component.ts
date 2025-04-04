@@ -10,7 +10,7 @@ import {
 } from "@tenant/member/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	MemberTableNgxDatatableSmartResource
 } from "@tenant/member/presentation/ui/page/list/member.table-ngx-datatable.resource";
@@ -38,6 +38,6 @@ export class MemberExternalListComponent extends ListPage {
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
-	
+
 
 }
