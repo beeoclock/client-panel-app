@@ -6,7 +6,6 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
-import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {CurrencyPipe, NgClass} from "@angular/common";
 import EOrderService from "@tenant/order-service/domain/entity/e.order-service";
@@ -38,7 +37,6 @@ import {
 
 			<not-found-table-data-component
 				class="block h-full"
-				(clickListener)="openForm()"
 				[showLinkToForm]="false"
 				[linkLabel]="'order-service.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
@@ -329,11 +327,6 @@ export class TableListComponent extends TableComponent<EOrderService> {
 
 	public override open(item: IOrderService.EntityRaw) {
 		this.store.dispatch(new OrderServicePresentationActions.OpenDetails(item));
-	}
-
-	@Dispatch()
-	public openForm() {
-		return new OrderServicePresentationActions.OpenForm();
 	}
 
 	protected readonly orderServiceStatusEnum = OrderServiceStatusEnum;

@@ -205,7 +205,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'event/:id',
 		outlet: 'second',
 		resolve: {
-			event: eventResolver,
+			item: eventResolver,
 		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/event/presentation/ui/component/details/container.details.component')
