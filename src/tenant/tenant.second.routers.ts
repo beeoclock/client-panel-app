@@ -175,6 +175,18 @@ export const tenantSecondRouters: Routes = [
 		loadComponent: () => import('@tenant/order/presentation/ui/component/form/order-form-container.component')
 	},
 	/**
+	 * Order Service
+	 */
+	// {
+	// 	path: 'order-service/:id',
+	// 	outlet: 'second',
+	// 	resolve: {
+	// 		item: orderServiceResolver,
+	// 	},
+	// 	runGuardsAndResolvers: 'always',
+	// 	loadComponent: () => import('@tenant/order-service/presentation/ui/component/details/order-service-details-container.component')
+	// },
+	/**
 	 * Payment
 	 */
 	{
@@ -193,7 +205,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'event/:id',
 		outlet: 'second',
 		resolve: {
-			event: eventResolver,
+			item: eventResolver,
 		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/event/presentation/ui/component/details/container.details.component')

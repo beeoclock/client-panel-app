@@ -20,6 +20,7 @@ export class SidebarService {
 	public readonly document = inject(DOCUMENT);
 	public readonly router = inject(Router);
 	public readonly windowWidthSizeService = inject(WindowWidthSizeService);
+
 	public autoCollapse = true;
 	public setMarginToMainContainer = true;
 	public readonly containersStatus = {

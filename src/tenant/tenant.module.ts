@@ -22,6 +22,7 @@ import {TariffPlanStore} from "@tenant/tariff-plan/infrastructure/store/tariff-p
 import {BusinessProfileModule} from "@tenant/business-profile/business-profile.module";
 import TariffPlanModule from "@tenant/tariff-plan/tariff-plan.module";
 import {TariffPlanHistoryModule} from "@tenant/tariff-plan-history/tariff-plan-history.module";
+import {OrderServiceModule} from "@tenant/order-service/order-service.module";
 
 @NgModule({
 	providers: [
@@ -51,6 +52,7 @@ import {TariffPlanHistoryModule} from "@tenant/tariff-plan-history/tariff-plan-h
 		TariffPlanModule,
 		TariffPlanHistoryModule,
 		EventModule,
+		OrderServiceModule,
 	],
 })
 export class TenantModule {

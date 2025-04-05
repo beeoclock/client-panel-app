@@ -100,7 +100,6 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 	public constructor() {
 		effect(() => {
 			const setupPartialData = this.setupPartialData();
-			console.log({setupPartialData})
 		});
 	}
 
