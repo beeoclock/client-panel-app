@@ -6,6 +6,8 @@ import {Types} from "@core/shared/types";
 import {PaymentMethodEnum} from "../enum/payment.method.enum";
 import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
+import {AnchorTypeEnum} from "@tenant/payment/domain/enum/anchor.type.enum";
 
 export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.EntityRaw> implements IPayment.EntityRaw {
 
@@ -20,6 +22,34 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 	providerType?: (PaymentProviderTypeEnum & Types.Default<PaymentProviderTypeEnum.onSite>) | undefined;
 	status!: PaymentStatusEnum & Types.Default<PaymentStatusEnum.pending>;
 	paymentDate?: string | undefined;
+	anchorType!: AnchorTypeEnum & Types.Default<AnchorTypeEnum.order>;
+
+	public payerToString() {
+
+		const customer = this?.payer;
+
+		if (!customer) {
+			return '-';
+		}
+
+		if (customer.customerType === CustomerTypeEnum.anonymous) {
+			return `-`;
+		}
+
+		switch (true) {
+			case !!customer?.firstName && !!customer?.lastName:
+				return `${customer?.firstName} ${customer?.lastName}`;
+			case !!customer?.firstName:
+				return customer?.firstName;
+			case !!customer?.email:
+				return customer?.email;
+			case !!customer?.phone:
+				return customer?.phone;
+		}
+
+		return '-';
+
+	}
 
 
 	public override toDTO(): IPayment.DTO {
@@ -37,6 +67,7 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 			orderId: data.orderId,
 			payer: data.payer,
 			providerPaymentRef: data.providerPaymentRef,
+			anchorType: data.anchorType,
 			state: data.state,
 			stateHistory: data.stateHistory,
 			status: data.status,

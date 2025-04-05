@@ -102,6 +102,15 @@ export const tenantRouters: Routes = [
                                 ]
                             },
                             {
+                                path: 'payment',
+                                children: [
+                                    {
+                                        path: 'list',
+                                        loadComponent: () => import('@tenant/payment/presentation/ui/page/list/list.payment.page')
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'event',
                                 children: [
                                     {

@@ -19,11 +19,11 @@ import {ITableState} from "@shared/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
 import {Reactive} from "@core/cdk/reactive";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {DatePipe} from "@angular/common";
 import {TranslateService} from "@ngx-translate/core";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 
 @Component({
 	selector: 'utility-table-component',
@@ -49,8 +49,9 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 
 	public readonly sharedUow = inject(SharedUow);
 	public readonly datePipe = inject(DatePipe);
-	public readonly anyDateConvert = (obj: IAbsence.EntityRaw, prop: TableColumnProp) => {
-		const value = obj[prop as keyof IAbsence.EntityRaw] as string;
+
+	public readonly anyDateConvert = (obj: IBaseEntityRaw<string>, prop: TableColumnProp) => {
+		const value = obj[prop as keyof IBaseEntityRaw<string>] as string;
 		return this.datePipe.transform(value, 'short');
 	};
 

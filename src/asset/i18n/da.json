@@ -1067,6 +1067,7 @@
 			"country": "Land",
 			"create": "Opret",
 			"createdAt": "Oprettet kl",
+			"currency": "Valuta",
 			"customer": "Kunde",
 			"customerNote": "En note fra klienten",
 			"customers": "kunder",
@@ -1136,6 +1137,7 @@
 			"payer": "Udbetaler",
 			"payment": "Betaling",
 			"paymentMethod": "Betalingsmetode",
+			"paymentProviderType": "Betalingstype ",
 			"paymentStatus": "Betalingsstatus",
 			"periodOfDay": {
 				"AFTERNOON": "Eftermiddag",
@@ -1458,6 +1460,9 @@
 		"providerType": {
 			"onSite": {
 				"label": "På stedet"
+			},
+			"stripe": {
+				"label": "Stripe"
 			}
 		},
 		"status": {
@@ -1562,6 +1567,7 @@
 		"events": "Begivenheder",
 		"members": "Medlemmer",
 		"order": "Indkøb",
+		"payment": "Betalinger",
 		"private": "Privat",
 		"profile": {
 			"signOut": {

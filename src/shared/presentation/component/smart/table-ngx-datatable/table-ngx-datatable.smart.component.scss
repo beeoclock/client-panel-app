@@ -22,10 +22,10 @@
 
 // Apply mixins in the component styles
 :host {
-	ngx-datatable::ng-deep {
+	.ngx-datatable::ng-deep {
 		@apply bg-white;
 
-		datatable-header {
+		.datatable-header {
 			@apply border-b;
 
 			.datatable-header-inner {
@@ -34,7 +34,7 @@
 				.datatable-row-center {
 					@apply flex h-full items-center;
 
-					datatable-header-cell {
+					.datatable-header-cell {
 						@include datatable-header-cell;
 
 						.datatable-header-cell-template-wrap {
@@ -56,31 +56,32 @@
 				.datatable-row-right {
 					@apply h-0;
 
-					datatable-header-cell {
+					.datatable-header-cell {
 						@include datatable-header-cell;
 					}
 				}
 			}
 		}
 
-		datatable-body {
+		.datatable-body {
 			overflow: auto;
 
 			.custom-loading-indicator-wrapper {
 				@apply flex h-full items-center justify-center text-base w-full;
 			}
 
-			datatable-selection {
-				datatable-row-wrapper {
+			.datatable-scroll {
+
+				.datatable-row-wrapper {
 					@apply hover:transition-all active:transition-all hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-700 cursor-pointer active:bg-beeColor-200 dark:active:bg-beeDarkColor-800;
 
-					datatable-body-row {
+					.datatable-body-row {
 						@apply border-b;
 
-						datatable-body-cell {
+						.datatable-body-cell {
 							@include datatable-cell;
 
-							ghost-loader {
+							.ghost-loader {
 								@apply bg-beeColor-200 animate-pulse rounded-2xl w-full;
 							}
 
@@ -89,7 +90,7 @@
 						.datatable-row-right {
 							@apply bg-white border-l;
 
-							datatable-body-cell {
+							.datatable-body-cell {
 								@include datatable-cell;
 							}
 						}
@@ -98,14 +99,14 @@
 			}
 		}
 
-		datatable-footer {
+		.datatable-footer {
 			@apply border-t;
 
 			.page-count {
 				@apply px-2;
 			}
 
-			datatable-pager {
+			.datatable-pager {
 				@apply pr-2;
 
 				.pager {
