@@ -6,9 +6,6 @@ import {ActiveStyleDirective} from "@shared/presentation/directives/active-style
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
-import {
-	TableNgxDatatableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
 import EProduct from "@tenant/product/domain/entity/e.product";
@@ -27,6 +24,9 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {
+	TableNgxDatatableSmartComponent
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 
 @Component({
 	selector: 'product-table-list-component',

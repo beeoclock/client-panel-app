@@ -3,17 +3,17 @@ import {TranslateModule} from '@ngx-translate/core';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {ListPage} from "@shared/list.page";
 import {
-    TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {
-    ProductTableNgxDatatableSmartResource
+	ProductTableNgxDatatableSmartResource
 } from "@tenant/product/presentation/ui/page/list/product.table-ngx-datatable.resource";
 import {
-    MobileLayoutListComponent
+	MobileLayoutListComponent
 } from "@tenant/product/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
 import {
-    DesktopLayoutListComponent
+	DesktopLayoutListComponent
 } from "@tenant/product/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
+import {
+	TableNgxDatatableSmartResource
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
     selector: 'app-list-product-page',

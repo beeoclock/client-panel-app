@@ -3,14 +3,14 @@ import {TranslateModule} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
 import {ListPage} from "@shared/list.page";
 import {
-	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {
 	DesktopLayoutListComponent
 } from "@tenant/product-tag/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
 import {
 	ProductTagTableNgxDatatableSmartResource
 } from "@tenant/product-tag/presentation/ui/page/list/product-tag.table-ngx-datatable.resource";
+import {
+	TableNgxDatatableSmartResource
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'app-list-product-tag-page',
