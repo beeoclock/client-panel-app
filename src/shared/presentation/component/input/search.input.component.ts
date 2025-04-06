@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, forwardRef, HostBinding, inject, Injector, input} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IconComponent} from "@src/component/adapter/icon/icon.component";
+import {IconComponent} from "@shared/presentation/component/adapter/icon/icon.component";
 import {is} from "@core/shared/checker";
 
 @Component({
@@ -25,7 +25,7 @@ import {is} from "@core/shared/checker";
 					[id]="id"
 					[placeholder]="placeholder()"
 					[formControl]="control"
-					class="py-3 px-4 block w-full border-gray-200 rounded-s-2xl text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+					class="py-3 px-4 min-w-[190px] block w-full border-gray-200 rounded-s-2xl text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
 				@if (control.value.length > 0) {
 					<button
 						(click)="clear()"

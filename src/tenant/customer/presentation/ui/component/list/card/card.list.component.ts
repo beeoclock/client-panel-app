@@ -6,7 +6,9 @@ import {CardComponent} from "@shared/presentation/component/card/card.component"
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
 import ECustomer from "@tenant/customer/domain/entity/e.customer";
-import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
+import {
+	CardIonListSmartComponent
+} from "@shared/presentation/component/smart/card-ion-list/card-ion-list.smart.component";
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";

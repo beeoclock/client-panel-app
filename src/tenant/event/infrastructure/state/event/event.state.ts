@@ -4,13 +4,9 @@ import {EventActions} from "@tenant/event/infrastructure/state/event/event.actio
 import {TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import CustomerDetailsContainerComponent
-	from "@tenant/customer/presentation/ui/component/details/customer-details-container.component";
-import {
-	CustomerPresentationActions
-} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 import {Router} from "@angular/router";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
+import ContainerDetailsComponent from "@tenant/event/presentation/ui/component/details/container.details.component";
 
 
 export interface IEventState {
@@ -41,26 +37,14 @@ export class EventState {
 	@Action(EventActions.OpenDetails)
 	public async openDetails(ctx: StateContext<IEventState>, {payload}: EventActions.OpenDetails) {
 
-		// const title = this.translateService.instant('event.details.title');
-		//
-		// const {ContainerDetailsComponent} = await import("@tenant/event/presentation/ui/component/details/container.details.component");
-		//
-		// await this.whacAMaleProvider.buildItAsync({
-		// 	title,
-		// 	component: ContainerDetailsComponent,
-		// 	componentInputs: {
-		// 		event: item
-		// 	},
-		// });
-
 
 		const activated = this.secondRouterOutletService.activated();
 
 		if (activated) {
-			if (activated instanceof CustomerDetailsContainerComponent) {
+			if (activated instanceof ContainerDetailsComponent) {
 				const {_id} = activated.item() ?? {};
 				if (_id === payload._id) {
-					const action = new CustomerPresentationActions.CloseDetails();
+					const action = new EventActions.CloseDetails();
 					ctx.dispatch(action);
 					return;
 				}

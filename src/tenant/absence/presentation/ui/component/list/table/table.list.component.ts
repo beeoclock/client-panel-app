@@ -14,7 +14,7 @@ import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {StateStatusComponent} from "@tenant/absence/presentation/ui/component/state-status/state-status.component";
 import {
 	RowActionButtonComponent

@@ -22,28 +22,25 @@ import {ActivateEvent, DragEventData, PageEvent} from "@swimlane/ngx-datatable/l
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {ReactiveFormsModule} from "@angular/forms";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	PagerTableNgxDataTableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/pager.table-ngx-data-table.smart.component";
-import {TranslatePipe} from "@ngx-translate/core";
+} from "@shared/presentation/component/smart/table-ngx-datatable/pager.table-ngx-data-table.smart.component";
 
 
 @Component({
 	selector: 'app-table-ngx-datatable-smart-component',
 	template: `
-		@if (rows.length || resource.value().totalSize || isLoading()) {
-
-<!--
-				[ghostLoadingIndicator]="isLoading() > 0"
-				[loadingIndicator]="isLoading() > 0"-->
+		@if (rows.length || resource.value().totalSize) {
 
 			<ngx-datatable
 				#table
 				class="h-full"
+				[messages]="messages()"
 				[rows]="rows"
 				[reorderable]="true"
 				[trackByProp]="trackByProp()"
@@ -80,7 +77,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 						ngx-datatable-footer-template
 					>
 						<div class="page-count">
-							 {{ 'keyword.capitalize.total' | translate }}: {{ rowCount }}
+							{{ 'keyword.capitalize.total' | translate }}: {{ rowCount }}
 						</div>
 						<app-pager-table-ngx-datatable-smart-component
 							[page]="curPage"
@@ -119,7 +116,6 @@ import {TranslatePipe} from "@ngx-translate/core";
 	styleUrl: './table-ngx-datatable.smart.component.scss',
 })
 export class TableNgxDatatableSmartComponent {
-
 
 	public readonly goToFirstPageVisible = input<boolean>(false);
 
@@ -182,9 +178,18 @@ export class TableNgxDatatableSmartComponent {
 		return columns;
 	});
 
+	public readonly translateService = inject(TranslateService);
 	public readonly sharedUow = inject(SharedUow);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
+
+	public readonly messages = input({
+		emptyMessage: `
+			<div class="w-full h-full flex items-center justify-center px-2 py-4">
+				<p>${this.translateService.instant('keyword.capitalize.noData')}</p>
+			</div>
+		`,
+	});
 
 	public constructor() {
 		let previousLoadingValue = 0;
@@ -240,7 +245,7 @@ export class TableNgxDatatableSmartComponent {
 			orderBy: prop as string,
 			orderDir: dir as OrderDirEnum,
 		});
-		this.updateParameters({ page: 1});
+		this.updateParameters({page: 1});
 	}
 
 	public setPage(pageInfo: PageEvent) {

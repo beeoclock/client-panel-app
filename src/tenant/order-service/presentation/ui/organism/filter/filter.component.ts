@@ -13,6 +13,9 @@ import {IonSelectServiceComponent} from "@shared/presentation/component/input/io
 import {
 	IonSelectOrderServiceStatusComponent
 } from "@shared/presentation/component/input/ion/ion-select-order-service-status.component";
+import {
+	DateSliderControlComponent
+} from "@tenant/analytic/presentation/component/control/date-slider/date-slider.control.component";
 
 @Component({
 	selector: 'order-service-filter-component',
@@ -28,7 +31,8 @@ import {
 		IonSelectStateComponent,
 		IonSelectMemberComponent,
 		IonSelectServiceComponent,
-		IonSelectOrderServiceStatusComponent
+		IonSelectOrderServiceStatusComponent,
+		DateSliderControlComponent
 	],
 	template: `
 		<utility-default-panel-component>
@@ -41,23 +45,30 @@ import {
 
 				<div class="flex overflow-x-auto gap-2 p-2">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
-					<ng-container *ngTemplateOutlet="stateSelect"/>
+					<ng-container *ngTemplateOutlet="dateSliderSelect"/>
+					<ng-container *ngTemplateOutlet="orderServiceStatusSelect"/>
 					<ng-container *ngTemplateOutlet="memberSelect"/>
 					<ng-container *ngTemplateOutlet="serviceSelect"/>
-					<ng-container *ngTemplateOutlet="orderServiceStatusSelect"/>
 					<ng-container *ngTemplateOutlet="AutoRefresh"/>
+					<ng-container *ngTemplateOutlet="stateSelect"/>
 				</div>
 			}
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
-			<div class="flex overflow-x-auto gap-2 my-2 px-2 p-2">
-				<ng-container *ngTemplateOutlet="stateSelect"/>
+			<div class="flex overflow-x-auto gap-2 my-2 px-2">
+				<ng-container *ngTemplateOutlet="dateSliderSelect"/>
+				<ng-container *ngTemplateOutlet="orderServiceStatusSelect"/>
 				<ng-container *ngTemplateOutlet="memberSelect"/>
 				<ng-container *ngTemplateOutlet="serviceSelect"/>
-				<ng-container *ngTemplateOutlet="orderServiceStatusSelect"/>
 				<ng-container *ngTemplateOutlet="AutoRefresh"/>
+				<ng-container *ngTemplateOutlet="stateSelect"/>
 			</div>
 		}
+
+		<ng-template #dateSliderSelect>
+			<app-date-slider-control-component
+				[form]="form.controls.dateRange"/>
+		</ng-template>
 
 		<ng-template #orderServiceStatusSelect>
 			<ion-select-order-service-status

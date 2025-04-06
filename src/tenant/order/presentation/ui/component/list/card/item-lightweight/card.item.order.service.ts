@@ -1,7 +1,9 @@
 import {Injectable} from "@angular/core";
 import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {ICustomer} from "@tenant/customer/domain";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 
-interface GroupedService {
+interface GroupedServiceBySpecialistAndDate {
 	date: string;
 	specialist: {
 		firstName: string;
@@ -10,16 +12,71 @@ interface GroupedService {
 	services: IOrderServiceDto[];
 }
 
-const SECONDS_TO_MILLISECONDS = 1000;
+interface GroupedServiceByCustomer {
+	customer: ICustomer.DTO;
+	services: IOrderServiceDto[];
+}
+
+interface GroupedByCustomerAndThenBySpecialistAndDate {
+	customer: ICustomer.DTO;
+	services: GroupedServiceBySpecialistAndDate[];
+}
+
+const SECONDS_TO_MILLISECONDS = 1_000;
 
 @Injectable()
 export class CardItemOrderService {
+
+	public groupByCustomerAndThenBySpecialistAndDate(services: IOrderServiceDto[]): GroupedByCustomerAndThenBySpecialistAndDate[] {
+		const groupedByCustomer = this.groupByCustomer(services);
+
+		return groupedByCustomer.map(customerGroup => {
+			const groupedBySpecialistAndDate = this.groupBySpecialistAndDate(customerGroup.services);
+			return {
+				...customerGroup,
+				services: groupedBySpecialistAndDate
+			};
+		});
+	}
+
+	public groupByCustomer(services: IOrderServiceDto[]): GroupedServiceByCustomer[] {
+
+		const grouped = services.reduce((acc, service) => {
+
+			if (!service.serviceSnapshot) return acc;
+
+			service.orderAppointmentDetails.attendees.forEach(attendee => {
+
+				const customer = attendee.customer;
+
+				if (!customer) return;
+
+				const key = customer.customerType === CustomerTypeEnum.anonymous ? customer.customerType : customer?._id;
+
+				if (!acc[key]) {
+					acc[key] = {
+						customer,
+						services: []
+					};
+				}
+
+				acc[key].services.push(service);
+
+			})
+
+			return acc;
+
+		}, {} as Record<string, GroupedServiceByCustomer>);
+
+		return Object.values(grouped).flat();
+
+	}
 
 	/**
 	 * Group services by specialist
 	 * @param services
 	 */
-	public groupBySpecialist(services: IOrderServiceDto[]): GroupedService[] {
+	public groupBySpecialistAndDate(services: IOrderServiceDto[]): GroupedServiceBySpecialistAndDate[] {
 
 		const DIFF_IN_MINUTES = 60;
 
@@ -68,7 +125,7 @@ export class CardItemOrderService {
 
 			return acc;
 
-		}, {} as Record<string, GroupedService[]>);
+		}, {} as Record<string, GroupedServiceBySpecialistAndDate[]>);
 
 		return Object.values(grouped).flat();
 	}

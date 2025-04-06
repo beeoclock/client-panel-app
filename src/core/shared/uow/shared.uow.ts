@@ -64,7 +64,7 @@ export class SharedUow {
 	}
 
 	public get orderService() {
-		if (!this.#order) {
+		if (!this.#orderService) {
 			throw new Error('OrderServiceService is not initialized');
 		}
 		return this.#orderService;

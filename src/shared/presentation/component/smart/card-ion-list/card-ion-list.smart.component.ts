@@ -21,7 +21,7 @@ import {
 import {TranslatePipe} from "@ngx-translate/core";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {NgTemplateOutlet} from "@angular/common";
 

@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import {
 	ItemV2ListServiceFormOrderComponent
-} from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
+} from "@shared/presentation/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@core/cdk/reactive";

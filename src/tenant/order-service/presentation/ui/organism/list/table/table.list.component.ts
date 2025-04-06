@@ -1,15 +1,11 @@
 import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
-import {
-	TableNgxDatatableSmartComponent
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
-import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {CurrencyPipe, NgClass} from "@angular/common";
 import EOrderService from "@tenant/order-service/domain/entity/e.order-service";
@@ -25,6 +21,10 @@ import {
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
+import {
+	TableNgxDatatableSmartComponent
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 
 @Component({
 	selector: 'order-service-table-list-component',
@@ -37,7 +37,6 @@ import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.he
 
 			<not-found-table-data-component
 				class="block h-full"
-				(clickListener)="openForm()"
 				[showLinkToForm]="false"
 				[linkLabel]="'order-service.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
@@ -61,18 +60,68 @@ import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.he
 
 		<ng-template #specialistCellTemplate let-row="row">
 			<div
-				class="inline-flex items-center gap-2 text-sm font-medium text-[#11141A]">
-				@if (row.orderAppointmentDetails.specialists[0].member.avatar.url) {
-					<img class="w-[26px] h-[26px] rounded-full object-cover"
-						 [src]="row.orderAppointmentDetails.specialists[0].member.avatar.url"
-						 alt="Avatar">
-				} @else {
-					<div
-						class="w-[26px] h-[26px] flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">
-						{{ row.orderAppointmentDetails.specialists[0].member.firstName.charAt(0) }}
-					</div>
+				class="flex items-center gap-2 text-sm font-medium text-[#11141A] h-full">
+				@for (specialist of row.orderAppointmentDetails.specialists; track specialist.member._id) {
+					@if (specialist?.member?.avatar?.url?.length) {
+						<img class="w-9 h-9 rounded-full object-cover"
+							 [src]="specialist.member.avatar.url"
+							 alt="Avatar">
+					} @else {
+						<div
+							class="w-9 h-9 flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">
+							{{ specialist?.member?.firstName?.charAt(0) }}
+						</div>
+					}
+					{{ specialist.member.firstName }}
 				}
-				{{ row.orderAppointmentDetails.specialists[0].member.firstName }}
+			</div>
+		</ng-template>
+
+		<ng-template #customerCellTemplate let-row="row">
+			<div
+				class="inline-flex items-center gap-2 text-sm font-medium text-[#11141A]">
+
+				@for (attendee of row.orderAppointmentDetails.attendees; track attendee.customer._id) {
+
+					@let customerType = attendee.customer.customerType;
+
+					@if (customerType === customerTypeEnum.anonymous) {
+
+						<div
+							class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
+						</div>
+
+					} @else {
+
+						@let firstName = attendee.customer.firstName ?? '';
+						@let lastName = attendee.customer.lastName ?? '';
+
+						<div
+							class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
+							{{ firstName[0] }}{{ lastName[0] }}
+						</div>
+
+					}
+
+					<div class="text-slate-900 text-sm font-normal">
+						@switch (customerType) {
+							@case (customerTypeEnum.unregistered) {
+								{{ attendee.customer.firstName }}
+							}
+							@case (customerTypeEnum.regular) {
+								{{ attendee.customer.firstName }} 📇
+							}
+							@case (customerTypeEnum.new) {
+								{{ attendee.customer.firstName }} 🆕
+							}
+							@case (customerTypeEnum.anonymous) {
+								{{ 'keyword.capitalize.anonymous' | translate }}
+							}
+						}
+					</div>
+
+				}
+
 			</div>
 		</ng-template>
 		<ng-template #statusCellTemplate let-row="row">
@@ -105,7 +154,7 @@ import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.he
 		CurrencyPipe,
 	],
 	host: {
-		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
 	},
 })
 export class TableListComponent extends TableComponent<EOrderService> {
@@ -118,6 +167,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 	public readonly durationCellTemplate = viewChild<TemplateRef<any>>('durationCellTemplate');
 	public readonly priceCellTemplate = viewChild<TemplateRef<any>>('priceCellTemplate');
 	public readonly specialistCellTemplate = viewChild<TemplateRef<any>>('specialistCellTemplate');
+	public readonly customerCellTemplate = viewChild<TemplateRef<any>>('customerCellTemplate');
 
 	public readonly useMoneyConvert = (obj: EOrderService, prop: TableColumnProp) => {
 		return 1;
@@ -140,14 +190,21 @@ export class TableListComponent extends TableComponent<EOrderService> {
 			prop: 'specialist',
 			minWidth: 160,
 			width: 160,
-			sortable: true,
+			sortable: false,
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.customer'),
+			prop: 'customer',
+			minWidth: 160,
+			width: 160,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.service'),
 			prop: 'service',
 			minWidth: 200,
 			width: 200,
-			sortable: true,
+			sortable: false,
 			$$valueGetter: (obj: IOrderService.EntityRaw, prop: TableColumnProp) => {
 				const {0: languageVersion} = obj.serviceSnapshot.languageVersions;
 				return languageVersion.title;
@@ -158,7 +215,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 			prop: 'price',
 			minWidth: 100,
 			width: 100,
-			sortable: true,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.duration'),
@@ -169,7 +226,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.start'),
-			prop: 'start',
+			prop: 'orderAppointmentDetails.start',
 			minWidth: 160,
 			width: 160,
 			sortable: true,
@@ -180,7 +237,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.end'),
-			prop: 'end',
+			prop: 'orderAppointmentDetails.end',
 			minWidth: 160,
 			width: 160,
 			sortable: true,
@@ -243,6 +300,11 @@ export class TableListComponent extends TableComponent<EOrderService> {
 			this.setCellTemplateRef(columns, 'specialist', specialistCellTemplate);
 		}
 
+		const customerCellTemplate = this.customerCellTemplate();
+		if (customerCellTemplate) {
+			this.setCellTemplateRef(columns, 'customer', customerCellTemplate);
+		}
+
 		return columns;
 
 	});
@@ -267,10 +329,6 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		this.store.dispatch(new OrderServicePresentationActions.OpenDetails(item));
 	}
 
-	@Dispatch()
-	public openForm() {
-		return new OrderServicePresentationActions.OpenForm();
-	}
-
 	protected readonly orderServiceStatusEnum = OrderServiceStatusEnum;
+	protected readonly customerTypeEnum = CustomerTypeEnum;
 }

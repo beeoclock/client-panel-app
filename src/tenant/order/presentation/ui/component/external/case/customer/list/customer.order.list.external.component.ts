@@ -6,7 +6,7 @@ import {
 } from "@tenant/order/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
 import {
 	TableNgxDatatableSmartResource
-} from "@src/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	OrderCustomerTableNgxDatatableSmartResource
 } from "@tenant/order/presentation/ui/component/external/case/customer/list/order.customer.table-ngx-datatable.resource";

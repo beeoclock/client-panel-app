@@ -28,7 +28,7 @@ import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actio
 import {ICustomer} from "@tenant/customer/domain";
 import {
 	ListServiceFormOrderComponent
-} from "@src/component/smart/order/form/service/list/list.service.form.order.component";
+} from "@shared/presentation/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
 import {firstValueFrom, lastValueFrom} from "rxjs";
 import {PaymentDataActions} from "@tenant/payment/infrastructure/state/data/payment.data.actions";
@@ -133,8 +133,6 @@ export class OrderFormContainerComponent {
 		const {customerJSON, memberJSON, serviceListJSON, appointmentStartDateTimeIso} = this;
 
 		const result: any = {};
-
-		console.log(customerJSON(), memberJSON(), serviceListJSON(), appointmentStartDateTimeIso())
 
 		if (customerJSON()) {
 			result.customer = customerJSON();
