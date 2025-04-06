@@ -121,7 +121,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.st
 										} @else {
 											<div
 												class="w-[26px] h-[26px] flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">
-												{{ group.specialist.firstName.charAt(0) }}
+												{{ group.specialist?.firstName?.charAt?.(0) ?? '' }}
 											</div>
 										}
 										{{ group.specialist.firstName }}
