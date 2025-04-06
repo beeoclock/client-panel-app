@@ -34,7 +34,7 @@ export interface ISyncManger {
 
 	initSyncState(): void;
 
-	initPullData(): Promise<void>;
+	initPullData(): Promise<boolean>;
 
 	initPushData(): Promise<void>;
 
@@ -219,33 +219,48 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 
 		// Prepare pull and push data
 		await this.initPushData();
-		await this.initPullData();
+		const pullInitialized = await this.initPullData();
 
 		// Do sync
-		await this.doPull();
+		if (pullInitialized) await this.doPull();
 		await this.doPush();
 
 		this.#isSyncing = false;
 	}
 
+	/**
+	 * Initializes the pull data from the remote data provider.
+	 * @param firstPage
+	 * @param isContinuation
+	 */
 	public async initPullData(firstPage: boolean = true, isContinuation: boolean = false) {
 
 		if (!this.#syncState) {
 			throw new Error('Sync state is not initialized');
 		}
 
-		const {options, lastSuccessSyncItemAt} = this.#syncState;
-		this.pullData = await this.apiDataProvider.findAsync({
-			...options,
-			// If user did F5 (refresh page) during sync, then we can sync from the last sync
-			updatedSince: isContinuation ? options.updatedSince : (lastSuccessSyncItemAt ?? options.updatedSince),
-		});
+		try {
+			const {options, lastSuccessSyncItemAt} = this.#syncState;
+			this.pullData = await this.apiDataProvider.findAsync({
+				...options,
+				// If user did F5 (refresh page) during sync, then we can sync from the last sync
+				updatedSince: isContinuation ? options.updatedSince : (lastSuccessSyncItemAt ?? options.updatedSince),
+			});
 
-		if (firstPage) {
-			if (this.#syncState) {
-				this.#syncState.progress.total += this.pullData.totalSize;
-				this.saveSyncState();
+			if (firstPage) {
+				if (this.#syncState) {
+					this.#syncState.progress.total += this.pullData.totalSize;
+					this.saveSyncState();
+				}
 			}
+
+			return true;
+
+		} catch (error) {
+
+			console.error('Error while pulling data', error);
+			return false;
+
 		}
 
 	}
@@ -333,7 +348,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 				break;
 			}
 
-			await this.initPullData(false, true);
+			const pullInitialized = await this.initPullData(false, true);
+			if (!pullInitialized) break;
 
 		}
 
@@ -508,7 +524,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	 * @returns {Promise<void>}
 	 */
 	public static async syncAll(): Promise<void> {
-		if(this.isSyncing$.value) {
+		if (this.isSyncing$.value) {
 			return;
 		}
 		this.isSyncing$.next(true);
@@ -537,8 +553,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	public static async pullAll(): Promise<void> {
 		this.isSyncing$.next(true);
 		for (const manager of this.register.values()) {
-			await manager.initPullData();
-			await manager.doPull();
+			const pullInitialized = await manager.initPullData();
+			if (pullInitialized) await manager.doPull();
 		}
 		this.isSyncing$.next(false);
 	}
