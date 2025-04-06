@@ -37,10 +37,6 @@ import {
 	template: `
 		@if (rows.length || resource.value().totalSize) {
 
-			<!--
-							[ghostLoadingIndicator]="isLoading() > 0"
-							[loadingIndicator]="isLoading() > 0"-->
-
 			<ngx-datatable
 				#table
 				class="h-full"
