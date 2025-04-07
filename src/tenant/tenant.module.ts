@@ -24,6 +24,7 @@ import TariffPlanModule from "@tenant/tariff-plan/tariff-plan.module";
 import {TariffPlanHistoryModule} from "@tenant/tariff-plan-history/tariff-plan-history.module";
 import {OrderServiceModule} from "@tenant/order-service/order-service.module";
 import {ExpenseModule} from "@tenant/expense/expense/expense.module";
+import {ExpenseCategoryModule} from "@tenant/expense/expense-category/expense-category.module";
 
 @NgModule({
 	providers: [
@@ -55,6 +56,8 @@ import {ExpenseModule} from "@tenant/expense/expense/expense.module";
 		EventModule,
 		OrderServiceModule,
 		ExpenseModule,
+		ExpenseCategoryModule,
+
 	],
 })
 export class TenantModule {

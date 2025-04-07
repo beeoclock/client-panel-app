@@ -21,7 +21,7 @@ import {
 
 @Component({
 	selector: 'customer-form-page',
-	templateUrl: './customer-form-container.component.html',
+	templateUrl: './expense-category-form-container.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
@@ -35,7 +35,7 @@ import {
 	],
 	standalone: true
 })
-export class CustomerFormContainerComponent implements OnInit {
+export class ExpenseCategoryFormContainerComponent implements OnInit {
 
 	// TODO move functions to store effects/actions
 
@@ -95,4 +95,4 @@ export class CustomerFormContainerComponent implements OnInit {
 	}
 }
 
-export default CustomerFormContainerComponent;
+export default ExpenseCategoryFormContainerComponent;

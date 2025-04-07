@@ -21,7 +21,7 @@ import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/cu
 
 @Component({
 	selector: 'app-list-customer-page',
-	templateUrl: './list.customer.page.html',
+	templateUrl: './list.expense-category.page.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
@@ -39,7 +39,7 @@ import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/cu
 		},
 	]
 })
-export class ListCustomerPage extends ListPage implements OnDestroy, OnInit {
+export class ListExpenseCategoryPage extends ListPage implements OnDestroy, OnInit {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
@@ -60,4 +60,4 @@ export class ListCustomerPage extends ListPage implements OnDestroy, OnInit {
 
 }
 
-export default ListCustomerPage;
+export default ListExpenseCategoryPage;

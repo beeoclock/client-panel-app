@@ -9,6 +9,7 @@ import {TariffPlanService} from "@tenant/tariff-plan/domain/service/tariff-plan.
 import {TariffPlanHistoryService} from "@tenant/tariff-plan-history/domain/service/tariff-plan-history.service";
 import {OrderServiceService} from "@tenant/order-service/domain/service/order-service.service";
 import {ExpenseService} from "@tenant/expense/expense/domain/service/expense.service";
+import {ExpenseCategoryService} from "@tenant/expense/expense-category/domain/service/expense-category.service";
 
 /**
  * Shared Unit of Work
@@ -23,6 +24,7 @@ export class SharedUow {
 	#member!: MemberService;
 	#customer!: CustomerService;
 	#expense!: ExpenseService;
+	#expenseCategory!: ExpenseCategoryService;
 	#businessProfile!: BusinessProfileService;
 	#absence!: AbsenceService;
 	#tariffPlan!: TariffPlanService;
@@ -103,6 +105,17 @@ export class SharedUow {
 
 	public set expense(value: ExpenseService) {
 		this.#expense = value;
+	}
+
+	public get expenseCategory() {
+		if (!this.#expenseCategory) {
+			throw new Error('ExpenseCategoryService is not initialized');
+		}
+		return this.#expenseCategory;
+	}
+
+	public set expenseCategory(value: ExpenseCategoryService) {
+		this.#expenseCategory = value;
 	}
 
 	public get businessProfile() {
