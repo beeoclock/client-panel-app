@@ -15,6 +15,10 @@ import {
 import {
 	CardItemOrderService
 } from "@tenant/order/presentation/ui/component/list/card/item-lightweight/card.item.order.service";
+import {Store} from "@ngxs/store";
+import {
+	CustomerPresentationActions
+} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'payment-details',
@@ -65,15 +69,19 @@ import {
 					{{ 'keyword.capitalize.payer' | translate }}
 				</div>
 
-				<div class="bg-white rounded-2xl shadow-sm p-4 flex flex-col gap-4 ">
+				<button (click)="openPayerDetails()" class="cursor-pointer hover:ring-2 rounded-2xl">
 
-					<div class="flex justify-between items-center">
-						<div>
-							{{ item.payerToString() }}
+					<div class="bg-white rounded-2xl shadow-sm p-4 flex flex-col gap-4 ">
+
+						<div class="flex justify-between items-center">
+							<div>
+								{{ item.payerToString() }}
+							</div>
 						</div>
+
 					</div>
 
-				</div>
+				</button>
 
 			</div>
 
@@ -178,6 +186,7 @@ export class PaymentDetails {
 
 	public readonly anchorTypeEnum = AnchorTypeEnum;
 
+	private readonly store = inject(Store);
 	private readonly sharedUow = inject(SharedUow);
 
 	public readonly order = signal<EOrder | undefined>(undefined);
@@ -196,6 +205,13 @@ export class PaymentDetails {
 		}
 	}
 
+	public openPayerDetails() {
+		const {payer} = this.item();
+		if (payer) {
+			const action = new CustomerPresentationActions.OpenDetails(payer)
+			this.store.dispatch(action);
+		}
+	}
 }
 
 export default PaymentDetails;

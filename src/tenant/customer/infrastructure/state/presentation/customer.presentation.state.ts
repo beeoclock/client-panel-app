@@ -74,6 +74,7 @@ export class CustomerPresentationState {
 				}
 			}
 		}
+		console.log({payload})
 
 		await this.router.navigate([{outlets: {second: ['customer', payload._id]}}]);
 
