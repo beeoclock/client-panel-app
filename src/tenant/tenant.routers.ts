@@ -180,6 +180,15 @@ export const tenantRouters: Routes = [
                                 ]
                             },
                             {
+                                path: 'expense',
+                                children: [
+                                    {
+                                        path: 'list',
+                                        loadComponent: () => import('@tenant/expense/expense/presentation/ui/page/list/list.expense.page')
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'service',
                                 children: [
                                     {
