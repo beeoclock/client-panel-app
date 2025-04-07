@@ -7,12 +7,15 @@ import {BaseFilterComponent} from "@shared/base.filter.component";
 import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
-import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {PaymentDataState} from "@tenant/payment/infrastructure/state/data/payment-data.state";
 import {
 	PaymentPresentationActions
 } from "@tenant/payment/infrastructure/state/presentation/payment.presentation.actions";
+import {
+	IonSelectPaymentStatusComponent,
+} from "@shared/presentation/component/input/ion/ion-select-payment-status.component";
+import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
 
 @Component({
 	selector: 'payment-filter-component',
@@ -26,34 +29,42 @@ import {
 		NgTemplateOutlet,
 		ReactiveFormsModule,
 		IonSelectStateComponent,
+		IonSelectPaymentStatusComponent,
 	],
 	template: `
 		<utility-default-panel-component>
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
-<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>-->
+					<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>-->
 				</div>
 			} @else {
 
 				<div class="flex overflow-x-auto gap-2">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
 					<ng-container *ngTemplateOutlet="StateSelect"/>
+					<ng-container *ngTemplateOutlet="PaymentStatusSelect"/>
 				</div>
 				<div>
-<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>-->
+					<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>-->
 				</div>
 			}
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
 				<ng-container *ngTemplateOutlet="StateSelect"/>
+				<ng-container *ngTemplateOutlet="PaymentStatusSelect"/>
 			</div>
 		}
 
 		<ng-template #StateSelect>
 			<ion-select-state
 				[control]="form.controls.state"/>
+		</ng-template>
+
+		<ng-template #PaymentStatusSelect>
+			<ion-select-payment-status
+				[control]="form.controls.status"/>
 		</ng-template>
 
 		<ng-template #SearchInput>
