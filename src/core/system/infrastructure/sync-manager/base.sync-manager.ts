@@ -24,7 +24,7 @@ export interface ISyncManger {
 	readonly moduleName: string;
 	readonly tenantId: string;
 
-	isSyncing: boolean;
+	isSyncing: number;
 
 	resume(): Promise<void>;
 
@@ -74,7 +74,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	 */
 	#tenantId: string | undefined;
 
-	#isSyncing: boolean = false;
+	#isSyncing: number = 0;
 
 	/**
 	 * An abstract property representing the local repository.
@@ -119,7 +119,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	 * A static `BehaviorSubject` that indicates whether synchronization is in progress.
 	 * @type {BehaviorSubject<boolean>}
 	 */
-	public static isSyncing$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+	public static isSyncing$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
 	/**
 	 * A static `BehaviorSubject` that indicates whether synchronization is paused.
@@ -160,7 +160,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 		return this.#tenantId;
 	}
 
-	public get isSyncing(): boolean {
+	public get isSyncing(): number {
 		return this.#isSyncing;
 	}
 
@@ -211,7 +211,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	 */
 	public async sync(): Promise<void> {
 
-		this.#isSyncing = true;
+		this.#isSyncing += 1;
 
 		if (this.#syncState) {
 			this.#syncState.progress.total = 0;
@@ -225,7 +225,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 		if (pullInitialized) await this.doPull();
 		await this.doPush();
 
-		this.#isSyncing = false;
+		this.#isSyncing -= 1;
 	}
 
 	/**
@@ -300,7 +300,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 			throw new Error('Sync state is not initialized');
 		}
 
-		this.#isSyncing = true;
+		this.#isSyncing += 1;
 
 		this.#syncState.lastStartSync = new Date().toISOString();
 		this.saveSyncState();
@@ -353,7 +353,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 
 		}
 
-		this.#isSyncing = false;
+		this.#isSyncing -= 1;
 
 	}
 
@@ -370,7 +370,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 			throw new Error('Sync state is not initialized');
 		}
 
-		this.#isSyncing = true;
+		this.#isSyncing += 1;
 
 		do {
 
@@ -470,7 +470,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 
 		} while (this.pushData.length && !BaseSyncManager.isPaused$.value);
 
-		this.#isSyncing = false;
+		this.#isSyncing -= 1;
 
 	}
 
@@ -524,20 +524,24 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	 * @returns {Promise<void>}
 	 */
 	public static async syncAll(): Promise<void> {
+		this.isPaused$.next(false);
 		if (this.isSyncing$.value) {
 			return;
 		}
-		this.isSyncing$.next(true);
+		this.isSyncing$.next(this.isSyncing$.value + 1);
 		// Take updatedSince from the last sync state
-		for (const manager of this.register.values()) {
-			await manager.sync();
-		}
-		this.isSyncing$.next(false);
+		// for (const manager of this.register.values()) {
+		// 	await manager.sync();
+		// }
+		await this.pullAll();
+		await this.pushAll();
+		this.isSyncing$.next(this.isSyncing$.value - 1);
 	}
 
 	public static async pushAll(): Promise<void> {
-		this.isSyncing$.next(true);
+		this.isPaused$.next(false);
 		for (const syncManager of this.register.values()) {
+			this.isSyncing$.next(this.isSyncing$.value + 1);
 			if (syncManager.isSyncing) {
 				continue;
 			}
@@ -546,17 +550,22 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 			}
 			await syncManager.initPushData();
 			await syncManager.doPush();
+			this.isSyncing$.next(this.isSyncing$.value - 1);
 		}
-		this.isSyncing$.next(false);
 	}
 
 	public static async pullAll(): Promise<void> {
-		this.isSyncing$.next(true);
+		this.isPaused$.next(false);
 		for (const manager of this.register.values()) {
-			const pullInitialized = await manager.initPullData();
-			if (pullInitialized) await manager.doPull();
+			this.isSyncing$.next(this.isSyncing$.value + 1);
+			// const pullInitialized = await manager.initPullData();
+			// if (pullInitialized) await manager.doPull();
+			manager.initPullData().then(() => {
+				manager.doPull().then(() => {
+					this.isSyncing$.next(this.isSyncing$.value - 1);
+				});
+			})
 		}
-		this.isSyncing$.next(false);
 	}
 
 	/**
@@ -573,11 +582,11 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	 */
 	public static async resumeAll(): Promise<void> {
 		this.isPaused$.next(false);
-		this.isSyncing$.next(true);
+		this.isSyncing$.next(this.isSyncing$.value + 1);
 		for (const manager of this.register.values()) {
 			await manager.resume();
 		}
-		this.isSyncing$.next(false);
+		this.isSyncing$.next(this.isSyncing$.value - 1);
 	}
 
 	/**

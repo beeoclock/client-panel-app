@@ -1,9 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {IsOnlineService} from "@core/cdk/is-online.service";
-import {AsyncPipe, DatePipe, DecimalPipe} from "@angular/common";
+import {AsyncPipe, DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Reactive} from "@core/cdk/reactive";
-import {setIntervals$} from "@shared/domain/timer";
 import {BaseSyncManager, ISyncManger} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {TimeAgoPipe} from "@shared/presentation/pipes/time-ago.pipe";
 import {tap} from "rxjs";
@@ -28,7 +27,6 @@ interface SyncState {
 		DatePipe,
 		TranslatePipe,
 		TimeAgoPipe,
-		DecimalPipe
 	],
 	host: {
 		class: 'px-3 pb-4 pt-0'
@@ -67,21 +65,21 @@ interface SyncState {
 							{{ 'keyword.capitalize.syncing' | translate }}
 						</span>
 							<!-- Progress -->
-							<div class="w-full flex items-center gap-x-3 whitespace-nowrap text-xs">
-								<div>
-									{{ params.modulesSynced }} / {{ params.modulesCount }}
-								</div>
-								<div
-									class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-									role="progressbar" [attr.aria-valuenow]="currentSyncManager?.syncState?.progress?.percentage" aria-valuemin="0" aria-valuemax="100">
-									<div
-										class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500"
-										[style.width.%]="currentSyncManager?.syncState?.progress?.percentage"></div>
-								</div>
-								<div class="w-10 text-end">
-									<span class="text-sm text-gray-800 dark:text-white">{{ currentSyncManager?.syncState?.progress?.percentage | number: '1.0-0' }}%</span>
-								</div>
-							</div>
+<!--							<div class="w-full flex items-center gap-x-3 whitespace-nowrap text-xs">-->
+<!--								<div>-->
+<!--									{{ params.modulesSynced }} / {{ params.modulesCount }}-->
+<!--								</div>-->
+<!--								<div-->
+<!--									class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"-->
+<!--									role="progressbar" [attr.aria-valuenow]="currentSyncManager?.syncState?.progress?.percentage" aria-valuemin="0" aria-valuemax="100">-->
+<!--									<div-->
+<!--										class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500"-->
+<!--										[style.width.%]="currentSyncManager?.syncState?.progress?.percentage"></div>-->
+<!--								</div>-->
+<!--								<div class="w-10 text-end">-->
+<!--									<span class="text-sm text-gray-800 dark:text-white">{{ currentSyncManager?.syncState?.progress?.percentage | number: '1.0-0' }}%</span>-->
+<!--								</div>-->
+<!--							</div>-->
 							<!-- End Progress -->
 
 						</div>
@@ -119,7 +117,9 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 
 	public readonly isOffline$ = this.isOnlineService.isOffline$;
 	public readonly isSyncing$ = BaseSyncManager.isSyncing$.pipe(
-		tap(() => {
+		tap((value) => {
+			// console.log({value})
+			this.detectChanges();
 			this.resetState();
 		})
 	);
@@ -166,35 +166,35 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 			this.state.set(syncManger.moduleName, 'wait');
 		});
 
-		setIntervals$(() => {
+	}
 
-			BaseSyncManager.register.forEach((syncManger) => {
-				if (syncManger.isSyncing) {
-					this.currentSyncManager = syncManger;
-				}
-				const moduleState = this.state.get(syncManger.moduleName);
-				if (moduleState) {
-					switch (moduleState) {
-						case 'wait':
-							if (syncManger.isSyncing) {
-								this.state.set(syncManger.moduleName, syncManger);
-							}
-							break;
-						case 'done':
-							break;
-						default:
-							if (!syncManger.isSyncing) {
-								this.state.set(syncManger.moduleName, 'done');
-							}
-							break;
-					}
-				}
-			});
+	private detectChanges() {
+		// BaseSyncManager.register.forEach((syncManger) => {
+		// 	if (syncManger.isSyncing) {
+		// 		this.currentSyncManager = syncManger;
+		// 	}
+		// 	const moduleState = this.state.get(syncManger.moduleName);
+		// 	if (moduleState) {
+		// 		switch (moduleState) {
+		// 			case 'wait':
+		// 				if (syncManger.isSyncing) {
+		// 					this.state.set(syncManger.moduleName, syncManger);
+		// 				}
+		// 				break;
+		// 			case 'done':
+		// 				break;
+		// 			default:
+		// 				if (!syncManger.isSyncing) {
+		// 					this.state.set(syncManger.moduleName, 'done');
+		// 				}
+		// 				break;
+		// 		}
+		// 	}
+		// });
 
-			const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
-			this.lastSynchronizedIn = syncState?.options?.updatedSince || new Date(0).toISOString();
-			this.changeDetectorRef.detectChanges();
-		}, 1_000).pipe(this.takeUntil()).subscribe();
+		const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
+		this.lastSynchronizedIn = syncState?.options?.updatedSince || new Date(0).toISOString();
+		this.changeDetectorRef.detectChanges();
 	}
 
 

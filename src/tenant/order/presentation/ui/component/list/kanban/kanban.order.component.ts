@@ -145,8 +145,8 @@ export class KanbanOrderComponent {
 	public readonly syncAllSubscription = BaseSyncManager.isSyncing$.pipe(
 		takeUntilDestroyed(),
 		filter((isSyncing) => {
-			if (this.preSyncingValue !== isSyncing) {
-				this.preSyncingValue = isSyncing;
+			if (this.preSyncingValue !== !!isSyncing) {
+				this.preSyncingValue = !!isSyncing;
 				if (!isSyncing) {
 					return true;
 				}
