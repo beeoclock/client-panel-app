@@ -8,7 +8,19 @@ import EPayment from "@tenant/payment/domain/entity/e.payment";
 @Injectable()
 export class PaymentIndexedDBDataProvider extends IndexedDBDataProvider<EPayment> {
 
-	protected readonly entityFieldsToSearch = [];
+	protected readonly entityFieldsToSearch = [
+		'amount',
+		'method',
+		'status',
+		'paymentDate',
+		'providerType',
+		'orderId',
+		'payer.firstName',
+		'payer.lastName',
+		'payer.phone',
+		'payer.email',
+		'payer.note'
+	];
 	protected readonly dexieAdapterIndexedDBDataProvider = inject(PaymentDexieAdapterIndexedDBDataProvider);
 
 }

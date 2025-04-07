@@ -26,26 +26,8 @@ import {
 	],
 	standalone: true,
 	template: `
-		@if (initialized.isOn) {
 
-<!--			@if (isMobile$ | async) {-->
-
-<!--				<payment-mobile-layout-list-component/>-->
-
-<!--			} @else {-->
-
-<!--				<payment-desktop-layout-list-component/>-->
-
-<!--			}-->
-
-			<payment-desktop-layout-list-component/>
-		} @else {
-
-			<div class="p-4">
-				{{ 'keyword.capitalize.initializing' | translate }}...
-			</div>
-
-		}
+		<payment-desktop-layout-list-component/>
 
 	`,
 	providers: [
