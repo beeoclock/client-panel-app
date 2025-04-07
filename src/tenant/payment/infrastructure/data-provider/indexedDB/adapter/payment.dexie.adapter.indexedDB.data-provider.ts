@@ -7,7 +7,7 @@ import {IPayment} from "@tenant/payment/domain/interface/i.payment";
 @Injectable()
 export class PaymentDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IPayment.EntityRaw> {
 
-	protected readonly columns = '_id,state,createdAt,updatedAt,orderId,anchorId';
+	protected readonly columns = '_id,state,createdAt,updatedAt,orderId,anchorId,amount,status,paymentDate,providerType,currency,method';
 	protected readonly moduleName = 'payment';
 	protected readonly version = 1;
 

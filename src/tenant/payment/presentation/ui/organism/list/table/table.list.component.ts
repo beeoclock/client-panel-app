@@ -90,7 +90,7 @@ export class TableListComponent extends TableComponent<EPayment> {
 			prop: 'payer',
 			minWidth: 160,
 			width: 160,
-			sortable: true,
+			sortable: false,
 			$$valueGetter: (obj: EPayment, prop: TableColumnProp) => {
 				return EPayment.fromRaw(obj).payerToString();
 			}
