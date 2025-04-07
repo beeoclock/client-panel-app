@@ -229,6 +229,19 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
+			order: 4,
+			url: 'expense/list',
+			translateKey: 'sidebar.expenses',
+			icon: 'bi bi-patch-minus',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
 			order: 5,
 			url: 'absence/list',
 			translateKey: 'sidebar.absence',

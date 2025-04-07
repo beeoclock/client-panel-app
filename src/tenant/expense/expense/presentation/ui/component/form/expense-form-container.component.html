@@ -1,0 +1,33 @@
+<form class="flex flex-col gap-4">
+	<bee-card>
+
+		<strong class="dark:text-white">{{ 'keyword.capitalize.information' | translate }}</strong>
+
+		<div class="grid gap-4">
+
+		</div>
+
+		<div>
+			<utility-invalid-message class="flex justify-center" [control]="form"/>
+		</div>
+
+	</bee-card>
+
+	<bee-card>
+		<strong class="dark:text-white">{{ 'keyword.capitalize.additional' | translate }}</strong>
+
+		<div class="flex flex-col mt-4">
+		</div>
+	</bee-card>
+	<utility-button-save-container-component class="bottom-0">
+		<button
+			type="button"
+			primary
+			[isLoading]="form.pending"
+			[disabled]="form.disabled"
+			[scrollToFirstError]="true"
+			(click)="save()">
+			{{ 'keyword.capitalize.save' | translate }}
+		</button>
+	</utility-button-save-container-component>
+</form>
