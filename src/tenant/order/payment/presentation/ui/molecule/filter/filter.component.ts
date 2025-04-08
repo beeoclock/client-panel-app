@@ -48,7 +48,7 @@ import {
 					<ng-container *ngTemplateOutlet="SearchInput"/>
 					<ng-container *ngTemplateOutlet="DateRange"/>
 					<ng-container *ngTemplateOutlet="PaymentStatusSelect"/>
-					<ng-container *ngTemplateOutlet="StateSelect"/>
+<!--					<ng-container *ngTemplateOutlet="StateSelect"/>-->
 				</div>
 				<div>
 					<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>-->
@@ -59,7 +59,7 @@ import {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
 				<ng-container *ngTemplateOutlet="DateRange"/>
 				<ng-container *ngTemplateOutlet="PaymentStatusSelect"/>
-				<ng-container *ngTemplateOutlet="StateSelect"/>
+<!--				<ng-container *ngTemplateOutlet="StateSelect"/>-->
 			</div>
 		}
 

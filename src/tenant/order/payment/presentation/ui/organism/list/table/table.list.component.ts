@@ -145,13 +145,13 @@ export class TableListComponent extends TableComponent<EPayment> {
 				return this.translateService.instant(`payment.method.${obj.method}.label`);
 			},
 		},
-		{
-			name: this.translateService.instant('keyword.capitalize.active'),
-			prop: 'state',
-			minWidth: 100,
-			width: 100,
-			sortable: true,
-		},
+		// {
+		// 	name: this.translateService.instant('keyword.capitalize.active'),
+		// 	prop: 'state',
+		// 	minWidth: 100,
+		// 	width: 100,
+		// 	sortable: true,
+		// },
 		{
 			name: this.translateService.instant('keyword.capitalize.createdAt'),
 			prop: 'createdAt',
