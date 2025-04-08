@@ -105,7 +105,8 @@ export class WhacAMole extends Reactive implements OnInit {
 									   showLoading,
 									   button,
 									   callback,
-									   id
+									   id,
+									   options,
 								   }: WhacAMoleBuildItArgsType) {
 		const componentMirror = reflectComponentType(component);
 
@@ -159,7 +160,7 @@ export class WhacAMole extends Reactive implements OnInit {
 			whacAMoleWrapperComponentRef.setInput('button', button);
 		}
 
-		whacAMoleWrapperComponentRef.instance.renderComponent(component, componentInputs);
+		whacAMoleWrapperComponentRef.instance.renderComponent(component, componentInputs, options);
 		this.whacAMoleProvider.componentRefMapById.set(id ?? selector, whacAMoleWrapperComponentRef);
 		if (!this.whacAMoleProvider.componentRefMapByComponentName.has(selector)) {
 			this.whacAMoleProvider.componentRefMapByComponentName.set(selector, []);

@@ -1,4 +1,4 @@
-import {Type} from '@angular/core';
+import {EnvironmentInjector, Injector, Type} from '@angular/core';
 
 export type WhacAMoleBuildItArgsType = {
 	component: Type<unknown>;
@@ -27,4 +27,10 @@ export type WhacAMoleBuildItArgsType = {
 			};
 		};
 	};
+	options?: {
+		index?: number;
+		injector?: Injector;
+		environmentInjector?: EnvironmentInjector;
+		projectableNodes?: Node[][];
+	}
 };

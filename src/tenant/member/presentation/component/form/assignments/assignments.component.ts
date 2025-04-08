@@ -1,4 +1,12 @@
-import {ChangeDetectorRef, Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectorRef,
+	Component,
+	EnvironmentInjector,
+	inject,
+	Input,
+	OnInit,
+	ViewEncapsulation
+} from "@angular/core";
 import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AssignmentsForm} from "@tenant/member/presentation/form/member.form";
@@ -26,6 +34,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
+	private readonly environmentInjector = inject(EnvironmentInjector);
 
 	public isNotFull = false;
 
@@ -60,6 +69,9 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 					text: this.translateService.instant('keyword.capitalize.done'),
 					classList: ['text-blue-500', 'capitalize', 'hover:text-blue-600', 'transition-all']
 				}
+			},
+			options: {
+				environmentInjector: this.environmentInjector,
 			}
 		});
 

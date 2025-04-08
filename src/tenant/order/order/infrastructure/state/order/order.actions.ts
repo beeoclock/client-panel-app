@@ -4,7 +4,6 @@ import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IMember} from "@tenant/member/domain/interface/i.member";
-import EOrder from "@tenant/order/order/domain/entity/e.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 
@@ -57,16 +56,6 @@ export namespace OrderActions {
 
 	export class UpdateItem extends BaseActions.UpdateItem<IOrder.EntityRaw> {
 		public static override readonly type = '[Order API] Update Item';
-	}
-
-	// Updates of state
-
-	export class UpdateFilters extends BaseActions.UpdateFilters {
-		public static override readonly type = '[Order State] Update Filters';
-	}
-
-	export class UpdateTableState extends BaseActions.UpdateTableState<EOrder> {
-		public static override readonly type = '[Order State] Update Table State';
 	}
 
 	export class ChangeStatus {

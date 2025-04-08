@@ -1,7 +1,9 @@
 import {
 	Component,
 	ComponentRef,
+	EnvironmentInjector,
 	HostBinding,
+	Injector,
 	Input,
 	input,
 	Type,
@@ -68,15 +70,15 @@ export class WhacAMoleWrapper<COMPONENT> {
 	};
 
 	public readonly destroySelf = input(() => {
-});
+	});
 
 	public readonly updateSelfBefore = input((componentInputs: Record<string, unknown> | undefined) => {
-});
+	});
 
 	public readonly updateSelfAfter = input((componentInputs: Record<string, unknown> | undefined) => {
-});
+	});
 
-	readonly renderContainer = viewChild.required('renderContainer', { read: ViewContainerRef });
+	readonly renderContainer = viewChild.required('renderContainer', {read: ViewContainerRef});
 
 	@HostBinding()
 	public class = 'flex flex-col h-dvh';
@@ -88,14 +90,19 @@ export class WhacAMoleWrapper<COMPONENT> {
 		this.destroySelf()();
 	}
 
-	public renderComponent(component: Type<COMPONENT>, inputs?: Record<string, unknown>) {
+	public renderComponent(component: Type<COMPONENT>, inputs?: Record<string, unknown>, options?: {
+		index?: number;
+		injector?: Injector;
+		environmentInjector?: EnvironmentInjector;
+		projectableNodes?: Node[][];
+	}) {
 		if (this.showLoading()) {
 			return;
 		}
 
 		this.renderedComponent = component;
 
-		const componentRef = this.renderContainer().createComponent(component);
+		const componentRef = this.renderContainer().createComponent(component, options);
 		componentRef.location.nativeElement.classList.add('min-h-[calc(100%-50px)]', 'h-screen', 'overflow-y-auto');
 
 		this.renderedComponentRef = componentRef;

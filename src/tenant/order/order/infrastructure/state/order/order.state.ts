@@ -1,10 +1,9 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext, Store} from "@ngxs/store";
-import {baseDefaults, BaseState, IBaseState} from "@shared/state/base/base.state";
+import {baseDefaults, IBaseState} from "@shared/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
@@ -57,7 +56,6 @@ export class OrderState {
 	private readonly store = inject(Store);
 	private readonly modalController = inject(ModalController);
 
-	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly router = inject(Router);
@@ -66,16 +64,6 @@ export class OrderState {
 	@Action(OrderActions.Init)
 	public async init(ctx: StateContext<IOrderState>): Promise<void> {
 		ctx.setState(structuredClone(defaults));
-	}
-
-	@Action(OrderActions.UpdateFilters)
-	public updateFilters(ctx: StateContext<IOrderState>, action: OrderActions.UpdateFilters) {
-		BaseState.updateFilters(ctx, action);
-	}
-
-	@Action(OrderActions.UpdateTableState)
-	public updateTableState(ctx: StateContext<IOrderState>, action: OrderActions.UpdateTableState) {
-		BaseState.updateTableState<EOrder>(ctx, action);
 	}
 
 	// Application layer

@@ -85,7 +85,7 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 			componentInputs: {
 				multiple: false,
 				selectedCustomerList: [this.form().value]
-			}
+			},
 		});
 
 		if (!pushBoxWrapperComponentRef) {
