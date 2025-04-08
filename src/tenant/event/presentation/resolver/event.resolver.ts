@@ -4,8 +4,8 @@ import {filter, from, map} from "rxjs";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {is} from "@core/shared/checker";
 import {IAttendee_V2, IEvent_V2} from "@tenant/event/domain";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {IsOrganizerEnum} from "@core/shared/enum";
 
 export const eventResolver: ResolveFn<IEvent_V2<{

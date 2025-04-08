@@ -26,8 +26,8 @@ import {
 	CalendarWithSpecialistsQueries
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
 import {
@@ -38,8 +38,8 @@ import {
 	TimeLineCalendarWithSpecialistWidgetComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
-import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
-import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
+import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {DateTime} from "luxon";
 import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {
@@ -59,6 +59,7 @@ import {
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -334,7 +335,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		this.actions$
 			.pipe(
-				this.takeUntil(),
+				takeUntilDestroyed(),
 				ofActionSuccessful(
 					AbsenceDataActions.SetState,
 					AbsenceDataActions.UpdateItem,

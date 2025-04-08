@@ -2,14 +2,14 @@ import {Component, effect, input} from "@angular/core";
 import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";
 import {TranslatePipe} from "@ngx-translate/core";
 import {IEvent_V2} from "@tenant/event/domain";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
-import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter, tap} from "rxjs";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {is} from "@core/shared/checker";
 
 @Component({

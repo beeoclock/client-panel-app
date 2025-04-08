@@ -139,7 +139,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 * @param filter
 	 * @private
 	 */
-	private defaultFilter(entity: ENTITY, filter: Types.StandardQueryParams) {
+	public defaultFilter(entity: ENTITY, filter: Types.StandardQueryParams) {
 		const {phrase, ...otherFilter} = filter;
 
 		const phraseExist = is.string(phrase);

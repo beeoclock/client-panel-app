@@ -3,7 +3,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonSelect, IonSelectOption} from "@ionic/angular/standalone";
-import {PaymentStatusEnum} from "@tenant/payment/domain/enum/payment.status.enum";
+import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.status.enum";
 
 @Component({
 	selector: 'ion-select-payment-status',

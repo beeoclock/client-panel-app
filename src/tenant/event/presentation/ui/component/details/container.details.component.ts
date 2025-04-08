@@ -3,18 +3,18 @@ import {MetaDetailsComponent} from "@tenant/event/presentation/ui/component/deta
 import {IEvent_V2} from "@tenant/event/domain";
 import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
 import {V2GeneralDetailsComponent} from "@tenant/event/presentation/ui/component/details/v2.general.details.component";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {
 	ButtonOpenOrderDetailsComponent
 } from "@tenant/event/presentation/ui/component/details/button.open-order.details.component";
 import {Actions, ofActionSuccessful} from "@ngxs/store";
-import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {Reactive} from "@core/cdk/reactive";
 import {NGXLogger} from "ngx-logger";
 import {
 	ListServiceFormCardOrderComponent
-} from "@tenant/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";
+} from "@tenant/order/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";
 
 @Component({
 	selector: 'event-container-details-component',

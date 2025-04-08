@@ -97,7 +97,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/order/presentation/ui/page/list/list.order.page')
+                                        loadComponent: () => import('@tenant/order/order/presentation/ui/page/list/list.order.page')
                                     }
                                 ]
                             },
@@ -106,7 +106,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/payment/presentation/ui/page/list/list.payment.page')
+                                        loadComponent: () => import('@tenant/order/payment/presentation/ui/page/list/list.payment.page')
                                     }
                                 ]
                             },
