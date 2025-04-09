@@ -25,8 +25,8 @@ export class PaymentIndexedDBDataProvider extends IndexedDBDataProvider<EPayment
 	];
 	protected readonly dexieAdapterIndexedDBDataProvider = inject(PaymentDexieAdapterIndexedDBDataProvider);
 
-	public override find$(options: Types.FindQueryParams, filterFunction: ((entity: EPayment, filter: Types.StandardQueryParams) => boolean) = this.defaultFilter.bind(this)) {
-		return super.find$(options, (entity: EPayment, filter: Types.StandardQueryParams & {
+	public override find$(options: Types.FindQueryParams, filterFunction: ((entity: EPayment, filter: Types.FindQueryParams) => boolean) = this.defaultFilter.bind(this)) {
+		return super.find$(options, (entity: EPayment, filter: Types.FindQueryParams & {
 			dateRange?: {
 				interval: DateTimeUnit;
 				selectedDate: string;

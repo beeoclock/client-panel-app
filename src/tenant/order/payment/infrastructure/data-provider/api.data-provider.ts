@@ -27,7 +27,7 @@ export class ApiDataProvider extends DataProvider<IPayment.DTO> {
 	 *
 	 * @param options
 	 */
-	public override find$(options: Types.FindQueryParams) {
+	public override find$(options: Types.FindQueryParams = {}) {
 		return this.getApi.execute$(options);
 	}
 
