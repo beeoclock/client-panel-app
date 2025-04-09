@@ -54,10 +54,8 @@ export class MemberFormAssignmentsComponent implements OnInit {
 				this.control.setValue(this.form.controls.service.controls.include.value.map(({service: {_id}}) => _id));
 
 				const ionSelectServiceComponent = this.ionSelectServiceComponent();
-				console.log({ionSelectServiceComponent})
 				if (ionSelectServiceComponent) {
 					const ionSelect = ionSelectServiceComponent.ionSelect();
-					console.log({ionSelect})
 					if (ionSelect) {
 						ionSelect.ionChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
 							const {detail: {value}} = event;
