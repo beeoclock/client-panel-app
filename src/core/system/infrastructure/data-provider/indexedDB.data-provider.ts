@@ -76,7 +76,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 					return filterFn(entity, filter as Types.FindQueryParams);
 				});
 
-				const countQuery = query;
+				const countQuery$ = query.count();
 
 				if (pageSize && page) {
 
@@ -86,7 +86,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 
 				}
 
-				return from(countQuery.count()).pipe(
+				return from(countQuery$).pipe(
 					switchMap((totalSize) =>
 						from(query.toArray()).pipe(
 							map((items) => [totalSize, items] as const)
