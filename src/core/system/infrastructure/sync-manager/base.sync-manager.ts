@@ -8,6 +8,7 @@ import {IBaseDTO} from "@core/shared/interface/i-base-entity.raw";
 import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
+import {AsyncQueue} from "@core/shared/async-queue";
 
 interface ISyncState {
 	options: Types.StandardQueryParams;
@@ -117,9 +118,11 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 
 	/**
 	 * A static `BehaviorSubject` that indicates whether synchronization is in progress.
-	 * @type {BehaviorSubject<boolean>}
+	 * @type {BehaviorSubject<number>}
 	 */
 	public static isSyncing$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+	private static isSyncingCounter: number = 0;
+	private static isSyncingAsyncQueue = new AsyncQueue();
 
 	/**
 	 * A static `BehaviorSubject` that indicates whether synchronization is paused.
@@ -162,6 +165,24 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 
 	public get isSyncing(): number {
 		return this.#isSyncing;
+	}
+
+	public static async incrementSyncing() {
+		const task = new Promise<void>((resolve) => {
+			this.isSyncingCounter++;
+			this.isSyncing$.next(this.isSyncingCounter);
+			resolve();
+		});
+		await this.isSyncingAsyncQueue.enqueue(() => task);
+	}
+
+	public static async decrementSyncing() {
+		const task = new Promise<void>((resolve) => {
+			this.isSyncingCounter--;
+			this.isSyncing$.next(this.isSyncingCounter);
+			resolve();
+		});
+		await this.isSyncingAsyncQueue.enqueue(() => task);
 	}
 
 	/**
@@ -531,44 +552,44 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 		if (this.isSyncing$.value) {
 			return;
 		}
-		this.isSyncing$.next(this.isSyncing$.value + 1);
-		// Take updatedSince from the last sync state
-		// for (const manager of this.register.values()) {
-		// 	await manager.sync();
-		// }
-		await this.pullAll();
-		await this.pushAll();
-		this.isSyncing$.next(this.isSyncing$.value - 1);
+		await this.incrementSyncing();
+		if (!this.isPaused$.value) await this.pullAll();
+		if (!this.isPaused$.value) await this.pushAll();
+		await this.decrementSyncing();
 	}
 
 	public static async pushAll(): Promise<void> {
 		this.isPaused$.next(false);
-		for (const syncManager of this.register.values()) {
-			this.isSyncing$.next(this.isSyncing$.value + 1);
+		const pushPromises = Array.from(this.register.values()).map(async (syncManager) => {
+
+			await this.incrementSyncing();
 			if (syncManager.isSyncing) {
-				continue;
+				console.warn(`SyncManager ${syncManager.moduleName} is already syncing`);
+				return;
 			}
 			if (syncManager.syncState) {
 				syncManager.syncState.progress.total = 0;
 			}
 			await syncManager.initPushData();
 			await syncManager.doPush();
-			this.isSyncing$.next(this.isSyncing$.value - 1);
-		}
+			await this.decrementSyncing();
+
+		});
+		await Promise.all(pushPromises);
 	}
 
 	public static async pullAll(): Promise<void> {
 		this.isPaused$.next(false);
-		for (const manager of this.register.values()) {
-			this.isSyncing$.next(this.isSyncing$.value + 1);
-			// const pullInitialized = await manager.initPullData();
-			// if (pullInitialized) await manager.doPull();
-			manager.initPullData().then(() => {
-				manager.doPull().then(() => {
-					this.isSyncing$.next(this.isSyncing$.value - 1);
-				});
-			})
-		}
+		const pullPromises = Array.from(this.register.values()).map(async (manager) => {
+			await this.incrementSyncing();
+			try {
+				await manager.initPullData();
+				await manager.doPull();
+			} finally {
+				await this.decrementSyncing();
+			}
+		});
+		await Promise.all(pullPromises);
 	}
 
 	/**
@@ -585,11 +606,11 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 	 */
 	public static async resumeAll(): Promise<void> {
 		this.isPaused$.next(false);
-		this.isSyncing$.next(this.isSyncing$.value + 1);
+		await this.incrementSyncing();
 		for (const manager of this.register.values()) {
 			await manager.resume();
 		}
-		this.isSyncing$.next(this.isSyncing$.value - 1);
+		await this.decrementSyncing();
 	}
 
 	/**
