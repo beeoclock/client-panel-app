@@ -1,5 +1,4 @@
-import {Reactive} from "@core/cdk/reactive";
-import {Component, effect, inject} from "@angular/core";
+import {Component, DestroyRef, effect, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {map} from "rxjs";
 import {clearObjectClone} from "@shared/domain/clear.object";
@@ -7,14 +6,16 @@ import {WindowWidthSizeService} from "@core/cdk/window-width-size.service";
 import {
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'utility-base-filter-component',
 	template: ``,
 	standalone: true,
 })
-export abstract class BaseFilterComponent extends Reactive {
+export abstract class BaseFilterComponent {
 
+	private readonly destroyRef = inject(DestroyRef);
 	private readonly windowWidthSizeService = inject(WindowWidthSizeService);
 	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource, {optional: true});
 
@@ -31,7 +32,6 @@ export abstract class BaseFilterComponent extends Reactive {
 	protected readonly state: any;
 
 	public constructor() {
-		super();
 		effect(() => {
 
 			const filters = this.tableNgxDatatableSmartResource?.filters();
@@ -49,12 +49,13 @@ export abstract class BaseFilterComponent extends Reactive {
 			}
 
 		});
+
 	}
 
 	public initHandlers() {
 
 		this.form.valueChanges.pipe(
-			this.takeUntil(),
+			takeUntilDestroyed(this.destroyRef),
 			map(clearObjectClone)
 		).subscribe(async (filters: any) => {
 			this.form.disable({
