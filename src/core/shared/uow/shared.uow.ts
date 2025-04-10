@@ -5,15 +5,23 @@ import {MemberService} from "@tenant/member/domain/service/member.service";
 import {CustomerService} from "@tenant/customer/domain/service/customer.service";
 import {BusinessProfileService} from "@tenant/business-profile/domain/service/business-profile.service";
 import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
-import {TariffPlanService} from "@tenant/tariff-plan/domain/service/tariff-plan.service";
-import {TariffPlanHistoryService} from "@tenant/tariff-plan-history/domain/service/tariff-plan-history.service";
+import {TariffPlanService} from "@tenant/tariff-plan/tariff-plan/domain/service/tariff-plan.service";
+import {
+	TariffPlanHistoryService
+} from "@tenant/tariff-plan/tariff-plan-history/domain/service/tariff-plan-history.service";
 import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
+import {EnvironmentProviders, Provider} from "@angular/core";
 
 /**
  * Shared Unit of Work
  * Use this class to access services from different modules, without importing them directly
  */
 export class SharedUow {
+
+	public static provide: Provider | EnvironmentProviders = {
+		provide: SharedUow,
+		useClass: SharedUow,
+	};
 
 	#service!: ServiceService;
 	#payment!: PaymentService;

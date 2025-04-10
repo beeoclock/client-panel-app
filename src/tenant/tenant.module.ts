@@ -11,34 +11,21 @@ import {SocketState} from "@shared/state/socket/socket.state";
 import {NgxsModule} from "@ngxs/store";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {EventModule} from "@tenant/event/event.module";
-import {
-	TariffPlanHistoryStore
-} from "@tenant/tariff-plan-history/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
-import {
-	BusinessProfileStore
-} from "@tenant/business-profile/infrastructure/store/business-profile/business-profile.store";
-import {TariffPlanStore} from "@tenant/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";
 import {BusinessProfileModule} from "@tenant/business-profile/business-profile.module";
-import TariffPlanModule from "@tenant/tariff-plan/tariff-plan.module";
-import {TariffPlanHistoryModule} from "@tenant/tariff-plan-history/tariff-plan-history.module";
 import {TenantPaymentStateEffect} from "@tenant/tenant.payment-state.effect";
+import {TariffPlanDomainModule} from "@tenant/tariff-plan/tariff-plan.domain.module";
 
 @NgModule({
 	providers: [
 		TenantPaymentStateEffect,
-		{
-			provide: SharedUow,
-			useClass: SharedUow,
-		},
+		SharedUow.provide,
 
 		...tenantTokens,
 
-		BusinessProfileStore,
-		TariffPlanStore,
-		TariffPlanHistoryStore,
-
 		importProvidersFrom(
+			BusinessProfileModule,
 			OrderDomainModule,
+			TariffPlanDomainModule
 		),
 	],
 	imports: [
@@ -50,9 +37,6 @@ import {TenantPaymentStateEffect} from "@tenant/tenant.payment-state.effect";
 		CustomerModule,
 		MemberModule,
 		ServiceModule,
-		BusinessProfileModule,
-		TariffPlanModule,
-		TariffPlanHistoryModule,
 		EventModule,
 	],
 })
