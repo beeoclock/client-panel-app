@@ -1138,7 +1138,7 @@
 			"payer": "Płatnik",
 			"payment": "Płatność",
 			"paymentMethod": "Metoda płatności",
-			"paymentProviderType": "Typ pÅ‚atnoÅ›ci ",
+			"paymentProviderType": "Typ płatności",
 			"paymentStatus": "Status płatności",
 			"periodOfDay": {
 				"AFTERNOON": "Popołudnie",
