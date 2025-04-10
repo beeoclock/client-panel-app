@@ -30,7 +30,8 @@ export const environment = {
 			all: true,
 			authorization: false,
 			functions: false
-		}
+		},
+		scriptURL: 'firebase-messaging-sw.js'
 	},
 	urls: {
 		publicPageOrigin: 'https://dev.beeoclock.com',

@@ -38,7 +38,8 @@ export const environment = {
 			all: false,
 			authorization: false,
 			functions: false
-		}
+		},
+		scriptURL: '/asset/delete-me.firebase-messaging-sw.js'
 	},
 	urls: {
 		publicPageOrigin: 'https://dev.beeoclock.com',
