@@ -1,11 +1,21 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	OnInit,
+	signal,
+	ViewEncapsulation
+} from "@angular/core";
 import {IsOnlineService} from "@core/cdk/is-online.service";
-import {AsyncPipe, DatePipe} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
-import {Reactive} from "@core/cdk/reactive";
 import {BaseSyncManager, ISyncManger} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {TimeAgoPipe} from "@shared/presentation/pipes/time-ago.pipe";
-import {tap} from "rxjs";
+import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
+import {explicitEffect} from "ngxtension/explicit-effect";
+import {interval} from "rxjs";
+import {tap} from "rxjs/operators";
 
 @Component({
 	standalone: true,
@@ -13,7 +23,6 @@ import {tap} from "rxjs";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		DatePipe,
 		TranslatePipe,
 		TimeAgoPipe,
@@ -23,7 +32,7 @@ import {tap} from "rxjs";
 	},
 	template: `
 
-		@if (isOffline$ | async) {
+		@if (isOffline()) {
 
 			<div class="rounded-2xl border border-red-300 bg-red-100 flex flex-col">
 				<button (click)="syncAll()"
@@ -34,7 +43,7 @@ import {tap} from "rxjs";
 							{{ 'keyword.capitalize.youOffline' | translate }}
 						</span>
 						<span class="text-xs">
-							{{ lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss' }}
+							{{ lastSynchronizedIn() | date: 'dd.MM.yyyy HH:mm:ss' }}
 						</span>
 					</div>
 				</button>
@@ -43,7 +52,7 @@ import {tap} from "rxjs";
 		} @else {
 
 			<div class="rounded-2xl border border-neutral-300 bg-neutral-50 flex flex-col">
-				@if (isSyncing$ | async) {
+				@if (isSyncing() && !isPaused()) {
 
 					<button
 						(click)="pauseAll()"
@@ -61,7 +70,7 @@ import {tap} from "rxjs";
 				} @else {
 
 					<button (click)="syncAll()"
-							[title]="lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss'"
+							[title]="lastSynchronizedIn() | date: 'dd.MM.yyyy HH:mm:ss'"
 							class="h-[48px] text-black gap-2 p-2 px-3 rounded-2xl flex justify-start items-center hover:bg-neutral-200 cursor-pointer transition-all">
 						<i class="bi bi-arrow-repeat text-xl"></i>
 						<div class="flex flex-col items-start">
@@ -69,8 +78,8 @@ import {tap} from "rxjs";
 								{{ 'keyword.capitalize.synced' | translate }}
 							</span>
 							<span class="text-xs">
-								@if (lastSynchronizedIn) {
-									{{ lastSynchronizedIn | timeAgo }}
+								@if (lastSynchronizedIn()) {
+									{{ lastSynchronizedIn() | timeAgo }}
 								}
 							</span>
 						</div>
@@ -83,21 +92,31 @@ import {tap} from "rxjs";
 
 	`
 })
-export class SyncButtonComponent extends Reactive implements OnInit {
+export class SyncButtonComponent implements OnInit {
 
-	private readonly isOnlineService = inject(IsOnlineService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly isOnlineService = inject(IsOnlineService);
 
-	public readonly isOffline$ = this.isOnlineService.isOffline$;
-	public readonly isSyncing$ = BaseSyncManager.isSyncing$.pipe(
-		tap((value) => {
-			// console.log({value})
+	public readonly isOffline = toSignal(this.isOnlineService.isOffline$);
+
+	public readonly isPaused = toSignal(BaseSyncManager.isPaused$);
+	public readonly isSyncing = toSignal(BaseSyncManager.isSyncing$);
+
+	private readonly setTimeoutSubscription = interval(1_000).pipe(
+		takeUntilDestroyed(),
+		tap(() => {
+			this.detectChanges();
+		})
+	).subscribe();
+
+	public constructor() {
+		explicitEffect([this.isSyncing], () => {
 			this.detectChanges();
 			this.resetState();
-		})
-	);
+		});
+	}
 
-	public lastSynchronizedIn = new Date(0).toISOString();
+	public readonly lastSynchronizedIn = signal(new Date(0).toISOString());
 
 	public readonly state: Map<string, 'wait' | 'done' | ISyncManger> = new Map<string, 'wait' | 'done' | ISyncManger>();
 
@@ -106,11 +125,11 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 			BaseSyncManager.resumeAll().then(() => {
 				console.log('resumeAll done');
 			});
-			return;
+		} else {
+			BaseSyncManager.syncAll().then(() => {
+				console.log('syncAll done');
+			});
 		}
-		BaseSyncManager.syncAll().then(() => {
-			console.log('syncAll done');
-		});
 	}
 
 	public pauseAll() {
@@ -143,7 +162,8 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 	private detectChanges() {
 
 		const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
-		this.lastSynchronizedIn = syncState?.options?.updatedSince || new Date(0).toISOString();
+		const value = syncState?.options?.updatedSince || new Date(0).toISOString();
+		this.lastSynchronizedIn.set(value);
 		this.changeDetectorRef.detectChanges();
 	}
 
