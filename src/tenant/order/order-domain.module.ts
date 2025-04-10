@@ -1,6 +1,7 @@
 import {importProvidersFrom, NgModule} from "@angular/core";
 import {PaymentModule} from "@tenant/order/payment/payment.module";
 import {OrderServiceModule} from "@tenant/order/order-service/order-service.module";
+import {OrderModule} from "@tenant/order/order/order.module";
 
 @NgModule({
 	providers: [
@@ -11,7 +12,7 @@ import {OrderServiceModule} from "@tenant/order/order-service/order-service.modu
 		)
 	]
 })
-export class OrderModule {
+export class OrderDomainModule {
 
 
 }

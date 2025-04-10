@@ -4,7 +4,7 @@ import {tenantRouters} from "@src/tenant/tenant.routers";
 import {AbsenceModule} from "@tenant/absence/absence.module";
 import {CustomerModule} from "@tenant/customer/customer.module";
 import {MemberModule} from "@tenant/member/member.module";
-import {OrderModule} from "@tenant/order/order.module";
+import {OrderDomainModule} from "@tenant/order/order-domain.module";
 import {ServiceModule} from "@tenant/service/service.module";
 import {tenantTokens} from "@tenant/tenant.token";
 import {SocketState} from "@shared/state/socket/socket.state";
@@ -38,7 +38,7 @@ import {TenantPaymentStateEffect} from "@tenant/tenant.payment-state.effect";
 		TariffPlanHistoryStore,
 
 		importProvidersFrom(
-			OrderModule,
+			OrderDomainModule,
 		),
 	],
 	imports: [
