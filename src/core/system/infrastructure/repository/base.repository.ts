@@ -20,7 +20,7 @@ export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IReposit
 	 *
 	 * @param options
 	 */
-	public findAsync(options: Types.FindQueryParams): Promise<ResponseListType<ITEM>> {
+	public findAsync(options: Types.FindQueryParams = {}): Promise<ResponseListType<ITEM>> {
 		return firstValueFrom(this.find$(options));
 	}
 
@@ -60,7 +60,7 @@ export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IReposit
 	 *
 	 * @param options
 	 */
-	public find$(options: Types.FindQueryParams): Observable<ResponseListType<ITEM>> {
+	public find$(options: Types.FindQueryParams = {}): Observable<ResponseListType<ITEM>> {
 		return this.getDataProvider().find$(options);
 	}
 

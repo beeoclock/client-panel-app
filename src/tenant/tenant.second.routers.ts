@@ -3,10 +3,10 @@ import {customerResolver} from "@tenant/customer/presentation/resolver/customer.
 import {absenceResolver} from "@tenant/absence/presentation/ui/resolver/absence.resolver";
 import {memberResolver} from "@tenant/member/presentation/resolver/member.resolver";
 import {serviceResolver} from "@tenant/service/presentation/resolver/service.resolver";
-import {orderResolver} from "@tenant/order/presentation/resolver/order.resolver";
-import {paymentByOrderIdResolver} from "@tenant/payment/presentation/resolver/payment-by-order-id.resolver";
+import {orderResolver} from "@tenant/order/order/presentation/resolver/order.resolver";
+import {paymentByOrderIdResolver} from "@tenant/order/payment/presentation/resolver/payment-by-order-id.resolver";
 import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver";
-import {paymentResolver} from "@tenant/payment/presentation/resolver/payment.resolver";
+import {paymentResolver} from "@tenant/order/payment/presentation/resolver/payment.resolver";
 
 export const tenantSecondRouters: Routes = [
 	/**
@@ -49,7 +49,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/presentation/ui/component/external/case/customer/list/customer.order.list.external.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/external/case/customer/list/customer.order.list.external.component')
 	},
 	/**
 	 * Absence
@@ -150,7 +150,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'order/form',
 		outlet: 'second',
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/presentation/ui/component/form/order-form-container.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/form/order-form-container.component')
 	},
 	{
 		path: 'order/:id',
@@ -159,7 +159,7 @@ export const tenantSecondRouters: Routes = [
 			item: orderResolver,
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/presentation/ui/component/details/order-details-container.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/details/order-details-container.component')
 	},
 	{
 		path: 'order/:id/form',
@@ -172,7 +172,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/presentation/ui/component/form/order-form-container.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/form/order-form-container.component')
 	},
 	/**
 	 * Order Service
@@ -196,7 +196,7 @@ export const tenantSecondRouters: Routes = [
 			item: paymentResolver,
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/payment/presentation/ui/page/details/details')
+		loadComponent: () => import('@tenant/order/payment/presentation/ui/page/details/details')
 	},
 	/**
 	 * Event

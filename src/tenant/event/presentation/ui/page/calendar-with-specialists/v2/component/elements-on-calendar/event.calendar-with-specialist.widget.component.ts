@@ -15,8 +15,8 @@ import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@tenant/event/domain";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {DateTime} from "luxon";
 import {NGXLogger} from "ngx-logger";
@@ -34,7 +34,7 @@ import {
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
-import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {IMember} from "@tenant/member/domain/interface/i.member";
 import EAbsence from "@tenant/absence/domain/entity/e.absence";
 import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";

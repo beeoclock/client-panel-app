@@ -1097,6 +1097,7 @@
 			"events": "Wydarzenia",
 			"every": "Każdą",
 			"exhausted": "Wyczerpany",
+			"export": "Eksport",
 			"facilities": "Udogodnienia",
 			"feature": "Funkcja",
 			"finished": "Zakończono",
@@ -1141,7 +1142,7 @@
 			"payer": "Płatnik",
 			"payment": "Płatność",
 			"paymentMethod": "Metoda płatności",
-			"paymentProviderType": "Typ pÅ‚atnoÅ›ci ",
+			"paymentProviderType": "Typ płatności",
 			"paymentStatus": "Status płatności",
 			"periodOfDay": {
 				"AFTERNOON": "Popołudnie",

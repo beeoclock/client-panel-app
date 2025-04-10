@@ -49,7 +49,7 @@ export abstract class DataProvider<DTO, ID_TYPE = string> implements IDataProvid
 	 *
 	 * @param options
 	 */
-	public find$(options: Types.FindQueryParams): Observable<ResponseListType<DTO>> {
+	public find$(options: Types.FindQueryParams = {}): Observable<ResponseListType<DTO>> {
 		throw new Error("Method not implemented.");
 	}
 
