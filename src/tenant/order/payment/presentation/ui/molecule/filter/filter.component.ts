@@ -48,6 +48,7 @@ import {
 					<ng-container *ngTemplateOutlet="SearchInput"/>
 					<ng-container *ngTemplateOutlet="DateRange"/>
 					<ng-container *ngTemplateOutlet="PaymentStatusSelect"/>
+<!--					<app-export-button/>-->
 <!--					<ng-container *ngTemplateOutlet="StateSelect"/>-->
 				</div>
 				<div>
