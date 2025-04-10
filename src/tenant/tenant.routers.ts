@@ -106,7 +106,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/order-service/presentation/ui/page/list/list.order-service.page')
+                                        loadComponent: () => import('@tenant/order/order-service/presentation/ui/page/list/list.order-service.page')
                                     }
                                 ]
                             },

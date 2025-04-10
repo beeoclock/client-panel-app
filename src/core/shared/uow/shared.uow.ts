@@ -7,7 +7,7 @@ import {BusinessProfileService} from "@tenant/business-profile/domain/service/bu
 import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
 import {TariffPlanService} from "@tenant/tariff-plan/domain/service/tariff-plan.service";
 import {TariffPlanHistoryService} from "@tenant/tariff-plan-history/domain/service/tariff-plan-history.service";
-import {OrderServiceService} from "@tenant/order-service/domain/service/order-service.service";
+import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
 
 /**
  * Shared Unit of Work
