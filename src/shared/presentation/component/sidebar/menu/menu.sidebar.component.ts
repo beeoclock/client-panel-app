@@ -175,6 +175,20 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			// 	},
 			// ]
 		});
+		this.menu.push({
+			order: 2,
+			translateKey: 'sidebar.appointments.label',
+			icon: 'bi bi-journal-check',
+			// icon: 'bi bi-calendar2-event',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: 'order-service/list',
+		});
 		// this.menu.push({
 		// 	order: 3,
 		// 	url: 'event/calendar',
@@ -202,7 +216,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 		// 	}
 		// });
 		this.menu.push({
-			order: 4,
+			order: 3,
 			url: 'customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',
@@ -215,7 +229,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 5,
+			order: 4,
 			url: 'absence/list',
 			translateKey: 'sidebar.absence',
 			icon: 'bi bi-calendar2-x',
@@ -228,10 +242,23 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 6,
+			order: 5,
 			url: 'service/list',
 			translateKey: 'sidebar.services',
 			icon: 'bi bi-emoji-smile',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 6,
+			url: 'product/list',
+			translateKey: 'sidebar.products',
+			icon: 'bi bi-basket',
 			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
@@ -255,6 +282,19 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 		});
 		this.menu.push({
 			order: 8,
+			url: 'payment/list',
+			translateKey: 'sidebar.payment',
+			icon: 'bi bi-cash-coin',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 9,
 			url: 'event/statistic',
 			translateKey: 'sidebar.statistic',
 			icon: 'bi bi-bar-chart',
@@ -268,7 +308,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 9,
+			order: 10,
 			url: 'member/list',
 			translateKey: 'sidebar.members',
 			visible: true,
@@ -294,7 +334,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 11,
+			order: 12,
 			url: 'client/business-settings',
 			translateKey: 'sidebar.businessSettings',
 			icon: 'bi bi-building-gear',
@@ -307,7 +347,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 12,
+			order: 13,
 			url: 'tariff-plan/overview',
 			translateKey: 'sidebar.tariffPlan',
 			icon: 'bi bi-building-up',

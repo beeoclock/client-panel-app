@@ -11,6 +11,7 @@ import {
 import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
+import {RIMedia} from "@tenant/media/domain/interface/i.media";
 
 interface IBusinessProfileState {
 	item: IBusinessProfile.EntityRaw | undefined;
@@ -69,6 +70,11 @@ export class BusinessProfileState {
 	@Selector()
 	public static item(state: IBusinessProfileState): IBusinessProfile.EntityRaw | undefined {
 		return state.item;
+	}
+
+	@Selector()
+	public static logo(state: IBusinessProfileState): RIMedia | undefined | null {
+		return state.item?.logo;
 	}
 
 	@Selector()

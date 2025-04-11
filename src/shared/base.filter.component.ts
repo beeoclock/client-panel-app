@@ -16,7 +16,7 @@ import {
 export abstract class BaseFilterComponent extends Reactive {
 
 	private readonly windowWidthSizeService = inject(WindowWidthSizeService);
-	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource);
+	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource, {optional: true});
 
 	public get isMobile$() {
 		return this.windowWidthSizeService.isMobile$;
@@ -34,16 +34,19 @@ export abstract class BaseFilterComponent extends Reactive {
 		super();
 		effect(() => {
 
-			const filters = this.tableNgxDatatableSmartResource.filters();
-			Object.keys(filters).forEach((key) => {
-				if (!this.form.controls[key]) {
-					return;
-				}
-				this.form.controls[key].patchValue(filters[key], {
-					emitEvent: false,
-					onlySelf: true,
-				});
-			})
+			const filters = this.tableNgxDatatableSmartResource?.filters();
+			if (filters) {
+
+				Object.keys(filters).forEach((key) => {
+					if (!this.form.controls[key]) {
+						return;
+					}
+					this.form.controls[key].patchValue(filters[key], {
+						emitEvent: false,
+						onlySelf: true,
+					});
+				})
+			}
 
 		});
 	}
@@ -58,7 +61,7 @@ export abstract class BaseFilterComponent extends Reactive {
 				emitEvent: false,
 				onlySelf: true
 			});
-			this.tableNgxDatatableSmartResource.filters.set(filters);
+			this.tableNgxDatatableSmartResource?.filters.set(filters);
 			this.form.enable({
 				emitEvent: false,
 				onlySelf: true
@@ -68,10 +71,6 @@ export abstract class BaseFilterComponent extends Reactive {
 	}
 
 	public forceRefresh() {
-		this.tableNgxDatatableSmartResource.reset();
-		this.tableNgxDatatableSmartResource.parameters.update((parameters) => ({
-			...parameters,
-			page: 1,
-		}));
+		this.tableNgxDatatableSmartResource?.reload();
 	}
 }

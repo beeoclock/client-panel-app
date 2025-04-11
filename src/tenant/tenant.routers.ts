@@ -102,6 +102,24 @@ export const tenantRouters: Routes = [
                                 ]
                             },
                             {
+                                path: 'order-service',
+                                children: [
+                                    {
+                                        path: 'list',
+                                        loadComponent: () => import('@tenant/order-service/presentation/ui/page/list/list.order-service.page')
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'payment',
+                                children: [
+                                    {
+                                        path: 'list',
+                                        loadComponent: () => import('@tenant/payment/presentation/ui/page/list/list.payment.page')
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'event',
                                 children: [
                                     {
@@ -152,6 +170,24 @@ export const tenantRouters: Routes = [
                                     }
                                 ]
                             },
+							{
+								path: 'product',
+								children: [
+									{
+										path: 'list',
+										loadComponent: () => import('@tenant/product/presentation/ui/page/list/list.product.page')
+									}
+								]
+							},
+							{
+								path: 'product-tag',
+								children: [
+									{
+										path: 'list',
+										loadComponent: () => import('@tenant/product-tag/presentation/ui/page/list/list.product-tag.page')
+									}
+								]
+							},
                             {
                                 path: 'customer',
                                 children: [

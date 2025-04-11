@@ -16,8 +16,8 @@ import {PaymentService} from "@tenant/payment/domain/service/payment.service";
 import {NgxsModule} from "@ngxs/store";
 import {PushChangesSyncManager} from "@tenant/payment/infrastructure/sync-manager/push.changes.sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {PaymentPresentationState} from "@tenant/payment/infrastructure/state/presentation/payment.state";
-import {PaymentDataState} from "@tenant/payment/infrastructure/state/data/payment-data-state.service";
+import {PaymentPresentationState} from "@tenant/payment/infrastructure/state/presentation/payment.presentation.state";
+import {PaymentDataState} from "@tenant/payment/infrastructure/state/data/payment-data.state";
 
 @NgModule({
 	imports: [

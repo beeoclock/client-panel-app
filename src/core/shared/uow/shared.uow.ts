@@ -4,9 +4,12 @@ import {OrderService} from "@tenant/order/domain/service/order.service";
 import {MemberService} from "@tenant/member/domain/service/member.service";
 import {CustomerService} from "@tenant/customer/domain/service/customer.service";
 import {BusinessProfileService} from "@tenant/business-profile/domain/service/business-profile.service";
-import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
 import {TariffPlanService} from "@tenant/tariff-plan/domain/service/tariff-plan.service";
 import {TariffPlanHistoryService} from "@tenant/tariff-plan-history/domain/service/tariff-plan-history.service";
+import {ProductService} from "@tenant/product/domain/service/product.service";
+import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
+import {ProductTagService} from "@tenant/product-tag/domain/service/product-tag.service";
+import {OrderServiceService} from "@tenant/order-service/domain/service/order-service.service";
 
 /**
  * Shared Unit of Work
@@ -17,10 +20,13 @@ export class SharedUow {
 	#service!: ServiceService;
 	#payment!: PaymentService;
 	#order!: OrderService;
+	#orderService!: OrderServiceService;
 	#member!: MemberService;
 	#customer!: CustomerService;
 	#businessProfile!: BusinessProfileService;
 	#absence!: AbsenceService;
+	#product!: ProductService;
+	#productTag!: ProductTagService;
 	#tariffPlan!: TariffPlanService;
 	#tariffPlanHistory!: TariffPlanHistoryService;
 
@@ -55,6 +61,17 @@ export class SharedUow {
 
 	public set order(value: OrderService) {
 		this.#order = value;
+	}
+
+	public get orderService() {
+		if (!this.#orderService) {
+			throw new Error('OrderServiceService is not initialized');
+		}
+		return this.#orderService;
+	}
+
+	public set orderService(value: OrderServiceService) {
+		this.#orderService = value;
 	}
 
 	public get member() {
@@ -103,7 +120,7 @@ export class SharedUow {
 
 	public get tariffPlan() {
 		if (!this.#tariffPlan) {
-			throw new Error('tariffPlanService is not initialized');
+			throw new Error('TariffPlanService is not initialized');
 		}
 		return this.#tariffPlan;
 	}
@@ -114,13 +131,35 @@ export class SharedUow {
 
 	public get tariffPlanHistory() {
 		if (!this.#tariffPlanHistory) {
-			throw new Error('tariffPlanHistoryService is not initialized');
+			throw new Error('TariffPlanHistoryService is not initialized');
 		}
 		return this.#tariffPlanHistory;
 	}
 
 	public set tariffPlanHistory(value: TariffPlanHistoryService) {
 		this.#tariffPlanHistory = value;
+	}
+
+	public get product() {
+		if (!this.#product) {
+			throw new Error('ProductService is not initialized');
+		}
+		return this.#product;
+	}
+
+	public set product(value: ProductService) {
+		this.#product = value;
+	}
+
+	public get productTag() {
+		if (!this.#productTag) {
+			throw new Error('ProductTagService is not initialized');
+		}
+		return this.#productTag;
+	}
+
+	public set productTag(value: ProductTagService) {
+		this.#productTag = value;
 	}
 
 }

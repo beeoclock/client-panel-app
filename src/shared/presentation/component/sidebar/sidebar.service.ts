@@ -6,6 +6,7 @@ import {MAIN_CONTAINER_ID, SIDEBAR_ID} from "@src/token";
 import {WindowWidthSizeService} from "@core/cdk/window-width-size.service";
 
 enum SidebarContentEnum {
+	CONFIGURATION = 'CONFIGURATION',
 	MENU = 'MENU',
 	PROFILE = 'PROFILE'
 }
@@ -20,6 +21,7 @@ export class SidebarService {
 	public readonly document = inject(DOCUMENT);
 	public readonly router = inject(Router);
 	public readonly windowWidthSizeService = inject(WindowWidthSizeService);
+
 	public autoCollapse = true;
 	public setMarginToMainContainer = true;
 	public readonly containersStatus = {
@@ -71,6 +73,10 @@ export class SidebarService {
 
 	public switchOnProfile(): void {
 		this.#currentContent$.next(SidebarContentEnum.PROFILE);
+	}
+
+	public switchOnConfiguration(): void {
+		this.#currentContent$.next(SidebarContentEnum.CONFIGURATION);
 	}
 
 	public detectAutoClose(): void {

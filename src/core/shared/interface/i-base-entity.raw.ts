@@ -11,6 +11,7 @@ export interface IBaseDTO<OBJECT_TYPE> {
 	updatedAt: string & Types.DateTime;
 	object: OBJECT_TYPE;
 	state: StateEnum;
+	_version: string;
 
 	stateHistory: {
 		state: StateEnum;

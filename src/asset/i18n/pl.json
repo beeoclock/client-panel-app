@@ -700,6 +700,20 @@
 					}
 				}
 			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został usunięty."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Usuwanie produkt",
+						"message": "Czy na pewno chcesz usunąć produkt?"
+					}
+				}
+			},
 			"/api/v1/service/{id}": {
 				"before": {
 					"accept": {
@@ -768,6 +782,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Utworzono produkt",
+						"message": "Produkt został utworzony."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -799,6 +821,14 @@
 					"success": {
 						"header": "Wydarzenie zaktualizowane",
 						"message": "Wydarzenie zostało zaktualizowany."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został zaktualizowany."
 					}
 				}
 			},
@@ -1028,6 +1058,10 @@
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
+			"all": "Wszystkie",
+			"allServices": "Wszystkie usługi",
+			"allSpecialists": "Wszyscy specjaliści",
+			"allStatuses": "Wszystkie statusy",
 			"amount": "Kwota",
 			"anonymous": "Anonimowy",
 			"approvalType": "Typ homologacji",
@@ -1048,6 +1082,17 @@
 			"businessProfile": "Profil biznesu",
 			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
+			"category": {
+				"create": {
+					"choose": "Wybierz kategorie",
+					"enter": "Wpisz kategorie",
+					"first": "Dodaj pierwszą kategorie",
+					"tooltip": "Dodaj kategorie do listy",
+					"uniqueError": "Nazwa kategorii musi być unikalna"
+				},
+				"plural": "Kategorie",
+				"single": "Kategoria"
+			},
 			"changeStatus": "Zmień status",
 			"changes": "Zmiany",
 			"changesFrom": "Z",
@@ -1067,6 +1112,7 @@
 			"country": "Kraj",
 			"create": "Utwórz",
 			"createdAt": "Utworzono",
+			"currency": "Waluta",
 			"customer": "Klient",
 			"customerNote": "Notatka od klienta",
 			"customers": "Klienty",
@@ -1136,6 +1182,7 @@
 			"payer": "Płatnik",
 			"payment": "Płatność",
 			"paymentMethod": "Metoda płatności",
+			"paymentProviderType": "Typ pÅ‚atnoÅ›ci ",
 			"paymentStatus": "Status płatności",
 			"periodOfDay": {
 				"AFTERNOON": "Popołudnie",
@@ -1156,6 +1203,7 @@
 			"priceTimeFormatPrompt": "godziny:minuty",
 			"prices": "Ceny",
 			"processing": "Przetwarzanie",
+			"productName": "Nazwa produktu",
 			"publicPage": "Strona publiczna",
 			"reject": "Odrzucić",
 			"role": "Rola",
@@ -1173,6 +1221,7 @@
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
 			"signUp": "Zarejestruj się",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Media społecznościowe",
 			"somethingWentWrong": "Coś poszło nie tak!",
@@ -1458,6 +1507,9 @@
 		"providerType": {
 			"onSite": {
 				"label": "Na miejscu"
+			},
+			"stripe": {
+				"label": "Stripe"
 			}
 		},
 		"status": {
@@ -1472,6 +1524,24 @@
 			},
 			"succeeded": {
 				"label": "Udało się"
+			}
+		}
+	},
+	"product": {
+		"button": {
+			"create": "Dodaj produkt"
+		},
+		"deactivateBeforeDelete": "Nie można usunąć aktywnego produktu",
+		"details": {
+			"title": "Informacje o produkcie"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "Możesz nadać swojemu produktowi nazwę w ramach dostępnych języków"
+			},
+			"title": {
+				"create": "Dodawanie produktu",
+				"edit": "Edycja produktu"
 			}
 		}
 	},
@@ -1545,6 +1615,9 @@
 	"sidebar": {
 		"absence": "Nieobecność",
 		"addEvent": "Dodaj wydarzenie",
+		"appointments": {
+			"label": "Wizyty"
+		},
 		"businessProfile": "Profil biznesowy",
 		"businessSettings": "Ustawienia firmy",
 		"calendar": {
@@ -1562,7 +1635,10 @@
 		"events": "Wydarzenia",
 		"members": "Członkowie",
 		"order": "Zamówienia",
+		"payment": "Płatności",
 		"private": "Prywatne",
+		"product-tag": "Tagi produktu",
+		"products": "Produkty",
 		"profile": {
 			"signOut": {
 				"header": "Wylogowanie",

@@ -102,7 +102,8 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 
 	public ngAfterViewInit() {
 
-		if (this.index() === 1) {
+		const index = this.index();
+		if (index === 0) {
 
 			this.scheduleElements.changes.pipe(
 				this.takeUntil(),
