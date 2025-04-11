@@ -59,6 +59,26 @@ import {
 			<div activeStyle [state]="row.state">
 			</div>
 		</ng-template>
+		<ng-template #emailCellTemplate let-row="row">
+			@if (row.mail?.length) {
+			<a [href]="'mailto:' + row.email" (click)="$event.stopPropagation();" class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-sm font-medium transition-all bg-neutral-100 hover:bg-neutral-200 text-neutral-800 dark:bg-white/10 dark:text-white">
+				{{ row.email }}
+				<i class="text-neutral-400 bi bi-envelope-plus"></i>
+			</a>
+			} @else {
+				-
+			}
+		</ng-template>
+		<ng-template #phoneCellTemplate let-row="row">
+			@if (row.phone?.length) {
+				<a [href]="'tel:' + row.phone" (click)="$event.stopPropagation();" class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-sm font-medium transition-all bg-neutral-100 hover:bg-neutral-200 text-neutral-800 dark:bg-white/10 dark:text-white">
+					{{ row.phone }}
+					<i class="text-neutral-400 bi bi-telephone-outbound"></i>
+				</a>
+			} @else {
+				-
+			}
+		</ng-template>
 	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
@@ -77,6 +97,8 @@ import {
 })
 export class TableListComponent extends TableComponent<ECustomer> {
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
+	public readonly emailCellTemplate = viewChild<TemplateRef<any>>('emailCellTemplate');
+	public readonly phoneCellTemplate = viewChild<TemplateRef<any>>('phoneCellTemplate');
 
 	public readonly columns = signal<TableColumn<ECustomer>[]>([
 		{
@@ -110,15 +132,15 @@ export class TableListComponent extends TableComponent<ECustomer> {
 		{
 			name: this.translateService.instant('keyword.capitalize.note'),
 			prop: 'note',
-			minWidth: 160,
-			width: 160,
+			minWidth: 600,
+			width: 600,
 			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.active'),
 			prop: 'state',
-			minWidth: 160,
-			width: 160,
+			minWidth: 80,
+			width: 80,
 			sortable: true,
 		},
 		{
@@ -145,6 +167,16 @@ export class TableListComponent extends TableComponent<ECustomer> {
 		const stateCellTemplate = this.stateCellTemplate();
 		if (stateCellTemplate) {
 			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
+		}
+
+		const emailCellTemplate = this.emailCellTemplate();
+		if (emailCellTemplate) {
+			this.setCellTemplateRef(columns, 'email', emailCellTemplate);
+		}
+
+		const phoneCellTemplate = this.phoneCellTemplate();
+		if (phoneCellTemplate) {
+			this.setCellTemplateRef(columns, 'phone', phoneCellTemplate);
 		}
 
 		return columns;
