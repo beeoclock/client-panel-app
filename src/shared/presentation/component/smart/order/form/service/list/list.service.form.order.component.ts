@@ -16,14 +16,14 @@ import {
 } from "@shared/presentation/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
 import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ServiceOrderForm, ServiceOrderFormArray} from "@tenant/order/presentation/form/service.order.form";
+import {ServiceOrderForm, ServiceOrderFormArray} from "@tenant/order/order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
-import {ReservationTypeEnum} from "@tenant/order/domain/enum/reservation.type.enum";
+import {ReservationTypeEnum} from "@tenant/order/order/domain/enum/reservation.type.enum";
 import {DateTime} from "luxon";
 import {ICustomer} from "@tenant/customer/domain";
 import ObjectID from "bson-objectid";
-import {IAttendeeDto} from "@tenant/order/domain/interface/i-order-appointment-details.dto";
+import {IAttendeeDto} from "@tenant/order/order/domain/interface/i-order-appointment-details.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IMember} from "@tenant/member/domain/interface/i.member";

@@ -1,8 +1,8 @@
 import {Types} from "@core/shared/types";
 import {CurrencyCodeEnum} from "@core/shared/enum";
-import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
-import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
+import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 
 export namespace Analytic {
 

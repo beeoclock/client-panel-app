@@ -1,11 +1,22 @@
-import {ChangeDetectorRef, Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+	afterNextRender,
+	ChangeDetectorRef,
+	Component,
+	DestroyRef,
+	inject,
+	input,
+	OnInit,
+	signal,
+	viewChild,
+	ViewEncapsulation
+} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
-import {Reactive} from "@core/cdk/reactive";
-import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
 import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IonSelectMemberComponent} from "@shared/presentation/component/input/ion/ion-select-member.component";
+import {explicitEffect} from "ngxtension/explicit-effect";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-members-absence-form-container',
@@ -14,90 +25,84 @@ import {IMember} from "@tenant/member/domain/interface/i.member";
 		TranslateModule,
 		NgSelectModule,
 		ReactiveFormsModule,
+		IonSelectMemberComponent,
 	],
 	standalone: true,
 	template: `
-		@if (visibleState.isTrue) {
-
-			<button
-				class="border hover:border-blue-700 cursor-pointer flex hover:bg-blue-500 hover:text-white bg-gray-50 justify-between px-3 py-2 rounded-lg transition-all w-full"
-				type="button" (click)="openModalToSelectMember()">
-				<span>{{ 'keyword.capitalize.members' | translate }}: {{ members().value.length }}</span>
-				<span class="">
-                <i class="bi bi-chevron-right"></i>
-            </span>
-			</button>
+		@if (isNotFull()) {
+			<ion-select-member
+				class="max-w-full"
+				placeholderTranslateKey="member.form.assignments.button.hint.includeIsEmpty"
+				[control]="control"/>
 		}
 	`
 })
-export class MembersAbsenceFormContainerComponent extends Reactive implements OnInit {
+export class MembersAbsenceFormContainerComponent implements OnInit {
+
+	public readonly control = new FormControl<string[]>([]);
 
 	public readonly entireBusiness = input.required<FormControl<boolean>>();
 
 	public readonly members = input.required<FormControl<IMember.DTO[]>>();
 
-	private readonly translateService = inject(TranslateService);
-	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly destroyRef = inject(DestroyRef);
 
-	public readonly visibleState = new BooleanStreamState(false);
+	public readonly isNotFull = signal(false);
+
+	public readonly ionSelectMemberComponent = viewChild(IonSelectMemberComponent);
+
+	public constructor() {
+
+		explicitEffect([this.isNotFull, this.ionSelectMemberComponent], () => {
+			const isNotFull = this.isNotFull();
+			if (isNotFull) {
+
+				const memberIds = this.members().value.map(({_id}) => _id);
+				this.control.setValue(memberIds);
+
+				const ionSelectMemberComponent = this.ionSelectMemberComponent();
+				if (ionSelectMemberComponent) {
+					const ionSelect = ionSelectMemberComponent.ionSelect();
+					if (ionSelect) {
+						ionSelect.ionChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
+							const {detail: {value}} = event;
+							const members = ionSelectMemberComponent.members;
+							const controlNewValue = value.map((memberId: string) => {
+								const member = members.find((member) => member._id === memberId)
+								return member;
+							});
+							this.members().patchValue(controlNewValue);
+						});
+					}
+				}
+			}
+		});
+
+		afterNextRender(() => {
+
+			this.members().valueChanges.pipe(
+				takeUntilDestroyed(this.destroyRef),
+			).subscribe(() => {
+				this.updateIsNotFull();
+			});
+
+		});
+
+	}
 
 	public ngOnInit(): void {
 		this.updateIsNotFull();
 		this.entireBusiness().valueChanges.pipe(
-			this.takeUntil(),
+			takeUntilDestroyed(this.destroyRef),
 		).subscribe(() => {
 			this.updateIsNotFull();
 		});
 	}
 
 	public updateIsNotFull(): void {
-		this.visibleState.toggle(!this.entireBusiness().value);
+		this.isNotFull.set(!this.entireBusiness().value);
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public async openModalToSelectMember() {
-
-		const {SelectMemberPushBoxComponent} = await import("@tenant/member/presentation/push-box/select-member.push-box.component");
-
-		const title = this.translateService.instant('absence.form.membersIds.select.title');
-
-		const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
-			title,
-			component: SelectMemberPushBoxComponent,
-			componentInputs: {
-				selectedMemberList: this.members().value
-			},
-			button: {
-				close: {
-					text: this.translateService.instant('keyword.capitalize.done'),
-					classList: ['text-blue-500', 'capitalize', 'hover:text-blue-600', 'transition-all']
-				}
-			}
-		});
-
-		if (!pushBoxWrapperComponentRef) {
-			return;
-		}
-
-		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
-
-		if (!renderedComponentRef) {
-			return;
-		}
-
-		try {
-			const {instance} = renderedComponentRef;
-			if (instance instanceof SelectMemberPushBoxComponent) {
-				instance.selectedMembersListener.pipe(this.takeUntil()).subscribe(() => {
-					const {newSelectedMemberList} = instance;
-					this.members().patchValue(newSelectedMemberList);
-					this.changeDetectorRef.detectChanges();
-				});
-			}
-		} catch (error) {
-			console.error(error);
-		}
-
-	}
 }

@@ -1,6 +1,6 @@
 import {Component, inject, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
 import {Store} from "@ngxs/store";
-import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyPipe} from "@angular/common";

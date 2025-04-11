@@ -13,7 +13,7 @@ import {is} from "@core/shared/checker";
 		IconComponent
 	],
 	template: `
-		<div class="flex items-center h-full">
+		<div class="flex items-center h-full min-w-[190px]">
 			<label [for]="id" class="sr-only">
 				{{ 'keyword.capitalize.search' | translate }}
 			</label>

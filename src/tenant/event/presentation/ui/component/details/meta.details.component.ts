@@ -2,8 +2,8 @@ import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleCh
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IHistory, IHistoryV2} from "@shared/domain";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {DateTime} from "luxon";
 import {
 	ListFromToChronologyComponent

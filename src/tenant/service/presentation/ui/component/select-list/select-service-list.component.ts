@@ -13,6 +13,7 @@ import {
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	selector: 'app-select-service-list-component',
@@ -52,6 +53,7 @@ export class SelectServiceListComponent implements OnInit {
 			page: 1,
 			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,
+			state: StateEnum.active,
 		});
 		this.serviceList = result.items;
 		this.changeDetectorRef.detectChanges();

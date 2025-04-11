@@ -13,7 +13,6 @@ import {CheckForUpdatePwaService} from "@core/cdk/check-for-update-pwa.service";
 import {NotificationManagerService} from "@core/cdk/notification.manager.service";
 import {AppActions} from "@shared/state/app/app.actions";
 import {SecondRouterOutlet} from "@src/second.router-outlet";
-import {WhacAMole} from "@shared/presentation/whac-a-mole/whac-a-mole";
 
 @Component({
 	selector: 'app-root',
@@ -22,16 +21,12 @@ import {WhacAMole} from "@shared/presentation/whac-a-mole/whac-a-mole";
 	imports: [
 		RouterModule,
 		SecondRouterOutlet,
-		WhacAMole,
 	],
 	template: `
 		<div class="flex-1 overflow-auto">
 			<router-outlet/>
 		</div>
 		<app-second-router-outlet/>
-
-
-		<whac-a-mole/>
 	`,
 	host: {
 		class: 'flex'

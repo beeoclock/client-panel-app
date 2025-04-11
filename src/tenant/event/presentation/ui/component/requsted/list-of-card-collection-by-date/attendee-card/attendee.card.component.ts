@@ -2,7 +2,7 @@ import {Component, inject, input} from "@angular/core";
 import {IAttendee} from "@tenant/event/domain";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {TranslateService} from "@ngx-translate/core";
-import {IAttendeeDto} from "@tenant/order/domain/interface/i-order-appointment-details.dto";
+import {IAttendeeDto} from "@tenant/order/order/domain/interface/i-order-appointment-details.dto";
 
 @Component({
 	selector: 'event-attendee-card-component',

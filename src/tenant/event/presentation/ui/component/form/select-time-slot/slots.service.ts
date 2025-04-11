@@ -9,7 +9,7 @@ import {DateTime} from "luxon";
 import {SlotBuildingStrategyEnum} from "@tenant/business-profile/domain/enum/slot-building-strategy.enum";
 import {BehaviorSubject} from "rxjs";
 import {IDayItem} from "@shared/domain/interface/i.day-item";
-import {IBusySlot} from "@tenant/order/domain/interface/busy-slot/i.busy-slot";
+import {IBusySlot} from "@tenant/order/order/domain/interface/busy-slot/i.busy-slot";
 
 
 @Injectable()
