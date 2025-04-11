@@ -31,6 +31,7 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {explicitEffect} from "ngxtension/explicit-effect";
+import {NotificationCoreService} from "@core/cdk/notification.core.service";
 
 @Component({
 	selector: 'tenant-router-outlet-component',
@@ -80,6 +81,7 @@ export default class TenantRouterOutletComponent implements OnInit, AfterViewIni
 	private readonly isOnlineService = inject(IsOnlineService);
 	private readonly tenantId$ = inject(TENANT_ID);
 	private readonly destroyRef = inject(DestroyRef);
+	private readonly notificationCoreService = inject(NotificationCoreService);
 
 	private checkerTimer: undefined | NodeJS.Timeout;
 	private isUserOnWebSite = true;
@@ -126,6 +128,29 @@ export default class TenantRouterOutletComponent implements OnInit, AfterViewIni
 	public ngOnInit(): void {
 		this.initNotificationChecker();
 		this.connectWebSocket();
+		setInterval(() => {
+			// Example of scheduling a notification 1 hour from now:
+			navigator.serviceWorker.startMessages()
+			navigator.serviceWorker.getRegistration(this.notificationCoreService.scriptURL).then((registration) => {
+				console.log(registration)
+
+				if (registration) {
+					registration.showNotification("Reminder!", {
+						body: "You have an event in 1 hour.",
+						tag: "event-reminder", // 1 hour from now
+					}).then();
+					registration.showNotification("Reminder!2", {
+						body: "You have an event in 1 hour.",
+						tag: "event-reminder", // 1 hour from now
+						silent: true,
+						badge: 'test',
+						data: {
+							url: 'https://example.com',
+						}
+					}).then();
+				}
+			});
+		}, 10_000)
 	}
 
 	public ngAfterViewInit(): void {

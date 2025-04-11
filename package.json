@@ -22,7 +22,8 @@
 		"docs": "compodoc -p tsconfig.json -s",
 		"lint": "ng lint",
 		"prepare": "ts-patch install && typia patch",
-		"start:ssl": "ng serve --ssl true --ssl-key ./_certifications/localhost.key --ssl-cert ./_certifications/localhost.crt --host 192.168.0.234 --port 4200"
+		"start:ssl": "ng serve --ssl true --ssl-key ./_certifications/localhost.key --ssl-cert ./_certifications/localhost.crt --host 192.168.0.234 --port 4200",
+		"ngrok": "npx ngrok http --url=proven-teal-eagerly.ngrok-free.app --host-header=localhost 4200"
 	},
 	"jest": {
 		"preset": "jest-preset-angular",

@@ -16,6 +16,23 @@ const app = initializeApp({
 	measurementId: "G-BY8R2Y83RS"
 });
 
+function testPost(from) {
+	fetch('https://chubby-tiger-84.webhook.cool', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			from: from,
+			message: 'Hello from Firebase Cloud Messaging!'
+		})
+	}).then(response => {
+		console.log('Message sent successfully:', response);
+	}).catch(error => {
+		console.error('Error sending message:', error);
+	})
+}
+
 self.addEventListener('push', (event) => {
 	console.log("[SW:NOTIFICATION] push", event);
 
@@ -35,6 +52,8 @@ self.addEventListener('push', (event) => {
 		}
 	};
 
+	testPost('push');
+
 	event.waitUntil(
 		self.registration.showNotification(title, options)
 	);
@@ -42,6 +61,7 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', function(event) {
 	console.log("[SW:NOTIFICATION] notificationclick", event);
+	testPost('notificationclick');
 	const urlToOpen = event.notification.data?.url || '/';
 	event.notification.close();
 	event.waitUntil(
@@ -56,10 +76,12 @@ isSupported().then(isSupported => {
 		const messaging = getMessaging(app);
 
 		onBackgroundMessage(messaging, ({ notification: { title, body, image } }) => {
+			testPost('onBackgroundMessage');
 			self.registration.showNotification(title, { body, icon: image || '/assets/icons/icon-72x72.png' });
 		});
 
 		self.addEventListener('notificationclick', (event) => {
+			testPost('isSupported:notificationclick');
 			console.log("[SW:NOTIFICATION] notificationclick", event)
 			const urlToRedirect = event.notification.data.url;
 			event.notification.close();

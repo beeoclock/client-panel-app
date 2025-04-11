@@ -26,7 +26,7 @@ export class NotificationCoreService {
 	private readonly messaging = inject(Messaging);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	private readonly scriptURL = environment.firebase.scriptURL;
+	public readonly scriptURL = environment.firebase.scriptURL;
 
 	/**
 	 * initialize is a method that initializes the FCM token and message handler.
@@ -123,8 +123,6 @@ export class NotificationCoreService {
 
 		this.ngxLogger.debug('[NOTIFICATION] Pushing token');
 
-		confirm('Push token?');
-
 		const serviceWorkerRegistration = await navigator.serviceWorker.register(this.scriptURL, {
 			type: 'module',
 		});
@@ -135,14 +133,8 @@ export class NotificationCoreService {
 				applicationServerKey: urlBase64ToUint8Array(environment.firebase.options.vapidKey),
 			});
 
-			console.log(pushSubscription.endpoint);
-			console.log(pushSubscription.getKey("p256dh"));
-			console.log(pushSubscription.getKey("auth"));
 			console.log(pushSubscription.toJSON());
 
-			alert(pushSubscription.endpoint);
-			alert(pushSubscription.getKey("p256dh"));
-			alert(pushSubscription.getKey("auth"));
 			alert(JSON.stringify(pushSubscription.toJSON()));
 		} catch (error) {
 			console.log('Error subscribing to push notifications:', error);
@@ -151,10 +143,6 @@ export class NotificationCoreService {
 
 		this.ngxLogger.debug('[NOTIFICATION] Service worker registered', serviceWorkerRegistration);
 
-		confirm('success');
-
-
-
 
 		const token = await getToken(this.messaging, {
 			serviceWorkerRegistration,
@@ -162,25 +150,8 @@ export class NotificationCoreService {
 		});
 
 		this.ngxLogger.debug('[NOTIFICATION] Token', token);
-		confirm(token);
+
 		alert(token);
-
-		if (confirm('Run test?')) {
-
-			const title = "Push title";
-			const options = {
-				body: "Additional text with some description",
-				icon: "https://andreinwald.github.io/webpush-ios-example/images/favicon.png",
-				image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/1920px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg",
-				data: {
-					"url": "https://andreinwald.github.io/webpush-ios-example/?page=success",
-					"message_id": "your_internal_unique_message_id_for_tracking"
-				},
-			};
-			navigator.serviceWorker.ready.then(function (serviceWorker) {
-				serviceWorker.showNotification(title, options);
-			});
-		}
 
 		this.token$.next(token);
 
