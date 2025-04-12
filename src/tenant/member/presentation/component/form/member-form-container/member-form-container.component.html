@@ -30,6 +30,12 @@
 				[control]="form.controls.lastName"
 				[label]="'keyword.capitalize.lastName' | translate"/>
 
+			<tel-form-input
+				id="member-form-phone"
+				autocomplete="phone"
+				[control]="form.controls.phone"
+				labelTranslateKey="keyword.capitalize.phone"/>
+
 			@if (roleEnum.OWNER === item()?.role) {
 
 			} @else {

@@ -20,6 +20,7 @@ import {IMember} from "@tenant/member/domain/interface/i.member";
 import {RoleEnum} from "@core/shared/enum/role.enum";
 import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
 import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
+import {TelFormInputComponent} from "@shared/presentation/component/tel-form-input/tel.form.input.component";
 
 @Component({
 	selector: 'member-form-page',
@@ -35,6 +36,7 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 		CardComponent,
 		SwitchComponent,
 		MemberFormAssignmentsComponent,
+		TelFormInputComponent,
 	],
 	standalone: true
 })
