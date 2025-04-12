@@ -30,7 +30,7 @@ export class FilterForm extends FormGroup<IFilterForm> {
 				Validators.minLength(1),
 			]),
 			dateRange: new FormGroup({
-				interval: new FormControl<IntervalTypeEnum>(IntervalTypeEnum.day, {
+				interval: new FormControl<IntervalTypeEnum>(IntervalTypeEnum.month, {
 					nonNullable: true
 				}),
 				selectedDate: new FormControl<string>(DateTime.now().toJSDate().toISOString(), {
