@@ -3,6 +3,7 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	DestroyRef,
 	ElementRef,
 	HostListener,
 	inject,
@@ -15,7 +16,7 @@ import {
 import {AsyncPipe, DOCUMENT} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
-import {Reactive} from "@core/cdk/reactive";
+
 import {NGXLogger} from "ngx-logger";
 import {
 	HeaderCalendarWithSpecialistWidgetComponent
@@ -26,8 +27,8 @@ import {
 	CalendarWithSpecialistsQueries
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
 import {
@@ -38,8 +39,8 @@ import {
 	TimeLineCalendarWithSpecialistWidgetComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
-import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
-import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
+import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {DateTime} from "luxon";
 import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {
@@ -59,6 +60,7 @@ import {
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -77,7 +79,7 @@ import {
 		FilterCalendarWithSpecialistComponent,
 	]
 })
-export class CalendarWithSpecialistWidgetComponent extends Reactive implements OnInit, AfterViewInit {
+export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewInit {
 
 	public changeEventPositionIsOn = false;
 	public handleChangeEventForDraggingEnabledElement = false;
@@ -180,6 +182,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
+	private readonly destroyRef = inject(DestroyRef);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 	public readonly schedules$ = this.store.select(BusinessProfileState.schedules);
 	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
@@ -189,7 +192,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	private readonly actions$ = inject(Actions);
 
 	private readonly events$ = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
-		this.takeUntil(),
+		takeUntilDestroyed(),
 		map((items) => {
 
 			this.ngxLogger.info('CalendarWithSpecialistWidgetComponent:events$: ', items);
@@ -317,11 +320,11 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		this.detectParamsInQueryParams();
 		this.calendarWithSpecialistLocaStateService.eventCalendarWithSpecialistWidgetComponent$.pipe(
-			this.takeUntil()
+			takeUntilDestroyed(this.destroyRef),
 		).subscribe((eventCalendarWithSpecialistWidgetComponent) => {
 			this.initListenersFor(eventCalendarWithSpecialistWidgetComponent);
 		});
-		this.events$.pipe(this.takeUntil()).subscribe((eventsBySpecialistId) => {
+		this.events$.pipe(takeUntilDestroyed(this.destroyRef),).subscribe((eventsBySpecialistId) => {
 
 			this.eventsBySpecialistId = eventsBySpecialistId;
 			setTimeout(() => {
@@ -334,7 +337,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		this.actions$
 			.pipe(
-				this.takeUntil(),
+				takeUntilDestroyed(),
 				ofActionSuccessful(
 					AbsenceDataActions.SetState,
 					AbsenceDataActions.UpdateItem,
@@ -352,7 +355,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		});
 
 		this.store.select(CalendarWithSpecialistsQueries.params).pipe(
-			this.takeUntil(),
+			takeUntilDestroyed(this.destroyRef),
 		).subscribe((params) => {
 			if ('statuses' in params) {
 				const {statuses} = params;
@@ -366,7 +369,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		});
 
 		this.orderServiceStatusesControl.valueChanges.pipe(
-			this.takeUntil(),
+			takeUntilDestroyed(this.destroyRef),
 			switchMap((statuses) => {
 				return this.store.dispatch(
 					new CalendarWithSpecialistsAction.UpdateFilters({
@@ -383,7 +386,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	public ngAfterViewInit() {
 
 		this.columnList.changes.pipe(
-			this.takeUntil()
+			takeUntilDestroyed(this.destroyRef),
 		).subscribe((columnList: ElementRef<HTMLDivElement>[]) => {
 			columnList.forEach((column) => {
 				this.findAndFixNearEventsWidthInEachColumn(column);

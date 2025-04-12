@@ -1,22 +1,22 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	OnInit,
+	signal,
+	ViewEncapsulation
+} from "@angular/core";
 import {IsOnlineService} from "@core/cdk/is-online.service";
-import {AsyncPipe, DatePipe, DecimalPipe} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
-import {Reactive} from "@core/cdk/reactive";
-import {setIntervals$} from "@shared/domain/timer";
+
 import {BaseSyncManager, ISyncManger} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {TimeAgoPipe} from "@shared/presentation/pipes/time-ago.pipe";
-import {tap} from "rxjs";
-
-interface SyncState {
-	modulesCount: number;
-	modulesSynced: number;
-	progress: {
-		total: number;
-		current: number;
-		percentage: number;
-	} | null; // Null if no module is syncing
-}
+import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
+import {explicitEffect} from "ngxtension/explicit-effect";
+import {interval} from "rxjs";
+import {tap} from "rxjs/operators";
 
 @Component({
 	standalone: true,
@@ -24,18 +24,16 @@ interface SyncState {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		DatePipe,
 		TranslatePipe,
 		TimeAgoPipe,
-		DecimalPipe
 	],
 	host: {
 		class: 'px-3 pb-4 pt-0'
 	},
 	template: `
 
-		@if (isOffline$ | async) {
+		@if (isOffline()) {
 
 			<div class="rounded-2xl border border-red-300 bg-red-100 flex flex-col">
 				<button (click)="syncAll()"
@@ -46,7 +44,7 @@ interface SyncState {
 							{{ 'keyword.capitalize.youOffline' | translate }}
 						</span>
 						<span class="text-xs">
-							{{ lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss' }}
+							{{ lastSynchronizedIn() | date: 'dd.MM.yyyy HH:mm:ss' }}
 						</span>
 					</div>
 				</button>
@@ -55,7 +53,7 @@ interface SyncState {
 		} @else {
 
 			<div class="rounded-2xl border border-neutral-300 bg-neutral-50 flex flex-col">
-				@if (isSyncing$ | async) {
+				@if (isSyncing() && !isPaused()) {
 
 					<button
 						(click)="pauseAll()"
@@ -66,23 +64,6 @@ interface SyncState {
 							<span class="text-xs">
 							{{ 'keyword.capitalize.syncing' | translate }}
 						</span>
-							<!-- Progress -->
-							<div class="w-full flex items-center gap-x-3 whitespace-nowrap text-xs">
-								<div>
-									{{ params.modulesSynced }} / {{ params.modulesCount }}
-								</div>
-								<div
-									class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-									role="progressbar" [attr.aria-valuenow]="currentSyncManager?.syncState?.progress?.percentage" aria-valuemin="0" aria-valuemax="100">
-									<div
-										class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500"
-										[style.width.%]="currentSyncManager?.syncState?.progress?.percentage"></div>
-								</div>
-								<div class="w-10 text-end">
-									<span class="text-sm text-gray-800 dark:text-white">{{ currentSyncManager?.syncState?.progress?.percentage | number: '1.0-0' }}%</span>
-								</div>
-							</div>
-							<!-- End Progress -->
 
 						</div>
 					</button>
@@ -90,7 +71,7 @@ interface SyncState {
 				} @else {
 
 					<button (click)="syncAll()"
-							[title]="lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss'"
+							[title]="lastSynchronizedIn() | date: 'dd.MM.yyyy HH:mm:ss'"
 							class="h-[48px] text-black gap-2 p-2 px-3 rounded-2xl flex justify-start items-center hover:bg-neutral-200 cursor-pointer transition-all">
 						<i class="bi bi-arrow-repeat text-xl"></i>
 						<div class="flex flex-col items-start">
@@ -98,8 +79,8 @@ interface SyncState {
 								{{ 'keyword.capitalize.synced' | translate }}
 							</span>
 							<span class="text-xs">
-								@if (lastSynchronizedIn) {
-									{{ lastSynchronizedIn | timeAgo }}
+								@if (lastSynchronizedIn()) {
+									{{ lastSynchronizedIn() | timeAgo }}
 								}
 							</span>
 						</div>
@@ -112,33 +93,49 @@ interface SyncState {
 
 	`
 })
-export class SyncButtonComponent extends Reactive implements OnInit {
+export class SyncButtonComponent implements OnInit {
 
-	private readonly isOnlineService = inject(IsOnlineService);
+
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly isOnlineService = inject(IsOnlineService);
 
-	public readonly isOffline$ = this.isOnlineService.isOffline$;
-	public readonly isSyncing$ = BaseSyncManager.isSyncing$.pipe(
+	public readonly isOffline = toSignal(this.isOnlineService.isOffline$);
+
+	public readonly isPaused = toSignal(BaseSyncManager.isPaused$);
+	public readonly isSyncing = toSignal(BaseSyncManager.isSyncing$);
+
+	private readonly setTimeoutSubscription = interval(1_000).pipe(
+		takeUntilDestroyed(),
 		tap(() => {
-			this.resetState();
-		})
-	);
+			this.detectChanges();
 
-	public lastSynchronizedIn = new Date(0).toISOString();
+		})
+	).subscribe();
+
+	public constructor() {
+		explicitEffect([this.isSyncing], () => {
+			this.detectChanges();
+			this.resetState();
+		});
+	}
+
+	public readonly lastSynchronizedIn = signal(new Date(0).toISOString());
 
 	public readonly state: Map<string, 'wait' | 'done' | ISyncManger> = new Map<string, 'wait' | 'done' | ISyncManger>();
-	public currentSyncManager: ISyncManger | null = null;
 
 	public syncAll() {
 		if (BaseSyncManager.isPaused$.value) {
 			BaseSyncManager.resumeAll().then(() => {
 				console.log('resumeAll done');
 			});
-			return;
+		} else {
+			BaseSyncManager.syncAll().then(() => {
+				console.log('syncAll done');
+			});
 		}
-		BaseSyncManager.syncAll().then(() => {
-			console.log('syncAll done');
-		});
+
+
+
 	}
 
 	public pauseAll() {
@@ -166,35 +163,14 @@ export class SyncButtonComponent extends Reactive implements OnInit {
 			this.state.set(syncManger.moduleName, 'wait');
 		});
 
-		setIntervals$(() => {
+	}
 
-			BaseSyncManager.register.forEach((syncManger) => {
-				if (syncManger.isSyncing) {
-					this.currentSyncManager = syncManger;
-				}
-				const moduleState = this.state.get(syncManger.moduleName);
-				if (moduleState) {
-					switch (moduleState) {
-						case 'wait':
-							if (syncManger.isSyncing) {
-								this.state.set(syncManger.moduleName, syncManger);
-							}
-							break;
-						case 'done':
-							break;
-						default:
-							if (!syncManger.isSyncing) {
-								this.state.set(syncManger.moduleName, 'done');
-							}
-							break;
-					}
-				}
-			});
+	private detectChanges() {
 
-			const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
-			this.lastSynchronizedIn = syncState?.options?.updatedSince || new Date(0).toISOString();
-			this.changeDetectorRef.detectChanges();
-		}, 1_000).pipe(this.takeUntil()).subscribe();
+		const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
+		const value = syncState?.options?.updatedSince || new Date(0).toISOString();
+		this.lastSynchronizedIn.set(value);
+		this.changeDetectorRef.detectChanges();
 	}
 
 

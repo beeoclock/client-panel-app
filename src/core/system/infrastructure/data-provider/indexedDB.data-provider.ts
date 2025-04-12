@@ -55,8 +55,8 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 			concatMap((table) => {
 
 				const {
-					pageSize,
-					page,
+					pageSize = undefined,
+					page = undefined,
 					orderBy = OrderByEnum.CREATED_AT,
 					orderDir = OrderDirEnum.DESC,
 					...filter
@@ -73,14 +73,22 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 
 				// Filter entities
 				query = query.filter((entity) => {
-					return filterFn(entity, filter as Types.StandardQueryParams);
+					return filterFn(entity, filter as Types.FindQueryParams);
 				});
 
-				const offset = pageSize * (page - 1);
+				const countQuery$ = query.count();
 
-				return from(query.count()).pipe(
+				if (pageSize && page) {
+
+					const offset = pageSize * (page - 1);
+
+					query = query.offset(offset).limit(pageSize);
+
+				}
+
+				return from(countQuery$).pipe(
 					switchMap((totalSize) =>
-						from(query.offset(offset).limit(pageSize).toArray()).pipe(
+						from(query.toArray()).pipe(
 							map((items) => [totalSize, items] as const)
 						)
 					),
@@ -139,8 +147,8 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 * @param filter
 	 * @private
 	 */
-	private defaultFilter(entity: ENTITY, filter: Types.StandardQueryParams) {
-		const {phrase, ...otherFilter} = filter;
+	public defaultFilter(entity: ENTITY, filter: Types.FindQueryParams) {
+		const {phrase, ...otherFilter} = filter as Types.PartialQueryParams;
 
 		const phraseExist = is.string(phrase);
 		const filterExist = is.object_not_empty(otherFilter);

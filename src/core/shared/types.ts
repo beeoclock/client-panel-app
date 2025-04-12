@@ -31,5 +31,16 @@ export namespace Types {
 		updatedSince?: string;
 	};
 
-	export type FindQueryParams = Types.StandardQueryParams | Types.QueryParams;
+
+	export type PartialQueryParams = {
+		page?: number;
+		pageSize?: number;
+		orderBy?: string;
+		orderDir?: string;
+		phrase?: string;
+		state?: string;
+		updatedSince?: string;
+	};
+
+	export type FindQueryParams = Types.PartialQueryParams | Types.QueryParams;
 }

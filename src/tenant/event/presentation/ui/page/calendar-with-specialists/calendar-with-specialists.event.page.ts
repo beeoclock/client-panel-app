@@ -37,8 +37,8 @@ export default class CalendarWithSpecialistsEventPage implements OnInit {
 	public readonly syncAllSubscription = BaseSyncManager.isSyncing$.pipe(
 		takeUntilDestroyed(),
 		filter((isSyncing) => {
-			if (this.preSyncingValue !== isSyncing) {
-				this.preSyncingValue = isSyncing;
+			if (this.preSyncingValue !== !!isSyncing) {
+				this.preSyncingValue = !!isSyncing;
 				if (!isSyncing) {
 					return true;
 				}

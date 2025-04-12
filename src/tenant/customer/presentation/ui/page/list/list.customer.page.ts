@@ -49,7 +49,7 @@ export class ListCustomerPage extends ListPage implements OnDestroy, OnInit {
 			CustomerDataActions.SetState,
 		),
 		tap((payload) => {
-			this.tableNgxDatatableSmartResource.refreshDiscoveredPages();
+			this.tableNgxDatatableSmartResource?.refreshDiscoveredPages();
 		})
 	).subscribe();
 

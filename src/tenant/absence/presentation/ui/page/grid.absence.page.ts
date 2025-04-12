@@ -49,7 +49,7 @@ export class GridAbsencePage extends ListPage implements OnDestroy, OnInit {
 			AbsenceDataActions.SetState,
 		),
 		tap((payload) => {
-			this.tableNgxDatatableSmartResource.refreshDiscoveredPages();
+			this.tableNgxDatatableSmartResource?.refreshDiscoveredPages();
 		})
 	).subscribe();
 
