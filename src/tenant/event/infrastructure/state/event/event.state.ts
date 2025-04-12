@@ -37,7 +37,7 @@ export class EventState {
 
 		if (activated) {
 			if (activated instanceof ContainerDetailsComponent) {
-				const {_id} = activated.item() ?? {};
+				const {originalData: {service: {_id}}} = activated.item() ?? {};
 				if (_id === payload) {
 					const action = new EventActions.CloseDetails();
 					ctx.dispatch(action);
