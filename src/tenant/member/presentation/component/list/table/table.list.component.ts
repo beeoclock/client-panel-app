@@ -19,6 +19,7 @@ import {
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {MemberPresentationActions} from "@tenant/member/infrastructure/state/presentation/member.presentation.actions";
+import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 
 @Component({
 	selector: 'member-table-list-component',
@@ -124,7 +125,7 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 					<i class="text-neutral-400 bi bi-envelope-plus"></i>
 				</a>
 			} @else {
-				-
+				<no-available/>
 			}
 		</ng-template>
 		<ng-template #phoneCellTemplate let-row="row">
@@ -134,7 +135,7 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 					<i class="text-neutral-400 bi bi-telephone-outbound"></i>
 				</a>
 			} @else {
-				-
+				<no-available/>
 			}
 		</ng-template>
 	`,
@@ -145,7 +146,8 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 		RowActionButtonComponent,
 		TranslatePipe,
 		AutoRefreshButtonComponent,
-		NotFoundTableDataComponent
+		NotFoundTableDataComponent,
+		NoAvailable
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'

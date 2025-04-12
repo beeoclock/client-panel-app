@@ -11,6 +11,7 @@ import {Types} from "@core/shared/types";
 export class PaymentIndexedDBDataProvider extends IndexedDBDataProvider<EPayment> {
 
 	protected readonly entityFieldsToSearch = [
+		'_id',
 		'amount',
 		'method',
 		'status',

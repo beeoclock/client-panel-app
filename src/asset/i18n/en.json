@@ -1126,6 +1126,7 @@
 			"next": "Next",
 			"nextStep": "Next step",
 			"no": "No",
+			"noAvailable": "No available",
 			"noData": "No data",
 			"noNeedCard": "No need card",
 			"notPaid": "Not paid",
@@ -1264,6 +1265,9 @@
 				"0": "Inactive",
 				"1": "Active"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "N/A"
 		}
 	},
 	"latestBooking": {

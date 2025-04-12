@@ -1126,6 +1126,7 @@
 			"next": "Næste",
 			"nextStep": "Næste skridt",
 			"no": "Nej",
+			"noAvailable": "Ikke tilgængelig",
 			"noData": "Ingen data",
 			"noNeedCard": "Intet behov for kort",
 			"notPaid": "Ikke betalt",
@@ -1264,6 +1265,9 @@
 				"0": "Inaktiv",
 				"1": "Aktiv"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "N/A"
 		}
 	},
 	"latestBooking": {

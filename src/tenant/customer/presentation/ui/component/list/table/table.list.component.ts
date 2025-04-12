@@ -22,6 +22,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	CustomerPresentationActions
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
+import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -66,7 +67,7 @@ import {
 				<i class="text-neutral-400 bi bi-envelope-plus"></i>
 			</a>
 			} @else {
-				-
+				<no-available/>
 			}
 		</ng-template>
 		<ng-template #phoneCellTemplate let-row="row">
@@ -76,7 +77,7 @@ import {
 					<i class="text-neutral-400 bi bi-telephone-outbound"></i>
 				</a>
 			} @else {
-				-
+				<no-available/>
 			}
 		</ng-template>
 	`,
@@ -89,7 +90,8 @@ import {
 		AutoRefreshButtonComponent,
 		NotFoundTableDataComponent,
 		TranslatePipe,
-		AutoRefreshButtonComponent
+		AutoRefreshButtonComponent,
+		NoAvailable
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'

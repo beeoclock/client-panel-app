@@ -1126,6 +1126,7 @@
 			"next": "Dalej",
 			"nextStep": "Dalej",
 			"no": "Nie",
+			"noAvailable": "Brak danych",
 			"noData": "Brak danych",
 			"noNeedCard": "Karta płatnicza nie jest potrzebna",
 			"notPaid": "Nieopłacone",
@@ -1264,6 +1265,9 @@
 				"0": "Nieaktywni",
 				"1": "Aktywni"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "bd."
 		}
 	},
 	"latestBooking": {
