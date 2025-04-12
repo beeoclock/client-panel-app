@@ -28,7 +28,7 @@ import {
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
-import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
+import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
 import {
 	CalendarWithSpecialistsAction
@@ -51,7 +51,7 @@ import {
 import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
-import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
+import {AbsenceDataActions} from "@tenant/member/absence/infrastructure/state/data/absence.data.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	FilterCalendarWithSpecialistComponent

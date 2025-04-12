@@ -25,7 +25,7 @@ import {VisibilityService} from "@core/cdk/visibility.service";
 import {IsOnlineService} from "@core/cdk/is-online.service";
 import {CustomerModule} from "@tenant/customer/customer.module";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
-import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
+import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";

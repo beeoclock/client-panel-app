@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
-import {IMember} from "@tenant/member/domain";
+import {IMember} from "src/tenant/member/member/domain";
 
 @Component({
 	selector: 'event-header-calendar-with-specialist-widget-component',

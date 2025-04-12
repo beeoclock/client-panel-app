@@ -70,7 +70,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/member/presentation/ui/page/list/list.member.page')
+                                        loadComponent: () => import('@tenant/member/member/presentation/ui/page/list/list.member.page')
                                     }
                                 ]
                             },
@@ -79,7 +79,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/absence/presentation/ui/page/grid.absence.page')
+                                        loadComponent: () => import('@tenant/member/absence/presentation/ui/page/grid.absence.page')
                                     }
                                 ]
                             },

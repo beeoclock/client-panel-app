@@ -22,7 +22,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
+import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {NgTemplateOutlet} from "@angular/common";
 
 @Component({

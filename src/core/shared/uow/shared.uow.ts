@@ -1,10 +1,10 @@
 import {ServiceService} from "@tenant/service/domain/service/service.service";
 import {PaymentService} from "@tenant/order/payment/domain/service/payment.service";
 import {OrderService} from "@tenant/order/order/domain/service/order.service";
-import {MemberService} from "@tenant/member/domain/service/member.service";
+import {MemberService} from "@tenant/member/member/domain/service/member.service";
 import {CustomerService} from "@tenant/customer/domain/service/customer.service";
 import {BusinessProfileService} from "@tenant/business-profile/domain/service/business-profile.service";
-import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
+import {AbsenceService} from "@tenant/member/absence/domain/service/absence.service";
 import {TariffPlanService} from "@tenant/tariff-plan/tariff-plan/domain/service/tariff-plan.service";
 import {
 	TariffPlanHistoryService

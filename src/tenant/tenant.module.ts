@@ -1,9 +1,7 @@
 import {importProvidersFrom, inject, NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
 import {tenantRouters} from "@src/tenant/tenant.routers";
-import {AbsenceModule} from "@tenant/absence/absence.module";
 import {CustomerModule} from "@tenant/customer/customer.module";
-import {MemberModule} from "@tenant/member/member.module";
 import {OrderDomainModule} from "@tenant/order/order-domain.module";
 import {ServiceModule} from "@tenant/service/service.module";
 import {tenantTokens} from "@tenant/tenant.token";
@@ -14,6 +12,7 @@ import {EventModule} from "@tenant/event/event.module";
 import {BusinessProfileModule} from "@tenant/business-profile/business-profile.module";
 import {TenantPaymentStateEffect} from "@tenant/tenant.payment-state.effect";
 import {TariffPlanDomainModule} from "@tenant/tariff-plan/tariff-plan.domain.module";
+import {MemberDomainModule} from "@tenant/member/member-domain.module";
 
 @NgModule({
 	providers: [
@@ -25,7 +24,8 @@ import {TariffPlanDomainModule} from "@tenant/tariff-plan/tariff-plan.domain.mod
 		importProvidersFrom(
 			BusinessProfileModule,
 			OrderDomainModule,
-			TariffPlanDomainModule
+			TariffPlanDomainModule,
+			MemberDomainModule
 		),
 	],
 	imports: [
@@ -33,9 +33,7 @@ import {TariffPlanDomainModule} from "@tenant/tariff-plan/tariff-plan.domain.mod
 		RouterModule.forChild(tenantRouters),
 
 		// MODULE
-		AbsenceModule,
 		CustomerModule,
-		MemberModule,
 		ServiceModule,
 		EventModule,
 	],
