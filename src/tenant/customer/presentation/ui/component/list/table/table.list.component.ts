@@ -60,7 +60,7 @@ import {
 			</div>
 		</ng-template>
 		<ng-template #emailCellTemplate let-row="row">
-			@if (row.mail?.length) {
+			@if (row.email?.length) {
 			<a [href]="'mailto:' + row.email" (click)="$event.stopPropagation();" class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-sm font-medium transition-all bg-neutral-100 hover:bg-neutral-200 text-neutral-800 dark:bg-white/10 dark:text-white">
 				{{ row.email }}
 				<i class="text-neutral-400 bi bi-envelope-plus"></i>
