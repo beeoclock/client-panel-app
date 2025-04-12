@@ -14,6 +14,9 @@ import {
 	AbsencePresentationActions
 } from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";
 import {IonSelectMemberComponent} from "@shared/presentation/component/input/ion/ion-select-member.component";
+import {
+	DateSliderControlComponent
+} from "@tenant/analytic/presentation/component/control/date-slider/date-slider.control.component";
 
 @Component({
 	selector: 'app-absence-filter-component',
@@ -28,7 +31,8 @@ import {IonSelectMemberComponent} from "@shared/presentation/component/input/ion
 		AutoRefreshComponent,
 		ReactiveFormsModule,
 		IonSelectStateComponent,
-		IonSelectMemberComponent
+		IonSelectMemberComponent,
+		DateSliderControlComponent
 	],
 	template: `
 		<utility-default-panel-component>
@@ -42,6 +46,7 @@ import {IonSelectMemberComponent} from "@shared/presentation/component/input/ion
 
 				<div class="flex overflow-x-auto gap-2 p-2">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
+					<ng-container *ngTemplateOutlet="dateSliderSelect"/>
 					<ng-container *ngTemplateOutlet="memberSelect"/>
 					<ng-container *ngTemplateOutlet="AbsenceActiveSelect"/>
 					<ng-container *ngTemplateOutlet="AutoRefresh"/>
@@ -53,11 +58,17 @@ import {IonSelectMemberComponent} from "@shared/presentation/component/input/ion
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
+				<ng-container *ngTemplateOutlet="dateSliderSelect"/>
 				<ng-container *ngTemplateOutlet="memberSelect"/>
 				<ng-container *ngTemplateOutlet="AbsenceActiveSelect"/>
 				<ng-container *ngTemplateOutlet="AutoRefresh"/>
 			</div>
 		}
+
+		<ng-template #dateSliderSelect>
+			<app-date-slider-control-component
+				[form]="form.controls.dateRange"/>
+		</ng-template>
 
 		<ng-template #memberSelect>
 			<ion-select-member
