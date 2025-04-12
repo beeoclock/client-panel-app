@@ -10,6 +10,7 @@ import {
 import {IsOnlineService} from "@core/cdk/is-online.service";
 import {DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
+
 import {BaseSyncManager, ISyncManger} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {TimeAgoPipe} from "@shared/presentation/pipes/time-ago.pipe";
 import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
