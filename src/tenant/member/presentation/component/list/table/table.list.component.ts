@@ -114,11 +114,28 @@ import {MemberPresentationActions} from "@tenant/member/infrastructure/state/pre
 		<ng-template #profileStatusCellTemplate let-row="row">
 			{{ ('member.enum.profileStatus.' + row.profileStatus) | translate }}
 		</ng-template>
-		<ng-template #emailCellTemplate let-row="row">
-			<a [title]="row.email" class="truncate" href="mailto:{{ row.email }}">{{ row.email }}</a>
-		</ng-template>
 		<ng-template #roleCellTemplate let-row="row">
 			{{ 'role.' + row.role | translate }}
+		</ng-template>
+		<ng-template #emailCellTemplate let-row="row">
+			@if (row.email?.length) {
+				<a [href]="'mailto:' + row.email" (click)="$event.stopPropagation();" class="truncate inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-sm font-medium transition-all bg-neutral-100 hover:bg-neutral-200 text-neutral-800 dark:bg-white/10 dark:text-white">
+					{{ row.email }}
+					<i class="text-neutral-400 bi bi-envelope-plus"></i>
+				</a>
+			} @else {
+				-
+			}
+		</ng-template>
+		<ng-template #phoneCellTemplate let-row="row">
+			@if (row.phone?.length) {
+				<a [href]="'tel:' + row.phone" (click)="$event.stopPropagation();" class="truncate inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-sm font-medium transition-all bg-neutral-100 hover:bg-neutral-200 text-neutral-800 dark:bg-white/10 dark:text-white">
+					{{ row.phone }}
+					<i class="text-neutral-400 bi bi-telephone-outbound"></i>
+				</a>
+			} @else {
+				-
+			}
 		</ng-template>
 	`,
 	standalone: true,
@@ -140,6 +157,7 @@ export class TableListComponent extends TableComponent<EMember> {
 	public readonly fullNameCellTemplate = viewChild<TemplateRef<any>>('fullNameCellTemplate');
 	public readonly profileStatusCellTemplate = viewChild<TemplateRef<any>>('profileStatusCellTemplate');
 	public readonly emailCellTemplate = viewChild<TemplateRef<any>>('emailCellTemplate');
+	public readonly phoneCellTemplate = viewChild<TemplateRef<any>>('phoneCellTemplate');
 	public readonly roleCellTemplate = viewChild<TemplateRef<any>>('roleCellTemplate');
 	public readonly columns = signal<TableColumn<EMember>[]>([
 		{
@@ -220,6 +238,12 @@ export class TableListComponent extends TableComponent<EMember> {
 		if (emailCellTemplate) {
 			this.setCellTemplateRef(columns, 'email', emailCellTemplate);
 		}
+
+		const phoneCellTemplate = this.phoneCellTemplate();
+		if (phoneCellTemplate) {
+			this.setCellTemplateRef(columns, 'phone', phoneCellTemplate);
+		}
+
 		const roleCellTemplate = this.roleCellTemplate();
 		if (roleCellTemplate) {
 			this.setCellTemplateRef(columns, 'role', roleCellTemplate);
