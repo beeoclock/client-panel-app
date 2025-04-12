@@ -153,6 +153,16 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 				translateKey: 'event.statistic.period.LAST_WEEK'
 			};
 		},
+		isNextWeek: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.week;
+			if (enabled) {
+				enabled = this.today.plus({week: 1}).startOf('week').hasSame(DateTime.fromISO(this.dateControl.value), 'week');
+			}
+			return {
+				enabled,
+				translateKey: 'event.statistic.period.NEXT_WEEK'
+			};
+		},
 		isThisMonth: () => {
 			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.month;
 			if (enabled) {
@@ -171,6 +181,16 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 			return {
 				enabled,
 				translateKey: 'event.statistic.period.LAST_MONTH'
+			};
+		},
+		isNextMonth: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.month;
+			if (enabled) {
+				enabled = this.today.plus({month: 1}).startOf('month').hasSame(DateTime.fromISO(this.dateControl.value), 'month');
+			}
+			return {
+				enabled,
+				translateKey: 'event.statistic.period.NEXT_MONTH'
 			};
 		}
 	};
@@ -253,13 +273,17 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		this.updateFromAndToControls('plus');
 	}
 
+	protected setYesterday() {
+		this.dateControl.patchValue(this.today.minus({days: 1}).endOf('day').toJSDate().toISOString());
+	}
+
 	protected async setToday() {
 		await this.ionDateTime().reset();
 		this.dateControl.patchValue(this.today.endOf('day').toJSDate().toISOString());
 	}
 
-	protected setYesterday() {
-		this.dateControl.patchValue(this.today.minus({days: 1}).endOf('day').toJSDate().toISOString());
+	protected setTomorrow() {
+		this.dateControl.patchValue(this.today.plus({days: 1}).endOf('day').toJSDate().toISOString());
 	}
 
 	protected openDateModal() {
@@ -466,13 +490,23 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 
+	protected setLastWeek() {
+		const fromDateTime = this.today.minus({weeks: 1}).startOf('week');
+		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
+	}
+
 	protected setThisWeek() {
 		const fromDateTime = this.today.startOf('week');
 		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 
-	protected setLastWeek() {
-		const fromDateTime = this.today.minus({weeks: 1}).startOf('week');
+	protected setNextWeek() {
+		const fromDateTime = this.today.plus({weeks: 1}).startOf('week');
+		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
+	}
+
+	protected setLastMonth() {
+		const fromDateTime = this.today.minus({months: 1});
 		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 
@@ -480,8 +514,8 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		this.dateControl.patchValue(this.today.toJSDate().toISOString());
 	}
 
-	protected setLastMonth() {
-		const fromDateTime = this.today.minus({months: 1});
+	protected setNextMonth() {
+		const fromDateTime = this.today.plus({months: 1});
 		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 }
