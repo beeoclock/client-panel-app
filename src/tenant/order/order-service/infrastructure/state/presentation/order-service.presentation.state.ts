@@ -9,8 +9,7 @@ import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import {
 	OrderServicePresentationActions
 } from "@tenant/order/order-service/infrastructure/state/presentation/order-service.presentation.actions";
-import OrderDetailsContainerComponent
-	from "@tenant/order/order/presentation/ui/component/details/order-details-container.component";
+import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 
 export type IOrderState = object;
 
@@ -53,19 +52,23 @@ export class OrderServicePresentationState {
 	@Action(OrderServicePresentationActions.OpenDetails)
 	public async openDetailsAction(ctx: StateContext<IOrderState>, {payload}: OrderServicePresentationActions.OpenDetails) {
 
-		const activated = this.secondRouterOutletService.activated();
+		const action = new EventActions.OpenDetails(payload._id);
+		ctx.dispatch(action);
 
-		if (activated) {
-			if (activated instanceof OrderDetailsContainerComponent) {
-				const {_id} = activated.item() ?? {};
-				if (_id === payload._id) {
-					ctx.dispatch(new OrderServicePresentationActions.CloseDetails());
-					return;
-				}
-			}
-		}
-
-		await this.router.navigate([{outlets: {second: ['order-service', payload._id]}}]);
+		//
+		// const activated = this.secondRouterOutletService.activated();
+		//
+		// if (activated) {
+		// 	if (activated instanceof OrderDetailsContainerComponent) {
+		// 		const {_id} = activated.item() ?? {};
+		// 		if (_id === payload._id) {
+		// 			ctx.dispatch(new OrderServicePresentationActions.CloseDetails());
+		// 			return;
+		// 		}
+		// 	}
+		// }
+		//
+		// await this.router.navigate([{outlets: {second: ['order-service', payload._id]}}]);
 
 	}
 
