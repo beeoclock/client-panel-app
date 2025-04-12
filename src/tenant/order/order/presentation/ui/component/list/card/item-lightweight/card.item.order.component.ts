@@ -119,7 +119,8 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 										@if (customer.customerType === customerTypeEnum.anonymous) {
 
 											<div
-												class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
+												class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-neutral-700">
+												<i class="bi bi-person"></i>
 											</div>
 
 										} @else {
