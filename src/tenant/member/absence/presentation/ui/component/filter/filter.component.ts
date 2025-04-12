@@ -13,6 +13,7 @@ import {AbsenceDataState} from "@tenant/member/absence/infrastructure/state/data
 import {
 	AbsencePresentationActions
 } from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";
+import {IonSelectMemberComponent} from "@shared/presentation/component/input/ion/ion-select-member.component";
 
 @Component({
 	selector: 'app-absence-filter-component',
@@ -26,7 +27,8 @@ import {
 		NgTemplateOutlet,
 		AutoRefreshComponent,
 		ReactiveFormsModule,
-		IonSelectStateComponent
+		IonSelectStateComponent,
+		IonSelectMemberComponent
 	],
 	template: `
 		<utility-default-panel-component>
@@ -40,6 +42,7 @@ import {
 
 				<div class="flex overflow-x-auto gap-2 p-2">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
+					<ng-container *ngTemplateOutlet="memberSelect"/>
 					<ng-container *ngTemplateOutlet="AbsenceActiveSelect"/>
 					<ng-container *ngTemplateOutlet="AutoRefresh"/>
 				</div>
@@ -50,10 +53,16 @@ import {
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
+				<ng-container *ngTemplateOutlet="memberSelect"/>
 				<ng-container *ngTemplateOutlet="AbsenceActiveSelect"/>
 				<ng-container *ngTemplateOutlet="AutoRefresh"/>
 			</div>
 		}
+
+		<ng-template #memberSelect>
+			<ion-select-member
+				[control]="form.controls.members"/>
+		</ng-template>
 
 		<ng-template #AbsenceActiveSelect>
 			<ion-select-state
