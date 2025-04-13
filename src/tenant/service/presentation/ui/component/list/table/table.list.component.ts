@@ -238,8 +238,8 @@ export class TableListComponent extends TableComponent<EService> {
 			columns.splice(pushAfterIndex, 0, {
 				name: name,
 				prop: 'title',
-				minWidth: 240,
-				width: 240,
+				minWidth: 280,
+				width: 280,
 				sortable: false,
 				$$valueGetter: (row: EService) => this.getTitleForLanguage(row, language)
 			})
@@ -251,8 +251,8 @@ export class TableListComponent extends TableComponent<EService> {
 				columns.splice(pushAfterIndex, 0, {
 					name: `${name} (${language})`,
 					prop: `title-${language}`,
-					minWidth: 240,
-					width: 240,
+					minWidth: 280,
+					width: 280,
 					sortable: false,
 					$$valueGetter: (row: EService) => this.getTitleForLanguage(row, language)
 				})
