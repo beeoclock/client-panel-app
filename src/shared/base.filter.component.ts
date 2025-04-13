@@ -56,7 +56,7 @@ export abstract class BaseFilterComponent {
 
 		this.form.valueChanges.pipe(
 			takeUntilDestroyed(this.destroyRef),
-			map(clearObjectClone)
+			map((value) => clearObjectClone(value))
 		).subscribe(async (filters: any) => {
 			this.form.disable({
 				emitEvent: false,
