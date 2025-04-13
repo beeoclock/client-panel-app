@@ -9,14 +9,12 @@ import {NgSelectModule} from "@ng-select/ng-select";
   standalone: true,
   template: `
     <label [for]="id()">{{ label() }}</label>
-    <ng-select
-      [id]="id()"
+    <ng-select [id]="id()"
       bindLabel="name"
       bindValue="code"
       [items]="[]"
       [clearable]="false"
-      [formControl]="control()">
-    </ng-select>
+      [formControl]="control()" />
   `,
   imports: [
     NgIf,

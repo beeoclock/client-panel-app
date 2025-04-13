@@ -95,7 +95,7 @@ import {
 									<ion-datetime [locale]="locale" id="absence-form-start-input"
 												  [formControl]="proxyForm.controls.start" [showDefaultButtons]="true"
 												  [cancelText]="'keyword.capitalize.cancel' | translate"
-												  [doneText]="'keyword.capitalize.done' | translate"></ion-datetime>
+												  [doneText]="'keyword.capitalize.done' | translate" />
 								</ng-template>
 							</ion-popover>
 						</div>
@@ -113,7 +113,7 @@ import {
 									<ion-datetime [locale]="locale" id="absence-form-end-input"
 												  [formControl]="proxyForm.controls.end" [showDefaultButtons]="true"
 												  [cancelText]="'keyword.capitalize.cancel' | translate"
-												  [doneText]="'keyword.capitalize.done' | translate"></ion-datetime>
+												  [doneText]="'keyword.capitalize.done' | translate" />
 								</ng-template>
 							</ion-popover>
 						</div>

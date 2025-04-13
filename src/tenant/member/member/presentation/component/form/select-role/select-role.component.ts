@@ -19,14 +19,12 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 		<label default for="member-form-role-select">
 			{{ 'keyword.capitalize.role' | translate }}
 		</label>
-		<ng-select
-			labelForId="member-form-role-select"
+		<ng-select labelForId="member-form-role-select"
 			bindLabel="label"
 			bindValue="value"
 			[items]="roles"
 			[clearable]="false"
-			[formControl]="control()">
-		</ng-select>
+			[formControl]="control()" />
 	`
 })
 export class SelectRoleComponent {

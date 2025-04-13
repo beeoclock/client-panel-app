@@ -23,8 +23,7 @@ import {DateTime} from "luxon";
 
 			<label default [for]="id">{{ label }}</label>
 		}
-		<ng-select
-			isRequired
+		<ng-select isRequired
 			invalidTooltip
 			setRedBorderTo=".ng-select-container"
 			placeholder="00:00"
@@ -36,8 +35,7 @@ import {DateTime} from "luxon";
 			[items]="items"
 			[clearable]="false"
 			[id]="id"
-			[formControl]="localControl">
-		</ng-select>
+			[formControl]="localControl" />
 	`,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

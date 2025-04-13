@@ -16,8 +16,7 @@ import {Reactive} from "@core/cdk/reactive";
 			<label default for="client-business-settings-form-email-language">
 				{{ 'client.profile.form.section.businessSettings.select.emailLanguage.label' | translate }}
 			</label>
-			<ng-select
-				labelForId="client-business-settings-form-email-language"
+			<ng-select labelForId="client-business-settings-form-email-language"
 				bindLabel="name"
 				bindValue="code"
 				isRequired
@@ -25,8 +24,7 @@ import {Reactive} from "@core/cdk/reactive";
 				invalidTooltip
 				[items]="languageList"
 				[clearable]="false"
-				[formControl]="control()">
-			</ng-select>
+				[formControl]="control()" />
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.businessSettings.select.emailLanguage.hint' | translate }}

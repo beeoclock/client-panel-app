@@ -29,10 +29,8 @@ import {FormControl} from "@angular/forms";
 				aria-labelledby="listbox-label"
 			>
 			  <span class="flex items-center">
-				<ng-container
-					[ngTemplateOutlet]="avatarTemplate"
-					[ngTemplateOutletContext]="{item: selectedItem}">
-				</ng-container>
+				<ng-container [ngTemplateOutlet]="avatarTemplate"
+					[ngTemplateOutletContext]="{item: selectedItem}" />
 				<span class="ml-3 block truncate">{{ selectedItem?.label }}</span>
 			  </span>
 				<span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
@@ -60,10 +58,8 @@ import {FormControl} from "@angular/forms";
 							role="option"
 							[attr.aria-selected]="isSelected(item.id)">
 							<div class="flex items-center">
-								<ng-container
-									[ngTemplateOutlet]="avatarTemplate"
-									[ngTemplateOutletContext]="{item}">
-								</ng-container>
+								<ng-container [ngTemplateOutlet]="avatarTemplate"
+									[ngTemplateOutletContext]="{item}" />
 
 								<span [class.font-semibold]="isSelected(item.id)" class="ml-3 block truncate">
 								{{ item.label }}

@@ -49,8 +49,7 @@ import {NgTemplateOutlet} from "@angular/common";
 
 							@if (row; as item) {
 
-								<ng-container
-									*ngTemplateOutlet="itemTemplate(); context: { item, index: $index }"></ng-container>
+								<ng-container *ngTemplateOutlet="itemTemplate(); context: { item, index: $index }" />
 
 							}
 
