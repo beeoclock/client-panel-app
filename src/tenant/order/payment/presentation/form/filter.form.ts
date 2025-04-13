@@ -21,12 +21,7 @@ export class FilterForm extends FormGroup<IFilterForm> {
 		super({
 			phrase: new FormControl(),
 			state: new FormControl(StateEnum.active),
-			status: new FormControl([
-				PaymentStatusEnum.registered,
-				PaymentStatusEnum.pending,
-				PaymentStatusEnum.succeeded,
-				PaymentStatusEnum.failed,
-			], [
+			status: new FormControl([], [
 				Validators.minLength(1),
 			]),
 			dateRange: new FormGroup({

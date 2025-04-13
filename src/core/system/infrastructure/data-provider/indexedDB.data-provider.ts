@@ -170,6 +170,9 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 		if (filterExist) {
 			results[1] = Object.entries(otherFilter).every(([key, value]) => {
 				if (is.array(value)) {
+					if (value.length === 0) {
+						return true;
+					}
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-expect-error
 					return value.includes(entity[key]);
