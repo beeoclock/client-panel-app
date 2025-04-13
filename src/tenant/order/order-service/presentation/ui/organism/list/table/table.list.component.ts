@@ -223,7 +223,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 			prop: 'duration',
 			minWidth: 160,
 			width: 160,
-			sortable: true,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.start'),
