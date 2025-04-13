@@ -170,14 +170,6 @@ export class TableListComponent extends TableComponent<EOrderService> {
 	public readonly specialistCellTemplate = viewChild<TemplateRef<any>>('specialistCellTemplate');
 	public readonly customerCellTemplate = viewChild<TemplateRef<any>>('customerCellTemplate');
 
-	public readonly useMoneyConvert = (obj: EOrderService, prop: TableColumnProp) => {
-		return 1;
-		// if (obj.amount <= 0) {
-		// 	return '-';
-		// }
-		// return this.currencyPipe.transform(obj.amount, obj.currency, undefined, '1.2-2');
-	};
-
 	public readonly columns = signal<TableColumn<EOrderService>[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.status'),
