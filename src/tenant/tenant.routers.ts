@@ -84,6 +84,15 @@ export const tenantRouters: Routes = [
                                 ]
                             },
                             {
+                                path: 'plugin',
+                                children: [
+                                    {
+                                        path: 'list',
+                                        loadComponent: () => import('@tenant/plugin/presentation/ui/page/list/list.plugin.page')
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'analytic',
                                 children: [
                                     {
