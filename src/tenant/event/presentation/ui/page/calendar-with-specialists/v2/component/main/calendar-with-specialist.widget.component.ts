@@ -336,7 +336,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 
 		this.actions$
 			.pipe(
-				takeUntilDestroyed(),
+				takeUntilDestroyed(this.destroyRef),
 				ofActionSuccessful(
 					AbsenceDataActions.SetState,
 					AbsenceDataActions.UpdateItem,

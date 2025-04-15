@@ -83,7 +83,7 @@ import {
 
 				@for (attendee of row.orderAppointmentDetails.attendees; track attendee.customer._id) {
 
-					@let customerType = attendee.customer.customerType;
+					@let customerType = attendee.customer.customerType ;
 
 					@if (customerType === customerTypeEnum.anonymous) {
 
@@ -94,8 +94,8 @@ import {
 
 					} @else {
 
-						@let firstName = attendee.customer.firstName ?? '';
-						@let lastName = attendee.customer.lastName ?? '';
+						@let firstName = attendee.customer.firstName ?? '' ;
+						@let lastName = attendee.customer.lastName ?? '' ;
 
 						<div
 							class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
@@ -161,7 +161,6 @@ import {
 export class TableListComponent extends TableComponent<EOrderService> {
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-	private readonly currencyPipe = inject(CurrencyPipe);
 
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly statusCellTemplate = viewChild<TemplateRef<any>>('statusCellTemplate');

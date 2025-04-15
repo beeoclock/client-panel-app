@@ -10,11 +10,11 @@ import {
 	PatchTenantTariffPlanChangeApi
 } from "@tenant/tariff-plan/tariff-plan/infrastructure/data-source/api/patch/patch.tenant-tariff-plan.change.api";
 import {environment} from "@environment/environment";
-import {IsOnlineService} from "@core/cdk/is-online.service";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {
 	GetBillingPortalApi
 } from "@tenant/tariff-plan/tariff-plan/infrastructure/data-source/api/get/get.billing-portal.api";
+import {injectNetwork} from "ngxtension/inject-network";
 
 export interface ITariffPlanState {
     items: ETariffPlan[];
@@ -36,12 +36,12 @@ export const TariffPlanStore = signalStore(
 			items$: toObservable<ETariffPlan[]>(items),
             sharedUow: inject(SharedUow),
             ngxLogger: inject(NGXLogger),
-            isOnlineService: inject(IsOnlineService),
+            network: injectNetwork(),
             patchTenantTariffPlanChangeApi: inject(PatchTenantTariffPlanChangeApi.Request),
 			getBillingPortalApi: inject(GetBillingPortalApi),
         }
     }),
-    withMethods(({sharedUow, ngxLogger, isOnlineService, patchTenantTariffPlanChangeApi, getBillingPortalApi, ...store}) => {
+    withMethods(({sharedUow, ngxLogger, network, patchTenantTariffPlanChangeApi, getBillingPortalApi, ...store}) => {
         return {
             async fillItems(): Promise<void> {
                 try {
@@ -64,8 +64,8 @@ export const TariffPlanStore = signalStore(
             },
             async changeTariffPlanOnto(item: ETariffPlan) {
                 try {
-                    const isOffline = isOnlineService.isOffline();
-                    if (isOffline) {
+                    const online = network.online();
+                    if (!online) {
                         return false;
                     }
                     const {url: checkoutSessionUrl} = await patchTenantTariffPlanChangeApi.executeAsync({
@@ -91,10 +91,10 @@ export const TariffPlanStore = signalStore(
             },
             async fetchBillingLink() {
                 try {
-                    const isOffline = isOnlineService.isOffline();
-                    if (isOffline) {
-                        return;
-                    }
+					const online = network.online();
+					if (!online) {
+						return;
+					}
                     const {url} = await getBillingPortalApi.executeAsync();
                     patchState(store, (state) => {
 						return {

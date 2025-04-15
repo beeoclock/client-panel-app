@@ -3,6 +3,7 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {IntervalTypeEnum} from "@tenant/analytic/domain/enum/interval.enum";
 import {DateTime} from "luxon";
+import {PaginationFilterFromGroup} from "@shared/pagination-filter-from-group";
 
 export interface IFilterForm {
 
@@ -18,9 +19,10 @@ export interface IFilterForm {
 
 }
 
-export class FilterForm extends FormGroup<IFilterForm> {
+export class FilterForm extends PaginationFilterFromGroup<IFilterForm> {
 	constructor() {
 		super({
+
 			phrase: new FormControl(),
 			state: new FormControl([StateEnum.active]),
 			members: new FormControl([]),

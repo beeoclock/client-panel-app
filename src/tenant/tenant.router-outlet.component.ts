@@ -2,9 +2,6 @@ import {AfterViewInit, Component, DestroyRef, inject, OnDestroy, OnInit, ViewEnc
 import {SidebarComponent} from '@shared/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@shared/presentation/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
-import {
-	PageLoadingProgressBarComponent
-} from "@shared/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 import {Store} from "@ngxs/store";
 import {BeeoclockIdTokenResult, IdentityState} from "@identity/identity/presentation/state/identity/identity.state";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
@@ -22,7 +19,6 @@ import {is} from "@core/shared/checker";
 import {SocketActions} from "@shared/state/socket/socket.actions";
 import {environment} from "@environment/environment";
 import {VisibilityService} from "@core/cdk/visibility.service";
-import {IsOnlineService} from "@core/cdk/is-online.service";
 import {CustomerModule} from "@tenant/customer/customer.module";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
@@ -31,6 +27,7 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {explicitEffect} from "ngxtension/explicit-effect";
+import {injectNetwork} from "ngxtension/inject-network";
 
 @Component({
 	selector: 'tenant-router-outlet-component',
@@ -42,7 +39,6 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 
 		<div [id]="mainContainerId"
 			 class="w-full h-[calc(100dvh-80px)] md:h-dvh overflow-y-auto sm:ml-64 md:ml-80 transition-all">
-			<utility-page-loading-progress-bar/>
 			<router-outlet/>
 		</div>
 
@@ -51,7 +47,6 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 		SidebarComponent,
 		NavbarComponent,
 		RouterOutlet,
-		PageLoadingProgressBarComponent,
 	],
 	providers: [
 		{
@@ -77,7 +72,7 @@ export default class TenantRouterOutletComponent implements OnInit, AfterViewIni
 	private readonly themeService = inject(ThemeService);
 	private readonly translateService = inject(TranslateService);
 	private readonly visibilityService = inject(VisibilityService);
-	private readonly isOnlineService = inject(IsOnlineService);
+	private readonly network = injectNetwork();
 	private readonly tenantId$ = inject(TENANT_ID);
 	private readonly destroyRef = inject(DestroyRef);
 
@@ -87,12 +82,11 @@ export default class TenantRouterOutletComponent implements OnInit, AfterViewIni
 	public readonly businessProfile$ = this.store.select(BusinessProfileState.item);
 	public readonly businessProfile = toSignal(this.businessProfile$);
 
-	public readonly isOnline = toSignal(this.isOnlineService.isOnline$, {initialValue: true});
 	public readonly visibility = toSignal(this.visibilityService.visibility$, {initialValue: true});
 	public readonly isSyncing = toSignal(BaseSyncManager.isSyncing$, {initialValue: 0});
 
 	public constructor() {
-		explicitEffect([this.isOnline, this.visibility], ([isOnline, visible]) => {
+		explicitEffect([this.network.online, this.visibility], ([isOnline, visible]) => {
 			this.isUserOnWebSite = visible;
 			const isSyncing = this.isSyncing();
 

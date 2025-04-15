@@ -73,7 +73,7 @@
 			.datatable-scroll {
 
 				.datatable-row-wrapper {
-					@apply hover:transition-all active:transition-all hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-700 cursor-pointer active:bg-beeColor-200 dark:active:bg-beeDarkColor-800;
+					@apply hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-700 cursor-pointer active:bg-beeColor-200 dark:active:bg-beeDarkColor-800;
 
 					.datatable-body-row {
 						@apply border-b;

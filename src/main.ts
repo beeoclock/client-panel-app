@@ -42,7 +42,6 @@ import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
 import {SocketIoModule} from "ngx-socket-io";
-import {IsOnlineService} from "@core/cdk/is-online.service";
 import {firebase} from "@src/firebase";
 import {provideIonicAngular} from "@ionic/angular/standalone";
 
@@ -75,7 +74,6 @@ initRuntimeEnvironment();
 
 bootstrapApplication(MainRouterOutlet, {
 	providers: [
-		IsOnlineService,
 		...tokens,
 		NgEventBus,
 		provideExperimentalZonelessChangeDetection(),

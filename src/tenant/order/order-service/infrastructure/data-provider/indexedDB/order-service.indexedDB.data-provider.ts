@@ -34,6 +34,7 @@ export class OrderServiceIndexedDBDataProvider extends IndexedDBDataProvider<EOr
 
     public override find$(options: Types.FindQueryParams, filterFunction: ((entity: EOrderService, filter: Types.PartialQueryParams) => boolean) = this.defaultFilter.bind(this)) {
         return super.find$(options, (entity: EOrderService, filter) => {
+
             const {members, services, statuses, dateRange, ...otherFilter} = filter as Types.PartialQueryParams & {
 				dateRange?: {
 					interval: DateTimeUnit;
