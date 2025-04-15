@@ -28,6 +28,7 @@ import {
 	ConfirmChangeTariffPlanModalController
 } from "@tenant/tariff-plan/tariff-plan/presentation/ui/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.modal.controller";
 import {ModalController, ToastController} from "@ionic/angular/standalone";
+import {explicitEffect} from "ngxtension/explicit-effect";
 
 @Component({
 	standalone: true,
@@ -331,10 +332,9 @@ export class MainTariffPlanSmartComponent implements OnInit {
 	public readonly billingCycleEnum = BillingCycleEnum;
 
 	public constructor() {
-		effect(() => {
-			const actual = this.effectivePlan();
+		explicitEffect([this.effectivePlan], ([actual]) => {
 			if (actual) {
-				this.subscriptionType.set(actual.tariffPlan.prices[0].values[0].billingCycle);
+				this.setSubscriptionType(actual.tariffPlan.prices[0].values[0].billingCycle);
 			}
 		});
 	}
