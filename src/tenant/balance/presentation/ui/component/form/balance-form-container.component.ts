@@ -1,23 +1,20 @@
-import {Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {ICustomer, validCustomer} from "@tenant/customer/domain";
+import {validCustomer} from "@tenant/customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {CustomerForm} from "@tenant/customer/presentation/form";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
-import {InvalidTooltipComponent} from "@shared/presentation/component/invalid-message/invalid-message";
 import {
 	ButtonSaveContainerComponent
 } from "@shared/presentation/component/container/button-save/button-save.container.component";
-import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
-import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/customer.data.actions";
 import {
-	CustomerPresentationActions
-} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
+	BalancePresentationActions
+} from "@tenant/balance/infrastructure/state/presentation/balance.presentation.actions";
+import {BalanceDataActions} from "@tenant/balance/infrastructure/state/data/balance.data.actions";
+import {IBalance} from "@tenant/balance/domain";
+import {TopUpBalanceForm} from "@tenant/balance/presentation/form";
 
 @Component({
 	selector: 'balance-form-page',
@@ -26,48 +23,23 @@ import {
 	imports: [
 		ReactiveFormsModule,
 		TranslateModule,
-		CardComponent,
 		PrimaryButtonDirective,
-		InvalidTooltipComponent,
 		ButtonSaveContainerComponent,
-		NgComponentOutlet,
-		NgForOf,
 	],
 	standalone: true
 })
-export class BalanceFormContainerComponent implements OnInit {
-
-	// TODO move functions to store effects/actions
+export class BalanceFormContainerComponent {
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	public readonly form = CustomerForm.create({
-		customerType: CustomerTypeEnum.regular
-	});
+	public readonly form = TopUpBalanceForm.create();
 
-	public readonly item = input<ICustomer.DTO | undefined>();
-
-	public readonly isEditMode = input<boolean>(false);
-
-	public ngOnInit(): void {
-		this.detectItem();
-	}
-
-	public detectItem(): void {
-		const item = this.item();
-		if (this.isEditMode() && item) {
-			this.form.patchValue({
-				...item,
-				customerType: CustomerTypeEnum.regular
-			});
-			this.form.updateValueAndValidity();
-		}
-	}
+	public readonly item = input<IBalance.DTO | undefined>();
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
-		const value = this.form.getRawValue() as ICustomer.DTO;
+		const value = this.form.getRawValue() as any; // TODO DTO interface
 		const validStatus = validCustomer(value);
 		if (!(validStatus.success) && validStatus.errors.length) {
 			this.ngxLogger.error('Object is invalid', validStatus);
@@ -77,13 +49,9 @@ export class BalanceFormContainerComponent implements OnInit {
 			this.form.disable();
 			this.form.markAsPending();
 			const actions: any[] = [
-				new CustomerPresentationActions.CloseForm(),
-			]
-			if (this.isEditMode()) {
-				actions.unshift(new CustomerDataActions.UpdateItem(value));
-			} else {
-				actions.unshift(new CustomerDataActions.CreateItem(value));
-			}
+				new BalanceDataActions.CreateItem(value),
+				new BalancePresentationActions.CloseForm(),
+			];
 			const action$ = this.store.dispatch(actions);
 			await firstValueFrom(action$);
 			this.form.enable();

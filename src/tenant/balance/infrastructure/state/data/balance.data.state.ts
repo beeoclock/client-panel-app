@@ -34,32 +34,4 @@ export class BalanceDataState {
 		ctx.dispatch(new BalancePresentationActions.CloseForm());
 	}
 
-	@Action(BalanceDataActions.UpdateItem)
-	public async updateItem(ctx: StateContext<IBalanceState>, {payload: item}: BalanceDataActions.UpdateItem): Promise<void> {
-		const foundItem = await this.sharedUow.balance.repository.findByIdAsync(item._id);
-		if (foundItem) {
-			const entity = EBalance.fromRaw({
-				...foundItem,
-				...item,
-			});
-			await this.sharedUow.balance.repository.updateAsync(entity);
-			ctx.dispatch(new BalancePresentationActions.CloseForm());
-			ctx.dispatch(new BalancePresentationActions.UpdateOpenedDetails(entity));
-		}
-	}
-
-	@Action(BalanceDataActions.SetState)
-	public async setState(ctx: StateContext<IBalanceState>, {item, state}: BalanceDataActions.SetState) {
-		const foundItem = await this.sharedUow.balance.repository.findByIdAsync(item._id);
-		if (foundItem) {
-			const entity = EBalance.fromRaw({
-				...foundItem,
-				...item,
-			});
-			entity.changeState(state);
-			await this.sharedUow.balance.repository.updateAsync(entity);
-			ctx.dispatch(new BalancePresentationActions.UpdateOpenedDetails(entity));
-		}
-	}
-
 }

@@ -1565,6 +1565,7 @@
 		"appointments": {
 			"label": "Appointments"
 		},
+		"balance": "Balance",
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",
 		"calendar": {

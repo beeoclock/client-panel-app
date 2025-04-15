@@ -37,7 +37,7 @@ export class BalanceDetailsContainerComponent {
 	public async openCustomersOrders() {
 		const customer = this.item();
 		if (customer) {
-			await this.router.navigate([{outlets: {second: ['customer', customer._id, 'order']}}], {
+			await this.router.navigate([{outlets: {second: ['balance', customer._id, 'order']}}], {
 				onSameUrlNavigation: 'reload',
 			});
 		}

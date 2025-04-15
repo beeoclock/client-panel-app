@@ -192,6 +192,15 @@ export const tenantRouters: Routes = [
                                     }
                                 ]
                             },
+                            {
+                                path: 'balance',
+                                children: [
+                                    {
+                                        path: 'overview',
+                                        loadComponent: () => import('@tenant/balance/presentation/ui/page/list/list.balance.page')
+                                    }
+                                ]
+                            },
                         ]
                     }
                 ]

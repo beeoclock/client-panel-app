@@ -86,27 +86,13 @@ export class BalancePresentationState {
 
 		if (activated) {
 			if (activated instanceof BalanceFormContainerComponent) {
-				const isEditMode = activated.isEditMode();
-				if (isEditMode) {
-					const {_id} = activated.item() ?? {};
-					if (_id === payload?.componentInputs?.item?._id) {
-						const action = new BalancePresentationActions.CloseForm();
-						ctx.dispatch(action);
-						return;
-					}
-				} else {
-					const action = new BalancePresentationActions.CloseForm();
-					ctx.dispatch(action);
-					return;
-				}
+				const action = new BalancePresentationActions.CloseForm();
+				ctx.dispatch(action);
+				return;
 			}
 		}
 
-		if (payload?.componentInputs?.isEditMode) {
-			await this.router.navigate([{outlets: {second: ['balance', payload.componentInputs.item?._id, 'form']}}]);
-		} else {
-			await this.router.navigate([{outlets: {second: ['balance', 'form']}}]);
-		}
+		await this.router.navigate([{outlets: {second: ['balance', 'form']}}]);
 
 	}
 

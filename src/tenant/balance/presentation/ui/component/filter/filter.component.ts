@@ -15,7 +15,7 @@ import {
 import {CustomerDataState} from "@tenant/customer/infrastructure/state/data/customer.data.state";
 
 @Component({
-	selector: 'customer-filter-component',
+	selector: 'balance-filter-component',
 	standalone: true,
 	imports: [
 		SearchInputComponent,

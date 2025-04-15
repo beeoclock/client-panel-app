@@ -346,6 +346,19 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 				fragment: "ignored",
 			}
 		});
+		this.menu.push({
+			order: 13,
+			url: 'balance/overview',
+			translateKey: 'sidebar.balance',
+			icon: 'bi bi-piggy-bank',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
 		// {
 		//   icon: 'bi bi-person',
 		//   translateKey: 'sidebar.private',
