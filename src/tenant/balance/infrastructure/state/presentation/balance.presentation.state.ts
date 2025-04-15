@@ -80,7 +80,7 @@ export class BalancePresentationState {
 	}
 
 	@Action(BalancePresentationActions.OpenForm)
-	public async openForm(ctx: StateContext<IBalancePresentationState>, {payload}: BalancePresentationActions.OpenForm): Promise<void> {
+	public async openForm(ctx: StateContext<IBalancePresentationState>): Promise<void> {
 
 		const activated = this.secondRouterOutletService.activated();
 
