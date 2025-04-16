@@ -32,12 +32,8 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {
 	AbsencePresentationActions
 } from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";
-import {toSignal} from "@angular/core/rxjs-interop";
-import {map} from "rxjs";
-import {IMember} from "@tenant/member/member/domain";
-import {
-	MemberPresentationActions
-} from "@tenant/member/member/infrastructure/state/presentation/member.presentation.actions";
+import {MemberListChipComponent} from "@shared/presentation/component/chip/member/list/member.list.chip";
+import {MemberListService} from "@shared/presentation/component/chip/member/list/member.list.service";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -81,22 +77,7 @@ import {
 					{{ 'absence.form.inputs.entireBusiness.label' | translate }}
 				} @else {
 					@if (row.members.length) {
-
-						@let data = membersMap()?.get(row.members[0]._id);
-						@if (data) {
-							<button (click)="openMemberDetails($event, data)" class="inline-flex flex-nowrap items-center bg-white border border-neutral-200 hover:bg-neutral-200 transition-all rounded-full p-1 pe-3 dark:bg-neutral-900 dark:border-neutral-700">
-								<img class="me-1.5 inline-block size-8 rounded-full object-cover" [src]="data.avatar.url" alt="Avatar">
-								<div class="whitespace-nowrap font-medium text-neutral-800 dark:text-white flex flex-col">
-									<span>{{ data.firstName }}</span>
-								</div>
-							</button>
-						}
-						@let restMembersLength = row.members.length - 1;
-						@if (restMembersLength) {
-							<div class="bg-white rounded-full w-[42px] h-[42px] border flex items-center justify-center">
-								+{{ restMembersLength }}
-							</div>
-						}
+						<member-list-chip [showRestMembers]="true" [members]="row.members"/>
 					}
 				}
 			</div>
@@ -109,6 +90,9 @@ import {
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
 	},
+	providers: [
+		MemberListService
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		TableNgxDatatableSmartComponent,
@@ -117,18 +101,10 @@ import {
 		AutoRefreshButtonComponent,
 		NotFoundTableDataComponent,
 		TranslatePipe,
+		MemberListChipComponent,
 	]
 })
 export class TableListComponent extends TableComponent<EAbsence> {
-
-	public readonly membersMap = toSignal(
-		this.sharedUow.member.repository.find$().pipe(
-			map(({items}) => items.reduce((map, obj) => {
-				map.set(obj._id, obj);
-				return map;
-			}, new Map<string, IMember.EntityRaw>()))
-		)
-	);
 
 	public readonly stateStatusTemplate = viewChild<TemplateRef<any>>('stateStatusTemplate');
 	public readonly membersStatusTemplate = viewChild<TemplateRef<any>>('membersStatusTemplate');
@@ -242,16 +218,6 @@ export class TableListComponent extends TableComponent<EAbsence> {
 	@Dispatch()
 	public openForm() {
 		return new AbsencePresentationActions.OpenForm();
-	}
-
-	public openMemberDetails($event: MouseEvent, data: IMember.EntityRaw) {
-		$event.stopPropagation();
-		this.dispatchMemberDetails(data);
-	}
-
-	@Dispatch()
-	public dispatchMemberDetails(data: IMember.EntityRaw) {
-		return new MemberPresentationActions.OpenDetails(data);
 	}
 }
 

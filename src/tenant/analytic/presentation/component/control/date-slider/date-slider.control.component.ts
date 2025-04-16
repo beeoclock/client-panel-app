@@ -60,16 +60,6 @@ import {
 })
 export class DateSliderControlComponent extends Reactive implements OnChanges, OnInit {
 
-	// @Input({required: true})
-	// public form = new FormGroup({
-	// 	interval: new FormControl<IntervalTypeEnum>(IntervalTypeEnum.day, {
-	// 		nonNullable: true
-	// 	}),
-	// 	selectedDate: new FormControl<string>(DateTime.now().toJSDate().toISOString(), {
-	// 		nonNullable: true
-	// 	}),
-	// });
-
 	public readonly form = input.required<FormGroup<{
 		interval: FormControl<IntervalTypeEnum>;
 		selectedDate: FormControl<string>;
@@ -433,7 +423,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	private changeInterval(dateISO: string, method: 'plus' | 'minus', interval: IntervalTypeEnum) {
 
-		const newDateTime = DateTime.fromISO(dateISO)[method]({[interval]: 1}).startOf('day');
+		const newDateTime = DateTime.fromISO(dateISO)[method]({[interval]: 1});
 
 		return {newDateTime};
 

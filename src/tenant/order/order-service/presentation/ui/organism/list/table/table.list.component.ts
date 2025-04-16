@@ -25,6 +25,11 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+import {MemberListChipComponent} from "@shared/presentation/component/chip/member/list/member.list.chip";
+import {ISpecialist} from "@src/tenant/service/domain/interface/i.specialist";
+import {IMember} from "@tenant/member/member/domain";
+import {MemberListService} from "@shared/presentation/component/chip/member/list/member.list.service";
+import {CustomerChip} from "@shared/presentation/component/chip/customer/customer.chip";
 
 @Component({
 	selector: 'order-service-table-list-component',
@@ -59,71 +64,17 @@ import {
 		</ng-template>
 
 		<ng-template #specialistCellTemplate let-row="row">
-			<div
-				class="flex items-center gap-2 text-sm font-medium text-[#11141A] h-full">
-				@for (specialist of row.orderAppointmentDetails.specialists; track specialist.member._id) {
-					@if (specialist?.member?.avatar?.url?.length) {
-						<img class="w-9 h-9 rounded-full object-cover"
-							 [src]="specialist.member.avatar.url"
-							 alt="Avatar">
-					} @else {
-						<div
-							class="w-9 h-9 flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">
-							{{ specialist?.member?.firstName?.charAt(0) }}
-						</div>
-					}
-					{{ specialist.member.firstName }}
-				}
-			</div>
+			@if (row.orderAppointmentDetails.specialists.length) {
+				<member-list-chip [showRestMembers]="true" [members]="specialistsToMembers(row.orderAppointmentDetails.specialists)"/>
+			}
 		</ng-template>
 
 		<ng-template #customerCellTemplate let-row="row">
-			<div
-				class="inline-flex items-center gap-2 text-sm font-medium text-[#11141A]">
+			@for (attendee of row.orderAppointmentDetails.attendees; track attendee.customer._id) {
 
-				@for (attendee of row.orderAppointmentDetails.attendees; track attendee.customer._id) {
+				<customer-chip [customer]="attendee.customer"/>
 
-					@let customerType = attendee.customer.customerType ;
-
-					@if (customerType === customerTypeEnum.anonymous) {
-
-						<div
-							class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-neutral-700">
-							<i class="bi bi-person"></i>
-						</div>
-
-					} @else {
-
-						@let firstName = attendee.customer.firstName ?? '' ;
-						@let lastName = attendee.customer.lastName ?? '' ;
-
-						<div
-							class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
-							{{ firstName[0] }}{{ lastName[0] }}
-						</div>
-
-					}
-
-					<div class="text-slate-900 text-sm font-normal">
-						@switch (customerType) {
-							@case (customerTypeEnum.unregistered) {
-								{{ attendee.customer.firstName }}
-							}
-							@case (customerTypeEnum.regular) {
-								{{ attendee.customer.firstName }} 📇
-							}
-							@case (customerTypeEnum.new) {
-								{{ attendee.customer.firstName }} 🆕
-							}
-							@case (customerTypeEnum.anonymous) {
-								{{ 'keyword.capitalize.anonymous' | translate }}
-							}
-						}
-					</div>
-
-				}
-
-			</div>
+			}
 		</ng-template>
 		<ng-template #statusCellTemplate let-row="row">
 
@@ -148,17 +99,24 @@ import {
 		ActiveStyleDirective,
 		AutoRefreshButtonComponent,
 		OrderServiceStatusIconComponent,
-		NgClass
+		NgClass,
+		MemberListChipComponent,
+		CustomerChip
 	],
 	providers: [
 		DurationVersionHtmlHelper,
 		CurrencyPipe,
+		MemberListService,
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
 	},
 })
 export class TableListComponent extends TableComponent<EOrderService> {
+
+	public specialistsToMembers(specialists: ISpecialist[]): IMember.EntityRaw[] {
+		return specialists.map(({member}) => member);
+	}
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
@@ -275,7 +233,6 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		if (priceCellTemplate) {
 			this.setCellTemplateRef(columns, 'price', priceCellTemplate);
 		}
-
 
 		const stateCellTemplate = this.stateCellTemplate();
 		if (stateCellTemplate) {

@@ -3,7 +3,6 @@ import {
 	ChangeDetectorRef,
 	Component,
 	computed,
-	effect,
 	inject,
 	input,
 	output,
@@ -197,13 +196,8 @@ export class TableNgxDatatableSmartComponent {
 	});
 
 	public constructor() {
-		let previousLoadingValue = 0;
-		effect(() => {
-			const isLoading = this.isLoading();
-			if (isLoading !== previousLoadingValue) {
-				previousLoadingValue = isLoading;
-				this.changeDetectorRef.detectChanges();
-			}
+		explicitEffect([this.isLoading], () => {
+			this.changeDetectorRef.detectChanges();
 		});
 		explicitEffect([this.tableNgxDatatableSmartResource.resetScrollPosition.listen], () => {
 			setTimeout(() => {
@@ -212,7 +206,7 @@ export class TableNgxDatatableSmartComponent {
 					ngxDatatable?.bodyComponent?.scroller?.setOffset?.(0);
 				}
 			}, 0)
-		})
+		});
 	}
 
 	public get cache() {
@@ -236,7 +230,7 @@ export class TableNgxDatatableSmartComponent {
 	}
 
 	public get isLoading() {
-		return this.tableNgxDatatableSmartResource.isLoading;
+		return this.tableNgxDatatableSmartResource.resource.isLoading;
 	}
 
 	public reset() {
