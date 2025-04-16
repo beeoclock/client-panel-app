@@ -6,7 +6,6 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
-import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {CurrencyPipe, NgClass} from "@angular/common";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
@@ -58,11 +57,6 @@ import {CustomerChip} from "@shared/presentation/component/chip/customer/custome
 			<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getDurationValue(row.serviceSnapshot)"></span>
 		</ng-template>
 
-		<ng-template #stateCellTemplate let-row="row">
-			<div activeStyle [state]="row.state">
-			</div>
-		</ng-template>
-
 		<ng-template #specialistCellTemplate let-row="row">
 			@if (row.orderAppointmentDetails.specialists.length) {
 				<member-list-chip [showRestMembers]="true" [members]="specialistsToMembers(row.orderAppointmentDetails.specialists)"/>
@@ -79,11 +73,18 @@ import {CustomerChip} from "@shared/presentation/component/chip/customer/custome
 		<ng-template #statusCellTemplate let-row="row">
 
 			<app-order-service-status-icon-component
-				class="flex text-3xl"
+				class="flex items-center gap-1"
+				iconClass="text-xl flex items-center"
+				labelCLass="text-sm"
+				[showLabel]="true"
 				[ngClass]="{
 						'text-red-600': row.status === orderServiceStatusEnum.cancelled,
-						'text-blue-600': row.status === orderServiceStatusEnum.accepted,
+						'text-red-700': row.status === orderServiceStatusEnum.deleted,
+						'text-red-800': row.status === orderServiceStatusEnum.rejected,
+						'text-neutral-600': row.status === orderServiceStatusEnum.accepted,
+						'text-blue-600': row.status === orderServiceStatusEnum.requested,
 						'text-green-600': row.status === orderServiceStatusEnum.done,
+						'text-yellow-600': row.status === orderServiceStatusEnum.inProgress,
 					}"
 				[status]="row.status"/>
 
@@ -96,7 +97,6 @@ import {CustomerChip} from "@shared/presentation/component/chip/customer/custome
 		TranslatePipe,
 		NotFoundTableDataComponent,
 		AutoRefreshButtonComponent,
-		ActiveStyleDirective,
 		AutoRefreshButtonComponent,
 		OrderServiceStatusIconComponent,
 		NgClass,
@@ -131,8 +131,8 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		{
 			name: this.translateService.instant('keyword.capitalize.status'),
 			prop: 'status',
-			minWidth: 80,
-			width: 80,
+			minWidth: 120,
+			width: 120,
 			sortable: true,
 		},
 		{
@@ -197,13 +197,6 @@ export class TableListComponent extends TableComponent<EOrderService> {
 			}
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.active'),
-			prop: 'state',
-			minWidth: 100,
-			width: 100,
-			sortable: true,
-		},
-		{
 			name: this.translateService.instant('keyword.capitalize.createdAt'),
 			prop: 'createdAt',
 			minWidth: 200,
@@ -232,11 +225,6 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		const priceCellTemplate = this.priceCellTemplate();
 		if (priceCellTemplate) {
 			this.setCellTemplateRef(columns, 'price', priceCellTemplate);
-		}
-
-		const stateCellTemplate = this.stateCellTemplate();
-		if (stateCellTemplate) {
-			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
 		}
 
 		const statusCellTemplate = this.statusCellTemplate();
