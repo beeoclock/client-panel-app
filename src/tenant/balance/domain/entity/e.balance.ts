@@ -1,6 +1,6 @@
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {IBalance} from "@tenant/balance/domain";
+import {BalanceActionTypeEnum, IBalance} from "@tenant/balance/domain";
 
 
 export class EBalance extends ABaseEntity<'BalanceDto', IBalance.DTO, IBalance.EntityRaw> implements IBalance.EntityRaw {
@@ -30,6 +30,14 @@ export class EBalance extends ABaseEntity<'BalanceDto', IBalance.DTO, IBalance.E
 			createdAt: data.createdAt,
 			stateHistory: data.stateHistory,
 		};
+	}
+
+	public isIncome(): boolean {
+		return this.action.type === BalanceActionTypeEnum.income;
+	}
+
+	public isOutcome(): boolean {
+		return this.action.type === BalanceActionTypeEnum.outcome;
 	}
 
 	public amountIsPositive(): boolean {

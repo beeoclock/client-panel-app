@@ -90,8 +90,8 @@ export class TableListComponent extends TableComponent<EBalance> {
 		{
 			name: this.translateService.instant('keyword.capitalize.amount'),
 			prop: 'action.amount',
-			minWidth: 80,
-			width: 80,
+			minWidth: 240,
+			width: 240,
 			sortable: true,
 		},
 		{

@@ -2,94 +2,45 @@
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 
-			<div class="p-4 gap-4 flex justify-between">
-				<div class="gap-4 flex">
-					<div
-						class="text-neutral-400 font-extrabold text-4xl min-w-[116px] max-w-[116px] min-h-[116px] max-h-[116px] flex items-center justify-center bg-neutral-200 rounded-full">
-						<span class="">{{ (item.firstName ?? '')[0] }}</span>
-						<span class="">{{ (item.lastName ?? '')[0] }}</span>
-					</div>
-					<div class="flex flex-col justify-center">
-						<div class="flex flex-col gap-2">
-							<div>
-								<div activeStyle [state]="item.state"></div>
-							</div>
+			<div class="px-3 py-3 flex gap-2 items-center">
+
+				@switch (item.action.type) {
+					@case (balanceActionTypeEnum.income) {
+						<div class="rounded-full flex justify-center items-center w-10 h-10 min-w-10 min-h-10 bg-green-100 text-green-500 p-1">
+							<i class="bi bi-arrow-down-left"></i>
 						</div>
-						<div class=" flex flex-col">
-							@if (item.firstName; as firstName) {
-								<span
-									[class.text-xl]="firstName.length > 10"
-									[class.text-2xl]="firstName.length > 9 && firstName.length < 11"
-									[class.text-3xl]="firstName.length > 4 && firstName.length < 9"
-									[class.text-4xl]="firstName.length < 5"
-									class="font-extrabold break-all">{{ item.firstName }}</span>
-							}
-							@if (item.lastName) {
-								<span class="text-xl break-all">{{ item.lastName }}</span>
-							}
-						</div>
-					</div>
-				</div>
-				<div class="flex flex-col justify-center">
-					<customer-row-action-button-component
-						[hide]="['details']"
-						[item]="item"
-						[id]="item._id"/>
-				</div>
-			</div>
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.email' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					@if (item.email?.length) {
-						<a href="mailto:{{ item.email }}"
-						   primaryLinkStyle class="gap-2 whitespace-nowrap text-ellipsis text-nowrap overflow-hidden">
-							<i class="bi bi-envelope-at"></i>
-							{{ item.email }}
-						</a>
 					}
+					@case (balanceActionTypeEnum.outcome) {
+						<div class="rounded-full flex justify-center items-center w-10 h-10 min-w-10 min-h-10 bg-red-100 text-red-500 p-1">
+							<i class="bi bi-arrow-up-right"></i>
+						</div>
+					}
+				}
+				<dd class="text-4xl font-extrabold leading-6" [class.text-green-600]="item.isIncome()" [class.text-red-600]="item.isOutcome()">
+					{{ item.action.amount | currency: item.action.currency: 'symbol-narrow' }}
+				</dd>
+
+			</div>
+
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="font-medium leading-6 text-gray-900">
+					{{ 'sidebar.balance' | translate }}
+				</dt>
+				<dd class="leading-6 text-gray-700 sm:col-span-2">
+					{{ item.amountBeforeAction | currency: item.currency: 'symbol-narrow' }}
+					<i class="bi bi-arrow-right-short"></i>
+					{{ item.amountAfterAction | currency: item.currency: 'symbol-narrow' }}
 				</dd>
 			</div>
+
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.phone' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					@if (item.phone?.length) {
-						<a href="tel:{{ item.phone }}"
-						   primaryLinkStyle class="gap-2">
-							<i class="bi bi-telephone"></i>
-							{{ item.phone }}
-						</a>
-						<a href="sms:{{ item.phone }}"
-						   primaryLinkStyle class="gap-2">
-							<i class="bi bi-send"></i>
-							SMS
-						</a>
-					}
-				</dd>
-			</div>
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
+				<dt class=" font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.note' | translate }}
 				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					{{ item.note }}
+				<dd class=" leading-6 text-gray-700 sm:col-span-2">
+					{{ item.action.systemComment }}
 				</dd>
 			</div>
-			<button (click)="openCustomersOrders()"
-					class="w-full p-3 flex justify-between cursor-pointer hover:bg-gray-50 transition-all">
-
-				<dt class="text-sm font-medium leading-6 text-gray-900 text-start">
-					{{ 'sidebar.order' | translate }}
-				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex justify-end">
-					<div class="flex items-center gap-4">
-						<i class="bi bi-chevron-right"></i>
-					</div>
-				</dd>
-			</button>
 		</dl>
 	</div>
 
