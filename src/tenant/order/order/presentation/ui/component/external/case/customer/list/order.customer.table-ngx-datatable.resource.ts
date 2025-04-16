@@ -10,15 +10,9 @@ import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 export class OrderCustomerTableNgxDatatableSmartResource extends TableNgxDatatableSmartResource<IOrder.EntityRaw> {
 
 	private readonly sharedUow = inject(SharedUow);
-	protected override readonly loadData = async ({
-												page,
-												pageSize,
-												orderBy,
-												orderDir,
-												filters
-											}: AsyncLoadDataFunctionParams) => {
+	protected override async loadData(parameters: AsyncLoadDataFunctionParams) {
 
-		const {customerId} = filters;
+		const {customerId} = parameters;
 
 		if (customerId) {
 
@@ -38,13 +32,7 @@ export class OrderCustomerTableNgxDatatableSmartResource extends TableNgxDatatab
 
 		}
 
-		return this.sharedUow.order.repository.findAsync({
-			page,
-			pageSize,
-			orderDir,
-			orderBy,
-			...filters,
-		});
+		return this.sharedUow.order.repository.findAsync(parameters);
 
 	}
 

@@ -1,15 +1,16 @@
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl} from '@angular/forms';
+import {PaginationFilterFromGroup} from "@shared/pagination-filter-from-group";
 
 export interface IFilterForm {
 
-	search: FormControl<string>;
+	phrase: FormControl<string>;
 
 }
 
-export class FilterForm extends FormGroup<IFilterForm> {
+export class FilterForm extends PaginationFilterFromGroup<IFilterForm> {
 	constructor() {
 		super({
-			search: new FormControl()
+			phrase: new FormControl()
 		});
 	}
 }

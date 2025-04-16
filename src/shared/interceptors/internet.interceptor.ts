@@ -1,7 +1,6 @@
 import {HttpInterceptorFn} from "@angular/common/http";
-import {inject} from "@angular/core";
-import {IsOnlineService} from "@core/cdk/is-online.service";
 import {EMPTY} from "rxjs";
+import {injectNetwork} from "ngxtension/inject-network";
 
 /**
  *
@@ -10,9 +9,9 @@ import {EMPTY} from "rxjs";
  */
 export const InternetInterceptor: HttpInterceptorFn = (request, next) => {
 
-	const isOnlineService = inject(IsOnlineService);
+	const network = injectNetwork();
 
-	if (isOnlineService.isOffline()) {
+	if (!network.online()) {
 		// Cancel the request
 		return EMPTY;
 	}
