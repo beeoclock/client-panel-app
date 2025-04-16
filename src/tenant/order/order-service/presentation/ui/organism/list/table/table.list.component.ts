@@ -6,7 +6,7 @@ import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
-import {CurrencyPipe, NgClass} from "@angular/common";
+import {CurrencyPipe} from "@angular/common";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {
@@ -77,15 +77,6 @@ import {CustomerChip} from "@shared/presentation/component/chip/customer/custome
 				iconClass="text-xl flex items-center"
 				labelCLass="text-sm"
 				[showLabel]="true"
-				[ngClass]="{
-						'text-red-600': row.status === orderServiceStatusEnum.cancelled,
-						'text-red-700': row.status === orderServiceStatusEnum.deleted,
-						'text-red-800': row.status === orderServiceStatusEnum.rejected,
-						'text-neutral-600': row.status === orderServiceStatusEnum.accepted,
-						'text-blue-600': row.status === orderServiceStatusEnum.requested,
-						'text-green-600': row.status === orderServiceStatusEnum.done,
-						'text-yellow-600': row.status === orderServiceStatusEnum.inProgress,
-					}"
 				[status]="row.status"/>
 
 		</ng-template>
@@ -99,7 +90,6 @@ import {CustomerChip} from "@shared/presentation/component/chip/customer/custome
 		AutoRefreshButtonComponent,
 		AutoRefreshButtonComponent,
 		OrderServiceStatusIconComponent,
-		NgClass,
 		MemberListChipComponent,
 		CustomerChip
 	],

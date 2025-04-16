@@ -10,7 +10,7 @@ import {
 	signal,
 	ViewEncapsulation
 } from "@angular/core";
-import {CurrencyPipe, NgClass} from "@angular/common";
+import {CurrencyPipe} from "@angular/common";
 import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {
@@ -51,7 +51,6 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 		CurrencyPipe,
 		StatusOrderChipComponent,
 		DynamicDatePipe,
-		NgClass,
 		OrderServiceStatusIconComponent,
 	],
 	providers: [
@@ -199,11 +198,6 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 														class="flex items-center gap-2 text-sm line-clamp-2 font-regular leading-tight text-[#11141A]">
 														<app-order-service-status-icon-component
 															class="flex text-base"
-															[ngClass]="{
-																'text-red-600': service.status === orderServiceStatusEnum.cancelled,
-																'text-blue-600': service.status === orderServiceStatusEnum.accepted,
-																'text-green-600': service.status === orderServiceStatusEnum.done,
-															  }"
 															[status]="service.status"/>
 														@if (service.serviceSnapshot?.presentation?.banners?.[0]?.url?.length) {
 															<div>

@@ -140,8 +140,8 @@ export class TableListComponent extends TableComponent<EService> {
 		{
 			name: this.translateService.instant('keyword.capitalize.color'),
 			prop: 'color',
-			minWidth: 50,
-			width: 50,
+			minWidth: 60,
+			width: 60,
 			sortable: false
 		},
 		{

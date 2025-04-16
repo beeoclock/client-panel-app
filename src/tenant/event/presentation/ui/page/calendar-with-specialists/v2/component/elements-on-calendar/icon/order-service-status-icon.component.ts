@@ -41,7 +41,16 @@ import {TranslatePipe} from "@ngx-translate/core";
 	imports: [
 		IconComponent,
 		TranslatePipe
-	]
+	],
+	host: {
+		'[class.text-red-600]': 'status() === orderServiceStatusEnum.cancelled',
+		'[class.text-red-700]': 'status() === orderServiceStatusEnum.deleted',
+		'[class.text-red-800]': 'status() === orderServiceStatusEnum.rejected',
+		'[class.text-neutral-600]': 'status() === orderServiceStatusEnum.accepted',
+		'[class.text-blue-600]': 'status() === orderServiceStatusEnum.requested',
+		'[class.text-green-600]': 'status() === orderServiceStatusEnum.done',
+		'[class.text-yellow-600]': 'status() === orderServiceStatusEnum.inProgress',
+	}
 })
 export class OrderServiceStatusIconComponent {
 
