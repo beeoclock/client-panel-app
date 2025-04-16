@@ -172,6 +172,18 @@
 			"off": "fra"
 		}
 	},
+	"balance": {
+		"button": {
+			"create": "Fyld din saldo op"
+		},
+		"field": {
+			"action": {
+				"type": {
+					"label": "Type"
+				}
+			}
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbersalon",
 		"BeautySalon": "Skønhedssalon",

@@ -5,13 +5,9 @@ import {AsyncPipe, DatePipe} from "@angular/common";
 import {
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {ofActionSuccessful} from "@ngxs/store";
-import {tap} from "rxjs";
 import {
 	BalanceTableNgxDatatableSmartResource
 } from "@tenant/balance/presentation/ui/page/list/balance.table-ngx-datatable.resource";
-import {BalanceDataActions} from "@tenant/balance/infrastructure/state/data/balance.data.actions";
 import {
 	DesktopLayoutListComponent
 } from "@tenant/balance/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
@@ -41,15 +37,6 @@ import {
 })
 export class ListBalancePage extends ListPage implements OnDestroy, OnInit {
 
-	public readonly actionsSubscription = this.actions.pipe(
-		takeUntilDestroyed(),
-		ofActionSuccessful(
-			BalanceDataActions.CreateItem,
-		),
-		tap((payload) => {
-			this.tableNgxDatatableSmartResource?.refreshDiscoveredPages();
-		})
-	).subscribe();
 
 	public override ngOnInit() {
 		super.ngOnInit();

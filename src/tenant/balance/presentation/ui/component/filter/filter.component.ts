@@ -9,10 +9,12 @@ import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
-import {
-	CustomerPresentationActions
-} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 import {CustomerDataState} from "@tenant/customer/infrastructure/state/data/customer.data.state";
+import {BalanceOrganizm} from "@tenant/balance/presentation/ui/organism/balance.organizm";
+import {
+	BalancePresentationActions
+} from "@tenant/balance/infrastructure/state/presentation/balance.presentation.actions";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'balance-filter-component',
@@ -26,32 +28,33 @@ import {CustomerDataState} from "@tenant/customer/infrastructure/state/data/cust
 		NgTemplateOutlet,
 		AutoRefreshComponent,
 		ReactiveFormsModule,
-		IonSelectStateComponent
+		IonSelectStateComponent,
+		BalanceOrganizm
 	],
 	template: `
 		<utility-default-panel-component>
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full p-2">
-					<ng-container *ngTemplateOutlet="SearchInput" />
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm" />
+					<ng-container *ngTemplateOutlet="SearchInput"/>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
 				</div>
 
 			} @else {
 
 				<div class="flex overflow-x-auto gap-2 p-2">
-					<ng-container *ngTemplateOutlet="SearchInput" />
-					<ng-container *ngTemplateOutlet="CustomerActiveSelect" />
-					<ng-container *ngTemplateOutlet="AutoRefresh" />
+					<ng-container *ngTemplateOutlet="SearchInput"/>
+					<ng-container *ngTemplateOutlet="CustomerActiveSelect"/>
+					<ng-container *ngTemplateOutlet="AutoRefresh"/>
 				</div>
 				<div class="p-2">
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm" />
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
 				</div>
 			}
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
-				<ng-container *ngTemplateOutlet="CustomerActiveSelect" />
-				<ng-container *ngTemplateOutlet="AutoRefresh" />
+				<ng-container *ngTemplateOutlet="CustomerActiveSelect"/>
+				<ng-container *ngTemplateOutlet="AutoRefresh"/>
 			</div>
 		}
 
@@ -79,6 +82,9 @@ import {CustomerDataState} from "@tenant/customer/infrastructure/state/data/cust
 				</button>
 			}
 		</ng-template>
+
+		<balance-organizm/>
+
 	`
 })
 export class FilterComponent extends BaseFilterComponent {
@@ -93,7 +99,8 @@ export class FilterComponent extends BaseFilterComponent {
 		super.initHandlers();
 	}
 
+	@Dispatch()
 	public openForm() {
-		this.store.dispatch(new CustomerPresentationActions.OpenForm());
+		return new BalancePresentationActions.OpenForm()
 	}
 }

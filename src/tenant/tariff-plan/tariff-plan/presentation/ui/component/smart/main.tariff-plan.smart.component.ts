@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	effect,
-	inject,
-	OnInit,
-	Signal,
-	signal,
-	ViewEncapsulation
-} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit, Signal, signal, ViewEncapsulation} from "@angular/core";
 import ETariffPlan from "@tenant/tariff-plan/tariff-plan/domain/entity/e.tariff-plan";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {CurrencyCodePipe} from "@shared/presentation/pipes/currency-code.pipe";
@@ -29,6 +20,7 @@ import {
 } from "@tenant/tariff-plan/tariff-plan/presentation/ui/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.modal.controller";
 import {ModalController, ToastController} from "@ionic/angular/standalone";
 import {explicitEffect} from "ngxtension/explicit-effect";
+import {WINDOW} from "@core/cdk/window.provider";
 
 @Component({
 	standalone: true,
@@ -263,6 +255,7 @@ export class MainTariffPlanSmartComponent implements OnInit {
 	private readonly toastController = inject(ToastController);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly translateService = inject(TranslateService);
+	private readonly window = inject(WINDOW);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	public readonly historyItems: ETariffPlanHistory[] = this.activatedRoute.snapshot.data.tariffPlanHistoryItems;
 	public readonly effectivePlan: Signal<ETariffPlanHistory | null> = this.tariffPlanHistoryStore.effectivePlan;
@@ -305,7 +298,7 @@ export class MainTariffPlanSmartComponent implements OnInit {
 		this.tariffPlanStore.fetchBillingLink().then(() => {
 			const billingLink = this.tariffPlanStore.billingLink();
 			if (billingLink) {
-				window.open(billingLink, '_blank');
+				this.window.open(billingLink, '_blank');
 				return;
 			}
 		}).finally(() => {

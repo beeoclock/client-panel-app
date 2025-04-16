@@ -8,7 +8,7 @@ import {
 @Injectable()
 export class BalanceIndexedDBDataProvider extends IndexedDBDataProvider<EBalance> {
 
-	protected readonly entityFieldsToSearch = [];
+	protected readonly entityFieldsToSearch = ['action.systemComment', 'action.amount', 'action.currency', 'action.type'];
 	protected readonly dexieAdapterIndexedDBDataProvider = inject(BalanceDexieAdapterIndexedDBDataProvider);
 
 }

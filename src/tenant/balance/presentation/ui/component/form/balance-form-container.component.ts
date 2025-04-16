@@ -1,66 +1,110 @@
-import {Component, inject, input, ViewEncapsulation} from '@angular/core';
+import {
+	afterNextRender,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	ViewEncapsulation
+} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {validCustomer} from "@tenant/customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
-import {firstValueFrom} from "rxjs";
-import {Store} from "@ngxs/store";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
 	ButtonSaveContainerComponent
 } from "@shared/presentation/component/container/button-save/button-save.container.component";
 import {NGXLogger} from "ngx-logger";
+import {TopUpBalanceForm} from "@tenant/balance/presentation/form";
+import {TOP_UP_BALANCE_PORT} from "@tenant/balance/infrastructure/port/out/top-up.port";
+import {PostApi} from "@tenant/balance/infrastructure/data-source/api/post.api";
+import {TopUpBalanceUseCase} from "@tenant/balance/application/use-case/top-up-balance.use-case";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	BalancePresentationActions
 } from "@tenant/balance/infrastructure/state/presentation/balance.presentation.actions";
-import {BalanceDataActions} from "@tenant/balance/infrastructure/state/data/balance.data.actions";
-import {IBalance} from "@tenant/balance/domain";
-import {TopUpBalanceForm} from "@tenant/balance/presentation/form";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {
+	BusinessProfileState
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {Store} from "@ngxs/store";
+import {WINDOW} from "@core/cdk/window.provider";
+import {TopUpBalanceDtoSchema} from "@tenant/balance/application/dto/top-up-balance.dto";
 
 @Component({
 	selector: 'balance-form-page',
 	templateUrl: './balance-form-container.component.html',
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		ReactiveFormsModule,
 		TranslateModule,
 		PrimaryButtonDirective,
 		ButtonSaveContainerComponent,
+		CardComponent,
+		FormInputComponent,
+	],
+	providers: [
+		{
+			provide: TOP_UP_BALANCE_PORT,
+			useClass: PostApi,
+		},
+		TopUpBalanceUseCase,
 	],
 	standalone: true
 })
 export class BalanceFormContainerComponent {
 
-	private readonly store = inject(Store);
+	private readonly topUpBalanceUseCase = inject(TopUpBalanceUseCase);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly store = inject(Store);
+	private readonly window = inject(WINDOW);
+	private readonly baseCurrency = this.store.selectSnapshot(BusinessProfileState.baseCurrency);
+	private readonly baseLanguage = this.store.selectSnapshot(BusinessProfileState.baseLanguage);
 
 	public readonly form = TopUpBalanceForm.create();
 
-	public readonly item = input<IBalance.DTO | undefined>();
+	public constructor() {
+		afterNextRender(() => {
+			this.form.patchValue({
+				currency: this.baseCurrency,
+				language: this.baseLanguage,
+			})
+		})
+	}
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
-		const value = this.form.getRawValue() as any; // TODO DTO interface
-		const validStatus = validCustomer(value);
-		if (!(validStatus.success) && validStatus.errors.length) {
-			this.ngxLogger.error('Object is invalid', validStatus);
-			return;
-		}
+		const value = this.form.getRawValue(); // TODO DTO interface
 		if (this.form.valid) {
 			this.form.disable();
 			this.form.markAsPending();
-			const actions: any[] = [
-				new BalanceDataActions.CreateItem(value),
-				new BalancePresentationActions.CloseForm(),
-			];
-			const action$ = this.store.dispatch(actions);
-			await firstValueFrom(action$);
+
+			try {
+				const dto = TopUpBalanceDtoSchema.parse(value);
+				const result = await this.topUpBalanceUseCase.execute(dto);
+				if (result.url.length) {
+					this.window.location.href = result.url;
+				}
+				this.closeForm();
+			} catch (error) {
+				this.ngxLogger.error('Error while saving form', error);
+			}
+
 			this.form.enable();
 			this.form.updateValueAndValidity();
-
+			this.form.markAsDirty();
+			this.changeDetectorRef.detectChanges();
 		} else {
 			this.ngxLogger.error('Form is invalid', this.form);
 		}
 	}
+
+	@Dispatch()
+	public closeForm() {
+		return new BalancePresentationActions.CloseForm();
+	}
+
 }
 
 export default BalanceFormContainerComponent;

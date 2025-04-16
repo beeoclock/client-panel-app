@@ -172,6 +172,18 @@
 			"off": "вимк."
 		}
 	},
+	"balance": {
+		"button": {
+			"create": "Поповнити баланс"
+		},
+		"field": {
+			"action": {
+				"type": {
+					"label": "Тип"
+				}
+			}
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Барбершоп",
 		"BeautySalon": "Салон краси",

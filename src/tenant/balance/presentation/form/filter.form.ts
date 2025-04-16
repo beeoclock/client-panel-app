@@ -1,18 +1,16 @@
-import {FormControl, FormGroup} from '@angular/forms';
-import {StateEnum} from "@core/shared/enum/state.enum";
+import {FormControl} from '@angular/forms';
+import {PaginationFilterFromGroup} from "@shared/pagination-filter-from-group";
 
 export interface IFilterForm {
 
 	phrase: FormControl<string>;
-	state: FormControl<StateEnum | null>;
 
 }
 
-export class FilterForm extends FormGroup<IFilterForm> {
+export class FilterForm extends PaginationFilterFromGroup<IFilterForm> {
 	constructor() {
 		super({
 			phrase: new FormControl(),
-			state: new FormControl(StateEnum.active),
 		});
 	}
 }

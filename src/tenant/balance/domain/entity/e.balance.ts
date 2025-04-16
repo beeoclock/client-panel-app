@@ -1,3 +1,4 @@
+import {CurrencyCodeEnum} from "@core/shared/enum";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IBalance} from "@tenant/balance/domain";
 
@@ -6,6 +7,10 @@ export class EBalance extends ABaseEntity<'BalanceDto', IBalance.DTO, IBalance.E
 
 	override object = 'BalanceDto' as const;
 
+    action!: IBalance.IAction;
+    amountAfterAction!: number;
+    amountBeforeAction!: number;
+    currency!: CurrencyCodeEnum;
 
 	public override toDTO(): IBalance.DTO {
 		return EBalance.toDTO(this);
@@ -13,7 +18,10 @@ export class EBalance extends ABaseEntity<'BalanceDto', IBalance.DTO, IBalance.E
 
 	public static toDTO(data: IBalance.EntityRaw): IBalance.DTO {
 		return {
-
+			amountBeforeAction: data.amountBeforeAction,
+			amountAfterAction: data.amountAfterAction,
+			currency: data.currency,
+			action: data.action,
 
 			_id: data._id,
 			state: data.state,
@@ -22,6 +30,18 @@ export class EBalance extends ABaseEntity<'BalanceDto', IBalance.DTO, IBalance.E
 			createdAt: data.createdAt,
 			stateHistory: data.stateHistory,
 		};
+	}
+
+	public amountIsPositive(): boolean {
+		return this.amountAfterAction > 0;
+	}
+
+	public amountIsNegative(): boolean {
+		return this.amountAfterAction < 0;
+	}
+
+	public amountIsZero(): boolean {
+		return this.amountAfterAction === 0;
 	}
 
 	/**

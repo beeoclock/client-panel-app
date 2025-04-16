@@ -14,6 +14,7 @@ import {Reactive} from "@core/cdk/reactive";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {WINDOW} from "@core/cdk/window.provider";
 
 interface IMenuItem {
 	order: number;
@@ -48,6 +49,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 	private readonly store = inject(Store);
 	private readonly ngEventBus = inject(NgEventBus);
 	private readonly sidebarService = inject(SidebarService);
+	private readonly window = inject(WINDOW);
 	private readonly tenantId$ = inject(TENANT_ID);
 
 	public readonly businessProfile$ = this.store.select(BusinessProfileState.item);
@@ -85,7 +87,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 		}
 
 		const link = `${environment.urls.publicPageOrigin}/${path}`;
-		window.open(link, '_blank');
+		this.window.open(link, '_blank');
 
 	}
 

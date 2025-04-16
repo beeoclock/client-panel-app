@@ -172,6 +172,18 @@
 			"off": "off"
 		}
 	},
+	"balance": {
+		"button": {
+			"create": "Top up balance"
+		},
+		"field": {
+			"action": {
+				"type": {
+					"label": "Type"
+				}
+			}
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Beauty salon",

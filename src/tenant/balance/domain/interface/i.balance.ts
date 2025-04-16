@@ -1,10 +1,28 @@
 import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
+import {CurrencyCodeEnum} from "@core/shared/enum";
+
+export enum BalanceActionTypeEnum {
+	income = 'income',
+	outcome = 'outcome',
+}
 
 export namespace IBalance {
 
 	export interface DTO extends IBaseDTO<'BalanceDto'> {
+		action: IAction;
+		amountAfterAction: number;
+		amountBeforeAction: number;
+		currency: CurrencyCodeEnum;
+	}
 
+	export interface IAction {
+		amount: number;
+		anchorId: string;
+		anchorType: string;
+		currency: CurrencyCodeEnum;
+		systemComment: string;
+		type: BalanceActionTypeEnum;
 	}
 
 	export type EntityRaw = IBaseEntityRaw<'BalanceDto'> & DTO &

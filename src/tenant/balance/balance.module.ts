@@ -15,13 +15,11 @@ import {
 } from "@tenant/balance/infrastructure/data-provider/indexedDB/adapter/balance.dexie.adapter.indexedDB.data-provider";
 import {BalanceRepository} from "@tenant/balance/infrastructure/repository/balance.repository";
 import {BalanceService} from "@tenant/balance/domain/service/balance.service";
-import {BalanceDataState} from "@tenant/balance/infrastructure/state/data/balance.data.state";
 import {BalancePresentationState} from "@tenant/balance/infrastructure/state/presentation/balance.presentation.state";
 
 @NgModule({
 	imports: [
 		NgxsModule.forFeature([
-			BalanceDataState,
 			BalancePresentationState,
 		]),
 	],

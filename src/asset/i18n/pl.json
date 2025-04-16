@@ -172,6 +172,18 @@
 			"off": "wył."
 		}
 	},
+	"balance": {
+		"button": {
+			"create": "Doładuj saldo"
+		},
+		"field": {
+			"action": {
+				"type": {
+					"label": "Typ"
+				}
+			}
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Salon kosmetyczny",
