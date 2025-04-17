@@ -19,12 +19,10 @@ import {TranslateModule} from "@ngx-translate/core";
   template: `
     <div class="flex gap-4 justify-between">
       <div class="w-40">
-        <ng-select
-          id="type"
+        <ng-select id="type"
           [formControl]="form().controls.type"
           [items]="socialNetworks"
-          [clearable]="false">
-        </ng-select>
+          [clearable]="false" />
       </div>
       <div class="w-full">
         <form-input

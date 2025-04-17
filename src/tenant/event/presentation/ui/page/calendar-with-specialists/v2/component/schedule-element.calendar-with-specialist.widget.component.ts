@@ -24,7 +24,7 @@ import {BooleanState} from "@shared/domain";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 
 
 interface IData {
@@ -102,7 +102,8 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 
 	public ngAfterViewInit() {
 
-		if (this.index() === 1) {
+		const index = this.index();
+		if (index === 0) {
 
 			this.scheduleElements.changes.pipe(
 				this.takeUntil(),

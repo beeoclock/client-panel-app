@@ -21,14 +21,12 @@ import {Reactive} from "@core/cdk/reactive";
 		<label default [for]="id()">
 			{{ 'keyword.capitalize.country' | translate }}
 		</label>
-		<ng-select
-			bindLabel="name"
+		<ng-select bindLabel="name"
 			bindValue="code"
 			[items]="countryList"
 			[clearable]="false"
 			[id]="id()"
-			[formControl]="control()">
-		</ng-select>
+			[formControl]="control()" />
 	`,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

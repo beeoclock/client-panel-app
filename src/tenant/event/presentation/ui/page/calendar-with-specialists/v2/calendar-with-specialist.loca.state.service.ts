@@ -5,7 +5,7 @@ import {
 	EventCalendarWithSpecialistWidgetComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 
 @Injectable({
 	providedIn: 'root'

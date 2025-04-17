@@ -12,14 +12,12 @@ import {NgSelectModule} from "@ng-select/ng-select";
 		<div class="relative">
 			<label default
 				   [for]="id()">{{ 'keyword.capitalize.latestBooking' | translate }}</label>
-			<ng-select
-				bindLabel="name"
+			<ng-select bindLabel="name"
 				bindValue="seconds"
 				[items]="latestBookingList"
 				[clearable]="false"
 				[id]="id()"
-				[formControl]="control()">
-			</ng-select>
+				[formControl]="control()" />
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.bookingSettings.input.latestBooking.placeholder' | translate }}

@@ -15,8 +15,7 @@ import {InvalidTooltipDirective} from "@shared/presentation/directives/invalid-t
 			<label default for="client-business-settings-form-base-language">
 				{{ 'client.profile.form.section.businessSettings.select.baseLanguage.label' | translate }}
 			</label>
-			<ng-select
-				labelForId="client-business-settings-form-base-language"
+			<ng-select labelForId="client-business-settings-form-base-language"
 				bindLabel="name"
 				bindValue="code"
 				isRequired
@@ -27,8 +26,7 @@ import {InvalidTooltipDirective} from "@shared/presentation/directives/invalid-t
 				[items]="languageList"
 				[closeOnSelect]="false"
 				[clearable]="false"
-				[formControl]="control()">
-			</ng-select>
+				[formControl]="control()" />
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.businessSettings.select.baseLanguage.hint' | translate }}

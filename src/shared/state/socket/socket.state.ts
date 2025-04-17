@@ -11,7 +11,7 @@ import {merge} from "rxjs";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {
 	TariffPlanHistoryStore
-} from "@tenant/tariff-plan-history/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
+} from "@tenant/tariff-plan/tariff-plan-history/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
 
 export interface SocketStateModel {
 	connected: boolean;

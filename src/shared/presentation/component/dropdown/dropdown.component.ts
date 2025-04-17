@@ -60,7 +60,7 @@ import {Placement} from "@popperjs/core/lib/enums";
       #dropdownMenu
       class="z-10 hidden bg-white divide-y divide-beeColor-100 rounded-lg shadow-xl w-44 dark:bg-beeDarkColor-700">
       <ul [class]="menuClassList()" aria-labelledby="dropdownDefaultButton">
-        <ng-content select="[content]"></ng-content>
+        <ng-content select="[content]" />
       </ul>
     </div>
 

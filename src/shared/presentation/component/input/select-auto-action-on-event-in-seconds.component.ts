@@ -14,14 +14,12 @@ import {is} from "@core/shared/checker";
 			<label default [for]="id()">
 				{{ 'keyword.capitalize.autoActionOnOrderInSeconds' | translate }}
 			</label>
-			<ng-select
-				bindLabel="name"
+			<ng-select bindLabel="name"
 				bindValue="seconds"
 				[items]="autoActionOnOrderInSecondsList"
 				[clearable]="false"
 				[id]="id()"
-				[formControl]="control()">
-			</ng-select>
+				[formControl]="control()" />
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.bookingSettings.input.autoActionOnOrderInSeconds.placeholder' | translate }}

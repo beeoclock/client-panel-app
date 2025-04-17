@@ -16,7 +16,7 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	template: `
-		<ng-content></ng-content>
+		<ng-content  />
 	`
 })
 export class CardComponent implements OnChanges, OnInit {

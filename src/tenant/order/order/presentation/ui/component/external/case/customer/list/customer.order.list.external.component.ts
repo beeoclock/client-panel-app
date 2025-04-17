@@ -59,9 +59,9 @@ export class CustomerOrderListExternalComponent extends ListPage implements OnIn
 
 	public override ngOnInit() {
 		super.ngOnInit();
-		this.tableNgxDatatableSmartResource?.filters.update((filters) => {
+		this.tableNgxDatatableSmartResource?.parameters.update((parameters) => {
 			return {
-				...filters,
+				...parameters,
 				customerId: this.item()._id,
 			}
 		})

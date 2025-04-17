@@ -122,12 +122,10 @@ import {GlobalEventListCustomerRepository} from "@src/token";
 				@case (customerTypeEnum.regular) {
 
 					<div class="min-w-[20rem] max-h-full">
-						<ion-searchbar
-							[id]="id() + 'ion-searchbar'"
+						<ion-searchbar [id]="id() + 'ion-searchbar'"
 							[debounce]="1000"
 							(ionInput)="handleInput($event)"
-							[placeholder]="'keyword.capitalize.search' | translate">
-						</ion-searchbar>
+							[placeholder]="'keyword.capitalize.search' | translate" />
 						<ion-list
 							class="pb-3"
 							[id]="id() + 'ion-list'">
@@ -169,7 +167,7 @@ import {GlobalEventListCustomerRepository} from "@src/token";
 						</ion-list>
 						@if (eventListCustomerAdapter.loading$.isTrue) {
 							<div class="p-3">
-								<ion-spinner [id]="id() + '-ion-spinner'" name="dots"></ion-spinner>
+								<ion-spinner [id]="id() + '-ion-spinner'" name="dots" />
 							</div>
 						}
 					</div>

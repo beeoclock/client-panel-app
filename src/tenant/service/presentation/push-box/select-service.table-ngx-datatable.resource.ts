@@ -10,26 +10,14 @@ import {IService} from "@tenant/service/domain/interface/i.service";
 export class SelectServiceTableNgxDatatableResource extends TableNgxDatatableSmartResource<IService.EntityRaw> {
 
 	private readonly sharedUow = inject(SharedUow);
-	protected override readonly loadData = ({
-												page,
-												pageSize,
-												orderBy,
-												orderDir,
-												filters
-											}: AsyncLoadDataFunctionParams) => {
+	protected override loadData (parameters: AsyncLoadDataFunctionParams) {
 
-		if (orderBy === 'fullName') {
-			orderBy = 'firstName';
+		if (parameters.orderBy === 'fullName') {
+			parameters.orderBy = 'firstName';
 		}
 
 
-		return this.sharedUow.service.repository.findAsync({
-			page,
-			pageSize,
-			orderDir,
-			orderBy,
-			...filters,
-		});
+		return this.sharedUow.service.repository.findAsync(parameters);
 
 	}
 

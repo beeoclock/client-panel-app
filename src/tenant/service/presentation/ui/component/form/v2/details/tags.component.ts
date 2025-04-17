@@ -12,8 +12,7 @@ interface ITag {
   selector: 'service-form-tags-component',
   standalone: true,
   template: `
-    <ng-select
-      id="service-form-tags-component"
+    <ng-select id="service-form-tags-component"
       placeholder="Write or select tags"
       bindLabel="name"
       [multiple]="true"
@@ -21,8 +20,7 @@ interface ITag {
       [hideSelected]="true"
       [items]="[]"
       [clearable]="true"
-      [formControl]="form().controls.test">
-    </ng-select>
+      [formControl]="form().controls.test" />
   `,
   imports: [
     TranslateModule,

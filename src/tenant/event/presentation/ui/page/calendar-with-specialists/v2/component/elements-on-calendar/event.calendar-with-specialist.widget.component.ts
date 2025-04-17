@@ -17,7 +17,7 @@ import CalendarWithSpecialistLocaStateService
 import {IEvent_V2} from "@tenant/event/domain";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
-import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
+import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {DateTime} from "luxon";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular/standalone";
@@ -35,9 +35,9 @@ import {
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
-import {IMember} from "@tenant/member/domain/interface/i.member";
-import EAbsence from "@tenant/absence/domain/entity/e.absence";
-import {AbsenceDataActions} from "@tenant/absence/infrastructure/state/data/absence.data.actions";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
+import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
+import {AbsenceDataActions} from "@tenant/member/absence/infrastructure/state/data/absence.data.actions";
 
 type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>;
 

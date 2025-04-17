@@ -20,8 +20,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
                  id="service-form-language"
                  bindLabel="name"
                  bindValue="code"
-                 [formControl]="control()">
-      </ng-select>
+                 [formControl]="control()" />
     </div>
   `
 })

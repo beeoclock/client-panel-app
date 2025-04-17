@@ -28,19 +28,19 @@ import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/
 	template: `
 		<utility-default-panel-component>
 			@if (isMobile$ | async) {
-				<div class="flex gap-4 justify-between w-full">
+				<div class="flex gap-4 justify-between w-full p-2">
 					<!--					TODO: return this feature when backend will ready for it -->
 					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
 <!--					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>-->
 
-					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
+					<ng-container *ngTemplateOutlet="SelectOrderStatus" />
 				</div>
 			} @else {
-				<div class="flex overflow-x-auto gap-2">
+				<div class="flex overflow-x-auto gap-2 p-2">
 					<!--					TODO: return this feature when backend will ready for it -->
 					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
-					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
+					<ng-container *ngTemplateOutlet="SelectOrderStatus" />
 <!--					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>-->
 				</div>
 			}

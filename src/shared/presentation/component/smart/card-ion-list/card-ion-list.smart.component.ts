@@ -22,7 +22,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
+import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {NgTemplateOutlet} from "@angular/common";
 
 @Component({
@@ -49,8 +49,7 @@ import {NgTemplateOutlet} from "@angular/common";
 
 							@if (row; as item) {
 
-								<ng-container
-									*ngTemplateOutlet="itemTemplate(); context: { item, index: $index }"></ng-container>
+								<ng-container *ngTemplateOutlet="itemTemplate(); context: { item, index: $index }" />
 
 							}
 
@@ -101,7 +100,7 @@ export class CardIonListSmartComponent implements OnInit {
 	}
 
 	public get isLoading() {
-		return this.tableNgxDatatableSmartResource.isLoading;
+		return this.tableNgxDatatableSmartResource.resource.isLoading;
 	}
 
 	public get resource() {

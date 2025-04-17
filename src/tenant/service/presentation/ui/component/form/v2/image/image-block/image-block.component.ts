@@ -15,6 +15,7 @@ import {
 	DeleteBannerServiceApiAdapter
 } from "@tenant/service/infrastructure/data-source/api/delete.banner.service.api.adapter";
 import {MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
+import {RIMedia} from "@tenant/media/domain/interface/i.media";
 
 @Component({
 	selector: 'service-form-image-block-component',
@@ -40,7 +41,9 @@ export class ImageBlockComponent {
 	public readonly patchBannerServiceApiAdapter = inject(PatchBannerServiceApiAdapter);
 	public readonly deleteBannerServiceApiAdapter = inject(DeleteBannerServiceApiAdapter);
 
-	public async save(serviceId: string): Promise<void> {
+	public async save(serviceId: string): Promise<RIMedia[]> {
+
+		const banners: RIMedia[] = [];
 
 		for (const component of this.serviceFormImageComponent()) {
 
@@ -65,9 +68,12 @@ export class ImageBlockComponent {
 				formData.append('_id', banner._id);
 			}
 
-			await this.patchBannerServiceApiAdapter.executeAsync(serviceId, formData);
+			const result = await this.patchBannerServiceApiAdapter.executeAsync(serviceId, formData);
+			banners.push(result);
 
 		}
+
+		return banners;
 
 	}
 

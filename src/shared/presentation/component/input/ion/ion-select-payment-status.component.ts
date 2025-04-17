@@ -12,6 +12,7 @@ import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.statu
 		<ion-select
 			[formControl]="control()"
 			[multiple]="true"
+			[placeholder]="placeholderTranslateKey() | translate"
 			class="!min-h-0 px-4 py-3 border border-beeColor-300 rounded-2xl h-full"
 			fill="solid"
 			interface="popover">
@@ -35,6 +36,8 @@ import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.statu
 export class IonSelectPaymentStatusComponent {
 
 	public readonly id = input('');
+
+	public readonly placeholderTranslateKey = input('keyword.capitalize.allStatuses');
 
 	public readonly control = input(new FormControl());
 

@@ -1,5 +1,6 @@
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {ActiveEnum} from "@core/shared/enum";
+import {PaginationFilterFromGroup} from "@shared/pagination-filter-from-group";
 
 export interface IFilterForm {
 
@@ -8,7 +9,7 @@ export interface IFilterForm {
 
 }
 
-export class FilterForm extends FormGroup<IFilterForm> {
+export class FilterForm extends PaginationFilterFromGroup<IFilterForm> {
 	constructor() {
 		super({
 			phrase: new FormControl(),

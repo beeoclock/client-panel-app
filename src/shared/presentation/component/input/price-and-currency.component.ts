@@ -68,16 +68,14 @@ import {DefaultLabelDirective} from "@shared/presentation/directives/label/defau
           dark:bg-beeDarkColor-600
           dark:text-beeDarkColor-400
           dark:border-beeDarkColor-600">
-          <ng-select
-			  style="width: 100px"
+          <ng-select style="width: 100px"
 			  class="border-0"
 			  bindLabel="name"
 			  bindValue="id"
 			  [items]="currencyList()"
 			  [clearable]="false"
 			  [id]="prefix() + 'currency'"
-			  [formControl]="currencyControl()">
-          </ng-select>
+			  [formControl]="currencyControl()" />
         </span>
 		</div>
 	`,

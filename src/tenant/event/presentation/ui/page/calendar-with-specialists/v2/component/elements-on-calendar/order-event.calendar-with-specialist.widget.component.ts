@@ -22,8 +22,8 @@ import {
 	NoteIconComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/note.icon.component";
 import {
-	StatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
+	OrderServiceStatusIconComponent
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {
 	FirstTimeIconComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/first-time.icon.component";
@@ -47,7 +47,7 @@ import {TranslateService} from "@ngx-translate/core";
 					[wasSelectedAnybody]="event().originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
 				<app-note-icon-component [note]="event()?.note ?? ''"/>
 				<app-business-note-icon-component [businessNote]="event()?.originalData?.order?.businessNote ?? ''"/>
-				<app-status-icon-component [status]="event().originalData.service.status"/>
+				<app-order-service-status-icon-component [status]="event().originalData.service.status"/>
 			</div>
 		</div>
 <!--		<div class="text-xs font-bold dark:text-sky-100">-->
@@ -65,7 +65,7 @@ import {TranslateService} from "@ngx-translate/core";
 		DatePipe,
 		AnybodySpecialistIconComponent,
 		NoteIconComponent,
-		StatusIconComponent,
+		OrderServiceStatusIconComponent,
 		FirstTimeIconComponent,
 		BusinessNoteIconComponent,
 	],
@@ -188,7 +188,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	}
 
 	private async openEventDetails(event: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>) {
-		const action = new EventActions.OpenDetails(event);
+		const action = new EventActions.OpenDetails(event._id);
 		this.store.dispatch(action);
 	}
 

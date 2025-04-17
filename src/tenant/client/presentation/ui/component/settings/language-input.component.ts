@@ -22,14 +22,12 @@ import {Reactive} from "@core/cdk/reactive";
 		<label default>
 			{{ 'keyword.capitalize.language' | translate }}
 		</label>
-		<ng-select
-			id="client-settings-form-language"
+		<ng-select id="client-settings-form-language"
 			bindLabel="name"
 			bindValue="code"
 			[items]="languages"
 			[clearable]="false"
-			[formControl]="control">
-		</ng-select>
+			[formControl]="control" />
 	`
 })
 export class LanguageInputComponent extends Reactive {

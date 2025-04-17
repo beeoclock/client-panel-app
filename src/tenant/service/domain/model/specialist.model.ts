@@ -1,5 +1,5 @@
 import {ISpecialist} from "../interface/i.specialist";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 
 export class SpecialistModel implements ISpecialist {
 

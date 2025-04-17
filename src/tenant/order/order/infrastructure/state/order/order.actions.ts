@@ -3,7 +3,7 @@ import {ICustomer} from "@tenant/customer/domain";
 import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 

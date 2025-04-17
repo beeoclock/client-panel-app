@@ -9,6 +9,7 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {IAdapterDataProvider} from "@core/system/interface/data-provider/i.adapter.data-provider";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {clearObjectClone} from "@shared/domain/clear.object";
 
 export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends DataProvider<ENTITY> {
 
@@ -47,9 +48,9 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	/**
 	 *
 	 * @param options
-	 * @param filterFn
+	 * @param filterFunction
 	 */
-	public override find$(options: Types.FindQueryParams, filterFn = this.defaultFilter.bind(this)) {
+	public override find$(options: Types.FindQueryParams, filterFunction: ((entity: ENTITY, filter: Types.FindQueryParams) => boolean) = this.defaultFilter.bind(this)) {
 		return this.db$.pipe(
 			take(1),
 			concatMap((table) => {
@@ -73,7 +74,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 
 				// Filter entities
 				query = query.filter((entity) => {
-					return filterFn(entity, filter as Types.FindQueryParams);
+					return filterFunction(entity, filter as Types.StandardQueryParams);
 				});
 
 				const countQuery$ = query.count();
@@ -149,9 +150,10 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 */
 	public defaultFilter(entity: ENTITY, filter: Types.FindQueryParams) {
 		const {phrase, ...otherFilter} = filter as Types.PartialQueryParams;
+		const clearedOtherFilter = clearObjectClone<object>(otherFilter);
 
 		const phraseExist = is.string(phrase);
-		const filterExist = is.object_not_empty(otherFilter);
+		const filterExist = is.object_not_empty(clearedOtherFilter);
 
 
 		if (!phraseExist && !filterExist) {
@@ -168,7 +170,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 		}
 
 		if (filterExist) {
-			results[1] = Object.entries(otherFilter).every(([key, value]) => {
+			results[1] = Object.entries(clearedOtherFilter).every(([key, value]) => {
 				if (is.array(value)) {
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-expect-error

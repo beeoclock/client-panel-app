@@ -645,6 +645,8 @@
 				"LAST_MONTH": "Минулого місяця",
 				"LAST_WEEK": "Минулого тижня",
 				"LAST_YEAR": "Минулий рік",
+				"NEXT_MONTH": "Наступний місяць",
+				"NEXT_WEEK": "Наступний тиждень",
 				"THIS_MONTH": "Цього місяця",
 				"THIS_WEEK": "Цього тижня",
 				"THIS_YEAR": "Цього року",
@@ -1028,6 +1030,10 @@
 			"addSocialMedia": "Додати соціальну мережу",
 			"additional": "Додатково",
 			"address": "Адреса",
+			"all": "Всі",
+			"allServices": "Всі послуги",
+			"allSpecialists": "Всі спеціалісти",
+			"allStatuses": "Всі статуси",
 			"amount": "Cума",
 			"anonymous": "Анонімний",
 			"approvalType": "Тип схвалення",
@@ -1038,6 +1044,7 @@
 			"autoActionTypeOnOrder": "Тип автоматичної дії",
 			"avatar": "Аватар",
 			"back": "Назад",
+			"banners": "Банери",
 			"bookingSettings": "Налаштування бронювання",
 			"break": "Перерва",
 			"business": "Бізнес",
@@ -1122,6 +1129,7 @@
 			"next": "Далі",
 			"nextStep": "Наступний крок",
 			"no": "Ні",
+			"noAvailable": "Немає даних",
 			"noData": "Немає даних",
 			"noNeedCard": "Банківська картка не потрібна",
 			"notPaid": "Не заплачено",
@@ -1260,6 +1268,9 @@
 				"0": "Неактивні",
 				"1": "Активні"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "Н/Д"
 		}
 	},
 	"latestBooking": {
@@ -1551,6 +1562,9 @@
 	"sidebar": {
 		"absence": "Відсутність",
 		"addEvent": "Додати подію",
+		"appointments": {
+			"label": "Записи"
+		},
 		"businessProfile": "Профіль компанії",
 		"businessSettings": "Налаштування компанії",
 		"calendar": {

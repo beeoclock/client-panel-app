@@ -13,14 +13,12 @@ import {AutomaticApprovalTimeType} from "@core/shared/enum/automatic-approval-ti
 			<label default [for]="id()">
 				{{ 'keyword.capitalize.autoActionTypeOnOrder' | translate }}
 			</label>
-			<ng-select
-				bindLabel="name"
+			<ng-select bindLabel="name"
 				bindValue="type"
 				[items]="autoActionTypeList"
 				[clearable]="false"
 				[id]="id()"
-				[formControl]="control()">
-			</ng-select>
+				[formControl]="control()" />
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.bookingSettings.input.autoActionTypeOnOrder.placeholder' | translate }}

@@ -17,7 +17,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 		ReactiveFormsModule
 	],
 	template: `
-		<utility-default-panel-component>
+		<utility-default-panel-component class="p-2">
 			<div class="flex overflow-x-auto gap-2">
 				<utility-search-input-component [formControl]="form.controls.phrase"/>
 				<utility-auto-refresh-component (emitter)="forceRefresh()"/>

@@ -7,15 +7,12 @@ import {
 	EventEmitter,
 	inject,
 	Input,
-	input,
 	Output,
-	Renderer2,
 	TemplateRef
 } from "@angular/core";
 import {Store} from "@ngxs/store";
 import {DoubleClick} from "@shared/domain/decorator/double-click";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ITableState} from "@shared/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
 import {Reactive} from "@core/cdk/reactive";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
@@ -34,8 +31,6 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 	@Input()
 	public goToDetailsOnSingleClick = true;
 
-	public readonly tableState = input<ITableState<ITEM>>();
-
 	@Output()
 	public readonly singleClickEmitter = new EventEmitter<ITEM>();
 
@@ -45,7 +40,6 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 			this.changeDetectorRef.detectChanges();
 		});
 	}
-
 
 	public readonly sharedUow = inject(SharedUow);
 	public readonly datePipe = inject(DatePipe);
@@ -58,7 +52,6 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 	public readonly router = inject(Router);
 	public readonly translateService = inject(TranslateService);
 	public readonly activatedRoute = inject(ActivatedRoute);
-	public readonly renderer2 = inject(Renderer2);
 	public readonly store = inject(Store);
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);

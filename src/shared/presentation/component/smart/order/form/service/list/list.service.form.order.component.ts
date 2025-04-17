@@ -26,7 +26,7 @@ import ObjectID from "bson-objectid";
 import {IAttendeeDto} from "@tenant/order/order/domain/interface/i-order-appointment-details.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {IService} from "@tenant/service/domain/interface/i.service";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
@@ -100,7 +100,6 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 	public constructor() {
 		effect(() => {
 			const setupPartialData = this.setupPartialData();
-			console.log({setupPartialData})
 		});
 	}
 

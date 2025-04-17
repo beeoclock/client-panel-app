@@ -6,14 +6,14 @@ import {AsyncPipe} from "@angular/common";
 import {ITableState} from "@shared/domain/table.state";
 import {Reactive} from "@core/cdk/reactive";
 import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
-import {MemberProfileStatusEnum} from "@tenant/member/domain/enums/member-profile-status.enum";
+import {MemberProfileStatusEnum} from "@tenant/member/member/domain/enums/member-profile-status.enum";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {NGXLogger} from "ngx-logger";
-import {IMember} from "@tenant/member/domain/interface/i.member";
-import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
-import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
+import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/member.data.state";
+import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
 
 @Component({
 	selector: 'app-event-v2-members-container-week-calendar-component',

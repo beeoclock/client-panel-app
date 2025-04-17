@@ -15,8 +15,7 @@ import {InvalidTooltipDirective} from "@shared/presentation/directives/invalid-t
 			<label default [for]="id()">
 				{{ 'client.profile.form.section.businessSettings.select.currencies.label' | translate }}
 			</label>
-			<ng-select
-				[labelForId]="id()"
+			<ng-select [labelForId]="id()"
 				isRequired
 				hasError
 				invalidTooltip
@@ -24,8 +23,7 @@ import {InvalidTooltipDirective} from "@shared/presentation/directives/invalid-t
 				[items]="currencyList"
 				[closeOnSelect]="false"
 				[clearable]="false"
-				[formControl]="control()">
-			</ng-select>
+				[formControl]="control()" />
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.businessSettings.select.currencies.hint' | translate }}

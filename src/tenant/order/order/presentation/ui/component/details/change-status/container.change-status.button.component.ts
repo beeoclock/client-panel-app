@@ -47,9 +47,7 @@ import {TranslateModule} from "@ngx-translate/core";
 				<app-cancelled-change-status-button [item]="item()"/>
 				<app-done-change-status-button [item]="item()"/>
 			</ng-container>
-			<ng-container *ngSwitchCase="status.done">
-
-			</ng-container>
+			<ng-container *ngSwitchCase="status.done" />
 			<ng-container *ngSwitchCase="status.confirmed">
 				<app-cancelled-change-status-button [item]="item()"/>
 				<app-done-change-status-button [item]="item()"/>
@@ -60,9 +58,7 @@ import {TranslateModule} from "@ngx-translate/core";
 			<ng-container *ngSwitchCase="status.rejected">
 <!--				<app-confirmed-change-status-button [item]="item"/>-->
 			</ng-container>
-			<ng-container *ngSwitchCase="status.draft">
-
-			</ng-container>
+			<ng-container *ngSwitchCase="status.draft" />
 			<ng-container *ngSwitchCase="status.requested">
 				<app-confirmed-change-status-button [item]="item()"/>
 				<app-rejected-change-status-button [item]="item()"/>
