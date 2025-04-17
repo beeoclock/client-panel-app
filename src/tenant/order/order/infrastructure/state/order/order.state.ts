@@ -7,8 +7,6 @@ import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order
 import {NGXLogger} from "ngx-logger";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 import {
 	BusinessProfileState
@@ -30,6 +28,7 @@ import OrderFormContainerComponent
 	from "@tenant/order/order/presentation/ui/component/form/order-form-container.component";
 import {firstValueFrom} from "rxjs";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
+import {NewCustomerUseCase} from "@tenant/order/order/application/use-case/new-customer.use-case";
 
 export type IOrderState = IBaseState<EOrder>;
 
@@ -216,29 +215,8 @@ export class OrderState {
 
 		const orderEntity = EOrder.fromDTO(action.payload);
 
-		// Resolve new customer case
-		for (const service of orderEntity.services) {
-			for (const attendee of service.orderAppointmentDetails.attendees) {
-				if (attendee.customer.customerType === CustomerTypeEnum.new) {
-
-					const customerFound = await this.sharedUow.customer.findOneByEmailPhone({
-						email: attendee.customer.email,
-						phone: attendee.customer.phone,
-					})
-
-					if (customerFound) {
-						attendee.customer = ECustomer.fromRaw(customerFound).toDTO();
-					} else {
-						const customerEntity = ECustomer.fromDTO({
-							...attendee.customer,
-							customerType: CustomerTypeEnum.regular,
-						});
-						await this.sharedUow.customer.repository.createAsync(customerEntity);
-						attendee.customer = customerEntity.toDTO();
-					}
-				}
-			}
-		}
+		const newCustomerUseCase = new NewCustomerUseCase(this.sharedUow, orderEntity);
+		await newCustomerUseCase.execute();
 
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.sharedUow.order.repository.createAsync(orderEntity);
