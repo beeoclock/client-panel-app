@@ -9,31 +9,29 @@ import {TranslatePipe} from "@ngx-translate/core";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<span [class]="iconClass()">
-			@switch (status()) {
-				@case (orderServiceStatusEnum.done) {
-					<app-icon title="Done" name="bootstrapCheck2All"/>
-				}
-				@case (orderServiceStatusEnum.cancelled) {
-					<app-icon title="Cancelled" name="bootstrapX"/>
-				}
-				@case (orderServiceStatusEnum.rejected) {
-					<app-icon title="Rejected" name="bootstrapX"/>
-				}
-				@case (orderServiceStatusEnum.accepted) {
-					<app-icon title="Accepted" name="bootstrapCheck2"/>
-				}
-				@case (orderServiceStatusEnum.inProgress) {
-					<app-icon title="In progress" name="bootstrapHourglassSplit"/>
-				}
-				@case (orderServiceStatusEnum.requested) {
-					<app-icon title="Requested" name="bootstrapExclamation"/>
-				}
-				@case (orderServiceStatusEnum.deleted) {
-					<app-icon title="Requested" name="bootstrapArchive"/>
-				}
+		@switch (status()) {
+			@case (orderServiceStatusEnum.done) {
+				<app-icon [class]="iconClass()" title="Done" name="bootstrapCheck2All"/>
 			}
-		</span>
+			@case (orderServiceStatusEnum.cancelled) {
+				<app-icon [class]="iconClass()" title="Cancelled" name="bootstrapX"/>
+			}
+			@case (orderServiceStatusEnum.rejected) {
+				<app-icon [class]="iconClass()" title="Rejected" name="bootstrapX"/>
+			}
+			@case (orderServiceStatusEnum.accepted) {
+				<app-icon [class]="iconClass()" title="Accepted" name="bootstrapCheck2"/>
+			}
+			@case (orderServiceStatusEnum.inProgress) {
+				<app-icon [class]="iconClass()" title="In progress" name="bootstrapHourglassSplit"/>
+			}
+			@case (orderServiceStatusEnum.requested) {
+				<app-icon [class]="iconClass()" title="Requested" name="bootstrapExclamation"/>
+			}
+			@case (orderServiceStatusEnum.deleted) {
+				<app-icon [class]="iconClass()" title="Requested" name="bootstrapArchive"/>
+			}
+		}
 		@if (showLabel()) {
 			<span [class]="labelCLass()">{{ ('event.keyword.status.singular.' + status()) | translate }}</span>
 		}

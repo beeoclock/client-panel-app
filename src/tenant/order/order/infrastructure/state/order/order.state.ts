@@ -28,6 +28,8 @@ import OrderDetailsContainerComponent
 	from "@tenant/order/order/presentation/ui/component/details/order-details-container.component";
 import OrderFormContainerComponent
 	from "@tenant/order/order/presentation/ui/component/form/order-form-container.component";
+import {firstValueFrom} from "rxjs";
+import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 
 export type IOrderState = IBaseState<EOrder>;
 
@@ -240,6 +242,12 @@ export class OrderState {
 
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.sharedUow.order.repository.createAsync(orderEntity);
+
+		for (const service of orderEntity.services) {
+			const orderServiceEntity = EOrderService.fromRaw(service);
+			await this.sharedUow.orderService.repository.createAsync(orderServiceEntity);
+		}
+
 		await this.closeFormAction();
 	}
 
@@ -255,6 +263,12 @@ export class OrderState {
 
 			await this.addNotificationSettingsToOrderEntity(orderEntity);
 			await this.sharedUow.order.repository.updateAsync(orderEntity);
+
+			for (const service of orderEntity.services) {
+				const orderServiceEntity = EOrderService.fromRaw(service);
+				await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
+			}
+
 			await this.closeFormAction();
 
 			const actions: any[] = [];
@@ -263,7 +277,8 @@ export class OrderState {
 			} else {
 				actions.push(new OrderActions.UpdateOpenedDetails(orderEntity));
 			}
-			ctx.dispatch(actions);
+			const actions$ = ctx.dispatch(actions);
+			await firstValueFrom(actions$);
 
 		}
 	}
@@ -274,14 +289,22 @@ export class OrderState {
 		if (foundItems) {
 			const entity = EOrder.fromRaw(foundItems);
 			entity.changeState(state);
+
 			await this.sharedUow.order.repository.updateAsync(entity);
+
+			for (const service of entity.services) {
+				const orderServiceEntity = EOrderService.fromRaw(service);
+				await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
+			}
+
 			const actions: any[] = [];
 			if (entity.state === StateEnum.deleted) {
 				actions.push(new OrderActions.CloseDetails());
 			} else {
 				actions.push(new OrderActions.UpdateOpenedDetails(entity));
 			}
-			ctx.dispatch(actions);
+			const actions$ = ctx.dispatch(actions);
+			await firstValueFrom(actions$);
 		}
 	}
 
@@ -296,13 +319,21 @@ export class OrderState {
 			const entity = EOrder.fromRaw(foundItems);
 			entity.changeOrderedServiceStatus(orderedServiceId, status);
 			await this.sharedUow.order.repository.updateAsync(entity);
+
+			const orderServiceRaw = entity.services.find((service) => service._id === orderedServiceId);
+			if (orderServiceRaw) {
+				const orderServiceEntity = EOrderService.fromRaw(orderServiceRaw);
+				await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
+			}
+
 			const actions: any[] = [];
 			if (entity.state === StateEnum.deleted) {
 				actions.push(new OrderActions.CloseDetails());
 			} else {
 				actions.push(new OrderActions.UpdateOpenedDetails(entity));
 			}
-			ctx.dispatch(actions);
+			const actions$ = ctx.dispatch(actions);
+			await firstValueFrom(actions$);
 		}
 	}
 
@@ -318,6 +349,11 @@ export class OrderState {
 			const entity = EOrder.fromRaw(foundItems);
 			entity.changeOrderedServiceState(orderedServiceId, state);
 			await this.sharedUow.order.repository.updateAsync(entity);
+			const orderServiceRaw = entity.services.find((service) => service._id === orderedServiceId);
+			if (orderServiceRaw) {
+				const orderServiceEntity = EOrderService.fromRaw(orderServiceRaw);
+				await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
+			}
 
 			const actions: any[] = [];
 			if (entity.state === StateEnum.deleted) {
@@ -325,7 +361,8 @@ export class OrderState {
 			} else {
 				actions.push(new OrderActions.UpdateOpenedDetails(entity));
 			}
-			ctx.dispatch(actions);
+			const actions$ = ctx.dispatch(actions);
+			await firstValueFrom(actions$);
 
 		}
 	}
