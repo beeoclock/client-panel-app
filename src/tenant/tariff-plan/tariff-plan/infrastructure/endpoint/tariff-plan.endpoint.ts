@@ -10,7 +10,7 @@ export enum TariffPlanEndpointEnum {
 
 	PATCH__TENANT_TARIFF_PLAN__CHANGE = '/api/v1/tenantTariffPlan/change',
 
-	GET_BILLING_PORTAL = '/api/v1/tenantTariffPlan/billing-portal',
+	GET_BILLING_PORTAL = '/api/v1/balance/billing-portal',
 	GET = '/api/v1/paged',
 	GET_ITEM = '/api/v1/{id}',
 }
@@ -57,7 +57,7 @@ export const tariffPlanEndpoint: EndpointCollectionType = {
 	},
 	GET: {
 		[TariffPlanEndpointEnum.GET_BILLING_PORTAL]: {
-			source: SourceNetworkEnum.tariffPlan,
+			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
 				tenantId: true,

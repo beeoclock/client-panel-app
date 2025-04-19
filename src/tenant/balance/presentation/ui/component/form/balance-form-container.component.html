@@ -1,0 +1,24 @@
+<form class="flex flex-col gap-4">
+
+	<bee-card>
+
+		<form-input
+			inputType="number"
+			[label]="'keyword.capitalize.amount' | translate"
+			[placeholder]="'balance.form.amount.input.placeholder' | translate"
+			[control]="form.controls.amount"/>
+
+	</bee-card>
+
+	<utility-button-save-container-component class="bottom-0">
+		<button
+			type="button"
+			primary
+			[isLoading]="form.pending"
+			[disabled]="form.disabled"
+			[scrollToFirstError]="true"
+			(click)="save()">
+			{{ 'keyword.capitalize.save' | translate }}
+		</button>
+	</utility-button-save-container-component>
+</form>

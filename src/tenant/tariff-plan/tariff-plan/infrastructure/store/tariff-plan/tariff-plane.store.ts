@@ -15,6 +15,7 @@ import {
 	GetBillingPortalApi
 } from "@tenant/tariff-plan/tariff-plan/infrastructure/data-source/api/get/get.billing-portal.api";
 import {injectNetwork} from "ngxtension/inject-network";
+import {WINDOW} from "@core/cdk/window.provider";
 
 export interface ITariffPlanState {
     items: ETariffPlan[];
@@ -36,12 +37,13 @@ export const TariffPlanStore = signalStore(
 			items$: toObservable<ETariffPlan[]>(items),
             sharedUow: inject(SharedUow),
             ngxLogger: inject(NGXLogger),
+            window: inject(WINDOW),
             network: injectNetwork(),
             patchTenantTariffPlanChangeApi: inject(PatchTenantTariffPlanChangeApi.Request),
 			getBillingPortalApi: inject(GetBillingPortalApi),
         }
     }),
-    withMethods(({sharedUow, ngxLogger, network, patchTenantTariffPlanChangeApi, getBillingPortalApi, ...store}) => {
+    withMethods(({sharedUow, ngxLogger, network, patchTenantTariffPlanChangeApi, getBillingPortalApi, window, ...store}) => {
         return {
             async fillItems(): Promise<void> {
                 try {
