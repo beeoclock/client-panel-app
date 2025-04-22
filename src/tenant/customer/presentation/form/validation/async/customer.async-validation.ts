@@ -52,7 +52,7 @@ export class CustomerAsyncValidation {
 								return of(exists);
 							}
 							return from(
-								this.sharedUow.customer.fundOneByPhone(phone)
+								this.sharedUow.customer.fundOneByPhone(phone.replace('+', ''))
 							).pipe(
 								map((customer) => !!customer) // Check if customer exists
 							)
