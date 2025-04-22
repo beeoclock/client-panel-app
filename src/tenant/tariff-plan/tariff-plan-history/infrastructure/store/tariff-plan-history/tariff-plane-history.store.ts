@@ -8,6 +8,8 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {environment} from "@environment/environment";
 import ETariffPlanHistory from "@tenant/tariff-plan/tariff-plan-history/domain/entity/e.tariff-plan-history";
 import {SPECIALIST_LIMIT} from "@tenant/tenant.token";
+import {filter} from "rxjs";
+import {is} from "@core/shared/checker";
 
 export interface ITariffPlanHistoryState {
 	items: ETariffPlanHistory[];
@@ -108,7 +110,10 @@ export const TariffPlanHistoryStore = signalStore(
 	withHooks((store) => {
 		return {
 			onInit() {
-				inject(TENANT_ID).pipe(takeUntilDestroyed()).subscribe(() => {
+				inject(TENANT_ID).pipe(
+					takeUntilDestroyed(),
+					filter(is.string_not_empty),
+				).subscribe(() => {
 					store.init();
 				});
 			},

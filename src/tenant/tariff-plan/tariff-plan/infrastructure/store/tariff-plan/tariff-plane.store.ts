@@ -15,6 +15,8 @@ import {
 	GetBillingPortalApi
 } from "@tenant/tariff-plan/tariff-plan/infrastructure/data-source/api/get/get.billing-portal.api";
 import {injectNetwork} from "ngxtension/inject-network";
+import {filter} from "rxjs";
+import {is} from "@core/shared/checker";
 
 export interface ITariffPlanState {
     items: ETariffPlan[];
@@ -114,7 +116,10 @@ export const TariffPlanStore = signalStore(
     withHooks((store) => {
         return {
             onInit() {
-                inject(TENANT_ID).pipe(takeUntilDestroyed()).subscribe(() => {
+                inject(TENANT_ID).pipe(
+					takeUntilDestroyed(),
+					filter(is.string_not_empty),
+				).subscribe(() => {
                     store.init();
                 });
             },
