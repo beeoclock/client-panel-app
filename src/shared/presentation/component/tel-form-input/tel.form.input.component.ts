@@ -5,7 +5,6 @@ import {
 	Component,
 	DoCheck,
 	ElementRef,
-	HostBinding,
 	inject,
 	input,
 	OnDestroy,
@@ -43,6 +42,7 @@ import {TranslateModule} from "@ngx-translate/core";
 			isRequired
 			invalidTooltip
 			[id]="id()"
+			[needTouched]="false"
 			[setRedBorderTo]="'#' + id() + '-mirror'"
 			[formControl]="control()"
 			[isRequiredEnabled]="showLabel()">
@@ -58,7 +58,7 @@ import {TranslateModule} from "@ngx-translate/core";
 		/>
 	`,
 	host: {
-		class: 'w-full'
+		class: 'w-full relative block'
 	}
 })
 export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck {
@@ -83,9 +83,6 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 	// public countryCode!: 'pl' | 'uk' | 'da';
 
 	readonly inputElement = viewChild.required<ElementRef<HTMLInputElement>>('inputElement');
-
-	@HostBinding()
-	public class = 'block';
 
 	public intlTelInput: Iti | null = null;
 

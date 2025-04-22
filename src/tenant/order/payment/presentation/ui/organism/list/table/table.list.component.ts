@@ -84,7 +84,7 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 		CurrencyPipe
 	],
 	host: {
-		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
 	},
 })
 export class TableListComponent extends TableComponent<EPayment> {
