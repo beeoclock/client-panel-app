@@ -47,6 +47,16 @@ export class CustomerAsyncValidation {
 						this.sharedUow.customer.fundOneByPhone(phone)
 					).pipe(
 						map((customer) => !!customer), // Check if customer exists
+						switchMap((exists: boolean) => {
+							if (exists && !phone.startsWith('+')) {
+								return of(exists);
+							}
+							return from(
+								this.sharedUow.customer.fundOneByPhone(phone)
+							).pipe(
+								map((customer) => !!customer) // Check if customer exists
+							)
+						}),
 						map((exists: boolean) => (exists ? {phoneExists: true} : null)),
 						catchError(() => of(null)) // Handle errors gracefully
 					)
