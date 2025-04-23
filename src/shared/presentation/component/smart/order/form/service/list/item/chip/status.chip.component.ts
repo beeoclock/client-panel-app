@@ -6,7 +6,6 @@ import {FormControl} from "@angular/forms";
 import {
 	OrderServiceStatusIconComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
-import {NgClass} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
@@ -20,7 +19,6 @@ import {TranslatePipe} from "@ngx-translate/core";
 		IonLabel,
 		IonList,
 		OrderServiceStatusIconComponent,
-		NgClass,
 		TranslatePipe,
 	],
 	template: `
@@ -30,11 +28,6 @@ import {TranslatePipe} from "@ngx-translate/core";
 			<div class="text-center text-black text-sm font-bold uppercase">
 				<app-order-service-status-icon-component
 					class="flex text-3xl"
-					[ngClass]="{
-						'text-red-600': control().value === orderServiceStatusEnum.cancelled,
-						'text-blue-600': control().value === orderServiceStatusEnum.accepted,
-						'text-green-600': control().value === orderServiceStatusEnum.done,
-					}"
 					[status]="control().value"/>
 				@if (showLabel()) {
 					{{ ('event.keyword.status.singular.' + control().value) | translate }}

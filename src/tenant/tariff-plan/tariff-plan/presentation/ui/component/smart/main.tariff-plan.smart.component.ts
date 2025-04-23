@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	effect,
-	inject,
-	OnInit,
-	Signal,
-	signal,
-	ViewEncapsulation
-} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit, Signal, signal, ViewEncapsulation} from "@angular/core";
 import ETariffPlan from "@tenant/tariff-plan/tariff-plan/domain/entity/e.tariff-plan";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {CurrencyCodePipe} from "@shared/presentation/pipes/currency-code.pipe";
@@ -17,7 +8,6 @@ import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
 import ETariffPlanHistory from "@tenant/tariff-plan/tariff-plan-history/domain/entity/e.tariff-plan-history";
-import {TariffPlanStore} from "@tenant/tariff-plan/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 import {ITariffPlan} from "@tenant/tariff-plan/tariff-plan/domain/interface/i.tariff-plan";
 import {LanguageCodeEnum} from "@core/shared/enum";
@@ -28,6 +18,7 @@ import {
 	ConfirmChangeTariffPlanModalController
 } from "@tenant/tariff-plan/tariff-plan/presentation/ui/component/modal/confirm-change-tariff-plan/confirm-change-tariff-plan.modal.controller";
 import {ModalController, ToastController} from "@ionic/angular/standalone";
+import {explicitEffect} from "ngxtension/explicit-effect";
 
 @Component({
 	standalone: true,
@@ -228,25 +219,6 @@ import {ModalController, ToastController} from "@ionic/angular/standalone";
 				</div>
 			</div>
 		</section>
-		<section class="flex w-full items-center p-5">
-			<div>
-				<div class="bg-white rounded-2xl p-1 w-full">
-					<button
-						(click)="openBillingLink()"
-						[disabled]="billingLinkIsLoading()"
-						class="text-yellow-700 cursor-pointer hover:bg-yellow-100 rounded-2xl transition-all flex gap-2 p-3">
-						<span>{{ 'tariffPlan.links.billing.label' | translate }}</span>
-						@if (billingLinkIsLoading()) {
-							<span class="animate-spin">
-								<i class="bi bi-arrow-repeat"></i>
-							</span>
-						} @else {
-							<i class="bi bi-box-arrow-up-right"></i>
-						}
-					</button>
-				</div>
-			</div>
-		</section>
 		<section class="flex flex-col w-full p-5">
 			<div class="bg-white rounded-2xl p-3 px-4 prose max-w-full"
 				 [innerHTML]="'tariffPlan.documentation.switchingToAnotherPlan' | translate">
@@ -256,7 +228,6 @@ import {ModalController, ToastController} from "@ionic/angular/standalone";
 })
 export class MainTariffPlanSmartComponent implements OnInit {
 
-	private readonly tariffPlanStore = inject(TariffPlanStore);
 	private readonly confirmChangeTariffPlanModalController = inject(ConfirmChangeTariffPlanModalController);
 	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
 	private readonly toastController = inject(ToastController);
@@ -271,7 +242,6 @@ export class MainTariffPlanSmartComponent implements OnInit {
 
 	readonly #items: ETariffPlan[] = this.activatedRoute.snapshot.data.tariffPlanItems;
 
-	public readonly billingLinkIsLoading = signal(false);
 	public readonly membersCount = signal(0);
 	public readonly loading = signal<null | ETariffPlan>(null);
 
@@ -299,19 +269,6 @@ export class MainTariffPlanSmartComponent implements OnInit {
 		this.loading.set(null);
 	}
 
-	public openBillingLink() {
-		this.billingLinkIsLoading.set(true);
-		this.tariffPlanStore.fetchBillingLink().then(() => {
-			const billingLink = this.tariffPlanStore.billingLink();
-			if (billingLink) {
-				window.open(billingLink, '_blank');
-				return;
-			}
-		}).finally(() => {
-			this.billingLinkIsLoading.set(false);
-		});
-	}
-
 	private showSuccessToast() {
 		const message = this.translateService.instant('tariffPlan.message.change.success');
 		this.toastController.create({
@@ -331,10 +288,9 @@ export class MainTariffPlanSmartComponent implements OnInit {
 	public readonly billingCycleEnum = BillingCycleEnum;
 
 	public constructor() {
-		effect(() => {
-			const actual = this.effectivePlan();
+		explicitEffect([this.effectivePlan], ([actual]) => {
 			if (actual) {
-				this.subscriptionType.set(actual.tariffPlan.prices[0].values[0].billingCycle);
+				this.setSubscriptionType(actual.tariffPlan.prices[0].values[0].billingCycle);
 			}
 		});
 	}

@@ -172,6 +172,18 @@
 			"off": "wył."
 		}
 	},
+	"balance": {
+		"button": {
+			"create": "Doładuj saldo"
+		},
+		"field": {
+			"action": {
+				"type": {
+					"label": "Typ"
+				}
+			}
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Salon kosmetyczny",
@@ -632,7 +644,7 @@
 					"accepted": "Zaakceptowany",
 					"cancelled": "Odwołane",
 					"confirmed": "Potwierdzono",
-					"deleted": "Usuniento",
+					"deleted": "Usunięto",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucono",
@@ -681,7 +693,9 @@
 			},
 			"startBeforeEnd": "Data rozpoczęcia musi być wcześniejsza niż data zakończenia.",
 			"username": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenie (_) i kropkę (.).",
-			"whitespace": "Usuń wszystkie spacje"
+			"whitespace": "Usuń wszystkie spacje",
+			"emailExists": "Adres e-mail już istnieje",
+			"phoneExists": "Numer telefonu już istnieje"
 		}
 	},
 	"http": {
@@ -1565,6 +1579,7 @@
 		"appointments": {
 			"label": "Wizyty"
 		},
+		"balance": "Saldo",
 		"businessProfile": "Profil biznesowy",
 		"businessSettings": "Ustawienia firmy",
 		"calendar": {

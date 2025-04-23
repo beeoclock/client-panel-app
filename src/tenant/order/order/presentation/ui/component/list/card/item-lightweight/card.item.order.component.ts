@@ -10,7 +10,7 @@ import {
 	signal,
 	ViewEncapsulation
 } from "@angular/core";
-import {CurrencyPipe, NgClass} from "@angular/common";
+import {CurrencyPipe} from "@angular/common";
 import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {
@@ -51,7 +51,6 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 		CurrencyPipe,
 		StatusOrderChipComponent,
 		DynamicDatePipe,
-		NgClass,
 		OrderServiceStatusIconComponent,
 	],
 	providers: [
@@ -193,30 +192,27 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 										@for (service of bySpecialistAndDate.services; track service._id) {
 											<div class="flex gap-2 px-3 py-2.5 border-b-stone-100 border-b">
 
-												@if (service.serviceSnapshot?.presentation?.banners?.[0]?.url?.length) {
-													<div>
-														<img
-															class="h-14 w-14 rounded-lg shadow"
-															[src]="service.serviceSnapshot.presentation.banners[0].url"
-															alt="Service image"
-														/>
-													</div>
-												}
 												<div
 													class="inline-flex shrink grow basis-0 items-center gap-1 self-stretch justify-between">
 													<div
 														class="flex items-center gap-2 text-sm line-clamp-2 font-regular leading-tight text-[#11141A]">
 														<app-order-service-status-icon-component
 															class="flex text-base"
-															[ngClass]="{
-														'text-red-600': service.status === orderServiceStatusEnum.cancelled,
-														'text-blue-600': service.status === orderServiceStatusEnum.accepted,
-														'text-green-600': service.status === orderServiceStatusEnum.done,
-													  }"
 															[status]="service.status"/>
-														{{ service.serviceSnapshot.languageVersions[0].title }}
+														@if (service.serviceSnapshot?.presentation?.banners?.[0]?.url?.length) {
+															<div>
+																<img
+																	class="h-14 w-14 min-h-14 min-w-14 rounded-lg shadow"
+																	[src]="service.serviceSnapshot.presentation.banners[0].url"
+																	alt="Service image"
+																/>
+															</div>
+														}
+														<span class="line-clamp-3">
+															{{ service.serviceSnapshot.languageVersions[0].title }}
+														</span>
 													</div>
-													<div class="flex gap-[30px]">
+													<div class="flex gap-4">
 														<div
 															[innerHTML]="durationVersionHtmlHelper.getDurationValue(service.serviceSnapshot)"
 															class="inline-flex items-center text-sm font-regular text-[#000000]"

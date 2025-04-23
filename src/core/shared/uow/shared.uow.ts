@@ -12,6 +12,7 @@ import {
 import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
 import {EnvironmentProviders, Provider} from "@angular/core";
 import {PluginService} from "@tenant/plugin/domain/service/plugin.service";
+import {BalanceService} from "@tenant/balance/domain/service/balance.service";
 
 /**
  * Shared Unit of Work
@@ -35,6 +36,7 @@ export class SharedUow {
 	#tariffPlan!: TariffPlanService;
 	#tariffPlanHistory!: TariffPlanHistoryService;
 	#plugin!: PluginService;
+	#balance!: BalanceService;
 
 	public get service() {
 		if (!this.#service) {
@@ -155,6 +157,17 @@ export class SharedUow {
 
 	public set plugin(value: PluginService) {
 		this.#plugin = value;
+	}
+
+	public get balance() {
+		if (!this.#balance) {
+			throw new Error('balanceService is not initialized');
+		}
+		return this.#balance;
+	}
+
+	public set balance(value: BalanceService) {
+		this.#balance = value;
 	}
 
 }

@@ -172,6 +172,18 @@
 			"off": "off"
 		}
 	},
+	"balance": {
+		"button": {
+			"create": "Top up balance"
+		},
+		"field": {
+			"action": {
+				"type": {
+					"label": "Type"
+				}
+			}
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Beauty salon",
@@ -681,7 +693,9 @@
 				"startInSeconds": "The end time must be longer than the start time"
 			},
 			"startBeforeEnd": "The start date must be before the end date.",
-			"whitespace": "Remove all spaces"
+			"whitespace": "Remove all spaces",
+			"emailExists": "Email already exists",
+			"phoneExists": "Phone number already exists"
 		}
 	},
 	"http": {
@@ -1565,6 +1579,7 @@
 		"appointments": {
 			"label": "Appointments"
 		},
+		"balance": "Balance",
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",
 		"calendar": {

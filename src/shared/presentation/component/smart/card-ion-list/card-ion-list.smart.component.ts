@@ -100,7 +100,7 @@ export class CardIonListSmartComponent implements OnInit {
 	}
 
 	public get isLoading() {
-		return this.tableNgxDatatableSmartResource.isLoading;
+		return this.tableNgxDatatableSmartResource.resource.isLoading;
 	}
 
 	public get resource() {

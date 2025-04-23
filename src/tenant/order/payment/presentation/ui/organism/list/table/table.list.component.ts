@@ -39,7 +39,6 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 				class="block h-full"
 				(clickListener)="openForm()"
 				[showLinkToForm]="false"
-				[linkLabel]="'payment.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
 				<payment-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
 			</not-found-table-data-component>
@@ -84,7 +83,7 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 		CurrencyPipe
 	],
 	host: {
-		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
 	},
 })
 export class TableListComponent extends TableComponent<EPayment> {
