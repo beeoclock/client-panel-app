@@ -682,20 +682,20 @@
 			"atLeastOneMemberSelectedOrEntireBusiness": "Musisz wybrać co najmniej jednego członka lub całą firmę.",
 			"durationFormatInvalid": "Prawidłowy format to godziny:minuty (00:00)",
 			"email": "Nieprawidłowy format adresu e-mail",
+			"emailExists": "Adres e-mail już istnieje",
 			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
 			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
 			"invalid": "Nieprawidłowy",
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
+			"phoneExists": "Numer telefonu już istnieje",
 			"required": "Wymagane pole",
 			"shouldBeMoreThen": {
 				"startInSeconds": "Czas zakończenia musi być dłuższy niż czas rozpoczęcia"
 			},
 			"startBeforeEnd": "Data rozpoczęcia musi być wcześniejsza niż data zakończenia.",
 			"username": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenie (_) i kropkę (.).",
-			"whitespace": "Usuń wszystkie spacje",
-			"emailExists": "Adres e-mail już istnieje",
-			"phoneExists": "Numer telefonu już istnieje"
+			"whitespace": "Usuń wszystkie spacje"
 		}
 	},
 	"http": {
@@ -1598,6 +1598,7 @@
 		"members": "Członkowie",
 		"order": "Zamówienia",
 		"payment": "Płatności",
+		"plugins": "Pluginy",
 		"private": "Prywatne",
 		"profile": {
 			"signOut": {
