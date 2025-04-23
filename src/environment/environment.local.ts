@@ -15,6 +15,7 @@ export const environment = {
 		panel: 'http://localhost:3000',
 		identity: 'http://localhost:3001',
 		tariffPlan: 'http://localhost:3006',
+		plugin: 'http://localhost:3007',
 		ws: {
 			url: 'http://localhost:3000',
 			path: '/socket.io'
