@@ -62,7 +62,7 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 
 
 					<div
-						class="border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
+						class="inline-block border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
 						{{ 'keyword.lowercase.all' | translate }}
 					</div>
 
@@ -73,7 +73,7 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 
 
 						<div
-							class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
+							class="inline-block border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
 							{{ row.assignments.service.include.length }}
 						</div>
 
@@ -81,7 +81,7 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 
 
 						<div
-							class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
+							class="inline-block border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
 							{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
 						</div>
 
