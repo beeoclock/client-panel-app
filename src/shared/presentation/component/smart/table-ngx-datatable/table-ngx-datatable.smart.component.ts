@@ -56,7 +56,7 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 			[externalSorting]="true"
 			[limit]="pageSize()"
 			[count]="totalSize()"
-			[offset]="offsetPage()"
+			[offset]="page()"
 			[sorts]="sorts()"
 			(activate)="onActivate($event)"
 			(sort)="setSort($event)"

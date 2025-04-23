@@ -116,7 +116,7 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 			const {page, pageSize} = parameters;
 
-			if (!is.object_not_empty(parameters)) {
+			if (!is.object_not_empty(parameters) || page === 0 || pageSize === 0) {
 				return {
 					items: [],
 					totalSize: 0,
@@ -136,13 +136,8 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 			const {items, totalSize} = await this.loadData(parameters);
 
-			// Create array to store data if missing
-			// The array should have the correct number of with "holes" for missing data
-			if (!this.rows?.length || this.rows.length !== totalSize) {
-				this.rows = new Array(totalSize || 0);
-			}
-
 			if (currentTotalSize !== totalSize) {
+				this.rows = new Array(totalSize || 0);
 				this.totalSize.set(totalSize);
 			}
 
