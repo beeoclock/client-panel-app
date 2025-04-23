@@ -11,8 +11,9 @@ import {
 } from "@tenant/tariff-plan/tariff-plan-history/domain/service/tariff-plan-history.service";
 import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
 import {EnvironmentProviders, Provider} from "@angular/core";
-import {PluginService} from "@tenant/plugin/domain/service/plugin.service";
+import {PluginService} from "@tenant/plugin/plugin/domain/service/plugin.service";
 import {BalanceService} from "@tenant/balance/domain/service/balance.service";
+import {TenantPluginService} from "@tenant/plugin/tenant-plugin/domain/service/tenant-plugin.service";
 
 /**
  * Shared Unit of Work
@@ -36,6 +37,7 @@ export class SharedUow {
 	#tariffPlan!: TariffPlanService;
 	#tariffPlanHistory!: TariffPlanHistoryService;
 	#plugin!: PluginService;
+	#tenantPlugin!: TenantPluginService;
 	#balance!: BalanceService;
 
 	public get service() {
@@ -157,6 +159,17 @@ export class SharedUow {
 
 	public set plugin(value: PluginService) {
 		this.#plugin = value;
+	}
+
+	public get tenantPlugin() {
+		if (!this.#tenantPlugin) {
+			throw new Error('tenantPluginService is not initialized');
+		}
+		return this.#tenantPlugin;
+	}
+
+	public set tenantPlugin(value: TenantPluginService) {
+		this.#tenantPlugin = value;
 	}
 
 	public get balance() {
