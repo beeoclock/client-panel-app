@@ -1,14 +1,14 @@
-import {inject, Injectable, resource, ResourceRef, Signal, signal} from "@angular/core";
+import {inject, Injectable, resource, ResourceRef, signal} from "@angular/core";
 import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
 import {z} from "zod";
-import {injectQueryParams} from "ngxtension/inject-query-params";
 import {flatten, unflatten} from "flat";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {AbstractControl} from "@angular/forms";
 import {is} from "@core/shared/checker";
 import {createNotifier} from "ngxtension/create-notifier";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 export type AsyncLoadDataFunctionParams = {
 	page: number;
@@ -22,6 +22,7 @@ export type AsyncLoadDataFunctionParams = {
 export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>> {
 
 	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
 
 	protected loadData(parameters: AsyncLoadDataFunctionParams): Promise<ResponseListType<ITEM>> {
 		throw new Error("Method not implemented.");
@@ -42,15 +43,13 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 		});
 	}
 
-	public readonly queryParams = injectQueryParams() as Signal<AsyncLoadDataFunctionParams>;
+	public readonly queryParams = toSignal(this.activatedRoute.queryParams);
 
 	public readonly useQueryParams: boolean = false;
 
 	public readonly defaultParameters = this.formValue().parse({});
 
 	public readonly parameters = signal<AsyncLoadDataFunctionParams>(this.defaultParameters);
-
-	public readonly isLoading = signal(0);
 
 	public readonly cache = new Map<number, boolean>();
 	public readonly totalSize = signal<number>(0);
@@ -117,7 +116,7 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 			const {page, pageSize} = parameters;
 
-			if (!is.object_not_empty(parameters)) {
+			if (!is.object_not_empty(parameters) || page === 0 || pageSize === 0) {
 				return {
 					items: [],
 					totalSize: 0,
@@ -135,18 +134,10 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 			this.cache.set(page, true);
 
-			// Counter of pending API calls
-			this.isLoading.set(this.isLoading() + 1);
-
 			const {items, totalSize} = await this.loadData(parameters);
 
-			// Create array to store data if missing
-			// The array should have the correct number of with "holes" for missing data
-			if (!this.rows?.length || this.rows.length !== totalSize) {
-				this.rows = new Array(totalSize || 0);
-			}
-
 			if (currentTotalSize !== totalSize) {
+				this.rows = new Array(totalSize || 0);
 				this.totalSize.set(totalSize);
 			}
 
@@ -158,12 +149,6 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 			const copy = this.rows.slice();
 			copy.splice(start, pageSize, ...items);
 			this.rows = copy;
-
-			console.log({totalSize, items, page, pageSize})
-			console.log('rows', this.rows);
-
-			// Decrement the counter of pending API calls
-			this.isLoading.set(this.isLoading() - 1);
 
 			return {items, totalSize};
 
@@ -191,9 +176,9 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 		}
 	}
 
-	public parseQueryParams(queryParams: AsyncLoadDataFunctionParams): AsyncLoadDataFunctionParams {
+	public parseQueryParams(queryParams: Params | undefined): AsyncLoadDataFunctionParams {
 		const filterForm = this.getNewForm();
-		const unflattenedQueryParams = unflatten(queryParams) as unknown as object;
+		const unflattenedQueryParams = unflatten(queryParams ?? {}) as unknown as object;
 		const {data, success, error} = this.formValue().safeParse(unflattenedQueryParams);
 		if (success) {
 			filterForm.patchValue(data as unknown as object);

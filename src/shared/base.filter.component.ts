@@ -49,7 +49,7 @@ export abstract class BaseFilterComponent {
 
 			});
 
-			explicitEffect([this.tableNgxDatatableSmartResource.isLoading], ([isLoading]) => {
+			explicitEffect([this.tableNgxDatatableSmartResource.resource.isLoading], ([isLoading]) => {
 
 				if (isLoading) {
 					this.form.disable({

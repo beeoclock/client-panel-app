@@ -9,6 +9,8 @@ import {CustomerDataActions} from "./customer.data.actions";
 import {
 	CustomerPresentationActions
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
+import {CreateCustomerUseCase} from "@tenant/customer/application/use-case/create-customer.use-case";
+import {NGXLogger} from "ngx-logger";
 
 export type ICustomerState = IBaseState<ECustomer>;
 
@@ -27,11 +29,18 @@ const defaults = baseDefaults<ECustomer>({
 export class CustomerDataState {
 
 	private readonly sharedUow = inject(SharedUow);
+	private readonly ngxLogger = inject(NGXLogger);
 
 	@Action(CustomerDataActions.CreateItem)
 	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerDataActions.CreateItem): Promise<void> {
-		await this.sharedUow.customer.repository.createAsync(ECustomer.fromDTO(action.payload));
-		ctx.dispatch(new CustomerPresentationActions.CloseForm());
+		const createCustomerUseCase = new CreateCustomerUseCase(this.sharedUow, action.payload);
+		try {
+			await createCustomerUseCase.execute();
+			// ctx.dispatch(new CustomerPresentationActions.CloseForm());
+		} catch (e) {
+			ctx.dispatch(new CustomerDataActions.CreateItemError(e));
+			this.ngxLogger.error(e);
+		}
 	}
 
 	@Action(CustomerDataActions.UpdateItem)

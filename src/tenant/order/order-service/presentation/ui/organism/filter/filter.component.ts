@@ -7,7 +7,6 @@ import {DefaultPanelComponent} from "@shared/presentation/component/panel/defaul
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
-import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
 import {IonSelectMemberComponent} from "@shared/presentation/component/input/ion/ion-select-member.component";
 import {IonSelectServiceComponent} from "@shared/presentation/component/input/ion/ion-select-service.component";
 import {
@@ -28,7 +27,6 @@ import {
 		NgTemplateOutlet,
 		AutoRefreshComponent,
 		ReactiveFormsModule,
-		IonSelectStateComponent,
 		IonSelectMemberComponent,
 		IonSelectServiceComponent,
 		IonSelectOrderServiceStatusComponent,
@@ -50,7 +48,6 @@ import {
 					<ng-container *ngTemplateOutlet="memberSelect"/>
 					<ng-container *ngTemplateOutlet="serviceSelect"/>
 					<ng-container *ngTemplateOutlet="AutoRefresh"/>
-					<ng-container *ngTemplateOutlet="stateSelect"/>
 				</div>
 			}
 		</utility-default-panel-component>
@@ -61,7 +58,6 @@ import {
 				<ng-container *ngTemplateOutlet="memberSelect"/>
 				<ng-container *ngTemplateOutlet="serviceSelect"/>
 				<ng-container *ngTemplateOutlet="AutoRefresh"/>
-				<ng-container *ngTemplateOutlet="stateSelect"/>
 			</div>
 		}
 
@@ -84,10 +80,6 @@ import {
 			<ion-select-service [control]="form.controls.services"/>
 		</ng-template>
 
-		<ng-template #stateSelect>
-			<ion-select-state
-				[control]="form.controls.state"/>
-		</ng-template>
 
 		<ng-template #SearchInput>
 			<utility-search-input-component [formControl]="form.controls.phrase"/>

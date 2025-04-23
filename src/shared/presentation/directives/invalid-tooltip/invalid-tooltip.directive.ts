@@ -88,7 +88,7 @@ export class InvalidTooltipDirective implements DoCheck {
 	public buildInvalidCustomTooltip(): void {
 
 		// Check if control is exist and if it is untouched
-		if (!this.control || this.control.root.untouched) {
+		if (!this.control || (this.needTouched() && this.control.root.untouched)) {
 			return;
 		}
 

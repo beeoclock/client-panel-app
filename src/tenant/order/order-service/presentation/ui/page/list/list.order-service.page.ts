@@ -11,6 +11,10 @@ import {
 import {
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+import {ofActionSuccessful} from "@ngxs/store";
+import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
+import {tap} from "rxjs/operators";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-list-order-service-page',
@@ -33,6 +37,21 @@ import {
 	`,
 })
 export default class ListOrderServicePage extends ListPage implements OnInit {
+
+	private readonly actionsSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			OrderActions.OrderedServiceState,
+			OrderActions.OrderedServiceStatus,
+			OrderActions.UpdateItem,
+			OrderActions.ChangeStatus,
+			OrderActions.SetState,
+			OrderActions.CreateItem,
+		),
+		tap(() => {
+			this.tableNgxDatatableSmartResource?.reload();
+		})
+	).subscribe()
 
 	public override ngOnInit() {
 		super.ngOnInit();

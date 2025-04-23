@@ -81,6 +81,10 @@
 						.datatable-body-cell {
 							@include datatable-cell;
 
+							.datatable-body-cell-label {
+								@apply w-full truncate;
+							}
+
 							.ghost-loader {
 								@apply bg-beeColor-200 animate-pulse rounded-2xl w-full;
 							}
