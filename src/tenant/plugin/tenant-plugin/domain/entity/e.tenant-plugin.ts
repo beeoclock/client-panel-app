@@ -40,6 +40,10 @@ export class ETenantPlugin extends ABaseEntity<'TenantPluginDto', ITenantPlugin.
 		return this.plugin.languageVersions.find(({language}) => language === code);
 	}
 
+	public isFree() {
+		return this.plugin.price.isFree;
+	}
+
 	public isAttached(): boolean {
 		return this.status === TenantPluginStatusEnum.connected;
 	}

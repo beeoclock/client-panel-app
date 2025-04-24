@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@an
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {GridResource} from "@tenant/plugin/tenant-plugin/presentation/ui/page/grid/grid.resource";
 import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-plugin";
+import {CurrencyPipe} from "@angular/common";
 
 @Component({
 	selector: 'app-list-tenant-plugin-page',
@@ -9,6 +10,7 @@ import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-p
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		TranslateModule,
+		CurrencyPipe,
 	],
 	standalone: true,
 	providers: [
@@ -39,16 +41,29 @@ import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-p
 								{{ languageVersion.description }}
 							</p>
 						}
-						@if (storeItem.tenantDoesNotHavePlugin()) {
-							<button (click)="attach(storeItem)" class="mt-2 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-								{{ 'tenant-plugin.grid.plugin.attach' | translate }}
-							</button>
-						}
-						@if (storeItem.isAttached()) {
-							<button (click)="detach(storeItem)" class="mt-2 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-neutral-400 text-white hover:bg-neutral-500 focus:outline-hidden focus:bg-neutral-500 disabled:opacity-50 disabled:pointer-events-none">
-								{{ 'tenant-plugin.grid.plugin.detach' | translate }}
-							</button>
-						}
+						<div class="flex justify-between mt-2 items-center">
+							<div>
+								@if (storeItem.isFree()) {
+									<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-sm font-medium bg-green-100 text-green-800 dark:bg-white/10 dark:text-white">
+										FREE
+									</span>
+								} @else {
+									<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-sm font-medium bg-gray-100 text-gray-800 dark:bg-white/10 dark:text-white">
+										{{ storeItem.plugin.price.amount | currency: storeItem.plugin.price.currency }}
+									</span>
+								}
+							</div>
+							@if (storeItem.tenantDoesNotHavePlugin()) {
+								<button (click)="attach(storeItem)" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+									{{ 'tenant-plugin.grid.plugin.attach' | translate }}
+								</button>
+							}
+							@if (storeItem.isAttached()) {
+								<button (click)="detach(storeItem)" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-neutral-400 text-white hover:bg-neutral-500 focus:outline-hidden focus:bg-neutral-500 disabled:opacity-50 disabled:pointer-events-none">
+									{{ 'tenant-plugin.grid.plugin.detach' | translate }}
+								</button>
+							}
+						</div>
 					</div>
 				</div>
 			}
