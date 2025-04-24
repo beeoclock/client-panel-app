@@ -22,7 +22,7 @@ import {
 			@if (data) {
 				<button (click)="openMemberDetails($event, data)"
 						class="inline-flex flex-nowrap items-center bg-white border border-neutral-200 hover:bg-neutral-200 transition-all rounded-full p-1 pe-3 dark:bg-neutral-900 dark:border-neutral-700">
-					@if (data.avatar.url.length) {
+					@if (data?.avatar?.url?.length ?? 0) {
 						<img class="me-1.5 inline-block size-8 rounded-full object-cover" [src]="data.avatar.url" alt="Photo of member">
 					} @else {
 						<div class="me-1.5 inline-block size-8 rounded-full bg-beeColor-400 text-white text-xs font-bold flex items-center justify-center">
