@@ -2,7 +2,7 @@ import {Endpoint, EndpointCollectionType} from "@shared/domain/endpoint";
 import {SourceNetworkEnum} from "@core/shared/enum/source.network.enum";
 
 export enum tenantPluginEndpointEnum {
-	allTenantPlugins = '/api/v1/plugins/all-tenant-plugins',
+	paged = '/api/v1/plugins/paged',
 	attachPlugin = '/api/v1/plugins/attach-plugin',
 	detachPlugin = '/api/v1/plugins/detach-plugin/{pluginName}',
 	executeFunction = '/api/v1/plugins/{pluginName}/{functionName}',
@@ -10,7 +10,7 @@ export enum tenantPluginEndpointEnum {
 
 export const tenantPluginEndpoint: EndpointCollectionType = {
 	GET: {
-		[tenantPluginEndpointEnum.allTenantPlugins]: {
+		[tenantPluginEndpointEnum.paged]: {
 			source: SourceNetworkEnum.plugin,
 			header: {
 				authorization: true,

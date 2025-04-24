@@ -1732,6 +1732,14 @@
 			"title": "Tariffs"
 		}
 	},
+	"tenant-plugin": {
+		"grid": {
+			"plugin": {
+				"attach": "Get",
+				"detach": "Disable"
+			}
+		}
+	},
 	"updateAvailable": {
 		"header": "New version",
 		"message": "A new version of the app is available, would you like to update?"

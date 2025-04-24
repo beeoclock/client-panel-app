@@ -7,7 +7,7 @@ import {ITenantPlugin} from "@tenant/plugin/tenant-plugin/domain";
 import {tenantPluginEndpointEnum} from "@tenant/plugin/tenant-plugin/infrastructure/endpoint/tenant-plugin.endpoint";
 
 @Injectable()
-export class AllTenantPluginsApi extends BaseApiAdapter<ResponseListType<ITenantPlugin.EntityRaw>, [Types.FindQueryParams]> {
+export class PagedApi extends BaseApiAdapter<ResponseListType<ITenantPlugin.EntityRaw>, [Types.FindQueryParams]> {
 
 
 	/**
@@ -16,7 +16,7 @@ export class AllTenantPluginsApi extends BaseApiAdapter<ResponseListType<ITenant
 	 */
 	@TypeGuard([is.object_not_empty])
 	public override execute$(params: Types.FindQueryParams) {
-		return this.httpClient.get<ResponseListType<ITenantPlugin.EntityRaw>>(tenantPluginEndpointEnum.allTenantPlugins, {
+		return this.httpClient.get<ResponseListType<ITenantPlugin.EntityRaw>>(tenantPluginEndpointEnum.paged, {
 			params,
 		});
 	}

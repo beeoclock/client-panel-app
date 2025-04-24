@@ -1732,6 +1732,14 @@
 			"title": "Тарифи"
 		}
 	},
+	"tenant-plugin": {
+		"grid": {
+			"plugin": {
+				"attach": "Підключити",
+				"detach": "Відключити"
+			}
+		}
+	},
 	"updateAvailable": {
 		"header": "Нова версія",
 		"message": "Доступна нова версія, чи оновити додаток?"

@@ -1,6 +1,7 @@
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IPlugin} from "@tenant/plugin/plugin/domain";
-import {ITenantPlugin} from "@tenant/plugin/tenant-plugin/domain";
+import {ITenantPlugin, TenantPluginStatusEnum} from "@tenant/plugin/tenant-plugin/domain";
+import ObjectID from "bson-objectid";
 
 
 export class ETenantPlugin extends ABaseEntity<'TenantPluginDto', ITenantPlugin.DTO, ITenantPlugin.EntityRaw> implements ITenantPlugin.EntityRaw {
@@ -9,7 +10,7 @@ export class ETenantPlugin extends ABaseEntity<'TenantPluginDto', ITenantPlugin.
 
 	plugin!: IPlugin.DTO;
 	config!: object;
-	status!: string;
+	status!: TenantPluginStatusEnum;
 
 	public override toDTO(): ITenantPlugin.DTO {
 		return ETenantPlugin.toDTO(this);
@@ -30,6 +31,46 @@ export class ETenantPlugin extends ABaseEntity<'TenantPluginDto', ITenantPlugin.
 		};
 	}
 
+	public getLanguageVersionByCode(code: string): {
+		object: 'LanguageVersionDto';
+		title: string;
+		description: string;
+		language: string;
+	} | undefined {
+		return this.plugin.languageVersions.find(({language}) => language === code);
+	}
+
+	public isAttached(): boolean {
+		return this.status === TenantPluginStatusEnum.connected;
+	}
+
+	public isDetached(): boolean {
+		return this.status === TenantPluginStatusEnum.disconnected;
+	}
+
+	public isInTrialPeriod(): boolean {
+		return this.status === TenantPluginStatusEnum.inTrialPeriod;
+	}
+
+	public tenantDoesNotHavePlugin(): boolean {
+		return this.status === TenantPluginStatusEnum.disconnected && this.syncedAt === undefined;
+	}
+
+	public attach(): void {
+		this.status = TenantPluginStatusEnum.connected;
+		this.refreshUpdatedAt();
+	}
+
+	public detach(): void {
+		this.status = TenantPluginStatusEnum.disconnected;
+		this.refreshUpdatedAt();
+	}
+
+	public trial(): void {
+		this.status = TenantPluginStatusEnum.inTrialPeriod;
+		this.refreshUpdatedAt();
+	}
+
 	/**
 	 * Use it to create new entity, e.g. from API or form
 	 * @param data
@@ -44,6 +85,18 @@ export class ETenantPlugin extends ABaseEntity<'TenantPluginDto', ITenantPlugin.
 	 */
 	public static fromRaw(data: ITenantPlugin.EntityRaw): ETenantPlugin {
 		return new ETenantPlugin(data);
+	}
+
+	public static createStoreItem(initials: Partial<ITenantPlugin.DTO> = {}) {
+
+		const item = new ETenantPlugin({
+			_id: new ObjectID().toHexString(),
+			stateHistory: [],
+			status: TenantPluginStatusEnum.disconnected,
+			...initials,
+		});
+
+		return item;
 	}
 
 }

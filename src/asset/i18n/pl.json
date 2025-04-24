@@ -1732,6 +1732,14 @@
 			"title": "Taryfy"
 		}
 	},
+	"tenant-plugin": {
+		"grid": {
+			"plugin": {
+				"attach": "Podłącz",
+				"detach": "Odłącz"
+			}
+		}
+	},
 	"updateAvailable": {
 		"header": "Nowa wersja",
 		"message": "Dostępna jest nowa wersja aplikacji, czy chcesz zaktualizować?"

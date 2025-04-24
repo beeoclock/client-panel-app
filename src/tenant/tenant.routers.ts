@@ -88,7 +88,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'grid',
-                                        loadComponent: () => import('@tenant/plugin/plugin/presentation/ui/page/grid/grid.plugin.page')
+                                        loadComponent: () => import('@tenant/plugin/tenant-plugin/presentation/ui/page/grid/grid.plugin.page')
                                     }
                                 ]
                             },

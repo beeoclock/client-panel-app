@@ -8,7 +8,7 @@ import {ITenantPlugin} from "@tenant/plugin/tenant-plugin/domain";
 export class TenantPluginDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<ITenantPlugin.EntityRaw> {
 
 	protected readonly columns = '_id,state,createdAt,updatedAt';
-	protected readonly moduleName = 'tenantPlugin';
+	protected readonly moduleName = 'tenant-plugin';
 	protected readonly version = 1;
 
 }

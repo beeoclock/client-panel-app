@@ -2,12 +2,18 @@ import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {IPlugin} from "@tenant/plugin/plugin/domain";
 
+export enum TenantPluginStatusEnum {
+	inTrialPeriod = 'inTrialPeriod',
+	connected = 'connected',
+	disconnected = 'disconnected'
+}
+
 export namespace ITenantPlugin {
 
 	export interface DTO extends IBaseDTO<'TenantPluginDto'> {
 		plugin: IPlugin.DTO;
 		config: object;
-		status: string;
+		status: TenantPluginStatusEnum;
 	}
 
 	export type EntityRaw = IBaseEntityRaw<'TenantPluginDto'> & DTO & {};

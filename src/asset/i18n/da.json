@@ -1732,6 +1732,14 @@
 			"title": "Tariffer"
 		}
 	},
+	"tenant-plugin": {
+		"grid": {
+			"plugin": {
+				"attach": "Verbind",
+				"detach": "Uitschakelen"
+			}
+		}
+	},
 	"updateAvailable": {
 		"header": "Ny version",
 		"message": "En ny version af appen er tilgængelig, vil du opdatere?"

@@ -17,7 +17,7 @@ export class SyncManager extends BaseSyncManager<ITenantPlugin.DTO, ETenantPlugi
 	protected readonly toEntity = ETenantPlugin.fromDTO;
 
 	public constructor() {
-		super('tenantPlugin');
+		super('tenant-plugin');
 		inject(TENANT_ID).pipe(
 			takeUntilDestroyed(),
 			filter(is.string),

@@ -1,12 +1,7 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {ListPage} from "@shared/list.page";
-import {TranslateModule} from "@ngx-translate/core";
-import {
-	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {
-	PluginTableNgxDatatableResource
-} from "@tenant/plugin/plugin/presentation/ui/page/list/plugin.table-ngx-datatable.resource";
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {GridResource} from "@tenant/plugin/tenant-plugin/presentation/ui/page/grid/grid.resource";
+import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-plugin";
 
 @Component({
 	selector: 'app-list-tenant-plugin-page',
@@ -17,10 +12,7 @@ import {
 	],
 	standalone: true,
 	providers: [
-		{
-			provide: TableNgxDatatableSmartResource,
-			useClass: PluginTableNgxDatatableResource,
-		},
+		GridResource
 	],
 	host: {
 		class: 'p-4 flex flex-wrap gap-4'
@@ -30,39 +22,75 @@ import {
 			<h1 class="text-2xl font-bold text-gray-800 mb-4">Grid Plugin Page</h1>
 			<p class="text-gray-600">This is a simple grid plugin page example.</p>
 		</div>
-		@if (resource) {
-			@for (plugin of resource.value().items; track plugin._id) {
+		@if (resource(); as resource) {
+			@for (storeItem of resource.items; track storeItem._id) {
 
 				<div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl max-w-xs">
-					<img class="w-full h-auto rounded-t-xl"
-						 src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&q=80"
+					<img class="w-full h-auto rounded-t-xl aspect-video object-cover"
+						 [src]="storeItem.plugin.logo.url"
 						 alt="Card Image">
 					<div class="p-4 md:p-5">
-						<h3 class="text-lg font-bold text-gray-800">
-							Card title
-						</h3>
-						<p class="mt-1 text-gray-500">
-							Some quick example text to build on the card title and make up the bulk of the card's content.
-						</p>
-						<a class="mt-2 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-						   href="#">
-							Go somewhere
-						</a>
+						@let languageVersion = storeItem.getLanguageVersionByCode(currentLanguage);
+						@if (languageVersion) {
+							<h3 class="text-lg font-bold text-gray-800">
+								{{ languageVersion.title }}
+							</h3>
+							<p class="mt-1 text-gray-500">
+								{{ languageVersion.description }}
+							</p>
+						}
+						@if (storeItem.tenantDoesNotHavePlugin()) {
+							<button (click)="attach(storeItem)" class="mt-2 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+								{{ 'tenant-plugin.grid.plugin.attach' | translate }}
+							</button>
+						}
+						@if (storeItem.isAttached()) {
+							<button (click)="detach(storeItem)" class="mt-2 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-neutral-400 text-white hover:bg-neutral-500 focus:outline-hidden focus:bg-neutral-500 disabled:opacity-50 disabled:pointer-events-none">
+								{{ 'tenant-plugin.grid.plugin.detach' | translate }}
+							</button>
+						}
 					</div>
 				</div>
 			}
 		}
+
+		@if (isLoading()) {
+
+			<div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl max-w-xs">
+				<div class="rounded-t-xl aspect-video object-cover h-[178px] w-[318px] bg-neutral-200"></div>
+				<div class="flex flex-col h-full justify-between md:p-5 p-4 min-h-[166px]">
+					<div class="flex flex-col gap-2">
+						<h3 class="text-lg font-bold text-gray-800">
+							<div class="w-[60px] h-6 rounded-2xl animate-pulse bg-neutral-300"></div>
+						</h3>
+						<div class="mt-1 text-gray-500">
+							<div class="w-[120px] h-4 rounded-2xl animate-pulse bg-neutral-300"></div>
+						</div>
+					</div>
+
+					<div class="w-[120px] h-8 rounded-2xl animate-pulse bg-neutral-300"></div>
+				</div>
+			</div>
+		}
 	`
 })
-export class GridPluginPage extends ListPage implements OnDestroy, OnInit {
+export class GridPluginPage {
 
-	public readonly resource = this.tableNgxDatatableSmartResource?.resource;
+	private readonly translateService = inject(TranslateService);
+	private readonly gridResource = inject(GridResource);
 
-	public override ngOnInit() {
-		super.ngOnInit();
-		this.analyticsService.logEvent('plugin_grid_page_initialized');
+	public readonly currentLanguage = this.translateService.currentLang;
+
+	public readonly resource = this.gridResource.merged;
+	public readonly isLoading = this.gridResource.isLoading;
+
+	public detach(storeItem: ETenantPlugin) {
+		console.log({storeItem});
 	}
 
+	public attach(storeItem: ETenantPlugin) {
+		console.log({storeItem});
+	}
 }
 
 export default GridPluginPage;

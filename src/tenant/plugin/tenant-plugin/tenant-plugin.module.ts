@@ -6,7 +6,7 @@ import {
 	PushChangesSyncManager
 } from "@tenant/plugin/tenant-plugin/infrastructure/sync-manager/push.changes.sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {AllTenantPluginsApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/all-tenant-plugins.api";
+import {PagedApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/paged.api";
 import {DetachPluginApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/detach-plugin.api";
 import {AttachPluginApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/attach-plugin.api";
 import {ExecuteFunctionApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/execute-function.api";
@@ -33,7 +33,7 @@ import {
 	providers: [
 
 		// Api
-		AllTenantPluginsApi,
+		PagedApi,
 		AttachPluginApi,
 		DetachPluginApi,
 		ExecuteFunctionApi,
