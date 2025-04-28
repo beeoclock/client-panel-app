@@ -26,8 +26,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 			<label default for="client-booking-settings-form-time-zone">
 				{{ 'client.profile.form.section.bookingSettings.select.timeZone.label' | translate }}
 			</label>
-			<ng-select
-				labelForId="client-booking-settings-form-time-zone"
+			<ng-select labelForId="client-booking-settings-form-time-zone"
 				bindLabel="label"
 				bindValue="value"
 				isRequired
@@ -38,8 +37,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 				[items]="items"
 				[closeOnSelect]="false"
 				[clearable]="false"
-				[formControl]="control()">
-			</ng-select>
+				[formControl]="control()" />
 		</div>
 		<div class="italic leading-tight text-start p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.bookingSettings.select.timeZone.hint' | translate }}

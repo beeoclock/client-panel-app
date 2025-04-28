@@ -18,7 +18,6 @@ export class TenantPaymentStateEffect {
 			OrderActions.UpdateItem,
 		),
 	).subscribe((action) => {
-		console.log('orderUpdateCase: ', action);
 		const {payload} = action;
 		if (payload.state !== StateEnum.active) {
 			this.updatePaymentState(payload._id, payload.state);
@@ -30,7 +29,6 @@ export class TenantPaymentStateEffect {
 			OrderActions.SetState,
 		),
 	).subscribe((action) => {
-		console.log('orderChangeStateCase: ', action);
 		const {item, state} = action;
 		if (state !== StateEnum.active) {
 			this.updatePaymentState(item._id, state);
@@ -42,7 +40,6 @@ export class TenantPaymentStateEffect {
 			OrderActions.OrderedServiceState,
 		),
 	).subscribe((payload) => {
-		console.log('orderSetStateCase: ', payload);
 		this.sharedUow.order.repository.findByIdAsync(payload.orderId).then((order) => {
 			if (order) {
 				this.updatePaymentState(order._id, order.state);
@@ -51,7 +48,6 @@ export class TenantPaymentStateEffect {
 	});
 
 	private updatePaymentState(orderId: string, orderState: StateEnum) {
-		console.log('updatePaymentState: ', orderId, orderState);
 		this.sharedUow.payment.findByOrderId(orderId).then((payment) => {
 			payment.forEach((item) => {
 				const entity = EPayment.fromRaw(item);

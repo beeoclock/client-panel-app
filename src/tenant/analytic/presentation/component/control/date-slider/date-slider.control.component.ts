@@ -3,7 +3,6 @@ import {
 	ChangeDetectorRef,
 	Component,
 	inject,
-	Input,
 	input,
 	OnChanges,
 	OnInit,
@@ -61,15 +60,10 @@ import {
 })
 export class DateSliderControlComponent extends Reactive implements OnChanges, OnInit {
 
-	@Input({required: true})
-	public form = new FormGroup({
-		interval: new FormControl<IntervalTypeEnum>(IntervalTypeEnum.day, {
-			nonNullable: true
-		}),
-		selectedDate: new FormControl<string>(DateTime.now().toJSDate().toISOString(), {
-			nonNullable: true
-		}),
-	});
+	public readonly form = input.required<FormGroup<{
+		interval: FormControl<IntervalTypeEnum>;
+		selectedDate: FormControl<string>;
+	}>>();
 
 	public readonly initialIntervalType = input<IntervalTypeEnum>(IntervalTypeEnum.day);
 
@@ -149,6 +143,16 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 				translateKey: 'event.statistic.period.LAST_WEEK'
 			};
 		},
+		isNextWeek: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.week;
+			if (enabled) {
+				enabled = this.today.plus({week: 1}).startOf('week').hasSame(DateTime.fromISO(this.dateControl.value), 'week');
+			}
+			return {
+				enabled,
+				translateKey: 'event.statistic.period.NEXT_WEEK'
+			};
+		},
 		isThisMonth: () => {
 			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.month;
 			if (enabled) {
@@ -167,6 +171,16 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 			return {
 				enabled,
 				translateKey: 'event.statistic.period.LAST_MONTH'
+			};
+		},
+		isNextMonth: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.month;
+			if (enabled) {
+				enabled = this.today.plus({month: 1}).startOf('month').hasSame(DateTime.fromISO(this.dateControl.value), 'month');
+			}
+			return {
+				enabled,
+				translateKey: 'event.statistic.period.NEXT_MONTH'
 			};
 		}
 	};
@@ -218,7 +232,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	public initialize() {
 
-		const {interval, selectedDate} = this.form.getRawValue();
+		const {interval, selectedDate} = this.form().getRawValue();
 		if (interval) this.intervalTypeControl.setValue(interval);
 		if (selectedDate) this.dateControl.setValue(selectedDate);
 		this.changeDetectorRef.markForCheck();
@@ -249,13 +263,17 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		this.updateFromAndToControls('plus');
 	}
 
+	protected setYesterday() {
+		this.dateControl.patchValue(this.today.minus({days: 1}).endOf('day').toJSDate().toISOString());
+	}
+
 	protected async setToday() {
 		await this.ionDateTime().reset();
 		this.dateControl.patchValue(this.today.endOf('day').toJSDate().toISOString());
 	}
 
-	protected setYesterday() {
-		this.dateControl.patchValue(this.today.minus({days: 1}).endOf('day').toJSDate().toISOString());
+	protected setTomorrow() {
+		this.dateControl.patchValue(this.today.plus({days: 1}).endOf('day').toJSDate().toISOString());
 	}
 
 	protected openDateModal() {
@@ -277,7 +295,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	protected getRangeInISO() {
 
-		const {interval, selectedDate} = this.form.getRawValue();
+		const {interval, selectedDate} = this.form().getRawValue();
 
 		return this.getRangeInISOByInterval(interval, selectedDate);
 	}
@@ -361,7 +379,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	private updateForm() {
 		const selectedDate = this.dateControl.getRawValue();
 		const interval = this.intervalTypeControl.getRawValue();
-		this.form.patchValue({
+		this.form().patchValue({
 			interval,
 			selectedDate,
 		});
@@ -369,7 +387,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	private updateFromAndToControls(method: 'plus' | 'minus') {
 
-		const selectedDate = this.form.controls.selectedDate.value;
+		const selectedDate = this.form().controls.selectedDate.value;
 		const intervalType = this.intervalTypeControl.value;
 
 		const {newDateTime} = this.changeInterval(selectedDate, method, intervalType);
@@ -405,7 +423,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	private changeInterval(dateISO: string, method: 'plus' | 'minus', interval: IntervalTypeEnum) {
 
-		const newDateTime = DateTime.fromISO(dateISO)[method]({[interval]: 1}).startOf('day');
+		const newDateTime = DateTime.fromISO(dateISO)[method]({[interval]: 1});
 
 		return {newDateTime};
 
@@ -462,13 +480,23 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 
+	protected setLastWeek() {
+		const fromDateTime = this.today.minus({weeks: 1}).startOf('week');
+		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
+	}
+
 	protected setThisWeek() {
 		const fromDateTime = this.today.startOf('week');
 		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 
-	protected setLastWeek() {
-		const fromDateTime = this.today.minus({weeks: 1}).startOf('week');
+	protected setNextWeek() {
+		const fromDateTime = this.today.plus({weeks: 1}).startOf('week');
+		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
+	}
+
+	protected setLastMonth() {
+		const fromDateTime = this.today.minus({months: 1});
 		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 
@@ -476,8 +504,8 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		this.dateControl.patchValue(this.today.toJSDate().toISOString());
 	}
 
-	protected setLastMonth() {
-		const fromDateTime = this.today.minus({months: 1}).startOf('month');
+	protected setNextMonth() {
+		const fromDateTime = this.today.plus({months: 1});
 		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 }

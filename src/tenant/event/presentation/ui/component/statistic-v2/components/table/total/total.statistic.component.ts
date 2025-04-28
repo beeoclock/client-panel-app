@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, KeyValuePipe} from "@angular/common";
 import {
-	StatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
+	OrderServiceStatusIconComponent
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/interface/i.analytic";
 
@@ -20,7 +20,7 @@ import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/in
 							@if (currency.value) {
 								<div class="flex items-center justify-center gap-2 p-2">
 									<div class="border p-2 rounded-2xl text-2xl">
-										<app-status-icon-component class="flex items-center"
+										<app-order-service-status-icon-component class="flex items-center"
 																   [status]="getStatus(status.key)"/>
 									</div>
 									<div>
@@ -40,7 +40,7 @@ import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/in
 	imports: [
 		KeyValuePipe,
 		CurrencyPipe,
-		StatusIconComponent
+		OrderServiceStatusIconComponent
 	]
 })
 export class TotalStatisticComponent {

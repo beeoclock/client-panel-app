@@ -13,7 +13,7 @@ import {
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
-import {MemberDataActions} from "@tenant/member/infrastructure/state/data/member.data.actions";
+import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
 
 @Component({
 	selector: 'app-event-calendar-with-specialists-page',

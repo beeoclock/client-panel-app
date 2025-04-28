@@ -645,6 +645,8 @@
 				"LAST_MONTH": "Sidste måned",
 				"LAST_WEEK": "Sidste uge",
 				"LAST_YEAR": "Sidste år",
+				"NEXT_MONTH": "Næste måned",
+				"NEXT_WEEK": "Næste uge",
 				"THIS_MONTH": "Denne måned",
 				"THIS_WEEK": "Denne uge",
 				"THIS_YEAR": "Dette år",
@@ -679,7 +681,9 @@
 			},
 			"startBeforeEnd": "Startdatoen skal være før slutdatoen.",
 			"username": "Brugernavnet kan kun indeholde bogstaver, tal, en understregning (_) og et punktum (.).",
-			"whitespace": "Fjern alle mellemrum"
+			"whitespace": "Fjern alle mellemrum",
+			"emailExists": "En bruger med denne e-mail eksisterer allerede",
+			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede"
 		}
 	},
 	"http": {
@@ -1028,6 +1032,10 @@
 			"addSocialMedia": "Tilføj sociale medier",
 			"additional": "Yderligere",
 			"address": "Adresse",
+			"all": "Alle",
+			"allServices": "Alle tjenester",
+			"allSpecialists": "Alle specialister",
+			"allStatuses": "Alle statusser",
 			"amount": "Beløb",
 			"anonymous": "Anonym",
 			"approvalType": "Godkendelsestype",
@@ -1038,6 +1046,7 @@
 			"autoActionTypeOnOrder": "Type automatisk handling",
 			"avatar": "Avatar",
 			"back": "Tilbage",
+			"banners": "Bannere",
 			"bookingSettings": "Bookingindstillinger",
 			"break": "Pause",
 			"business": "Forretning",
@@ -1122,6 +1131,7 @@
 			"next": "Næste",
 			"nextStep": "Næste skridt",
 			"no": "Nej",
+			"noAvailable": "Ikke tilgængelig",
 			"noData": "Ingen data",
 			"noNeedCard": "Intet behov for kort",
 			"notPaid": "Ikke betalt",
@@ -1260,6 +1270,9 @@
 				"0": "Inaktiv",
 				"1": "Aktiv"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "N/A"
 		}
 	},
 	"latestBooking": {
@@ -1551,6 +1564,9 @@
 	"sidebar": {
 		"absence": "Fravær",
 		"addEvent": "Tilføj begivenhed",
+		"appointments": {
+			"label": "Aftaler"
+		},
 		"businessProfile": "Forretningsprofil",
 		"businessSettings": "Firma indstillinger",
 		"calendar": {

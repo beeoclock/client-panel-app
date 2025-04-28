@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 
 @Component({
     selector: 'app-selected-member-additional-menu',

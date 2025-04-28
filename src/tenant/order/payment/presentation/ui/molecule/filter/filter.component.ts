@@ -38,13 +38,13 @@ import {
 	template: `
 		<utility-default-panel-component>
 			@if (isMobile$ | async) {
-				<div class="flex gap-4 justify-between w-full">
+				<div class="flex gap-4 justify-between w-full p-2">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
 					<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>-->
 				</div>
 			} @else {
 
-				<div class="flex overflow-x-auto gap-2">
+				<div class="flex overflow-x-auto gap-2 p-2">
 					<ng-container *ngTemplateOutlet="SearchInput"/>
 					<ng-container *ngTemplateOutlet="DateRange"/>
 					<ng-container *ngTemplateOutlet="PaymentStatusSelect"/>

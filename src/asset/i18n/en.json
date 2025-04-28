@@ -645,6 +645,8 @@
 				"LAST_MONTH": "Last month",
 				"LAST_WEEK": "Last week",
 				"LAST_YEAR": "Last year",
+				"NEXT_MONTH": "Next month",
+				"NEXT_WEEK": "Next week",
 				"THIS_MONTH": "This month",
 				"THIS_WEEK": "This week",
 				"THIS_YEAR": "This year",
@@ -679,7 +681,9 @@
 				"startInSeconds": "The end time must be longer than the start time"
 			},
 			"startBeforeEnd": "The start date must be before the end date.",
-			"whitespace": "Remove all spaces"
+			"whitespace": "Remove all spaces",
+			"emailExists": "Email already exists",
+			"phoneExists": "Phone number already exists"
 		}
 	},
 	"http": {
@@ -1028,6 +1032,10 @@
 			"addSocialMedia": "Add social media",
 			"additional": "Additional",
 			"address": "Address",
+			"all": "All",
+			"allServices": "All services",
+			"allSpecialists": "All specialists",
+			"allStatuses": "All statuses",
 			"amount": "Amount",
 			"anonymous": "Anonymous",
 			"approvalType": "Approval type",
@@ -1038,6 +1046,7 @@
 			"autoActionTypeOnOrder": "Type of automatic action",
 			"avatar": "Avatar",
 			"back": "Back",
+			"banners": "Banners",
 			"bookingSettings": "Booking settings",
 			"break": "Break",
 			"business": "Business",
@@ -1122,6 +1131,7 @@
 			"next": "Next",
 			"nextStep": "Next step",
 			"no": "No",
+			"noAvailable": "No available",
 			"noData": "No data",
 			"noNeedCard": "No need card",
 			"notPaid": "Not paid",
@@ -1260,6 +1270,9 @@
 				"0": "Inactive",
 				"1": "Active"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "N/A"
 		}
 	},
 	"latestBooking": {
@@ -1551,6 +1564,9 @@
 	"sidebar": {
 		"absence": "Absence",
 		"addEvent": "Add event",
+		"appointments": {
+			"label": "Appointments"
+		},
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",
 		"calendar": {

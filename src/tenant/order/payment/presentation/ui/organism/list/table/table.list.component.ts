@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
+import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 
@@ -24,6 +24,7 @@ import {
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 
 @Component({
 	selector: 'payment-table-list-component',
@@ -38,7 +39,6 @@ import {
 				class="block h-full"
 				(clickListener)="openForm()"
 				[showLinkToForm]="false"
-				[linkLabel]="'payment.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
 				<payment-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
 			</not-found-table-data-component>
@@ -52,7 +52,24 @@ import {
 			<div paymentStatusStyle [status]="row.status">
 			</div>
 		</ng-template>
-	`,
+		<ng-template #amountCellTemplate let-row="row">
+			@if (row.amount <= 0) {
+				{{ row.amount | currency: row.currency : undefined : '1.2-2' }}
+			} @else {
+				<no-available/>
+			}
+		</ng-template>
+		<ng-template #payerCellTemplate let-row="row" let-value="value">
+			@if (value === '-') {
+				<no-available/>
+			} @else {
+				{{ value }}
+			}
+		</ng-template>
+		<ng-template #idCellTemplate let-value="value">
+			<div class="uppercase" [title]="value"><span class="text-neutral-400">...</span>{{ value.slice(-4) }}</div>
+		</ng-template>
+    `,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -61,30 +78,30 @@ import {
 		NotFoundTableDataComponent,
 		AutoRefreshButtonComponent,
 		ActiveStyleDirective,
-		PaymentStatusStyleDirective
-	],
-	providers: [
-		CurrencyPipe,
+		PaymentStatusStyleDirective,
+		NoAvailable,
+		CurrencyPipe
 	],
 	host: {
-		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
 	},
 })
 export class TableListComponent extends TableComponent<EPayment> {
 
-	private readonly currencyPipe = inject(CurrencyPipe);
-
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly statusCellTemplate = viewChild<TemplateRef<any>>('statusCellTemplate');
-
-	public readonly useMoneyConvert = (obj: EPayment, prop: TableColumnProp) => {
-		if (obj.amount <= 0) {
-			return '-';
-		}
-		return this.currencyPipe.transform(obj.amount, obj.currency, undefined, '1.2-2');
-	};
+	public readonly amountCellTemplate = viewChild<TemplateRef<any>>('amountCellTemplate');
+	public readonly payerCellTemplate = viewChild<TemplateRef<any>>('payerCellTemplate');
+	public readonly idCellTemplate = viewChild<TemplateRef<any>>('idCellTemplate');
 
 	public readonly columns = signal<TableColumn<EPayment>[]>([
+		{
+			name: '#',
+			prop: '_id',
+			minWidth: 80,
+			width: 80,
+			sortable: false,
+		},
 		{
 			name: this.translateService.instant('keyword.capitalize.payer'),
 			prop: 'payer',
@@ -133,7 +150,7 @@ export class TableListComponent extends TableComponent<EPayment> {
 			minWidth: 160,
 			width: 160,
 			sortable: true,
-			$$valueGetter: this.useMoneyConvert,
+			// $$valueGetter: this.useMoneyConvert,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.paymentMethod'),
@@ -181,6 +198,21 @@ export class TableListComponent extends TableComponent<EPayment> {
 		const statusCellTemplate = this.statusCellTemplate();
 		if (statusCellTemplate) {
 			this.setCellTemplateRef(columns, 'status', statusCellTemplate);
+		}
+
+		const amountCellTemplate = this.amountCellTemplate();
+		if (amountCellTemplate) {
+			this.setCellTemplateRef(columns, 'amount', amountCellTemplate);
+		}
+
+		const payerCellTemplate = this.payerCellTemplate();
+		if (payerCellTemplate) {
+			this.setCellTemplateRef(columns, 'payer', payerCellTemplate);
+		}
+
+		const idCellTemplate = this.idCellTemplate();
+		if (idCellTemplate) {
+			this.setCellTemplateRef(columns, '_id', idCellTemplate);
 		}
 
 		return columns;

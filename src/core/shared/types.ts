@@ -29,6 +29,9 @@ export namespace Types {
 		phrase?: string;
 		state?: string;
 		updatedSince?: string;
+		members?: string[];
+		statuses?: string[];
+		services?: string[];
 	};
 
 
@@ -40,6 +43,9 @@ export namespace Types {
 		phrase?: string;
 		state?: string;
 		updatedSince?: string;
+		members?: string[];
+		statuses?: string[];
+		services?: string[];
 	};
 
 	export type FindQueryParams = Types.PartialQueryParams | Types.QueryParams;

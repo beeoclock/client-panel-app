@@ -14,11 +14,11 @@ import {
 	CustomerChipComponent
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";
 import {
 	AbsencePresentationActions
-} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+} from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 enum SegmentEnum {
 	ORDERING = 'ordering',

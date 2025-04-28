@@ -27,9 +27,6 @@
       "dom"
     ],
     "paths": {
-      "@tenant/*": [
-        "./src/tenant/*"
-      ],
       "@app/*": [
         "./src/app/*"
       ],
@@ -51,14 +48,17 @@
       "@scss/*": [
         "./src/asset/scss/*"
       ],
-      "@src/*": [
-        "./src/*"
+      "@shared-kernel/*": [
+        "./src/shared-kernel/*"
       ],
       "@shared/*": [
         "./src/shared/*"
       ],
-      "@shared-kernel/*": [
-        "./src/shared-kernel/*"
+      "@src/*": [
+        "./src/*"
+      ],
+      "@tenant/*": [
+        "./src/tenant/*"
       ]
     }
   },

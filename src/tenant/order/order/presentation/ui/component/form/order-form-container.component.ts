@@ -38,7 +38,7 @@ import {
 import {IPayment} from "@tenant/order/payment/domain/interface/i.payment";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
 import EPayment from "@tenant/order/payment/domain/entity/e.payment";
@@ -133,8 +133,6 @@ export class OrderFormContainerComponent {
 		const {customerJSON, memberJSON, serviceListJSON, appointmentStartDateTimeIso} = this;
 
 		const result: any = {};
-
-		console.log(customerJSON(), memberJSON(), serviceListJSON(), appointmentStartDateTimeIso())
 
 		if (customerJSON()) {
 			result.customer = customerJSON();

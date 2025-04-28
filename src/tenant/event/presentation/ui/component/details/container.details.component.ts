@@ -29,21 +29,21 @@ import {
 		ListServiceFormCardOrderComponent,
 	],
 	template: `
-		@if (event(); as event) {
-<!--			<div class="p-2">-->
-<!--				<app-event-status-segment-component [event]="event"/>-->
-<!--			</div>-->
+		@if (item(); as item) {
+			<!--			<div class="p-2">-->
+			<!--				<app-event-status-segment-component [event]="event"/>-->
+			<!--			</div>-->
 			<app-list-service-form-card-order-component
-				[idPrefix]="event.originalData.service._id"
-				[order]="event.originalData.order"
-				[specificOrderServiceId]="event.originalData.service._id"/>
+				[idPrefix]="item.originalData.service._id"
+				[order]="item.originalData.order"
+				[specificOrderServiceId]="item.originalData.service._id"/>
 
-			<event-v2-general-details [event]="event"/>
+			<event-v2-general-details [event]="item"/>
 			<!--			<app-event-v2-buttons-details [event]="event"/>-->
-			<button-open-order-details [order]="event.originalData.order"/>
+			<button-open-order-details [order]="item.originalData.order"/>
 			<event-meta-details
-				[orderDro]="event.originalData.order"
-				[orderServiceDto]="event.originalData.service"/>
+				[orderDro]="item.originalData.order"
+				[orderServiceDto]="item.originalData.service"/>
 		} @else {
 			<utility-loader/>
 		}
@@ -54,7 +54,7 @@ import {
 })
 export class ContainerDetailsComponent extends Reactive implements OnInit {
 
-	public readonly event = input.required<IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>>();
+	public readonly item = input.required<IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>>();
 
 	private readonly actions$ = inject(Actions);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -72,7 +72,7 @@ export class ContainerDetailsComponent extends Reactive implements OnInit {
 			)
 			.subscribe(({payload: order}) => {
 
-				if (this.event().originalData.order._id !== order._id) {
+				if (this.item().originalData.order._id !== order._id) {
 					return;
 				}
 			});

@@ -27,14 +27,12 @@ import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification
 					<div class="relative">
 						<label default
 							   [for]="'email-notification-flow'">{{ 'notificationSetting.emailNotificationSettings.label' | translate }}</label>
-						<ng-select
-							bindLabel="name"
+						<ng-select bindLabel="name"
 							bindValue="value"
 							[items]="items"
 							[clearable]="false"
 							[id]="'email-notification-flow'"
-							[formControl]="form.controls.emailNotificationSettings.controls.sendNotificationConditionType">
-						</ng-select>
+							[formControl]="form.controls.emailNotificationSettings.controls.sendNotificationConditionType" />
 					</div>
 					<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 						{{ 'notificationSetting.emailNotificationSettings.hint' | translate }}
@@ -44,14 +42,12 @@ import {SendNotificationConditionEnum} from "@core/shared/enum/send-notification
 					<div class="relative">
 						<label default
 							   [for]="'email-notification-flow'">{{ 'notificationSetting.smsNotificationSettings.label' | translate }}</label>
-						<ng-select
-							bindLabel="name"
+						<ng-select bindLabel="name"
 							bindValue="value"
 							[items]="items"
 							[clearable]="false"
 							[id]="'email-notification-flow'"
-							[formControl]="form.controls.smsNotificationSettings.controls.sendNotificationConditionType">
-						</ng-select>
+							[formControl]="form.controls.smsNotificationSettings.controls.sendNotificationConditionType" />
 					</div>
 					<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 						{{ 'notificationSetting.smsNotificationSettings.hint' | translate }}

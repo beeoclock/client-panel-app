@@ -2,12 +2,12 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	computed,
 	inject,
 	OnInit,
 	signal,
 	ViewEncapsulation
 } from "@angular/core";
-import {IsOnlineService} from "@core/cdk/is-online.service";
 import {DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 
@@ -17,6 +17,7 @@ import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {interval} from "rxjs";
 import {tap} from "rxjs/operators";
+import {injectNetwork} from "ngxtension/inject-network";
 
 @Component({
 	standalone: true,
@@ -95,11 +96,13 @@ import {tap} from "rxjs/operators";
 })
 export class SyncButtonComponent implements OnInit {
 
-
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly isOnlineService = inject(IsOnlineService);
+	private readonly network = injectNetwork();
 
-	public readonly isOffline = toSignal(this.isOnlineService.isOffline$);
+	public readonly isOffline = computed(() => {
+		const online = this.network.online();
+		return !online;
+	});
 
 	public readonly isPaused = toSignal(BaseSyncManager.isPaused$);
 	public readonly isSyncing = toSignal(BaseSyncManager.isSyncing$);
@@ -108,7 +111,6 @@ export class SyncButtonComponent implements OnInit {
 		takeUntilDestroyed(),
 		tap(() => {
 			this.detectChanges();
-
 		})
 	).subscribe();
 
@@ -133,9 +135,6 @@ export class SyncButtonComponent implements OnInit {
 				console.log('syncAll done');
 			});
 		}
-
-
-
 	}
 
 	public pauseAll() {

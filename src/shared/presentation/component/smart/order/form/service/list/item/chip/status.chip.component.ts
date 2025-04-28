@@ -4,9 +4,8 @@ import ObjectID from "bson-objectid";
 import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 import {FormControl} from "@angular/forms";
 import {
-	StatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
-import {NgClass} from "@angular/common";
+	OrderServiceStatusIconComponent
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
@@ -19,8 +18,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 		IonItem,
 		IonLabel,
 		IonList,
-		StatusIconComponent,
-		NgClass,
+		OrderServiceStatusIconComponent,
 		TranslatePipe,
 	],
 	template: `
@@ -28,13 +26,8 @@ import {TranslatePipe} from "@ngx-translate/core";
 			[id]="'select-order-service-status-version-' + id()"
 			class="w-9 h-9 rounded-lg border border-gray-200 justify-center items-center flex">
 			<div class="text-center text-black text-sm font-bold uppercase">
-				<app-status-icon-component
+				<app-order-service-status-icon-component
 					class="flex text-3xl"
-					[ngClass]="{
-						'text-red-600': control().value === orderServiceStatusEnum.cancelled,
-						'text-blue-600': control().value === orderServiceStatusEnum.accepted,
-						'text-green-600': control().value === orderServiceStatusEnum.done,
-					}"
 					[status]="control().value"/>
 				@if (showLabel()) {
 					{{ ('event.keyword.status.singular.' + control().value) | translate }}
@@ -49,7 +42,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 					<ion-item [button]="true" lines="full" [detail]="false"
 							  (click)="select(orderServiceStatusEnum.accepted)">
 						<ion-label class="!flex items-center gap-2">
-							<app-status-icon-component
+							<app-order-service-status-icon-component
 								class="flex text-3xl text-blue-600"
 								[status]="orderServiceStatusEnum.accepted"/>
 							{{ 'event.keyword.status.singular.accepted' | translate }}
@@ -60,7 +53,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 					<ion-item [button]="true" lines="full" [detail]="false"
 							  (click)="select(orderServiceStatusEnum.done)">
 						<ion-label class="!flex items-center gap-2">
-							<app-status-icon-component
+							<app-order-service-status-icon-component
 								class="flex text-3xl text-green-600"
 								[status]="orderServiceStatusEnum.done"/>
 							{{ 'event.keyword.status.singular.done' | translate }}
@@ -71,7 +64,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 					<ion-item [button]="true" lines="full" [detail]="false"
 							  (click)="select(orderServiceStatusEnum.cancelled)">
 						<ion-label class="!flex items-center gap-2">
-							<app-status-icon-component
+							<app-order-service-status-icon-component
 								class="flex text-3xl text-red-600"
 								[status]="orderServiceStatusEnum.cancelled"/>
 							{{ 'event.keyword.status.singular.cancelled' | translate }}

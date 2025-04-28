@@ -22,7 +22,7 @@ export abstract class ListPage extends Reactive implements OnInit {
 	protected readonly actions = inject(Actions);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
 	protected readonly windowWidthSizeService = inject(WindowWidthSizeService);
-	protected readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource, { optional: true});
+	protected readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource, {optional: true});
 
 	public initialized = new BooleanState(false);
 

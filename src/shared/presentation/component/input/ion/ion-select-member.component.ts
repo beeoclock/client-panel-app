@@ -4,8 +4,8 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonLabel, IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
-import {IMember} from "@tenant/member/domain";
+import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/member.data.state";
+import {IMember} from "src/tenant/member/member/domain";
 
 @Component({
 	selector: 'ion-select-member',

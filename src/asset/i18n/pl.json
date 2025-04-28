@@ -632,7 +632,7 @@
 					"accepted": "Zaakceptowany",
 					"cancelled": "Odwołane",
 					"confirmed": "Potwierdzono",
-					"deleted": "Usuniento",
+					"deleted": "Usunięto",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucono",
@@ -645,6 +645,8 @@
 				"LAST_MONTH": "Zeszły miesiąc",
 				"LAST_WEEK": "Zeszły tydzień",
 				"LAST_YEAR": "Zeszły rok",
+				"NEXT_MONTH": "Następny miesiąc",
+				"NEXT_WEEK": "Następny tydzień",
 				"THIS_MONTH": "Ten miesiąc",
 				"THIS_WEEK": "W tym tygodniu",
 				"THIS_YEAR": "W tym roku",
@@ -679,7 +681,9 @@
 			},
 			"startBeforeEnd": "Data rozpoczęcia musi być wcześniejsza niż data zakończenia.",
 			"username": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenie (_) i kropkę (.).",
-			"whitespace": "Usuń wszystkie spacje"
+			"whitespace": "Usuń wszystkie spacje",
+			"emailExists": "Adres e-mail już istnieje",
+			"phoneExists": "Numer telefonu już istnieje"
 		}
 	},
 	"http": {
@@ -1028,6 +1032,10 @@
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
+			"all": "Wszystkie",
+			"allServices": "Wszystkie usługi",
+			"allSpecialists": "Wszyscy specjaliści",
+			"allStatuses": "Wszystkie statusy",
 			"amount": "Kwota",
 			"anonymous": "Anonimowy",
 			"approvalType": "Typ homologacji",
@@ -1038,6 +1046,7 @@
 			"autoActionTypeOnOrder": "Rodzaj akcji automatycznej",
 			"avatar": "Awatar",
 			"back": "Wstecz",
+			"banners": "Banery",
 			"bookingSettings": "Ustawienia rezerwacji",
 			"break": "Przerwa",
 			"business": "Biznes",
@@ -1122,6 +1131,7 @@
 			"next": "Dalej",
 			"nextStep": "Dalej",
 			"no": "Nie",
+			"noAvailable": "Brak danych",
 			"noData": "Brak danych",
 			"noNeedCard": "Karta płatnicza nie jest potrzebna",
 			"notPaid": "Nieopłacone",
@@ -1260,6 +1270,9 @@
 				"0": "Nieaktywni",
 				"1": "Aktywni"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "bd."
 		}
 	},
 	"latestBooking": {
@@ -1551,6 +1564,9 @@
 	"sidebar": {
 		"absence": "Nieobecność",
 		"addEvent": "Dodaj wydarzenie",
+		"appointments": {
+			"label": "Wizyty"
+		},
 		"businessProfile": "Profil biznesowy",
 		"businessSettings": "Ustawienia firmy",
 		"calendar": {
