@@ -2,6 +2,11 @@ import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {IMedia} from "@tenant/media/domain/interface/i.media";
 
+export enum PluginPriceTypeEnum {
+	payAsYouGo = 'payAsYouGo',
+	tariffPlan = 'tariffPlan',
+}
+
 export namespace IPlugin {
 
 	export interface DTO extends IBaseDTO<'PluginDto'> {
@@ -20,7 +25,7 @@ export namespace IPlugin {
 		};
 		price: {
 			isFree: boolean;
-			priceType: string;
+			priceType: PluginPriceTypeEnum;
 			amount: number;
 			currency: string;
 		};

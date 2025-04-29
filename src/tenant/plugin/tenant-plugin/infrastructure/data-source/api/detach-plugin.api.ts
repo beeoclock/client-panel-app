@@ -11,13 +11,13 @@ export class DetachPluginApi extends BaseApiAdapter<void, [string]> {
 
 	/**
 	 * SAVE NEW ITEM OR UPDATE ITEM BY ID
-	 * @param pluginName
+	 * @param slug
 	 */
 	@TypeGuard([is.string])
-	public override execute$(pluginName: string) {
+	public override execute$(slug: string) {
 		return this.httpClient.patch<void>(tenantPluginEndpointEnum.detachPlugin, null, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
-				pluginName: pluginName,
+				pluginName: slug,
 			}),
 		});
 	}

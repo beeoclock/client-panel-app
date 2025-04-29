@@ -1,23 +1,36 @@
-import {BaseActions} from "@shared/state/base/base.actions";
-import {StateEnum} from "@core/shared/enum/state.enum";
-import {ITenantPlugin} from "@tenant/plugin/tenant-plugin/domain";
+import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-plugin";
 
 export namespace TenantPluginDataActions {
 
-	export class CreateItem extends BaseActions.CreateItem<ITenantPlugin.EntityRaw> {
-		public static override readonly type = '[TenantPlugin API] Create Item';
-	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<ITenantPlugin.EntityRaw> {
-		public static override readonly type = '[TenantPlugin API] Update Item';
-	}
+	// export class UpdateItem extends BaseActions.UpdateItem<ITenantPlugin.EntityRaw> {
+	// 	public static override readonly type = '[TenantPlugin API] Update Item';
+	// }
+	//
+	// export class SetState {
+	// 	public static readonly type = '[TenantPlugin API] SetState';
+	//
+	// 	constructor(
+	// 		public readonly item: ITenantPlugin.DTO,
+	// 		public readonly state: StateEnum,
+	// 	) {
+	// 	}
+	// }
 
-	export class SetState {
-		public static readonly type = '[TenantPlugin API] SetState';
+	export class Attach {
+		public static readonly type = '[TenantPlugin API] Attach';
 
 		constructor(
-			public readonly item: ITenantPlugin.DTO,
-			public readonly state: StateEnum,
+			public readonly payload: ETenantPlugin,
+		) {
+		}
+	}
+
+	export class Detach {
+		public static readonly type = '[TenantPlugin API] Detach';
+
+		constructor(
+			public readonly payload: ETenantPlugin,
 		) {
 		}
 	}

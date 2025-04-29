@@ -1,8 +1,15 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal, ViewEncapsulation} from '@angular/core';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {GridResource} from "@tenant/plugin/tenant-plugin/presentation/ui/page/grid/grid.resource";
 import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-plugin";
 import {CurrencyPipe} from "@angular/common";
+import {injectNetwork} from "ngxtension/inject-network";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {
+	TenantPluginDataActions
+} from "@tenant/plugin/tenant-plugin/infrastructure/state/data/tenant-plugin.data.actions";
+import {Actions, ofActionErrored, ofActionSuccessful} from "@ngxs/store";
+import {tap} from "rxjs/operators";
 
 @Component({
 	selector: 'app-list-tenant-plugin-page',
@@ -31,37 +38,68 @@ import {CurrencyPipe} from "@angular/common";
 					<img class="w-full h-auto rounded-t-xl aspect-video object-cover"
 						 [src]="storeItem.plugin.logo.url"
 						 alt="Card Image">
-					<div class="p-4 md:p-5">
-						@let languageVersion = storeItem.getLanguageVersionByCode(currentLanguage);
-						@if (languageVersion) {
-							<h3 class="text-lg font-bold text-gray-800">
-								{{ languageVersion.title }}
-							</h3>
-							<p class="mt-1 text-gray-500">
-								{{ languageVersion.description }}
-							</p>
-						}
+					<div class="flex flex-1 flex-col justify-between md:p-5 p-4">
+						<div>
+							@let languageVersion = storeItem.getLanguageVersionByCode(currentLanguage) ;
+							@if (languageVersion) {
+								<h3 class="text-lg font-bold text-gray-800">
+									{{ languageVersion.title }}
+								</h3>
+								<p class="mt-1 text-gray-500">
+									{{ languageVersion.description }}
+								</p>
+							}
+						</div>
 						<div class="flex justify-between mt-2 items-center">
 							<div>
 								@if (storeItem.isFree()) {
-									<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-sm font-medium bg-green-100 text-green-800 dark:bg-white/10 dark:text-white">
+									<span
+										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-sm font-medium bg-green-100 text-green-800 dark:bg-white/10 dark:text-white">
 										FREE
 									</span>
 								} @else {
-									<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-sm font-medium bg-gray-100 text-gray-800 dark:bg-white/10 dark:text-white">
-										{{ storeItem.plugin.price.amount | currency: storeItem.plugin.price.currency }}
-									</span>
+									@if (storeItem.isPriceTypeTariffPlan()) {
+										<span
+											class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-sm font-medium bg-gray-100 text-gray-800 dark:bg-white/10 dark:text-white">
+											{{ storeItem.plugin.price.amount | currency: storeItem.plugin.price.currency }}
+										</span>
+									}
+									@if (storeItem.isPriceTypePayAsYouGo()) {
+										<span
+											class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-sm font-medium bg-gray-100 text-gray-800 dark:bg-white/10 dark:text-white">
+											{{ 'keyword.capitalize.payAsYouGo' | translate }}
+										</span>
+									}
 								}
 							</div>
-							@if (storeItem.tenantDoesNotHavePlugin()) {
-								<button (click)="attach(storeItem)" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-									{{ 'tenant-plugin.grid.plugin.attach' | translate }}
-								</button>
-							}
-							@if (storeItem.isAttached()) {
-								<button (click)="detach(storeItem)" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-neutral-400 text-white hover:bg-neutral-500 focus:outline-hidden focus:bg-neutral-500 disabled:opacity-50 disabled:pointer-events-none">
-									{{ 'tenant-plugin.grid.plugin.detach' | translate }}
-								</button>
+							@if (isOnline()) {
+								@if (storeItem.tenantDoesNotHavePlugin()) {
+									<button (click)="attach(storeItem)"
+											[disabled]="loadingRecordByPluginId()[storeItem._id]"
+											class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white transition-all hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+										@if (loadingRecordByPluginId()[storeItem._id]) {
+											<i class="bi bi-arrow-clockwise animate-spin"></i>
+										} @else {
+											{{ 'tenant-plugin.grid.plugin.attach' | translate }}
+										}
+									</button>
+								}
+								@if (storeItem.isAttached()) {
+									<button (click)="detach(storeItem)"
+											[disabled]="loadingRecordByPluginId()[storeItem._id]"
+											class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-neutral-500 hover:bg-neutral-400 hover:text-white transition-all focus:outline-hidden focus:bg-neutral-500 disabled:opacity-50 disabled:pointer-events-none">
+										@if (loadingRecordByPluginId()[storeItem._id]) {
+											<i class="bi bi-arrow-clockwise animate-spin"></i>
+										} @else {
+											{{ 'tenant-plugin.grid.plugin.detach' | translate }}
+										}
+									</button>
+								}
+							} @else {
+								<div
+									class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-neutral-200 text-neutral-500">
+									<i class="bi bi-wifi-off"></i>
+								</div>
 							}
 						</div>
 					</div>
@@ -93,18 +131,63 @@ export class GridPluginPage {
 
 	private readonly translateService = inject(TranslateService);
 	private readonly gridResource = inject(GridResource);
+	private readonly actions = inject(Actions);
+	private readonly network = injectNetwork();
 
 	public readonly currentLanguage = this.translateService.currentLang;
+
+	public readonly isOnline = this.network.online;
 
 	public readonly resource = this.gridResource.merged;
 	public readonly isLoading = this.gridResource.isLoading;
 
+	public readonly loadingRecordByPluginId = signal<{[key: string]: boolean}>({});
+
+	private readonly successfulActionsSubscription = this.actions.pipe(
+		ofActionSuccessful(
+			TenantPluginDataActions.Attach,
+			TenantPluginDataActions.Detach,
+		),
+		tap((action) => {
+			this.setLoadingState(action.payload, false);
+		})
+	).subscribe();
+
+	private readonly erroredActionsSubscription = this.actions.pipe(
+		ofActionErrored(
+			TenantPluginDataActions.Attach,
+			TenantPluginDataActions.Detach,
+		),
+		tap(({action}) => {
+			this.setLoadingState(action.payload, false);
+		})
+	).subscribe();
+
 	public detach(storeItem: ETenantPlugin) {
-		console.log({storeItem});
+		this.setLoadingState(storeItem, true);
+		this.detachPlugin(storeItem);
 	}
 
 	public attach(storeItem: ETenantPlugin) {
-		console.log({storeItem});
+		this.setLoadingState(storeItem, true);
+		this.attachPlugin(storeItem);
+	}
+
+	private setLoadingState(storeItem: ETenantPlugin, isLoading: boolean) {
+		this.loadingRecordByPluginId.update((prev) => ({
+			...prev,
+			[storeItem._id]: isLoading
+		}));
+	}
+
+	@Dispatch()
+	private attachPlugin(plugin: ETenantPlugin) {
+		return new TenantPluginDataActions.Attach(plugin);
+	}
+
+	@Dispatch()
+	private detachPlugin(storeItem: ETenantPlugin) {
+		return new TenantPluginDataActions.Detach(storeItem);
 	}
 }
 

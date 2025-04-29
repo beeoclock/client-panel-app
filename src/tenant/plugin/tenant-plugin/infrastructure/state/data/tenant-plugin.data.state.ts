@@ -1,10 +1,20 @@
 import {inject, Injectable} from "@angular/core";
-import {State} from "@ngxs/store";
+import {Action, State, StateContext} from "@ngxs/store";
 import {baseDefaults, IBaseState} from "@shared/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-plugin";
+import {AttachPluginUseCase} from "@tenant/plugin/tenant-plugin/application/use-case/attach.plugin.use-case";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {IPluginState} from "@tenant/plugin/plugin/infrastructure/state/data/plugin.data.state";
+import {AttachPluginApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/attach-plugin.api";
+import {
+	TenantPluginDataActions
+} from "@tenant/plugin/tenant-plugin/infrastructure/state/data/tenant-plugin.data.actions";
+import {NGXLogger} from "ngx-logger";
+import {DetachPluginUseCase} from "@tenant/plugin/tenant-plugin/application/use-case/detach.plugin.use-case";
+import {DetachPluginApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/detach-plugin.api";
 
 export type ICustomerState = IBaseState<ETenantPlugin>;
 
@@ -23,12 +33,23 @@ const defaults = baseDefaults<ETenantPlugin>({
 export class TenantPluginDataState {
 
 	private readonly sharedUow = inject(SharedUow);
+	private readonly attachPluginApi = inject(AttachPluginApi);
+	private readonly detachPluginApi = inject(DetachPluginApi);
+	private readonly ngxLogger = inject(NGXLogger);
 
-	// @Action(TenantPluginDataActions.CreateItem)
-	// public async createItem(ctx: StateContext<ICustomerState>, action: TenantPluginDataActions.CreateItem): Promise<void> {
-	// 	await this.sharedUow.customer.repository.createAsync(ECustomer.fromDTO(action.payload));
-	// 	ctx.dispatch(new CustomerPresentationActions.CloseForm());
-	// }
+	@Action(TenantPluginDataActions.Attach)
+	public async attach(ctx: StateContext<IPluginState>, action: TenantPluginDataActions.Attach): Promise<void> {
+		const attachPluginUseCase = new AttachPluginUseCase(this.attachPluginApi);
+		await attachPluginUseCase.execute(action.payload);
+		await BaseSyncManager.syncAll();
+	}
+
+	@Action(TenantPluginDataActions.Detach)
+	public async detach(ctx: StateContext<IPluginState>, action: TenantPluginDataActions.Detach): Promise<void> {
+		const detachPluginUseCase = new DetachPluginUseCase(this.detachPluginApi);
+		await detachPluginUseCase.execute(action.payload);
+		await BaseSyncManager.syncAll();
+	}
 
 	// @Action(TenantPluginDataActions.UpdateItem)
 	// public async updateItem(ctx: StateContext<ICustomerState>, {payload: item}: TenantPluginDataActions.UpdateItem): Promise<void> {

@@ -24,11 +24,6 @@ export class PluginDataState {
 
 	private readonly sharedUow = inject(SharedUow);
 
-	// @Action(PluginDataActions.CreateItem)
-	// public async createItem(ctx: StateContext<ICustomerState>, action: PluginDataActions.CreateItem): Promise<void> {
-	// 	await this.sharedUow.customer.repository.createAsync(ECustomer.fromDTO(action.payload));
-	// 	ctx.dispatch(new CustomerPresentationActions.CloseForm());
-	// }
 	//
 	// @Action(PluginDataActions.UpdateItem)
 	// public async updateItem(ctx: StateContext<ICustomerState>, {payload: item}: PluginDataActions.UpdateItem): Promise<void> {

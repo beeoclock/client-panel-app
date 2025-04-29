@@ -1,5 +1,5 @@
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {IPlugin} from "@tenant/plugin/plugin/domain";
+import {IPlugin, PluginPriceTypeEnum} from "@tenant/plugin/plugin/domain";
 import {ITenantPlugin, TenantPluginStatusEnum} from "@tenant/plugin/tenant-plugin/domain";
 import ObjectID from "bson-objectid";
 
@@ -42,6 +42,14 @@ export class ETenantPlugin extends ABaseEntity<'TenantPluginDto', ITenantPlugin.
 
 	public isFree() {
 		return this.plugin.price.isFree;
+	}
+
+	public isPriceTypePayAsYouGo() {
+		return this.plugin.price.priceType === PluginPriceTypeEnum.payAsYouGo;
+	}
+
+	public isPriceTypeTariffPlan() {
+		return this.plugin.price.priceType === PluginPriceTypeEnum.tariffPlan;
 	}
 
 	public isAttached(): boolean {

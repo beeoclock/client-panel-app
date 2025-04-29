@@ -1,5 +1,5 @@
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {IPlugin} from "@tenant/plugin/plugin/domain";
+import {IPlugin, PluginPriceTypeEnum} from "@tenant/plugin/plugin/domain";
 import {IMedia} from "@src/tenant/media/domain/interface/i.media";
 
 
@@ -12,7 +12,7 @@ export class EPlugin extends ABaseEntity<'PluginDto', IPlugin.DTO, IPlugin.Entit
 	version!: string;
 	isUpcoming!: boolean;
 	status!: { isEnabled: boolean; isDeprecated: boolean; };
-	price!: { isFree: boolean; priceType: string; amount: number; currency: string; };
+	price!: { isFree: boolean; priceType: PluginPriceTypeEnum; amount: number; currency: string; };
 	setup!: { requiresApiKey: boolean; setupSteps: string[]; setupTimeEstimate: string; configurationUrl: string; };
 	providerInfo!: {
 		name: string;
