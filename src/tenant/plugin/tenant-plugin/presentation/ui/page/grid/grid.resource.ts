@@ -96,6 +96,11 @@ export class GridResource {
 			items: merged,
 			totalSize: merged.length,
 		};
-	})
+	});
+
+	public reload() {
+		this.store.reload();
+		this.attached.reload();
+	}
 
 }

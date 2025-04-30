@@ -73,7 +73,7 @@ import {tap} from "rxjs/operators";
 								}
 							</div>
 							@if (isOnline()) {
-								@if (storeItem.tenantDoesNotHavePlugin()) {
+								@if (storeItem.tenantDoesNotHavePlugin() || storeItem.isDetached()) {
 									<button (click)="attach(storeItem)"
 											[disabled]="loadingRecordByPluginId()[storeItem._id]"
 											class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white transition-all hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
@@ -149,7 +149,10 @@ export class GridPluginPage {
 			TenantPluginDataActions.Detach,
 		),
 		tap((action) => {
-			this.setLoadingState(action.payload, false);
+			setTimeout(() => {
+				this.setLoadingState(action.payload, false);
+				this.gridResource.reload();
+			}, 500);
 		})
 	).subscribe();
 
@@ -189,6 +192,8 @@ export class GridPluginPage {
 	private detachPlugin(storeItem: ETenantPlugin) {
 		return new TenantPluginDataActions.Detach(storeItem);
 	}
+
+	protected readonly structuredClone = structuredClone;
 }
 
 export default GridPluginPage;
