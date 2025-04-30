@@ -16,12 +16,12 @@ import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/identity/presentation/state/identity/identity.actions";
 import {firstValueFrom} from "rxjs";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputPasswordComponent} from "@shared/presentation/component/input/form.input.password.component";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {ToastController} from "@ionic/angular/standalone";
 import {NGXLogger} from "ngx-logger";
-import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
+import {MS_THREE_SECONDS} from "@shared/domain/const/c.time";
 import {is} from "@core/shared/checker";
 
 @Component({

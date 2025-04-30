@@ -75,6 +75,12 @@ module.exports = {
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/forms'),
 		require('@tailwindcss/container-queries'),
+		function ({ addVariant }) {
+			addVariant('max-sm', '@media (max-width: 639px)'); // Below `sm` (640px)
+			addVariant('max-md', '@media (max-width: 767px)'); // Below `md` (768px)
+			addVariant('max-lg', '@media (max-width: 1023px)'); // Below `lg` (1024px)
+			addVariant('max-xl', '@media (max-width: 1279px)'); // Below `xl` (1280px)
+		},
 	],
 }
 

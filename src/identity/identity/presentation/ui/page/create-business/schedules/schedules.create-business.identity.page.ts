@@ -1,18 +1,10 @@
-import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	inject,
-	ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
-import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {ServiceProvideTypeEnum} from "@core/shared/enum/service-provide-type.enum";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
+import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
+import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
-import {SchedulesFormComponent} from "@utility/presentation/component/schedule/schedules.form.component";
+import {SchedulesFormComponent} from "@shared/presentation/component/schedule/schedules.form.component";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
@@ -30,25 +22,11 @@ import {TranslateModule} from "@ngx-translate/core";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class SchedulesCreateBusinessIdentityPage implements AfterViewInit {
+export class SchedulesCreateBusinessIdentityPage {
 
 	public backPath = 'point-of-sale';
-	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly schedulesForm = this.createBusinessQuery.getSchedulesForm();
-	public readonly serviceProvideTypeControl = this.createBusinessQuery.getServiceProvideTypeControl();
-
-	public ngAfterViewInit(): void {
-		const value = this.serviceProvideTypeControl.value;
-		switch (value) {
-			case ServiceProvideTypeEnum.Online:
-				this.backPath = 'service-provide-type';
-				break;
-			default:
-				this.backPath = 'point-of-sale';
-		}
-		this.changeDetectorRef.detectChanges();
-	}
 
 }
 

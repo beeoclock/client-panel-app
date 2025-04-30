@@ -645,6 +645,8 @@
 				"LAST_MONTH": "Минулого місяця",
 				"LAST_WEEK": "Минулого тижня",
 				"LAST_YEAR": "Минулий рік",
+				"NEXT_MONTH": "Наступний місяць",
+				"NEXT_WEEK": "Наступний тиждень",
 				"THIS_MONTH": "Цього місяця",
 				"THIS_WEEK": "Цього тижня",
 				"THIS_YEAR": "Цього року",
@@ -679,7 +681,9 @@
 			},
 			"startBeforeEnd": "Дата початку має бути раніше, ніж дата завершення.",
 			"username": "Ім'я користувача може містити тільки літери, цифри, знак підкреслення (_) та крапку (.)",
-			"whitespace": "Видали всі пробіли"
+			"whitespace": "Видали всі пробіли",
+			"emailExists": "Ця електронна адреса вже використовується",
+			"phoneExists": "Цей номер телефону вже використовується"
 		}
 	},
 	"http": {
@@ -900,9 +904,6 @@
 				"schedules": {
 					"title": "Твій робочий графік"
 				},
-				"serviceProvideType": {
-					"title": "Виберіть свій підхід до обслуговування"
-				},
 				"services": {
 					"title": "Які послуги надаєш?"
 				}
@@ -1031,6 +1032,10 @@
 			"addSocialMedia": "Додати соціальну мережу",
 			"additional": "Додатково",
 			"address": "Адреса",
+			"all": "Всі",
+			"allServices": "Всі послуги",
+			"allSpecialists": "Всі спеціалісти",
+			"allStatuses": "Всі статуси",
 			"amount": "Cума",
 			"anonymous": "Анонімний",
 			"approvalType": "Тип схвалення",
@@ -1041,6 +1046,7 @@
 			"autoActionTypeOnOrder": "Тип автоматичної дії",
 			"avatar": "Аватар",
 			"back": "Назад",
+			"banners": "Банери",
 			"bookingSettings": "Налаштування бронювання",
 			"break": "Перерва",
 			"business": "Бізнес",
@@ -1070,6 +1076,7 @@
 			"country": "Країна",
 			"create": "Створити",
 			"createdAt": "Створено",
+			"currency": "Валюта",
 			"customer": "Клієнт",
 			"customerNote": "Примітка від клієнта",
 			"customers": "Клієнти",
@@ -1095,6 +1102,7 @@
 			"events": "Події",
 			"every": "Кожні",
 			"exhausted": "Вичерпаний",
+			"export": "Експорт",
 			"facilities": "Зручності",
 			"feature": "Особливість",
 			"finished": "Завершена",
@@ -1102,6 +1110,7 @@
 			"from": "Від",
 			"fullName": "Повне ім'я",
 			"general": "Загальне",
+			"historyOfStates": "Історія станів",
 			"image": "Зображення",
 			"inactive": "Неактивний",
 			"information": "Інформація",
@@ -1122,6 +1131,7 @@
 			"next": "Далі",
 			"nextStep": "Наступний крок",
 			"no": "Ні",
+			"noAvailable": "Немає даних",
 			"noData": "Немає даних",
 			"noNeedCard": "Банківська картка не потрібна",
 			"notPaid": "Не заплачено",
@@ -1138,6 +1148,7 @@
 			"payer": "Платник",
 			"payment": "Оплата",
 			"paymentMethod": "Спосіб оплати",
+			"paymentProviderType": "Тип оплати",
 			"paymentStatus": "Статус оплати",
 			"periodOfDay": {
 				"AFTERNOON": "День",
@@ -1149,10 +1160,7 @@
 			"phone": "Телефон",
 			"placeholder": {
 				"description": "Напиши додаткову інформацію",
-				"search": "Пошук",
-				"selectBusinessCategory": "Виберіть категорію бізнесу",
-				"selectBusinessIndustry": "Виберіть галузь бізнесу",
-				"selectServiceProvideType": "Виберіть тип обслуговування"
+				"search": "Пошук"
 			},
 			"portfolio": "Портфоліо",
 			"preview": "Попередній перегляд",
@@ -1174,7 +1182,6 @@
 			"send": "Відправити",
 			"sendAgain": "Відправити ще раз",
 			"service": "Послуга",
-			"serviceProvideType": "Тип обслуговування",
 			"services": "Послуги",
 			"signIn": "Увійти",
 			"signOut": "Вийти",
@@ -1186,6 +1193,7 @@
 			"specialist": "Спеціаліст",
 			"specialists": "Спеціалісти",
 			"start": "Початок",
+			"state": "Стан",
 			"status": "Статус",
 			"statuses": "Статуси",
 			"streetAddressLineOne": "Адреса 1",
@@ -1262,6 +1270,9 @@
 				"0": "Неактивні",
 				"1": "Активні"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "Н/Д"
 		}
 	},
 	"latestBooking": {
@@ -1463,6 +1474,9 @@
 		"providerType": {
 			"onSite": {
 				"label": "На місці"
+			},
+			"stripe": {
+				"label": "Stripe"
 			}
 		},
 		"status": {
@@ -1547,14 +1561,12 @@
 		},
 		"title": "Послуга"
 	},
-	"serviceProvideType": {
-		"Mixed": "Змішаний",
-		"Offline": "Офлайн",
-		"Online": "Онлайн"
-	},
 	"sidebar": {
 		"absence": "Відсутність",
 		"addEvent": "Додати подію",
+		"appointments": {
+			"label": "Записи"
+		},
 		"businessProfile": "Профіль компанії",
 		"businessSettings": "Налаштування компанії",
 		"calendar": {
@@ -1572,6 +1584,7 @@
 		"events": "Події",
 		"members": "Команда",
 		"order": "Замовлення",
+		"payment": "Платежі",
 		"private": "Приватне",
 		"profile": {
 			"signOut": {

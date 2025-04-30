@@ -47,3 +47,4 @@ Thumbs.db
 .runtimeconfig.json
 environment/production/firebase/dist
 environment/develop/firebase/dist
+/_certifications/

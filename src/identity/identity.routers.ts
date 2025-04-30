@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import IdentityRouterOutletComponent from "@identity/identity.router-outlet.component";
-import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
+import {tokenResolver} from "@shared/presentation/resolver/token.resolver";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -71,10 +71,6 @@ export const identityRouters: Routes = [
 						loadComponent: () => import('@identity/identity/presentation/ui/page/create-business/names/names.create-business.identity.page'),
 					},
 					{
-						path: 'industry',
-						loadComponent: () => import('@identity/identity/presentation/ui/page/create-business/industry/industry.create-business.identity.page'),
-					},
-					{
 						path: 'point-of-sale',
 						loadComponent: () => import('@identity/identity/presentation/ui/page/create-business/point-of-sale/point-of-sale.create-business.identity.page'),
 					},
@@ -93,14 +89,6 @@ export const identityRouters: Routes = [
 					{
 						path: 'services',
 						loadComponent: () => import('@identity/identity/presentation/ui/page/create-business/services/services.create-business.identity.page'),
-					},
-					{
-						path: 'category',
-						loadComponent: () => import('@identity/identity/presentation/ui/page/create-business/category/category.create-business.identity.page'),
-					},
-					{
-						path: 'service-provide-type',
-						loadComponent: () => import('@identity/identity/presentation/ui/page/create-business/service-provide-type/service-provide-type.create-business.identity.page'),
 					},
 					{
 						path: 'processing',

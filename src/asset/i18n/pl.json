@@ -632,7 +632,7 @@
 					"accepted": "Zaakceptowany",
 					"cancelled": "Odwołane",
 					"confirmed": "Potwierdzono",
-					"deleted": "Usuniento",
+					"deleted": "Usunięto",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucono",
@@ -645,6 +645,8 @@
 				"LAST_MONTH": "Zeszły miesiąc",
 				"LAST_WEEK": "Zeszły tydzień",
 				"LAST_YEAR": "Zeszły rok",
+				"NEXT_MONTH": "Następny miesiąc",
+				"NEXT_WEEK": "Następny tydzień",
 				"THIS_MONTH": "Ten miesiąc",
 				"THIS_WEEK": "W tym tygodniu",
 				"THIS_YEAR": "W tym roku",
@@ -679,7 +681,9 @@
 			},
 			"startBeforeEnd": "Data rozpoczęcia musi być wcześniejsza niż data zakończenia.",
 			"username": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenie (_) i kropkę (.).",
-			"whitespace": "Usuń wszystkie spacje"
+			"whitespace": "Usuń wszystkie spacje",
+			"emailExists": "Adres e-mail już istnieje",
+			"phoneExists": "Numer telefonu już istnieje"
 		}
 	},
 	"http": {
@@ -900,9 +904,6 @@
 				"schedules": {
 					"title": "Twoje godziny pracy"
 				},
-				"serviceProvideType": {
-					"title": "Wybierz podejście do usługi"
-				},
 				"services": {
 					"title": "Jakie usługi świadczysz?"
 				}
@@ -1031,6 +1032,10 @@
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
+			"all": "Wszystkie",
+			"allServices": "Wszystkie usługi",
+			"allSpecialists": "Wszyscy specjaliści",
+			"allStatuses": "Wszystkie statusy",
 			"amount": "Kwota",
 			"anonymous": "Anonimowy",
 			"approvalType": "Typ homologacji",
@@ -1041,6 +1046,7 @@
 			"autoActionTypeOnOrder": "Rodzaj akcji automatycznej",
 			"avatar": "Awatar",
 			"back": "Wstecz",
+			"banners": "Banery",
 			"bookingSettings": "Ustawienia rezerwacji",
 			"break": "Przerwa",
 			"business": "Biznes",
@@ -1070,6 +1076,7 @@
 			"country": "Kraj",
 			"create": "Utwórz",
 			"createdAt": "Utworzono",
+			"currency": "Waluta",
 			"customer": "Klient",
 			"customerNote": "Notatka od klienta",
 			"customers": "Klienty",
@@ -1095,6 +1102,7 @@
 			"events": "Wydarzenia",
 			"every": "Każdą",
 			"exhausted": "Wyczerpany",
+			"export": "Eksport",
 			"facilities": "Udogodnienia",
 			"feature": "Funkcja",
 			"finished": "Zakończono",
@@ -1102,6 +1110,7 @@
 			"from": "Od",
 			"fullName": "Pełne imię i nazwisko",
 			"general": "Ogólne",
+			"historyOfStates": "Historia stanów",
 			"image": "Obraz",
 			"inactive": "Nieaktywny",
 			"information": "Informacje",
@@ -1122,6 +1131,7 @@
 			"next": "Dalej",
 			"nextStep": "Dalej",
 			"no": "Nie",
+			"noAvailable": "Brak danych",
 			"noData": "Brak danych",
 			"noNeedCard": "Karta płatnicza nie jest potrzebna",
 			"notPaid": "Nieopłacone",
@@ -1138,6 +1148,7 @@
 			"payer": "Płatnik",
 			"payment": "Płatność",
 			"paymentMethod": "Metoda płatności",
+			"paymentProviderType": "Typ płatności",
 			"paymentStatus": "Status płatności",
 			"periodOfDay": {
 				"AFTERNOON": "Popołudnie",
@@ -1149,10 +1160,7 @@
 			"phone": "Telefon",
 			"placeholder": {
 				"description": "Wprowadź szczegóły",
-				"search": "Szukaj",
-				"selectBusinessCategory": "Wybierz kategorię biznesową",
-				"selectBusinessIndustry": "Wybierz branżę biznesową",
-				"selectServiceProvideType": "Wybierz typ świadczenia usług"
+				"search": "Szukaj"
 			},
 			"portfolio": "Portfolio",
 			"preview": "Podgląd",
@@ -1174,7 +1182,6 @@
 			"send": "Wyślij",
 			"sendAgain": "Wyślij ponownie",
 			"service": "Usługa",
-			"serviceProvideType": "Typ świadczenia usług",
 			"services": "Usługi",
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
@@ -1186,6 +1193,7 @@
 			"specialist": "Specjalista",
 			"specialists": "Specjaliści",
 			"start": "Początek",
+			"state": "Stan",
 			"status": "Status",
 			"statuses": "Statusy",
 			"streetAddressLineOne": "Adres 1",
@@ -1262,6 +1270,9 @@
 				"0": "Nieaktywni",
 				"1": "Aktywni"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "bd."
 		}
 	},
 	"latestBooking": {
@@ -1463,6 +1474,9 @@
 		"providerType": {
 			"onSite": {
 				"label": "Na miejscu"
+			},
+			"stripe": {
+				"label": "Stripe"
 			}
 		},
 		"status": {
@@ -1547,14 +1561,12 @@
 		},
 		"title": "Usługa"
 	},
-	"serviceProvideType": {
-		"Mixed": "Różnie",
-		"Offline": "Offline",
-		"Online": "Online"
-	},
 	"sidebar": {
 		"absence": "Nieobecność",
 		"addEvent": "Dodaj wydarzenie",
+		"appointments": {
+			"label": "Wizyty"
+		},
 		"businessProfile": "Profil biznesowy",
 		"businessSettings": "Ustawienia firmy",
 		"calendar": {
@@ -1572,6 +1584,7 @@
 		"events": "Wydarzenia",
 		"members": "Członkowie",
 		"order": "Zamówienia",
+		"payment": "Płatności",
 		"private": "Prywatne",
 		"profile": {
 			"signOut": {

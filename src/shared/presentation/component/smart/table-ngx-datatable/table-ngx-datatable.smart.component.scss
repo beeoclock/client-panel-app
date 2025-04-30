@@ -1,0 +1,162 @@
+// Define mixins for repeated styles
+@mixin datatable-icon($content) {
+	content: $content;
+	display: inline-block;
+	font-family: "bootstrap-icons" !important;
+	font-style: normal;
+	font-weight: normal !important;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	vertical-align: -0.125em;
+	-webkit-font-smoothing: antialiased;
+}
+
+@mixin datatable-cell {
+	@apply flex items-center px-2;
+}
+
+@mixin datatable-header-cell {
+	@apply px-2;
+}
+
+// Apply mixins in the component styles
+:host {
+	.ngx-datatable::ng-deep {
+		@apply bg-white;
+
+		.datatable-header {
+			@apply border-b;
+
+			.datatable-header-inner {
+				@apply h-full;
+
+				.datatable-row-center {
+					@apply flex h-full items-center;
+
+					.datatable-header-cell {
+						@include datatable-header-cell;
+
+						.datatable-header-cell-template-wrap {
+							.sort-desc {
+								&:before {
+									@include datatable-icon("\F573");
+								}
+							}
+
+							.sort-asc {
+								&:before {
+									@include datatable-icon("\F571");
+								}
+							}
+						}
+					}
+				}
+
+				.datatable-row-right {
+					@apply h-0;
+
+					.datatable-header-cell {
+						@include datatable-header-cell;
+					}
+				}
+			}
+		}
+
+		.datatable-body {
+			overflow: auto;
+
+			.custom-loading-indicator-wrapper {
+				@apply flex h-full items-center justify-center text-base w-full;
+			}
+
+			.datatable-scroll {
+
+				.datatable-row-wrapper {
+					@apply hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-700 cursor-pointer active:bg-beeColor-200 dark:active:bg-beeDarkColor-800;
+
+					.datatable-body-row {
+						@apply border-b;
+
+						.datatable-body-cell {
+							@include datatable-cell;
+
+							.datatable-body-cell-label {
+								@apply w-full truncate;
+							}
+
+							.ghost-loader {
+								@apply bg-beeColor-200 animate-pulse rounded-2xl w-full;
+							}
+
+						}
+
+						.datatable-row-right {
+							@apply bg-white border-l;
+
+							.datatable-body-cell {
+								@include datatable-cell;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.datatable-footer {
+			@apply border-t;
+
+			.page-count {
+				@apply px-2;
+			}
+
+			.datatable-pager {
+				@apply pr-2;
+
+				.pager {
+					@apply border rounded-md divide-x;
+
+					li {
+						&:first-child {
+							a {
+								@apply rounded-l-md;
+							}
+						}
+
+						&:last-child {
+							a {
+								@apply rounded-r-md;
+							}
+						}
+
+						a {
+							@apply cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-beeColor-900 dark:text-white dark:ring-beeDarkColor-600 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 focus:z-20 focus:outline-offset-0;
+
+							.datatable-icon-right:before {
+								@include datatable-icon("\F285");
+							}
+
+							.datatable-icon-skip:before {
+								@include datatable-icon("\F277");
+							}
+
+							.datatable-icon-left:before {
+								@include datatable-icon("\F284");
+							}
+
+							.datatable-icon-prev:before {
+								@include datatable-icon("\F276");
+							}
+						}
+
+						&.active {
+							a {
+								@apply bg-beeColor-100 dark:bg-beeDarkColor-700;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

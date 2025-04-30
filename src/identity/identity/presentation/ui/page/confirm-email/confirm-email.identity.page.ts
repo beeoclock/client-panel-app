@@ -8,15 +8,15 @@ import {
 	SendConfirmEmailListApiAdapter
 } from "@identity/identity/infrastructure/api/send-confirm-email-list.api.adapter";
 import {filter, firstValueFrom, Observable} from "rxjs";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {Reactive} from "@utility/cdk/reactive";
-import {BooleanState} from "@utility/domain";
-import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
-import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
+import {Reactive} from "@core/cdk/reactive";
+import {BooleanState} from "@shared/domain";
+import {PrimaryLinkStyleDirective} from "@shared/presentation/directives/link/primary.link.style.directive";
+import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
+import {LogoutComponent} from "@shared/presentation/component/logout/logout.component";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 import {IdentityState} from "@identity/identity/presentation/state/identity/identity.state";
 
 @Component({

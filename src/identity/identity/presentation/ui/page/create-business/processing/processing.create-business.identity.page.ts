@@ -8,32 +8,29 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
 import {NgClass} from "@angular/common";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {BooleanState} from "@utility/domain";
+import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
+import {BooleanState} from "@shared/domain";
 import {IdentityApiAdapter} from "@identity/identity/infrastructure/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
 import {IBusinessClient} from "@identity/identity/domain/interface/RIBusinessClient";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
-import {IAddress} from "@core/business-logic/business-profile/interface/i.address";
+import {IAddress} from "@tenant/business-profile/domain/interface/i.address";
 import {TENANT_ID} from "@src/token";
-import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
-import {IBusinessProfile} from "@core/business-logic/business-profile/interface/i.business-profile";
-import {PostApi} from "@[tenant]/service/infrastructure/data-source/api/post.api";
-import {PutApi} from "@[tenant]/business-profile/infrastructure/data-source/api/put.api";
-import {
-	ModalSelectSpecialistListRepository
-} from "@[tenant]/member/infrastructure/repository/modal-select-specialist.list.repository";
+import {WithTenantIdPipe} from "@shared/presentation/pipes/with-tenant-id.pipe";
+import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
+import {PostApi} from "@tenant/service/infrastructure/data-source/api/post.api";
+import {PutApi} from "@tenant/business-profile/infrastructure/data-source/api/put.api";
 import {
 	PatchMediaGalleryClientApiAdapter
-} from "@[tenant]/client/infrastructure/data-source/api/media/gallery/patch.media.gallery.client.api.adapter";
+} from "@tenant/client/infrastructure/data-source/api/media/gallery/patch.media.gallery.client.api.adapter";
 import {IdentityActions} from "@identity/identity/presentation/state/identity/identity.actions";
-import {IService} from "@core/business-logic/service/interface/i.service";
+import {IService} from "@tenant/service/domain/interface/i.service";
 
 const enum Status {
 	Success = 'success',
@@ -100,7 +97,6 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	public readonly store = inject(Store);
 	public readonly tenantId$ = inject(TENANT_ID);
 	public readonly allStepsFinishedWithSuccess = new BooleanState(false);
-	public readonly modalSelectSpecialistListRepository = inject(ModalSelectSpecialistListRepository);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly createServiceApiAdapter = inject(PostApi);
@@ -182,30 +178,15 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	private async stepCreateBusiness(): Promise<void> {
 		try {
 			this.ngxLogger.debug('stepCreateBusiness');
-			const serviceProvideType = this.createBusinessQuery.getServiceProvideTypeControl().value;
-			const businessCategory = this.createBusinessQuery.getBusinessCategoryControl().value;
-			const bookingSettings = this.createBusinessQuery.getBookingSettingsControl().value;
 			const businessOwner = this.createBusinessQuery.getBusinessOwnerForm().value;
 			const body: IBusinessClient = {
 				name: this.createBusinessQuery.getBusinessNameControl().value,
-				businessIndustry: this.createBusinessQuery.getBusinessIndustryControl().value,
 			};
 
 			if (businessOwner) {
 				body.businessOwner = businessOwner;
 			}
 
-			if (serviceProvideType) {
-				body.serviceProvideType = serviceProvideType;
-			}
-
-			if (businessCategory) {
-				body.businessCategory = businessCategory;
-			}
-
-			if (bookingSettings) {
-				body.bookingSettings = bookingSettings as any;
-			}
 
 			this.ngxLogger.debug('stepCreateBusiness:body', body);
 
@@ -268,13 +249,6 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	}
 
 	private async stepAddServices(): Promise<void> {
-
-		if (!this.modalSelectSpecialistListRepository.tableState.total) {
-
-			this.modalSelectSpecialistListRepository.resetTableState();
-			await this.modalSelectSpecialistListRepository.getPageAsync();
-
-		}
 
 		const requestList$ = this.createBusinessQuery.getServicesForm()
 			.value?.map((service) => {

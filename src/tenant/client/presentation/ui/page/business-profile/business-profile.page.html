@@ -1,0 +1,51 @@
+<div class="pb-48 pt-4">
+
+	@if (item$ | async) {
+
+		<form class="flex flex-col gap-4 m-auto max-w-xl">
+
+			<client-business-profile-form-component [form]="form"/>
+
+			<utility-form-switch-active-block-component
+				[label]="'client.profile.form.inputs.published.label' | translate"
+				[control]="form.controls.published"/>
+
+			<client-address-business-profile-component
+				[form]="form.controls.addresses.controls[0]"/>
+
+			<schedules-form-component
+				[schedulesForm]="form.controls.schedules"/>
+
+			<!--		<client-cover-image-business-profile-component-->
+			<!--			[banners]="(item$ | async)?.banners ?? []"/>-->
+
+			<client-logo-business-profile-component
+				[logo]="(item$ | async)?.logo"/>
+
+			<!--		<client-gallery-business-profile-component-->
+			<!--			[gallery]="(item$ | async)?.gallery ?? []"/>-->
+
+			<client-business-profile-contact-phone-component
+				[form]="form.controls.contacts"/>
+
+			<client-business-profile-social-media-component
+				[form]="form.controls.socialNetworkLinks"/>
+
+			<utility-button-save-container-component class="bottom-16 md:bottom-0">
+				<button
+					primary
+					type="button"
+					(click)="save()"
+					[scrollToFirstError]="true"
+					[isLoading]="form.pending"
+					[disabled]="form.disabled">
+					{{ 'keyword.capitalize.save' | translate }}
+				</button>
+			</utility-button-save-container-component>
+
+		</form>
+
+	}
+
+</div>
+

@@ -1,12 +1,16 @@
-import {ServiceService} from "@core/business-logic/service/service/service.service";
-import {PaymentService} from "@core/business-logic/payment/service/payment.service";
-import {OrderService} from "@core/business-logic/order/service/order.service";
-import {MemberService} from "@core/business-logic/member/service/member.service";
-import {CustomerService} from "@core/business-logic/customer/service/customer.service";
-import {BusinessProfileService} from "@core/business-logic/business-profile/service/business-profile.service";
-import {AbsenceService} from "@core/business-logic/absence/service/absence.service";
-import {TariffPlanService} from "@core/business-logic/tariif-plan/service/tariff-plan.service";
-import {TariffPlanHistoryService} from "@core/business-logic/tariif-plan-history/service/tariff-plan-history.service";
+import {ServiceService} from "@tenant/service/domain/service/service.service";
+import {PaymentService} from "@tenant/order/payment/domain/service/payment.service";
+import {OrderService} from "@tenant/order/order/domain/service/order.service";
+import {MemberService} from "@tenant/member/member/domain/service/member.service";
+import {CustomerService} from "@tenant/customer/domain/service/customer.service";
+import {BusinessProfileService} from "@tenant/business-profile/domain/service/business-profile.service";
+import {AbsenceService} from "@tenant/member/absence/domain/service/absence.service";
+import {TariffPlanService} from "@tenant/tariff-plan/tariff-plan/domain/service/tariff-plan.service";
+import {
+	TariffPlanHistoryService
+} from "@tenant/tariff-plan/tariff-plan-history/domain/service/tariff-plan-history.service";
+import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
+import {EnvironmentProviders, Provider} from "@angular/core";
 
 /**
  * Shared Unit of Work
@@ -14,9 +18,15 @@ import {TariffPlanHistoryService} from "@core/business-logic/tariif-plan-history
  */
 export class SharedUow {
 
+	public static provide: Provider | EnvironmentProviders = {
+		provide: SharedUow,
+		useClass: SharedUow,
+	};
+
 	#service!: ServiceService;
 	#payment!: PaymentService;
 	#order!: OrderService;
+	#orderService!: OrderServiceService;
 	#member!: MemberService;
 	#customer!: CustomerService;
 	#businessProfile!: BusinessProfileService;
@@ -55,6 +65,17 @@ export class SharedUow {
 
 	public set order(value: OrderService) {
 		this.#order = value;
+	}
+
+	public get orderService() {
+		if (!this.#orderService) {
+			throw new Error('OrderServiceService is not initialized');
+		}
+		return this.#orderService;
+	}
+
+	public set orderService(value: OrderServiceService) {
+		this.#orderService = value;
 	}
 
 	public get member() {

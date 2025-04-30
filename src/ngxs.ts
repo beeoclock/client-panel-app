@@ -5,7 +5,7 @@ import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsSelectSnapshotModule} from "@ngxs-labs/select-snapshot";
 import {NgxsDispatchPluginModule} from "@ngxs-labs/dispatch-decorator";
 import {NgxsRouterPluginModule} from "@ngxs/router-plugin";
-import {AppState} from "@utility/state/app/app.state";
+import {AppState} from "@shared/state/app/app.state";
 
 export const ngxsProviders = [
 	NgxsModule.forRoot([IdentityState, AppState], {

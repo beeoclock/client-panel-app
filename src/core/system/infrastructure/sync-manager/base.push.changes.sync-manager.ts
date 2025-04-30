@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from "@angular/core";
 import {IndexedDBDataProvider} from "@core/system/infrastructure/data-provider/indexedDB.data-provider";
 import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
-import {Reactive} from "@utility/cdk/reactive";
+import {Reactive} from "@core/cdk/reactive";
 import {CreatingHookContext, Table, UpdatingHookContext} from "dexie";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {AsyncQueue} from "@core/shared/async-queue";
@@ -20,7 +20,7 @@ function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: ABas
 			if (isOnline) {
 				setTimeout(() => {
 					asyncQueue.enqueue(() => {
-						return BaseSyncManager.pushAll()
+						return BaseSyncManager.syncAll()
 					}).then();
 				}, 0);
 			}
@@ -50,7 +50,7 @@ function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, pri
 			if (isOnline) {
 				setTimeout(() => {
 					asyncQueue.enqueue(() => {
-						return BaseSyncManager.pushAll()
+						return BaseSyncManager.syncAll()
 					}).then();
 				}, 0);
 			}

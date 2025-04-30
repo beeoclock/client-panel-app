@@ -1,0 +1,90 @@
+<div class="h-full px-3 py-4 overflow-y-auto bg-white dark:bg-beeDarkColor-900 flex flex-col justify-between">
+
+    <ul class="space-y-2 font-medium">
+
+        <li>
+            <div class="px-4 py-3 text-sm text-beeColor-900 dark:text-white">
+                <div class="font-medium">
+                    {{ (token$ | async)?.claims?.name }}
+                </div>
+                <div class="truncate">{{ (token$ | async)?.claims?.email }}</div>
+            </div>
+        </li>
+
+        <li>
+            <a
+                    [routerLink]="'client/settings' | withTenantId"
+                    class="flex
+              items-center
+              w-full
+              p-2
+              text-beeColor-900
+              transition
+              duration-75
+              rounded-lg
+              group
+              hover:bg-beeColor-100
+              dark:text-white
+              dark:hover:bg-beeDarkColor-800">
+                <i class="flex-shrink-0
+				                w-6
+				                h-6
+				                ms-1
+				                text-beeColor-500
+				                transition
+				                duration-75
+				                group-hover:text-beeColor-900
+				                dark:text-beeDarkColor-400
+				                dark:group-hover:text-white bi bi-gear"></i>
+                <span class="flex-1 ml-3 text-left whitespace-nowrap">
+				{{ 'sidebar.settings' | translate }}
+				</span>
+            </a>
+        </li>
+
+        <li>
+            <button
+                   (click)="goToCorridor()"
+                    class="flex
+              items-center
+              w-full
+              p-2
+              text-beeColor-900
+              transition
+              duration-75
+              rounded-lg
+              group
+              hover:bg-beeColor-100
+              dark:text-white
+              dark:hover:bg-beeDarkColor-800">
+                <i class="flex-shrink-0
+				                w-6
+				                h-6
+				                ms-1
+				                text-beeColor-500
+				                transition
+				                duration-75
+				                group-hover:text-beeColor-900
+				                dark:text-beeDarkColor-400
+				                dark:group-hover:text-white bi bi-building"></i>
+
+                <span class="flex-1 ml-3 text-left whitespace-nowrap">
+				{{ 'sidebar.switch-business-client' | translate }}
+				</span>
+            </button>
+        </li>
+
+    </ul>
+
+
+    <ul>
+        <li>
+            <button
+                    (click)="signOut()"
+                    class="w-full border border-red-600 rounded-2xl bg-red-100 dark:bg-red-500/50 px-3 py-1 text-red-600 dark:text-red-200 me-2 flex items-center justify-between gap-2">
+                {{ 'keyword.capitalize.logout' | translate }}
+                <i class="bi bi-box-arrow-right"></i>
+            </button>
+        </li>
+    </ul>
+</div>

@@ -25,7 +25,7 @@ import {
 	withPreloading
 } from '@angular/router';
 import {routes} from '@src/routers';
-import {Utility} from "@utility/index";
+import {Utility} from "@shared/index";
 import {initRuntimeEnvironment} from "@src/runtime.environment";
 import {provideEnvironmentNgxMask} from "ngx-mask";
 import {tokens} from "@src/token";
@@ -42,7 +42,6 @@ import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
 import {SocketIoModule} from "ngx-socket-io";
-import {IsOnlineService} from "@utility/cdk/is-online.service";
 import {firebase} from "@src/firebase";
 import {provideIonicAngular} from "@ionic/angular/standalone";
 
@@ -75,7 +74,6 @@ initRuntimeEnvironment();
 
 bootstrapApplication(MainRouterOutlet, {
 	providers: [
-		IsOnlineService,
 		...tokens,
 		NgEventBus,
 		provideExperimentalZonelessChangeDetection(),
@@ -120,6 +118,7 @@ bootstrapApplication(MainRouterOutlet, {
 			Utility.Interceptors.SourceInterceptor,
 			Utility.Interceptors.TenantIdInterceptor,
 			Utility.Interceptors.AccessTokenInterceptor,
+			Utility.Interceptors.InternetInterceptor,
 		])),
 		provideRouter(
 			routes,

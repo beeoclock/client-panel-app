@@ -1,7 +1,7 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
-import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {AnalyticsService} from "@core/cdk/analytics.service";
 import {SignUpComponent} from "@identity/identity/presentation/component/sign-up.component/sign-up.component";
 
 @Component({
@@ -15,7 +15,8 @@ import {SignUpComponent} from "@identity/identity/presentation/component/sign-up
 		TranslateModule,
 		SignUpComponent,
 	],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpIdentityPage implements OnInit {
 	readonly #analyticsService = inject(AnalyticsService);
