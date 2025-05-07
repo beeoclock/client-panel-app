@@ -361,6 +361,19 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 				fragment: "ignored",
 			}
 		});
+		this.menu.push({
+			order: 14,
+			url: 'plugin/grid',
+			translateKey: 'sidebar.plugins',
+			icon: 'bi bi-plug',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
 		// {
 		//   icon: 'bi bi-person',
 		//   translateKey: 'sidebar.private',

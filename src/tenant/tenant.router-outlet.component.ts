@@ -92,7 +92,7 @@ export default class TenantRouterOutletComponent implements OnInit, AfterViewIni
 
 			if ((isOnline || visible) && !isSyncing) {
 
-				const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
+				const {syncState} = BaseSyncManager.getSyncManager('business-profile');
 				const lastSynchronizedIn = syncState?.options?.updatedSince || new Date(0).toISOString();
 
 				// Check if the last synchronized date is older than 1 minute
