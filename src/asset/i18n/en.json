@@ -695,7 +695,8 @@
 			"startBeforeEnd": "The start date must be before the end date.",
 			"whitespace": "Remove all spaces",
 			"emailExists": "Email already exists",
-			"phoneExists": "Phone number already exists"
+			"phoneExists": "Phone number already exists",
+			"min": "Minimum value is {{min}}"
 		}
 	},
 	"http": {

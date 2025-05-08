@@ -695,7 +695,8 @@
 			"username": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenie (_) i kropkę (.).",
 			"whitespace": "Usuń wszystkie spacje",
 			"emailExists": "Adres e-mail już istnieje",
-			"phoneExists": "Numer telefonu już istnieje"
+			"phoneExists": "Numer telefonu już istnieje",
+			"min": "Minimalna wartość to {{min}}"
 		}
 	},
 	"http": {

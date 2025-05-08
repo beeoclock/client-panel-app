@@ -695,7 +695,8 @@
 			"username": "Brugernavnet kan kun indeholde bogstaver, tal, en understregning (_) og et punktum (.).",
 			"whitespace": "Fjern alle mellemrum",
 			"emailExists": "En bruger med denne e-mail eksisterer allerede",
-			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede"
+			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede",
+			"min": "Minimum værdi er {{min}}"
 		}
 	},
 	"http": {

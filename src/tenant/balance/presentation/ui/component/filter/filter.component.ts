@@ -35,16 +35,17 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		<utility-default-panel-component>
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full p-2">
-					<ng-container *ngTemplateOutlet="SearchInput"/>
+<!--					<ng-container *ngTemplateOutlet="SearchInput"/>-->
+					<div></div>
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
 				</div>
 
 			} @else {
 
 				<div class="flex overflow-x-auto gap-2 p-2">
-					<ng-container *ngTemplateOutlet="SearchInput"/>
-					<ng-container *ngTemplateOutlet="CustomerActiveSelect"/>
-					<ng-container *ngTemplateOutlet="AutoRefresh"/>
+<!--					<ng-container *ngTemplateOutlet="SearchInput"/>-->
+<!--					<ng-container *ngTemplateOutlet="ActiveSelect"/>-->
+<!--					<ng-container *ngTemplateOutlet="AutoRefresh"/>-->
 				</div>
 				<div class="p-2">
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
@@ -53,12 +54,12 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
-				<ng-container *ngTemplateOutlet="CustomerActiveSelect"/>
-				<ng-container *ngTemplateOutlet="AutoRefresh"/>
+<!--				<ng-container *ngTemplateOutlet="ActiveSelect"/>-->
+<!--				<ng-container *ngTemplateOutlet="AutoRefresh"/>-->
 			</div>
 		}
 
-		<ng-template #CustomerActiveSelect>
+		<ng-template #ActiveSelect>
 			<ion-select-state
 				[control]="form.controls.state"/>
 		</ng-template>

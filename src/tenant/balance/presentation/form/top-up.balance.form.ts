@@ -19,9 +19,9 @@ export class TopUpBalanceForm extends FormGroup<IBalanceForm> {
 
 	public constructor() {
 		super({
-			amount: new FormControl<number>(0, {
+			amount: new FormControl<number>(2, {
 				nonNullable: true,
-				validators: [Validators.min(1)],
+				validators: [Validators.min(2)],
 			}),
 			currency: new FormControl<CurrencyCodeEnum>(CurrencyCodeEnum.USD, {
 				nonNullable: true,
