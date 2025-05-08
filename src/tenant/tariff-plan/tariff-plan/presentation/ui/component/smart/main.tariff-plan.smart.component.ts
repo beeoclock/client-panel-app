@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	effect,
-	inject,
-	OnInit,
-	Signal,
-	signal,
-	ViewEncapsulation
-} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit, Signal, signal, ViewEncapsulation} from "@angular/core";
 import ETariffPlan from "@tenant/tariff-plan/tariff-plan/domain/entity/e.tariff-plan";
 import {TypeTariffPlanEnum} from "@core/shared/enum/type.tariff-plan.enum";
 import {CurrencyCodePipe} from "@shared/presentation/pipes/currency-code.pipe";
@@ -17,7 +8,6 @@ import {BillingCycleEnum} from "@core/shared/enum/billing-cycle.enum";
 import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
 import ETariffPlanHistory from "@tenant/tariff-plan/tariff-plan-history/domain/entity/e.tariff-plan-history";
-import {TariffPlanStore} from "@tenant/tariff-plan/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";
 import {CountryCodeEnum} from "@core/shared/enum/country-code.enum";
 import {ITariffPlan} from "@tenant/tariff-plan/tariff-plan/domain/interface/i.tariff-plan";
 import {LanguageCodeEnum} from "@core/shared/enum";
@@ -229,25 +219,6 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 				</div>
 			</div>
 		</section>
-		<section class="flex w-full items-center p-5">
-			<div>
-				<div class="bg-white rounded-2xl p-1 w-full">
-					<button
-						(click)="openBillingLink()"
-						[disabled]="billingLinkIsLoading()"
-						class="text-yellow-700 cursor-pointer hover:bg-yellow-100 rounded-2xl transition-all flex gap-2 p-3">
-						<span>{{ 'tariffPlan.links.billing.label' | translate }}</span>
-						@if (billingLinkIsLoading()) {
-							<span class="animate-spin">
-								<i class="bi bi-arrow-repeat"></i>
-							</span>
-						} @else {
-							<i class="bi bi-box-arrow-up-right"></i>
-						}
-					</button>
-				</div>
-			</div>
-		</section>
 		<section class="flex flex-col w-full p-5">
 			<div class="bg-white rounded-2xl p-3 px-4 prose max-w-full"
 				 [innerHTML]="'tariffPlan.documentation.switchingToAnotherPlan' | translate">
@@ -257,7 +228,6 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 })
 export class MainTariffPlanSmartComponent implements OnInit {
 
-	private readonly tariffPlanStore = inject(TariffPlanStore);
 	private readonly confirmChangeTariffPlanModalController = inject(ConfirmChangeTariffPlanModalController);
 	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
 	private readonly toastController = inject(ToastController);
@@ -272,7 +242,6 @@ export class MainTariffPlanSmartComponent implements OnInit {
 
 	readonly #items: ETariffPlan[] = this.activatedRoute.snapshot.data.tariffPlanItems;
 
-	public readonly billingLinkIsLoading = signal(false);
 	public readonly membersCount = signal(0);
 	public readonly loading = signal<null | ETariffPlan>(null);
 
@@ -298,19 +267,6 @@ export class MainTariffPlanSmartComponent implements OnInit {
 		}
 
 		this.loading.set(null);
-	}
-
-	public openBillingLink() {
-		this.billingLinkIsLoading.set(true);
-		this.tariffPlanStore.fetchBillingLink().then(() => {
-			const billingLink = this.tariffPlanStore.billingLink();
-			if (billingLink) {
-				window.open(billingLink, '_blank');
-				return;
-			}
-		}).finally(() => {
-			this.billingLinkIsLoading.set(false);
-		});
 	}
 
 	private showSuccessToast() {

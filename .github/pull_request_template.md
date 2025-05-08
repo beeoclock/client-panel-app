@@ -9,16 +9,16 @@ Please provide a short summary explaining what this PR does.
 - [ ] Code has been tested locally
 - [ ] No `console.log` or `debugger` left in code
 - [ ] Documentation/README updated if necessary
-- [ ] consult with QA team 
+- [ ] consult with QA team
 - [ ] run e2e tests by action from https://github.com/beeoclock/client-app-e2e/actions
 <details>
   <summary>Manual Test Checklist - `main` branch</summary>
 
 ### **0. key information**
 - [ ] Ensure that after any change synchronization is executed and ended
-- [ ] open devtools and check the console when do testing 
+- [ ] open devtools and check the console when do testing
 - **All sections below can be tested in any order.** However, within a given section, the scenario should be easy to follow in order.
-  
+
 ### **1. Login**
 - [ ] Log in with email and password, assert successful login
 
@@ -51,9 +51,9 @@ Please provide a short summary explaining what this PR does.
 ### **6. Statistics**
 - [ ] Click on the statistics module, assert successful opening
 - [ ] check the service widget, assert source information filter is correctly open, and visible:
-  -	[ ] all sources
-  - [ ] from panel 
-  - [ ] from public panel
+	-	[ ] all sources
+	- [ ] from panel
+	- [ ] from public panel
 
 ### **7. Members**
 - [ ] Click on the member module, add a new member, assert successful creation, then delete it
