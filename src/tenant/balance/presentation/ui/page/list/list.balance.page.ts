@@ -14,6 +14,9 @@ import {
 import {
 	MobileLayoutListComponent
 } from "@tenant/balance/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {explicitEffect} from "ngxtension/explicit-effect";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -37,6 +40,17 @@ import {
 })
 export class ListBalancePage extends ListPage implements OnDestroy, OnInit {
 
+	private readonly isSyncing = toSignal(BaseSyncManager.isSyncing$);
+
+	public constructor() {
+		super();
+		explicitEffect([this.isSyncing], ([isSyncing]) => {
+			if (isSyncing) {
+				return;
+			}
+			this.tableNgxDatatableSmartResource?.reload();
+		});
+	}
 
 	public override ngOnInit() {
 		super.ngOnInit();

@@ -29,6 +29,7 @@ import {
 import {Store} from "@ngxs/store";
 import {WINDOW} from "@core/cdk/window.provider";
 import {TopUpBalanceDtoSchema} from "@tenant/balance/application/dto/top-up-balance.dto";
+import {CURRENT_TENANT_ID, TENANT_ID} from "@src/token";
 
 @Component({
 	selector: 'balance-form-page',
@@ -48,6 +49,13 @@ import {TopUpBalanceDtoSchema} from "@tenant/balance/application/dto/top-up-bala
 			provide: TOP_UP_BALANCE_PORT,
 			useClass: PostApi,
 		},
+		{
+			provide: CURRENT_TENANT_ID,
+			useFactory: () => {
+				const tenantId = inject(TENANT_ID);
+				return tenantId.value;
+			},
+		},
 		TopUpBalanceUseCase,
 	],
 	standalone: true
@@ -55,6 +63,7 @@ import {TopUpBalanceDtoSchema} from "@tenant/balance/application/dto/top-up-bala
 export class BalanceFormContainerComponent {
 
 	private readonly topUpBalanceUseCase = inject(TopUpBalanceUseCase);
+	private readonly currentTenantId = inject(CURRENT_TENANT_ID);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly store = inject(Store);
@@ -62,7 +71,14 @@ export class BalanceFormContainerComponent {
 	private readonly baseCurrency = this.store.selectSnapshot(BusinessProfileState.baseCurrency);
 	private readonly baseLanguage = this.store.selectSnapshot(BusinessProfileState.baseLanguage);
 
-	public readonly form = TopUpBalanceForm.create();
+	private readonly redirectUrl = `${this.window.location.origin}/${this.currentTenantId}/balance/overview`;
+
+	public readonly form = TopUpBalanceForm.create({
+		redirectUrl: {
+			cancelRedirectUrl: this.redirectUrl,
+			successRedirectUrl: this.redirectUrl,
+		}
+	});
 
 	public constructor() {
 		afterNextRender(() => {

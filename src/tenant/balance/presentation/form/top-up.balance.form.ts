@@ -19,9 +19,9 @@ export class TopUpBalanceForm extends FormGroup<IBalanceForm> {
 
 	public constructor() {
 		super({
-			amount: new FormControl<number>(2, {
+			amount: new FormControl<number>(0, {
 				nonNullable: true,
-				validators: [Validators.min(2)],
+				validators: [Validators.min(1)],
 			}),
 			currency: new FormControl<CurrencyCodeEnum>(CurrencyCodeEnum.USD, {
 				nonNullable: true,
@@ -30,10 +30,10 @@ export class TopUpBalanceForm extends FormGroup<IBalanceForm> {
 				nonNullable: true,
 			}),
 			redirectUrl: new FormGroup({
-				cancelRedirectUrl: new FormControl<string>(window.location.origin, {
+				cancelRedirectUrl: new FormControl<string>('', {
 					nonNullable: true,
 				}),
-				successRedirectUrl: new FormControl<string>(window.location.origin, {
+				successRedirectUrl: new FormControl<string>('', {
 					nonNullable: true,
 				}),
 			}),
