@@ -4,14 +4,16 @@ import {OrderService} from "@tenant/order/order/domain/service/order.service";
 import {MemberService} from "@tenant/member/member/domain/service/member.service";
 import {CustomerService} from "@tenant/customer/domain/service/customer.service";
 import {BusinessProfileService} from "@tenant/business-profile/domain/service/business-profile.service";
+import {ExpenseService} from "@tenant/expense/expense/domain/service/expense.service";
+import {ExpenseCategoryService} from "@tenant/expense/expense-category/domain/service/expense-category.service";
+import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
+import {EnvironmentProviders, Provider} from "@angular/core";
+import {BalanceService} from "@tenant/balance/domain/service/balance.service";
 import {AbsenceService} from "@tenant/member/absence/domain/service/absence.service";
 import {TariffPlanService} from "@tenant/tariff-plan/tariff-plan/domain/service/tariff-plan.service";
 import {
 	TariffPlanHistoryService
 } from "@tenant/tariff-plan/tariff-plan-history/domain/service/tariff-plan-history.service";
-import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
-import {EnvironmentProviders, Provider} from "@angular/core";
-import {BalanceService} from "@tenant/balance/domain/service/balance.service";
 
 /**
  * Shared Unit of Work
@@ -30,6 +32,8 @@ export class SharedUow {
 	#orderService!: OrderServiceService;
 	#member!: MemberService;
 	#customer!: CustomerService;
+	#expense!: ExpenseService;
+	#expenseCategory!: ExpenseCategoryService;
 	#businessProfile!: BusinessProfileService;
 	#absence!: AbsenceService;
 	#tariffPlan!: TariffPlanService;
@@ -100,6 +104,28 @@ export class SharedUow {
 
 	public set customer(value: CustomerService) {
 		this.#customer = value;
+	}
+
+	public get expense() {
+		if (!this.#expense) {
+			throw new Error('ExpenseService is not initialized');
+		}
+		return this.#expense;
+	}
+
+	public set expense(value: ExpenseService) {
+		this.#expense = value;
+	}
+
+	public get expenseCategory() {
+		if (!this.#expenseCategory) {
+			throw new Error('ExpenseCategoryService is not initialized');
+		}
+		return this.#expenseCategory;
+	}
+
+	public set expenseCategory(value: ExpenseCategoryService) {
+		this.#expenseCategory = value;
 	}
 
 	public get businessProfile() {

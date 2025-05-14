@@ -14,6 +14,8 @@ import {TenantPaymentStateEffect} from "@tenant/tenant.payment-state.effect";
 import {TariffPlanDomainModule} from "@tenant/tariff-plan/tariff-plan.domain.module";
 import {MemberDomainModule} from "@tenant/member/member-domain.module";
 import {BalanceModule} from "@tenant/balance/balance.module";
+import {ExpenseModule} from "@tenant/expense/expense/expense.module";
+import {ExpenseCategoryModule} from "@tenant/expense/expense-category/expense-category.module";
 
 @NgModule({
 	providers: [
@@ -38,6 +40,9 @@ import {BalanceModule} from "@tenant/balance/balance.module";
 		CustomerModule,
 		ServiceModule,
 		EventModule,
+		ExpenseModule,
+		ExpenseCategoryModule,
+
 	],
 })
 export class TenantModule {
