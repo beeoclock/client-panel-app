@@ -44,6 +44,7 @@ import '@angular/common/locales/global/uk';
 import {SocketIoModule} from "ngx-socket-io";
 import {firebase} from "@src/firebase";
 import {provideIonicAngular} from "@ionic/angular/standalone";
+import {WINDOW_PROVIDERS} from "@core/cdk/window.provider";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -75,6 +76,7 @@ initRuntimeEnvironment();
 bootstrapApplication(MainRouterOutlet, {
 	providers: [
 		...tokens,
+		WINDOW_PROVIDERS,
 		NgEventBus,
 		provideExperimentalZonelessChangeDetection(),
 		provideEnvironmentNgxMask(),
