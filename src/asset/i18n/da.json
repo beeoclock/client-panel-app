@@ -1158,6 +1158,7 @@
 			"ownOptionOfTime": "Time efter eget ønske",
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
 			"paid": "Betalt",
+			"payAsYouGo": "Betal, når du går",
 			"payer": "Udbetaler",
 			"payment": "Betaling",
 			"paymentMethod": "Betalingsmetode",
@@ -1599,6 +1600,7 @@
 		"members": "Medlemmer",
 		"order": "Indkøb",
 		"payment": "Betalinger",
+		"plugins": "Plugins",
 		"private": "Privat",
 		"profile": {
 			"signOut": {
@@ -1730,6 +1732,14 @@
 		"page": {
 			"subtitle": "Vælg den bedste løsning til din virksomhed",
 			"title": "Tariffer"
+		}
+	},
+	"tenant-plugin": {
+		"grid": {
+			"plugin": {
+				"attach": "Verbind",
+				"detach": "Uitschakelen"
+			}
 		}
 	},
 	"updateAvailable": {

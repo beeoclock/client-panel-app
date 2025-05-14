@@ -20,7 +20,7 @@ export class SyncManager extends BaseSyncManager<IBusinessProfile.DTO, EBusiness
 
 
 	public constructor() {
-		super('businessProfile');
+		super('business-profile');
 		inject(TENANT_ID).pipe(
 			takeUntilDestroyed(),
 			filter(is.string),

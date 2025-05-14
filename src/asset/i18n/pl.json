@@ -1158,6 +1158,7 @@
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
 			"paid": "Zapłacone",
+			"payAsYouGo": "Płać na bieżąco",
 			"payer": "Płatnik",
 			"payment": "Płatność",
 			"paymentMethod": "Metoda płatności",
@@ -1599,6 +1600,7 @@
 		"members": "Członkowie",
 		"order": "Zamówienia",
 		"payment": "Płatności",
+		"plugins": "Pluginy",
 		"private": "Prywatne",
 		"profile": {
 			"signOut": {
@@ -1730,6 +1732,14 @@
 		"page": {
 			"subtitle": "Wybierz najlepszą opcję dla swojej firmy",
 			"title": "Taryfy"
+		}
+	},
+	"tenant-plugin": {
+		"grid": {
+			"plugin": {
+				"attach": "Podłącz",
+				"detach": "Odłącz"
+			}
 		}
 	},
 	"updateAvailable": {

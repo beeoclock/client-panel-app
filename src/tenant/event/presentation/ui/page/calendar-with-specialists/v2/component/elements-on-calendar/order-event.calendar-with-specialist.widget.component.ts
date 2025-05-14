@@ -47,7 +47,7 @@ import {TranslateService} from "@ngx-translate/core";
 					[wasSelectedAnybody]="event().originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
 				<app-note-icon-component [note]="event()?.note ?? ''"/>
 				<app-business-note-icon-component [businessNote]="event()?.originalData?.order?.businessNote ?? ''"/>
-				<app-order-service-status-icon-component [status]="event().originalData.service.status"/>
+				<app-order-service-status-icon-component [useDefaultStyle]="false" class="text-white" [status]="event().originalData.service.status"/>
 			</div>
 		</div>
 <!--		<div class="text-xs font-bold dark:text-sky-100">-->
