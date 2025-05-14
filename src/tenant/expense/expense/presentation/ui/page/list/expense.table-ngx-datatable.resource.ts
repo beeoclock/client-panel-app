@@ -10,21 +10,10 @@ import {IExpense} from "@tenant/expense/expense/domain";
 export class ExpenseTableNgxDatatableSmartResource extends TableNgxDatatableSmartResource<IExpense.EntityRaw> {
 
 	private readonly sharedUow = inject(SharedUow);
-	protected override readonly loadData = ({
-												page,
-												pageSize,
-												orderBy,
-												orderDir,
-												filters
-											}: AsyncLoadDataFunctionParams) => {
 
-		return this.sharedUow.expense.repository.findAsync({
-			page,
-			pageSize,
-			orderDir,
-			orderBy,
-			...filters,
-		});
+	protected override loadData(parameters: AsyncLoadDataFunctionParams) {
+
+		return this.sharedUow.expense.repository.findAsync(parameters);
 
 	}
 
