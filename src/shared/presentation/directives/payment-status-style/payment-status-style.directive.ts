@@ -1,6 +1,6 @@
 import {Directive, effect, ElementRef, inject, input} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {PaymentStatusEnum} from "@tenant/payment/domain/enum/payment.status.enum";
+import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.status.enum";
 
 @Directive({
 	selector: '[paymentStatusStyle]',

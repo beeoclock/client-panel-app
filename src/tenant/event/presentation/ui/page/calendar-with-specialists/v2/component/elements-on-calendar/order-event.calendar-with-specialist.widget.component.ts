@@ -11,9 +11,9 @@ import {
 import {IAttendee, IEvent_V2} from "@tenant/event/domain";
 import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
-import {OrderServiceStatusEnum} from "@tenant/order/domain/enum/order-service.status.enum";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {
 	AnybodySpecialistIconComponent
@@ -188,7 +188,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	}
 
 	private async openEventDetails(event: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>) {
-		const action = new EventActions.OpenDetails(event);
+		const action = new EventActions.OpenDetails(event._id);
 		this.store.dispatch(action);
 	}
 

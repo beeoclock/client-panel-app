@@ -1,5 +1,4 @@
-import {Reactive} from "@core/cdk/reactive";
-import {Component, effect, inject} from "@angular/core";
+import {Component, DestroyRef, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {map} from "rxjs";
 import {clearObjectClone} from "@shared/domain/clear.object";
@@ -7,14 +6,18 @@ import {WindowWidthSizeService} from "@core/cdk/window-width-size.service";
 import {
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {explicitEffect} from "ngxtension/explicit-effect";
+import {AbstractControl} from "@angular/forms";
 
 @Component({
 	selector: 'utility-base-filter-component',
 	template: ``,
 	standalone: true,
 })
-export abstract class BaseFilterComponent extends Reactive {
+export abstract class BaseFilterComponent {
 
+	private readonly destroyRef = inject(DestroyRef);
 	private readonly windowWidthSizeService = inject(WindowWidthSizeService);
 	private readonly tableNgxDatatableSmartResource = inject(TableNgxDatatableSmartResource, {optional: true});
 
@@ -26,46 +29,53 @@ export abstract class BaseFilterComponent extends Reactive {
 		return this.windowWidthSizeService.isNotMobile$;
 	}
 
+	protected readonly abstract form: AbstractControl;
+
 	protected readonly store = inject(Store);
-	protected readonly form: any;
 	protected readonly state: any;
 
 	public constructor() {
-		super();
-		effect(() => {
 
-			const filters = this.tableNgxDatatableSmartResource?.filters();
-			if (filters) {
+		if (this.tableNgxDatatableSmartResource) {
 
-				Object.keys(filters).forEach((key) => {
-					if (!this.form.controls[key]) {
-						return;
-					}
-					this.form.controls[key].patchValue(filters[key], {
+			explicitEffect([this.tableNgxDatatableSmartResource.parameters], ([parameters]) => {
+
+				if (parameters) {
+					this.form.patchValue(parameters, {
 						emitEvent: false,
-						onlySelf: true,
+						onlySelf: true
 					});
-				})
-			}
+				}
 
-		});
+			});
+
+			explicitEffect([this.tableNgxDatatableSmartResource.resource.isLoading], ([isLoading]) => {
+
+				if (isLoading) {
+					this.form.disable({
+						emitEvent: false,
+						onlySelf: true
+					});
+				} else {
+					this.form.enable({
+						emitEvent: false,
+						onlySelf: true
+					});
+				}
+
+			});
+
+		}
+
 	}
 
 	public initHandlers() {
 
 		this.form.valueChanges.pipe(
-			this.takeUntil(),
-			map(clearObjectClone)
-		).subscribe(async (filters: any) => {
-			this.form.disable({
-				emitEvent: false,
-				onlySelf: true
-			});
-			this.tableNgxDatatableSmartResource?.filters.set(filters);
-			this.form.enable({
-				emitEvent: false,
-				onlySelf: true
-			});
+			takeUntilDestroyed(this.destroyRef),
+			map((value) => clearObjectClone(value))
+		).subscribe((filters: any) => {
+			this.tableNgxDatatableSmartResource?.setFilters(filters);
 		});
 
 	}

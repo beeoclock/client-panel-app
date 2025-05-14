@@ -1,0 +1,22 @@
+<card-ion-list-smart-component [ionListClassList]="['space-y-4']" [itemTemplate]="itemTemplate">
+
+	<ng-template #itemTemplate let-item="item" let-index="index">
+		<div>
+			<div class="flex justify-between px-4">
+				<div class="text-neutral-400 text-sm">{{ index + 1 }}</div>
+				<div class="text-neutral-400 text-sm uppercase">
+					#...{{ item._id.slice(-4) }}
+				</div>
+			</div>
+			<app-card-item-lightweight-order-component [orderDto]="item"/>
+		</div>
+	</ng-template>
+
+	<not-found-table-data-component
+		class="block h-full"
+		[showLinkToForm]="false"
+		[label]="'keyword.capitalize.dataNotFound' | translate">
+		<app-order-auto-refresh-component/>
+	</not-found-table-data-component>
+
+</card-ion-list-smart-component>

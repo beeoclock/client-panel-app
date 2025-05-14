@@ -3,7 +3,7 @@ import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone"
 import ObjectID from "bson-objectid";
 import {NgClass} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
-import {OrderStatusEnum} from "@tenant/order/domain/enum/order.status.enum";
+import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 import {
 	StatusOrderIconComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.order.icon.component";

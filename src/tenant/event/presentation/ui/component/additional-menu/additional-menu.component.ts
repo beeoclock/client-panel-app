@@ -1,6 +1,6 @@
 import {Component, inject, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
 import {Store} from "@ngxs/store";
-import {OrderActions} from "@tenant/order/infrastructure/state/order/order.actions";
+import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyPipe} from "@angular/common";
@@ -14,11 +14,11 @@ import {
 	CustomerChipComponent
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";
 import {
 	AbsencePresentationActions
-} from "@tenant/absence/infrastructure/state/presentation/absence.presentation.actions";
+} from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 enum SegmentEnum {
 	ORDERING = 'ordering',

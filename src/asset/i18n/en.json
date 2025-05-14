@@ -172,6 +172,18 @@
 			"off": "off"
 		}
 	},
+	"balance": {
+		"button": {
+			"create": "Top up balance"
+		},
+		"field": {
+			"action": {
+				"type": {
+					"label": "Type"
+				}
+			}
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Beauty salon",
@@ -645,6 +657,8 @@
 				"LAST_MONTH": "Last month",
 				"LAST_WEEK": "Last week",
 				"LAST_YEAR": "Last year",
+				"NEXT_MONTH": "Next month",
+				"NEXT_WEEK": "Next week",
 				"THIS_MONTH": "This month",
 				"THIS_WEEK": "This week",
 				"THIS_YEAR": "This year",
@@ -679,7 +693,10 @@
 				"startInSeconds": "The end time must be longer than the start time"
 			},
 			"startBeforeEnd": "The start date must be before the end date.",
-			"whitespace": "Remove all spaces"
+			"whitespace": "Remove all spaces",
+			"emailExists": "Email already exists",
+			"phoneExists": "Phone number already exists",
+			"min": "Minimum value is {{min}}"
 		}
 	},
 	"http": {
@@ -1042,6 +1059,7 @@
 			"autoActionTypeOnOrder": "Type of automatic action",
 			"avatar": "Avatar",
 			"back": "Back",
+			"banners": "Banners",
 			"bookingSettings": "Booking settings",
 			"break": "Break",
 			"business": "Business",
@@ -1097,6 +1115,7 @@
 			"events": "Events",
 			"every": "Every",
 			"exhausted": "Exhausted",
+			"export": "Export",
 			"facilities": "Facilities",
 			"feature": "Feature",
 			"finished": "Finished",
@@ -1125,6 +1144,7 @@
 			"next": "Next",
 			"nextStep": "Next step",
 			"no": "No",
+			"noAvailable": "No available",
 			"noData": "No data",
 			"noNeedCard": "No need card",
 			"notPaid": "Not paid",
@@ -1263,6 +1283,9 @@
 				"0": "Inactive",
 				"1": "Active"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "N/A"
 		}
 	},
 	"latestBooking": {
@@ -1557,6 +1580,7 @@
 		"appointments": {
 			"label": "Appointments"
 		},
+		"balance": "Balance",
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",
 		"calendar": {

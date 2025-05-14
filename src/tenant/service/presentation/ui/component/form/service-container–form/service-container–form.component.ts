@@ -26,18 +26,18 @@ import {
 	ButtonSaveContainerComponent
 } from "@shared/presentation/component/container/button-save/button-save.container.component";
 import {ServicePresentationForm} from "@tenant/service/presentation/form/service.presentation.form";
-import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
 import {ServicesFormComponent} from "@tenant/service/presentation/ui/component/form/v2/service/services.form.component";
 import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
 import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@core/shared/checker";
 import {CurrencyCodeEnum} from "@core/shared/enum";
-import {StateEnum} from "@core/shared/enum/state.enum";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -180,8 +180,9 @@ export class ServiceContainerFormComponent implements OnInit {
 			this.form.markAsPending();
 			const value = this.form.getRawValue() as unknown as IService.DTO;
 			if (this.isEditMode()) {
+				const banners = await this.imageBlock().save(value._id);
+				value.presentation.banners = banners;
 				await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(value)));
-				await this.imageBlock().save(value._id);
 			} else {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.CreateItem(value)));
 				const item = this.item();

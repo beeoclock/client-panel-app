@@ -8,6 +8,7 @@ import {
 	LanguageBusinessPanelFrontendSettingsAccountApiAdapter
 } from "@tenant/account/infrastructure/adapter/external/api/language.business-panel.frontend-settings.account.api.adapter";
 import {Reactive} from "@core/cdk/reactive";
+import {WINDOW} from "@core/cdk/window.provider";
 
 @Component({
 	selector: 'client-settings-language-input-component',
@@ -18,23 +19,25 @@ import {Reactive} from "@core/cdk/reactive";
 		TranslateModule,
 		DefaultLabelDirective
 	],
+	providers: [
+		LanguageBusinessPanelFrontendSettingsAccountApiAdapter
+	],
 	template: `
 		<label default>
 			{{ 'keyword.capitalize.language' | translate }}
 		</label>
-		<ng-select
-			id="client-settings-form-language"
+		<ng-select id="client-settings-form-language"
 			bindLabel="name"
 			bindValue="code"
 			[items]="languages"
 			[clearable]="false"
-			[formControl]="control">
-		</ng-select>
+			[formControl]="control" />
 	`
 })
 export class LanguageInputComponent extends Reactive {
 
 	public readonly control = new FormControl();
+	public readonly window = inject(WINDOW);
 	public readonly translateService = inject(TranslateService);
 	public readonly languageBusinessPanelFrontendSettingsAccountApiAdapter = inject(LanguageBusinessPanelFrontendSettingsAccountApiAdapter);
 	public readonly languages = LANGUAGES;
@@ -48,7 +51,7 @@ export class LanguageInputComponent extends Reactive {
 				.executeAsync(languageCode)
 				.then(() => {
 					// TODO: Delete reload when the language change will be fixed
-					window.location.reload();
+					this.window.location.reload();
 				});
 
 		});

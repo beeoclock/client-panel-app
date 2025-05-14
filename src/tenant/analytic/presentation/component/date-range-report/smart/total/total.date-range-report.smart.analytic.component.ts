@@ -32,8 +32,8 @@ import {DateTime} from "luxon";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
-import {IMember} from "@tenant/member/domain/interface/i.member";
-import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
+import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/member.data.state";
 
 @Component({
 	standalone: true,

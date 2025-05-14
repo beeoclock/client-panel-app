@@ -3,8 +3,8 @@ import {inject} from "@angular/core";
 import {filter, map} from "rxjs";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {is} from "@core/shared/checker";
-import EOrder from "@tenant/order/domain/entity/e.order";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
+import EOrder from "@tenant/order/order/domain/entity/e.order";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 
 export const serviceResolver: ResolveFn<EOrder | undefined> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot,) => {
 

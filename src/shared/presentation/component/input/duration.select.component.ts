@@ -21,8 +21,7 @@ import {Reactive} from "@core/cdk/reactive";
 
 			<label default [for]="id()">{{ label() }}</label>
 		}
-		<ng-select
-			isRequired
+		<ng-select isRequired
 			invalidTooltip
 			setRedBorderTo=".ng-select-container"
 			placeholder="00:00"
@@ -34,8 +33,7 @@ import {Reactive} from "@core/cdk/reactive";
 			[items]="items"
 			[clearable]="false"
 			[id]="id()"
-			[formControl]="localControl">
-		</ng-select>
+			[formControl]="localControl" />
 	`,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

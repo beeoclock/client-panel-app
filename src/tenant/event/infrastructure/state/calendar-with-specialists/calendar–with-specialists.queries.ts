@@ -4,9 +4,9 @@ import {
 	ICalendarWithSpecialist
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
 import {DateTime} from "luxon";
-import {IOrder} from "@tenant/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
-import {IAbsence} from "@tenant/absence/domain/interface/i.absence";
+import {IOrder} from "@tenant/order/order/domain/interface/i.order";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {IEvent_V2} from "@tenant/event/domain";
 
 export class CalendarWithSpecialistsQueries {

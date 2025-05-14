@@ -26,6 +26,7 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {LanguageCodeEnum} from "@core/shared/enum";
+import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -85,11 +86,29 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 
 			}
 		</ng-template>
+
+		<ng-template #bannersCellTemplate let-row="row">
+
+			<div class="flex gap-1 items-center">
+				@if (row.presentation?.banners?.length) {
+					@let banner = row.presentation?.banners[0] ;
+					<img [src]="banner.url" alt="" class="rounded-lg size-10">
+					@if (row.presentation?.banners.length > 1) {
+						<div class="rounded-lg bg-neutral-200 text-neutral-500 flex items-center justify-center size-10">
+							+{{ row.presentation?.banners.length - 1 }}
+						</div>
+					}
+				} @else {
+					<no-available/>
+				}
+			</div>
+
+		</ng-template>
 		<ng-template #stateCellTemplate let-row="row">
 			<div activeStyle [state]="row.state">
 			</div>
 		</ng-template>
-	`,
+    `,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -99,9 +118,10 @@ import {LanguageCodeEnum} from "@core/shared/enum";
 		NotFoundTableDataComponent,
 		TranslatePipe,
 		ActiveStyleDirective,
+		NoAvailable,
 	],
 	host: {
-		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
 	},
 })
 export class TableListComponent extends TableComponent<EService> {
@@ -113,15 +133,23 @@ export class TableListComponent extends TableComponent<EService> {
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly durationCellTemplate = viewChild<TemplateRef<any>>('durationCellTemplate');
 	public readonly priceCellTemplate = viewChild<TemplateRef<any>>('priceCellTemplate');
+	public readonly bannersCellTemplate = viewChild<TemplateRef<any>>('bannersCellTemplate');
 	public readonly colorCellTemplate = viewChild<TemplateRef<any>>('colorCellTemplate');
 
 	public readonly columns = signal<TableColumn<EService>[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.color'),
 			prop: 'color',
-			minWidth: 50,
-			width: 50,
+			minWidth: 60,
+			width: 60,
 			sortable: false
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.banners'),
+			prop: 'banners',
+			minWidth: 120,
+			width: 120,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.price'),
@@ -182,7 +210,6 @@ export class TableListComponent extends TableComponent<EService> {
 			this.setCellTemplateRef(columns, 'price', priceCellTemplate);
 		}
 
-
 		const colorCellTemplate = this.colorCellTemplate();
 		if (colorCellTemplate) {
 			this.setCellTemplateRef(columns, 'color', colorCellTemplate);
@@ -195,6 +222,11 @@ export class TableListComponent extends TableComponent<EService> {
 		const availableLanguages = this.availableLanguages();
 		if (availableLanguages?.length) {
 			this.setTitlesColumnsByAvailableLanguages(columns, availableLanguages);
+		}
+
+		const bannersCellTemplate = this.bannersCellTemplate();
+		if (bannersCellTemplate) {
+			this.setCellTemplateRef(columns, 'banners', bannersCellTemplate);
 		}
 
 		return columns;
@@ -228,7 +260,7 @@ export class TableListComponent extends TableComponent<EService> {
 
 	private setTitlesColumnsByAvailableLanguages(columns: TableColumn<EService>[], availableLanguages: LanguageCodeEnum[]) {
 
-		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'color') + 1;
+		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'banners') + 1;
 		const name = this.translateService.instant('keyword.capitalize.title');
 
 		if (availableLanguages.length < 2) {
@@ -238,8 +270,8 @@ export class TableListComponent extends TableComponent<EService> {
 			columns.splice(pushAfterIndex, 0, {
 				name: name,
 				prop: 'title',
-				minWidth: 240,
-				width: 240,
+				minWidth: 280,
+				width: 280,
 				sortable: false,
 				$$valueGetter: (row: EService) => this.getTitleForLanguage(row, language)
 			})
@@ -251,8 +283,8 @@ export class TableListComponent extends TableComponent<EService> {
 				columns.splice(pushAfterIndex, 0, {
 					name: `${name} (${language})`,
 					prop: `title-${language}`,
-					minWidth: 240,
-					width: 240,
+					minWidth: 280,
+					width: 280,
 					sortable: false,
 					$$valueGetter: (row: EService) => this.getTitleForLanguage(row, language)
 				})

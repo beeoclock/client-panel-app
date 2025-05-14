@@ -1,0 +1,125 @@
+@if (item(); as item) {
+
+	<div class="bg-white">
+		<dl class="divide-y divide-gray-100">
+			<div class="p-2 flex justify-end">
+				<app-absence-row-action-button-component
+					[hide]="['details']"
+					[item]="item"
+					[id]="item._id"/>
+			</div>
+			<div class="p-4 flex gap-4 justify-between">
+				<div class="rounded-2xl flex flex-col gap-1 items-center justify-center bg-yellow-700 text-white p-3">
+					<span>{{ item.start | date: 'yyyy' }}</span>
+					<span class="text-4xl font-extrabold">{{ item.start | date: 'dd' }}</span>
+					<span>{{ item.start | date: 'MMMM' }}</span>
+				</div>
+				<div class="flex-1 flex flex-col justify-center">
+					<div class="text-center">
+						@if (isStarted) {
+
+							@if (leftInDays) {
+								<div class="flex flex-col gap-1 pb-2">
+									<span class="text-xs">
+										{{ 'keyword.capitalize.leftInDays' | translate }}
+									</span>
+									<span class="font-extrabold text-2xl">{{ leftInDays }}</span>
+								</div>
+							} @else {
+								<span class="text-sm">
+									{{ 'keyword.capitalize.finished' | translate }}
+								</span>
+							}
+						} @else {
+							<div>
+								{{ 'keyword.capitalize.notYetStarted' | translate }}
+							</div>
+						}
+					</div>
+					<!-- Progress -->
+					<div class="flex w-full h-4 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">
+						<div class="flex flex-col justify-center rounded-full overflow-hidden bg-yellow-700 text-xs text-white text-center whitespace-nowrap dark:bg-yellow-500 transition duration-500" [style.width.%]="progress">{{progress}}%</div>
+					</div>
+					<!-- End Progress -->
+					<div class="flex justify-between">
+						<div>{{ item.start | date: 'HH:mm' }}</div>
+						<div>{{ item.end | date: 'HH:mm' }}</div>
+					</div>
+				</div>
+				<div class="rounded-2xl flex flex-col gap-1 items-center justify-center bg-yellow-700 text-white p-3">
+					<span>{{ item.end | date: 'yyyy' }}</span>
+					<span class="text-4xl font-extrabold">{{ item.end | date: 'dd' }}</span>
+					<span>{{ item.end | date: 'MMMM' }}</span>
+				</div>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.status' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
+					<state-status-component [item]="item"/>
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.singular.capitalize.type' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ ('absence.type.' + item.type + '.label') | translate }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.start' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item.start | dynamicDate }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.end' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item.end | dynamicDate }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.attendees' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex gap-2 flex-wrap">
+					@if (item.entireBusiness) {
+
+						{{ 'absence.form.inputs.entireBusiness.label' | translate }}
+					} @else {
+
+						@for (member of item.members; track member._id) {
+
+							@let data = membersMap()?.get(member._id);
+							@if (data) {
+								<button (click)="openMemberDetails($event, data)" class="inline-flex flex-nowrap items-center bg-white border border-neutral-200 hover:bg-neutral-200 transition-all rounded-full p-1 pe-3 dark:bg-neutral-900 dark:border-neutral-700">
+									<img class="me-1.5 inline-block size-8 rounded-full object-cover" [src]="data.avatar.url" alt="Avatar">
+									<div class="whitespace-nowrap font-medium text-neutral-800 dark:text-white flex flex-col">
+										<span>{{ data.firstName }}</span>
+									</div>
+								</button>
+							}
+
+						}
+
+					}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.note' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item.note | noData }}
+				</dd>
+			</div>
+		</dl>
+	</div>
+	<standard-details-entity [item]="item"/>
+}

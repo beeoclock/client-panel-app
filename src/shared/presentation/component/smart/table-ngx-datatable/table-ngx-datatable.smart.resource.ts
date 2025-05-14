@@ -1,73 +1,59 @@
-import {computed, Injectable, resource, ResourceRef, signal} from "@angular/core";
+import {inject, Injectable, resource, ResourceRef, signal} from "@angular/core";
 import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {ResponseListType} from "@core/shared/adapter/base.api.adapter";
-import {StateEnum} from "@core/shared/enum/state.enum";
+import {z} from "zod";
+import {flatten, unflatten} from "flat";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {AbstractControl} from "@angular/forms";
 import {is} from "@core/shared/checker";
-
-export type FiltersType = {
-	[key: string]: string | null | undefined | boolean | number;
-};
+import {createNotifier} from "ngxtension/create-notifier";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 export type AsyncLoadDataFunctionParams = {
 	page: number;
 	pageSize: number;
 	orderBy: string;
 	orderDir: string;
-	filters: FiltersType
+	[key: string]: string | null | undefined | boolean | number;
 };
 
 @Injectable()
 export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>> {
 
-	protected readonly loadData = async (parameters: AsyncLoadDataFunctionParams): Promise<ResponseListType<ITEM>> => {
-		throw new Error('Not implemented');
+	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
+
+	protected loadData(parameters: AsyncLoadDataFunctionParams): Promise<ResponseListType<ITEM>> {
+		throw new Error("Method not implemented.");
 	}
 
-	public readonly parameters = signal<AsyncLoadDataFunctionParams>({
-		page: 0,
-		pageSize: 0,
-		orderBy: OrderByEnum.CREATED_AT,
-		orderDir: OrderDirEnum.DESC,
-		filters: {},
-	});
+	public getNewForm(): AbstractControl {
+		throw new Error("Method not implemented.");
+	}
 
-	public readonly filters = signal<FiltersType>({
-		state: StateEnum.active,
-	});
+	public formValue() {
+		return z.object({
 
-	public filtersHistory: FiltersType = {
-		state: StateEnum.active,
-	};
+			page: z.coerce.number().default(0),
+			pageSize: z.coerce.number().default(0),
+			orderBy: z.coerce.string().default(OrderByEnum.CREATED_AT),
+			orderDir: z.coerce.string().default(OrderDirEnum.DESC),
 
-	public readonly isLoading = signal(0);
+		});
+	}
+
+	public readonly queryParams = toSignal(this.activatedRoute.queryParams);
+
+	public readonly useQueryParams: boolean = false;
+
+	public readonly defaultParameters = this.formValue().parse({});
+
+	public readonly parameters = signal<AsyncLoadDataFunctionParams>(this.defaultParameters);
 
 	public readonly cache = new Map<number, boolean>();
 	public readonly totalSize = signal<number>(0);
-
-	public readonly mergedParameters = computed(() => {
-
-		const parameters = this.parameters();
-		const filters = this.filters();
-		const filtersHistory = this.filtersHistory;
-		let patch: Partial<AsyncLoadDataFunctionParams> = {};
-
-		if (is.not_compare(filters, filtersHistory)) {
-			this.reset();
-			patch = {
-				...patch,
-				page: 1,
-			};
-			this.filtersHistory = filters;
-		}
-
-		return {
-			...parameters,
-			filters,
-			...patch,
-		};
-
-	});
+	public readonly resetScrollPosition = createNotifier();
 
 	public rows: ITEM[] = [];
 
@@ -75,6 +61,37 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 		this.cache.clear();
 		// Set all rows to null
 		this.rows = Array(this.totalSize());
+	}
+
+	public patchParameters(parameters: AsyncLoadDataFunctionParams) {
+		this.parameters.update((currentParameters) => ({
+			...currentParameters,
+			...parameters,
+		}));
+		this.updateQueryParams();
+	}
+
+	public setFilters(filters: AsyncLoadDataFunctionParams) {
+
+		this.reset();
+		this.parameters.set({
+			...filters,
+			page: 1,
+		});
+		this.resetScrollPosition.notify();
+		this.updateQueryParams();
+	}
+
+	public updateQueryParams() {
+		if (this.useQueryParams) {
+
+			const queryParams = flatten(this.parameters()) as object;
+			this.router.navigate([], {
+				queryParams,
+				queryParamsHandling: 'merge',
+			});
+
+		}
 	}
 
 	public readonly resource: ResourceRef<{
@@ -85,7 +102,7 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 		// Define a reactive request computation.
 		// The request value recomputes whenever any read signals change.
 		request: () => ({
-			parameters: this.mergedParameters(),
+			parameters: this.parameters(),
 		}),
 
 		defaultValue: {
@@ -95,7 +112,16 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 		// Define an async loader that retrieves data.
 		// The resource calls this function every time the `request` value changes.
-		loader: async ({request: {parameters: {page, pageSize, orderBy, orderDir, filters}}}) => {
+		loader: async ({request: {parameters}}) => {
+
+			const {page, pageSize} = parameters;
+
+			if (!is.object_not_empty(parameters) || page === 0 || pageSize === 0) {
+				return {
+					items: [],
+					totalSize: 0,
+				};
+			}
 
 			const currentTotalSize = this.totalSize();
 
@@ -108,24 +134,10 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 			this.cache.set(page, true);
 
-			// Counter of pending API calls
-			this.isLoading.set(this.isLoading() + 1);
-
-			const {items, totalSize} = await this.loadData({
-				page,
-				pageSize,
-				orderBy,
-				orderDir,
-				filters,
-			});
-
-			// Create array to store data if missing
-			// The array should have the correct number of with "holes" for missing data
-			if (!this.rows?.length || this.rows.length !== totalSize) {
-				this.rows = new Array<ITEM>(totalSize || 0);
-			}
+			const {items, totalSize} = await this.loadData(parameters);
 
 			if (currentTotalSize !== totalSize) {
+				this.rows = new Array(totalSize || 0);
 				this.totalSize.set(totalSize);
 			}
 
@@ -137,11 +149,6 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 			const copy = this.rows.slice();
 			copy.splice(start, pageSize, ...items);
 			this.rows = copy;
-
-			// this.rows.splice(start, pageSize, ...items);
-
-			// Decrement the counter of pending API calls
-			this.isLoading.set(this.isLoading() - 1);
 
 			return {items, totalSize};
 
@@ -155,6 +162,7 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 			...parameters,
 			page: 1,
 		}));
+
 	}
 
 	public refreshDiscoveredPages() {
@@ -166,6 +174,20 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 				page
 			}));
 		}
+	}
+
+	public parseQueryParams(queryParams: Params | undefined): AsyncLoadDataFunctionParams {
+		const filterForm = this.getNewForm();
+		const unflattenedQueryParams = unflatten(queryParams ?? {}) as unknown as object;
+		const {data, success, error} = this.formValue().safeParse(unflattenedQueryParams);
+		if (success) {
+			filterForm.patchValue(data as unknown as object);
+		} else {
+			console.error('Error parsing query params:', error);
+		}
+		const value = (filterForm).getRawValue() as unknown as AsyncLoadDataFunctionParams;
+		return value;
+
 	}
 
 }

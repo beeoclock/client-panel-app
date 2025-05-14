@@ -1,12 +1,13 @@
 import {Routes} from '@angular/router';
 import {customerResolver} from "@tenant/customer/presentation/resolver/customer.resolver";
-import {absenceResolver} from "@tenant/absence/presentation/ui/resolver/absence.resolver";
-import {memberResolver} from "@tenant/member/presentation/resolver/member.resolver";
+import {absenceResolver} from "@tenant/member/absence/presentation/ui/resolver/absence.resolver";
+import {memberResolver} from "@tenant/member/member/presentation/resolver/member.resolver";
 import {serviceResolver} from "@tenant/service/presentation/resolver/service.resolver";
-import {orderResolver} from "@tenant/order/presentation/resolver/order.resolver";
-import {paymentByOrderIdResolver} from "@tenant/payment/presentation/resolver/payment-by-order-id.resolver";
+import {orderResolver} from "@tenant/order/order/presentation/resolver/order.resolver";
+import {paymentByOrderIdResolver} from "@tenant/order/payment/presentation/resolver/payment-by-order-id.resolver";
 import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver";
-import {paymentResolver} from "@tenant/payment/presentation/resolver/payment.resolver";
+import {paymentResolver} from "@tenant/order/payment/presentation/resolver/payment.resolver";
+import {balanceResolver} from "@tenant/balance/presentation/resolver/balance.resolver";
 
 export const tenantSecondRouters: Routes = [
 	/**
@@ -49,7 +50,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/presentation/ui/component/external/case/customer/list/customer.order.list.external.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/external/case/customer/list/customer.order.list.external.component')
 	},
 	/**
 	 * Absence
@@ -58,7 +59,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'absence/form',
 		outlet: 'second',
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/absence/presentation/ui/component/form/absence-form-container.component')
+		loadComponent: () => import('@tenant/member/absence/presentation/ui/component/form/absence-form-container.component')
 	},
 	{
 		path: 'absence/:id',
@@ -67,7 +68,7 @@ export const tenantSecondRouters: Routes = [
 			item: absenceResolver,
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/absence/presentation/ui/component/details/absence-details-container.component')
+		loadComponent: () => import('@tenant/member/absence/presentation/ui/component/details/absence-details-container.component')
 	},
 	{
 		path: 'absence/:id/form',
@@ -80,7 +81,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/absence/presentation/ui/component/form/absence-form-container.component')
+		loadComponent: () => import('@tenant/member/absence/presentation/ui/component/form/absence-form-container.component')
 	},
 	/**
 	 * Member
@@ -89,7 +90,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'member/form',
 		outlet: 'second',
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/member/presentation/component/form/member-form-container/member-form-container.component')
+		loadComponent: () => import('@tenant/member/member/presentation/component/form/member-form-container/member-form-container.component')
 	},
 	{
 		path: 'member/:id',
@@ -98,7 +99,7 @@ export const tenantSecondRouters: Routes = [
 			item: memberResolver,
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/member/presentation/component/details-container/member-details-container.component')
+		loadComponent: () => import('@tenant/member/member/presentation/component/details-container/member-details-container.component')
 	},
 	{
 		path: 'member/:id/form',
@@ -111,7 +112,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/member/presentation/component/form/member-form-container/member-form-container.component')
+		loadComponent: () => import('@tenant/member/member/presentation/component/form/member-form-container/member-form-container.component')
 	},
 	/**
 	 * Service
@@ -150,7 +151,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'order/form',
 		outlet: 'second',
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/presentation/ui/component/form/order-form-container.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/form/order-form-container.component')
 	},
 	{
 		path: 'order/:id',
@@ -159,7 +160,7 @@ export const tenantSecondRouters: Routes = [
 			item: orderResolver,
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/presentation/ui/component/details/order-details-container.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/details/order-details-container.component')
 	},
 	{
 		path: 'order/:id/form',
@@ -172,7 +173,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/presentation/ui/component/form/order-form-container.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/form/order-form-container.component')
 	},
 	/**
 	 * Order Service
@@ -196,7 +197,7 @@ export const tenantSecondRouters: Routes = [
 			item: paymentResolver,
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/payment/presentation/ui/page/details/details')
+		loadComponent: () => import('@tenant/order/payment/presentation/ui/page/details/details')
 	},
 	/**
 	 * Event
@@ -209,6 +210,24 @@ export const tenantSecondRouters: Routes = [
 		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/event/presentation/ui/component/details/container.details.component')
+	},
+	/**
+	 * Balance
+	 */
+	{
+		path: 'balance/form',
+		outlet: 'second',
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/balance/presentation/ui/component/form/balance-form-container.component')
+	},
+	{
+		path: 'balance/:id',
+		outlet: 'second',
+		resolve: {
+			item: balanceResolver,
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/balance/presentation/ui/component/details/balance-details-container.component')
 	},
 	/**
 	 * App

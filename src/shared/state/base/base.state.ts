@@ -6,7 +6,6 @@ import {inject} from "@angular/core";
 import {Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {NgEventBus} from "ng-event-bus";
-import {WhacAMoleProvider} from "@shared/presentation/whac-a-mole/whac-a-mole.provider";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 
 export interface IBaseState_Item<ITEM> {
@@ -43,7 +42,6 @@ export abstract class BaseState<ITEM extends ABaseEntity> {
 	protected readonly router = inject(Router);
 	protected readonly store = inject(Store);
 	protected readonly ngxLogger = inject(NGXLogger);
-	protected readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
 	protected constructor(
 		protected defaults: IBaseState<ITEM>,
