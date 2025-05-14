@@ -682,20 +682,21 @@
 			"atLeastOneMemberSelectedOrEntireBusiness": "You must select at least one member or choose the entire business.",
 			"durationFormatInvalid": "Valid format is hours:minutes (00:00)",
 			"email": "Invalid E-mail format",
-			"emailExists": "Email already exists",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
 			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
 			"invalid": "Invalid",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",
-			"phoneExists": "Phone number already exists",
 			"required": "Required field",
 			"shouldBeMoreThen": {
 				"startInSeconds": "The end time must be longer than the start time"
 			},
 			"startBeforeEnd": "The start date must be before the end date.",
-			"whitespace": "Remove all spaces"
+			"whitespace": "Remove all spaces",
+			"emailExists": "Email already exists",
+			"phoneExists": "Phone number already exists",
+			"min": "Minimum value is {{min}}"
 		}
 	},
 	"http": {

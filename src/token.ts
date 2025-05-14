@@ -6,7 +6,7 @@ import {BehaviorSubject} from "rxjs";
 import {EventListCustomerRepository} from "@tenant/customer/infrastructure/repository/event.list.customer.repository";
 
 // Use in [tenantId] router or in wrapper-panel.component.ts
-export const CURRENT_TENANT_ID = new InjectionToken<string>('TENANT_ID');
+export const CURRENT_TENANT_ID = new InjectionToken<string>('CURRENT_TENANT_ID');
 
 // Use global
 export const THEME = new InjectionToken<BehaviorSubject<ThemeEnum>>('THEME');

@@ -19,6 +19,9 @@ import {WINDOW} from "@core/cdk/window.provider";
 		TranslateModule,
 		DefaultLabelDirective
 	],
+	providers: [
+		LanguageBusinessPanelFrontendSettingsAccountApiAdapter
+	],
 	template: `
 		<label default>
 			{{ 'keyword.capitalize.language' | translate }}

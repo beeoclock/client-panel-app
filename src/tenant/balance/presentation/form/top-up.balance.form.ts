@@ -30,10 +30,10 @@ export class TopUpBalanceForm extends FormGroup<IBalanceForm> {
 				nonNullable: true,
 			}),
 			redirectUrl: new FormGroup({
-				cancelRedirectUrl: new FormControl<string>(window.location.origin, {
+				cancelRedirectUrl: new FormControl<string>('', {
 					nonNullable: true,
 				}),
-				successRedirectUrl: new FormControl<string>(window.location.origin, {
+				successRedirectUrl: new FormControl<string>('', {
 					nonNullable: true,
 				}),
 			}),
