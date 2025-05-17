@@ -102,14 +102,14 @@ export class TableListComponent extends TableComponent<EBalance> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
-		{
-			name: this.translateService.instant('keyword.capitalize.updatedAt'),
-			prop: 'updatedAt',
-			minWidth: 240,
-			width: 240,
-			sortable: true,
-			$$valueGetter: this.anyDateConvert,
-		},
+		// {
+		// 	name: this.translateService.instant('keyword.capitalize.updatedAt'),
+		// 	prop: 'updatedAt',
+		// 	minWidth: 240,
+		// 	width: 240,
+		// 	sortable: true,
+		// 	$$valueGetter: this.anyDateConvert,
+		// },
 	]);
 
 	public readonly columnList = computed(() => {
