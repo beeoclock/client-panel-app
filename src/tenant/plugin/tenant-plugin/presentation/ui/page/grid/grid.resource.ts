@@ -29,8 +29,6 @@ export class GridResource {
 
 			const {items, totalSize} = await this.sharedUow.plugin.repository.findAsync();
 
-			console.log({items, totalSize});
-
 			return {items, totalSize};
 
 		},
@@ -56,8 +54,6 @@ export class GridResource {
 		loader: async ({request}) => {
 
 			const {items, totalSize} = await this.sharedUow.tenantPlugin.repository.findAsync();
-
-			console.log({items, totalSize});
 
 			return {items, totalSize};
 

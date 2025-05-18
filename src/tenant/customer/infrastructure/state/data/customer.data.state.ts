@@ -34,13 +34,13 @@ export class CustomerDataState {
 	@Action(CustomerDataActions.CreateItem)
 	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerDataActions.CreateItem): Promise<void> {
 		const createCustomerUseCase = new CreateCustomerUseCase(this.sharedUow, action.payload);
-		try {
+		// try {
 			await createCustomerUseCase.execute();
-			// ctx.dispatch(new CustomerPresentationActions.CloseForm());
-		} catch (e) {
-			ctx.dispatch(new CustomerDataActions.CreateItemError(e));
-			this.ngxLogger.error(e);
-		}
+			ctx.dispatch(new CustomerPresentationActions.CloseForm());
+		// } catch (e) {
+		// 	ctx.dispatch(new CustomerDataActions.CreateItemError(e));
+		// 	this.ngxLogger.error(e);
+		// }
 	}
 
 	@Action(CustomerDataActions.UpdateItem)
