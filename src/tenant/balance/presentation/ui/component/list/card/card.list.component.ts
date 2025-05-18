@@ -11,14 +11,14 @@ import {
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
-import {
-	AutoRefreshButtonComponent
-} from "@tenant/customer/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import EBalance from "@tenant/balance/domain/entity/e.balance";
 import {
 	BalancePresentationActions
 } from "@tenant/balance/infrastructure/state/presentation/balance.presentation.actions";
+import {
+	AutoRefreshButtonComponent
+} from "@tenant/balance/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 
 @Component({
 	selector: 'balance-card-list-component',
@@ -33,7 +33,7 @@ import {
 		AsyncPipe,
 		CardIonListSmartComponent,
 		NotFoundTableDataComponent,
-		AutoRefreshButtonComponent
+		AutoRefreshButtonComponent,
 	],
 	host: {
 		class: 'block flex-1'

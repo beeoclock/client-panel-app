@@ -19,7 +19,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {explicitEffect} from "ngxtension/explicit-effect";
 
 @Component({
-	selector: 'app-list-customer-page',
+	selector: 'app-list-balance-page',
 	templateUrl: './list.balance.page.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
