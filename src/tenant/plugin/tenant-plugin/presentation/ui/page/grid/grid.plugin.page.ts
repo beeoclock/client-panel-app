@@ -28,8 +28,8 @@ import {tap} from "rxjs/operators";
 	},
 	template: `
 		<div class="w-full">
-			<h1 class="text-2xl font-bold text-gray-800 mb-4">Grid Plugin Page</h1>
-			<p class="text-gray-600">This is a simple grid plugin page example.</p>
+			<h1 class="text-2xl font-bold text-gray-800 mb-4">{{ 'keyword.capitalize.plugins' | translate }}</h1>
+			<p class="text-gray-600">{{ 'tenant-plugin.grid.subtitle' | translate }}</p>
 		</div>
 		@if (resource(); as resource) {
 			@for (storeItem of resource.items; track storeItem._id) {

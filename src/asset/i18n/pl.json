@@ -682,21 +682,21 @@
 			"atLeastOneMemberSelectedOrEntireBusiness": "Musisz wybrać co najmniej jednego członka lub całą firmę.",
 			"durationFormatInvalid": "Prawidłowy format to godziny:minuty (00:00)",
 			"email": "Nieprawidłowy format adresu e-mail",
+			"emailExists": "Adres e-mail już istnieje",
 			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
 			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
 			"invalid": "Nieprawidłowy",
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
+			"min": "Minimalna wartość to {{min}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
+			"phoneExists": "Numer telefonu już istnieje",
 			"required": "Wymagane pole",
 			"shouldBeMoreThen": {
 				"startInSeconds": "Czas zakończenia musi być dłuższy niż czas rozpoczęcia"
 			},
 			"startBeforeEnd": "Data rozpoczęcia musi być wcześniejsza niż data zakończenia.",
 			"username": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenie (_) i kropkę (.).",
-			"whitespace": "Usuń wszystkie spacje",
-			"emailExists": "Adres e-mail już istnieje",
-			"phoneExists": "Numer telefonu już istnieje",
-			"min": "Minimalna wartość to {{min}}"
+			"whitespace": "Usuń wszystkie spacje"
 		}
 	},
 	"http": {
@@ -1176,6 +1176,7 @@
 				"description": "Wprowadź szczegóły",
 				"search": "Szukaj"
 			},
+			"plugins": "Wtyczki",
 			"portfolio": "Portfolio",
 			"preview": "Podgląd",
 			"previous": "Wstecz",
@@ -1739,7 +1740,8 @@
 			"plugin": {
 				"attach": "Podłącz",
 				"detach": "Odłącz"
-			}
+			},
+			"subtitle": "Dzięki wtyczkom możesz uzyskać więcej funkcji i zautomatyzować niektóre procesy. Połącz się i automatyzuj!"
 		}
 	},
 	"updateAvailable": {
