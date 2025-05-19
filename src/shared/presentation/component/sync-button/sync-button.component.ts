@@ -30,7 +30,7 @@ import {injectNetwork} from "ngxtension/inject-network";
 		TimeAgoPipe,
 	],
 	host: {
-		class: 'px-3 pb-4 pt-0'
+		class: 'px-2 pb-4 pt-0'
 	},
 	template: `
 
@@ -166,7 +166,7 @@ export class SyncButtonComponent implements OnInit {
 
 	private detectChanges() {
 
-		const {syncState} = BaseSyncManager.getSyncManager('businessProfile');
+		const {syncState} = BaseSyncManager.getSyncManager('business-profile');
 		const value = syncState?.options?.updatedSince || new Date(0).toISOString();
 		this.lastSynchronizedIn.set(value);
 		this.changeDetectorRef.detectChanges();

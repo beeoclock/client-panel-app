@@ -69,7 +69,7 @@ export class InvalidTooltipDirective implements DoCheck {
 
 		// Remove red border from input
 		const setRedBorderTo = this.setRedBorderTo();
-  if (setRedBorderTo) {
+		if (setRedBorderTo) {
 			const element = document.querySelector(setRedBorderTo);
 			if (element) {
 				this.invalidClassList.forEach((className) => {
@@ -145,7 +145,7 @@ export class InvalidTooltipDirective implements DoCheck {
 
 		// Add border red to input
 		const setRedBorderTo = this.setRedBorderTo();
-  if (setRedBorderTo) {
+		if (setRedBorderTo) {
 			const element = this.document.querySelector(setRedBorderTo);
 			if (element) {
 				this.invalidClassList.forEach((className) => {

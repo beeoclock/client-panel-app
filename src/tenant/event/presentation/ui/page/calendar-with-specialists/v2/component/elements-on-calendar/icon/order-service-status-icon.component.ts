@@ -41,13 +41,13 @@ import {TranslatePipe} from "@ngx-translate/core";
 		TranslatePipe
 	],
 	host: {
-		'[class.text-red-600]': 'status() === orderServiceStatusEnum.cancelled',
-		'[class.text-red-700]': 'status() === orderServiceStatusEnum.deleted',
-		'[class.text-red-800]': 'status() === orderServiceStatusEnum.rejected',
-		'[class.text-neutral-600]': 'status() === orderServiceStatusEnum.accepted',
-		'[class.text-blue-600]': 'status() === orderServiceStatusEnum.requested',
-		'[class.text-green-600]': 'status() === orderServiceStatusEnum.done',
-		'[class.text-yellow-600]': 'status() === orderServiceStatusEnum.inProgress',
+		'[class.text-red-600]': 'useDefaultStyle() && status() === orderServiceStatusEnum.cancelled',
+		'[class.text-red-700]': 'useDefaultStyle() && status() === orderServiceStatusEnum.deleted',
+		'[class.text-red-800]': 'useDefaultStyle() && status() === orderServiceStatusEnum.rejected',
+		'[class.text-neutral-600]': 'useDefaultStyle() && status() === orderServiceStatusEnum.accepted',
+		'[class.text-blue-600]': 'useDefaultStyle() && status() === orderServiceStatusEnum.requested',
+		'[class.text-green-600]': 'useDefaultStyle() && status() === orderServiceStatusEnum.done',
+		'[class.text-yellow-600]': 'useDefaultStyle() && status() === orderServiceStatusEnum.inProgress',
 	}
 })
 export class OrderServiceStatusIconComponent {
@@ -57,6 +57,8 @@ export class OrderServiceStatusIconComponent {
 	public readonly labelCLass = input<string>();
 
 	public readonly showLabel = input<boolean>(false);
+
+	public readonly useDefaultStyle = input<boolean>(true);
 
 	public readonly status = input.required<OrderServiceStatusEnum>();
 

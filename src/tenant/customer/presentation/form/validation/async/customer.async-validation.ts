@@ -1,5 +1,5 @@
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
-import {from, Observable, of} from 'rxjs';
+import {forkJoin, from, Observable, of} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {Injectable} from "@angular/core";
@@ -43,22 +43,19 @@ export class CustomerAsyncValidation {
 
 			return of(phone).pipe(
 				switchMap(() =>
-					from(
-						this.sharedUow.customer.fundOneByPhone(phone)
-					).pipe(
-						map((customer) => !!customer), // Check if customer exists
-						switchMap((exists: boolean) => {
-							if (exists && !phone.startsWith('+')) {
-								return of(exists);
+					forkJoin({
+						withPlus: from(this.sharedUow.customer.fundOneByPhone(phone)),
+						withoutPlus: from(this.sharedUow.customer.fundOneByPhone(phone.replace('+', '')))
+					}).pipe(
+						map(({withoutPlus, withPlus}) => {
+							if (withPlus || withoutPlus) {
+								return {phoneExists: true};
 							}
-							return from(
-								this.sharedUow.customer.fundOneByPhone(phone.replace('+', ''))
-							).pipe(
-								map((customer) => !!customer) // Check if customer exists
-							)
+							return null;
 						}),
-						map((exists: boolean) => (exists ? {phoneExists: true} : null)),
-						catchError(() => of(null)) // Handle errors gracefully
+						catchError(() => {
+							return of(null);
+						}) // Handle errors gracefully
 					)
 				)
 			);
