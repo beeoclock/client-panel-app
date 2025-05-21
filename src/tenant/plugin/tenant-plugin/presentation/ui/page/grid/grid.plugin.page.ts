@@ -73,7 +73,7 @@ import {tap} from "rxjs/operators";
 								}
 							</div>
 							@if (isOnline()) {
-								@if (storeItem.isUpcoming) {
+								@if (storeItem.isUpcoming()) {
 									<div class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-neutral-200 text-neutral-500">
 										{{ 'keyword.capitalize.isUpcoming' | translate }}
 									</div>
