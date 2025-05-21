@@ -7,7 +7,7 @@
         w-full
         sm:w-64
         sm:h-dvh
-        h-[calc(100%-4rem)]
+        h-[calc(100%-5rem)]
         transition-transform
         -translate-x-full
         bg-white
@@ -21,10 +21,10 @@
 	@switch (sidebarService.currentContent) {
 
 		@case (sidebarService.sidebarContentEnum.MENU) {
-			<utility-sidebar-menu-component class="flex-1 h-full"/>
+			<utility-sidebar-menu-component class="flex-1 h-0"/>
 		}
 		@case (sidebarService.sidebarContentEnum.PROFILE) {
-			<utility-sidebar-profile-component class="flex-1 h-full"/>
+			<utility-sidebar-profile-component class="flex-1 h-0"/>
 		}
 
 	}

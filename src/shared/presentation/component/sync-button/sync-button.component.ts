@@ -30,7 +30,7 @@ import {injectNetwork} from "ngxtension/inject-network";
 		TimeAgoPipe,
 	],
 	host: {
-		class: 'px-2 pb-4 pt-0'
+		class: 'p-2'
 	},
 	template: `
 
