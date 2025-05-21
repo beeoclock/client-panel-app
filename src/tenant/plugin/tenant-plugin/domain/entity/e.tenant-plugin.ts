@@ -83,6 +83,10 @@ export class ETenantPlugin extends ABaseEntity<'TenantPluginDto', ITenantPlugin.
 		this.refreshUpdatedAt();
 	}
 
+	public isUpcoming(): boolean {
+		return this.plugin.isUpcoming;
+	}
+
 	/**
 	 * Use it to create new entity, e.g. from API or form
 	 * @param data

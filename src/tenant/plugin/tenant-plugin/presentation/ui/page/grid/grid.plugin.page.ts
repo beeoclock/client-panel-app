@@ -73,27 +73,33 @@ import {tap} from "rxjs/operators";
 								}
 							</div>
 							@if (isOnline()) {
-								@if (storeItem.tenantDoesNotHavePlugin() || storeItem.isDetached()) {
-									<button (click)="attach(storeItem)"
-											[disabled]="loadingRecordByPluginId()[storeItem._id]"
-											class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white transition-all hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-										@if (loadingRecordByPluginId()[storeItem._id]) {
-											<i class="bi bi-arrow-clockwise animate-spin"></i>
-										} @else {
-											{{ 'tenant-plugin.grid.plugin.attach' | translate }}
-										}
-									</button>
-								}
-								@if (storeItem.isAttached()) {
-									<button (click)="detach(storeItem)"
-											[disabled]="loadingRecordByPluginId()[storeItem._id]"
-											class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-neutral-500 hover:bg-neutral-400 hover:text-white transition-all focus:outline-hidden focus:bg-neutral-500 disabled:opacity-50 disabled:pointer-events-none">
-										@if (loadingRecordByPluginId()[storeItem._id]) {
-											<i class="bi bi-arrow-clockwise animate-spin"></i>
-										} @else {
-											{{ 'tenant-plugin.grid.plugin.detach' | translate }}
-										}
-									</button>
+								@if (storeItem.isUpcoming) {
+									<div class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-neutral-200 text-neutral-500">
+										{{ 'keyword.capitalize.isUpcoming' | translate }}
+									</div>
+								} @else {
+									@if (storeItem.tenantDoesNotHavePlugin() || storeItem.isDetached()) {
+										<button (click)="attach(storeItem)"
+												[disabled]="loadingRecordByPluginId()[storeItem._id]"
+												class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white transition-all hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+											@if (loadingRecordByPluginId()[storeItem._id]) {
+												<i class="bi bi-arrow-clockwise animate-spin"></i>
+											} @else {
+												{{ 'tenant-plugin.grid.plugin.attach' | translate }}
+											}
+										</button>
+									}
+									@if (storeItem.isAttached()) {
+										<button (click)="detach(storeItem)"
+												[disabled]="loadingRecordByPluginId()[storeItem._id]"
+												class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-neutral-500 hover:bg-neutral-400 hover:text-white transition-all focus:outline-hidden focus:bg-neutral-500 disabled:opacity-50 disabled:pointer-events-none">
+											@if (loadingRecordByPluginId()[storeItem._id]) {
+												<i class="bi bi-arrow-clockwise animate-spin"></i>
+											} @else {
+												{{ 'tenant-plugin.grid.plugin.detach' | translate }}
+											}
+										</button>
+									}
 								}
 							} @else {
 								<div
