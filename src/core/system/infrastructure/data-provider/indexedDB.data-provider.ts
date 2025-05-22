@@ -54,51 +54,50 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 		return this.db$.pipe(
 			take(1),
 			concatMap((table) => {
-
 				const {
-					pageSize = undefined,
-					page = undefined,
+					pageSize,
+					page,
 					orderBy = OrderByEnum.CREATED_AT,
 					orderDir = OrderDirEnum.DESC,
-					...filter
+					...rawFilter
 				} = options as Types.StandardQueryParams;
 
-				// Delete updatedSince from filter because it is not a field in the table, and it is not a filter field
+				// Remove non-indexed/non-data field filters
+				const filter = { ...rawFilter };
 				delete filter.updatedSince;
 
+				// Start ordered query
 				let query = table.orderBy(orderBy);
-
 				if (orderDir === OrderDirEnum.DESC) {
 					query = query.reverse();
 				}
 
-				// Filter entities
-				query = query.filter((entity) => {
-					return filterFunction(entity, filter as Types.StandardQueryParams);
-				});
-
-				const countQuery$ = query.count();
-
-				if (pageSize && page) {
-
-					const offset = pageSize * (page - 1);
-
-					query = query.offset(offset).limit(pageSize);
-
-				}
-
-				return from(countQuery$).pipe(
-					switchMap((totalSize) =>
-						from(query.toArray()).pipe(
-							map((items) => [totalSize, items] as const)
-						)
-					),
-					map(({0: totalSize, 1: items}) => ({
-						items,
-						totalSize,
-					}))
+				// Apply custom filter
+				const filteredQuery = query.filter((entity) =>
+					filterFunction(entity, filter)
 				);
-			}),
+
+				// Get total count before pagination
+				const count$ = from(filteredQuery.count());
+
+				return count$.pipe(
+					switchMap((totalSize) => {
+						let pagedQuery = filteredQuery;
+
+						if (pageSize != null && page != null) {
+							const offset = pageSize * (page - 1);
+							pagedQuery = filteredQuery.offset(offset).limit(pageSize);
+						}
+
+						return from(pagedQuery.toArray()).pipe(
+							map((items) => ({
+								items,
+								totalSize,
+							}))
+						);
+					})
+				);
+			})
 		);
 	}
 
