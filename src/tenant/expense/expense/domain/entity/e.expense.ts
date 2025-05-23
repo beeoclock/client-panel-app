@@ -26,6 +26,7 @@ export class EExpense extends ABaseEntity<'ExpenseDto', IExpense.DTO, IExpense.E
 			_id: data._id,
 			state: data.state,
 			object: data.object,
+			_version: data._version,
 			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
 			stateHistory: data.stateHistory

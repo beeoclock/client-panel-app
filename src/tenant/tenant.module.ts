@@ -14,10 +14,9 @@ import {TenantPaymentStateEffect} from "@tenant/tenant.payment-state.effect";
 import {TariffPlanDomainModule} from "@tenant/tariff-plan/tariff-plan.domain.module";
 import {MemberDomainModule} from "@tenant/member/member-domain.module";
 import {BalanceModule} from "@tenant/balance/balance.module";
-import {ExpenseModule} from "@tenant/expense/expense/expense.module";
-import {ExpenseCategoryModule} from "@tenant/expense/expense-category/expense-category.module";
 import {PluginDomainModule} from "@tenant/plugin/plugin.domain.module";
 import {ProductDomainModule} from "@tenant/product/product-domain.module";
+import {ExpenseDomainModule} from "@tenant/expense/expense-domain.module";
 
 @NgModule({
 	providers: [
@@ -34,6 +33,7 @@ import {ProductDomainModule} from "@tenant/product/product-domain.module";
 			BalanceModule,
 			PluginDomainModule,
 			ProductDomainModule,
+			ExpenseDomainModule,
 		),
 	],
 	imports: [
@@ -44,8 +44,6 @@ import {ProductDomainModule} from "@tenant/product/product-domain.module";
 		CustomerModule,
 		ServiceModule,
 		EventModule,
-		ExpenseModule,
-		ExpenseCategoryModule,
 
 	],
 })
