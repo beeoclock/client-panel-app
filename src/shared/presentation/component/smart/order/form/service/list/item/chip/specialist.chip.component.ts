@@ -7,8 +7,8 @@ import {Reactive} from "@core/cdk/reactive";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {SpecialistModel} from "@tenant/service/domain/model/specialist.model";
 import {TranslateModule} from "@ngx-translate/core";
-import {IMember} from "@tenant/member/domain/interface/i.member";
-import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
+import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/member.data.state";
 
 @Component({
 	selector: 'app-specialist-chip-component',

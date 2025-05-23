@@ -1,21 +1,32 @@
 import {ServiceService} from "@tenant/service/domain/service/service.service";
-import {PaymentService} from "@tenant/payment/domain/service/payment.service";
-import {OrderService} from "@tenant/order/domain/service/order.service";
-import {MemberService} from "@tenant/member/domain/service/member.service";
+import {PaymentService} from "@tenant/order/payment/domain/service/payment.service";
+import {OrderService} from "@tenant/order/order/domain/service/order.service";
+import {MemberService} from "@tenant/member/member/domain/service/member.service";
 import {CustomerService} from "@tenant/customer/domain/service/customer.service";
 import {BusinessProfileService} from "@tenant/business-profile/domain/service/business-profile.service";
-import {TariffPlanService} from "@tenant/tariff-plan/domain/service/tariff-plan.service";
-import {TariffPlanHistoryService} from "@tenant/tariff-plan-history/domain/service/tariff-plan-history.service";
-import {ProductService} from "@tenant/product/domain/service/product.service";
-import {AbsenceService} from "@tenant/absence/domain/service/absence.service";
+import {AbsenceService} from "@tenant/member/absence/domain/service/absence.service";
+import {TariffPlanService} from "@tenant/tariff-plan/tariff-plan/domain/service/tariff-plan.service";
+import {
+	TariffPlanHistoryService
+} from "@tenant/tariff-plan/tariff-plan-history/domain/service/tariff-plan-history.service";
+import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
+import {EnvironmentProviders, Provider} from "@angular/core";
+import {BalanceService} from "@tenant/balance/domain/service/balance.service";
+import {PluginService} from "@tenant/plugin/plugin/domain/service/plugin.service";
+import {TenantPluginService} from "@tenant/plugin/tenant-plugin/domain/service/tenant-plugin.service";
 import {ProductTagService} from "@tenant/product-tag/domain/service/product-tag.service";
-import {OrderServiceService} from "@tenant/order-service/domain/service/order-service.service";
+import {ProductService} from "@tenant/product/domain/service/product.service";
 
 /**
  * Shared Unit of Work
  * Use this class to access services from different modules, without importing them directly
  */
 export class SharedUow {
+
+	public static provide: Provider | EnvironmentProviders = {
+		provide: SharedUow,
+		useClass: SharedUow,
+	};
 
 	#service!: ServiceService;
 	#payment!: PaymentService;
@@ -29,6 +40,9 @@ export class SharedUow {
 	#productTag!: ProductTagService;
 	#tariffPlan!: TariffPlanService;
 	#tariffPlanHistory!: TariffPlanHistoryService;
+	#balance!: BalanceService;
+	#plugin!: PluginService;
+	#tenantPlugin!: TenantPluginService;
 
 	public get service() {
 		if (!this.#service) {
@@ -138,6 +152,39 @@ export class SharedUow {
 
 	public set tariffPlanHistory(value: TariffPlanHistoryService) {
 		this.#tariffPlanHistory = value;
+	}
+
+	public get plugin() {
+		if (!this.#plugin) {
+			throw new Error('pluginService is not initialized');
+		}
+		return this.#plugin;
+	}
+
+	public set plugin(value: PluginService) {
+		this.#plugin = value;
+	}
+
+	public get tenantPlugin() {
+		if (!this.#tenantPlugin) {
+			throw new Error('tenantPluginService is not initialized');
+		}
+		return this.#tenantPlugin;
+	}
+
+	public set tenantPlugin(value: TenantPluginService) {
+		this.#tenantPlugin = value;
+	}
+
+	public get balance() {
+		if (!this.#balance) {
+			throw new Error('balanceService is not initialized');
+		}
+		return this.#balance;
+	}
+
+	public set balance(value: BalanceService) {
+		this.#balance = value;
 	}
 
 	public get product() {

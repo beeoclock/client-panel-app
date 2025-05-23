@@ -172,6 +172,18 @@
 			"off": "off"
 		}
 	},
+	"balance": {
+		"button": {
+			"create": "Top up balance"
+		},
+		"field": {
+			"action": {
+				"type": {
+					"label": "Type"
+				}
+			}
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Beauty salon",
@@ -645,6 +657,8 @@
 				"LAST_MONTH": "Last month",
 				"LAST_WEEK": "Last week",
 				"LAST_YEAR": "Last year",
+				"NEXT_MONTH": "Next month",
+				"NEXT_WEEK": "Next week",
 				"THIS_MONTH": "This month",
 				"THIS_WEEK": "This week",
 				"THIS_YEAR": "This year",
@@ -668,12 +682,15 @@
 			"atLeastOneMemberSelectedOrEntireBusiness": "You must select at least one member or choose the entire business.",
 			"durationFormatInvalid": "Valid format is hours:minutes (00:00)",
 			"email": "Invalid E-mail format",
+			"emailExists": "Email already exists",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
 			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
 			"invalid": "Invalid",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
+			"min": "Minimum value is {{min}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",
+			"phoneExists": "Phone number already exists",
 			"required": "Required field",
 			"shouldBeMoreThen": {
 				"startInSeconds": "The end time must be longer than the start time"
@@ -1072,6 +1089,7 @@
 			"autoActionTypeOnOrder": "Type of automatic action",
 			"avatar": "Avatar",
 			"back": "Back",
+			"banners": "Banners",
 			"bookingSettings": "Booking settings",
 			"break": "Break",
 			"business": "Business",
@@ -1138,6 +1156,7 @@
 			"events": "Events",
 			"every": "Every",
 			"exhausted": "Exhausted",
+			"export": "Export",
 			"facilities": "Facilities",
 			"feature": "Feature",
 			"finished": "Finished",
@@ -1166,6 +1185,7 @@
 			"next": "Next",
 			"nextStep": "Next step",
 			"no": "No",
+			"noAvailable": "No available",
 			"noData": "No data",
 			"noNeedCard": "No need card",
 			"notPaid": "Not paid",
@@ -1179,6 +1199,8 @@
 			"ownOptionOfTime": "Hour according to your wish",
 			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
 			"paid": "Paid",
+			"payAsYouGo": "Pay as you go",
+			"isUpcoming": "Is upcoming",
 			"payer": "Payer",
 			"payment": "Payment",
 			"paymentMethod": "Payment method",
@@ -1196,6 +1218,7 @@
 				"description": "Type description",
 				"search": "Search"
 			},
+			"plugins": "Plugins",
 			"portfolio": "Portfolio",
 			"preview": "Preview",
 			"previous": "Previous",
@@ -1306,6 +1329,9 @@
 				"0": "Inactive",
 				"1": "Active"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "N/A"
 		}
 	},
 	"latestBooking": {
@@ -1618,6 +1644,7 @@
 		"appointments": {
 			"label": "Appointments"
 		},
+		"balance": "Balance",
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",
 		"calendar": {
@@ -1636,6 +1663,7 @@
 		"members": "Members",
 		"order": "Orders",
 		"payment": "Payments",
+		"plugins": "Plugins",
 		"private": "Private",
 		"product-tag": "Product tags",
 		"products": "Products",
@@ -1769,6 +1797,15 @@
 		"page": {
 			"subtitle": "Choose the best option for your business",
 			"title": "Tariffs"
+		}
+	},
+	"tenant-plugin": {
+		"grid": {
+			"plugin": {
+				"attach": "Get",
+				"detach": "Disable"
+			},
+			"subtitle": "With plugins, you can get more features and automate certain processes. Connect and automate!"
 		}
 	},
 	"updateAvailable": {

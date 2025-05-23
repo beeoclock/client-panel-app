@@ -32,26 +32,26 @@ import {CustomerDataState} from "@tenant/customer/infrastructure/state/data/cust
 		<utility-default-panel-component>
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full p-2">
-					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+					<ng-container *ngTemplateOutlet="SearchInput" />
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm" />
 				</div>
 
 			} @else {
 
 				<div class="flex overflow-x-auto gap-2 p-2">
-					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-					<ng-container *ngTemplateOutlet="CustomerActiveSelect"></ng-container>
-					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+					<ng-container *ngTemplateOutlet="SearchInput" />
+					<ng-container *ngTemplateOutlet="CustomerActiveSelect" />
+					<ng-container *ngTemplateOutlet="AutoRefresh" />
 				</div>
 				<div class="p-2">
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm" />
 				</div>
 			}
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
-				<ng-container *ngTemplateOutlet="CustomerActiveSelect"></ng-container>
-				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+				<ng-container *ngTemplateOutlet="CustomerActiveSelect" />
+				<ng-container *ngTemplateOutlet="AutoRefresh" />
 			</div>
 		}
 

@@ -24,7 +24,7 @@ import {
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/start.chip.component";
 import LanguageChipComponent
 	from "@shared/presentation/component/smart/order/form/service/list/item/chip/language.chip.component";
-import {ServiceOrderForm} from "@tenant/order/presentation/form/service.order.form";
+import {ServiceOrderForm} from "@tenant/order/order/presentation/form/service.order.form";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
@@ -32,9 +32,9 @@ import {ICustomer} from "@tenant/customer/domain";
 import {SpecialistModel} from "@tenant/service/domain/model/specialist.model";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {is} from "@core/shared/checker";
-import {IAttendeeDto} from "@tenant/order/domain/interface/i-order-appointment-details.dto";
+import {IAttendeeDto} from "@tenant/order/order/domain/interface/i-order-appointment-details.dto";
 import {IService} from "@tenant/service/domain/interface/i.service";
-import {IMember} from "@tenant/member/domain/interface/i.member";
+import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {
 	ServiceChipComponent
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/service/service.chip.component";

@@ -3,11 +3,11 @@ import {
 	ChangeDetectorRef,
 	Component,
 	computed,
-	effect,
 	inject,
 	input,
 	output,
-	signal
+	signal,
+	viewChild
 } from '@angular/core';
 import {
 	ColumnMode,
@@ -30,73 +30,74 @@ import {
 import {
 	PagerTableNgxDataTableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/pager.table-ngx-data-table.smart.component";
+import {explicitEffect} from "ngxtension/explicit-effect";
 
 
 @Component({
 	selector: 'app-table-ngx-datatable-smart-component',
 	template: `
-		@if (rows.length || resource.value().totalSize) {
 
-			<ngx-datatable
-				#table
-				class="h-full"
-				[messages]="messages()"
-				[rows]="rows"
-				[reorderable]="true"
-				[trackByProp]="trackByProp()"
-				[rowDraggable]="rowDraggable()"
-				[columns]="columns()"
-				[columnMode]="ColumnMode.force"
-				[headerHeight]="50"
-				[scrollbarV]="true"
-				[footerHeight]="50"
-				[rowHeight]="rowHeight()"
-				[externalPaging]="true"
-				[externalSorting]="true"
-				[limit]="pageSize()"
-				[count]="totalSize()"
-				[offset]="offsetPage()"
-				[sorts]="sorts()"
-				(activate)="onActivate($event)"
-				(sort)="setSort($event)"
-				(rowDragEvents)="onRowDragEvents($event)"
-				(page)="setPage($event)">
-				<div loading-indicator class="flex h-full w-full items-center justify-center">
-					<div>
-						loading...
-					</div>
+		<ngx-datatable
+			#table
+			class="h-full"
+			[messages]="messages()"
+			[rows]="rows"
+			[reorderable]="true"
+			[trackByProp]="trackByProp()"
+			[rowDraggable]="rowDraggable()"
+			[columns]="columns()"
+			[ghostLoadingIndicator]="true"
+			[columnMode]="ColumnMode.force"
+			[headerHeight]="50"
+			[scrollbarV]="true"
+			[footerHeight]="50"
+			[rowHeight]="rowHeight()"
+			[externalPaging]="true"
+			[externalSorting]="true"
+			[limit]="pageSize()"
+			[count]="totalSize()"
+			[offset]="page()"
+			[sorts]="sorts()"
+			(activate)="onActivate($event)"
+			(sort)="setSort($event)"
+			(rowDragEvents)="onRowDragEvents($event)"
+			(page)="setPage($event)">
+			<div loading-indicator class="flex h-full w-full items-center justify-center">
+				<div>
+					loading...
 				</div>
+			</div>
 
-				<ngx-datatable-footer>
-					<ng-template
-						let-rowCount="rowCount"
-						let-pageSize="pageSize"
-						let-selectedCount="selectedCount"
-						let-curPage="curPage"
-						let-offset="offset"
-						ngx-datatable-footer-template
-					>
-						<div class="page-count">
-							{{ 'keyword.capitalize.total' | translate }}: {{ rowCount }}
-						</div>
-						<app-pager-table-ngx-datatable-smart-component
-							[page]="curPage"
-							[goToFirstPageVisible]="goToFirstPageVisible()"
-							[goToLastPageVisible]="goToLastPageVisible()"
-							[visiblePagesCount]="currentVisible()"
-							[size]="pageSize"
-							[count]="rowCount"
-							[hidden]="false"
-							(change)="table.onFooterPage($event)"/>
-					</ng-template>
+			<ngx-datatable-footer>
+				<ng-template
+					let-rowCount="rowCount"
+					let-pageSize="pageSize"
+					let-selectedCount="selectedCount"
+					let-curPage="curPage"
+					let-offset="offset"
+					ngx-datatable-footer-template
+				>
+					<div class="page-count">
+						{{ 'keyword.capitalize.total' | translate }}: {{ rowCount }}
+					</div>
+					<app-pager-table-ngx-datatable-smart-component
+						[page]="curPage"
+						[goToFirstPageVisible]="goToFirstPageVisible()"
+						[goToLastPageVisible]="goToLastPageVisible()"
+						[visiblePagesCount]="currentVisible()"
+						[size]="pageSize"
+						[count]="rowCount"
+						[hidden]="false"
+						(change)="table.onFooterPage($event)"/>
+				</ng-template>
 
-				</ngx-datatable-footer>
-			</ngx-datatable>
+			</ngx-datatable-footer>
+		</ngx-datatable>
 
-		} @else {
-
-			<ng-content select="not-found-table-data-component"/>
-
+		@if (!rows.length) {
+			<div class="absolute inset-0 flex items-center justify-center">
+				<ng-content select="not-found-table-data-component"/>
+			</div>
 		}
 
 	`,
@@ -111,7 +112,7 @@ import {
 	],
 	standalone: true,
 	host: {
-		class: 'h-full',
+		class: 'h-full relative',
 	},
 	styleUrl: './table-ngx-datatable.smart.component.scss',
 })
@@ -136,13 +137,16 @@ export class TableNgxDatatableSmartComponent {
 	public readonly activate = output<ActivateEvent<any>>();
 	public readonly rowDragEvents = output<DragEventData>();
 
+	public readonly ngxDatatable = viewChild(DatatableComponent);
+
 	public readonly offsetPage = computed(() => {
 		// Current page number is determined by last call to setPage
 		// This is the page the UI is currently displaying
 		// The current page is based on the UI pagesize and scroll position
 		// Pagesize can change depending on browser size
 		const {page} = this.parameters();
-		return (page - 1);
+		const offset = (page - 1) * this.pageSize();
+		return offset;
 	});
 
 	public readonly page = computed(() => {
@@ -192,14 +196,17 @@ export class TableNgxDatatableSmartComponent {
 	});
 
 	public constructor() {
-		let previousLoadingValue = 0;
-		effect(() => {
-			const isLoading = this.isLoading();
-			if (isLoading !== previousLoadingValue) {
-				previousLoadingValue = isLoading;
-				this.changeDetectorRef.detectChanges();
-			}
-		})
+		explicitEffect([this.isLoading], () => {
+			this.changeDetectorRef.detectChanges();
+		});
+		explicitEffect([this.tableNgxDatatableSmartResource.resetScrollPosition.listen], () => {
+			setTimeout(() => {
+				const ngxDatatable = this.ngxDatatable();
+				if (ngxDatatable) {
+					ngxDatatable?.bodyComponent?.scroller?.setOffset?.(0);
+				}
+			}, 0)
+		});
 	}
 
 	public get cache() {
@@ -223,7 +230,7 @@ export class TableNgxDatatableSmartComponent {
 	}
 
 	public get isLoading() {
-		return this.tableNgxDatatableSmartResource.isLoading;
+		return this.tableNgxDatatableSmartResource.resource.isLoading;
 	}
 
 	public reset() {
@@ -268,13 +275,13 @@ export class TableNgxDatatableSmartComponent {
 
 	public updateParameters(patch: Partial<AsyncLoadDataFunctionParams> = {}) {
 		const {orderBy, orderDir} = this.sort();
-		this.parameters.update((parameters) => ({
-			...parameters,
+		const parameters = {
 			page: this.page(),
 			pageSize: this.pageSize(),
 			orderBy,
 			orderDir,
 			...patch,
-		}));
+		};
+		this.tableNgxDatatableSmartResource.patchParameters(parameters);
 	}
 }

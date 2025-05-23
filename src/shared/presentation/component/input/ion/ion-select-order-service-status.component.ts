@@ -3,7 +3,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonSelect, IonSelectOption} from "@ionic/angular/standalone";
-import {OrderServiceStatusEnum} from "@tenant/order-service/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 
 @Component({
 	selector: 'ion-select-order-service-status',

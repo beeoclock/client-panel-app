@@ -1,9 +1,8 @@
-import {Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
+import {afterNextRender, Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ICustomer, validCustomer} from "@tenant/customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
-import {firstValueFrom} from "rxjs";
-import {Store} from "@ngxs/store";
+import {Actions, ofActionErrored, ofActionSuccessful} from "@ngxs/store";
 import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
@@ -15,9 +14,10 @@ import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/customer.data.actions";
-import {
-	CustomerPresentationActions
-} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
+import {CustomerAsyncValidation} from "@tenant/customer/presentation/form/validation/async/customer.async-validation";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {tap} from "rxjs/operators";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'customer-form-page',
@@ -33,13 +33,13 @@ import {
 		NgComponentOutlet,
 		NgForOf,
 	],
+	providers: [CustomerAsyncValidation],
 	standalone: true
 })
 export class CustomerFormContainerComponent implements OnInit {
 
-	// TODO move functions to store effects/actions
-
-	private readonly store = inject(Store);
+	private readonly actions = inject(Actions);
+	private readonly customerAsyncValidation = inject(CustomerAsyncValidation);
 	private readonly ngxLogger = inject(NGXLogger);
 
 	public readonly form = CustomerForm.create({
@@ -49,6 +49,41 @@ export class CustomerFormContainerComponent implements OnInit {
 	public readonly item = input<ICustomer.DTO | undefined>();
 
 	public readonly isEditMode = input<boolean>(false);
+
+	public readonly erroredSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionErrored(
+			CustomerDataActions.UpdateItem,
+			CustomerDataActions.CreateItem,
+		),
+		tap((payload) => {
+			this.form.enable();
+			this.form.updateValueAndValidity();
+		})
+	).subscribe();
+
+	public readonly successfulSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			CustomerDataActions.UpdateItem,
+			CustomerDataActions.CreateItem,
+		),
+		tap((payload) => {
+			this.form.enable();
+			this.form.updateValueAndValidity();
+		})
+	).subscribe();
+
+	public constructor() {
+		afterNextRender(() => {
+			this.form.controls.email.addAsyncValidators([
+				this.customerAsyncValidation.emailExistAsyncValidator(),
+			]);
+			this.form.controls.phone.addAsyncValidators([
+				this.customerAsyncValidation.phoneExistAsyncValidator(),
+			]);
+		});
+	}
 
 	public ngOnInit(): void {
 		this.detectItem();
@@ -74,23 +109,23 @@ export class CustomerFormContainerComponent implements OnInit {
 			return;
 		}
 		if (this.form.valid) {
+
 			this.form.disable();
 			this.form.markAsPending();
-			const actions: any[] = [
-				new CustomerPresentationActions.CloseForm(),
-			]
-			if (this.isEditMode()) {
-				actions.unshift(new CustomerDataActions.UpdateItem(value));
-			} else {
-				actions.unshift(new CustomerDataActions.CreateItem(value));
-			}
-			const action$ = this.store.dispatch(actions);
-			await firstValueFrom(action$);
-			this.form.enable();
-			this.form.updateValueAndValidity();
+
+			this.dispatch(value);
 
 		} else {
 			this.ngxLogger.error('Form is invalid', this.form);
+		}
+	}
+
+	@Dispatch()
+	public dispatch(value: ICustomer.DTO) {
+		if (this.isEditMode()) {
+			return new CustomerDataActions.UpdateItem(value);
+		} else {
+			return new CustomerDataActions.CreateItem(value);
 		}
 	}
 }

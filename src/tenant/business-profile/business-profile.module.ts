@@ -19,6 +19,9 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {PushChangesSyncManager} from "@tenant/business-profile/infrastructure/sync-manager/push.changes.sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {
+	BusinessProfileStore
+} from "@tenant/business-profile/infrastructure/store/business-profile/business-profile.store";
 
 @NgModule({
 	imports: [
@@ -27,6 +30,8 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		]),
 	],
 	providers: [
+
+		BusinessProfileStore,
 
 		// Api
 		GetApi.Request,

@@ -172,6 +172,18 @@
 			"off": "fra"
 		}
 	},
+	"balance": {
+		"button": {
+			"create": "Fyld din saldo op"
+		},
+		"field": {
+			"action": {
+				"type": {
+					"label": "Type"
+				}
+			}
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbersalon",
 		"BeautySalon": "Skønhedssalon",
@@ -645,6 +657,8 @@
 				"LAST_MONTH": "Sidste måned",
 				"LAST_WEEK": "Sidste uge",
 				"LAST_YEAR": "Sidste år",
+				"NEXT_MONTH": "Næste måned",
+				"NEXT_WEEK": "Næste uge",
 				"THIS_MONTH": "Denne måned",
 				"THIS_WEEK": "Denne uge",
 				"THIS_YEAR": "Dette år",
@@ -668,11 +682,14 @@
 			"atLeastOneMemberSelectedOrEntireBusiness": "Du skal vælge mindst ét medlem eller hele virksomheden.",
 			"durationFormatInvalid": "Gyldigt format er timer:minutter (00:00)",
 			"email": "Ugyldigt e-mail-format",
+			"emailExists": "En bruger med denne e-mail eksisterer allerede",
 			"emailOrPhoneRequired": "E-mail eller telefonnummer er påkrævet",
 			"imageSize": "Maksimal billedstørrelse er {{max}}, nuværende størrelse er {{value}}",
 			"invalid": "Invalid",
 			"mask": "Ugyldigt format, korrekt format er {{requiredMask}}",
+			"min": "Minimum værdi er {{min}}",
 			"minlength": "Minimumslængde er {{requiredLength}}",
+			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede",
 			"required": "Påkrævet felt",
 			"shouldBeMoreThen": {
 				"startInSeconds": "Sluttidspunktet skal være længere end starttidspunktet"
@@ -1072,6 +1089,7 @@
 			"autoActionTypeOnOrder": "Type automatisk handling",
 			"avatar": "Avatar",
 			"back": "Tilbage",
+			"banners": "Bannere",
 			"bookingSettings": "Bookingindstillinger",
 			"break": "Pause",
 			"business": "Forretning",
@@ -1138,6 +1156,7 @@
 			"events": "Begivenheder",
 			"every": "Hver",
 			"exhausted": "Udmattet ",
+			"export": "Eksport",
 			"facilities": "Faciliteter",
 			"feature": "Funktion",
 			"finished": "Voltooid",
@@ -1166,6 +1185,7 @@
 			"next": "Næste",
 			"nextStep": "Næste skridt",
 			"no": "Nej",
+			"noAvailable": "Ikke tilgængelig",
 			"noData": "Ingen data",
 			"noNeedCard": "Intet behov for kort",
 			"notPaid": "Ikke betalt",
@@ -1179,6 +1199,8 @@
 			"ownOptionOfTime": "Time efter eget ønske",
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
 			"paid": "Betalt",
+			"payAsYouGo": "Betal, når du går",
+			"isUpcoming": "Er kommende",
 			"payer": "Udbetaler",
 			"payment": "Betaling",
 			"paymentMethod": "Betalingsmetode",
@@ -1196,6 +1218,7 @@
 				"description": "Skriv beskrivelse",
 				"search": "Søg"
 			},
+			"plugins": "Plugins",
 			"portfolio": "Portefølje",
 			"preview": "Forhåndsvisning",
 			"previous": "Forrige",
@@ -1306,6 +1329,9 @@
 				"0": "Inaktiv",
 				"1": "Aktiv"
 			}
+		},
+		"uppercase": {
+			"noAvailable": "N/A"
 		}
 	},
 	"latestBooking": {
@@ -1618,6 +1644,7 @@
 		"appointments": {
 			"label": "Aftaler"
 		},
+		"balance": "Balance",
 		"businessProfile": "Forretningsprofil",
 		"businessSettings": "Firma indstillinger",
 		"calendar": {
@@ -1636,6 +1663,7 @@
 		"members": "Medlemmer",
 		"order": "Indkøb",
 		"payment": "Betalinger",
+		"plugins": "Plugins",
 		"private": "Privat",
 		"product-tag": "Produktmærker",
 		"products": "Produkter",
@@ -1769,6 +1797,15 @@
 		"page": {
 			"subtitle": "Vælg den bedste løsning til din virksomhed",
 			"title": "Tariffer"
+		}
+	},
+	"tenant-plugin": {
+		"grid": {
+			"plugin": {
+				"attach": "Verbind",
+				"detach": "Uitschakelen"
+			},
+			"subtitle": "Met plug-ins kun je meer functies krijgen en bepaalde processen automatiseren. Aansluiten en automatiseren!"
 		}
 	},
 	"updateAvailable": {

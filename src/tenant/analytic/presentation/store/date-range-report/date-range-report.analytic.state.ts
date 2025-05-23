@@ -14,7 +14,7 @@ import {transformIResponseToAnalytic} from "@tenant/analytic/domain/tool/calcula
 import {IntervalTypeEnum} from "@tenant/analytic/domain/enum/interval.enum";
 import {IHistoryV2} from "@shared/domain";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {IOrderServiceDto} from "@tenant/order/domain/interface/i.order-service.dto";
+import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
 import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/interface/i.analytic";
 import {SharedUow} from "@core/shared/uow/shared.uow";

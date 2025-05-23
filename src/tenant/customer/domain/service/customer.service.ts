@@ -10,18 +10,27 @@ export class CustomerService extends BaseService<ENTITY_RAW> {
 		phone?: string | null;
 	}) {
 		if (either?.email && either.email.length > 0) {
-			// Find by email
-			const customer = await this.db.where('email').equals(either.email).first();
+			const customer = await this.fundOneByEmail(either.email);
 			if (customer) return customer;
 		}
 
 		if (either?.phone && either.phone.length > 0) {
 			// Find by phone
-			const customer = await this.db.where('phone').equals(either.phone).first();
+			const customer = await this.fundOneByPhone(either.phone);
 			if (customer) return customer;
 		}
 
 		return null;
+	}
+
+	public async fundOneByEmail(email: string) {
+		// Find by email
+		return this.db.where('email').equals(email).first();
+	}
+
+	public async fundOneByPhone(phone: string) {
+		// Find by email
+		return this.db.where('phone').equals(phone).first();
 	}
 
 	// public async findByEither(either: {

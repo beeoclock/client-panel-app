@@ -8,7 +8,7 @@ import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.busi
 export class BusinessProfileDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IBusinessProfile.EntityRaw> {
 
 	protected readonly columns = '_id,state,updatedAt,createdAt';
-	protected readonly moduleName = 'businessProfile';
+	protected readonly moduleName = 'business-profile';
 	protected readonly version = 1;
 
 }

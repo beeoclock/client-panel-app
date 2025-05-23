@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, viewChild, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonLabel, IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {MemberDataState} from "@tenant/member/infrastructure/state/data/member.data.state";
-import {IMember} from "@tenant/member/domain";
+import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/member.data.state";
+import {IMember} from "src/tenant/member/member/domain";
 
 @Component({
 	selector: 'ion-select-member',
@@ -14,27 +14,27 @@ import {IMember} from "@tenant/member/domain";
 		<ion-select
 			[formControl]="control()"
 			[multiple]="multiple()"
-			[placeholder]="'keyword.capitalize.allSpecialists' | translate"
+			[placeholder]="placeholderTranslateKey() | translate"
 			class="!min-h-0 px-4 py-3 border border-beeColor-300 rounded-2xl h-full"
 			fill="solid"
 			interface="popover">
 			@for (member of members; track member._id) {
 				<ion-select-option [value]="member._id">
-<!--					<div-->
-<!--						slot="start"-->
-<!--						class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">-->
-<!--						@if (member.avatar?.url) {-->
-<!--							<img [src]="member?.avatar?.url"-->
-<!--								 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"-->
-<!--								 alt="">-->
-<!--						} @else {-->
+					<!--					<div-->
+					<!--						slot="start"-->
+					<!--						class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">-->
+					<!--						@if (member.avatar?.url) {-->
+					<!--							<img [src]="member?.avatar?.url"-->
+					<!--								 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"-->
+					<!--								 alt="">-->
+					<!--						} @else {-->
 
-<!--							<div class="text-white text-xs font-bold">{{ member.firstName?.[0] ?? '' }}-->
-<!--							</div>-->
-<!--							<div class="text-white text-xs font-bold">{{ member.lastName?.[0] ?? '' }}-->
-<!--							</div>-->
-<!--						}-->
-<!--					</div>-->
+					<!--							<div class="text-white text-xs font-bold">{{ member.firstName?.[0] ?? '' }}-->
+					<!--							</div>-->
+					<!--							<div class="text-white text-xs font-bold">{{ member.lastName?.[0] ?? '' }}-->
+					<!--							</div>-->
+					<!--						}-->
+					<!--					</div>-->
 					<ion-label>{{ member.firstName }}</ion-label>
 				</ion-select-option>
 			}
@@ -52,6 +52,10 @@ import {IMember} from "@tenant/member/domain";
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IonSelectMemberComponent {
+
+	public readonly ionSelect = viewChild(IonSelect);
+
+	public readonly placeholderTranslateKey = input('keyword.capitalize.allSpecialists');
 
 	public readonly multiple = input(true);
 

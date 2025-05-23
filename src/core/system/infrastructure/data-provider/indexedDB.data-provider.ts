@@ -9,6 +9,7 @@ import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {IAdapterDataProvider} from "@core/system/interface/data-provider/i.adapter.data-provider";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {clearObjectClone} from "@shared/domain/clear.object";
 
 export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends DataProvider<ENTITY> {
 
@@ -49,14 +50,14 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 * @param options
 	 * @param filterFunction
 	 */
-	public override find$(options: Types.FindQueryParams, filterFunction: ((entity: ENTITY, filter: Types.StandardQueryParams) => boolean) = this.defaultFilter.bind(this)) {
+	public override find$(options: Types.FindQueryParams, filterFunction: ((entity: ENTITY, filter: Types.FindQueryParams) => boolean) = this.defaultFilter.bind(this)) {
 		return this.db$.pipe(
 			take(1),
 			concatMap((table) => {
 
 				const {
-					pageSize,
-					page,
+					pageSize = undefined,
+					page = undefined,
 					orderBy = OrderByEnum.CREATED_AT,
 					orderDir = OrderDirEnum.DESC,
 					...filter
@@ -76,11 +77,19 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 					return filterFunction(entity, filter as Types.StandardQueryParams);
 				});
 
-				const offset = pageSize * (page - 1);
+				const countQuery$ = query.count();
 
-				return from(query.count()).pipe(
+				if (pageSize && page) {
+
+					const offset = pageSize * (page - 1);
+
+					query = query.offset(offset).limit(pageSize);
+
+				}
+
+				return from(countQuery$).pipe(
 					switchMap((totalSize) =>
-						from(query.offset(offset).limit(pageSize).toArray()).pipe(
+						from(query.toArray()).pipe(
 							map((items) => [totalSize, items] as const)
 						)
 					),
@@ -139,11 +148,12 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 * @param filter
 	 * @private
 	 */
-	protected defaultFilter(entity: ENTITY, filter: Types.StandardQueryParams) {
-		const {phrase, ...otherFilter} = filter;
+	public defaultFilter(entity: ENTITY, filter: Types.FindQueryParams) {
+		const {phrase, ...otherFilter} = filter as Types.PartialQueryParams;
+		const clearedOtherFilter = clearObjectClone<object>(otherFilter);
 
 		const phraseExist = is.string(phrase);
-		const filterExist = is.object_not_empty(otherFilter);
+		const filterExist = is.object_not_empty(clearedOtherFilter);
 
 
 		if (!phraseExist && !filterExist) {
@@ -160,7 +170,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 		}
 
 		if (filterExist) {
-			results[1] = Object.entries(otherFilter).every(([key, value]) => {
+			results[1] = Object.entries(clearedOtherFilter).every(([key, value]) => {
 				if (is.array(value)) {
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-expect-error
@@ -177,6 +187,17 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 
 	}
 
+	private escapeRegex(str: string): string {
+		return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+
+	private searchInText(text: string, searchPhrase: string): boolean {
+		if (!searchPhrase || !text) return false;
+		const escaped = this.escapeRegex(searchPhrase);
+		const regex = new RegExp(escaped, 'i'); // case-insensitive match
+		return regex.test(text);
+	}
+
 	/**
 	 * Search in nested object
 	 * @param item
@@ -185,13 +206,21 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 * @private
 	 */
 	private regexFullTextSearch(item: unknown, path: string, phrase: string): boolean {
+		phrase = phrase.trim();
 		const keys = path.split('.');
-		const regex = new RegExp(phrase, 'i'); // case-insensitive
 
-		function searchNested(current: unknown, index: number): boolean {
+		if (!phrase || !item) return true;
+
+		const hasSpace = /\s/;
+
+		const searchNested = (current: unknown, index: number): boolean => {
 			if (index === keys.length) {
 				if (typeof current === 'string') {
-					return regex.test(current);
+					if (hasSpace.test(phrase)) {
+						return this.searchInText(phrase, current);
+					} else {
+						return this.searchInText(current, phrase);
+					}
 				}
 				return false;
 			}

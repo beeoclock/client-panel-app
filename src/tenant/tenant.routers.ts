@@ -2,11 +2,15 @@ import {Routes} from '@angular/router';
 import {AuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import {canMatchBecauseTenantId} from "@shared/can-match/can-match-because-tenant.id";
 import TenantRouterOutletComponent from "@tenant/tenant.router-outlet.component";
-import {tariffPlanActualResolver} from "@tenant/tariff-plan-history/presentation/resolver/tariff-plan-actual.resolver";
+import {
+	tariffPlanActualResolver
+} from "@tenant/tariff-plan/tariff-plan-history/presentation/resolver/tariff-plan-actual.resolver";
 import {
 	tariffPlanHistoryItemsResolver
-} from "@tenant/tariff-plan-history/presentation/resolver/tariff-plan-history-items.resolver";
-import {tariffPlanItemsResolver} from "@tenant/tariff-plan/presentation/resolver/tariff-plan-items.resolver";
+} from "@tenant/tariff-plan/tariff-plan-history/presentation/resolver/tariff-plan-history-items.resolver";
+import {
+	tariffPlanItemsResolver
+} from "@tenant/tariff-plan/tariff-plan/presentation/resolver/tariff-plan-items.resolver";
 import {countryResolver} from "@tenant/business-profile/presentation/resolver/country.resolver";
 import {baseLanguageResolver} from "@tenant/business-profile/presentation/resolver/base-language.resolver";
 import {businessProfileResolver} from "@tenant/business-profile/presentation/resolver/business-profile.resolver";
@@ -57,7 +61,7 @@ export const tenantRouters: Routes = [
                                             country: countryResolver,
                                             baseLanguage: baseLanguageResolver,
                                         },
-                                        loadComponent: () => import('@tenant/tariff-plan/presentation/ui/page/tariff-plan.page')
+                                        loadComponent: () => import('@tenant/tariff-plan/tariff-plan/presentation/ui/page/tariff-plan.page')
                                     }
                                 ]
                             },
@@ -66,7 +70,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/member/presentation/ui/page/list/list.member.page')
+                                        loadComponent: () => import('@tenant/member/member/presentation/ui/page/list/list.member.page')
                                     }
                                 ]
                             },
@@ -75,7 +79,16 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/absence/presentation/ui/page/grid.absence.page')
+                                        loadComponent: () => import('@tenant/member/absence/presentation/ui/page/grid.absence.page')
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'plugin',
+                                children: [
+                                    {
+                                        path: 'grid',
+                                        loadComponent: () => import('@tenant/plugin/tenant-plugin/presentation/ui/page/grid/grid.plugin.page')
                                     }
                                 ]
                             },
@@ -97,7 +110,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/order/presentation/ui/page/list/list.order.page')
+                                        loadComponent: () => import('@tenant/order/order/presentation/ui/page/list/list.order.page')
                                     }
                                 ]
                             },
@@ -106,7 +119,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/order-service/presentation/ui/page/list/list.order-service.page')
+                                        loadComponent: () => import('@tenant/order/order-service/presentation/ui/page/list/list.order-service.page')
                                     }
                                 ]
                             },
@@ -115,7 +128,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/payment/presentation/ui/page/list/list.payment.page')
+                                        loadComponent: () => import('@tenant/order/payment/presentation/ui/page/list/list.payment.page')
                                     }
                                 ]
                             },
@@ -203,6 +216,15 @@ export const tenantRouters: Routes = [
                                     {
                                         path: 'list',
                                         loadComponent: () => import('@tenant/service/presentation/ui/page/list/list.service.page')
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'balance',
+                                children: [
+                                    {
+                                        path: 'overview',
+                                        loadComponent: () => import('@tenant/balance/presentation/ui/page/list/list.balance.page')
                                     }
                                 ]
                             },
