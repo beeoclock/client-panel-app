@@ -717,6 +717,20 @@
 					}
 				}
 			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został usunięty."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Usuwanie produkt",
+						"message": "Czy na pewno chcesz usunąć produkt?"
+					}
+				}
+			},
 			"/api/v1/service/{id}": {
 				"before": {
 					"accept": {
@@ -785,6 +799,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Utworzono produkt",
+						"message": "Produkt został utworzony."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -816,6 +838,14 @@
 					"success": {
 						"header": "Wydarzenie zaktualizowane",
 						"message": "Wydarzenie zostało zaktualizowany."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został zaktualizowany."
 					}
 				}
 			},
@@ -1070,6 +1100,17 @@
 			"businessProfile": "Profil biznesu",
 			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
+			"category": {
+				"create": {
+					"choose": "Wybierz kategorie",
+					"enter": "Wpisz kategorie",
+					"first": "Dodaj pierwszą kategorie",
+					"tooltip": "Dodaj kategorie do listy",
+					"uniqueError": "Nazwa kategorii musi być unikalna"
+				},
+				"plural": "Kategorie",
+				"single": "Kategoria"
+			},
 			"changeStatus": "Zmień status",
 			"changes": "Zmiany",
 			"changesFrom": "Z",
@@ -1185,6 +1226,7 @@
 			"priceTimeFormatPrompt": "godziny:minuty",
 			"prices": "Ceny",
 			"processing": "Przetwarzanie",
+			"productName": "Nazwa produktu",
 			"publicPage": "Strona publiczna",
 			"reject": "Odrzucić",
 			"role": "Rola",
@@ -1202,6 +1244,7 @@
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
 			"signUp": "Zarejestruj się",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Media społecznościowe",
 			"somethingWentWrong": "Coś poszło nie tak!",
@@ -1510,6 +1553,24 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Dodaj produkt"
+		},
+		"deactivateBeforeDelete": "Nie można usunąć aktywnego produktu",
+		"details": {
+			"title": "Informacje o produkcie"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "Możesz nadać swojemu produktowi nazwę w ramach dostępnych języków"
+			},
+			"title": {
+				"create": "Dodawanie produktu",
+				"edit": "Edycja produktu"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Właściciel",
@@ -1605,6 +1666,8 @@
 		"payment": "Płatności",
 		"plugins": "Pluginy",
 		"private": "Prywatne",
+		"product-tag": "Tagi produktu",
+		"products": "Produkty",
 		"profile": {
 			"signOut": {
 				"header": "Wylogowanie",

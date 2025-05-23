@@ -9,14 +9,14 @@ describe('EAbsence', () => {
 	beforeEach(() => {
 		absenceData = {
 			_id: '1',
-			createdAt: '2023-01-01T00:00:00Z',
-			end: '2023-01-10T00:00:00Z',
+			_version: '1',
 			entireBusiness: true,
 			members: [],
 			note: 'Vacation',
 			object: 'AbsenceDto',
-			start: '2023-01-01T00:00:00Z',
 			state: StateEnum.active,
+			start: '2023-01-01T00:00:00Z',
+			end: '2023-01-10T00:00:00Z',
 			stateHistory: [
 				{
 					state: StateEnum.active,
@@ -26,6 +26,7 @@ describe('EAbsence', () => {
 			timeZone: 'UTC',
 			type: AbsenceTypeEnum.vacation,
 			updatedAt: '2023-01-01T00:00:00Z',
+			createdAt: '2023-01-01T00:00:00Z',
 		};
 	});
 

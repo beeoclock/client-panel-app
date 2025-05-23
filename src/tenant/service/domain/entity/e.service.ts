@@ -23,19 +23,21 @@ export class EService extends ABaseEntity<'ServiceDto', IService.DTO, IService.E
 
 	public static toDTO(data: IService.EntityRaw): IService.DTO {
 		return {
-			_id: data._id,
-			configuration: data.configuration,
-			createdAt: data.createdAt,
 			durationVersions: data.durationVersions,
 			languageVersions: data.languageVersions,
-			object: data.object,
-			order: data.order,
 			prepaymentPolicy: data.prepaymentPolicy,
+			configuration: data.configuration,
 			presentation: data.presentation,
 			schedules: data.schedules,
+			order: data.order,
+
+			_id: data._id,
 			state: data.state,
-			stateHistory: data.stateHistory,
+			object: data.object,
+			_version: data._version,
 			updatedAt: data.updatedAt,
+			createdAt: data.createdAt,
+			stateHistory: data.stateHistory,
 
 		}
 	}

@@ -26,19 +26,20 @@ export class EOrderService extends ABaseEntity<'OrderServiceDto', IOrderService.
 
 	public static toDTO(data: IOrderService.EntityRaw): IOrderService.DTO {
 		return {
-			orderId: data.orderId,
-			serviceSnapshot: data.serviceSnapshot,
 			orderAppointmentDetails: data.orderAppointmentDetails,
+			serviceSnapshot: data.serviceSnapshot,
 			customerNote: data.customerNote,
+			orderId: data.orderId,
 			status: data.status,
 
 			_id: data._id,
-			object: data.object,
 			meta: data.meta,
 			state: data.state,
-			stateHistory: data.stateHistory,
+			object: data.object,
+			_version: data._version,
 			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
+			stateHistory: data.stateHistory,
 		}
 	}
 

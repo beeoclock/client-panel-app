@@ -41,20 +41,22 @@ export class EMember extends ABaseEntity<'MemberDto', IMember.DTO, IMember.Entit
 
 	public static toDTO(data: IMember.EntityRaw): IMember.DTO {
 		return {
-			_id: data._id,
+			profileStatus: data.profileStatus,
 			assignments: data.assignments,
-			avatar: data.avatar,
-			createdAt: data.createdAt,
-			email: data.email,
 			firstName: data.firstName,
 			lastName: data.lastName,
-			object: data.object,
+			avatar: data.avatar,
+			email: data.email,
 			phone: data.phone,
-			profileStatus: data.profileStatus,
 			role: data.role,
+
+			_id: data._id,
 			state: data.state,
-			stateHistory: data.stateHistory,
+			object: data.object,
+			_version: data._version,
 			updatedAt: data.updatedAt,
+			createdAt: data.createdAt,
+			stateHistory: data.stateHistory,
 		}
 	}
 

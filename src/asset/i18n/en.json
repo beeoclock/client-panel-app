@@ -717,6 +717,20 @@
 					}
 				}
 			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Product",
+						"message": "Product was successfully deleted."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Deleting a product",
+						"message": "Are you sure you want to remove the product?"
+					}
+				}
+			},
 			"/api/v1/service/{id}": {
 				"before": {
 					"accept": {
@@ -785,6 +799,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Product created",
+						"message": "Product was successfully created."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -816,6 +838,14 @@
 					"success": {
 						"header": "Event updated",
 						"message": "Event was successfully updated."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Product updated",
+						"message": "Product was successfully updated."
 					}
 				}
 			},
@@ -1070,6 +1100,17 @@
 			"businessProfile": "Business profile",
 			"businessSettings": "Business settings",
 			"cancel": "Cancel",
+			"category": {
+				"create": {
+					"choose": "Choose a category",
+					"enter": "Enter a category",
+					"first": "Add the first category",
+					"tooltip": "Add categories to the list",
+					"uniqueError": "The category name must be unique"
+				},
+				"plural": "Categories",
+				"single": "Category"
+			},
 			"changeStatus": "Change status",
 			"changes": "Changes",
 			"changesFrom": "From",
@@ -1185,6 +1226,7 @@
 			"priceTimeFormatPrompt": "hours:minutes",
 			"prices": "Prices",
 			"processing": "Processing",
+			"productName": "Product name",
 			"publicPage": "Public page",
 			"reject": "Reject",
 			"role": "Role",
@@ -1202,6 +1244,7 @@
 			"signIn": "Sign in",
 			"signOut": "Sign out",
 			"signUp": "Sign up",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Social media",
 			"somethingWentWrong": "Something went wrong!",
@@ -1510,6 +1553,24 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Create product"
+		},
+		"deactivateBeforeDelete": "You cannot delete an active product",
+		"details": {
+			"title": "Info about the product"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "You can name your product in the available languages"
+			},
+			"title": {
+				"create": "Add product",
+				"edit": "Edit product"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Admin",
 		"OWNER": "Owner",
@@ -1605,6 +1666,8 @@
 		"payment": "Payments",
 		"plugins": "Plugins",
 		"private": "Private",
+		"product-tag": "Product tags",
+		"products": "Products",
 		"profile": {
 			"signOut": {
 				"header": "Logout",

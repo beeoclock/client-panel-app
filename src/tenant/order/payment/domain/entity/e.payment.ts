@@ -58,20 +58,22 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 
 	public static toDTO(data: IPayment.EntityRaw): IPayment.DTO {
 		return {
-			_id: data._id,
-			amount: data.amount,
-			createdAt: data.createdAt,
-			currency: data.currency,
-			method: data.method,
-			object: data.object,
-			orderId: data.orderId,
-			payer: data.payer,
 			providerPaymentRef: data.providerPaymentRef,
 			anchorType: data.anchorType,
+			currency: data.currency,
+			orderId: data.orderId,
+			amount: data.amount,
+			method: data.method,
+			payer: data.payer,
+
+			_id: data._id,
 			state: data.state,
-			stateHistory: data.stateHistory,
+			object: data.object,
 			status: data.status,
+			_version: data._version,
 			updatedAt: data.updatedAt,
+			createdAt: data.createdAt,
+			stateHistory: data.stateHistory,
 		}
 	}
 

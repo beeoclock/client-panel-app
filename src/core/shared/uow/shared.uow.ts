@@ -16,6 +16,8 @@ import {EnvironmentProviders, Provider} from "@angular/core";
 import {BalanceService} from "@tenant/balance/domain/service/balance.service";
 import {PluginService} from "@tenant/plugin/plugin/domain/service/plugin.service";
 import {TenantPluginService} from "@tenant/plugin/tenant-plugin/domain/service/tenant-plugin.service";
+import {ProductTagService} from "@tenant/product/product-tag/domain/service/product-tag.service";
+import {ProductService} from "@tenant/product/product/domain/service/product.service";
 
 /**
  * Shared Unit of Work
@@ -38,6 +40,8 @@ export class SharedUow {
 	#expenseCategory!: ExpenseCategoryService;
 	#businessProfile!: BusinessProfileService;
 	#absence!: AbsenceService;
+	#product!: ProductService;
+	#productTag!: ProductTagService;
 	#tariffPlan!: TariffPlanService;
 	#tariffPlanHistory!: TariffPlanHistoryService;
 	#balance!: BalanceService;
@@ -156,7 +160,7 @@ export class SharedUow {
 
 	public get tariffPlan() {
 		if (!this.#tariffPlan) {
-			throw new Error('tariffPlanService is not initialized');
+			throw new Error('TariffPlanService is not initialized');
 		}
 		return this.#tariffPlan;
 	}
@@ -167,7 +171,7 @@ export class SharedUow {
 
 	public get tariffPlanHistory() {
 		if (!this.#tariffPlanHistory) {
-			throw new Error('tariffPlanHistoryService is not initialized');
+			throw new Error('TariffPlanHistoryService is not initialized');
 		}
 		return this.#tariffPlanHistory;
 	}
@@ -207,6 +211,28 @@ export class SharedUow {
 
 	public set balance(value: BalanceService) {
 		this.#balance = value;
+	}
+
+	public get product() {
+		if (!this.#product) {
+			throw new Error('ProductService is not initialized');
+		}
+		return this.#product;
+	}
+
+	public set product(value: ProductService) {
+		this.#product = value;
+	}
+
+	public get productTag() {
+		if (!this.#productTag) {
+			throw new Error('ProductTagService is not initialized');
+		}
+		return this.#productTag;
+	}
+
+	public set productTag(value: ProductTagService) {
+		this.#productTag = value;
 	}
 
 }

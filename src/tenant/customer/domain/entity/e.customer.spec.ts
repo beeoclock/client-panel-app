@@ -9,6 +9,7 @@ describe('ECustomer', () => {
 	beforeEach(() => {
 		customerData = {
 			_id: '1',
+			_version: '1',
 			createdAt: '2023-01-01T00:00:00Z',
 			customerType: CustomerTypeEnum.new,
 			email: 'test@example.com',

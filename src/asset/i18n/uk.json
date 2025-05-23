@@ -717,6 +717,20 @@
 					}
 				}
 			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Продукт",
+						"message": "Продукт було видалено."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Видалення товару",
+						"message": "Ви впевнені, що хочете видалити товар??"
+					}
+				}
+			},
 			"/api/v1/service/{id}": {
 				"before": {
 					"accept": {
@@ -785,6 +799,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Продукт створено",
+						"message": "Продукт було створено."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -816,6 +838,14 @@
 					"success": {
 						"header": "Подія оновлена",
 						"message": "Подія успішно оновлена."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Продукт оновлено",
+						"message": "Продукт було успішно оновлено."
 					}
 				}
 			},
@@ -1070,6 +1100,17 @@
 			"businessProfile": "Профіль бізнесу",
 			"businessSettings": "Бізнес налаштування",
 			"cancel": "Скасувати",
+			"category": {
+				"create": {
+					"choose": "Виберіть категорію",
+					"enter": "Введіть категорію",
+					"first": "Додайте першу категорію",
+					"tooltip": "Додайте категорії до списку",
+					"uniqueError": "Назва категорії повинна бути унікальною"
+				},
+				"plural": "Категорії",
+				"single": "Категорія"
+			},
 			"changeStatus": "Змінити статус",
 			"changes": "Зміни",
 			"changesFrom": "З",
@@ -1185,6 +1226,7 @@
 			"priceTimeFormatPrompt": "години:хвилини",
 			"prices": "Ціни",
 			"processing": "Обробка",
+			"productName": "Назва продукту",
 			"publicPage": "Публічна сторінка",
 			"reject": "Відхилити",
 			"role": "Роль",
@@ -1202,6 +1244,7 @@
 			"signIn": "Увійти",
 			"signOut": "Вийти",
 			"signUp": "Зареєструватися",
+			"sku": "SKU",
 			"slogan": "Гасло",
 			"socialMedia": "Соціальні мережі",
 			"somethingWentWrong": "Щось пішло не так!",
@@ -1510,6 +1553,24 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Додати продукт"
+		},
+		"deactivateBeforeDelete": "Не можна видалити активний продукт",
+		"details": {
+			"title": "Інформація про продукт"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "Ви можете назвати свій продукт доступними мовами"
+			},
+			"title": {
+				"create": "Додати товар",
+				"edit": "Редагувати товар"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Адміністратор",
 		"OWNER": "Власник",
@@ -1605,6 +1666,8 @@
 		"payment": "Платежі",
 		"plugins": "Плагіни",
 		"private": "Приватне",
+		"product-tag": "Теги товарів",
+		"products": "Продукти",
 		"profile": {
 			"signOut": {
 				"header": "Вийти",
