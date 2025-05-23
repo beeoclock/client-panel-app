@@ -14,7 +14,7 @@ import {EnvironmentProviders, Provider} from "@angular/core";
 import {BalanceService} from "@tenant/balance/domain/service/balance.service";
 import {PluginService} from "@tenant/plugin/plugin/domain/service/plugin.service";
 import {TenantPluginService} from "@tenant/plugin/tenant-plugin/domain/service/tenant-plugin.service";
-import {ProductTagService} from "@tenant/product-tag/domain/service/product-tag.service";
+import {ProductTagService} from "@tenant/product/product-tag/domain/service/product-tag.service";
 import {ProductService} from "@tenant/product/product/domain/service/product.service";
 
 /**

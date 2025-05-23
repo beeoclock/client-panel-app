@@ -197,7 +197,7 @@ export const tenantRouters: Routes = [
 								children: [
 									{
 										path: 'list',
-										loadComponent: () => import('@tenant/product-tag/presentation/ui/page/list/list.product-tag.page')
+										loadComponent: () => import('@tenant/product/product-tag/presentation/ui/page/list/list.product-tag.page')
 									}
 								]
 							},
