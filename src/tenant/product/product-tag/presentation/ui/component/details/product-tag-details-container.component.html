@@ -6,46 +6,7 @@
 					{{ 'keyword.capitalize.sku' | translate }}
 				</dt>
 				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					{{ product.sku }}
-				</dd>
-			</div>
-
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.productName' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					{{ product.languageVersions[0].title }}
-				</dd>
-			</div>
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 items-center">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.category.plural' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2"  class="truncate">
-					<span [title]="product.tags?.join(', ')">
-						@for (tag of product.tags; track tag ) {
-							<ion-chip>
-								{{ tag }}
-							</ion-chip>
-						}
-					</span>
-				</dd>
-			</div>
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.price' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					{{ product.price?.value | currency: product.price?.currency : 'symbol-narrow' }}
-				</dd>
-			</div>
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.order' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2 flex">
-					{{ product?.order | noData }}
+					{{ product.name }}
 				</dd>
 			</div>
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">

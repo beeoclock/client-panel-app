@@ -3,11 +3,11 @@ import {IBaseDTO, IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw
 
 export namespace IProductTag {
 
-	export interface DTO extends IBaseDTO<'TagDto'> {
+	export interface DTO extends IBaseDTO<'ProductTagDto'> {
 		name: string;
 	}
 
-	export type EntityRaw = IBaseEntityRaw<'TagDto'> & DTO & {};
+	export type EntityRaw = IBaseEntityRaw<'ProductTagDto'> & DTO & {};
 
 }
 

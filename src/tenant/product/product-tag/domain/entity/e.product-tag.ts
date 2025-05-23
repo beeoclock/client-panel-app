@@ -2,9 +2,9 @@ import {ABaseEntity} from "@core/system/abstract/a.base-entity";
 import {IProductTag} from "@tenant/product/product-tag/domain";
 
 
-export class EProductTag extends ABaseEntity<'TagDto', IProductTag.DTO, IProductTag.EntityRaw> implements IProductTag.EntityRaw {
+export class EProductTag extends ABaseEntity<'ProductTagDto', IProductTag.DTO, IProductTag.EntityRaw> implements IProductTag.EntityRaw {
 
-	public override object = 'TagDto' as const;
+	public override object = 'ProductTagDto' as const;
 
 	name!: string;
 
