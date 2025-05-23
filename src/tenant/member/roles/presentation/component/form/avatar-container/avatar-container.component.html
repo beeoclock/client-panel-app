@@ -1,0 +1,12 @@
+
+<div class="flex justify-between">
+	<span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.avatar' | translate }}</span>
+	<button type="button"
+			class="text-beeColor-500 dark:text-beeColor-400 hover:text-beeColor-600 dark:hover:text-beeColor-500"
+			(click)="toggleInfo.toggle()">
+		<i class="bi" [class.bi-eye]="toggleInfo.isOff" [class.bi-eye-slash]="toggleInfo.isOn"></i>
+	</button>
+</div>
+<member-form-avatar-component
+		[banner]="control()?.value?.url?.length ? {url: control().value.url, _id: control().value._id} : null"
+		[showHit]="toggleInfo.isOn"/>

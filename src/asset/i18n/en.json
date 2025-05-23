@@ -1696,6 +1696,7 @@
 		"dateRangeReport": "Analytics",
 		"events": "Events",
 		"members": "Members",
+		"roles": "Roles in team",
 		"order": "Orders",
 		"payment": "Payments",
 		"plugins": "Plugins",

@@ -16,6 +16,7 @@ import {PluginService} from "@tenant/plugin/plugin/domain/service/plugin.service
 import {TenantPluginService} from "@tenant/plugin/tenant-plugin/domain/service/tenant-plugin.service";
 import {ProductTagService} from "@tenant/product/product-tag/domain/service/product-tag.service";
 import {ProductService} from "@tenant/product/product/domain/service/product.service";
+import {RoleService} from "@tenant/member/roles/domain/service/role.service";
 
 /**
  * Shared Unit of Work
@@ -33,6 +34,7 @@ export class SharedUow {
 	#order!: OrderService;
 	#orderService!: OrderServiceService;
 	#member!: MemberService;
+	#role!: RoleService;
 	#customer!: CustomerService;
 	#businessProfile!: BusinessProfileService;
 	#absence!: AbsenceService;
@@ -97,6 +99,17 @@ export class SharedUow {
 
 	public set member(value: MemberService) {
 		this.#member = value;
+	}
+
+	public get role() {
+		if (!this.#role) {
+			throw new Error('RoleService is not initialized');
+		}
+		return this.#role;
+	}
+
+	public set role(value: RoleService) {
+		this.#role = value;
 	}
 
 	public get customer() {
