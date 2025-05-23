@@ -6,14 +6,16 @@ import {CustomerService} from "@tenant/customer/domain/service/customer.service"
 import {BusinessProfileService} from "@tenant/business-profile/domain/service/business-profile.service";
 import {ExpenseService} from "@tenant/expense/expense/domain/service/expense.service";
 import {ExpenseCategoryService} from "@tenant/expense/expense-category/domain/service/expense-category.service";
-import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
-import {EnvironmentProviders, Provider} from "@angular/core";
-import {BalanceService} from "@tenant/balance/domain/service/balance.service";
 import {AbsenceService} from "@tenant/member/absence/domain/service/absence.service";
 import {TariffPlanService} from "@tenant/tariff-plan/tariff-plan/domain/service/tariff-plan.service";
 import {
 	TariffPlanHistoryService
 } from "@tenant/tariff-plan/tariff-plan-history/domain/service/tariff-plan-history.service";
+import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
+import {EnvironmentProviders, Provider} from "@angular/core";
+import {BalanceService} from "@tenant/balance/domain/service/balance.service";
+import {PluginService} from "@tenant/plugin/plugin/domain/service/plugin.service";
+import {TenantPluginService} from "@tenant/plugin/tenant-plugin/domain/service/tenant-plugin.service";
 
 /**
  * Shared Unit of Work
@@ -39,6 +41,8 @@ export class SharedUow {
 	#tariffPlan!: TariffPlanService;
 	#tariffPlanHistory!: TariffPlanHistoryService;
 	#balance!: BalanceService;
+	#plugin!: PluginService;
+	#tenantPlugin!: TenantPluginService;
 
 	public get service() {
 		if (!this.#service) {
@@ -170,6 +174,28 @@ export class SharedUow {
 
 	public set tariffPlanHistory(value: TariffPlanHistoryService) {
 		this.#tariffPlanHistory = value;
+	}
+
+	public get plugin() {
+		if (!this.#plugin) {
+			throw new Error('pluginService is not initialized');
+		}
+		return this.#plugin;
+	}
+
+	public set plugin(value: PluginService) {
+		this.#plugin = value;
+	}
+
+	public get tenantPlugin() {
+		if (!this.#tenantPlugin) {
+			throw new Error('tenantPluginService is not initialized');
+		}
+		return this.#tenantPlugin;
+	}
+
+	public set tenantPlugin(value: TenantPluginService) {
+		this.#tenantPlugin = value;
 	}
 
 	public get balance() {

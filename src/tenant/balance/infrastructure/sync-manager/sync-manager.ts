@@ -17,7 +17,7 @@ export class SyncManager extends BaseSyncManager<IBalance.DTO, EBalance> {
 	protected readonly toEntity = EBalance.fromDTO;
 
 	public constructor() {
-		super('customer');
+		super('balance');
 		inject(TENANT_ID).pipe(
 			takeUntilDestroyed(),
 			filter(is.string),

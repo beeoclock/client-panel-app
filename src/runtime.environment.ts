@@ -23,6 +23,7 @@ export const RuntimeEnvironment: {
     panel: undefined,
     identity: undefined,
     tariffPlan: undefined,
+    plugin: undefined,
   }
 };
 

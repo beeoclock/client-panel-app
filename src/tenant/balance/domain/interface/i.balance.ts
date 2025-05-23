@@ -34,7 +34,7 @@ export namespace IBalance {
 			// TODO: getFavoriteSpecialist
 			// TODO: getFavoriteService
 			// TODO: getFavoriteProduct
-			// TODO: getSpecialistData - when customer is also as specialist
+			// TODO: getSpecialistData - when balance is also as specialist
 
 		};
 

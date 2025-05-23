@@ -84,6 +84,15 @@ export const tenantRouters: Routes = [
                                 ]
                             },
                             {
+                                path: 'plugin',
+                                children: [
+                                    {
+                                        path: 'grid',
+                                        loadComponent: () => import('@tenant/plugin/tenant-plugin/presentation/ui/page/grid/grid.plugin.page')
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'analytic',
                                 children: [
                                     {

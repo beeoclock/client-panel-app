@@ -9,9 +9,6 @@ import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
-import {
-	AutoRefreshButtonComponent
-} from "@tenant/customer/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {BalanceActionTypeEnum, IBalance} from "@tenant/balance/domain";
 import {
@@ -19,6 +16,9 @@ import {
 } from "@tenant/balance/infrastructure/state/presentation/balance.presentation.actions";
 import EBalance from "@tenant/balance/domain/entity/e.balance";
 import {CurrencyPipe} from "@angular/common";
+import {
+	AutoRefreshButtonComponent
+} from "@tenant/balance/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 
 @Component({
 	selector: 'balance-table-list-component',
@@ -34,7 +34,7 @@ import {CurrencyPipe} from "@angular/common";
 				[linkLabel]="'balance.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
 
-				<customer-auto-refresh-component/>
+				<balance-auto-refresh-component/>
 
 			</not-found-table-data-component>
 
@@ -65,8 +65,8 @@ import {CurrencyPipe} from "@angular/common";
 		TableNgxDatatableSmartComponent,
 		NotFoundTableDataComponent,
 		TranslatePipe,
-		AutoRefreshButtonComponent,
 		CurrencyPipe,
+		AutoRefreshButtonComponent,
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
@@ -102,14 +102,14 @@ export class TableListComponent extends TableComponent<EBalance> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
-		{
-			name: this.translateService.instant('keyword.capitalize.updatedAt'),
-			prop: 'updatedAt',
-			minWidth: 240,
-			width: 240,
-			sortable: true,
-			$$valueGetter: this.anyDateConvert,
-		},
+		// {
+		// 	name: this.translateService.instant('keyword.capitalize.updatedAt'),
+		// 	prop: 'updatedAt',
+		// 	minWidth: 240,
+		// 	width: 240,
+		// 	sortable: true,
+		// 	$$valueGetter: this.anyDateConvert,
+		// },
 	]);
 
 	public readonly columnList = computed(() => {

@@ -5,6 +5,7 @@
 export enum SourceNetworkEnum {
 	analytic = 'analytic',
 	panel = 'panel',
+	plugin = 'plugin',
 	identity = 'identity',
 	tariffPlan = 'tariffPlan',
 }

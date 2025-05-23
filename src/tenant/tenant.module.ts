@@ -16,6 +16,7 @@ import {MemberDomainModule} from "@tenant/member/member-domain.module";
 import {BalanceModule} from "@tenant/balance/balance.module";
 import {ExpenseModule} from "@tenant/expense/expense/expense.module";
 import {ExpenseCategoryModule} from "@tenant/expense/expense-category/expense-category.module";
+import {PluginDomainModule} from "@tenant/plugin/plugin.domain.module";
 
 @NgModule({
 	providers: [
@@ -30,6 +31,7 @@ import {ExpenseCategoryModule} from "@tenant/expense/expense-category/expense-ca
 			TariffPlanDomainModule,
 			MemberDomainModule,
 			BalanceModule,
+			PluginDomainModule,
 		),
 	],
 	imports: [

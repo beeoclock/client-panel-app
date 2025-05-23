@@ -682,21 +682,21 @@
 			"atLeastOneMemberSelectedOrEntireBusiness": "Du skal vælge mindst ét medlem eller hele virksomheden.",
 			"durationFormatInvalid": "Gyldigt format er timer:minutter (00:00)",
 			"email": "Ugyldigt e-mail-format",
+			"emailExists": "En bruger med denne e-mail eksisterer allerede",
 			"emailOrPhoneRequired": "E-mail eller telefonnummer er påkrævet",
 			"imageSize": "Maksimal billedstørrelse er {{max}}, nuværende størrelse er {{value}}",
 			"invalid": "Invalid",
 			"mask": "Ugyldigt format, korrekt format er {{requiredMask}}",
+			"min": "Minimum værdi er {{min}}",
 			"minlength": "Minimumslængde er {{requiredLength}}",
+			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede",
 			"required": "Påkrævet felt",
 			"shouldBeMoreThen": {
 				"startInSeconds": "Sluttidspunktet skal være længere end starttidspunktet"
 			},
 			"startBeforeEnd": "Startdatoen skal være før slutdatoen.",
 			"username": "Brugernavnet kan kun indeholde bogstaver, tal, en understregning (_) og et punktum (.).",
-			"whitespace": "Fjern alle mellemrum",
-			"emailExists": "En bruger med denne e-mail eksisterer allerede",
-			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede",
-			"min": "Minimum værdi er {{min}}"
+			"whitespace": "Fjern alle mellemrum"
 		}
 	},
 	"http": {
@@ -1158,6 +1158,8 @@
 			"ownOptionOfTime": "Time efter eget ønske",
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
 			"paid": "Betalt",
+			"payAsYouGo": "Betal, når du går",
+			"isUpcoming": "Er kommende",
 			"payer": "Udbetaler",
 			"payment": "Betaling",
 			"paymentMethod": "Betalingsmetode",
@@ -1175,6 +1177,7 @@
 				"description": "Skriv beskrivelse",
 				"search": "Søg"
 			},
+			"plugins": "Plugins",
 			"portfolio": "Portefølje",
 			"preview": "Forhåndsvisning",
 			"previous": "Forrige",
@@ -1600,6 +1603,7 @@
 		"members": "Medlemmer",
 		"order": "Indkøb",
 		"payment": "Betalinger",
+		"plugins": "Plugins",
 		"private": "Privat",
 		"profile": {
 			"signOut": {
@@ -1731,6 +1735,15 @@
 		"page": {
 			"subtitle": "Vælg den bedste løsning til din virksomhed",
 			"title": "Tariffer"
+		}
+	},
+	"tenant-plugin": {
+		"grid": {
+			"plugin": {
+				"attach": "Verbind",
+				"detach": "Uitschakelen"
+			},
+			"subtitle": "Met plug-ins kun je meer functies krijgen en bepaalde processen automatiseren. Aansluiten en automatiseren!"
 		}
 	},
 	"updateAvailable": {
