@@ -1,0 +1,79 @@
+<div class="flex flex-col gap-4">
+	<bee-card>
+
+		<form class="flex flex-col gap-4">
+
+			<member-form-avatar-container-component
+				[control]="form.controls.avatar"/>
+
+			<form-input
+				id="member-form-email"
+				inputType="email"
+				autocomplete="email"
+				placeholder="firstname.lastname@example.com"
+				[control]="form.controls.email"
+				[label]="'keyword.capitalize.email' | translate"/>
+
+			<form-input
+				id="member-form-firstName"
+				inputType="text"
+				autocomplete="firstName"
+				[placeholder]="'keyword.capitalize.firstName' | translate"
+				[control]="form.controls.firstName"
+				[label]="'keyword.capitalize.firstName' | translate"/>
+
+			<form-input
+				id="member-form-lastName"
+				inputType="text"
+				autocomplete="lastName"
+				[placeholder]="'keyword.capitalize.lastName' | translate"
+				[control]="form.controls.lastName"
+				[label]="'keyword.capitalize.lastName' | translate"/>
+
+			<tel-form-input
+				id="member-form-phone"
+				autocomplete="phone"
+				[control]="form.controls.phone"
+				labelTranslateKey="keyword.capitalize.phone"/>
+
+			@if (roleEnum.OWNER === item()?.role) {
+
+			} @else {
+
+				<member-select-role [control]="form.controls.role"/>
+
+			}
+
+			<!--        <div class="bg-white border rounded-lg p-4 mt-4">-->
+			<!--          <strong>{{ 'keyword.capitalize.permission' | translate }}</strong>-->
+			<!--          <div>-->
+			<!--            {{ 'keyword.capitalize.soon' | translate }}-->
+			<!--          </div>-->
+			<!--        </div>-->
+
+			<utility-switch-component
+				id="member-form-status"
+				[units]="[memberProfileStatusEnum.suspended, memberProfileStatusEnum.active]"
+				[label]="'keyword.capitalize.active' | translate"
+				[control]="form.controls.profileStatus"/>
+
+		</form>
+
+	</bee-card>
+
+	<member-form-assignments
+		[form]="form.controls.assignments"/>
+
+	<bee-card>
+		<button
+			primary
+			type="button"
+			[isLoading]="form.pending"
+			[disabled]="form.disabled"
+			[scrollToFirstError]="true"
+			(click)="save()">
+			{{ 'keyword.capitalize.save' | translate }}
+		</button>
+	</bee-card>
+
+</div>

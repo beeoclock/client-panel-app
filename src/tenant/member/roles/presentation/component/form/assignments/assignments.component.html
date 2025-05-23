@@ -1,0 +1,25 @@
+<bee-card>
+
+	<utility-switch-component
+		id="member-form-assignments-service-full"
+		[label]="'member.form.assignments.service.full.label' | translate"
+		[booleanValue]="true"
+		[control]="form.controls.service.controls.full"/>
+
+	@if (isNotFull()) {
+
+		<hr>
+
+		<div class="flex flex-wrap gap-2 justify-between items-center text-start">
+
+			{{ 'member.form.assignments.button.label' | translate }}
+
+			<ion-select-service
+				class="max-w-full"
+				placeholderTranslateKey="member.form.assignments.button.hint.includeIsEmpty"
+				[control]="control"/>
+
+		</div>
+	}
+
+</bee-card>

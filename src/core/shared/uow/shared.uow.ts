@@ -12,6 +12,7 @@ import {
 import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
 import {EnvironmentProviders, Provider} from "@angular/core";
 import {BalanceService} from "@tenant/balance/domain/service/balance.service";
+import {RoleService} from "@tenant/member/roles/domain/service/role.service";
 
 /**
  * Shared Unit of Work
@@ -29,6 +30,7 @@ export class SharedUow {
 	#order!: OrderService;
 	#orderService!: OrderServiceService;
 	#member!: MemberService;
+	#role!: RoleService;
 	#customer!: CustomerService;
 	#businessProfile!: BusinessProfileService;
 	#absence!: AbsenceService;
@@ -89,6 +91,17 @@ export class SharedUow {
 
 	public set member(value: MemberService) {
 		this.#member = value;
+	}
+
+	public get role() {
+		if (!this.#role) {
+			throw new Error('RoleService is not initialized');
+		}
+		return this.#role;
+	}
+
+	public set role(value: RoleService) {
+		this.#role = value;
 	}
 
 	public get customer() {

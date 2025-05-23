@@ -309,6 +309,20 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 				fragment: "ignored",
 			}
 		});
+
+		this.menu.push({
+			order: 10,
+			url: 'member/roles',
+			translateKey: 'sidebar.roles',
+			visible: true,
+			icon: 'bi bi-award',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
 		this.menu.push({
 			order: 11,
 			url: 'client/business-profile',

@@ -71,7 +71,11 @@ export const tenantRouters: Routes = [
                                     {
                                         path: 'list',
                                         loadComponent: () => import('@tenant/member/member/presentation/ui/page/list/list.member.page')
-                                    }
+                                    },
+									{
+										path: 'roles',
+										loadComponent: () => import('@tenant/member/roles/presentation/ui/page/list/list.roles.page')
+									}
                                 ]
                             },
                             {
