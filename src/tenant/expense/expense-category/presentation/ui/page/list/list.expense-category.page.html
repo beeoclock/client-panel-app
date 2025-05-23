@@ -1,9 +1,9 @@
 @if (initialized.isOn) {
 
 	@if (isMobile$ | async) {
-		<customer-mobile-layout-list-component/>
+		<expense-category-mobile-layout-list-component/>
 	} @else {
-		<customer-desktop-layout-list-component />
+		<expense-category-desktop-layout-list-component/>
 	}
 
 } @else {

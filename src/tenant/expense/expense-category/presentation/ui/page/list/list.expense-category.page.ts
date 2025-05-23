@@ -7,10 +7,10 @@ import {
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	MobileLayoutListComponent
-} from "@tenant/customer/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
+} from "@tenant/expense/expense-category/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
 import {
 	DesktopLayoutListComponent
-} from "@tenant/customer/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
+} from "@tenant/expense/expense-category/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
 import {
 	ExpanseCategoryTableNgxDatatableSmartResource
 } from "@tenant/expense/expense-category/presentation/ui/page/list/expense-category.table-ngx-datatable.resource";

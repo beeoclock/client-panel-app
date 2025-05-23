@@ -1,7 +1,5 @@
 import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
-import {ICustomer} from "@tenant/customer/domain";
-import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
@@ -19,12 +17,14 @@ import {
 	AutoRefreshButtonComponent
 } from "@tenant/customer/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import EExpenseCategory from "@tenant/expense/expense-category/domain/entity/e.expense-category";
+import {IExpenseCategory} from "@tenant/expense/expense-category/domain";
 import {
-	CustomerPresentationActions
-} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
+	ExpenseCategoryPresentationActions
+} from "@tenant/expense/expense-category/infrastructure/state/presentation/expense-category.presentation.actions";
 
 @Component({
-	selector: 'customer-table-list-component',
+	selector: 'expense-category-table-list-component',
 	template: `
 		<app-table-ngx-datatable-smart-component
 			(activate)="activate($event)"
@@ -75,10 +75,10 @@ import {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
 	},
 })
-export class TableListComponent extends TableComponent<ECustomer> {
+export class TableListComponent extends TableComponent<EExpenseCategory> {
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 
-	public readonly columns = signal<TableColumn<ECustomer>[]>([
+	public readonly columns = signal<TableColumn<EExpenseCategory>[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.firstName'),
 			prop: 'firstName',
@@ -151,7 +151,7 @@ export class TableListComponent extends TableComponent<ECustomer> {
 
 	});
 
-	public activate($event: ActivateEvent<ICustomer.EntityRaw>) {
+	public activate($event: ActivateEvent<IExpenseCategory.EntityRaw>) {
 		switch ($event.type) {
 			case "checkbox":
 				break;
@@ -167,13 +167,13 @@ export class TableListComponent extends TableComponent<ECustomer> {
 		}
 	}
 
-	public override open(item: ICustomer.EntityRaw) {
-		this.store.dispatch(new CustomerPresentationActions.OpenDetails(item));
+	public override open(item: IExpenseCategory.EntityRaw) {
+		this.store.dispatch(new ExpenseCategoryPresentationActions.OpenDetails(item));
 	}
 
 	@Dispatch()
 	public openForm() {
-		return new CustomerPresentationActions.OpenForm();
+		return new ExpenseCategoryPresentationActions.OpenForm();
 	}
 
 }
