@@ -10,21 +10,9 @@ import {
 export class ProductTableNgxDatatableSmartResource extends TableNgxDatatableSmartResource<IProduct.EntityRaw> {
 
 	private readonly sharedUow = inject(SharedUow);
-	protected override readonly loadData = ({
-												page,
-												pageSize,
-												orderBy,
-												orderDir,
-												filters
-											}: AsyncLoadDataFunctionParams) => {
+	protected override loadData(parameters: AsyncLoadDataFunctionParams) {
 
-		return this.sharedUow.product.repository.findAsync({
-			page,
-			pageSize,
-			orderDir,
-			orderBy,
-			...filters,
-		});
+		return this.sharedUow.product.repository.findAsync(parameters);
 
 	}
 

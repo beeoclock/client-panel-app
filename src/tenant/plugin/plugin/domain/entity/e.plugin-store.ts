@@ -50,6 +50,7 @@ export class EPlugin extends ABaseEntity<'PluginDto', IPlugin.DTO, IPlugin.Entit
 			_id: data._id,
 			state: data.state,
 			object: data.object,
+			_version: data._version,
 			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
 			stateHistory: data.stateHistory,
