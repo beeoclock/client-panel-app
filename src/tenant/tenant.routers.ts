@@ -220,6 +220,15 @@ export const tenantRouters: Routes = [
                                 ]
                             },
                             {
+                                path: 'expense-category',
+                                children: [
+                                    {
+                                        path: 'list',
+                                        loadComponent: () => import('@tenant/expense/expense-category/presentation/ui/page/list/list.expense-category.page')
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'service',
                                 children: [
                                     {

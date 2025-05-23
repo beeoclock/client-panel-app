@@ -12,12 +12,8 @@ import {
 	DesktopLayoutListComponent
 } from "@tenant/customer/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
 import {
-	CustomerTableNgxDatatableSmartResource
-} from "@tenant/customer/presentation/ui/page/list/customer.table-ngx-datatable.resource";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {ofActionSuccessful} from "@ngxs/store";
-import {tap} from "rxjs";
-import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/customer.data.actions";
+	ExpanseCategoryTableNgxDatatableSmartResource
+} from "@tenant/expense/expense-category/presentation/ui/page/list/expense-category.table-ngx-datatable.resource";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -35,27 +31,15 @@ import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/cu
 		DatePipe,
 		{
 			provide: TableNgxDatatableSmartResource,
-			useClass: CustomerTableNgxDatatableSmartResource,
+			useClass: ExpanseCategoryTableNgxDatatableSmartResource,
 		},
 	]
 })
 export class ListExpenseCategoryPage extends ListPage implements OnDestroy, OnInit {
 
-	public readonly actionsSubscription = this.actions.pipe(
-		takeUntilDestroyed(),
-		ofActionSuccessful(
-			CustomerDataActions.UpdateItem,
-			CustomerDataActions.CreateItem,
-			CustomerDataActions.SetState,
-		),
-		tap((payload) => {
-			this.tableNgxDatatableSmartResource?.refreshDiscoveredPages();
-		})
-	).subscribe();
-
 	public override ngOnInit() {
 		super.ngOnInit();
-		this.analyticsService.logEvent('customer_list_page_initialized');
+		this.analyticsService.logEvent('expense_category_list_page_initialized');
 	}
 
 }
