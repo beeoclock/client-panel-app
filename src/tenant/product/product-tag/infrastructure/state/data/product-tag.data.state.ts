@@ -35,6 +35,7 @@ export class ProductTagDataState {
 		ctx: StateContext<IProductDataState>,
 		action: ProductTagDataActions.CreateItem
 	): Promise<void> {
+		console.log({action})
 		await this.sharedUow.productTag.repository.createAsync(EProductTag.fromDTO(action.payload));
 		ctx.dispatch(new ProductTagPresentationActions.CloseForm());
 	}

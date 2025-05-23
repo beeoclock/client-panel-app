@@ -31,7 +31,7 @@ import {ProductTagDataState} from "@tenant/product/product-tag/infrastructure/st
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full p-2">
 					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 				</div>
 
 			} @else {
@@ -42,7 +42,7 @@ import {ProductTagDataState} from "@tenant/product/product-tag/infrastructure/st
 					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
 				<div>
-<!--					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 				</div>
 			}
 		</utility-default-panel-component>
@@ -63,7 +63,7 @@ import {ProductTagDataState} from "@tenant/product/product-tag/infrastructure/st
 		</ng-template>
 
 		<ng-template #AutoRefresh>
-			<utility-auto-refresh-component id="product-filter-auto-refresh" (emitter)="forceRefresh()"/>
+			<utility-auto-refresh-component id="product-tag-filter-auto-refresh" (emitter)="forceRefresh()"/>
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
