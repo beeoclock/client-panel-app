@@ -1,5 +1,5 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
+import {Component, DestroyRef, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -10,27 +10,12 @@ import {NgEventBus} from "ng-event-bus";
 import {is} from "@core/shared/checker";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@shared/presentation/pipes/with-tenant-id.pipe";
-import {Reactive} from "@core/cdk/reactive";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {WINDOW} from "@core/cdk/window.provider";
-
-interface IMenuItem {
-	order: number;
-	url?: string;
-	icon?: string;
-	badge?: string;
-	translateKey: string;
-	target?: '_blank';
-	disabled?: boolean;
-	visible: boolean;
-	beta?: boolean;
-	routerLinkActiveOptions: {
-		exact: boolean;
-	} | IsActiveMatchOptions;
-	items?: IMenuItem[]
-}
+import {IMenuItem} from "@shared/presentation/component/sidebar/i.menu-item";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	standalone: true,
@@ -44,11 +29,12 @@ interface IMenuItem {
 		WithTenantIdPipe
 	],
 })
-export class MenuSidebarComponent extends Reactive implements OnInit {
+export class MenuSidebarComponent implements OnInit {
 
 	private readonly store = inject(Store);
 	private readonly ngEventBus = inject(NgEventBus);
 	private readonly sidebarService = inject(SidebarService);
+	private readonly destroyRef = inject(DestroyRef);
 	private readonly window = inject(WINDOW);
 	private readonly tenantId$ = inject(TENANT_ID);
 
@@ -105,12 +91,12 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			});
 
 		this.businessProfile$.pipe(
-			this.takeUntil()
+			takeUntilDestroyed(this.destroyRef),
 		).subscribe((item) => {
 			this.initMenu();
 			if (item) {
-				const { bookingSettings } = item;
-				const { autoBookOrder } = bookingSettings;
+				const {bookingSettings} = item;
+				const {autoBookOrder} = bookingSettings;
 				this.requestedMenuItem.visible = is.false(autoBookOrder);
 			}
 			this.updateMenu();
@@ -328,45 +314,6 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			translateKey: 'sidebar.businessProfile',
 			visible: true,
 			icon: 'bi bi-buildings',
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 12,
-			url: 'client/business-settings',
-			translateKey: 'sidebar.businessSettings',
-			icon: 'bi bi-building-gear',
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 13,
-			url: 'tariff-plan/overview',
-			translateKey: 'sidebar.tariffPlan',
-			icon: 'bi bi-building-up',
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 13,
-			url: 'balance/overview',
-			translateKey: 'sidebar.balance',
-			icon: 'bi bi-piggy-bank',
-			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",

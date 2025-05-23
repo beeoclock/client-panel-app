@@ -1,4 +1,4 @@
-import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from '@angular/core';
+import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from '@angular/core';
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
@@ -27,6 +27,7 @@ import {
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+import {CurrencyPipe} from "@angular/common";
 
 @Component({
 	selector: 'product-table-list-component',
@@ -41,8 +42,13 @@ import {
 		RowActionButtonComponent,
 		AutoRefreshButtonComponent
 	],
+	providers: [
+		CurrencyPipe,
+	]
 })
 export class TableListComponent extends TableComponent<EProduct> {
+
+	private readonly currencyPipe = inject(CurrencyPipe)
 
 	public readonly availableLanguages = toSignal(this.store.select(BusinessProfileState.availableLanguages));
 
@@ -50,42 +56,46 @@ export class TableListComponent extends TableComponent<EProduct> {
 
 	public readonly columns = signal<TableColumn<EProduct>[]>([
 		{
-			name: this.translateService.instant('keyword.capitalize.firstName'),
+			name: this.translateService.instant('keyword.capitalize.sku'),
 			prop: 'sku',
 			minWidth: 200,
 			width: 200,
 			sortable: true
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.lastName'),
+			name: this.translateService.instant('keyword.capitalize.productName'),
 			prop: 'productName',
 			minWidth: 140,
 			width: 140,
 			sortable: true
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.email'),
+			name: this.translateService.instant('keyword.capitalize.price'),
 			prop: 'price',
 			minWidth: 300,
 			width: 300,
-			sortable: true
+			sortable: true,
+			$$valueGetter: (row: EProduct) => {
+				const {value, currency} = row.price;
+				return this.currencyPipe.transform(value, currency, 'symbol-narrow');
+			}
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.phone'),
+			name: this.translateService.instant('keyword.capitalize.tags'),
 			prop: 'tags',
 			minWidth: 160,
 			width: 160,
 			sortable: true,
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.note'),
+			name: this.translateService.instant('keyword.capitalize.order'),
 			prop: 'order',
 			minWidth: 160,
 			width: 160,
 			sortable: false,
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.active'),
+			name: this.translateService.instant('keyword.capitalize.state'),
 			prop: 'state',
 			minWidth: 160,
 			width: 160,
