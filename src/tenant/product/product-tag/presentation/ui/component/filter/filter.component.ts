@@ -41,7 +41,7 @@ import {ProductTagDataState} from "@tenant/product/product-tag/infrastructure/st
 					<ng-container *ngTemplateOutlet="ProductActiveSelect"></ng-container>
 					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
-				<div>
+				<div class="px-2">
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 				</div>
 			}
