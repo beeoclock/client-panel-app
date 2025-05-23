@@ -10,7 +10,7 @@ import {ActiveStyleDirective} from "@shared/presentation/directives/active-style
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {EditButtonComponent} from "@shared/presentation/component/button/edit.button.component";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
-import {IProduct} from "src/tenant/product/product/domain";
+import {IProduct} from "@tenant/product/product/domain";
 import {ProductDataActions} from "@tenant/product/product/infrastructure/state/data/product.data.actions";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {

@@ -3,8 +3,11 @@ import {Action, State, StateContext} from '@ngxs/store';
 import {TranslateService} from '@ngx-translate/core';
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {baseDefaults, IBaseState} from "@shared/state/base/base.state";
-import {IProduct} from "src/tenant/product/product/domain";
+import {IProduct} from "@tenant/product/product/domain";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {
+	ProductPresentationActions
+} from "@tenant/product/product/infrastructure/state/presentation/product.presentation.actions";
 import {Router} from "@angular/router";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import {
@@ -13,9 +16,6 @@ import {
 import {
 	ProductFormContainerComponent
 } from '@tenant/product/product/presentation/ui/component/form/product-form-container.component';
-import {
-	ProductTagPresentationActions
-} from "@tenant/product-tag/infrastructure/state/presentation/product-tag.presentation.actions";
 
 export type IProductPresentationState = IBaseState<IProduct.DTO>;
 
@@ -27,21 +27,21 @@ const defaults = baseDefaults<IProduct.DTO>({
 });
 
 @State<IProductPresentationState>({
-	name: 'productTagPresentation',
+	name: 'productPresentation',
 	defaults,
 })
 @Injectable()
-export class ProductTagPresentationState {
+export class ProductPresentationState {
 
 	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 	private readonly router = inject(Router);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly translateService = inject(TranslateService);
 
-	@Action(ProductTagPresentationActions.OpenDetails)
+	@Action(ProductPresentationActions.OpenDetails)
 	public async openDetailsAction(
 		ctx: StateContext<IProductPresentationState>,
-		{payload}: ProductTagPresentationActions.OpenDetails
+		{ payload }: ProductPresentationActions.OpenDetails
 	) {
 
 		const activated = this.secondRouterOutletService.activated();
@@ -50,31 +50,31 @@ export class ProductTagPresentationState {
 			if (activated instanceof ProductDetailsContainerComponent) {
 				const {_id} = activated.item() ?? {};
 				if (_id === payload._id) {
-					const action = new ProductTagPresentationActions.CloseDetails();
+					const action = new ProductPresentationActions.CloseDetails();
 					ctx.dispatch(action);
 					return;
 				}
 			}
 		}
 
-		await this.router.navigate([{outlets: {second: ['product-tag', payload._id]}}]);
+		await this.router.navigate([{outlets: {second: ['product', payload._id]}}]);
 
 	}
 
-	@Action(ProductTagPresentationActions.CloseDetails)
+	@Action(ProductPresentationActions.CloseDetails)
 	public async closeDetails() {
 		await this.router.navigate([{outlets: {second: null}}]);
 	}
 
-	@Action(ProductTagPresentationActions.CloseForm)
+	@Action(ProductPresentationActions.CloseForm)
 	public async closeForm() {
 		await this.router.navigate([{outlets: {second: null}}]);
 	}
 
-	@Action(ProductTagPresentationActions.UpdateOpenedDetails)
+	@Action(ProductPresentationActions.UpdateOpenedDetails)
 	public async updateOpenedDetails(
 		ctx: StateContext<IProductPresentationState>,
-		{payload}: ProductTagPresentationActions.UpdateOpenedDetails
+		{ payload }: ProductPresentationActions.UpdateOpenedDetails
 	) {
 
 		const activated = this.secondRouterOutletService.activated();
@@ -88,7 +88,7 @@ export class ProductTagPresentationState {
 				if (_id === payload._id) {
 
 
-					await this.router.navigate([{outlets: {second: ['product-tag', payload._id]}}], {
+					await this.router.navigate([{outlets: {second: ['product', payload._id]}}], {
 						onSameUrlNavigation: 'reload',
 					});
 
@@ -99,10 +99,10 @@ export class ProductTagPresentationState {
 		}
 	}
 
-	@Action(ProductTagPresentationActions.OpenForm)
+	@Action(ProductPresentationActions.OpenForm)
 	public async openForm(
 		ctx: StateContext<IProductPresentationState>,
-		{payload}: ProductTagPresentationActions.OpenForm
+		{ payload }: ProductPresentationActions.OpenForm
 	): Promise<void> {
 
 		const activated = this.secondRouterOutletService.activated();
@@ -113,12 +113,12 @@ export class ProductTagPresentationState {
 				if (isEditMode) {
 					const {_id} = activated.item() ?? {};
 					if (_id === payload?.componentInputs?.item?._id) {
-						const action = new ProductTagPresentationActions.CloseForm();
+						const action = new ProductPresentationActions.CloseForm();
 						ctx.dispatch(action);
 						return;
 					}
 				} else {
-					const action = new ProductTagPresentationActions.CloseForm();
+					const action = new ProductPresentationActions.CloseForm();
 					ctx.dispatch(action);
 					return;
 				}
@@ -126,9 +126,9 @@ export class ProductTagPresentationState {
 		}
 
 		if (payload?.componentInputs?.isEditMode) {
-			await this.router.navigate([{outlets: {second: ['product-tag', payload.componentInputs.item?._id, 'form']}}]);
+			await this.router.navigate([{outlets: {second: ['product', payload.componentInputs.item?._id, 'form']}}]);
 		} else {
-			await this.router.navigate([{outlets: {second: ['product-tag', 'form']}}]);
+			await this.router.navigate([{outlets: {second: ['product', 'form']}}]);
 		}
 
 	}

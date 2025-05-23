@@ -18,7 +18,7 @@ import {
 } from "@shared/presentation/component/switch/switch-active/switch-active-block.component";
 import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {ProductForm} from "@tenant/product/product/presentation/form/product.form";
-import {IProduct} from "src/tenant/product/product/domain";
+import {IProduct} from "@tenant/product/product/domain";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";

@@ -4,7 +4,7 @@ import EProduct from "@tenant/product/product/domain/entity/e.product";
 import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
 
 @Component({
-	selector: 'product-tag-card-list-component',
+	selector: 'product-card-list-component',
 	templateUrl: './card.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,

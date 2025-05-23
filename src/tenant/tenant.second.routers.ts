@@ -5,7 +5,7 @@ import {memberResolver} from "@tenant/member/member/presentation/resolver/member
 import {serviceResolver} from "@tenant/service/presentation/resolver/service.resolver";
 import {orderResolver} from "@tenant/order/order/presentation/resolver/order.resolver";
 import {paymentByOrderIdResolver} from "@tenant/order/payment/presentation/resolver/payment-by-order-id.resolver";
-import {productResolver} from "@tenant/product/presentation/resolver/product.resolver";
+import {productResolver} from "@tenant/product/product/presentation/resolver/product.resolver";
 import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver";
 import {paymentResolver} from "@tenant/order/payment/presentation/resolver/payment.resolver";
 import {balanceResolver} from "@tenant/balance/presentation/resolver/balance.resolver";
@@ -207,7 +207,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'product/form',
 		outlet: 'second',
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/product/presentation/ui/component/form/product-form-container.component')
+		loadComponent: () => import('@tenant/product/product/presentation/ui/component/form/product-form-container.component')
 	},
 	{
 		path: 'product/:id',
@@ -216,7 +216,7 @@ export const tenantSecondRouters: Routes = [
 			item: productResolver,
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/product/presentation/ui/component/details/product-details-container.component')
+		loadComponent: () => import('@tenant/product/product/presentation/ui/component/details/product-details-container.component')
 	},
 	{
 		path: 'product/:id/form',
@@ -229,7 +229,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/product/presentation/ui/component/form/product-form-container.component')
+		loadComponent: () => import('@tenant/product/product/presentation/ui/component/form/product-form-container.component')
 	},
 	/**
 	 * Event

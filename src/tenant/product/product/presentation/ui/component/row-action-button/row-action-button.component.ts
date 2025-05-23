@@ -2,10 +2,10 @@ import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {Store} from '@ngxs/store';
 import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
-import {IProduct} from "src/tenant/product/product/domain";
+import {IProduct} from "@tenant/product/product/domain";
 
 @Component({
-	selector: 'product-tag-row-action-button-component',
+	selector: 'product-row-action-button-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `

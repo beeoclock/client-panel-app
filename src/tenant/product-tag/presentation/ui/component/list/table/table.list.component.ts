@@ -10,7 +10,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
 import {
 	AutoRefreshButtonComponent
-} from "@tenant/product/presentation/ui/component/auto-refresh/auto-refresh.button.component";
+} from "@tenant/product/product/presentation/ui/component/auto-refresh/auto-refresh.button.component";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {
 	BusinessProfileState
