@@ -13,6 +13,9 @@ import {ProductTagForm} from "@tenant/product/product-tag/presentation/form/prod
 import {IProductTag} from "@tenant/product/product-tag/domain";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ProductTagDataActions} from "@tenant/product/product-tag/infrastructure/state/data/product-tag.data.actions";
+import {
+	ProductTagAsyncValidation
+} from "@tenant/product/product-tag/presentation/form/async/product-tag.async-validation";
 
 @Component({
 	selector: 'product-tag-form-page',
@@ -25,12 +28,14 @@ import {ProductTagDataActions} from "@tenant/product/product-tag/infrastructure/
 		TranslatePipe,
 		PrimaryButtonDirective
 	],
+	providers: [ProductTagAsyncValidation],
 	standalone: true,
 })
 export class ProductTagFormContainerComponent {
 
 	protected readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly productTagAsyncValidation = inject(ProductTagAsyncValidation);
 
 	public readonly form = new ProductTagForm();
 	public readonly item = input<IProductTag.DTO | undefined>();
@@ -38,8 +43,15 @@ export class ProductTagFormContainerComponent {
 
 	public constructor() {
 		afterNextRender(() => {
+			this.initAsyncValidations();
 			this.detectItem();
 		});
+	}
+
+	public initAsyncValidations(): void {
+		this.form.controls.name.addAsyncValidators(
+			this.productTagAsyncValidation.nameExistAsyncValidator()
+		);
 	}
 
 	public detectItem(): void {

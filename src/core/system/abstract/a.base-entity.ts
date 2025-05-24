@@ -29,7 +29,7 @@ export abstract class ABaseEntity<
 	}[] = [];
 
 	syncedAt?: string & Types.DateTime;
-	errors: {
+	syncErrors: {
 		fromSource: 'server' | 'client';
 		message: string;
 		code?: number;
@@ -91,16 +91,16 @@ export abstract class ABaseEntity<
 		return raw as unknown as RAW;
 	}
 
-	public hasErrors(): boolean {
-		return this.errors.length > 0;
+	public hasSyncErrors(): boolean {
+		return this.syncErrors.length > 0;
 	}
 
-	public clearErrors(): void {
-		this.errors.length = 0;
+	public clearSyncErrors(): void {
+		this.syncErrors.length = 0;
 	}
 
-	public addError(error: { fromSource: 'server' | 'client'; message: string; code?: number }): void {
-		this.errors.push(error);
+	public addSyncError(error: { fromSource: 'server' | 'client'; message: string; code?: number }): void {
+		this.syncErrors.push(error);
 	}
 
 }

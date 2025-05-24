@@ -431,6 +431,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 					 * updatedAt: "2021-09-14T08:00:00.001Z" <- updated has 1ms more than syncedAt
 					 */
 					entity.initSyncedAt(entity.updatedAt);
+					entity.clearSyncErrors();
 
 					await this.putEntity(entity);
 
@@ -449,6 +450,7 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 
 						entity = this.toEntity(serverHasItem);
 						entity.initSyncedAt(entity.updatedAt);
+						entity.clearSyncErrors();
 
 						await this.putEntity(entity);
 
@@ -484,12 +486,11 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 								const {error} = responsePut;
 								const {message} = error;
 
-								// throw new Error('Item not found on server');
-
 								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 								// @ts-expect-error
 								const entity = this.toEntity(item);
-								entity.addError({
+								entity.clearSyncErrors();
+								entity.addSyncError({
 									fromSource: 'server',
 									message: message,
 								});
@@ -509,7 +510,8 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 								// @ts-expect-error
 								const entity = this.toEntity(item);
-								entity.addError({
+								entity.clearSyncErrors();
+								entity.addSyncError({
 									fromSource: 'server',
 									message,
 									code,

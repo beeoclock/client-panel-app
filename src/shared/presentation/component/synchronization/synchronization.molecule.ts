@@ -2,6 +2,8 @@ import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@ang
 import {DatePipe, NgTemplateOutlet} from "@angular/common";
 import {IonicModule} from "@ionic/angular";
 import {is} from "@core/shared/checker";
+import {TranslatePipe} from "@ngx-translate/core";
+import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 
 @Component({
 	selector: 'synchronization-molecule',
@@ -11,48 +13,59 @@ import {is} from "@core/shared/checker";
 	imports: [
 		DatePipe,
 		IonicModule,
-		NgTemplateOutlet
+		NgTemplateOutlet,
+		TranslatePipe
 	],
 	template: `
 
 		@if (isNew()) {
 
 			@if (isErrorList()) {
+
 				<ng-container *ngTemplateOutlet="errorListTemplate"/>
+
 			} @else {
 
-
 				<div>
-					<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500">
-						Waiting for sync
+					<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-white/10 dark:text-white">
+						{{ 'keyword.capitalize.waitingForSynchronization' | translate }}
 					</span>
 				</div>
 
-
 			}
-
 
 		} @else {
 
-
 			@if (isErrorList()) {
-
 
 				<ng-container *ngTemplateOutlet="errorListTemplate"/>
 
-
 			} @else {
 
+				<div>
+					<span
+						[id]="item()._id + '-synchronized'" (click)="$event.stopPropagation()"
+						class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
+						<i class="bi bi-patch-check"></i>
+						{{ 'keyword.capitalize.synchronized' | translate }}
+					</span>
 
-				<span
-					class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
-					<i class="bi bi-patch-check"></i>
-					{{ item().syncedAt | date: 'short' }}
-				</span>
-
+					<ion-popover [trigger]="item()._id + '-synchronized'" triggerAction="click">
+						<ng-template>
+							<ion-content class="ion-padding">
+								<ion-list>
+									<ion-item lines="full">
+										<ion-label>
+											{{ item().syncedAt | date: 'short' }}
+										</ion-label>
+									</ion-item>
+								</ion-list>
+							</ion-content>
+						</ng-template>
+					</ion-popover>
+				</div>
 
 			}
-
 
 		}
 
@@ -68,7 +81,7 @@ import {is} from "@core/shared/checker";
 				  <path d="M12 9v4"></path>
 				  <path d="M12 17h.01"></path>
 				</svg>
-				Attention
+				{{ 'keyword.capitalize.synchronizationError' | translate }}
 			  </span>
 			</div>
 
@@ -78,9 +91,7 @@ import {is} from "@core/shared/checker";
 						<ion-list>
 							@if (isErrorList()) {
 
-
-								@for (error of item().errors; track error.message) {
-
+								@for (error of item().syncErrors; track error.message) {
 
 									<ion-item lines="full">
 										<ion-label>
@@ -100,19 +111,10 @@ import {is} from "@core/shared/checker";
 })
 export class SynchronizationMolecule {
 
-	public readonly item = input.required<
-		{
-			_id: string;
-			syncedAt?: string;
-			errors?: {
-				fromSource: 'server' | 'client';
-				message: string;
-				code?: number;
-			}[];
-		}>();
+	public readonly item = input.required<IBaseEntityRaw<string>>();
 
 	public isErrorList(): boolean {
-		return is.array_not_empty(this.item().errors);
+		return is.array_not_empty(this.item()?.syncErrors);
 	}
 
 	public isNew(): boolean {
