@@ -29,8 +29,6 @@ import {
 		AsyncPipe,
 		MobileLayoutListComponent,
 		DesktopLayoutListComponent,
-		MobileLayoutListComponent,
-		DesktopLayoutListComponent,
 	],
 	standalone: true,
 	providers: [

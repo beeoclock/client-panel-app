@@ -80,39 +80,18 @@ export class TableListComponent extends TableComponent<EExpenseCategory> {
 
 	public readonly columns = signal<TableColumn<EExpenseCategory>[]>([
 		{
-			name: this.translateService.instant('keyword.capitalize.firstName'),
-			prop: 'firstName',
+			name: this.translateService.instant('keyword.capitalize.title'),
+			prop: 'name',
 			minWidth: 140,
 			width: 140,
 			sortable: true
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.lastName'),
-			prop: 'lastName',
+			name: this.translateService.instant('keyword.capitalize.description'),
+			prop: 'description',
 			minWidth: 140,
 			width: 140,
 			sortable: true
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.email'),
-			prop: 'email',
-			minWidth: 300,
-			width: 300,
-			sortable: true
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.phone'),
-			prop: 'phone',
-			minWidth: 160,
-			width: 160,
-			sortable: true,
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.note'),
-			prop: 'note',
-			minWidth: 160,
-			width: 160,
-			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.active'),
