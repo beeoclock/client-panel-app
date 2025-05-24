@@ -1,0 +1,113 @@
+@if (item(); as product) {
+	<div class="bg-white">
+		<dl class="divide-y divide-gray-100">
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.sku' | translate }}
+				</dt>
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
+					{{ product.sku }}
+				</dd>
+			</div>
+
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.productName' | translate }}
+				</dt>
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
+					{{ product.languageVersions[0].title }}
+				</dd>
+			</div>
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 items-center">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.category.plural' | translate }}
+				</dt>
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2"  class="truncate">
+					<span [title]="product.tags?.join(', ')">
+						@for (tag of product.tags; track tag ) {
+							<ion-chip>
+								{{ tag }}
+							</ion-chip>
+						}
+					</span>
+				</dd>
+			</div>
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.price' | translate }}
+				</dt>
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
+					{{ product.price?.value | currency: product.price?.currency : 'symbol-narrow' }}
+				</dd>
+			</div>
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.order' | translate }}
+				</dt>
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2 flex">
+					{{ product?.order | noData }}
+				</dd>
+			</div>
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.status' | translate }}
+				</dt>
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2 flex">
+					<div activeStyle [state]="product.state"></div>
+				</dd>
+			</div>
+		</dl>
+	</div>
+
+	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
+
+		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
+
+			<bee-delete-button [buttonWidthFull]="true" (event)="delete(product)"/>
+			<edit-button-component [buttonWidthFull]="true" (click)="openForm()"/>
+
+		</div>
+
+		<div class="text-start text-beeColor-400 text-sm px-4">
+
+			<div class="flex flex-col gap-4">
+
+				<div class="flex flex-col">
+
+					<div>
+						#
+					</div>
+					<div>
+						{{ product._id }}
+					</div>
+
+				</div>
+
+				<div class="flex flex-col">
+
+					<div>
+						{{ 'keyword.capitalize.createdAt' | translate }}:
+					</div>
+					<div>
+						{{ product.createdAt | dynamicDate }}
+					</div>
+
+				</div>
+
+				<div class="flex flex-col">
+
+					<div>
+						{{ 'keyword.capitalize.updatedAt' | translate }}:
+					</div>
+					<div>
+						{{ product.updatedAt | dynamicDate }}
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+}

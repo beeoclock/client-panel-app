@@ -683,6 +683,7 @@
 			"durationFormatInvalid": "Prawidłowy format to godziny:minuty (00:00)",
 			"email": "Nieprawidłowy format adresu e-mail",
 			"emailExists": "Adres e-mail już istnieje",
+			"nameExists": "Nazwa już istnieje",
 			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
 			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
 			"invalid": "Nieprawidłowy",
@@ -714,6 +715,20 @@
 					"accept": {
 						"header": "Usuwanie wydarzenia",
 						"message": "Czy na pewno chcesz usunąć wydarzenie?"
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został usunięty."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Usuwanie produkt",
+						"message": "Czy na pewno chcesz usunąć produkt?"
 					}
 				}
 			},
@@ -785,6 +800,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Utworzono produkt",
+						"message": "Produkt został utworzony."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -816,6 +839,14 @@
 					"success": {
 						"header": "Wydarzenie zaktualizowane",
 						"message": "Wydarzenie zostało zaktualizowany."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został zaktualizowany."
 					}
 				}
 			},
@@ -1070,6 +1101,17 @@
 			"businessProfile": "Profil biznesu",
 			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
+			"category": {
+				"create": {
+					"choose": "Wybierz kategorie",
+					"enter": "Wpisz kategorie",
+					"first": "Dodaj pierwszą kategorie",
+					"tooltip": "Dodaj kategorie do listy",
+					"uniqueError": "Nazwa kategorii musi być unikalna"
+				},
+				"plural": "Kategorie",
+				"single": "Kategoria"
+			},
 			"changeStatus": "Zmień status",
 			"changes": "Zmiany",
 			"changesFrom": "Z",
@@ -1128,6 +1170,7 @@
 			"inactive": "Nieaktywny",
 			"information": "Informacje",
 			"initializing": "Inicializacja",
+			"isUpcoming": "Nadchodzi",
 			"language": "Język",
 			"languageAndRegion": "Język i region",
 			"languages": "Języki",
@@ -1159,7 +1202,6 @@
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
 			"paid": "Zapłacone",
 			"payAsYouGo": "Płać na bieżąco",
-			"isUpcoming": "Nadchodzi",
 			"payer": "Płatnik",
 			"payment": "Płatność",
 			"paymentMethod": "Metoda płatności",
@@ -1185,6 +1227,7 @@
 			"priceTimeFormatPrompt": "godziny:minuty",
 			"prices": "Ceny",
 			"processing": "Przetwarzanie",
+			"productName": "Nazwa produktu",
 			"publicPage": "Strona publiczna",
 			"reject": "Odrzucić",
 			"role": "Rola",
@@ -1202,6 +1245,7 @@
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
 			"signUp": "Zarejestruj się",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Media społecznościowe",
 			"somethingWentWrong": "Coś poszło nie tak!",
@@ -1217,6 +1261,9 @@
 			"successfully": "Pomyślnie",
 			"switchTo": "Przełącz na",
 			"synced": "Zsynchronizowano",
+			"synchronization": "Synchronizacja",
+			"synchronizationError": "Błąd synchronizacji",
+			"synchronized": "Zsynchronizowano",
 			"syncing": "Synchronizacja w toku…",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
@@ -1231,6 +1278,7 @@
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
 			"upgradeTo": "Zaktualizuj do",
+			"waitingForSynchronization": "Oczekuje na synchronizację ",
 			"warning": "Uwaga",
 			"week": "Tydzień",
 			"workdays": "Dni pracy",
@@ -1510,6 +1558,24 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Dodaj produkt"
+		},
+		"deactivateBeforeDelete": "Nie można usunąć aktywnego produktu",
+		"details": {
+			"title": "Informacje o produkcie"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "Możesz nadać swojemu produktowi nazwę w ramach dostępnych języków"
+			},
+			"title": {
+				"create": "Dodawanie produktu",
+				"edit": "Edycja produktu"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Właściciel",
@@ -1604,6 +1670,8 @@
 		"payment": "Płatności",
 		"plugins": "Pluginy",
 		"private": "Prywatne",
+		"product-tag": "Tagi produktu",
+		"products": "Produkty",
 		"profile": {
 			"signOut": {
 				"header": "Wylogowanie",

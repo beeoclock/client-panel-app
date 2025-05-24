@@ -5,9 +5,11 @@ import {memberResolver} from "@tenant/member/member/presentation/resolver/member
 import {serviceResolver} from "@tenant/service/presentation/resolver/service.resolver";
 import {orderResolver} from "@tenant/order/order/presentation/resolver/order.resolver";
 import {paymentByOrderIdResolver} from "@tenant/order/payment/presentation/resolver/payment-by-order-id.resolver";
+import {productResolver} from "@tenant/product/product/presentation/resolver/product.resolver";
 import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver";
 import {paymentResolver} from "@tenant/order/payment/presentation/resolver/payment.resolver";
 import {balanceResolver} from "@tenant/balance/presentation/resolver/balance.resolver";
+import {productTagResolver} from "@tenant/product/product-tag/presentation/resolver/product.resolver";
 
 export const tenantSecondRouters: Routes = [
 	/**
@@ -198,6 +200,67 @@ export const tenantSecondRouters: Routes = [
 		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/order/payment/presentation/ui/page/details/details')
+	},
+	/**
+	 * Product
+	 */
+	{
+		path: 'product/form',
+		outlet: 'second',
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/product/product/presentation/ui/component/form/product-form-container.component')
+	},
+	{
+		path: 'product/:id',
+		outlet: 'second',
+		resolve: {
+			item: productResolver,
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/product/product/presentation/ui/component/details/product-details-container.component')
+	},
+	{
+		path: 'product/:id/form',
+		outlet: 'second',
+		resolve: {
+			product: productResolver,
+			payment: paymentByOrderIdResolver
+		},
+		data: {
+			isEditMode: true
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/product/product/presentation/ui/component/form/product-form-container.component')
+	},
+	/**
+	 * Product Tag
+	 */
+	{
+		path: 'product-tag/form',
+		outlet: 'second',
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/product/product-tag/presentation/ui/component/form/product-tag-form-container.component')
+	},
+	{
+		path: 'product-tag/:id',
+		outlet: 'second',
+		resolve: {
+			item: productTagResolver,
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/product/product-tag/presentation/ui/component/details/product-tag-details-container.component')
+	},
+	{
+		path: 'product-tag/:id/form',
+		outlet: 'second',
+		resolve: {
+			product: productTagResolver,
+		},
+		data: {
+			isEditMode: true
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/product/product-tag/presentation/ui/component/form/product-tag-form-container.component')
 	},
 	/**
 	 * Event

@@ -19,7 +19,6 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 	publicPageSettings!: { primaryColor: string; };
 	paymentSettings!: { externalApiCredentials: { stripe: { secretKey: string; webhookSecret: string; }; }; };
 	specialSchedules = [];
-	_version!: string;
 
 	status!: BusinessClientStatusEnum;
 	published!: ActiveEnum;
@@ -49,33 +48,34 @@ export class EBusinessProfile extends ABaseEntity<'BusinessProfileDto', IBusines
 
 	public static toDTO(data: IBusinessProfile.EntityRaw): IBusinessProfile.DTO {
 		return {
-			_id: data._id,
-			_version: data._version,
-			addresses: data.addresses,
-			banners: data.banners,
-			bookingSettings: data.bookingSettings,
+			notificationSettings: data.notificationSettings,
+			socialNetworkLinks: data.socialNetworkLinks,
+			publicPageSettings: data.publicPageSettings,
+			specialSchedules: data.specialSchedules,
 			businessSettings: data.businessSettings,
-			contacts: data.contacts,
-			createdAt: data.createdAt,
+			bookingSettings: data.bookingSettings,
+			paymentSettings: data.paymentSettings,
 			description: data.description,
 			facilities: data.facilities,
-			feature: data.feature,
-			gallery: data.gallery,
-			logo: data.logo,
-			name: data.name,
-			notificationSettings: data.notificationSettings,
-			object: data.object,
-			paymentSettings: data.paymentSettings,
-			publicPageSettings: data.publicPageSettings,
+			addresses: data.addresses,
 			published: data.published,
 			schedules: data.schedules,
-			socialNetworkLinks: data.socialNetworkLinks,
-			specialSchedules: data.specialSchedules,
-			state: data.state,
-			stateHistory: data.stateHistory,
-			status: data.status,
-			updatedAt: data.updatedAt,
+			contacts: data.contacts,
 			username: data.username,
+			banners: data.banners,
+			feature: data.feature,
+			gallery: data.gallery,
+			status: data.status,
+			logo: data.logo,
+			name: data.name,
+
+			_id: data._id,
+			state: data.state,
+			object: data.object,
+			_version: data._version,
+			createdAt: data.createdAt,
+			updatedAt: data.updatedAt,
+			stateHistory: data.stateHistory,
 
 		}
 	}

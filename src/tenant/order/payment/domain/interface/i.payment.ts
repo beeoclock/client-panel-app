@@ -15,7 +15,7 @@ export namespace IPayment {
 
 		providerPaymentRef: string | null;
 		orderId: string;
-		payer: ICustomer.EntityRaw;
+		payer: ICustomer.DTO;
 		amount: number & Types.Minimum<0>;
 		currency: CurrencyCodeEnum & Types.Default<CurrencyCodeEnum.USD>;
 		method: PaymentMethodEnum & Types.Default<PaymentMethodEnum.CASH>;

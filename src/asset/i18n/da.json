@@ -683,6 +683,7 @@
 			"durationFormatInvalid": "Gyldigt format er timer:minutter (00:00)",
 			"email": "Ugyldigt e-mail-format",
 			"emailExists": "En bruger med denne e-mail eksisterer allerede",
+			"nameExists": "Navn findes allerede",
 			"emailOrPhoneRequired": "E-mail eller telefonnummer er påkrævet",
 			"imageSize": "Maksimal billedstørrelse er {{max}}, nuværende størrelse er {{value}}",
 			"invalid": "Invalid",
@@ -714,6 +715,20 @@
 					"accept": {
 						"header": "Sletter en begivenhed",
 						"message": "Er du sikker på, at du vil fjerne begivenheden?"
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produktet er blevet slettet."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Sletning af et produkt",
+						"message": "Er du sikker på, at du vil fjerne produktet?"
 					}
 				}
 			},
@@ -785,6 +800,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Produkt oprettet",
+						"message": "Produktet er blevet oprettet."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -816,6 +839,14 @@
 					"success": {
 						"header": "Begivenhed opdateret",
 						"message": "Begivenheden blev opdateret med succes."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt opdateret",
+						"message": "Produktet blev opdateret med succes."
 					}
 				}
 			},
@@ -1070,6 +1101,17 @@
 			"businessProfile": "Forretningsprofil",
 			"businessSettings": "Forretningsindstillinger",
 			"cancel": "Annuller",
+			"category": {
+				"create": {
+					"choose": "Vælg en kategori",
+					"enter": "Indtast en kategori",
+					"first": "Tilføj den første kategori",
+					"tooltip": "Tilføj kategorier til listen",
+					"uniqueError": "Kategorinavnet skal være unikt"
+				},
+				"plural": "Kategorier",
+				"single": "Kategori"
+			},
 			"changeStatus": "Skift status",
 			"changes": "Ændringer",
 			"changesFrom": "Fra",
@@ -1128,6 +1170,7 @@
 			"inactive": "Inaktiv",
 			"information": "Information",
 			"initializing": "Initialiserer",
+			"isUpcoming": "Er kommende",
 			"language": "Sprog",
 			"languageAndRegion": "Sprog og region",
 			"languages": "Sprog",
@@ -1159,7 +1202,6 @@
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
 			"paid": "Betalt",
 			"payAsYouGo": "Betal, når du går",
-			"isUpcoming": "Er kommende",
 			"payer": "Udbetaler",
 			"payment": "Betaling",
 			"paymentMethod": "Betalingsmetode",
@@ -1185,6 +1227,7 @@
 			"priceTimeFormatPrompt": "timer:minutter",
 			"prices": "Priser",
 			"processing": "Behandler",
+			"productName": "Produktets navn",
 			"publicPage": "Offentlig side",
 			"reject": "Afvis",
 			"role": "Rolle",
@@ -1202,6 +1245,7 @@
 			"signIn": "Log ind",
 			"signOut": "Log ud",
 			"signUp": "Tilmeld dig",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Sociale medier",
 			"somethingWentWrong": "Noget gik galt!",
@@ -1217,6 +1261,9 @@
 			"successfully": "Med succes",
 			"switchTo": "Skift til",
 			"synced": "Synkroniseret",
+			"synchronization": "Synchronisatie",
+			"synchronizationError": "Synkroniseringsfejl",
+			"synchronized": "Synkroniseret",
 			"syncing": "Synkronisering pågår…",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
@@ -1231,6 +1278,7 @@
 			"update": "Opdateret",
 			"updatedAt": "Opdateret kl",
 			"upgradeTo": "Opgrader til",
+			"waitingForSynchronization": "Venter på synkronisering ",
 			"warning": "Advarsel",
 			"week": "Uge",
 			"workdays": "Arbejdsdage",
@@ -1510,6 +1558,24 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Tilføj produkt"
+		},
+		"deactivateBeforeDelete": "Du kan ikke slette et aktivt produkt",
+		"details": {
+			"title": "Info om produktet"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "Du kan give dit produkt et navn på de tilgængelige sprog"
+			},
+			"title": {
+				"create": "Tilføj produkt",
+				"edit": "Rediger produkt"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Ejer",
@@ -1604,6 +1670,8 @@
 		"payment": "Betalinger",
 		"plugins": "Plugins",
 		"private": "Privat",
+		"product-tag": "Produktmærker",
+		"products": "Produkter",
 		"profile": {
 			"signOut": {
 				"header": "Log ud",
