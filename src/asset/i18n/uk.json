@@ -676,6 +676,11 @@
 		"firstName": "Іван",
 		"lastName": "Шевченко"
 	},
+	"expense-category": {
+		"button": {
+			"create": "Додати категорію витратів"
+		}
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Хоча б одне поле має бути заповнене",

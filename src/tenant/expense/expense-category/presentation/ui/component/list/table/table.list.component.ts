@@ -42,7 +42,7 @@ import {
 				class="block h-full"
 				(clickListener)="openForm()"
 				[showLinkToForm]="true"
-				[linkLabel]="'customer.button.create' | translate"
+				[linkLabel]="'expense-category.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
 
 				<customer-auto-refresh-component/>

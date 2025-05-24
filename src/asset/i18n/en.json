@@ -676,6 +676,11 @@
 		"firstName": "John",
 		"lastName": "Smith"
 	},
+	"expense-category": {
+		"button": {
+			"create": "Add an expense category"
+		}
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "At least one field must be filled",

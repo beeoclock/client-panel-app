@@ -676,6 +676,11 @@
 		"firstName": "John",
 		"lastName": "Smith"
 	},
+	"expense-category": {
+		"button": {
+			"create": "Een uitgavencategorie toevoegen"
+		}
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Mindst et felt skal udfyldes",
