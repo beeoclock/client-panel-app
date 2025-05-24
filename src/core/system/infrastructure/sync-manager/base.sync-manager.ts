@@ -463,31 +463,78 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 				}
 				this.saveSyncState();
 
-			} catch (error) {
-				if (error instanceof HttpErrorResponse) {
+			} catch (responsePut) {
 
-					if (error.status === 400) {
+				if (responsePut instanceof HttpErrorResponse) {
 
-						const serverHasItem = await this.apiDataProvider.findByIdAsync(item._id);
+					if (responsePut.status === 400) {
 
-						if (!serverHasItem) {
-							throw new Error('Item not found on server');
+						try {
+							const serverHasItem = await this.apiDataProvider.findByIdAsync(item._id);
+
+							if (serverHasItem) {
+
+								const entity = this.toEntity(serverHasItem);
+								entity.initSyncedAt();
+
+								await this.putEntity(entity);
+
+							} else {
+
+								const {error} = responsePut;
+								const {message} = error;
+
+								// throw new Error('Item not found on server');
+
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+								// @ts-expect-error
+								const entity = this.toEntity(item);
+								entity.addError({
+									fromSource: 'server',
+									message: message,
+								});
+
+								await this.putEntity(entity);
+								break;
+
+							}
+
+						} catch (responseGet) {
+
+							if (responseGet instanceof HttpErrorResponse) {
+
+								const {error} = responseGet;
+								const {code, message} = error;
+
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+								// @ts-expect-error
+								const entity = this.toEntity(item);
+								entity.addError({
+									fromSource: 'server',
+									message,
+									code,
+								});
+
+								await this.putEntity(entity);
+								break;
+
+							} else {
+
+								console.error('Error while pushing data', responseGet);
+
+							}
+
 						}
-
-						const entity = this.toEntity(serverHasItem);
-						entity.initSyncedAt();
-
-						await this.putEntity(entity);
 
 					} else {
 
-						console.error('Error while pushing data', error);
+						console.error('Error while pushing data', responsePut);
 
 					}
 
 				} else {
 
-					console.error('Error while pushing data', error);
+					console.error('Error while pushing data', responsePut);
 
 				}
 			}

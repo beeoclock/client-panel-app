@@ -29,6 +29,11 @@ export abstract class ABaseEntity<
 	}[] = [];
 
 	syncedAt?: string & Types.DateTime;
+	errors: {
+		fromSource: 'server' | 'client';
+		message: string;
+		code?: number;
+	}[] = [];
 
 	protected constructor(data: {
 		_id: string & Types.ObjectId;
@@ -84,6 +89,18 @@ export abstract class ABaseEntity<
 	public toRaw(): RAW {
 		const {changeState, toDTO, isNew, isUpdated, initSyncedAt, refreshUpdatedAt, ...raw} = this;
 		return raw as unknown as RAW;
+	}
+
+	public hasErrors(): boolean {
+		return this.errors.length > 0;
+	}
+
+	public clearErrors(): void {
+		this.errors.length = 0;
+	}
+
+	public addError(error: { fromSource: 'server' | 'client'; message: string; code?: number }): void {
+		this.errors.push(error);
 	}
 
 }
