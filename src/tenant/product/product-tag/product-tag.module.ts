@@ -2,11 +2,10 @@ import {inject, NgModule} from "@angular/core";
 import {ApiDataProvider} from "@tenant/product/product-tag/infrastructure/data-provider/api.data-provider";
 import {SyncManager} from "@tenant/product/product-tag/infrastructure/sync-manager/sync-manager";
 import {NgxsModule} from "@ngxs/store";
-import {PushChangesSyncManager} from "@tenant/product/product-tag/infrastructure/sync-manager/push.changes.sync-manager";
-import {SharedUow} from "@core/shared/uow/shared.uow";
 import {
-	ArchiveProductTagApiAdapter
-} from "@tenant/product/product-tag/infrastructure/data-source/api/archive.product-tag.api.adapter";
+	PushChangesSyncManager
+} from "@tenant/product/product-tag/infrastructure/sync-manager/push.changes.sync-manager";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 import {
 	CreateProductTagApiAdapter
 } from "@tenant/product/product-tag/infrastructure/data-source/api/create.product-tag.api.adapter";
@@ -48,7 +47,6 @@ import {ProductTagDataState} from "@tenant/product/product-tag/infrastructure/st
 	providers: [
 
 		// Api
-		ArchiveProductTagApiAdapter,
 		CreateProductTagApiAdapter,
 		DeleteProductTagApiAdapter,
 		ItemProductTagApiAdapter,
