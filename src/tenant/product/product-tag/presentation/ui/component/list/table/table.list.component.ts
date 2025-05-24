@@ -26,7 +26,7 @@ import {
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
-import {DatePipe} from "@angular/common";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'product-tag-table-list-component',
@@ -41,7 +41,7 @@ import {DatePipe} from "@angular/common";
 		RowActionButtonComponent,
 		AutoRefreshButtonComponent,
 		RowActionButtonComponent,
-		DatePipe
+		SynchronizationMolecule
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
