@@ -6,7 +6,6 @@ export enum memberEndpointEnum {
     item = '/api/v1/member/{id}',
     update = '/api/v1/member/{id}',
     delete = '/api/v1/member/{id}',
-    archive = '/api/v1/member/{id}/archive',
     create = '/api/v1/member',
 }
 
@@ -39,16 +38,6 @@ export const memberEndpoint: EndpointCollectionType = {
     },
     PUT: {
         [memberEndpointEnum.update]: {
-            source: SourceNetworkEnum.panel,
-            replace: true,
-            header: {
-                authorization: true,
-				tenantId: true,
-            }
-        },
-    },
-    PATCH: {
-        [memberEndpointEnum.archive]: {
             source: SourceNetworkEnum.panel,
             replace: true,
             header: {
