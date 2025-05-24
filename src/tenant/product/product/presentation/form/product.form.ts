@@ -94,11 +94,16 @@ export interface IProductDtoForm {
 	active: FormControl<ActiveEnum>;
 	order: FormControl<number | null>;
 	tags: FormControl<string[]>;
+	sku: FormControl<string>;
 }
 
 export class ProductForm extends BaseEntityForm<'ProductDto', IProductDtoForm> {
 	constructor(initialValue: Partial<IProduct.DTO> = {}) {
 		super('ProductDto', {
+			sku: new FormControl('SKU-' + new Date().getTime(), {
+				nonNullable: true,
+				validators: [Validators.required, Validators.minLength(3)],
+			}),
 			languageVersions: new LanguageVersionsForm(),
 			price: new PriceForm(),
 			active: new FormControl(ActiveEnum.YES, {
