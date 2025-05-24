@@ -5,18 +5,12 @@ import {NgxsModule} from "@ngxs/store";
 import {PushChangesSyncManager} from "@tenant/product/product/infrastructure/sync-manager/push.changes.sync-manager";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {
-	ArchiveProductApiAdapter
-} from "@tenant/product/product/infrastructure/data-source/api/archive.product.api.adapter";
-import {
 	CreateProductApiAdapter
 } from "@tenant/product/product/infrastructure/data-source/api/create.product.api.adapter";
 import {
 	DeleteProductApiAdapter
 } from "@tenant/product/product/infrastructure/data-source/api/delete.product.api.adapter";
 import {ItemProductApiAdapter} from "@tenant/product/product/infrastructure/data-source/api/item.product.api.adapter";
-import {
-	UnarchiveProductApiAdapter
-} from "@tenant/product/product/infrastructure/data-source/api/unarchive.product.api.adapter";
 import {
 	UpdateProductApiAdapter
 } from "@tenant/product/product/infrastructure/data-source/api/update.product.api.adapter";
@@ -44,11 +38,9 @@ import {ProductDataState} from "@tenant/product/product/infrastructure/state/dat
 	providers: [
 
 		// Api
-		ArchiveProductApiAdapter,
 		CreateProductApiAdapter,
 		DeleteProductApiAdapter,
 		ItemProductApiAdapter,
-		UnarchiveProductApiAdapter,
 		UpdateProductApiAdapter,
 		ListProductApiAdapter,
 

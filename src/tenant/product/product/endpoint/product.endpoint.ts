@@ -8,8 +8,6 @@ export enum productEndpointEnum {
 	deleteProduct = '/api/v1/product/{id}',
 	getPagedProducts = '/api/v1/product/paged',
 	getProduct = '/api/v1/product/{id}',
-	archive = '/api/v1/product/{id}/archive',
-	unarchive = '/api/v1/product/{id}/unarchive',
 }
 
 export const productEndpoint: EndpointCollectionType = {
@@ -74,24 +72,6 @@ export const productEndpoint: EndpointCollectionType = {
 						}
 					}
 				}
-			}
-		},
-	},
-	PATCH: {
-		[productEndpointEnum.archive]: {
-			source: SourceNetworkEnum.panel,
-			replace: true,
-			header: {
-				authorization: true,
-				tenantId: true,
-			}
-		},
-		[productEndpointEnum.unarchive]: {
-			source: SourceNetworkEnum.panel,
-			replace: true,
-			header: {
-				authorization: true,
-				tenantId: true,
 			}
 		},
 	},
