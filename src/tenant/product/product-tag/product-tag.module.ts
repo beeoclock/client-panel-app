@@ -16,9 +16,6 @@ import {
 	ItemProductTagApiAdapter
 } from "@tenant/product/product-tag/infrastructure/data-source/api/item.product-tag.api.adapter";
 import {
-	UnarchiveProductTagApiAdapter
-} from "@tenant/product/product-tag/infrastructure/data-source/api/unarchive.product-tag.api.adapter";
-import {
 	UpdateProductTagApiAdapter
 } from "@tenant/product/product-tag/infrastructure/data-source/api/update.product-tag.api.adapter";
 import {
@@ -50,7 +47,6 @@ import {ProductTagDataState} from "@tenant/product/product-tag/infrastructure/st
 		CreateProductTagApiAdapter,
 		DeleteProductTagApiAdapter,
 		ItemProductTagApiAdapter,
-		UnarchiveProductTagApiAdapter,
 		UpdateProductTagApiAdapter,
 		ListProductTagApiAdapter,
 

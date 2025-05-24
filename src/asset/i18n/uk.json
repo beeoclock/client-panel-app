@@ -676,6 +676,11 @@
 		"firstName": "Іван",
 		"lastName": "Шевченко"
 	},
+	"expense-category": {
+		"button": {
+			"create": "Додати категорію витратів"
+		}
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Хоча б одне поле має бути заповнене",
@@ -1169,6 +1174,7 @@
 			"inactive": "Неактивний",
 			"information": "Інформація",
 			"initializing": "Ініціалізування",
+			"isUpcoming": "На підході",
 			"language": "Мова",
 			"languageAndRegion": "Мова та Регіон",
 			"languages": "Мови",
@@ -1200,7 +1206,6 @@
 			"ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",
 			"paid": "Оплачено",
 			"payAsYouGo": "Сплачуйте по мірі проходження",
-			"isUpcoming": "На підході",
 			"payer": "Платник",
 			"payment": "Оплата",
 			"paymentMethod": "Спосіб оплати",
@@ -1660,6 +1665,8 @@
 		"dashboard": "Панель керування",
 		"dateRangeReport": "Аналітика",
 		"events": "Події",
+		"expense-category": "Категорії витрат",
+		"expenses": "Витрати",
 		"members": "Команда",
 		"order": "Замовлення",
 		"payment": "Платежі",
