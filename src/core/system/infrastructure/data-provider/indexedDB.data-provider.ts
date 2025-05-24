@@ -187,6 +187,17 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 
 	}
 
+	private escapeRegex(str: string): string {
+		return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+
+	private searchInText(text: string, searchPhrase: string): boolean {
+		if (!searchPhrase || !text) return false;
+		const escaped = this.escapeRegex(searchPhrase);
+		const regex = new RegExp(escaped, 'i'); // case-insensitive match
+		return regex.test(text);
+	}
+
 	/**
 	 * Search in nested object
 	 * @param item
@@ -195,13 +206,21 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 * @private
 	 */
 	private regexFullTextSearch(item: unknown, path: string, phrase: string): boolean {
+		phrase = phrase.trim();
 		const keys = path.split('.');
-		const regex = new RegExp(phrase, 'i'); // case-insensitive
 
-		function searchNested(current: unknown, index: number): boolean {
+		if (!phrase || !item) return true;
+
+		const hasSpace = /\s/;
+
+		const searchNested = (current: unknown, index: number): boolean => {
 			if (index === keys.length) {
 				if (typeof current === 'string') {
-					return regex.test(current);
+					if (hasSpace.test(phrase)) {
+						return this.searchInText(phrase, current);
+					} else {
+						return this.searchInText(current, phrase);
+					}
 				}
 				return false;
 			}

@@ -7,6 +7,7 @@ import {orderResolver} from "@tenant/order/order/presentation/resolver/order.res
 import {paymentByOrderIdResolver} from "@tenant/order/payment/presentation/resolver/payment-by-order-id.resolver";
 import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver";
 import {paymentResolver} from "@tenant/order/payment/presentation/resolver/payment.resolver";
+import {balanceResolver} from "@tenant/balance/presentation/resolver/balance.resolver";
 
 export const tenantSecondRouters: Routes = [
 	/**
@@ -209,6 +210,24 @@ export const tenantSecondRouters: Routes = [
 		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/event/presentation/ui/component/details/container.details.component')
+	},
+	/**
+	 * Balance
+	 */
+	{
+		path: 'balance/form',
+		outlet: 'second',
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/balance/presentation/ui/component/form/balance-form-container.component')
+	},
+	{
+		path: 'balance/:id',
+		outlet: 'second',
+		resolve: {
+			item: balanceResolver,
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/balance/presentation/ui/component/details/balance-details-container.component')
 	},
 	/**
 	 * App

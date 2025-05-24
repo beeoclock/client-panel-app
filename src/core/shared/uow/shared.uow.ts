@@ -11,6 +11,9 @@ import {
 } from "@tenant/tariff-plan/tariff-plan-history/domain/service/tariff-plan-history.service";
 import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
 import {EnvironmentProviders, Provider} from "@angular/core";
+import {BalanceService} from "@tenant/balance/domain/service/balance.service";
+import {PluginService} from "@tenant/plugin/plugin/domain/service/plugin.service";
+import {TenantPluginService} from "@tenant/plugin/tenant-plugin/domain/service/tenant-plugin.service";
 
 /**
  * Shared Unit of Work
@@ -33,6 +36,9 @@ export class SharedUow {
 	#absence!: AbsenceService;
 	#tariffPlan!: TariffPlanService;
 	#tariffPlanHistory!: TariffPlanHistoryService;
+	#balance!: BalanceService;
+	#plugin!: PluginService;
+	#tenantPlugin!: TenantPluginService;
 
 	public get service() {
 		if (!this.#service) {
@@ -142,6 +148,39 @@ export class SharedUow {
 
 	public set tariffPlanHistory(value: TariffPlanHistoryService) {
 		this.#tariffPlanHistory = value;
+	}
+
+	public get plugin() {
+		if (!this.#plugin) {
+			throw new Error('pluginService is not initialized');
+		}
+		return this.#plugin;
+	}
+
+	public set plugin(value: PluginService) {
+		this.#plugin = value;
+	}
+
+	public get tenantPlugin() {
+		if (!this.#tenantPlugin) {
+			throw new Error('tenantPluginService is not initialized');
+		}
+		return this.#tenantPlugin;
+	}
+
+	public set tenantPlugin(value: TenantPluginService) {
+		this.#tenantPlugin = value;
+	}
+
+	public get balance() {
+		if (!this.#balance) {
+			throw new Error('balanceService is not initialized');
+		}
+		return this.#balance;
+	}
+
+	public set balance(value: BalanceService) {
+		this.#balance = value;
 	}
 
 }

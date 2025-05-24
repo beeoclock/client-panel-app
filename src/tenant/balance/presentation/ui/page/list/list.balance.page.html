@@ -1,0 +1,14 @@
+@if (initialized.isOn) {
+
+	@if (isMobile$ | async) {
+		<balance-mobile-layout-list-component/>
+	} @else {
+		<balance-desktop-layout-list-component/>
+	}
+
+} @else {
+
+	<div class="p-4">
+		{{ 'keyword.capitalize.initializing' | translate }}...
+	</div>
+}

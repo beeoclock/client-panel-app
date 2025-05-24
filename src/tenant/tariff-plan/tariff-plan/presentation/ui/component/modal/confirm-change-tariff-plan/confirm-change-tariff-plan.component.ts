@@ -84,7 +84,7 @@ import ETariffPlan from "@tenant/tariff-plan/tariff-plan/domain/entity/e.tariff-
 						<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg">
 							<div class="flex items-center justify-between w-full">
 								<span>{{ 'tariffPlan.modal.confirm-changes.content.currentTariffPlan.remainingCredit.label' | translate }}:</span>
-								<span>{{ changes.leftoverCreditInCent }}</span>
+								<span>{{ (changes.leftoverCreditInCent / 100) | currency: changes.currency: 'symbol': '1.2-2' }}</span>
 							</div>
 						</li>
 

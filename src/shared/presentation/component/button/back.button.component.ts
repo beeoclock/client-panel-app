@@ -1,7 +1,7 @@
 import {Component, ElementRef, inject, Input, input, viewChild, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
-import {WINDOW, WINDOW_PROVIDERS} from "@core/cdk/window.provider";
+import {WINDOW} from "@core/cdk/window.provider";
 
 @Component({
 	selector: 'utility-back-button-component',
@@ -19,9 +19,6 @@ import {WINDOW, WINDOW_PROVIDERS} from "@core/cdk/window.provider";
 	imports: [
 		TranslateModule,
 	],
-	providers: [
-		WINDOW_PROVIDERS
-	],
 	encapsulation: ViewEncapsulation.None
 })
 export class BackButtonComponent {
@@ -37,7 +34,7 @@ export class BackButtonComponent {
 
 	private readonly router = inject(Router);
 
-	private readonly window = inject(WINDOW) as Window;
+	private readonly window = inject(WINDOW);
 
 	public navigateToBack() {
 		const {returnUrl} = this.activatedRoute.snapshot.queryParams;

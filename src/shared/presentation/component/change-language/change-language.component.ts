@@ -14,6 +14,7 @@ import {NgForOf} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
 import {TranslateService} from "@ngx-translate/core";
+import {WINDOW} from "@core/cdk/window.provider";
 
 @Component({
   selector: 'utility-change-language-component',
@@ -81,6 +82,7 @@ export class ChangeLanguageComponent implements AfterViewInit {
 
   public readonly languages = LANGUAGES;
 
+  private readonly window = inject(WINDOW);
   private readonly translateService = inject(TranslateService);
 
   public readonly form = new FormGroup({
@@ -136,7 +138,7 @@ export class ChangeLanguageComponent implements AfterViewInit {
     this.form.controls.language.valueChanges.subscribe((languageCode: LanguageCodeEnum | null) => {
       if (languageCode) {
         this.translateService.use(languageCode);
-		window.location.reload();
+		this.window.location.reload();
       }
     });
 

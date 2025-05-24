@@ -7,8 +7,6 @@ export enum customerEndpointEnum {
     item = '/api/v1/customer/{id}',
     update = '/api/v1/customer/{id}',
     delete = '/api/v1/customer/{id}',
-    archive = '/api/v1/customer/{id}/archive',
-    unarchive = '/api/v1/customer/{id}/unarchive',
     create = '/api/v1/customer',
 }
 
@@ -74,24 +72,6 @@ export const customerEndpoint: EndpointCollectionType = {
                         }
                     }
                 }
-            }
-        },
-    },
-    PATCH: {
-        [customerEndpointEnum.archive]: {
-            source: SourceNetworkEnum.panel,
-            replace: true,
-            header: {
-                authorization: true,
-                tenantId: true,
-            }
-        },
-        [customerEndpointEnum.unarchive]: {
-            source: SourceNetworkEnum.panel,
-            replace: true,
-            header: {
-                authorization: true,
-                tenantId: true,
             }
         },
     },

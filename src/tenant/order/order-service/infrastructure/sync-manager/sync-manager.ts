@@ -17,7 +17,7 @@ export class SyncManager extends BaseSyncManager<IOrderService.DTO, EOrderServic
 	protected readonly toEntity = EOrderService.fromDTO;
 
 	public constructor() {
-		super('orderService');
+		super('order-service');
 		inject(TENANT_ID).pipe(
 			takeUntilDestroyed(),
 			filter(is.string),
