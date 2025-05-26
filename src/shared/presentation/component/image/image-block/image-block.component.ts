@@ -9,7 +9,7 @@ import {
 import {BooleanState} from "@shared/domain";
 import {
 	ServiceFormImageComponent
-} from "@tenant/service/presentation/ui/component/form/v2/image/service-form-image/service-form-image.component";
+} from "@shared/presentation/component/image/service-form-image/service-form-image.component";
 import {ServicePresentationForm} from '@tenant/service/presentation/form/service.presentation.form';
 import {
 	DeleteBannerServiceApiAdapter

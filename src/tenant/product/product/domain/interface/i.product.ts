@@ -1,6 +1,5 @@
 import {Tools} from "@core/shared/tools";
 import {IProductLanguageVersion, IProductPrice} from "@tenant/product/product/domain";
-import {ActiveEnum} from "@core/shared/enum";
 import {IMedia} from "@tenant/media/domain/interface/i.media";
 import {IBaseDTO, IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 
@@ -10,10 +9,9 @@ export namespace IProduct {
 		sku: string;
 		languageVersions: IProductLanguageVersion[];
 		price: IProductPrice;
-		active: ActiveEnum;
-		tags?: string[];
-		order?: number;
-		images?: IMedia[];
+		tags: string[] | null;
+		order: number | null;
+		images: IMedia[];
 	}
 
 	export type EntityRaw = IBaseEntityRaw<'ProductDto'> & DTO &

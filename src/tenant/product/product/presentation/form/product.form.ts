@@ -91,9 +91,8 @@ export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
 export interface IProductDtoForm {
 	languageVersions: LanguageVersionsForm;
 	price: PriceForm;
-	active: FormControl<ActiveEnum>;
 	order: FormControl<number | null>;
-	tags: FormControl<string[]>;
+	tags: FormControl<string[] | null>;
 	sku: FormControl<string>;
 }
 
@@ -106,11 +105,8 @@ export class ProductForm extends BaseEntityForm<'ProductDto', IProductDtoForm> {
 			}),
 			languageVersions: new LanguageVersionsForm(),
 			price: new PriceForm(),
-			active: new FormControl(ActiveEnum.YES, {
-				nonNullable: true,
-			}),
-			tags: new FormControl(),
-			order: new FormControl(),
+			tags: new FormControl([]),
+			order: new FormControl(null),
 		});
 		this.initHandlers();
 		this.patchValue(initialValue);

@@ -1,6 +1,5 @@
-import {Component, inject, input, ViewEncapsulation} from '@angular/core';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {Store} from '@ngxs/store';
+import {Component, input, ViewEncapsulation} from '@angular/core';
+import {TranslateModule} from '@ngx-translate/core';
 import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
 import {IProduct} from "@tenant/product/product/domain";
 
@@ -25,14 +24,7 @@ export class RowActionButtonComponent {
 
 	public readonly item = input.required<IProduct.DTO>();
 
-	readonly #translateService = inject(TranslateService);
-	readonly #store = inject(Store);
-
 	public delete(): void {
-		if (this.item().active) {
-			alert(this.#translateService.instant('product.deactivateBeforeDelete'));
-			return;
-		}
 		// this.#store.dispatch(new ProductActions.DeleteItem(this.item()._id));
 	}
 

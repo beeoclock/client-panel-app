@@ -1,10 +1,8 @@
 import {CurrencyPipe} from '@angular/common';
-import {Component, inject, input, ViewEncapsulation} from '@angular/core';
+import {Component, input, ViewEncapsulation} from '@angular/core';
 import {IonChip} from '@ionic/angular/standalone';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
-import {Store} from '@ngxs/store';
-import {firstValueFrom} from 'rxjs';
 import {DeleteButtonComponent} from "@shared/presentation/component/button/delete.button.component";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
@@ -37,25 +35,14 @@ import EProduct from "@tenant/product/product/domain/entity/e.product";
 export class ProductDetailsContainerComponent {
 	public readonly item = input.required<IProduct.DTO>();
 
-	readonly #store = inject(Store);
-	readonly #translateService = inject(TranslateService);
-
+	@Dispatch()
 	public async delete(product: IProduct.DTO) {
-		if (this.item().active) {
-			alert(this.#translateService.instant('product.deactivateBeforeDelete'));
-			return;
-		}
-		await firstValueFrom(
-			this.#store.dispatch(new ProductDataActions.SetState(product, StateEnum.deleted))
-		);
+		return new ProductDataActions.SetState(product, StateEnum.deleted)
 	}
 
 	@Dispatch()
 	public openForm() {
 		const item = this.item();
-		if (!item) {
-			return;
-		}
 		return new ProductPresentationActions.OpenForm({componentInputs: {item: EProduct.fromDTO(item)}});
 	}
 }

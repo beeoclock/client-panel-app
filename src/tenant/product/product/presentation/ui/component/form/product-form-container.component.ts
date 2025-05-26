@@ -12,9 +12,6 @@ import {
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
 import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {
-	SwitchActiveBlockComponent
-} from "@shared/presentation/component/switch/switch-active/switch-active-block.component";
 import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {ProductForm} from "@tenant/product/product/presentation/form/product.form";
 import {IProduct} from "@tenant/product/product/domain";
@@ -38,7 +35,6 @@ import {IonSelectServiceComponent} from "@shared/presentation/component/input/io
 		FormInputComponent,
 		AsyncPipe,
 		CardComponent,
-		SwitchActiveBlockComponent,
 		PriceAndCurrencyComponent,
 		ProductNameFormComponent,
 		DefaultLabelDirective,
