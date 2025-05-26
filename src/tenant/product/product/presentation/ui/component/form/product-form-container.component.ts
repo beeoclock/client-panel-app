@@ -1,5 +1,13 @@
 import {AsyncPipe} from '@angular/common';
-import {ChangeDetectorRef, Component, inject, input, OnInit, viewChild, ViewEncapsulation} from '@angular/core';
+import {
+	afterNextRender,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	input,
+	viewChild,
+	ViewEncapsulation
+} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import {Store} from '@ngxs/store';
@@ -48,7 +56,7 @@ import {is} from "@core/shared/checker";
 	],
 	standalone: true,
 })
-export class ProductFormContainerComponent implements OnInit {
+export class ProductFormContainerComponent {
 	readonly #store = inject(Store);
 	readonly #ngxLogger = inject(NGXLogger);
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
@@ -93,8 +101,10 @@ export class ProductFormContainerComponent implements OnInit {
 			})
 		);
 
-	public ngOnInit(): void {
-		this.detectItem();
+	public constructor() {
+		afterNextRender(() => {
+			this.detectItem();
+		})
 	}
 
 	public detectItem(): void {

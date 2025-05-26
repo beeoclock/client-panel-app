@@ -43,7 +43,11 @@ export class ProductDetailsContainerComponent {
 	@Dispatch()
 	public openForm() {
 		const item = this.item();
-		return new ProductPresentationActions.OpenForm({componentInputs: {item: EProduct.fromDTO(item)}});
+		const componentInputs = {
+			item: EProduct.fromDTO(item),
+			isEditMode: true,
+		};
+		return new ProductPresentationActions.OpenForm({componentInputs});
 	}
 }
 

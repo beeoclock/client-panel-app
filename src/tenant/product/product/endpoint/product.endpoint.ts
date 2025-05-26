@@ -64,7 +64,7 @@ export const productEndpoint: EndpointCollectionType = {
 		}
 	},
 	PUT: {
-		[productEndpointEnum.patchImage]: {
+		[productEndpointEnum.putUpdateProduct]: {
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
