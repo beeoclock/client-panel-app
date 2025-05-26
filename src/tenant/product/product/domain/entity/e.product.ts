@@ -12,9 +12,9 @@ export class EProduct extends ABaseEntity<'ProductDto', IProduct.DTO, IProduct.E
 	languageVersions!: IProductLanguageVersion[];
 	price!: IProductPrice;
 	active!: ActiveEnum;
-	tags: string[] | null = null;
-	order: number | null = null;
-	images: IMedia[] = [];
+	tags!: string[] | null;
+	order!: number | null;
+	images!: IMedia[];
 
 	public override toDTO(): IProduct.DTO {
 		return EProduct.toDTO(this);

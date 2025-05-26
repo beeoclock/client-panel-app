@@ -43,7 +43,7 @@ export abstract class ABaseEntity<
 		const {stateHistory, ...rest} = data;
 		Object.assign(this, rest);
 		this.stateHistory = this.stateHistory.concat(stateHistory);
-		this.initAfterConstructor()
+		this.initAfterConstructor();
 	}
 
 	public initBeforeConstructor(): void {
@@ -87,7 +87,18 @@ export abstract class ABaseEntity<
 	}
 
 	public toRaw(): RAW {
-		const {changeState, toDTO, isNew, isUpdated, initSyncedAt, refreshUpdatedAt, ...raw} = this;
+		const {
+			changeState,
+			toDTO,
+			isNew,
+			isUpdated,
+			initSyncedAt,
+			refreshUpdatedAt,
+			hasSyncErrors,
+			clearSyncErrors,
+			addSyncError,
+			...raw
+		} = this;
 		return raw as unknown as RAW;
 	}
 
