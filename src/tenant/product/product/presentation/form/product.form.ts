@@ -4,6 +4,7 @@ import {filter} from 'rxjs';
 import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {BaseEntityForm} from "@shared/base.form";
 import {is} from "@core/shared/checker";
+import {IMedia} from "@tenant/media/domain/interface/i.media";
 
 export interface IPriceForm {
 	value: FormControl<number>;
@@ -88,15 +89,16 @@ export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
 	}
 }
 
-export interface IProductDtoForm {
+export interface IProductForm {
 	languageVersions: LanguageVersionsForm;
 	price: PriceForm;
 	order: FormControl<number | null>;
 	tags: FormControl<string[] | null>;
 	sku: FormControl<string>;
+	images: FormControl<IMedia[]>;
 }
 
-export class ProductForm extends BaseEntityForm<'ProductDto', IProductDtoForm> {
+export class ProductForm extends BaseEntityForm<'ProductDto', IProductForm> {
 	constructor(initialValue: Partial<IProduct.DTO> = {}) {
 		super('ProductDto', {
 			sku: new FormControl('SKU-' + new Date().getTime(), {
@@ -107,6 +109,9 @@ export class ProductForm extends BaseEntityForm<'ProductDto', IProductDtoForm> {
 			price: new PriceForm(),
 			tags: new FormControl([]),
 			order: new FormControl(null),
+			images: new FormControl([], {
+				nonNullable: true,
+			}),
 		});
 		this.initHandlers();
 		this.patchValue(initialValue);
