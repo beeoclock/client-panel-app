@@ -28,6 +28,7 @@ import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {CurrencyPipe} from "@angular/common";
+import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 
 @Component({
 	selector: 'product-table-list-component',
@@ -40,7 +41,8 @@ import {CurrencyPipe} from "@angular/common";
 		TableNgxDatatableSmartComponent,
 		TranslatePipe,
 		RowActionButtonComponent,
-		AutoRefreshButtonComponent
+		AutoRefreshButtonComponent,
+		NoAvailable
 	],
 	providers: [
 		CurrencyPipe,
@@ -53,6 +55,7 @@ export class TableListComponent extends TableComponent<EProduct> {
 	public readonly availableLanguages = toSignal(this.store.select(BusinessProfileState.availableLanguages));
 
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
+	public readonly imagesCellTemplate = viewChild<TemplateRef<any>>('imagesCellTemplate');
 
 	public readonly columns = signal<TableColumn<EProduct>[]>([
 		{
@@ -61,6 +64,13 @@ export class TableListComponent extends TableComponent<EProduct> {
 			minWidth: 200,
 			width: 200,
 			sortable: true
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.image'),
+			prop: 'images',
+			minWidth: 120,
+			width: 120,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.price'),
@@ -120,6 +130,11 @@ export class TableListComponent extends TableComponent<EProduct> {
 			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
 		}
 
+		const imagesCellTemplate = this.imagesCellTemplate();
+		if (imagesCellTemplate) {
+			this.setCellTemplateRef(columns, 'images', imagesCellTemplate);
+		}
+
 		const availableLanguages = this.availableLanguages();
 		if (availableLanguages?.length) {
 			this.setTitlesColumnsByAvailableLanguages(columns, availableLanguages);
@@ -158,7 +173,7 @@ export class TableListComponent extends TableComponent<EProduct> {
 
 	private setTitlesColumnsByAvailableLanguages(columns: TableColumn<EProduct>[], availableLanguages: LanguageCodeEnum[]) {
 
-		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'sku') + 1;
+		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'images') + 1;
 		const name = this.translateService.instant('keyword.capitalize.title');
 
 		if (availableLanguages.length < 2) {

@@ -31,3 +31,20 @@
 	<div activeStyle [state]="row.state">
 	</div>
 </ng-template>
+<ng-template #imagesCellTemplate let-row="row">
+
+	<div class="flex gap-1 items-center">
+		@if (row.images?.length) {
+			@let image = row.images?.[0];
+			<img [src]="image.url" alt="" class="rounded-lg size-10">
+			@if (row.images.length > 1) {
+				<div class="rounded-lg bg-neutral-200 text-neutral-500 flex items-center justify-center size-10">
+					+{{ row.images.length - 1 }}
+				</div>
+			}
+		} @else {
+			<no-available/>
+		}
+	</div>
+
+</ng-template>
