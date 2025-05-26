@@ -683,13 +683,13 @@
 			"durationFormatInvalid": "Prawidłowy format to godziny:minuty (00:00)",
 			"email": "Nieprawidłowy format adresu e-mail",
 			"emailExists": "Adres e-mail już istnieje",
-			"nameExists": "Nazwa już istnieje",
 			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
 			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
 			"invalid": "Nieprawidłowy",
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"min": "Minimalna wartość to {{min}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
+			"nameExists": "Nazwa już istnieje",
 			"phoneExists": "Numer telefonu już istnieje",
 			"required": "Wymagane pole",
 			"shouldBeMoreThen": {
@@ -1076,6 +1076,7 @@
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
+			"advancedInformation": "Zaawansowane informacje",
 			"all": "Wszystkie",
 			"allServices": "Wszystkie usługi",
 			"allSpecialists": "Wszyscy specjaliści",
@@ -1111,6 +1112,17 @@
 				},
 				"plural": "Kategorie",
 				"single": "Kategoria"
+			},
+			"tag": {
+				"create": {
+					"choose": "Wybierz tag",
+					"enter": "Wpisz tag",
+					"first": "Dodaj pierwszy tag",
+					"tooltip": "Dodaj tag do listy",
+					"uniqueError": "Nazwa tagu musi być unikalna"
+				},
+				"plural": "Tagi",
+				"single": "Tag"
 			},
 			"changeStatus": "Zmień status",
 			"changes": "Zmiany",
@@ -1265,6 +1277,7 @@
 			"synchronizationError": "Błąd synchronizacji",
 			"synchronized": "Zsynchronizowano",
 			"syncing": "Synchronizacja w toku…",
+			"tags": "Tagi",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"time": "Czas",

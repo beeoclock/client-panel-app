@@ -61,7 +61,7 @@ export class IonSelectMemberComponent {
 
 	public readonly id = input('');
 
-	public readonly control = input(new FormControl());
+	public readonly control = input.required<FormControl>();
 
 	@SelectSnapshot(MemberDataState.activeMembers)
 	public readonly members!: IMember.EntityRaw[];

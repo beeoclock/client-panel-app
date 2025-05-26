@@ -683,13 +683,13 @@
 			"durationFormatInvalid": "Gyldigt format er timer:minutter (00:00)",
 			"email": "Ugyldigt e-mail-format",
 			"emailExists": "En bruger med denne e-mail eksisterer allerede",
-			"nameExists": "Navn findes allerede",
 			"emailOrPhoneRequired": "E-mail eller telefonnummer er påkrævet",
 			"imageSize": "Maksimal billedstørrelse er {{max}}, nuværende størrelse er {{value}}",
 			"invalid": "Invalid",
 			"mask": "Ugyldigt format, korrekt format er {{requiredMask}}",
 			"min": "Minimum værdi er {{min}}",
 			"minlength": "Minimumslængde er {{requiredLength}}",
+			"nameExists": "Navn findes allerede",
 			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede",
 			"required": "Påkrævet felt",
 			"shouldBeMoreThen": {
@@ -1076,6 +1076,7 @@
 			"addSocialMedia": "Tilføj sociale medier",
 			"additional": "Yderligere",
 			"address": "Adresse",
+			"advancedInformation": "Informatie voor gevorderden",
 			"all": "Alle",
 			"allServices": "Alle tjenester",
 			"allSpecialists": "Alle specialister",
@@ -1111,6 +1112,17 @@
 				},
 				"plural": "Kategorier",
 				"single": "Kategori"
+			},
+			"tag": {
+				"create": {
+					"choose": "Vælg en tag",
+					"enter": "Indtast en tag",
+					"first": "Tilføj den første tag",
+					"tooltip": "Tilføj tags til listen",
+					"uniqueError": "Tagget skal være unikt"
+				},
+				"plural": "Tags",
+				"single": "Tag"
 			},
 			"changeStatus": "Skift status",
 			"changes": "Ændringer",
@@ -1265,6 +1277,7 @@
 			"synchronizationError": "Synkroniseringsfejl",
 			"synchronized": "Synkroniseret",
 			"syncing": "Synkronisering pågår…",
+			"tags": "Tags",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
 			"time": "Tid",

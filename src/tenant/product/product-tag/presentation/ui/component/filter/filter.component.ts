@@ -7,7 +7,6 @@ import {BaseFilterComponent} from "@shared/base.filter.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {FilterForm} from "@tenant/product/product-tag/presentation/form";
-import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
 import {
 	ProductTagPresentationActions
 } from "@tenant/product/product-tag/infrastructure/state/presentation/product-tag.presentation.actions";
@@ -24,7 +23,6 @@ import {ProductTagDataState} from "@tenant/product/product-tag/infrastructure/st
 		ReactiveFormsModule,
 		AsyncPipe,
 		PrimaryButtonDirective,
-		IonSelectStateComponent,
 	],
 	template: `
 		<utility-default-panel-component>
@@ -38,7 +36,6 @@ import {ProductTagDataState} from "@tenant/product/product-tag/infrastructure/st
 
 				<div class="flex overflow-x-auto gap-2  p-2">
 					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-					<ng-container *ngTemplateOutlet="ProductActiveSelect"></ng-container>
 					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
 				<div class="px-2">
@@ -48,15 +45,9 @@ import {ProductTagDataState} from "@tenant/product/product-tag/infrastructure/st
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
-				<ng-container *ngTemplateOutlet="ProductActiveSelect"></ng-container>
 				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 			</div>
 		}
-
-		<ng-template #ProductActiveSelect>
-			<ion-select-state
-				[control]="form.controls.state"/>
-		</ng-template>
 
 		<ng-template #SearchInput>
 			<utility-search-input-component [formControl]="form.controls.phrase"/>

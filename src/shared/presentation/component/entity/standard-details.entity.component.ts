@@ -21,7 +21,7 @@ import {ActiveStyleDirective} from "@shared/presentation/directives/active-style
 				<div class="flex w-full">
 					<ul class="leading-tight flex gap-2 w-full ">
 						<li class="flex gap-1 w-full">
-							{{ 'Advanced information' | translate }}
+							{{ 'keyword.capitalize.advancedInformation' | translate }}
 						</li>
 					</ul>
 				</div>

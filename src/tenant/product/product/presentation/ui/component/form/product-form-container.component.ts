@@ -3,7 +3,6 @@ import {ChangeDetectorRef, Component, inject, input, OnInit, ViewEncapsulation} 
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import {Store} from '@ngxs/store';
-import ObjectID from 'bson-objectid';
 import {NGXLogger} from 'ngx-logger';
 import {firstValueFrom, map} from 'rxjs';
 import {ProductNameFormComponent} from './product-name/product-name-form.container';
@@ -25,6 +24,7 @@ import {
 import {ProductDataActions} from "@tenant/product/product/infrastructure/state/data/product.data.actions";
 import EProduct from "@tenant/product/product/domain/entity/e.product";
 import {PriceAndCurrencyComponent} from "@shared/presentation/component/input/price-and-currency.component";
+import {IonSelectServiceComponent} from "@shared/presentation/component/input/ion/ion-select-product-tag.component";
 
 @Component({
 	selector: 'product-form-page',
@@ -42,6 +42,7 @@ import {PriceAndCurrencyComponent} from "@shared/presentation/component/input/pr
 		PriceAndCurrencyComponent,
 		ProductNameFormComponent,
 		DefaultLabelDirective,
+		IonSelectServiceComponent,
 	],
 	standalone: true,
 })
@@ -56,11 +57,7 @@ export class ProductFormContainerComponent implements OnInit {
 	public readonly availableLanguages$ = this.#store.select(
 		BusinessProfileState.availableLanguages
 	);
-	public tagsOptions: {
-		id: string;
-		value: string;
-		label: string;
-	}[] = [];
+
 	public readonly currencyList$ = this.#store
 		.select(BusinessProfileState.currencies)
 		.pipe(
@@ -84,22 +81,9 @@ export class ProductFormContainerComponent implements OnInit {
 	}
 
 	private updateFormValues(item: IProduct.DTO) {
-		const { languageVersions, tags, ...rest } = item;
+		const { languageVersions, ...rest } = item;
 
-		this.form.patchValue({
-			tags,
-			...rest,
-		});
-
-		if (tags) {
-			tags.map((tag) => {
-				this.tagsOptions.push({
-					id: ObjectID().toHexString(),
-					value: tag,
-					label: tag,
-				});
-			});
-		}
+		this.form.patchValue(rest);
 
 		if (languageVersions) {
 			// Prevents from removing all controls from languageVersions

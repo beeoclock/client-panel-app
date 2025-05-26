@@ -63,23 +63,8 @@ export class TableListComponent extends TableComponent<EProductTag> {
 			sortable: true,
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.active'),
-			prop: 'state',
-			minWidth: 160,
-			width: 160,
-			sortable: true,
-		},
-		{
 			name: this.translateService.instant('keyword.capitalize.createdAt'),
 			prop: 'createdAt',
-			minWidth: 240,
-			width: 240,
-			sortable: true,
-			$$valueGetter: this.anyDateConvert,
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.updatedAt'),
-			prop: 'updatedAt',
 			minWidth: 240,
 			width: 240,
 			sortable: true,
@@ -90,7 +75,7 @@ export class TableListComponent extends TableComponent<EProductTag> {
 			prop: 'syncedAt',
 			minWidth: 240,
 			width: 240,
-			sortable: true,
+			sortable: false,
 		},
 	]);
 

@@ -11,7 +11,7 @@ export namespace IProduct {
 		languageVersions: IProductLanguageVersion[];
 		price: IProductPrice;
 		active: ActiveEnum;
-		tags?: string[]
+		tags?: string[];
 		order?: number;
 		images?: IMedia[];
 	}

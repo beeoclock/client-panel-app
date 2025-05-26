@@ -683,13 +683,13 @@
 			"durationFormatInvalid": "Valid format is hours:minutes (00:00)",
 			"email": "Invalid E-mail format",
 			"emailExists": "Email already exists",
-			"nameExists": "Name already exists",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
 			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
 			"invalid": "Invalid",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"min": "Minimum value is {{min}}",
 			"minlength": "Minimum length is {{requiredLength}}",
+			"nameExists": "Name already exists",
 			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",
 			"phoneExists": "Phone number already exists",
 			"required": "Required field",
@@ -1076,6 +1076,7 @@
 			"addSocialMedia": "Add social media",
 			"additional": "Additional",
 			"address": "Address",
+			"advancedInformation": "Advanced information",
 			"all": "All",
 			"allServices": "All services",
 			"allSpecialists": "All specialists",
@@ -1111,6 +1112,17 @@
 				},
 				"plural": "Categories",
 				"single": "Category"
+			},
+			"tag": {
+				"create": {
+					"choose": "Choose a tag",
+					"enter": "Enter a tag",
+					"first": "Add the first tag",
+					"tooltip": "Add tag to the list",
+					"uniqueError": "The tag name must be unique"
+				},
+				"plural": "Tags",
+				"single": "Tag"
 			},
 			"changeStatus": "Change status",
 			"changes": "Changes",
@@ -1265,6 +1277,7 @@
 			"synchronizationError": "Synchronization error",
 			"synchronized": "Synchronized",
 			"syncing": "Synchronization in progress…",
+			"tags": "Tags",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"time": "Time",

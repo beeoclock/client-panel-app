@@ -17,7 +17,7 @@ export class SyncManager extends BaseSyncManager<IProductTag.DTO, EProductTag> {
 	protected readonly toEntity = EProductTag.fromDTO;
 
 	public constructor() {
-		super('productTag');
+		super('product-tag');
 		inject(TENANT_ID).pipe(
 			takeUntilDestroyed(),
 			filter(is.string),

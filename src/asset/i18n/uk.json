@@ -683,13 +683,13 @@
 			"durationFormatInvalid": "Правильний формат: години:хвилини (00:00)",
 			"email": "Неправильний формат E-mail",
 			"emailExists": "Ця електронна адреса вже використовується",
-			"nameExists": "Це ім'я вже використовується",
 			"emailOrPhoneRequired": "Введи номер телефону або E-mail",
 			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
 			"invalid": "Неправильний",
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"min": "Мінімальне значення - {{min}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
+			"nameExists": "Це ім'я вже використовується",
 			"phoneExists": "Цей номер телефону вже використовується",
 			"required": "Обов'язкове поле",
 			"shouldBeMoreThen": {
@@ -1076,6 +1076,7 @@
 			"addSocialMedia": "Додати соціальну мережу",
 			"additional": "Додатково",
 			"address": "Адреса",
+			"advancedInformation": "Додаткова інформація",
 			"all": "Всі",
 			"allServices": "Всі послуги",
 			"allSpecialists": "Всі спеціалісти",
@@ -1111,6 +1112,17 @@
 				},
 				"plural": "Категорії",
 				"single": "Категорія"
+			},
+			"tag": {
+				"create": {
+					"choose": "Виберіть тег",
+					"enter": "Введіть тег",
+					"first": "Додайте перший тег",
+					"tooltip": "Додайте теги до списку",
+					"uniqueError": "Назва тега повинна бути унікальною"
+				},
+				"plural": "Теги",
+				"single": "Тег"
 			},
 			"changeStatus": "Змінити статус",
 			"changes": "Зміни",
@@ -1265,6 +1277,7 @@
 			"synchronizationError": "Помилка синхронізації",
 			"synchronized": "Синхронізовано",
 			"syncing": "Синхронізація триває…",
+			"tags": "Теги",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"time": "Час",

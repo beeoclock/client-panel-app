@@ -1,9 +1,9 @@
 import {
+	afterNextRender,
 	ChangeDetectionStrategy,
 	Component,
 	inject,
 	input,
-	OnInit,
 	signal,
 	viewChild,
 	ViewEncapsulation
@@ -13,10 +13,10 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {IonLabel, IonSelect, IonSelectOption} from "@ionic/angular/standalone";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {IService} from "@tenant/service/domain/interface/i.service";
+import {IProductTag} from "@tenant/product/product-tag/domain";
 
 @Component({
-    selector: 'ion-select-service',
+    selector: 'ion-select-product-tag',
     standalone: true,
     template: `
         <ion-select
@@ -26,9 +26,9 @@ import {IService} from "@tenant/service/domain/interface/i.service";
                 class="!min-h-0 px-4 py-3 border border-beeColor-300 rounded-2xl h-full"
                 fill="solid"
                 interface="popover">
-            @for (service of services(); track service._id) {
-                <ion-select-option [value]="service._id">
-                    <ion-label>{{ service.languageVersions[0].title }}</ion-label>
+            @for (productTag of productTagList(); track productTag._id) {
+                <ion-select-option [value]="productTag.name">
+                    <ion-label>{{ productTag.name }}</ion-label>
                 </ion-select-option>
             }
         </ion-select>
@@ -44,7 +44,7 @@ import {IService} from "@tenant/service/domain/interface/i.service";
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IonSelectServiceComponent implements OnInit {
+export class IonSelectServiceComponent {
 
     public readonly ionSelect = viewChild(IonSelect);
 
@@ -58,14 +58,20 @@ export class IonSelectServiceComponent implements OnInit {
 
     private readonly sharedUow = inject(SharedUow);
 
-    public readonly services = signal<IService.EntityRaw[]>([]);
+    public readonly productTagList = signal<IProductTag.EntityRaw[]>([]);
 
-    public ngOnInit() {
-        this.sharedUow.service.repository.findAsync().then((response) => {
-            const {items} = response;
-            this.services.set(items);
-        })
-    }
+    public constructor() {
+
+		afterNextRender(() => {
+
+			this.sharedUow.productTag.repository.findAsync().then((response) => {
+				const {items} = response;
+				this.productTagList.set(items);
+			});
+
+		});
+
+	}
 
 
 }

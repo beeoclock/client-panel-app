@@ -63,13 +63,6 @@ export class TableListComponent extends TableComponent<EProduct> {
 			sortable: true
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.productName'),
-			prop: 'productName',
-			minWidth: 140,
-			width: 140,
-			sortable: true
-		},
-		{
 			name: this.translateService.instant('keyword.capitalize.price'),
 			prop: 'price',
 			minWidth: 300,
