@@ -4,6 +4,8 @@
 
   <form class="flex flex-col gap-4">
 
+	  <image-form-product [control]="form.controls.images"/>
+
     @if (availableLanguages$ | async; as availableLanguages) {
       <product-name-form-component [form]="form.controls.languageVersions" [availableLanguages]="availableLanguages" />
     }

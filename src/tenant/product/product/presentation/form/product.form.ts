@@ -134,4 +134,10 @@ export class ProductForm extends BaseEntityForm<'ProductDto', IProductForm> {
 				this.controls.order.setValue(+value);
 			});
 	}
+
+	public static create(initialValue: Partial<IProduct.DTO> = {}): ProductForm {
+		const form = new ProductForm();
+		form.patchValue(initialValue);
+		return form;
+	}
 }

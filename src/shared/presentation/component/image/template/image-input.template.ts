@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, input, viewChildren, ViewEncapsulati
 import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {ImageInput} from "@shared/presentation/component/image/image-input/image-input";
 import {TranslatePipe} from "@ngx-translate/core";
-import {ServicePresentationForm} from "@tenant/service/presentation/form/service.presentation.form";
 import {BooleanState} from "@shared/domain";
+import {IMedia} from "@tenant/media/domain/interface/i.media";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,12 +33,12 @@ import {BooleanState} from "@shared/domain";
 					</button>
 				</div>
 			</div>
-			@for (banner of presentationForm().controls.banners.value; track $index) {
+			@for (image of imageList(); track $index) {
 
 				<image-input
 					[index]="$index"
 					[showHit]="toggleInfo.isOn"
-					[banner]="banner"/>
+					[image]="image"/>
 
 			}
 			<p class="text-beeColor-500">
@@ -50,7 +50,7 @@ import {BooleanState} from "@shared/domain";
 })
 export class ImageInputTemplate {
 
-	public readonly presentationForm = input.required<ServicePresentationForm>();
+	public readonly imageList = input.required<IMedia[]>();
 	public readonly imageInput = viewChildren(ImageInput);
 
 	public readonly toggleInfo = new BooleanState(true);

@@ -1,10 +1,10 @@
 import {AsyncPipe} from '@angular/common';
-import {ChangeDetectorRef, Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, input, OnInit, viewChild, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import {Store} from '@ngxs/store';
 import {NGXLogger} from 'ngx-logger';
-import {firstValueFrom, map} from 'rxjs';
+import {filter, firstValueFrom, map} from 'rxjs';
 import {ProductNameFormComponent} from './product-name/product-name-form.container';
 import {
 	ButtonSaveContainerComponent
@@ -22,6 +22,11 @@ import {ProductDataActions} from "@tenant/product/product/infrastructure/state/d
 import EProduct from "@tenant/product/product/domain/entity/e.product";
 import {PriceAndCurrencyComponent} from "@shared/presentation/component/input/price-and-currency.component";
 import {IonSelectServiceComponent} from "@shared/presentation/component/input/ion/ion-select-product-tag.component";
+import {ImageFormProduct} from "@tenant/product/product/presentation/ui/component/form/image/image.form.product";
+import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {is} from "@core/shared/checker";
 
 @Component({
 	selector: 'product-form-page',
@@ -39,6 +44,7 @@ import {IonSelectServiceComponent} from "@shared/presentation/component/input/io
 		ProductNameFormComponent,
 		DefaultLabelDirective,
 		IonSelectServiceComponent,
+		ImageFormProduct,
 	],
 	standalone: true,
 })
@@ -47,7 +53,29 @@ export class ProductFormContainerComponent implements OnInit {
 	readonly #ngxLogger = inject(NGXLogger);
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
-	public readonly form = new ProductForm();
+	public readonly imageFormProduct = viewChild(ImageFormProduct);
+
+	public readonly form = ProductForm.create({
+		images: [
+			{
+				object: 'MediaDto',
+				mediaType: MediaTypeEnum.productImage,
+				_id: '',
+				url: '',
+				metadata: {
+					object: 'MediaMetadataDto',
+					height: 0,
+					size: 0,
+					width: 0
+				},
+				state: StateEnum.active,
+				stateHistory: [],
+				_version: '1',
+				createdAt: '',
+				updatedAt: '',
+			}
+		]
+	});
 	public readonly item = input<IProduct.DTO | undefined>();
 	public readonly isEditMode = input<{ value: string; label: string }[]>();
 	public readonly availableLanguages$ = this.#store.select(
@@ -110,6 +138,12 @@ export class ProductFormContainerComponent implements OnInit {
 		} else {
 			await this.createProduct();
 		}
+
+		const isSyncing$ = BaseSyncManager.isSyncing$.pipe(
+			filter(is.zero),
+		);
+		await firstValueFrom(isSyncing$);
+		await this.imageFormProduct()?.save(this.formValue()._id);
 
 		this.form.enable();
 		this.form.updateValueAndValidity();

@@ -8,6 +8,8 @@ export enum productEndpointEnum {
 	deleteProduct = '/api/v1/product/{id}',
 	getPagedProducts = '/api/v1/product/paged',
 	getProduct = '/api/v1/product/{id}',
+	patchImage = '/api/v1/product/{productId}/images',
+	deleteImage = '/api/v1/product/{productId}/{id}',
 }
 
 export const productEndpoint: EndpointCollectionType = {
@@ -51,8 +53,18 @@ export const productEndpoint: EndpointCollectionType = {
 			}
 		}
 	},
+	PATCH: {
+		[productEndpointEnum.patchImage]: {
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			header: {
+				authorization: true,
+				tenantId: true,
+			},
+		}
+	},
 	PUT: {
-		[productEndpointEnum.putUpdateProduct]: {
+		[productEndpointEnum.patchImage]: {
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -100,6 +112,17 @@ export const productEndpoint: EndpointCollectionType = {
 					}
 				}
 			}
+		},
+		[productEndpointEnum.deleteImage]: {
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			before: {
+				accept: true,
+			},
+			header: {
+				authorization: true,
+				tenantId: true,
+			},
 		},
 	}
 };

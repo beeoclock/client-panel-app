@@ -8,13 +8,13 @@ import {
 	DeleteBannerServiceApiAdapter
 } from "@tenant/service/infrastructure/data-source/api/delete.banner.service.api.adapter";
 import {MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
-import {RIMedia} from "@tenant/media/domain/interface/i.media";
+import {IMedia} from "@tenant/media/domain/interface/i.media";
 import {ImageInputTemplate} from "@shared/presentation/component/image/template/image-input.template";
 
 @Component({
 	selector: 'service-form-image-block-component',
 	template: `
-		<image-input-template [presentationForm]="presentationForm()"/>
+		<image-input-template [imageList]="presentationForm().value.banners ?? []"/>
 	`,
 	standalone: true,
 	imports: [
@@ -31,14 +31,14 @@ export class ImageBlockComponent {
 	public readonly patchBannerServiceApiAdapter = inject(PatchBannerServiceApiAdapter);
 	public readonly deleteBannerServiceApiAdapter = inject(DeleteBannerServiceApiAdapter);
 
-	public async save(serviceId: string): Promise<RIMedia[]> {
+	public async save(serviceId: string): Promise<IMedia[]> {
 
-		const banners: RIMedia[] = [];
+		const imageList: IMedia[] = [];
 
 		const imageInputTemplate = this.imageInputTemplate();
 
 		if (!imageInputTemplate) {
-			return banners;
+			return imageList;
 		}
 
 		for (const component of imageInputTemplate.imageInput()) {
@@ -48,28 +48,28 @@ export class ImageBlockComponent {
 			}
 
 			if (component.mediaState === MediaStateEnum.DELETED) {
-				const banner = component.banner();
-				if (!banner) {
+				const image = component.image();
+				if (!image) {
 					continue;
 				}
-				await this.deleteBannerServiceApiAdapter.executeAsync(serviceId, banner._id);
+				await this.deleteBannerServiceApiAdapter.executeAsync(serviceId, image._id);
 				continue;
 			}
 
 			const formData = new FormData();
 			formData.append('file', component.selectedFile as Blob);
 
-			const banner = component.banner();
-			if (banner) {
-				formData.append('_id', banner._id);
+			const image = component.image();
+			if (image) {
+				formData.append('_id', image._id);
 			}
 
 			const result = await this.patchBannerServiceApiAdapter.executeAsync(serviceId, formData);
-			banners.push(result);
+			imageList.push(result);
 
 		}
 
-		return banners;
+		return imageList;
 
 	}
 
