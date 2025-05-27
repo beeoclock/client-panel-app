@@ -92,8 +92,8 @@ export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
 export interface IProductForm {
 	languageVersions: LanguageVersionsForm;
 	price: PriceForm;
-	order: FormControl<number | null>;
-	tags: FormControl<string[] | null>;
+	order: FormControl<number>;
+	tags: FormControl<string[]>;
 	sku: FormControl<string>;
 	images: FormControl<IMedia[]>;
 }
@@ -107,8 +107,13 @@ export class ProductForm extends BaseEntityForm<'ProductDto', IProductForm> {
 			}),
 			languageVersions: new LanguageVersionsForm(),
 			price: new PriceForm(),
-			tags: new FormControl([]),
-			order: new FormControl(null),
+			tags: new FormControl([], {
+				nonNullable: true,
+			}),
+			order: new FormControl(0, {
+				nonNullable: true,
+				validators: [Validators.required, Validators.min(0)],
+			}),
 			images: new FormControl([], {
 				nonNullable: true,
 			}),

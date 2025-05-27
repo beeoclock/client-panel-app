@@ -9,8 +9,8 @@ export namespace IProduct {
 		sku: string;
 		languageVersions: IProductLanguageVersion[];
 		price: IProductPrice;
-		tags: string[] | null;
-		order: number | null;
+		tags: string[];
+		order: number;
 		images: IMedia[];
 	}
 
