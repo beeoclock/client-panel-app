@@ -1081,6 +1081,7 @@
 			"allServices": "All services",
 			"allSpecialists": "All specialists",
 			"allStatuses": "All statuses",
+			"allTags": "All tags",
 			"amount": "Amount",
 			"anonymous": "Anonymous",
 			"approvalType": "Approval type",
@@ -1112,17 +1113,6 @@
 				},
 				"plural": "Categories",
 				"single": "Category"
-			},
-			"tag": {
-				"create": {
-					"choose": "Choose a tag",
-					"enter": "Enter a tag",
-					"first": "Add the first tag",
-					"tooltip": "Add tag to the list",
-					"uniqueError": "The tag name must be unique"
-				},
-				"plural": "Tags",
-				"single": "Tag"
 			},
 			"changeStatus": "Change status",
 			"changes": "Changes",
@@ -1277,6 +1267,17 @@
 			"synchronizationError": "Synchronization error",
 			"synchronized": "Synchronized",
 			"syncing": "Synchronization in progress…",
+			"tag": {
+				"create": {
+					"choose": "Choose a tag",
+					"enter": "Enter a tag",
+					"first": "Add the first tag",
+					"tooltip": "Add tag to the list",
+					"uniqueError": "The tag name must be unique"
+				},
+				"plural": "Tags",
+				"single": "Tag"
+			},
 			"tags": "Tags",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
@@ -1582,6 +1583,11 @@
 		"form": {
 			"availableLanguages": {
 				"hint": "You can name your product in the available languages"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Select tag"
+				}
 			},
 			"title": {
 				"create": "Add product",

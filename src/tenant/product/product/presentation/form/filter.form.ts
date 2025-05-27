@@ -5,6 +5,7 @@ export interface IFilterForm {
 
 	phrase: FormControl<string>;
 	state: FormControl<StateEnum | null>;
+	tags: FormControl<string[]>;
 
 }
 
@@ -13,6 +14,9 @@ export class FilterForm extends FormGroup<IFilterForm> {
 		super({
 			phrase: new FormControl(),
 			state: new FormControl(StateEnum.active),
+			tags: new FormControl([], {
+				nonNullable: true,
+			}),
 		});
 	}
 }

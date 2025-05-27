@@ -1081,6 +1081,7 @@
 			"allServices": "Wszystkie usługi",
 			"allSpecialists": "Wszyscy specjaliści",
 			"allStatuses": "Wszystkie statusy",
+			"allTags": "Wszystkie tagi",
 			"amount": "Kwota",
 			"anonymous": "Anonimowy",
 			"approvalType": "Typ homologacji",
@@ -1112,17 +1113,6 @@
 				},
 				"plural": "Kategorie",
 				"single": "Kategoria"
-			},
-			"tag": {
-				"create": {
-					"choose": "Wybierz tag",
-					"enter": "Wpisz tag",
-					"first": "Dodaj pierwszy tag",
-					"tooltip": "Dodaj tag do listy",
-					"uniqueError": "Nazwa tagu musi być unikalna"
-				},
-				"plural": "Tagi",
-				"single": "Tag"
 			},
 			"changeStatus": "Zmień status",
 			"changes": "Zmiany",
@@ -1277,6 +1267,17 @@
 			"synchronizationError": "Błąd synchronizacji",
 			"synchronized": "Zsynchronizowano",
 			"syncing": "Synchronizacja w toku…",
+			"tag": {
+				"create": {
+					"choose": "Wybierz tag",
+					"enter": "Wpisz tag",
+					"first": "Dodaj pierwszy tag",
+					"tooltip": "Dodaj tag do listy",
+					"uniqueError": "Nazwa tagu musi być unikalna"
+				},
+				"plural": "Tagi",
+				"single": "Tag"
+			},
 			"tags": "Tagi",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
@@ -1582,6 +1583,11 @@
 		"form": {
 			"availableLanguages": {
 				"hint": "Możesz nadać swojemu produktowi nazwę w ramach dostępnych języków"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Wybierz tag"
+				}
 			},
 			"title": {
 				"create": "Dodawanie produktu",

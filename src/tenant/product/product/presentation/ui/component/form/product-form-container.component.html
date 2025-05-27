@@ -16,7 +16,7 @@
         <label default for="product-form-input-tags">
           {{ 'keyword.capitalize.tag.plural' | translate }}
         </label>
-		  <ion-select-product-tag id="product-form-input-tags" [control]="form.controls.tags"/>
+		  <ion-select-product-tag id="product-form-input-tags" [control]="form.controls.tags" placeholderTranslateKey="product.form.tags.select.placeholder"/>
 	  </div>
 
       <price-and-currency-component [currencyControl]="form.controls.price.controls.currency"

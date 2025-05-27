@@ -1081,6 +1081,7 @@
 			"allServices": "Всі послуги",
 			"allSpecialists": "Всі спеціалісти",
 			"allStatuses": "Всі статуси",
+			"allTags": "Всі теги",
 			"amount": "Cума",
 			"anonymous": "Анонімний",
 			"approvalType": "Тип схвалення",
@@ -1112,17 +1113,6 @@
 				},
 				"plural": "Категорії",
 				"single": "Категорія"
-			},
-			"tag": {
-				"create": {
-					"choose": "Виберіть тег",
-					"enter": "Введіть тег",
-					"first": "Додайте перший тег",
-					"tooltip": "Додайте теги до списку",
-					"uniqueError": "Назва тега повинна бути унікальною"
-				},
-				"plural": "Теги",
-				"single": "Тег"
 			},
 			"changeStatus": "Змінити статус",
 			"changes": "Зміни",
@@ -1277,6 +1267,17 @@
 			"synchronizationError": "Помилка синхронізації",
 			"synchronized": "Синхронізовано",
 			"syncing": "Синхронізація триває…",
+			"tag": {
+				"create": {
+					"choose": "Виберіть тег",
+					"enter": "Введіть тег",
+					"first": "Додайте перший тег",
+					"tooltip": "Додайте теги до списку",
+					"uniqueError": "Назва тега повинна бути унікальною"
+				},
+				"plural": "Теги",
+				"single": "Тег"
+			},
 			"tags": "Теги",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
@@ -1582,6 +1583,11 @@
 		"form": {
 			"availableLanguages": {
 				"hint": "Ви можете назвати свій продукт доступними мовами"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Вибери тег"
+				}
 			},
 			"title": {
 				"create": "Додати товар",

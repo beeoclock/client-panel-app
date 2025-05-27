@@ -12,6 +12,8 @@ export class ProductIndexedDBDataProvider extends IndexedDBDataProvider<EProduct
 		'languageVersions.title',
 		'languageVersions.description',
 		'sku',
+		'tags',
+		'price'
 	];
 	protected readonly dexieAdapterIndexedDBDataProvider = inject(ProductDexieAdapterIndexedDBDataProvider);
 

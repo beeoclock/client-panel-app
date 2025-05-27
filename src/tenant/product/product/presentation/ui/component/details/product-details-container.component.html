@@ -6,12 +6,12 @@
 			<div class="p-4 sm:gap-4 flex flex-wrap">
 				@for (image of product?.images; track image._id) {
 					<div
-						class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
+						class="rounded-2xl bg-beeColor-400">
 						@if (image) {
 
 							<img
 								[src]="image.url"
-								class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+								class="object-cover rounded-2xl"
 								alt="Uploaded Image"/>
 						}
 					</div>
@@ -28,20 +28,11 @@
 					{{ product.sku }}
 				</dd>
 			</div>
-
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.productName' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					{{ product.languageVersions[0].title }}
-				</dd>
-			</div>
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 items-center">
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 items-start">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.category.plural' | translate }}
 				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2"  class="truncate">
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
 					<span [title]="product.tags?.join(', ')">
 						@for (tag of product.tags; track tag ) {
 							<ion-chip>

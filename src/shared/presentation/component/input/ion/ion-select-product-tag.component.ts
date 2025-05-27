@@ -50,7 +50,7 @@ export class IonSelectServiceComponent {
 
     public readonly multiple = input(true);
 
-    public readonly placeholderTranslateKey = input('keyword.capitalize.allServices');
+    public readonly placeholderTranslateKey = input('keyword.capitalize.allTags');
 
     public readonly id = input('');
 

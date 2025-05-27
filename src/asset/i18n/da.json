@@ -1081,6 +1081,7 @@
 			"allServices": "Alle tjenester",
 			"allSpecialists": "Alle specialister",
 			"allStatuses": "Alle statusser",
+			"allTags": "Alle tags",
 			"amount": "Beløb",
 			"anonymous": "Anonym",
 			"approvalType": "Godkendelsestype",
@@ -1112,17 +1113,6 @@
 				},
 				"plural": "Kategorier",
 				"single": "Kategori"
-			},
-			"tag": {
-				"create": {
-					"choose": "Vælg en tag",
-					"enter": "Indtast en tag",
-					"first": "Tilføj den første tag",
-					"tooltip": "Tilføj tags til listen",
-					"uniqueError": "Tagget skal være unikt"
-				},
-				"plural": "Tags",
-				"single": "Tag"
 			},
 			"changeStatus": "Skift status",
 			"changes": "Ændringer",
@@ -1277,6 +1267,17 @@
 			"synchronizationError": "Synkroniseringsfejl",
 			"synchronized": "Synkroniseret",
 			"syncing": "Synkronisering pågår…",
+			"tag": {
+				"create": {
+					"choose": "Vælg en tag",
+					"enter": "Indtast en tag",
+					"first": "Tilføj den første tag",
+					"tooltip": "Tilføj tags til listen",
+					"uniqueError": "Tagget skal være unikt"
+				},
+				"plural": "Tags",
+				"single": "Tag"
+			},
 			"tags": "Tags",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
@@ -1582,6 +1583,11 @@
 		"form": {
 			"availableLanguages": {
 				"hint": "Du kan give dit produkt et navn på de tilgængelige sprog"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Vælg tag"
+				}
 			},
 			"title": {
 				"create": "Tilføj produkt",
