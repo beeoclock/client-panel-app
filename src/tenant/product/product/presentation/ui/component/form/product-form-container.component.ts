@@ -115,7 +115,7 @@ export class ProductFormContainerComponent {
 	}
 
 	private updateFormValues(item: IProduct.DTO) {
-		const { languageVersions, ...rest } = item;
+		const { languageVersions, images, ...rest } = item;
 
 		this.form.patchValue(rest);
 
@@ -126,6 +126,10 @@ export class ProductFormContainerComponent {
 			languageVersions.forEach((languageVersion) => {
 				this.form.controls.languageVersions.pushNewOne(languageVersion);
 			});
+		}
+
+		if (images?.length) {
+			this.form.controls.images.patchValue(images);
 		}
 
 		this.form.updateValueAndValidity();
