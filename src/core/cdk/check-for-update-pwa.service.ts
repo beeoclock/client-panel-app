@@ -4,12 +4,14 @@ import {NGXLogger} from "ngx-logger";
 import {concat, first, interval} from "rxjs";
 import {is} from "@core/shared/checker";
 import {SECONDS_TEN_MINUTES} from "@shared/domain/const/c.time";
+import {WINDOW} from "@core/cdk/window.provider";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class CheckForUpdatePwaService {
 
+	private readonly window = inject(WINDOW);
 	private readonly logger = inject(NGXLogger);
 	private readonly swUpdate = inject(SwUpdate);
 	private readonly applicationRef = inject(ApplicationRef);
@@ -46,7 +48,7 @@ export class CheckForUpdatePwaService {
 		this.logger.debug('Current version is', event.currentVersion);
 		this.logger.debug('Available version is', event.latestVersion);
 
-		window.location.reload();
+		this.window.location.reload();
 
 		// TODO uncomment this when we will put additional info about update
 

@@ -8,15 +8,6 @@ export namespace CustomerDataActions {
 		public static override readonly type = '[Customer API] Create Item';
 	}
 
-	export class CreateItemError {
-		public static readonly type = '[Customer API] Create Item Error';
-
-		public constructor(
-			public readonly error: unknown
-		) {
-		}
-	}
-
 	export class UpdateItem extends BaseActions.UpdateItem<ICustomer.EntityRaw> {
 		public static override readonly type = '[Customer API] Update Item';
 	}

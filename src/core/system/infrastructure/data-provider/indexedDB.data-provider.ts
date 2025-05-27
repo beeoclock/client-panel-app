@@ -54,51 +54,50 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 		return this.db$.pipe(
 			take(1),
 			concatMap((table) => {
-
 				const {
-					pageSize = undefined,
-					page = undefined,
+					pageSize,
+					page,
 					orderBy = OrderByEnum.CREATED_AT,
 					orderDir = OrderDirEnum.DESC,
-					...filter
+					...rawFilter
 				} = options as Types.StandardQueryParams;
 
-				// Delete updatedSince from filter because it is not a field in the table, and it is not a filter field
+				// Remove non-indexed/non-data field filters
+				const filter = { ...rawFilter };
 				delete filter.updatedSince;
 
+				// Start ordered query
 				let query = table.orderBy(orderBy);
-
 				if (orderDir === OrderDirEnum.DESC) {
 					query = query.reverse();
 				}
 
-				// Filter entities
-				query = query.filter((entity) => {
-					return filterFunction(entity, filter as Types.StandardQueryParams);
-				});
-
-				const countQuery$ = query.count();
-
-				if (pageSize && page) {
-
-					const offset = pageSize * (page - 1);
-
-					query = query.offset(offset).limit(pageSize);
-
-				}
-
-				return from(countQuery$).pipe(
-					switchMap((totalSize) =>
-						from(query.toArray()).pipe(
-							map((items) => [totalSize, items] as const)
-						)
-					),
-					map(({0: totalSize, 1: items}) => ({
-						items,
-						totalSize,
-					}))
+				// Apply custom filter
+				const filteredQuery = query.filter((entity) =>
+					filterFunction(entity, filter)
 				);
-			}),
+
+				// Get total count before pagination
+				const count$ = from(filteredQuery.count());
+
+				return count$.pipe(
+					switchMap((totalSize) => {
+						let pagedQuery = filteredQuery;
+
+						if (pageSize != null && page != null) {
+							const offset = pageSize * (page - 1);
+							pagedQuery = filteredQuery.offset(offset).limit(pageSize);
+						}
+
+						return from(pagedQuery.toArray()).pipe(
+							map((items) => ({
+								items,
+								totalSize,
+							}))
+						);
+					})
+				);
+			})
 		);
 	}
 
@@ -187,6 +186,17 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 
 	}
 
+	private escapeRegex(str: string): string {
+		return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+
+	private searchInText(text: string, searchPhrase: string): boolean {
+		if (!searchPhrase || !text) return false;
+		const escaped = this.escapeRegex(searchPhrase);
+		const regex = new RegExp(escaped, 'i'); // case-insensitive match
+		return regex.test(text);
+	}
+
 	/**
 	 * Search in nested object
 	 * @param item
@@ -195,13 +205,21 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 * @private
 	 */
 	private regexFullTextSearch(item: unknown, path: string, phrase: string): boolean {
+		phrase = phrase.trim();
 		const keys = path.split('.');
-		const regex = new RegExp(phrase, 'i'); // case-insensitive
 
-		function searchNested(current: unknown, index: number): boolean {
+		if (!phrase || !item) return true;
+
+		const hasSpace = /\s/;
+
+		const searchNested = (current: unknown, index: number): boolean => {
 			if (index === keys.length) {
 				if (typeof current === 'string') {
-					return regex.test(current);
+					if (hasSpace.test(phrase)) {
+						return this.searchInText(phrase, current);
+					} else {
+						return this.searchInText(current, phrase);
+					}
 				}
 				return false;
 			}

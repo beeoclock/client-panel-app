@@ -84,6 +84,15 @@ export const tenantRouters: Routes = [
                                 ]
                             },
                             {
+                                path: 'plugin',
+                                children: [
+                                    {
+                                        path: 'grid',
+                                        loadComponent: () => import('@tenant/plugin/tenant-plugin/presentation/ui/page/grid/grid.plugin.page')
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'analytic',
                                 children: [
                                     {
@@ -189,6 +198,15 @@ export const tenantRouters: Routes = [
                                     {
                                         path: 'list',
                                         loadComponent: () => import('@tenant/service/presentation/ui/page/list/list.service.page')
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'balance',
+                                children: [
+                                    {
+                                        path: 'overview',
+                                        loadComponent: () => import('@tenant/balance/presentation/ui/page/list/list.balance.page')
                                     }
                                 ]
                             },

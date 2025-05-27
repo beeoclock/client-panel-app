@@ -5,7 +5,6 @@ export enum clientEndpointEnum {
     item = '/api/v1/client/selected-client',
     update = '/api/v1/client/selected-client',
     delete = '/api/v1/client/selected-client',
-    archive = '/api/v1/client/selected-item/archive',
 }
 
 export const clientEndpoint: EndpointCollectionType = {
@@ -21,16 +20,6 @@ export const clientEndpoint: EndpointCollectionType = {
     },
     PUT: {
         [clientEndpointEnum.update]: {
-            source: SourceNetworkEnum.panel,
-            replace: true,
-            header: {
-                authorization: true,
-                tenantId: true,
-            }
-        },
-    },
-    PATCH: {
-        [clientEndpointEnum.archive]: {
             source: SourceNetworkEnum.panel,
             replace: true,
             header: {
