@@ -24,7 +24,7 @@ import {
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/start.chip.component";
 import LanguageChipComponent
 	from "@shared/presentation/component/smart/order/form/service/list/item/chip/language.chip.component";
-import {ServiceOrderForm} from "@tenant/order/order/presentation/form/service.order.form";
+import {OrderServiceForm} from "@tenant/order/order/presentation/form/orderServiceForm";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
@@ -120,7 +120,7 @@ export class ItemV2ListServiceFormOrderComponent {
 
 	public readonly item = input.required<{
 		service: IService.DTO; // from serviceSnapshot
-		control: ServiceOrderForm;
+		control: OrderServiceForm;
 	}>();
 
 	public readonly setupPartialData = input<{
