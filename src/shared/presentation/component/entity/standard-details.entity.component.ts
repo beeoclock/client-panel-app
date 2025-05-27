@@ -10,90 +10,116 @@ import {ActiveStyleDirective} from "@shared/presentation/directives/active-style
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'mb-[100px] p-2 flex'
+		class: 'mb-[100px] p-2 flex flex-col gap-2'
 	},
 	template: `
 
+		@if (item(); as item) {
 
-		<details class="group w-full">
-			<summary
-				class="bg-neutral-50 hover:bg-neutral-100 transition-all text-neutral-400 group-hover:text-neutral-800 group-open:text-neutral-900 cursor-pointer flex font-medium items-center justify-between list-none p-2 px-4 rounded-[20px] group-open:rounded-b-none h-[42px]">
-				<div class="flex w-full">
-					<ul class="leading-tight flex gap-2 w-full ">
-						<li class="flex gap-1 w-full">
-							{{ 'keyword.capitalize.advancedInformation' | translate }}
+			@if (item.syncErrors.length) {
+
+				<ul class="w-full flex flex-col">
+
+					<li class="-mt-px bg-red-50 border border-red-400 first:mt-0 first:rounded-t-[20px] font-medium gap-x-2 inline-flex items-center last:rounded-b-[20px] px-4 py-3 text-red-600 text-sm">
+
+						{{ 'keyword.capitalize.synchronizationError' | translate }}
+
+					</li>
+
+					@for (error of item.syncErrors; track error) {
+
+						<li class="-mt-px bg-red-50 border border-red-400 first:mt-0 first:rounded-t-[20px] font-medium gap-x-2 inline-flex items-center last:rounded-b-[20px] px-4 py-3 text-red-600 text-sm">
+
+							{{ error.message }}
+
 						</li>
-					</ul>
-				</div>
-				<div class="transition group-open:rotate-180 ml-2.5">
-					<i class="bi bi-chevron-down"></i>
-				</div>
-			</summary>
-			<div class="bg-neutral-50 group-open:animate-fadeIn px-4 rounded-b-[20px] flex flex-col">
 
-				<div class="flex border-t items-center justify-between h-[42px]">
-					<div>
-						ID:
+					}
+
+				</ul>
+
+			}
+
+			<details class="group w-full">
+				<summary
+					class="bg-neutral-50 hover:bg-neutral-100 transition-all text-neutral-400 group-hover:text-neutral-800 group-open:text-neutral-900 cursor-pointer flex font-medium items-center justify-between list-none p-2 px-4 rounded-[20px] group-open:rounded-b-none h-[42px]">
+					<div class="flex w-full">
+						<ul class="leading-tight flex gap-2 w-full ">
+							<li class="flex gap-1 w-full">
+								{{ 'keyword.capitalize.advancedInformation' | translate }}
+							</li>
+						</ul>
 					</div>
-
-					<div class="flex gap-5">
-						{{ item()._id }}
+					<div class="transition group-open:rotate-180 ml-2.5">
+						<i class="bi bi-chevron-down"></i>
 					</div>
-				</div>
+				</summary>
+				<div class="bg-neutral-50 group-open:animate-fadeIn px-4 rounded-b-[20px] flex flex-col">
 
-				<div class="flex border-t items-center justify-between h-[42px]">
-					<div>
-						{{ 'keyword.capitalize.createdAt' | translate }}:
-					</div>
+					<div class="flex border-t items-center justify-between h-[42px]">
+						<div>
+							ID:
+						</div>
 
-					<div class="flex gap-5">
-						{{ item().createdAt | dynamicDate }}
-					</div>
-				</div>
-
-				<div class="flex border-t items-center justify-between h-[42px]">
-					<div>
-						{{ 'keyword.capitalize.updatedAt' | translate }}:
-					</div>
-
-					<div class="flex gap-5">
-						{{ item().updatedAt | dynamicDate }}
-					</div>
-				</div>
-
-				<div class="flex border-t items-center justify-between h-[42px]">
-					<div>
-						{{ 'keyword.capitalize.state' | translate }}:
-					</div>
-
-					<div class="flex gap-5">
-						<div activeStyle [state]="item().state">
+						<div class="flex gap-5">
+							{{ item._id }}
 						</div>
 					</div>
-				</div>
 
-				<div class="flex flex-col border-t w-full">
-					<div class="py-2 text-neutral-400">
-						{{ 'keyword.capitalize.historyOfStates' | translate }}:
+					<div class="flex border-t items-center justify-between h-[42px]">
+						<div>
+							{{ 'keyword.capitalize.createdAt' | translate }}:
+						</div>
+
+						<div class="flex gap-5">
+							{{ item.createdAt | dynamicDate }}
+						</div>
 					</div>
 
+					<div class="flex border-t items-center justify-between h-[42px]">
+						<div>
+							{{ 'keyword.capitalize.updatedAt' | translate }}:
+						</div>
 
-					@for (history of item().stateHistory; track history.setAt) {
-						<div class="flex w-full border-t items-center justify-between h-[42px]">
-							<div>
-								{{ history.setAt | dynamicDate }}
+						<div class="flex gap-5">
+							{{ item.updatedAt | dynamicDate }}
+						</div>
+					</div>
+
+					<div class="flex border-t items-center justify-between h-[42px]">
+						<div>
+							{{ 'keyword.capitalize.state' | translate }}:
+						</div>
+
+						<div class="flex gap-5">
+							<div activeStyle [state]="item.state">
 							</div>
+						</div>
+					</div>
 
-							<div class="flex gap-5">
-								<div activeStyle [state]="history.state">
+					<div class="flex flex-col border-t w-full">
+						<div class="py-2 text-neutral-400">
+							{{ 'keyword.capitalize.historyOfStates' | translate }}:
+						</div>
+
+
+						@for (history of item.stateHistory; track history.setAt) {
+							<div class="flex w-full border-t items-center justify-between h-[42px]">
+								<div>
+									{{ history.setAt | dynamicDate }}
+								</div>
+
+								<div class="flex gap-5">
+									<div activeStyle [state]="history.state">
+									</div>
 								</div>
 							</div>
-						</div>
-					}
+						}
+					</div>
 				</div>
-			</div>
-		</details>
+			</details>
 
+		}
 
 	`,
 	imports: [

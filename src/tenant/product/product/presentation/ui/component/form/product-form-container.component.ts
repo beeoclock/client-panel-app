@@ -33,8 +33,8 @@ import {IonSelectServiceComponent} from "@shared/presentation/component/input/io
 import {ImageFormProduct} from "@tenant/product/product/presentation/ui/component/form/image/image.form.product";
 import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {is} from "@core/shared/checker";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 @Component({
 	selector: 'product-form-page',
@@ -153,7 +153,7 @@ export class ProductFormContainerComponent {
 			await this.createProduct();
 		}
 
-		const isSyncing$ = BaseSyncManager.isSyncing$.pipe(
+		const isSyncing$ = SyncManager.isSyncing$.pipe(
 			filter(is.zero),
 		);
 		await firstValueFrom(isSyncing$);

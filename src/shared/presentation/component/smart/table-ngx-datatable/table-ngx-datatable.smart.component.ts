@@ -18,7 +18,7 @@ import {
 	SortPropDir
 } from "@swimlane/ngx-datatable";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {ActivateEvent, DragEventData, PageEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
+import {ActivateEvent, DragEventData, Group, PageEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {ReactiveFormsModule} from "@angular/forms";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
@@ -31,6 +31,7 @@ import {
 	PagerTableNgxDataTableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/pager.table-ngx-data-table.smart.component";
 import {explicitEffect} from "ngxtension/explicit-effect";
+import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 
 
 @Component({
@@ -45,6 +46,7 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 			[reorderable]="true"
 			[trackByProp]="trackByProp()"
 			[rowDraggable]="rowDraggable()"
+			[rowClass]="rowClass()"
 			[columns]="columns()"
 			[ghostLoadingIndicator]="true"
 			[columnMode]="ColumnMode.force"
@@ -131,6 +133,16 @@ export class TableNgxDatatableSmartComponent {
 	public readonly rowDraggable = input<boolean>(false);
 	public readonly trackByProp = input<string>('_id');
 	public readonly currentVisible = input<number>(5);
+	public readonly rowClass = input<((row: Group<IBaseEntityRaw<string>> | IBaseEntityRaw<string>) => string | Record<string, boolean>)>((item) => {
+		if ('key' in item && 'value' in item) {
+			const row = item as Group<IBaseEntityRaw<string>>;
+			return '';
+		}
+		if (item?.syncErrors?.length) {
+			return 'bg-red-50 hover:bg-red-100 text-red-800';
+		}
+		return '';
+	});
 
 	public readonly actionColumn = input<TableColumn | null>(null);
 

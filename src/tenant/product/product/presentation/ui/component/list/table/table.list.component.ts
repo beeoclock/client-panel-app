@@ -29,6 +29,7 @@ import {
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {CurrencyPipe} from "@angular/common";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'product-table-list-component',
@@ -42,7 +43,8 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 		TranslatePipe,
 		RowActionButtonComponent,
 		AutoRefreshButtonComponent,
-		NoAvailable
+		NoAvailable,
+		SynchronizationMolecule
 	],
 	providers: [
 		CurrencyPipe,
@@ -56,6 +58,7 @@ export class TableListComponent extends TableComponent<EProduct> {
 
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly imagesCellTemplate = viewChild<TemplateRef<any>>('imagesCellTemplate');
+	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
 	public readonly columns = signal<TableColumn<EProduct>[]>([
 		{
@@ -120,6 +123,13 @@ export class TableListComponent extends TableComponent<EProduct> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
+		{
+			name: this.translateService.instant('keyword.capitalize.synchronization'),
+			prop: 'syncedAt',
+			minWidth: 240,
+			width: 240,
+			sortable: false,
+		},
 	]);
 
 	public readonly columnList = computed(() => {
@@ -138,6 +148,11 @@ export class TableListComponent extends TableComponent<EProduct> {
 		const availableLanguages = this.availableLanguages();
 		if (availableLanguages?.length) {
 			this.setTitlesColumnsByAvailableLanguages(columns, availableLanguages);
+		}
+
+		const syncedAtTemplate = this.syncedAtTemplate();
+		if (syncedAtTemplate) {
+			this.setCellTemplateRef(columns, 'syncedAt', syncedAtTemplate);
 		}
 
 		return columns;

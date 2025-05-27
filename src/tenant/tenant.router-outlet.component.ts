@@ -20,7 +20,6 @@ import {SocketActions} from "@shared/state/socket/socket.actions";
 import {environment} from "@environment/environment";
 import {VisibilityService} from "@core/cdk/visibility.service";
 import {CustomerModule} from "@tenant/customer/customer.module";
-import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
 import {
 	BusinessProfileState
@@ -28,6 +27,7 @@ import {
 import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {injectNetwork} from "ngxtension/inject-network";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 @Component({
 	selector: 'tenant-router-outlet-component',
@@ -83,7 +83,7 @@ export default class TenantRouterOutletComponent implements OnInit, AfterViewIni
 	public readonly businessProfile = toSignal(this.businessProfile$);
 
 	public readonly visibility = toSignal(this.visibilityService.visibility$, {initialValue: true});
-	public readonly isSyncing = toSignal(BaseSyncManager.isSyncing$, {initialValue: 0});
+	public readonly isSyncing = toSignal(SyncManager.isSyncing$, {initialValue: 0});
 
 	public constructor() {
 		explicitEffect([this.network.online, this.visibility], ([isOnline, visible]) => {
@@ -92,7 +92,7 @@ export default class TenantRouterOutletComponent implements OnInit, AfterViewIni
 
 			if ((isOnline || visible) && !isSyncing) {
 
-				const {syncState} = BaseSyncManager.getSyncManager('business-profile');
+				const {syncState} = SyncManager.getSyncManager('business-profile');
 				const lastSynchronizedIn = syncState?.options?.updatedSince || new Date(0).toISOString();
 
 				// Check if the last synchronized date is older than 1 minute
@@ -101,7 +101,7 @@ export default class TenantRouterOutletComponent implements OnInit, AfterViewIni
 					/**
 					 * Sync all data when the user is online
 					 */
-					BaseSyncManager.syncAll().then();
+					SyncManager.syncAll().then();
 
 				}
 
