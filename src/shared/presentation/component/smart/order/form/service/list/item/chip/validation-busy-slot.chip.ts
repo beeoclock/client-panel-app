@@ -56,7 +56,10 @@ export class ValidationBusySlotChip {
 		}
 		const specialistIds = specialists.map(({member: {_id}}) => _id);
 		this.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end).then((busySlots) => {
-			this.hideMe.set(!busySlots.length);
+			const filtered = busySlots.filter((slot) => {
+				return slot._id !== value.orderId;
+			})
+			this.hideMe.set(!filtered.length);
 		})
 	}
 
