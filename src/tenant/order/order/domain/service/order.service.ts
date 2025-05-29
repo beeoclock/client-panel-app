@@ -1,6 +1,7 @@
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 import {BaseService} from "@core/shared/service/base.service";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 type ENTITY_RAW = IOrder.EntityRaw;
 
@@ -34,9 +35,12 @@ export class OrderService extends BaseService<ENTITY_RAW> {
 		return this.db.filter(({services}) => services.some(({orderAppointmentDetails: {specialists}}) => specialists.some(({member: {_id}}) => ids.includes(_id)))).toArray();
 	}
 
-	public async findBySpecialistIdsAndDateTimeRange(ids: string[], start: string, end: string) {
-		return this.db.filter(({services}) => services.some(({orderAppointmentDetails: {specialists, start: serviceStart, end: serviceEnd}}) => {
+	public async findBySpecialistIdsAndDateTimeRange(ids: string[], start: string, end: string, states: StateEnum[] = []) {
+		return this.db.filter(({services, state}) => services.some(({orderAppointmentDetails: {specialists, start: serviceStart, end: serviceEnd}}) => {
 			if (!specialists.some(({member: {_id}}) => ids.includes(_id))) {
+				return false;
+			}
+			if (states.length > 0 && !states.includes(state)) {
 				return false;
 			}
 			return (

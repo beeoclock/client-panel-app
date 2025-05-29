@@ -5,6 +5,7 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
 	selector: 'validation-busy-slot-chip',
@@ -64,7 +65,7 @@ export class ValidationBusySlotChip {
 	}
 
 	private findBySpecialistIdsAndDateTimeRange(specialistIds: string[], start: string, end: string) {
-		return this.sharedUow.order.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end);
+		return this.sharedUow.order.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end, [StateEnum.active]);
 	}
 
 }
