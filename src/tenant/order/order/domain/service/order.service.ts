@@ -30,4 +30,21 @@ export class OrderService extends BaseService<ENTITY_RAW> {
 		return this.db.filter(({services}) => services.some(({_id}) => ids.includes(_id))).toArray();
 	}
 
+	public async findBySpecialistIds(ids: string[]) {
+		return this.db.filter(({services}) => services.some(({orderAppointmentDetails: {specialists}}) => specialists.some(({member: {_id}}) => ids.includes(_id)))).toArray();
+	}
+
+	public async findBySpecialistIdsAndDateTimeRange(ids: string[], start: string, end: string) {
+		return this.db.filter(({services}) => services.some(({orderAppointmentDetails: {specialists, start: serviceStart, end: serviceEnd}}) => {
+			if (!specialists.some(({member: {_id}}) => ids.includes(_id))) {
+				return false;
+			}
+			return (
+				(serviceStart >= start && serviceStart < end) || // service starts within the range
+				(serviceEnd > start && serviceEnd <= end) || // service ends within the range
+				(serviceStart < start && serviceEnd > end) // service spans the entire range
+			);
+		})).toArray();
+	}
+
 }

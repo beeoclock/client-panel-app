@@ -46,6 +46,9 @@ import StatusChipComponent
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import EService from "@tenant/service/domain/entity/e.service";
+import {
+	ValidationBusySlotChip
+} from "@shared/presentation/component/smart/order/form/service/list/item/chip/validation-busy-slot.chip";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -62,6 +65,7 @@ import EService from "@tenant/service/domain/entity/e.service";
 		PrimaryLinkButtonDirective,
 		ServiceChipComponent,
 		StatusChipComponent,
+		ValidationBusySlotChip,
 	],
 	template: `
 		<div class="justify-start items-start gap-1 flex w-full">
@@ -108,6 +112,7 @@ import EService from "@tenant/service/domain/entity/e.service";
 					(customerChanges)="handleCustomerChanges($event)"
 					[initialValue]="initialValueForCustomer"
 					[id]="id()"/>
+				<validation-busy-slot-chip [control]="item().control"/>
 			</div>
 		</div>
 
