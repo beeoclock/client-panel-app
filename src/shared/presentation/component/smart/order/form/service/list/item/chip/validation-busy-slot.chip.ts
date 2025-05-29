@@ -12,7 +12,7 @@ import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-ser
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	host: {
-		class: 'px-3 py-2 rounded-xl border border-yellow-200 justify-center items-center flex flex-col w-full bg-yellow-50 text-yellow-700 text-sm',
+		class: 'px-3 py-2 rounded-xl border border-yellow-200 justify-center items-start flex flex-col w-full bg-yellow-50 text-yellow-700 text-sm',
 		'[class.hidden]': 'hideMe()',
 	},
 	template: `
