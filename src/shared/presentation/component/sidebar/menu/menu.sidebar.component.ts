@@ -308,32 +308,6 @@ export class MenuSidebarComponent implements OnInit {
 				fragment: "ignored",
 			}
 		});
-		this.menu.push({
-			order: 10,
-			url: 'client/business-profile',
-			translateKey: 'sidebar.businessProfile',
-			visible: true,
-			icon: 'bi bi-buildings',
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 14,
-			url: 'plugin/grid',
-			translateKey: 'sidebar.plugins',
-			icon: 'bi bi-plug',
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
 		// {
 		//   icon: 'bi bi-person',
 		//   translateKey: 'sidebar.private',
