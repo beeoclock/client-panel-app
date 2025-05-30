@@ -36,7 +36,10 @@ export class OrderService extends BaseService<ENTITY_RAW> {
 	}
 
 	public async findBySpecialistIdsAndDateTimeRange(ids: string[], start: string, end: string, states: StateEnum[] = []) {
-		return this.db.filter(({services, state}) => services.some(({orderAppointmentDetails: {specialists, start: serviceStart, end: serviceEnd}}) => {
+		return this.db.filter(({services, state}) => services.some(({orderAppointmentDetails: {specialists, start: serviceStart, end: serviceEnd}, status}) => {
+			if ([OrderServiceStatusEnum.deleted, OrderServiceStatusEnum.rejected, OrderServiceStatusEnum.cancelled].includes(status)) {
+				return false;
+			}
 			if (!specialists.some(({member: {_id}}) => ids.includes(_id))) {
 				return false;
 			}
