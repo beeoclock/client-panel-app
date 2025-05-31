@@ -345,6 +345,37 @@ export class OrderState {
 		}
 	}
 
+	@Action(OrderActions.OrderedProductState)
+	public async orderedProductState(ctx: StateContext<IOrderState>, {
+		orderedProductId,
+		orderId,
+		state
+	}: OrderActions.OrderedProductState) {
+		const foundItems = await this.sharedUow.order.repository.findByIdAsync(orderId);
+		if (foundItems) {
+			this.ngxLogger.debug('OrderState.orderedProductState', foundItems);
+			const entity = EOrder.fromRaw(foundItems);
+			entity.changeOrderedProductState(orderedProductId, state);
+			await this.sharedUow.order.repository.updateAsync(entity);
+			// TODO: Add new tenant/module for orderProduct
+			// const orderProductRaw = entity.services.find((service) => service._id === orderedProductId);
+			// if (orderProductRaw) {
+			// 	const orderProductEntity = EOrderProduct.fromRaw(orderProductRaw);
+			// 	await this.sharedUow.orderProduct.repository.updateAsync(orderProductEntity);
+			// }
+
+			const actions: any[] = [];
+			if (entity.state === StateEnum.deleted) {
+				actions.push(new OrderActions.CloseDetails());
+			} else {
+				actions.push(new OrderActions.UpdateOpenedDetails(entity));
+			}
+			const actions$ = ctx.dispatch(actions);
+			await firstValueFrom(actions$);
+
+		}
+	}
+
 	/**
 	 * Add notification settings to order entity
 	 * @param orderEntity

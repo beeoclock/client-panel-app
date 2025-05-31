@@ -104,4 +104,15 @@ export namespace OrderActions {
 		}
 	}
 
+	export class OrderedProductState {
+		public static readonly type = '[Ordered Product] SetState';
+
+		public constructor(
+			public readonly orderId: string,
+			public readonly orderedProductId: string,
+			public readonly state: StateEnum,
+		) {
+		}
+	}
+
 }

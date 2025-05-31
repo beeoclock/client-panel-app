@@ -263,7 +263,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 													{{ orderedProduct.quantity * (orderedProduct.productSnapshot?.price?.value ?? 0) | currency: orderedProduct.productSnapshot?.price?.currency : 'symbol-narrow' }}
 												</div>
 												<div
-													class="inline-flex items-center text-sm font-regular text-neutral-500">
+													class="inline-flex items-center text-sm font-regular text-neutral-500 text-nowrap">
 													{{ orderedProduct.quantity }} x
 													{{ orderedProduct.productSnapshot?.price?.value | currency: orderedProduct.productSnapshot?.price?.currency : 'symbol-narrow' }}
 												</div>
