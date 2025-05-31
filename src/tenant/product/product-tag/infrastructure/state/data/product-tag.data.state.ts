@@ -1,6 +1,5 @@
 import {inject, Injectable} from '@angular/core';
 import {Action, State, StateContext} from '@ngxs/store';
-import {TranslateService} from '@ngx-translate/core';
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {baseDefaults, IBaseState} from "@shared/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
@@ -28,14 +27,12 @@ const defaults = baseDefaults<IProductTag.DTO>({
 export class ProductTagDataState {
 
 	private readonly sharedUow = inject(SharedUow);
-	private readonly translateService = inject(TranslateService);
 
 	@Action(ProductTagDataActions.CreateItem)
 	public async createItem(
 		ctx: StateContext<IProductDataState>,
 		action: ProductTagDataActions.CreateItem
 	): Promise<void> {
-		console.log({action})
 		await this.sharedUow.productTag.repository.createAsync(EProductTag.fromDTO(action.payload));
 		ctx.dispatch(new ProductTagPresentationActions.CloseForm());
 	}

@@ -26,6 +26,7 @@ import {
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'product-tag-table-list-component',
@@ -39,7 +40,8 @@ import {
 		TranslatePipe,
 		RowActionButtonComponent,
 		AutoRefreshButtonComponent,
-		RowActionButtonComponent
+		RowActionButtonComponent,
+		SynchronizationMolecule
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
@@ -50,6 +52,7 @@ export class TableListComponent extends TableComponent<EProductTag> {
 	public readonly availableLanguages = toSignal(this.store.select(BusinessProfileState.availableLanguages));
 
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
+	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
 	public readonly columns = signal<TableColumn<EProductTag>[]>([
 		{
@@ -57,13 +60,6 @@ export class TableListComponent extends TableComponent<EProductTag> {
 			prop: 'name',
 			minWidth: 200,
 			width: 200,
-			sortable: true,
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.active'),
-			prop: 'state',
-			minWidth: 160,
-			width: 160,
 			sortable: true,
 		},
 		{
@@ -75,12 +71,11 @@ export class TableListComponent extends TableComponent<EProductTag> {
 			$$valueGetter: this.anyDateConvert,
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.updatedAt'),
-			prop: 'updatedAt',
+			name: this.translateService.instant('keyword.capitalize.synchronization'),
+			prop: 'syncedAt',
 			minWidth: 240,
 			width: 240,
-			sortable: true,
-			$$valueGetter: this.anyDateConvert,
+			sortable: false,
 		},
 	]);
 
@@ -90,6 +85,11 @@ export class TableListComponent extends TableComponent<EProductTag> {
 		const stateCellTemplate = this.stateCellTemplate();
 		if (stateCellTemplate) {
 			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
+		}
+
+		const syncedAtTemplate = this.syncedAtTemplate();
+		if (syncedAtTemplate) {
+			this.setCellTemplateRef(columns, 'syncedAt', syncedAtTemplate);
 		}
 
 		return columns;

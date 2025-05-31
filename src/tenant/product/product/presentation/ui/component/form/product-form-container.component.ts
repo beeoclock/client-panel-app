@@ -1,11 +1,18 @@
 import {AsyncPipe} from '@angular/common';
-import {ChangeDetectorRef, Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+	afterNextRender,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	input,
+	viewChild,
+	ViewEncapsulation
+} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import {Store} from '@ngxs/store';
-import ObjectID from 'bson-objectid';
 import {NGXLogger} from 'ngx-logger';
-import {firstValueFrom, map} from 'rxjs';
+import {filter, firstValueFrom, map} from 'rxjs';
 import {ProductNameFormComponent} from './product-name/product-name-form.container';
 import {
 	ButtonSaveContainerComponent
@@ -13,9 +20,6 @@ import {
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
 import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {
-	SwitchActiveBlockComponent
-} from "@shared/presentation/component/switch/switch-active/switch-active-block.component";
 import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {ProductForm} from "@tenant/product/product/presentation/form/product.form";
 import {IProduct} from "@tenant/product/product/domain";
@@ -25,6 +29,12 @@ import {
 import {ProductDataActions} from "@tenant/product/product/infrastructure/state/data/product.data.actions";
 import EProduct from "@tenant/product/product/domain/entity/e.product";
 import {PriceAndCurrencyComponent} from "@shared/presentation/component/input/price-and-currency.component";
+import {IonSelectServiceComponent} from "@shared/presentation/component/input/ion/ion-select-product-tag.component";
+import {ImageFormProduct} from "@tenant/product/product/presentation/ui/component/form/image/image.form.product";
+import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {is} from "@core/shared/checker";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 @Component({
 	selector: 'product-form-page',
@@ -38,29 +48,48 @@ import {PriceAndCurrencyComponent} from "@shared/presentation/component/input/pr
 		FormInputComponent,
 		AsyncPipe,
 		CardComponent,
-		SwitchActiveBlockComponent,
 		PriceAndCurrencyComponent,
 		ProductNameFormComponent,
 		DefaultLabelDirective,
+		IonSelectServiceComponent,
+		ImageFormProduct,
 	],
 	standalone: true,
 })
-export class ProductFormContainerComponent implements OnInit {
+export class ProductFormContainerComponent {
 	readonly #store = inject(Store);
 	readonly #ngxLogger = inject(NGXLogger);
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
-	public readonly form = new ProductForm();
+	public readonly imageFormProduct = viewChild(ImageFormProduct);
+
+	public readonly form = ProductForm.create({
+		images: [
+			{
+				object: 'MediaDto',
+				mediaType: MediaTypeEnum.productImage,
+				_id: '',
+				url: '',
+				metadata: {
+					object: 'MediaMetadataDto',
+					height: 0,
+					size: 0,
+					width: 0
+				},
+				state: StateEnum.active,
+				stateHistory: [],
+				_version: '1',
+				createdAt: '',
+				updatedAt: '',
+			}
+		]
+	});
 	public readonly item = input<IProduct.DTO | undefined>();
 	public readonly isEditMode = input<{ value: string; label: string }[]>();
 	public readonly availableLanguages$ = this.#store.select(
 		BusinessProfileState.availableLanguages
 	);
-	public tagsOptions: {
-		id: string;
-		value: string;
-		label: string;
-	}[] = [];
+
 	public readonly currencyList$ = this.#store
 		.select(BusinessProfileState.currencies)
 		.pipe(
@@ -72,8 +101,10 @@ export class ProductFormContainerComponent implements OnInit {
 			})
 		);
 
-	public ngOnInit(): void {
-		this.detectItem();
+	public constructor() {
+		afterNextRender(() => {
+			this.detectItem();
+		})
 	}
 
 	public detectItem(): void {
@@ -84,22 +115,9 @@ export class ProductFormContainerComponent implements OnInit {
 	}
 
 	private updateFormValues(item: IProduct.DTO) {
-		const { languageVersions, tags, ...rest } = item;
+		const { languageVersions, images, ...rest } = item;
 
-		this.form.patchValue({
-			tags,
-			...rest,
-		});
-
-		if (tags) {
-			tags.map((tag) => {
-				this.tagsOptions.push({
-					id: ObjectID().toHexString(),
-					value: tag,
-					label: tag,
-				});
-			});
-		}
+		this.form.patchValue(rest);
 
 		if (languageVersions) {
 			// Prevents from removing all controls from languageVersions
@@ -108,6 +126,10 @@ export class ProductFormContainerComponent implements OnInit {
 			languageVersions.forEach((languageVersion) => {
 				this.form.controls.languageVersions.pushNewOne(languageVersion);
 			});
+		}
+
+		if (images?.length) {
+			this.form.controls.images.patchValue(images);
 		}
 
 		this.form.updateValueAndValidity();
@@ -130,6 +152,12 @@ export class ProductFormContainerComponent implements OnInit {
 		} else {
 			await this.createProduct();
 		}
+
+		const isSyncing$ = SyncManager.isSyncing$.pipe(
+			filter(is.zero),
+		);
+		await firstValueFrom(isSyncing$);
+		await this.imageFormProduct()?.save(this.formValue()._id);
 
 		this.form.enable();
 		this.form.updateValueAndValidity();

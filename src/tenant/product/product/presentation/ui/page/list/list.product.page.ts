@@ -14,6 +14,10 @@ import {
 import {
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ofActionSuccessful} from "@ngxs/store";
+import {tap} from "rxjs";
+import {ProductDataActions} from "@tenant/product/product/infrastructure/state/data/product.data.actions";
 
 @Component({
     selector: 'app-list-product-page',
@@ -36,6 +40,18 @@ import {
     ],
 })
 export class ListProductPage extends ListPage implements OnInit {
+
+	public readonly actionsSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			ProductDataActions.UpdateItem,
+			ProductDataActions.CreateItem,
+			ProductDataActions.SetState,
+		),
+		tap((payload) => {
+			this.tableNgxDatatableSmartResource?.refreshDiscoveredPages();
+		})
+	).subscribe();
 
     public override ngOnInit() {
         super.ngOnInit();

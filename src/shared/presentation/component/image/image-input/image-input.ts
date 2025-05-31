@@ -5,15 +5,15 @@ import {BaseImageComponent} from "@shared/presentation/component/image/base.imag
 import {PlaceholderImageComponent} from "@shared/presentation/component/image/placeholder.image.component";
 
 @Component({
-	selector: 'service-form-image-component',
+	selector: 'image-input',
 	standalone: true,
-	templateUrl: './service-form-image.component.html',
+	templateUrl: './image-input.html',
 	imports: [
 		TranslateModule,
 		DragAndDropDirective,
 		PlaceholderImageComponent,
 	]
 })
-export class ServiceFormImageComponent extends BaseImageComponent {
+export class ImageInput extends BaseImageComponent {
 
 }

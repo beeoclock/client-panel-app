@@ -2,9 +2,7 @@ import {Component, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {DeleteButtonComponent} from "@shared/presentation/component/button/delete.button.component";
-import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
-import {EditButtonComponent} from "@shared/presentation/component/button/edit.button.component";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {IProductTag} from "@tenant/product/product-tag/domain";
 import {ProductTagDataActions} from "@tenant/product/product-tag/infrastructure/state/data/product-tag.data.actions";
@@ -19,10 +17,8 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TranslateModule,
-		ActiveStyleDirective,
 		DynamicDatePipe,
 		DeleteButtonComponent,
-		EditButtonComponent,
 	],
 	standalone: true,
 })

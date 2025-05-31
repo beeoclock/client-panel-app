@@ -1,5 +1,24 @@
 @if (item(); as product) {
 	<div class="bg-white">
+
+		@if ((product?.images ?? []).length) {
+
+			<div class="p-4 sm:gap-4 flex flex-wrap">
+				@for (image of product?.images; track image._id) {
+					<div
+						class="rounded-2xl bg-beeColor-400">
+						@if (image) {
+
+							<img
+								[src]="image.url"
+								class="object-cover rounded-2xl"
+								alt="Uploaded Image"/>
+						}
+					</div>
+				}
+			</div>
+		}
+
 		<dl class="divide-y divide-gray-100">
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
@@ -9,20 +28,11 @@
 					{{ product.sku }}
 				</dd>
 			</div>
-
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.productName' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					{{ product.languageVersions[0].title }}
-				</dd>
-			</div>
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 items-center">
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 items-start">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.category.plural' | translate }}
 				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2"  class="truncate">
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
 					<span [title]="product.tags?.join(', ')">
 						@for (tag of product.tags; track tag ) {
 							<ion-chip>
@@ -57,6 +67,27 @@
 				</dd>
 			</div>
 		</dl>
+
+
+		<div class="p-4">
+
+			<div class="flex flex-col divide-y w-full rounded-lg border text-sm">
+				@for (languageVersion of product.languageVersions; track languageVersion.language) {
+
+					<div
+						class="relative text-wrap flex gap-2 items-start p-2 font-sans text-neutral-900">
+						<label
+							class="relative font-bold uppercase flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
+							{{ languageVersion.language }}
+						</label>
+						<div class="flex flex-col gap-1">
+							<div class="font-bold">{{ languageVersion.title }}</div>
+							<div>{{ languageVersion.description }}</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
 	</div>
 
 	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">

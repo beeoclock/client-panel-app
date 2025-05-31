@@ -1,8 +1,14 @@
 import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {Store} from '@ngxs/store';
 import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
 import {IProduct} from "@tenant/product/product/domain";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {
+	ProductPresentationActions
+} from "@tenant/product/product/infrastructure/state/presentation/product.presentation.actions";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import EProduct from '@src/tenant/product/product/domain/entity/e.product';
+import {ProductDataActions} from "@tenant/product/product/infrastructure/state/data/product.data.actions";
 
 @Component({
 	selector: 'product-row-action-button-component',
@@ -25,40 +31,51 @@ export class RowActionButtonComponent {
 
 	public readonly item = input.required<IProduct.DTO>();
 
-	readonly #translateService = inject(TranslateService);
-	readonly #store = inject(Store);
+	private readonly translateService = inject(TranslateService);
 
-	public delete(): void {
-		if (this.item().active) {
-			alert(this.#translateService.instant('product.deactivateBeforeDelete'));
-			return;
+	public delete() {
+
+		const question = this.translateService.instant('product.action.delete.question');
+
+		if (!confirm(question)) {
+			throw new Error('User canceled the action');
 		}
-		// this.#store.dispatch(new ProductActions.DeleteItem(this.item()._id));
+
+		this.setState(StateEnum.deleted);
 	}
 
-	public activate(): void {
-		// this.#store.dispatch(new ProductActions.UnarchiveItem(this.item()._id));
+	public deactivate() {
+		this.setState(StateEnum.inactive);
 	}
 
-	public deactivate(): void {
-		// this.#store.dispatch(new ProductActions.ArchiveItem(this.item()._id));
+	public archive() {
+		this.setState(StateEnum.archived);
 	}
 
-	public open(): void {
-		// this.#store.dispatch(new ProductActions.OpenDetails(this.item()));
+	public activate() {
+		this.setState(StateEnum.active);
 	}
 
-	public edit(): void {
-		// this.#store.dispatch(
-		// 	new ProductActions.OpenForm({
-		// 		componentInputs: {
-		// 			isEditMode: true,
-		// 			item: this.item(),
-		// 		},
-		// 		pushBoxInputs: {
-		// 			title: this.#translateService.instant('product.form.title.edit')
-		// 		}
-		// 	})
-		// );
+	@Dispatch()
+	public setState(state: StateEnum) {
+		const entity = EProduct.fromDTO(this.item());
+		return new ProductDataActions.SetState(entity, state);
+	}
+
+	@Dispatch()
+	public open() {
+		const entity = EProduct.fromDTO(this.item());
+		return new ProductPresentationActions.OpenDetails(entity);
+	}
+
+	@Dispatch()
+	public edit() {
+		const entity = EProduct.fromDTO(this.item());
+		return new ProductPresentationActions.OpenForm({
+			componentInputs: {
+				isEditMode: true,
+				item: entity,
+			}
+		});
 	}
 }

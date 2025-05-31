@@ -17,15 +17,15 @@
   fixed
   left-0
   z-40
-  bg-white
+  bg-zinc-100
   border-beeColor-200
   dark:bg-beeDarkColor-900
   dark:border-beeDarkColor-800">
 	<div class="hidden md:block absolute m-2">
 		@if (logo(); as logo) {
-			<img [src]="logo.url" class="rounded-lg" alt="Logo">
+			<img [src]="logo.url" class="rounded-lg bg-white" alt="Logo">
 		} @else {
-			<img src="/asset/img/logo.png" class="rounded-lg" alt="Logo">
+			<img src="/asset/img/logo.png" class="rounded-lg bg-white" alt="Logo">
 		}
 	</div>
 	<div class="px-4 md:px-0 md:py-4 h-full flex md:flex-col items-center justify-between md:justify-center gap-4">
@@ -33,7 +33,8 @@
 			<button
 				(click)="sidebarService.toggleSidebarAndSwitch(sidebarService.sidebarContentEnum.MENU)"
 				type="button"
-				class="inline-flex items-center p-2 text-sm text-beeColor-500 rounded-lg hover:bg-beeColor-100 focus:outline-none focus:ring-2 focus:ring-beeColor-200 dark:text-beeDarkColor-400 dark:hover:bg-beeDarkColor-700 dark:focus:ring-beeDarkColor-600">
+				[class.bg-white]="sidebarService.theItemOpen(sidebarService.sidebarContentEnum.MENU)"
+				class="px-2 py-2 w-[46px] h-[46px] rounded-2xl flex flex-row items-center text-lg text-gray-800 dark:text-gray-400 hover:bg-white hover:border-gray-200 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 bg-white drop-shadow-sm dark:bg-zinc-800 border-gray-200 dark:border-zinc-700">
 				<span class="sr-only">Open sidebar</span>
 				<i class="text-3xl bi bi-list"></i>
 			</button>
@@ -46,8 +47,16 @@
 		</div>
 		<div class="flex items-center">
 			<!--            <utility-notification-component/>-->
-			<utility-profile-component
-				(click)="sidebarService.toggleSidebarAndSwitch(sidebarService.sidebarContentEnum.PROFILE)"/>
+
+			<button
+				[class.bg-white]="sidebarService.theItemOpen(sidebarService.sidebarContentEnum.PROFILE)"
+				(click)="sidebarService.toggleSidebarAndSwitch(sidebarService.sidebarContentEnum.PROFILE)"
+				class="px-2 py-2 w-[46px] h-[46px] justify-center rounded-2xl flex flex-row items-center text-xl text-gray-800 dark:text-gray-400 hover:bg-white hover:border-gray-200 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 bg-white drop-shadow-sm dark:bg-zinc-800 border-gray-200 dark:border-zinc-700"
+				type="button">
+				<span class="sr-only">Open user menu</span>
+				<i class="bi bi-person-circle"></i>
+				<!--      <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">-->
+			</button>
 		</div>
 		<button
 			(click)="sidebarService.toggleSidebarAndSwitch(sidebarService.sidebarContentEnum.CONFIGURATION)"

@@ -694,6 +694,7 @@
 			"mask": "Ugyldigt format, korrekt format er {{requiredMask}}",
 			"min": "Minimum værdi er {{min}}",
 			"minlength": "Minimumslængde er {{requiredLength}}",
+			"nameExists": "Navn findes allerede",
 			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede",
 			"required": "Påkrævet felt",
 			"shouldBeMoreThen": {
@@ -1080,10 +1081,12 @@
 			"addSocialMedia": "Tilføj sociale medier",
 			"additional": "Yderligere",
 			"address": "Adresse",
+			"advancedInformation": "Informatie voor gevorderden",
 			"all": "Alle",
 			"allServices": "Alle tjenester",
 			"allSpecialists": "Alle specialister",
 			"allStatuses": "Alle statusser",
+			"allTags": "Alle tags",
 			"amount": "Beløb",
 			"anonymous": "Anonym",
 			"approvalType": "Godkendelsestype",
@@ -1232,7 +1235,9 @@
 			"prices": "Priser",
 			"processing": "Behandler",
 			"productName": "Produktets navn",
+			"products": "Produkter",
 			"publicPage": "Offentlig side",
+			"quantity": "Mængde",
 			"reject": "Afvis",
 			"role": "Rolle",
 			"save": "Gem",
@@ -1265,7 +1270,23 @@
 			"successfully": "Med succes",
 			"switchTo": "Skift til",
 			"synced": "Synkroniseret",
+			"synchronization": "Synchronisatie",
+			"synchronizationError": "Synkroniseringsfejl",
+			"synchronized": "Synkroniseret",
 			"syncing": "Synkronisering pågår…",
+			"tag": {
+				"create": {
+					"choose": "Vælg en tag",
+					"enter": "Indtast en tag",
+					"first": "Tilføj den første tag",
+					"tooltip": "Tilføj tags til listen",
+					"uniqueError": "Tagget skal være unikt"
+				},
+				"plural": "Tags",
+				"single": "Tag"
+			},
+			"tags": "Tags",
+			"theSlotAlreadyTaken": "Denne tid er allerede optaget hos denne specialist!",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
 			"time": "Tid",
@@ -1279,6 +1300,7 @@
 			"update": "Opdateret",
 			"updatedAt": "Opdateret kl",
 			"upgradeTo": "Opgrader til",
+			"waitingForSynchronization": "Venter på synkronisering ",
 			"warning": "Advarsel",
 			"week": "Uge",
 			"workdays": "Arbejdsdage",
@@ -1569,6 +1591,11 @@
 		"form": {
 			"availableLanguages": {
 				"hint": "Du kan give dit produkt et navn på de tilgængelige sprog"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Vælg tag"
+				}
 			},
 			"title": {
 				"create": "Tilføj produkt",

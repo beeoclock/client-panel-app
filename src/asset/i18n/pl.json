@@ -694,6 +694,7 @@
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"min": "Minimalna wartość to {{min}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
+			"nameExists": "Nazwa już istnieje",
 			"phoneExists": "Numer telefonu już istnieje",
 			"required": "Wymagane pole",
 			"shouldBeMoreThen": {
@@ -1080,10 +1081,12 @@
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
+			"advancedInformation": "Zaawansowane informacje",
 			"all": "Wszystkie",
 			"allServices": "Wszystkie usługi",
 			"allSpecialists": "Wszyscy specjaliści",
 			"allStatuses": "Wszystkie statusy",
+			"allTags": "Wszystkie tagi",
 			"amount": "Kwota",
 			"anonymous": "Anonimowy",
 			"approvalType": "Typ homologacji",
@@ -1232,7 +1235,9 @@
 			"prices": "Ceny",
 			"processing": "Przetwarzanie",
 			"productName": "Nazwa produktu",
+			"products": "Produkty",
 			"publicPage": "Strona publiczna",
+			"quantity": "Ilość",
 			"reject": "Odrzucić",
 			"role": "Rola",
 			"save": "Zapisz",
@@ -1265,7 +1270,23 @@
 			"successfully": "Pomyślnie",
 			"switchTo": "Przełącz na",
 			"synced": "Zsynchronizowano",
+			"synchronization": "Synchronizacja",
+			"synchronizationError": "Błąd synchronizacji",
+			"synchronized": "Zsynchronizowano",
 			"syncing": "Synchronizacja w toku…",
+			"tag": {
+				"create": {
+					"choose": "Wybierz tag",
+					"enter": "Wpisz tag",
+					"first": "Dodaj pierwszy tag",
+					"tooltip": "Dodaj tag do listy",
+					"uniqueError": "Nazwa tagu musi być unikalna"
+				},
+				"plural": "Tagi",
+				"single": "Tag"
+			},
+			"tags": "Tagi",
+			"theSlotAlreadyTaken": "Ten termin u tego specjalisty jest już zajęty!",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"time": "Czas",
@@ -1279,6 +1300,7 @@
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
 			"upgradeTo": "Zaktualizuj do",
+			"waitingForSynchronization": "Oczekuje na synchronizację ",
 			"warning": "Uwaga",
 			"week": "Tydzień",
 			"workdays": "Dni pracy",
@@ -1569,6 +1591,11 @@
 		"form": {
 			"availableLanguages": {
 				"hint": "Możesz nadać swojemu produktowi nazwę w ramach dostępnych języków"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Wybierz tag"
+				}
 			},
 			"title": {
 				"create": "Dodawanie produktu",

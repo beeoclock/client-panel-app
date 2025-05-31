@@ -28,6 +28,8 @@ import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {CurrencyPipe} from "@angular/common";
+import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'product-table-list-component',
@@ -40,7 +42,9 @@ import {CurrencyPipe} from "@angular/common";
 		TableNgxDatatableSmartComponent,
 		TranslatePipe,
 		RowActionButtonComponent,
-		AutoRefreshButtonComponent
+		AutoRefreshButtonComponent,
+		NoAvailable,
+		SynchronizationMolecule
 	],
 	providers: [
 		CurrencyPipe,
@@ -53,6 +57,8 @@ export class TableListComponent extends TableComponent<EProduct> {
 	public readonly availableLanguages = toSignal(this.store.select(BusinessProfileState.availableLanguages));
 
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
+	public readonly imagesCellTemplate = viewChild<TemplateRef<any>>('imagesCellTemplate');
+	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
 	public readonly columns = signal<TableColumn<EProduct>[]>([
 		{
@@ -63,11 +69,11 @@ export class TableListComponent extends TableComponent<EProduct> {
 			sortable: true
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.productName'),
-			prop: 'productName',
-			minWidth: 140,
-			width: 140,
-			sortable: true
+			name: this.translateService.instant('keyword.capitalize.image'),
+			prop: 'images',
+			minWidth: 120,
+			width: 120,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.price'),
@@ -117,6 +123,13 @@ export class TableListComponent extends TableComponent<EProduct> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
+		{
+			name: this.translateService.instant('keyword.capitalize.synchronization'),
+			prop: 'syncedAt',
+			minWidth: 240,
+			width: 240,
+			sortable: false,
+		},
 	]);
 
 	public readonly columnList = computed(() => {
@@ -127,9 +140,19 @@ export class TableListComponent extends TableComponent<EProduct> {
 			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
 		}
 
+		const imagesCellTemplate = this.imagesCellTemplate();
+		if (imagesCellTemplate) {
+			this.setCellTemplateRef(columns, 'images', imagesCellTemplate);
+		}
+
 		const availableLanguages = this.availableLanguages();
 		if (availableLanguages?.length) {
 			this.setTitlesColumnsByAvailableLanguages(columns, availableLanguages);
+		}
+
+		const syncedAtTemplate = this.syncedAtTemplate();
+		if (syncedAtTemplate) {
+			this.setCellTemplateRef(columns, 'syncedAt', syncedAtTemplate);
 		}
 
 		return columns;
@@ -165,7 +188,7 @@ export class TableListComponent extends TableComponent<EProduct> {
 
 	private setTitlesColumnsByAvailableLanguages(columns: TableColumn<EProduct>[], availableLanguages: LanguageCodeEnum[]) {
 
-		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'sku') + 1;
+		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'images') + 1;
 		const name = this.translateService.instant('keyword.capitalize.title');
 
 		if (availableLanguages.length < 2) {

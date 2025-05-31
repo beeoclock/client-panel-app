@@ -6,8 +6,8 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {TariffPlanStore} from "@tenant/tariff-plan/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";
 import {WINDOW} from "@core/cdk/window.provider";
 import {toSignal} from "@angular/core/rxjs-interop";
-import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {explicitEffect} from "ngxtension/explicit-effect";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 @Component({
 	selector: 'balance-organizm',
@@ -63,7 +63,7 @@ export class BalanceOrganizm {
 	public readonly balance: Signal<EBalance | null> = this.balanceStore.balance;
 	public readonly billingLinkIsLoading = signal(false);
 
-	private readonly isSyncing = toSignal(BaseSyncManager.isSyncing$);
+	private readonly isSyncing = toSignal(SyncManager.isSyncing$);
 
 	public constructor() {
 		explicitEffect([this.isSyncing], ([isSyncing]) => {

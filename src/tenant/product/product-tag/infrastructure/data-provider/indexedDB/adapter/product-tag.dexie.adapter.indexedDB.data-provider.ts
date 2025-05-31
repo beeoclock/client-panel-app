@@ -8,7 +8,7 @@ import {IProductTag} from "@tenant/product/product-tag/domain";
 export class ProductTagDexieAdapterIndexedDBDataProvider extends DexieAdapterIndexedDBDataProvider<IProductTag.EntityRaw> {
 
 	protected readonly columns = '_id,state,createdAt,updatedAt,name';
-	protected readonly moduleName = 'productTag';
+	protected readonly moduleName = 'product-tag';
 	protected readonly version = 1;
 
 }

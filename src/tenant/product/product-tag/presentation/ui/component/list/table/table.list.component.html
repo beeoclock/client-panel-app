@@ -32,3 +32,6 @@
 	<div activeStyle [state]="row.state">
 	</div>
 </ng-template>
+<ng-template #syncedAtTemplate let-row="row">
+	<synchronization-molecule [item]="row"/>
+</ng-template>

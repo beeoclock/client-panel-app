@@ -12,6 +12,7 @@ import {
 	ProductPresentationActions
 } from "@tenant/product/product/infrastructure/state/presentation/product.presentation.actions";
 import {ProductDataState} from "@tenant/product/product/infrastructure/state/data/product.data.state";
+import {IonSelectServiceComponent} from "@shared/presentation/component/input/ion/ion-select-product-tag.component";
 
 @Component({
 	selector: 'product-filter-component',
@@ -25,31 +26,34 @@ import {ProductDataState} from "@tenant/product/product/infrastructure/state/dat
 		AsyncPipe,
 		PrimaryButtonDirective,
 		IonSelectStateComponent,
+		IonSelectServiceComponent,
 	],
 	template: `
 		<utility-default-panel-component>
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full p-2">
-					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+					<ng-container *ngTemplateOutlet="SearchInput"/>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
 				</div>
 
 			} @else {
 
 				<div class="flex overflow-x-auto gap-2 p-2">
-					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-					<ng-container *ngTemplateOutlet="ProductActiveSelect"></ng-container>
-					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+					<ng-container *ngTemplateOutlet="SearchInput"/>
+					<ng-container *ngTemplateOutlet="TagsSelect"/>
+					<ng-container *ngTemplateOutlet="ProductActiveSelect"/>
+					<ng-container *ngTemplateOutlet="AutoRefresh"/>
 				</div>
 				<div class="px-2">
-					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"/>
 				</div>
 			}
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
 			<div class="flex overflow-x-auto gap-2 my-2 px-2">
-				<ng-container *ngTemplateOutlet="ProductActiveSelect"></ng-container>
-				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+				<ng-container *ngTemplateOutlet="TagsSelect"/>
+				<ng-container *ngTemplateOutlet="ProductActiveSelect"/>
+				<ng-container *ngTemplateOutlet="AutoRefresh"/>
 			</div>
 		}
 
@@ -64,6 +68,10 @@ import {ProductDataState} from "@tenant/product/product/infrastructure/state/dat
 
 		<ng-template #AutoRefresh>
 			<utility-auto-refresh-component id="product-filter-auto-refresh" (emitter)="forceRefresh()"/>
+		</ng-template>
+
+		<ng-template #TagsSelect>
+			<ion-select-product-tag id="product-filter-tags-select" [control]="form.controls.tags"/>
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>

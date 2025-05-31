@@ -227,7 +227,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'product/:id/form',
 		outlet: 'second',
 		resolve: {
-			product: productResolver,
+			item: productResolver,
 			payment: paymentByOrderIdResolver
 		},
 		data: {

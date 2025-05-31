@@ -4,6 +4,8 @@
 
   <form class="flex flex-col gap-4">
 
+	  <image-form-product [control]="form.controls.images"/>
+
     @if (availableLanguages$ | async; as availableLanguages) {
       <product-name-form-component [form]="form.controls.languageVersions" [availableLanguages]="availableLanguages" />
     }
@@ -11,24 +13,18 @@
     <bee-card>
 
       <div>
-        <label default for="'product-form.input.tags'">
-          {{ 'keyword.capitalize.category.plural' | translate }}
+        <label default for="product-form-input-tags">
+          {{ 'keyword.capitalize.tag.plural' | translate }}
         </label>
-        <div class="border border-beeColor-300 rounded-lg">
-<!--          <ion-select-tags id="product-form.input.categories" [multiple]="true" [options]="tagsOptions"-->
-<!--            [control]="form.controls.tags" />-->
-        </div>
-      </div>
+		  <ion-select-product-tag id="product-form-input-tags" [control]="form.controls.tags" placeholderTranslateKey="product.form.tags.select.placeholder"/>
+	  </div>
 
       <price-and-currency-component [currencyControl]="form.controls.price.controls.currency"
         [currencyList]="(currencyList$ | async) ?? []" [label]="'keyword.capitalize.price' | translate"
         [priceControl]="form.controls.price.controls.value" class="flex-1" />
 
       <form-input inputType="number" [step]="1" [label]="'keyword.capitalize.order' | translate"
-        [placeholder]="'product.form.order.input.placeholder' | translate" [control]="form.controls.order" />
-
-      <utility-form-switch-active-block-component [label]="'keyword.capitalize.active' | translate"
-        [control]="form.controls.active" />
+        [placeholder]="'keyword.capitalize.order' | translate" [control]="form.controls.order" />
 
     </bee-card>
 

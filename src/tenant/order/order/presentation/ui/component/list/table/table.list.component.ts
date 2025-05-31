@@ -1,14 +1,6 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {
-	TableStatePaginationComponent
-} from "@shared/presentation/component/pagination/table-state-pagination.component";
-import {SortIndicatorComponent} from "@shared/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
-import {BodyTableFlexDirective} from "@shared/presentation/directives/talbe/flex/body.table.flex.directive";
-import {ColumnTableFlexDirective} from "@shared/presentation/directives/talbe/flex/column.table.flex.directive";
-import {RowTableFlexDirective} from "@shared/presentation/directives/talbe/flex/row.table.flex.directive";
-import {TableTableFlexDirective} from "@shared/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {
 	RowActionButtonComponent
@@ -24,13 +16,7 @@ import {DatePipe} from "@angular/common";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		TableStatePaginationComponent,
-		SortIndicatorComponent,
 		TranslateModule,
-		BodyTableFlexDirective,
-		ColumnTableFlexDirective,
-		RowTableFlexDirective,
-		TableTableFlexDirective,
 		NoDataPipe,
 		RowActionButtonComponent,
 		DatePipe

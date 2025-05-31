@@ -694,6 +694,7 @@
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"min": "Minimum value is {{min}}",
 			"minlength": "Minimum length is {{requiredLength}}",
+			"nameExists": "Name already exists",
 			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",
 			"phoneExists": "Phone number already exists",
 			"required": "Required field",
@@ -1080,10 +1081,12 @@
 			"addSocialMedia": "Add social media",
 			"additional": "Additional",
 			"address": "Address",
+			"advancedInformation": "Advanced information",
 			"all": "All",
 			"allServices": "All services",
 			"allSpecialists": "All specialists",
 			"allStatuses": "All statuses",
+			"allTags": "All tags",
 			"amount": "Amount",
 			"anonymous": "Anonymous",
 			"approvalType": "Approval type",
@@ -1232,7 +1235,9 @@
 			"prices": "Prices",
 			"processing": "Processing",
 			"productName": "Product name",
+			"products": "Products",
 			"publicPage": "Public page",
+			"quantity": "Quantity",
 			"reject": "Reject",
 			"role": "Role",
 			"save": "Save",
@@ -1265,7 +1270,23 @@
 			"successfully": "Successfully",
 			"switchTo": "Switch to",
 			"synced": "Synchronized",
+			"synchronization": "Synchronization",
+			"synchronizationError": "Synchronization error",
+			"synchronized": "Synchronized",
 			"syncing": "Synchronization in progress…",
+			"tag": {
+				"create": {
+					"choose": "Choose a tag",
+					"enter": "Enter a tag",
+					"first": "Add the first tag",
+					"tooltip": "Add tag to the list",
+					"uniqueError": "The tag name must be unique"
+				},
+				"plural": "Tags",
+				"single": "Tag"
+			},
+			"tags": "Tags",
+			"theSlotAlreadyTaken": "This time slot is already booked with this specialist!",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"time": "Time",
@@ -1279,6 +1300,7 @@
 			"update": "Updated",
 			"updatedAt": "Updated at",
 			"upgradeTo": "Upgrade to",
+			"waitingForSynchronization": "Waiting for synchronization ",
 			"warning": "Warning",
 			"week": "Week",
 			"workdays": "Workdays",
@@ -1569,6 +1591,11 @@
 		"form": {
 			"availableLanguages": {
 				"hint": "You can name your product in the available languages"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Select tag"
+				}
 			},
 			"title": {
 				"create": "Add product",

@@ -4,6 +4,7 @@ import {filter} from 'rxjs';
 import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {BaseEntityForm} from "@shared/base.form";
 import {is} from "@core/shared/checker";
+import {IMedia} from "@tenant/media/domain/interface/i.media";
 
 export interface IPriceForm {
 	value: FormControl<number>;
@@ -88,24 +89,34 @@ export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
 	}
 }
 
-export interface IProductDtoForm {
+export interface IProductForm {
 	languageVersions: LanguageVersionsForm;
 	price: PriceForm;
-	active: FormControl<ActiveEnum>;
-	order: FormControl<number | null>;
+	order: FormControl<number>;
 	tags: FormControl<string[]>;
+	sku: FormControl<string>;
+	images: FormControl<IMedia[]>;
 }
 
-export class ProductForm extends BaseEntityForm<'ProductDto', IProductDtoForm> {
+export class ProductForm extends BaseEntityForm<'ProductDto', IProductForm> {
 	constructor(initialValue: Partial<IProduct.DTO> = {}) {
 		super('ProductDto', {
+			sku: new FormControl('SKU-' + new Date().getTime(), {
+				nonNullable: true,
+				validators: [Validators.required, Validators.minLength(3)],
+			}),
 			languageVersions: new LanguageVersionsForm(),
 			price: new PriceForm(),
-			active: new FormControl(ActiveEnum.YES, {
+			tags: new FormControl([], {
 				nonNullable: true,
 			}),
-			tags: new FormControl(),
-			order: new FormControl(),
+			order: new FormControl(0, {
+				nonNullable: true,
+				validators: [Validators.required, Validators.min(0)],
+			}),
+			images: new FormControl([], {
+				nonNullable: true,
+			}),
 		});
 		this.initHandlers();
 		this.patchValue(initialValue);
@@ -127,5 +138,11 @@ export class ProductForm extends BaseEntityForm<'ProductDto', IProductDtoForm> {
 			.subscribe((value) => {
 				this.controls.order.setValue(+value);
 			});
+	}
+
+	public static create(initialValue: Partial<IProduct.DTO> = {}): ProductForm {
+		const form = new ProductForm();
+		form.patchValue(initialValue);
+		return form;
 	}
 }

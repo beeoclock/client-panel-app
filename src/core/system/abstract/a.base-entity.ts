@@ -29,6 +29,11 @@ export abstract class ABaseEntity<
 	}[] = [];
 
 	syncedAt?: string & Types.DateTime;
+	syncErrors: {
+		fromSource: 'server' | 'client';
+		message: string;
+		code?: number;
+	}[] = [];
 
 	protected constructor(data: {
 		_id: string & Types.ObjectId;
@@ -38,7 +43,7 @@ export abstract class ABaseEntity<
 		const {stateHistory, ...rest} = data;
 		Object.assign(this, rest);
 		this.stateHistory = this.stateHistory.concat(stateHistory);
-		this.initAfterConstructor()
+		this.initAfterConstructor();
 	}
 
 	public initBeforeConstructor(): void {
@@ -82,8 +87,31 @@ export abstract class ABaseEntity<
 	}
 
 	public toRaw(): RAW {
-		const {changeState, toDTO, isNew, isUpdated, initSyncedAt, refreshUpdatedAt, ...raw} = this;
+		const {
+			changeState,
+			toDTO,
+			isNew,
+			isUpdated,
+			initSyncedAt,
+			refreshUpdatedAt,
+			hasSyncErrors,
+			clearSyncErrors,
+			addSyncError,
+			...raw
+		} = this;
 		return raw as unknown as RAW;
+	}
+
+	public hasSyncErrors(): boolean {
+		return this.syncErrors.length > 0;
+	}
+
+	public clearSyncErrors(): void {
+		this.syncErrors.length = 0;
+	}
+
+	public addSyncError(error: { fromSource: 'server' | 'client'; message: string; code?: number }): void {
+		this.syncErrors.push(error);
 	}
 
 }

@@ -113,6 +113,32 @@ export class ConfigurationSidebarComponent {
 				fragment: "ignored",
 			}
 		});
+		this.menu.push({
+			order: 4,
+			url: 'client/business-profile',
+			translateKey: 'sidebar.businessProfile',
+			visible: true,
+			icon: 'bi bi-buildings',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 5,
+			url: 'plugin/grid',
+			translateKey: 'sidebar.plugins',
+			icon: 'bi bi-plug',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
 
 		this.updateMenu();
 
