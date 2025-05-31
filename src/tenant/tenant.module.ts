@@ -16,6 +16,7 @@ import {MemberDomainModule} from "@tenant/member/member-domain.module";
 import {BalanceModule} from "@tenant/balance/balance.module";
 import {PluginDomainModule} from "@tenant/plugin/plugin.domain.module";
 import {ProductDomainModule} from "@tenant/product/product-domain.module";
+import {ExpenseDomainModule} from "@tenant/expense/expense-domain.module";
 
 @NgModule({
 	providers: [
@@ -32,6 +33,7 @@ import {ProductDomainModule} from "@tenant/product/product-domain.module";
 			BalanceModule,
 			PluginDomainModule,
 			ProductDomainModule,
+			ExpenseDomainModule,
 		),
 	],
 	imports: [
@@ -42,6 +44,7 @@ import {ProductDomainModule} from "@tenant/product/product-domain.module";
 		CustomerModule,
 		ServiceModule,
 		EventModule,
+
 	],
 })
 export class TenantModule {

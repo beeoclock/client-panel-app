@@ -676,6 +676,11 @@
 		"firstName": "John",
 		"lastName": "Smith"
 	},
+	"expense-category": {
+		"button": {
+			"create": "Add an expense category"
+		}
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "At least one field must be filled",
@@ -1687,6 +1692,8 @@
 		"dashboard": "Dashboard",
 		"dateRangeReport": "Analytics",
 		"events": "Events",
+		"expense-category": "Expense category",
+		"expenses": "Expenses",
 		"members": "Members",
 		"order": "Orders",
 		"payment": "Payments",
