@@ -20,7 +20,6 @@ import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CurrencyCodeEnum} from "@core/shared/enum";
@@ -343,7 +342,7 @@ export class CardItemLightweightOrderComponent {
 		effect(() => {
 			const orderDto = this.orderDto();
 			this.id = orderDto._id;
-			this.totalAmount = this.amount(orderDto.services);
+			this.totalAmount = this.amount(orderDto);
 			this.baseCurrency = orderDto.services[0].serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.currency ?? CurrencyCodeEnum.USD;
 		});
 	}
@@ -370,11 +369,16 @@ export class CardItemLightweightOrderComponent {
 		});
 	}
 
-	public amount(services: IOrderServiceDto[]): number {
+	public amount({services, products}: IOrder.DTO): number {
 
-		return services.reduce((acc, service) => {
+		const totalServiceAmount = services.reduce((acc, service) => {
 			return acc + (service.serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.price ?? 0);
 		}, 0);
+
+		const totalProductAmount = products.reduce((acc, service) => {
+			return acc + (service.productSnapshot?.price?.value ?? 0) * (service.quantity ?? 1);
+		}, 0);
+		return totalProductAmount + totalServiceAmount;
 
 	}
 
