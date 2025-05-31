@@ -1,12 +1,14 @@
 import {ChangeDetectionStrategy, Component, inject, input, output, ViewEncapsulation} from "@angular/core";
 import {
 	InfiniteScrollCustomEvent,
+	IonAvatar,
 	IonContent,
 	IonInfiniteScroll,
 	IonInfiniteScrollContent,
 	IonItem,
 	IonLabel,
 	IonList,
+	IonNote,
 	IonPopover
 } from "@ionic/angular/standalone";
 import {TranslateModule} from "@ngx-translate/core";
@@ -19,8 +21,8 @@ import {IProduct} from "@tenant/product/product/domain";
 @Component({
 	selector: 'product-popover-chip',
 	standalone: true,
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None,
 	imports: [
 		IonItem,
 		IonLabel,
@@ -31,20 +33,31 @@ import {IProduct} from "@tenant/product/product/domain";
 		IonContent,
 		IonInfiniteScroll,
 		IonInfiniteScrollContent,
+		IonNote,
+		IonAvatar,
 	],
 	providers: [
 		ProductChipPagination
 	],
 	template: `
 		<!-- Control to select specialist -->
-		<ion-popover #selectSpecialistPopover [trigger]="trigger()">
+		<ion-popover #selectSpecialistPopover [trigger]="trigger()" style="--width: 360px;">
 			<ng-template>
 				<ion-content class="popover-content">
 					<ion-list>
 						@for (product of (items$ | async); track product._id) {
 							<ion-item [button]="true" lines="full" [detail]="false"
 									  (click)="result.emit(product);selectSpecialistPopover.dismiss()">
-								<ion-label>{{ product.languageVersions[0].title }}</ion-label>
+								@let firstImage = product.images[0];
+								@if (firstImage?.url?.length) {
+									<ion-avatar slot="start" style="--border-radius: 8px;">
+										<img [alt]="product.languageVersions[0].title" class="h-full object-cover" [src]="firstImage.url" />
+									</ion-avatar>
+								}
+								<ion-label class="flex flex-col justify-start items-start">
+									<div>{{ product.languageVersions[0].title }}</div>
+									<ion-note>{{ product.languageVersions[0].description }}</ion-note>
+								</ion-label>
 							</ion-item>
 						}
 					</ion-list>

@@ -134,7 +134,7 @@ export class TableNgxDatatableSmartComponent {
 	public readonly trackByProp = input<string>('_id');
 	public readonly currentVisible = input<number>(5);
 	public readonly rowClass = input<((row: Group<IBaseEntityRaw<string>> | IBaseEntityRaw<string>) => string | Record<string, boolean>)>((item) => {
-		if ('key' in item && 'value' in item) {
+		if (item && 'key' in item && 'value' in item) {
 			const row = item as Group<IBaseEntityRaw<string>>;
 			return '';
 		}

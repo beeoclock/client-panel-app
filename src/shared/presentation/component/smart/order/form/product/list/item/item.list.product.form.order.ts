@@ -16,20 +16,39 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="justify-start items-start gap-1 flex w-full">
+		@let orderProduct = control()?.value ;
+		@let product = orderProduct?.productSnapshot ;
+		<div class="justify-between items-start gap-1 flex w-full">
+			<div class="justify-start items-start gap-2 flex flex-wrap">
+				<quantity-chip
+					[id]="id()"
+					(quantityChanges)="handleQuantityChanges($event)"
+					[initialValue]="orderProduct?.quantity ?? 0"/>
+				<app-price-chip-component
+					[id]="id()"
+					(priceChanges)="handlePriceChanges($event)"
+					[initialValue]="product?.price?.value ?? 0"
+					[currency]="product?.price?.currency"/>
+			</div>
+			<button primaryLink (click)="deleteMe.emit()"
+					class="w-8 h-8 p-1.5 rounded-lg justify-center items-center flex">
+				<i class="bi bi-dash-circle text-2xl"></i>
+			</button>
+		</div>
+		<div class="justify-start items-start flex">
 			<div class="justify-start gap-1.5 flex flex-1 w-full">
-				@let orderProduct = control()?.value ;
-				@let product = orderProduct?.productSnapshot ;
 				@if ((product?.images ?? []).length) {
 					<div class="sm:gap-4 flex flex-wrap">
 						@for (image of product?.images; track image._id) {
-							<div class="rounded-2xl bg-beeColor-400">
-								@if (image) {
-									<img
-										[src]="image.url"
-										class="max-w-20 object-cover aspect-1 rounded-2xl"
-										alt="Uploaded Image"/>
-								}
+							<div>
+								<div class="rounded-2xl bg-beeColor-400">
+									@if (image) {
+										<img
+											[src]="image.url"
+											class="max-w-20 object-cover aspect-1 rounded-2xl"
+											alt="Uploaded Image"/>
+									}
+								</div>
 							</div>
 						}
 					</div>
@@ -52,23 +71,6 @@ import {
 
 					}
 				</div>
-			</div>
-			<button primaryLink (click)="deleteMe.emit()"
-					class="w-8 h-8 p-1.5 rounded-lg justify-center items-center flex">
-				<i class="bi bi-dash-circle text-2xl"></i>
-			</button>
-		</div>
-		<div class="justify-start items-start flex">
-			<div class="justify-start items-start gap-2 flex flex-wrap">
-				<quantity-chip
-					[id]="id()"
-					(quantityChanges)="handleQuantityChanges($event)"
-					[initialValue]="orderProduct?.quantity ?? 0"/>
-				<app-price-chip-component
-					[id]="id()"
-					(priceChanges)="handlePriceChanges($event)"
-					[initialValue]="product?.price?.value ?? 0"
-					[currency]="product?.price?.currency"/>
 			</div>
 		</div>
 

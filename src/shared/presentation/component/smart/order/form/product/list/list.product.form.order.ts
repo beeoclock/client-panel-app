@@ -30,7 +30,7 @@ import {
 				trigger="product-popover-chip-form-order-component-add-product"
 				(result)="addProduct($event)"/>
 		</div>
-		<div class="flex-col justify-start items-start flex w-full">
+		<div class="flex-col justify-start items-start flex w-full px-1">
 			<div class="bg-white flex-col justify-start items-start flex divide-y border border-gray-200 rounded-2xl w-full">
 				@for (control of orderProductFormArray().controls; track $index;) {
 					<item-list-product-form-order [control]="control" (deleteMe)="delete($index)"/>
