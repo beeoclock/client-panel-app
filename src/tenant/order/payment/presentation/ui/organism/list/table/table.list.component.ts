@@ -25,6 +25,7 @@ import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'payment-table-list-component',
@@ -69,6 +70,9 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 		<ng-template #idCellTemplate let-value="value">
 			<div class="uppercase" [title]="value"><span class="text-neutral-400">...</span>{{ value.slice(-4) }}</div>
 		</ng-template>
+		<ng-template #syncedAtTemplate let-row="row">
+			<synchronization-molecule [item]="row"/>
+		</ng-template>
     `,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
@@ -80,7 +84,8 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 		ActiveStyleDirective,
 		PaymentStatusStyleDirective,
 		NoAvailable,
-		CurrencyPipe
+		CurrencyPipe,
+		SynchronizationMolecule
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
@@ -93,6 +98,7 @@ export class TableListComponent extends TableComponent<EPayment> {
 	public readonly amountCellTemplate = viewChild<TemplateRef<any>>('amountCellTemplate');
 	public readonly payerCellTemplate = viewChild<TemplateRef<any>>('payerCellTemplate');
 	public readonly idCellTemplate = viewChild<TemplateRef<any>>('idCellTemplate');
+	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
 	public readonly columns = signal<TableColumn<EPayment>[]>([
 		{
@@ -185,6 +191,13 @@ export class TableListComponent extends TableComponent<EPayment> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
+		{
+			name: this.translateService.instant('keyword.capitalize.synchronization'),
+			prop: 'syncedAt',
+			minWidth: 240,
+			width: 240,
+			sortable: false,
+		},
 	]);
 
 	public readonly columnList = computed(() => {
@@ -213,6 +226,11 @@ export class TableListComponent extends TableComponent<EPayment> {
 		const idCellTemplate = this.idCellTemplate();
 		if (idCellTemplate) {
 			this.setCellTemplateRef(columns, '_id', idCellTemplate);
+		}
+
+		const syncedAtTemplate = this.syncedAtTemplate();
+		if (syncedAtTemplate) {
+			this.setCellTemplateRef(columns, 'syncedAt', syncedAtTemplate);
 		}
 
 		return columns;

@@ -11,13 +11,13 @@ import {FormControl} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter, tap} from "rxjs";
 import {Actions} from "@ngxs/store";
-import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {
 	CardItemLightweightOrderComponent
 } from "@tenant/order/order/presentation/ui/component/list/card/item-lightweight/card.item.order.component";
 import {
 	CardItemOrderService
 } from "@tenant/order/order/presentation/ui/component/list/card/item-lightweight/card.item.order.service";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 @Component({
 	selector: 'kanban-order',
@@ -142,7 +142,7 @@ export class KanbanOrderComponent {
 
 	private preSyncingValue = false;
 
-	public readonly syncAllSubscription = BaseSyncManager.isSyncing$.pipe(
+	public readonly syncAllSubscription = SyncManager.isSyncing$.pipe(
 		takeUntilDestroyed(),
 		filter((isSyncing) => {
 			if (this.preSyncingValue !== !!isSyncing) {

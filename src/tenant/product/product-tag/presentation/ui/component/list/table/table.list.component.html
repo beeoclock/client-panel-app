@@ -1,0 +1,37 @@
+<!--
+	[actionColumn]="{
+				name: '',
+				cellTemplate: actionCellTemplate,
+				sortable: false,
+				frozenRight: true,
+				minWidth: 56,
+				width: 56
+			}"-->
+<app-table-ngx-datatable-smart-component
+	(activate)="activate($event)"
+	[columnList]="columnList()">
+
+	<not-found-table-data-component
+		class="block h-full"
+		(clickListener)="openForm()"
+		[showLinkToForm]="true"
+		[linkLabel]="'product.button.create' | translate"
+		[label]="'keyword.capitalize.dataNotFound' | translate">
+
+		<product-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+
+	</not-found-table-data-component>
+
+</app-table-ngx-datatable-smart-component>
+<ng-template #actionCellTemplate let-row="row">
+	<product-tag-row-action-button-component
+		[item]="row"
+		[id]="row._id"/>
+</ng-template>
+<ng-template #stateCellTemplate let-row="row">
+	<div activeStyle [state]="row.state">
+	</div>
+</ng-template>
+<ng-template #syncedAtTemplate let-row="row">
+	<synchronization-molecule [item]="row"/>
+</ng-template>

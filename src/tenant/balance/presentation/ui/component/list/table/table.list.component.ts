@@ -19,6 +19,7 @@ import {CurrencyPipe} from "@angular/common";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/balance/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'balance-table-list-component',
@@ -58,6 +59,9 @@ import {
 		<ng-template #actionAmountCellTemplate let-row="row">
 			{{ row.action.amount | currency: row.action.currency : 'symbol-narrow' }}
 		</ng-template>
+		<ng-template #syncedAtTemplate let-row="row">
+			<synchronization-molecule [item]="row"/>
+		</ng-template>
 	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
@@ -67,6 +71,7 @@ import {
 		TranslatePipe,
 		CurrencyPipe,
 		AutoRefreshButtonComponent,
+		SynchronizationMolecule,
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-65px)] block'
@@ -76,6 +81,7 @@ export class TableListComponent extends TableComponent<EBalance> {
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly actionTypeCellTemplate = viewChild<TemplateRef<any>>('actionTypeCellTemplate');
 	public readonly actionAmountCellTemplate = viewChild<TemplateRef<any>>('actionAmountCellTemplate');
+	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
 	public readonly balanceActionTypeEnum = BalanceActionTypeEnum;
 
@@ -102,6 +108,13 @@ export class TableListComponent extends TableComponent<EBalance> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
+		{
+			name: this.translateService.instant('keyword.capitalize.synchronization'),
+			prop: 'syncedAt',
+			minWidth: 240,
+			width: 240,
+			sortable: false,
+		},
 		// {
 		// 	name: this.translateService.instant('keyword.capitalize.updatedAt'),
 		// 	prop: 'updatedAt',
@@ -124,6 +137,11 @@ export class TableListComponent extends TableComponent<EBalance> {
 		const actionAmountCellTemplate = this.actionAmountCellTemplate();
 		if (actionAmountCellTemplate) {
 			this.setCellTemplateRef(columns, 'action.amount', actionAmountCellTemplate);
+		}
+
+		const syncedAtTemplate = this.syncedAtTemplate();
+		if (syncedAtTemplate) {
+			this.setCellTemplateRef(columns, 'syncedAt', syncedAtTemplate);
 		}
 
 		return columns;

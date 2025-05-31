@@ -39,7 +39,7 @@ export class IonSelectOrderServiceStatusComponent {
 
 	public readonly id = input('');
 
-	public readonly control = input(new FormControl());
+	public readonly control = input.required<FormControl>();
 
 	private readonly translateService = inject(TranslateService);
 

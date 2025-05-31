@@ -1,0 +1,13 @@
+<form class="flex flex-col gap-4">
+	<form class="flex flex-col gap-4">
+		<product-tag-name-component [form]="form"/>
+
+		<utility-button-save-container-component class="bottom-0">
+			<button id="product.form.save" type="button" primary [isLoading]="form.pending" [disabled]="form.disabled"
+					[scrollToFirstError]="true"
+					(click)="save()">
+				{{ 'keyword.capitalize.save' | translate }}
+			</button>
+		</utility-button-save-container-component>
+	</form>
+</form>

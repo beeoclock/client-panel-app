@@ -10,9 +10,12 @@
 		</button>
 	</div>
 
-	<client-image-cover-image-business-profile-component
-		*ngFor="let banner of banners()"
-		[banner]="banner"
-		[showHit]="toggleInfo.isOn"/>
+	@for (banner of banners(); track banner._id) {
+
+		<client-image-cover-image-business-profile-component
+			[image]="banner"
+			[showHit]="toggleInfo.isOn"/>
+
+	}
 
 </bee-card>
