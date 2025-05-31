@@ -39,7 +39,7 @@ import {PrimaryButtonDirective} from "@shared/presentation/directives/button/pri
 					<ng-container *ngTemplateOutlet="SelectOrderStatus"/>
 				</div>
 			} @else {
-				<div class="flex overflow-x-auto justify-between gap-2 p-2">
+				<div class="flex overflow-x-auto justify-between w-full gap-2 p-2">
 					<!--					TODO: return this feature when backend will ready for it -->
 					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<ng-container *ngTemplateOutlet="SelectOrderStatus"/>
@@ -72,18 +72,21 @@ import {PrimaryButtonDirective} from "@shared/presentation/directives/button/pri
 
 		<ng-template #ButtonToOpenForm>
 			@if (showButtonGoToForm()) {
-				<button type="button" class="!py-3 !px-4 !text-base flex-1" primary
-						(click)="openForm()">
-					<i class="bi bi-plus-lg"></i>
-					<!--                <span class="hidden xl:block">-->
-					<!--					{{ 'absence.button.create' | translate }}-->
-					<!--				</span>-->
-				</button>
+				<div>
+
+					<button type="button" class="!py-3 !px-4 !text-base flex-1" primary
+							(click)="openForm()">
+						<i class="bi bi-plus-lg"></i>
+						<!--                <span class="hidden xl:block">-->
+						<!--					{{ 'absence.button.create' | translate }}-->
+						<!--				</span>-->
+					</button>
+				</div>
 			}
 		</ng-template>
 	`,
 	host: {
-		class: 'flex flex-col overflow-x-auto'
+		class: 'flex flex-col overflow-x-auto border-b'
 	}
 })
 export class FilterComponent extends BaseFilterComponent implements OnInit {
