@@ -107,7 +107,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 
 						@for (byCustomer of groups(); track byCustomer.customer._id) {
 
-							@let customer = byCustomer.customer;
+							@let customer = byCustomer.customer ;
 
 							<div class="w-full bg-[#FFFFFF] rounded-t-[20px]">
 								<div class="flex justify-between border-b-stone-100 border-b">
@@ -124,8 +124,8 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 
 										} @else {
 
-											@let firstName = customer.firstName ?? '';
-											@let lastName = customer.lastName ?? '';
+											@let firstName = customer.firstName ?? '' ;
+											@let lastName = customer.lastName ?? '' ;
 
 											<div
 												class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
@@ -147,20 +147,20 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 											}
 										}
 									</div>
-<!--									<div-->
-<!--										class="inline-flex items-center gap-2 rounded-md bg-[#F8FAFC] text-sm font-medium py-2.5 px-3 text-[#11141A]">-->
-<!--										@if (specialist.avatar) {-->
-<!--											<img class="w-[26px] h-[26px] rounded-full object-cover"-->
-<!--												 [src]="specialist.avatar"-->
-<!--												 alt="Avatar">-->
-<!--										} @else {-->
-<!--											<div-->
-<!--												class="w-[26px] h-[26px] flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">-->
-<!--												{{ specialist?.firstName?.charAt(0) }}-->
-<!--											</div>-->
-<!--										}-->
-<!--										{{ specialist.firstName }}-->
-<!--									</div>-->
+									<!--									<div-->
+									<!--										class="inline-flex items-center gap-2 rounded-md bg-[#F8FAFC] text-sm font-medium py-2.5 px-3 text-[#11141A]">-->
+									<!--										@if (specialist.avatar) {-->
+									<!--											<img class="w-[26px] h-[26px] rounded-full object-cover"-->
+									<!--												 [src]="specialist.avatar"-->
+									<!--												 alt="Avatar">-->
+									<!--										} @else {-->
+									<!--											<div-->
+									<!--												class="w-[26px] h-[26px] flex items-center justify-center bg-[#1F2937] text-[#FFFFFF] rounded-full text-xs font-semibold">-->
+									<!--												{{ specialist?.firstName?.charAt(0) }}-->
+									<!--											</div>-->
+									<!--										}-->
+									<!--										{{ specialist.firstName }}-->
+									<!--									</div>-->
 								</div>
 
 								@for (bySpecialistAndDate of byCustomer.services; track bySpecialistAndDate.date) {
@@ -225,6 +225,50 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 												</div>
 											</div>
 										}
+									</div>
+								}
+
+							</div>
+						}
+						@if (order.products?.length) {
+							@let orderedProducts = order.products ;
+							<div class="flex flex-col justify-between">
+								<div class="fond-bold pt-2 px-3 text-neutral-400">
+									{{ 'keyword.capitalize.products' | translate }}:
+								</div>
+								@for (orderedProduct of orderedProducts; track orderedProduct._id) {
+									<div class="flex gap-2 px-3 py-2.5 border-b-stone-100 border-b">
+
+										<div
+											class="inline-flex shrink grow basis-0 items-center gap-1 self-stretch justify-between">
+											<div
+												class="flex items-center gap-2 text-sm line-clamp-2 font-regular leading-tight text-[#11141A]">
+												@let firstImage = orderedProduct.productSnapshot?.images?.[0]?.url ;
+												@if (firstImage?.length) {
+													<div>
+														<img
+															class="h-14 w-14 min-h-14 min-w-14 rounded-lg shadow"
+															[src]="firstImage"
+															alt="Service image"
+														/>
+													</div>
+												}
+												<span class="line-clamp-3">
+												{{ orderedProduct.productSnapshot.languageVersions[0].title }}
+											</span>
+											</div>
+											<div class="flex flex-col">
+												<div
+													class="inline-flex items-center self-end text-sm font-regular text-black">
+													{{ orderedProduct.quantity * (orderedProduct.productSnapshot?.price?.value ?? 0) | currency: orderedProduct.productSnapshot?.price?.currency : 'symbol-narrow' }}
+												</div>
+												<div
+													class="inline-flex items-center text-sm font-regular text-neutral-500">
+													{{ orderedProduct.quantity }} x
+													{{ orderedProduct.productSnapshot?.price?.value | currency: orderedProduct.productSnapshot?.price?.currency : 'symbol-narrow' }}
+												</div>
+											</div>
+										</div>
 									</div>
 								}
 
