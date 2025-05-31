@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, input, signal, ViewEncapsulation} from "@angular/core";
-import {ServiceOrderForm} from "@tenant/order/order/presentation/form/service.order.form";
 import {TranslatePipe} from "@ngx-translate/core";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {OrderServiceForm} from "@tenant/order/order/presentation/form/orderServiceForm";
 
 @Component({
 	selector: 'validation-busy-slot-chip',
@@ -29,7 +29,7 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 })
 export class ValidationBusySlotChip {
 
-	public readonly control  = input.required<ServiceOrderForm>();
+	public readonly control  = input.required<OrderServiceForm>();
 	public readonly hideMe = signal<boolean>(true);
 
 	private readonly sharedUow = inject(SharedUow);
