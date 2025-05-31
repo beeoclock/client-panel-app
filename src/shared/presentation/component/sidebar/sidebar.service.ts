@@ -74,6 +74,10 @@ export class SidebarService {
 		this.#currentContent$.next(SidebarContentEnum.PROFILE);
 	}
 
+	public theItemOpen(item: SidebarContentEnum): boolean {
+		return this.currentContent === item;
+	}
+
 	public detectAutoClose(): void {
 		if (this.autoCollapse) {
 			this.toggleSidebar(false);

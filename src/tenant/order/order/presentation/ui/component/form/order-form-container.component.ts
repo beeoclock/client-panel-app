@@ -67,7 +67,7 @@ import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 				[setupPartialData]="setupPartialData()"
 				class="flex-1"/>
 
-			<app-payment-order-form-container [form]="form"/>
+			<app-payment-order-form-container class="px-1" [form]="form"/>
 			<bee-card>
 				<form-textarea-component
 					id="order-business-note"
