@@ -1281,6 +1281,7 @@
 				"single": "Tag"
 			},
 			"tags": "Tags",
+			"theSlotAlreadyTaken": "Denne tid er allerede optaget hos denne specialist!",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
 			"time": "Tid",

@@ -75,7 +75,7 @@ import {
 				#productListFormOrder
 				[orderProductFormArray]="form.controls.order.controls.products"/>
 
-			<app-payment-order-form-container [form]="form"/>
+			<app-payment-order-form-container class="px-1" [form]="form"/>
 			<bee-card>
 				<form-textarea-component
 					id="order-business-note"

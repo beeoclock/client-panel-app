@@ -1281,6 +1281,7 @@
 				"single": "Тег"
 			},
 			"tags": "Теги",
+			"theSlotAlreadyTaken": "Цей термін у цього спеціаліста зайнятий!",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"time": "Час",

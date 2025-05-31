@@ -1281,6 +1281,7 @@
 				"single": "Tag"
 			},
 			"tags": "Tagi",
+			"theSlotAlreadyTaken": "Ten termin u tego specjalisty jest już zajęty!",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"time": "Czas",

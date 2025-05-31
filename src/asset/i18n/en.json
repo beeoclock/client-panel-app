@@ -1281,6 +1281,7 @@
 				"single": "Tag"
 			},
 			"tags": "Tags",
+			"theSlotAlreadyTaken": "This time slot is already booked with this specialist!",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"time": "Time",

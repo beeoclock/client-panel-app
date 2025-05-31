@@ -57,7 +57,7 @@ import {
 			<app-service-popover-chip-component class="absolute" trigger="app-list-service-form-order-component-add-service"
 												(result)="addService($event)"/>
 		</div>
-		<div class="flex-col justify-start items-start flex">
+		<div class="flex-col justify-start items-start flex px-1">
 			<div class="bg-white flex-col justify-start items-start flex divide-y border border-gray-200 rounded-2xl">
 				@for (item of selectedServicePlusControlList; track item.service._id; let index = $index) {
 					<app-item-list-v2-service-form-order-component
