@@ -85,7 +85,7 @@ import {
 			</bee-card>
 
 			<utility-button-save-container-component class="bottom-0">
-				@let isDisabled = form.disabled || (!appListServiceFormOrderComponent.orderServiceFormArray().length) || (!productListFormOrder.orderProductFormArray().length);
+				@let isDisabled = form.disabled || ((!appListServiceFormOrderComponent.orderServiceFormArray().length) && (!productListFormOrder.orderProductFormArray().length));
 
 				<button
 					type="button"

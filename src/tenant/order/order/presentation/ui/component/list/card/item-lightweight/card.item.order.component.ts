@@ -343,7 +343,11 @@ export class CardItemLightweightOrderComponent {
 			const orderDto = this.orderDto();
 			this.id = orderDto._id;
 			this.totalAmount = this.amount(orderDto);
-			this.baseCurrency = orderDto.services[0].serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.currency ?? CurrencyCodeEnum.USD;
+			if (orderDto.services.length) {
+				this.baseCurrency = orderDto.services[0].serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.currency ?? CurrencyCodeEnum.USD;
+			} else {
+				this.baseCurrency = orderDto.products[0]?.productSnapshot?.price?.currency ?? CurrencyCodeEnum.USD;
+			}
 		});
 	}
 

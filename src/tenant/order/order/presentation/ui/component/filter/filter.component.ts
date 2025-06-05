@@ -8,7 +8,7 @@ import {IonSelectWrapperComponent} from "@shared/presentation/component/input/io
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {OrderState} from "@tenant/order/order/infrastructure/state/order/order.state";
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {OrderStatusEnum} from '@tenant/order/order/domain/enum/order.status.enum';
 import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
@@ -31,8 +31,7 @@ import {PrimaryButtonDirective} from "@shared/presentation/directives/button/pri
 		<utility-default-panel-component>
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full p-2">
-					<!--					TODO: return this feature when backend will ready for it -->
-					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
+					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 					<!--					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>-->
 
@@ -40,8 +39,7 @@ import {PrimaryButtonDirective} from "@shared/presentation/directives/button/pri
 				</div>
 			} @else {
 				<div class="flex overflow-x-auto justify-between w-full gap-2 p-2">
-					<!--					TODO: return this feature when backend will ready for it -->
-					<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
+					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
 					<ng-container *ngTemplateOutlet="SelectOrderStatus"/>
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 					<!--					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>-->
@@ -64,7 +62,7 @@ import {PrimaryButtonDirective} from "@shared/presentation/directives/button/pri
 				id="order-filter-select-order-status"
 				[multiple]="true"
 				[options]="orderStatusOptions"
-				[control]="orderStatusControl()"/>
+				[control]="form.controls.orderStatusControl"/>
 		</ng-template>
 		<ng-template #AutoRefresh>
 			<utility-auto-refresh-component id="order-filter-auto-refresh" (emitter)="forceRefresh()"/>
@@ -92,7 +90,6 @@ import {PrimaryButtonDirective} from "@shared/presentation/directives/button/pri
 export class FilterComponent extends BaseFilterComponent implements OnInit {
 
 	public readonly showButtonGoToForm = input(true);
-	public readonly orderStatusControl = input.required<FormControl<OrderStatusEnum[]>>();
 
 	public override readonly form = new FilterForm();
 	public override readonly state = OrderState;

@@ -33,6 +33,8 @@ import {
 import {
 	ServicePopoverChipComponent
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/service/service-popover.chip.component";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
+import {CustomerForm} from "@tenant/customer/presentation/form";
 
 @Component({
 	standalone: true,
@@ -54,7 +56,8 @@ import {
 					class="w-8 rounded-lg justify-center items-center flex !py-0">
 				<i class="bi bi-plus-circle text-2xl"></i>
 			</button>
-			<app-service-popover-chip-component class="absolute" trigger="app-list-service-form-order-component-add-service"
+			<app-service-popover-chip-component class="absolute"
+												trigger="app-list-service-form-order-component-add-service"
 												(result)="addService($event)"/>
 		</div>
 		<div class="flex-col justify-start items-start flex px-1">
@@ -173,17 +176,32 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 				if (setupPartialData) {
 
 					if (setupPartialData.customer) {
-						attendees.push(
-							{
-								customer: setupPartialData.customer,
-								_id: ObjectID().toHexString(),
-								createdAt: DateTime.now().toJSDate().toISOString(),
-								updatedAt: DateTime.now().toJSDate().toISOString(),
-								object: "AttendeeDto",
-								state: StateEnum.active,
-								stateHistory: [],
-							} as unknown as IAttendeeDto
-						);
+						attendees.push({
+							customer: setupPartialData.customer,
+							_id: ObjectID().toHexString(),
+							createdAt: DateTime.now().toJSDate().toISOString(),
+							updatedAt: DateTime.now().toJSDate().toISOString(),
+							object: "AttendeeDto",
+							state: StateEnum.active,
+							stateHistory: [],
+							_version: "",
+						});
+					} else {
+
+						const customerForm = CustomerForm.create({
+							customerType: CustomerTypeEnum.anonymous,
+						});
+
+						attendees.push({
+							customer: customerForm.getRawValue(),
+							_version: "",
+							_id: ObjectID().toHexString(),
+							createdAt: DateTime.now().toJSDate().toISOString(),
+							updatedAt: DateTime.now().toJSDate().toISOString(),
+							object: "AttendeeDto",
+							state: StateEnum.active,
+							stateHistory: []
+						})
 					}
 				}
 			}
