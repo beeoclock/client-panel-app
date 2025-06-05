@@ -59,9 +59,10 @@
 			</button>
 		</div>
 		<button
+			[class.bg-white]="sidebarService.theItemOpen(sidebarService.sidebarContentEnum.CONFIGURATION)"
 			(click)="sidebarService.toggleSidebarAndSwitch(sidebarService.sidebarContentEnum.CONFIGURATION)"
 			type="button"
-			class="inline-flex items-center p-2 text-sm text-beeColor-500 rounded-lg hover:bg-beeColor-100 focus:outline-none focus:ring-2 focus:ring-beeColor-200 dark:text-beeDarkColor-400 dark:hover:bg-beeDarkColor-700 dark:focus:ring-beeDarkColor-600">
+			class="px-2 py-2 w-[46px] h-[46px] justify-center rounded-2xl flex flex-row items-center text-xl text-gray-800 dark:text-gray-400 hover:bg-white hover:border-gray-200 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 bg-white drop-shadow-sm dark:bg-zinc-800 border-gray-200 dark:border-zinc-700">
 			<span class="sr-only">Open configuration</span>
 			<i class="text-3xl bi bi-gear-wide-connected"></i>
 		</button>
