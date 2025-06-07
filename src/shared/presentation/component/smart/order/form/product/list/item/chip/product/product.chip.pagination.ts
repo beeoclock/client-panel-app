@@ -4,6 +4,7 @@ import {BehaviorSubject} from "rxjs";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import EProduct from "@tenant/product/product/domain/entity/e.product";
 import {IProduct} from "@tenant/product/product/domain";
+import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Injectable()
 export class ProductChipPagination {
@@ -16,6 +17,7 @@ export class ProductChipPagination {
 		pageSize: 20,
 		orderBy: 'createdAt',
 		orderDir: OrderDirEnum.ASC,
+		state: StateEnum.active,
 	};
 
 	public readonly items$ = new BehaviorSubject<IProduct.DTO[]>([]);
