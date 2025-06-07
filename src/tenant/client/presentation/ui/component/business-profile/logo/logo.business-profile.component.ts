@@ -47,9 +47,9 @@ export class LogoBusinessProfileComponent {
 		const formData = new FormData();
 		formData.append('file', imageLogoBusinessProfileComponent.selectedFile as Blob);
 
-		const banner = imageLogoBusinessProfileComponent.banner();
-		if (banner) {
-			formData.append('_id', banner._id);
+		const image = imageLogoBusinessProfileComponent.image();
+		if (image) {
+			formData.append('_id', image._id);
 		}
 		await this.patchMediaLogoClientApiAdapter.executeAsync(formData);
 

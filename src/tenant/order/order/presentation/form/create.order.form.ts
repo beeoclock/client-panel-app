@@ -46,14 +46,26 @@ export class CreateOrderForm extends FormGroup<ICreateOrderForm> {
 
 	public initHandlersForAmount(destroyRef: DestroyRef): void {
 
-		this.controls.order.controls.services.valueChanges.pipe(
+		this.controls.order.valueChanges.pipe(
 			takeUntilDestroyed(destroyRef)
-		).subscribe((services) => {
+		).subscribe(({services, products}) => {
 
-			const amount = services.reduce((acc, service) => {
-				const price = service.serviceSnapshot?.durationVersions?.[0].prices?.[0]?.price ?? 0;
-				return acc + price;
-			}, 0);
+			let amount = 0;
+
+			if (products) {
+				amount += products.reduce((acc, product) => {
+					const price = product.productSnapshot?.price?.value ?? 0;
+					return acc + price * (product.quantity ?? 1);
+				}, 0);
+			}
+
+			if (services) {
+
+				amount += services.reduce((acc, service) => {
+					const price = service.serviceSnapshot?.durationVersions?.[0].prices?.[0]?.price ?? 0;
+					return acc + price;
+				}, 0);
+			}
 			this.controls.payment.controls.amount.patchValue(amount);
 
 		});

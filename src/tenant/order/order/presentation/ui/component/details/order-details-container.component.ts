@@ -15,6 +15,9 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {IPayment} from "@tenant/order/payment/domain/interface/i.payment";
 import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
+import {
+	ListProductFormCardOrderComponent
+} from "@tenant/order/order/presentation/ui/component/list/card/item/products/list.product.form.card.order.component";
 
 @Component({
 	selector: 'order-detail-page',
@@ -26,6 +29,7 @@ import EOrder from "@tenant/order/order/domain/entity/e.order";
 		ContainerChangeStatusButtonComponent,
 		ListServiceFormCardOrderComponent,
 		StandardDetailsEntityComponent,
+		ListProductFormCardOrderComponent,
 	],
 	standalone: true
 })

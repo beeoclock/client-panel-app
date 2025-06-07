@@ -8,6 +8,8 @@ import {NGXLogger} from "ngx-logger";
 import {IPayment} from "@tenant/order/payment/domain/interface/i.payment";
 import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {CustomerForm} from "@tenant/customer/presentation/form";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 
 export type IPaymentState = IBaseState<IPayment.DTO>;
 
@@ -35,10 +37,20 @@ export class PaymentDataState {
 		if (!foundOrder) {
 			throw new Error('Order not found');
 		}
-		const {0: {orderAppointmentDetails: {attendees: {0: {customer}}}}} = foundOrder.services;
+		let payer = CustomerForm.create({
+			customerType: CustomerTypeEnum.anonymous,
+		}).getRawValue();
+		try {
+			const {0: {orderAppointmentDetails: {attendees: {0: {customer}}}}} = foundOrder.services;
+			if (customer) {
+				payer = customer;
+			}
+		} catch (e) {
+			this.ngxLogger.error('Failed to extract customer from order services', e);
+		}
 		payment = EPayment.fromRaw({
 			...payment,
-			payer: customer
+			payer
 		})
 		await this.sharedUow.payment.repository.createAsync(payment);
 	}

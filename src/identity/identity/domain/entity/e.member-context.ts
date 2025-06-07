@@ -11,7 +11,18 @@ export class EMemberContext extends ABaseEntity<'MemberContextDto', IMemberConte
 	}
 
 	public static toDTO(data: IMemberContext.EntityRaw): IMemberContext.DTO {
-		return data;
+		return {
+			stateHistory: data.stateHistory,
+			updatedAt: data.updatedAt,
+			createdAt: data.createdAt,
+			_version: data._version,
+			object: data.object,
+			state: data.state,
+			_id: data._id,
+
+			client: data.client,
+			account: data.account,
+		};
 	}
 
 	/**

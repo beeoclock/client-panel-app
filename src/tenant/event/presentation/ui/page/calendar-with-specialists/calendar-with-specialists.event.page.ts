@@ -3,7 +3,6 @@ import MembersV2ContainerWeekCalendarComponent
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/members.container.week-calendar.component";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@core/cdk/analytics.service";
-import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {Store} from "@ngxs/store";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter} from "rxjs";
@@ -14,6 +13,7 @@ import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 @Component({
 	selector: 'app-event-calendar-with-specialists-page',
@@ -34,7 +34,7 @@ export default class CalendarWithSpecialistsEventPage implements OnInit {
 
 	private preSyncingValue = false;
 
-	public readonly syncAllSubscription = BaseSyncManager.isSyncing$.pipe(
+	public readonly syncAllSubscription = SyncManager.isSyncing$.pipe(
 		takeUntilDestroyed(),
 		filter((isSyncing) => {
 			if (this.preSyncingValue !== !!isSyncing) {
