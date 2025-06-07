@@ -676,6 +676,11 @@
 		"firstName": "Jan",
 		"lastName": "Kowalski"
 	},
+	"expense-category": {
+		"button": {
+			"create": "Dodaj kategorię wydatków"
+		}
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Co najmniej jedno pole musi być wypełnione",
@@ -1687,6 +1692,8 @@
 		"dashboard": "Panel główny",
 		"dateRangeReport": "Analityka",
 		"events": "Wydarzenia",
+		"expense-category": "Kategorie wydatków",
+		"expenses": "Wydatki",
 		"members": "Członkowie",
 		"order": "Zamówienia",
 		"payment": "Płatności",

@@ -10,6 +10,10 @@ import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver"
 import {paymentResolver} from "@tenant/order/payment/presentation/resolver/payment.resolver";
 import {balanceResolver} from "@tenant/balance/presentation/resolver/balance.resolver";
 import {productTagResolver} from "@tenant/product/product-tag/presentation/resolver/product.resolver";
+import {
+	expenseCategoryResolver
+} from "@tenant/expense/expense-category/presentation/resolver/expense-category.resolver";
+import {expenseResolver} from "@tenant/expense/expense/presentation/resolver/expense.resolver";
 
 export const tenantSecondRouters: Routes = [
 	/**
@@ -261,6 +265,66 @@ export const tenantSecondRouters: Routes = [
 		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/product/product-tag/presentation/ui/component/form/product-tag-form-container.component')
+	},
+	/**
+	 * Expense
+	 */
+	{
+		path: 'expense/form',
+		outlet: 'second',
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/expense/expense/presentation/ui/component/form/expense-form-container.component')
+	},
+	{
+		path: 'expense/:id',
+		outlet: 'second',
+		resolve: {
+			item: expenseResolver,
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/expense/expense/presentation/ui/component/details/expense-details-container.component')
+	},
+	{
+		path: 'expense/:id/form',
+		outlet: 'second',
+		resolve: {
+			product: expenseResolver,
+		},
+		data: {
+			isEditMode: true
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/expense/expense/presentation/ui/component/form/expense-form-container.component')
+	},
+	/**
+	 * Expense Category
+	 */
+	{
+		path: 'expense-category/form',
+		outlet: 'second',
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/expense/expense-category/presentation/ui/component/form/expense-category-form-container.component')
+	},
+	{
+		path: 'expense-category/:id',
+		outlet: 'second',
+		resolve: {
+			item: expenseCategoryResolver,
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/expense/expense-category/presentation/ui/component/details/expense-category-details-container.component')
+	},
+	{
+		path: 'expense-category/:id/form',
+		outlet: 'second',
+		resolve: {
+			product: expenseCategoryResolver,
+		},
+		data: {
+			isEditMode: true
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/expense/expense-category/presentation/ui/component/form/expense-category-form-container.component')
 	},
 	/**
 	 * Event
