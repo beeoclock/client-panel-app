@@ -86,7 +86,12 @@ export class KanbanOrderService {
 
 	}
 
-	public async fetch(status: OrderStatusEnum, reset = false) {
+	public async fetch(params: {
+		status: OrderStatusEnum;
+		phrase?: string;
+		reset?: boolean;
+	}) {
+		const {status, phrase = '', reset = false} = params;
 		const orderSignal = this._orderSignals.get(status);
 
 		if (!orderSignal) {
@@ -101,6 +106,7 @@ export class KanbanOrderService {
 
 		if (reset) {
 
+			orderList.items = [];
 			orderList.page = 1;
 
 		} else {
@@ -123,6 +129,7 @@ export class KanbanOrderService {
 			page: orderList.page,
 			pageSize: orderList.pageSize,
 			status,
+			phrase,
 			state: StateEnum.active,
 			orderDir: OrderDirEnum.ASC,
 			orderBy: OrderByEnum.CREATED_AT,

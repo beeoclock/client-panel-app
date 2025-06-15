@@ -6,7 +6,6 @@ import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-plugin";
 import {AttachPluginUseCase} from "@tenant/plugin/tenant-plugin/application/use-case/attach.plugin.use-case";
-import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {IPluginState} from "@tenant/plugin/plugin/infrastructure/state/data/plugin.data.state";
 import {AttachPluginApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/attach-plugin.api";
 import {
@@ -15,6 +14,7 @@ import {
 import {NGXLogger} from "ngx-logger";
 import {DetachPluginUseCase} from "@tenant/plugin/tenant-plugin/application/use-case/detach.plugin.use-case";
 import {DetachPluginApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/detach-plugin.api";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 export type ICustomerState = IBaseState<ETenantPlugin>;
 
@@ -41,14 +41,14 @@ export class TenantPluginDataState {
 	public async attach(ctx: StateContext<IPluginState>, action: TenantPluginDataActions.Attach): Promise<void> {
 		const attachPluginUseCase = new AttachPluginUseCase(this.attachPluginApi);
 		await attachPluginUseCase.execute(action.payload);
-		await BaseSyncManager.syncAll();
+		await SyncManager.syncAll();
 	}
 
 	@Action(TenantPluginDataActions.Detach)
 	public async detach(ctx: StateContext<IPluginState>, action: TenantPluginDataActions.Detach): Promise<void> {
 		const detachPluginUseCase = new DetachPluginUseCase(this.detachPluginApi);
 		await detachPluginUseCase.execute(action.payload);
-		await BaseSyncManager.syncAll();
+		await SyncManager.syncAll();
 	}
 
 	// @Action(TenantPluginDataActions.UpdateItem)

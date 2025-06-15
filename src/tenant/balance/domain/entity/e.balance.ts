@@ -26,6 +26,7 @@ export class EBalance extends ABaseEntity<'BalanceDto', IBalance.DTO, IBalance.E
 			_id: data._id,
 			state: data.state,
 			object: data.object,
+			_version: data._version,
 			updatedAt: data.updatedAt,
 			createdAt: data.createdAt,
 			stateHistory: data.stateHistory,

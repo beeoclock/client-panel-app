@@ -8,7 +8,7 @@ import EOrder from "@tenant/order/order/domain/entity/e.order";
 @Injectable()
 export class OrderIndexedDBDataProvider extends IndexedDBDataProvider<EOrder> {
 
-	protected readonly entityFieldsToSearch = [];
+	protected readonly entityFieldsToSearch = ['businessNote'];
 	protected readonly dexieAdapterIndexedDBDataProvider = inject(OrderDexieAdapterIndexedDBDataProvider);
 
 }

@@ -135,8 +135,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 		let isAllStepsFinishedWithSuccess = true;
 		try {
 
-			for (let i = 0; i < this.steps.length; i++) {
-				const step = this.steps[i];
+			for (const step of this.steps) {
 				try {
 					isAllStepsFinishedWithSuccess = false;
 
