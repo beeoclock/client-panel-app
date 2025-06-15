@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {ApiDataProvider} from "@tenant/customer/infrastructure/data-provider/api.data-provider";
 import {CustomerRepository} from "@tenant/customer/infrastructure/repository/customer.repository";
-import EAbsence, {ECustomer} from "@tenant/customer/domain/entity/e.customer";
+import {ECustomer} from "@tenant/customer/domain/entity/e.customer";
 import {ICustomer} from "@tenant/customer/domain";
 import {TENANT_ID} from "@src/token";
 import {filter, tap} from "rxjs";
@@ -14,7 +14,7 @@ export class SyncManager extends BaseSyncManager<ICustomer.DTO, ECustomer> {
 
 	protected readonly apiDataProvider = inject(ApiDataProvider);
 	protected readonly repository = inject(CustomerRepository);
-	protected readonly toEntity = EAbsence.fromDTO;
+	protected readonly toEntity = ECustomer.fromDTO;
 
 	public constructor() {
 		super('customer');
