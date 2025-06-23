@@ -48,7 +48,10 @@ import {SynchronizationMolecule} from "@shared/presentation/component/synchroniz
 	],
 	providers: [
 		CurrencyPipe,
-	]
+	],
+	host: {
+		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block flex flex-1 flex-col'
+	}
 })
 export class TableListComponent extends TableComponent<EProduct> {
 
