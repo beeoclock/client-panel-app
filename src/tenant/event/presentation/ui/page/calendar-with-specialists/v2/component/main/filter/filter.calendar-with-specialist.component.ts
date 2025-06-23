@@ -6,7 +6,7 @@ import {IonSelectWrapperComponent} from "@shared/presentation/component/input/io
 import {
 	SettingsComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/settings/settings.component";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import CalendarWithSpecialistLocaStateService

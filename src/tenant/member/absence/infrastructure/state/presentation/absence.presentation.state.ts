@@ -10,9 +10,7 @@ import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import {Router} from "@angular/router";
 import AbsenceDetailsContainerComponent
 	from "@tenant/member/absence/presentation/ui/component/details/absence-details-container.component";
-import {
-	AbsenceFormContainerComponent
-} from "@tenant/member/absence/presentation/ui/component/form/absence-form-container.component";
+import {FormAbsencePage} from "@tenant/member/absence/presentation/ui/page/form/form.absence.page";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 
 export type IAbsenceState = object;
@@ -114,7 +112,7 @@ export class AbsencePresentationState {
 		const activated = this.secondRouterOutletService.activated();
 
 		if (activated) {
-			if (activated instanceof AbsenceFormContainerComponent) {
+			if (activated instanceof FormAbsencePage) {
 				const isEditMode = activated.isEditMode();
 				if (isEditMode) {
 					const {_id} = activated.item() ?? {};

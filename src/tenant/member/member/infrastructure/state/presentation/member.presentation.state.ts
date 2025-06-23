@@ -13,8 +13,7 @@ import {
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import MemberDetailsContainerComponent
 	from "@tenant/member/member/presentation/component/details-container/member-details-container.component";
-import MemberFormContainerComponent
-	from "@tenant/member/member/presentation/component/form/member-form-container/member-form-container.component";
+import FormMemberPage from "@tenant/member/member/presentation/ui/page/form/form.member.page";
 
 export type IMemberPresentationState = object;
 
@@ -134,7 +133,7 @@ export class MemberPresentationState {
 		const activated = this.secondRouterOutletService.activated();
 
 		if (activated) {
-			if (activated instanceof MemberFormContainerComponent) {
+			if (activated instanceof FormMemberPage) {
 				const isEditMode = activated.isEditMode();
 				if (isEditMode) {
 					const {_id} = activated.item() ?? {};

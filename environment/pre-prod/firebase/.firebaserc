@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "default": "crm-pre-prod-beeoclock"
+  },
+  "targets": {
+    "panel-beeoclock": {
+      "hosting": {
+        "panel-beeoclock": [
+          "panel-beeoclock"
+        ]
+      }
+    },
+    "crm-pre-prod-beeoclock": {
+      "hosting": {
+        "crm-pre-prod-beeoclock": [
+          "crm-pre-prod-beeoclock"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

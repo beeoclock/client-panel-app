@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "crm-pre-prod-beeoclock",
+    "public": "dist",
+    "ignore": [
+      "**/firebase/**",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

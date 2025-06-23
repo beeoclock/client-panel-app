@@ -10,14 +10,15 @@ import {
 } from "@angular/core";
 import {DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
+
+import {BaseSyncManager, ISyncManger} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {TimeAgoPipe} from "@shared/presentation/pipes/time-ago.pipe";
 import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {interval} from "rxjs";
 import {tap} from "rxjs/operators";
 import {injectNetwork} from "ngxtension/inject-network";
-import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
-import {ISyncManger} from "@core/system/infrastructure/sync-manager/i.sync-state";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	standalone: true,
@@ -96,6 +97,7 @@ import {ISyncManger} from "@core/system/infrastructure/sync-manager/i.sync-state
 })
 export class SyncButtonComponent implements OnInit {
 
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly network = injectNetwork();
 
@@ -104,8 +106,8 @@ export class SyncButtonComponent implements OnInit {
 		return !online;
 	});
 
-	public readonly isPaused = toSignal(SyncManager.isPaused$);
-	public readonly isSyncing = toSignal(SyncManager.isSyncing$);
+	public readonly isPaused = toSignal(BaseSyncManager.isPaused$);
+	public readonly isSyncing = toSignal(BaseSyncManager.isSyncing$);
 
 	private readonly setTimeoutSubscription = interval(1_000).pipe(
 		takeUntilDestroyed(),
@@ -123,50 +125,50 @@ export class SyncButtonComponent implements OnInit {
 
 	public readonly lastSynchronizedIn = signal(new Date(0).toISOString());
 
-	public readonly state: Map<string, 'pending' | 'done' | ISyncManger> = new Map<string, 'pending' | 'done' | ISyncManger>();
+	public readonly state: Map<string, 'wait' | 'done' | ISyncManger> = new Map<string, 'wait' | 'done' | ISyncManger>();
 
 	public syncAll() {
-		if (SyncManager.isPaused$.value) {
-			SyncManager.resumeAll().then(() => {
-				console.log('resumeAll done');
+		if (BaseSyncManager.isPaused$.value) {
+			BaseSyncManager.resumeAll().then(() => {
+				this.ngxLogger.debug('SyncButtonComponent', 'resumeAll done');
 			});
 		} else {
-			SyncManager.syncAll().then(() => {
-				console.log('syncAll done');
+			BaseSyncManager.syncAll().then(() => {
+				this.ngxLogger.debug('SyncButtonComponent', 'syncAll done');
 			});
 		}
 	}
 
 	public pauseAll() {
-		SyncManager.pauseAll().then(() => {
-			console.log('pauseAll done');
+		BaseSyncManager.pauseAll().then(() => {
+			this.ngxLogger.debug('SyncButtonComponent', 'pauseAll done');
 		});
 	}
 
 	public resetState() {
-		SyncManager.register.forEach((syncManger) => {
-			this.state.set(syncManger.moduleName, 'pending');
+		BaseSyncManager.register.forEach((syncManger) => {
+			this.state.set(syncManger.moduleName, 'wait');
 		});
 	}
 
 	public get params() {
 		return {
 			modulesCount: this.state.size,
-			modulesSynced: Array.from(this.state.values()).filter((value) => value !== 'pending').length,
+			modulesSynced: Array.from(this.state.values()).filter((value) => value !== 'wait').length,
 		}
 	}
 
 	public ngOnInit() {
 
-		SyncManager.register.forEach((syncManger) => {
-			this.state.set(syncManger.moduleName, 'pending');
+		BaseSyncManager.register.forEach((syncManger) => {
+			this.state.set(syncManger.moduleName, 'wait');
 		});
 
 	}
 
 	private detectChanges() {
 
-		const {syncState} = SyncManager.getSyncManager('business-profile');
+		const {syncState} = BaseSyncManager.getSyncManager('business-profile');
 		const value = syncState?.options?.updatedSince || new Date(0).toISOString();
 		this.lastSynchronizedIn.set(value);
 		this.changeDetectorRef.detectChanges();

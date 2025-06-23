@@ -3,9 +3,9 @@ import {IndexedDBDataProvider} from "@core/system/infrastructure/data-provider/i
 import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 import {Reactive} from "@core/cdk/reactive";
 import {CreatingHookContext, Table, UpdatingHookContext} from "dexie";
+import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {AsyncQueue} from "@core/shared/async-queue";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 const asyncQueue = new AsyncQueue();
 
@@ -20,7 +20,7 @@ function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: ABas
 			if (isOnline) {
 				setTimeout(() => {
 					asyncQueue.enqueue(() => {
-						return SyncManager.syncAll()
+						return BaseSyncManager.pushAll()
 					}).then();
 				}, 0);
 			}
@@ -50,7 +50,7 @@ function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, pri
 			if (isOnline) {
 				setTimeout(() => {
 					asyncQueue.enqueue(() => {
-						return SyncManager.syncAll()
+						return BaseSyncManager.pushAll()
 					}).then();
 				}, 0);
 			}

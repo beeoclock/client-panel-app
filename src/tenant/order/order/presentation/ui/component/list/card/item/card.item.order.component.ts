@@ -9,7 +9,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {
 	ListServiceFormCardOrderComponent
@@ -20,6 +20,7 @@ import {
 	StatusOrderChipComponent
 } from "@shared/presentation/component/smart/order/form/chip/status.order.chip.component";
 import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
+
 
 @Component({
 	selector: 'app-card-item-order-component',
@@ -157,7 +158,7 @@ export class CardItemOrderComponent implements OnInit {
 		});
 	}
 
-	public amount(services: IOrderServiceDto[]): number {
+	public amount(services: IOrderService.DTO[]): number {
 
 		return services.reduce((acc, service) => {
 			return acc + (service.serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.price ?? 0);

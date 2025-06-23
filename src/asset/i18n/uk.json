@@ -565,7 +565,7 @@
 					}
 				}
 			},
-			"title": "Детальний перегляд події"
+			"title": "Деталі замовленої послуги"
 		},
 		"form": {
 			"section": {
@@ -689,7 +689,6 @@
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"min": "Мінімальне значення - {{min}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
-			"nameExists": "Це ім'я вже використовується",
 			"phoneExists": "Цей номер телефону вже використовується",
 			"required": "Обов'язкове поле",
 			"shouldBeMoreThen": {
@@ -715,20 +714,6 @@
 					"accept": {
 						"header": "Видалення події",
 						"message": "Впевнений, що хочеш видалити подію?"
-					}
-				}
-			},
-			"/api/v1/product/{id}": {
-				"after": {
-					"success": {
-						"header": "Продукт",
-						"message": "Продукт було видалено."
-					}
-				},
-				"before": {
-					"accept": {
-						"header": "Видалення товару",
-						"message": "Ви впевнені, що хочете видалити товар??"
 					}
 				}
 			},
@@ -800,14 +785,6 @@
 					}
 				}
 			},
-			"/api/v1/product": {
-				"after": {
-					"success": {
-						"header": "Продукт створено",
-						"message": "Продукт було створено."
-					}
-				}
-			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -839,14 +816,6 @@
 					"success": {
 						"header": "Подія оновлена",
 						"message": "Подія успішно оновлена."
-					}
-				}
-			},
-			"/api/v1/product/{id}": {
-				"after": {
-					"success": {
-						"header": "Продукт оновлено",
-						"message": "Продукт було успішно оновлено."
 					}
 				}
 			},
@@ -1075,14 +1044,15 @@
 			"addDuration": "Додати тривалість",
 			"addSocialMedia": "Додати соціальну мережу",
 			"additional": "Додатково",
+			"additionalInformation": "Додаткова інформація",
 			"address": "Адреса",
-			"advancedInformation": "Додаткова інформація",
 			"all": "Всі",
 			"allServices": "Всі послуги",
 			"allSpecialists": "Всі спеціалісти",
 			"allStatuses": "Всі статуси",
-			"allTags": "Всі теги",
 			"amount": "Cума",
+			"amountPaid": "Сплачена сума",
+			"amountToPay": "Сума до сплати",
 			"anonymous": "Анонімний",
 			"approvalType": "Тип схвалення",
 			"approve": "Затвердити",
@@ -1099,21 +1069,10 @@
 			"businessCategory": "Категорія бізнесу",
 			"businessIndustry": "Галузь бізнесу",
 			"businessName": "Назва бізнесу",
-			"businessNote": "Бізнес-нотатка",
+			"businessNote": "Бізнес-нотатка до замовлення",
 			"businessProfile": "Профіль бізнесу",
 			"businessSettings": "Бізнес налаштування",
 			"cancel": "Скасувати",
-			"category": {
-				"create": {
-					"choose": "Виберіть категорію",
-					"enter": "Введіть категорію",
-					"first": "Додайте першу категорію",
-					"tooltip": "Додайте категорії до списку",
-					"uniqueError": "Назва категорії повинна бути унікальною"
-				},
-				"plural": "Категорії",
-				"single": "Категорія"
-			},
 			"changeStatus": "Змінити статус",
 			"changes": "Зміни",
 			"changesFrom": "З",
@@ -1123,6 +1082,7 @@
 			"city": "Населений пункт",
 			"clearCache": "Очистити кеш",
 			"clickToUpload": "Натисніть, щоб завантажити",
+			"clientDoesNotSeeThisData": "Клієнт не бачить цих даних",
 			"clients": "Клієнти",
 			"close": "Закрити",
 			"color": "Колір",
@@ -1180,6 +1140,7 @@
 			"lastUpdate": "Останнє оновлення",
 			"latestBooking": "На коли можна зарезервувати послугу",
 			"leftInDays": "Днів залишилось",
+			"loadMore": "Завантажити більше",
 			"logout": "Вихід",
 			"members": "Учасники",
 			"menu": "Меню",
@@ -1197,15 +1158,20 @@
 			"notYetStarted": "Ще не розпочато",
 			"note": "Примітка",
 			"notification": "Повідомлення",
+			"numberOfServicesOrdered": "Кількість замовлeних послуг",
 			"openTimePicker": "Вибрати",
 			"order": "Послідовність",
+			"orderInformation": "Інформація про замовлення",
+			"orderStatus": "Статус замовлення",
 			"ordering": "Замовлення",
 			"ownOptionOfTime": "Година за твоїм бажанням",
 			"ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",
 			"paid": "Оплачено",
+			"past": "Минулі",
 			"payAsYouGo": "Сплачуйте по мірі проходження",
 			"payer": "Платник",
 			"payment": "Оплата",
+			"paymentDate": "Дата оплати",
 			"paymentMethod": "Спосіб оплати",
 			"paymentProviderType": "Тип оплати",
 			"paymentStatus": "Статус оплати",
@@ -1229,10 +1195,8 @@
 			"priceTimeFormatPrompt": "години:хвилини",
 			"prices": "Ціни",
 			"processing": "Обробка",
-			"productName": "Назва продукту",
-			"products": "Продукти",
 			"publicPage": "Публічна сторінка",
-			"quantity": "Кількість",
+			"registerPayment": "Зареєструй оплату ",
 			"reject": "Відхилити",
 			"role": "Роль",
 			"save": "Зберегти",
@@ -1249,7 +1213,6 @@
 			"signIn": "Увійти",
 			"signOut": "Вийти",
 			"signUp": "Зареєструватися",
-			"sku": "SKU",
 			"slogan": "Гасло",
 			"socialMedia": "Соціальні мережі",
 			"somethingWentWrong": "Щось пішло не так!",
@@ -1265,22 +1228,8 @@
 			"successfully": "Успішно",
 			"switchTo": "Перейдіть до",
 			"synced": "Синхронізовано",
-			"synchronization": "Синхронізація",
-			"synchronizationError": "Помилка синхронізації",
-			"synchronized": "Синхронізовано",
 			"syncing": "Синхронізація триває…",
-			"tag": {
-				"create": {
-					"choose": "Виберіть тег",
-					"enter": "Введіть тег",
-					"first": "Додайте перший тег",
-					"tooltip": "Додайте теги до списку",
-					"uniqueError": "Назва тега повинна бути унікальною"
-				},
-				"plural": "Теги",
-				"single": "Тег"
-			},
-			"tags": "Теги",
+			"tapOnTheDataToEditIt": "Натисніть на дані, щоб редагувати їх",
 			"theSlotAlreadyTaken": "Цей термін у цього спеціаліста зайнятий!",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
@@ -1292,10 +1241,10 @@
 			"total": "Всього",
 			"tryDemoProfile": "Спробувати демо-профіль",
 			"unknown": "Невідомо",
+			"upcoming": "Найближчим часом",
 			"update": "Оновити",
 			"updatedAt": "Оновлено",
 			"upgradeTo": "Покращити до",
-			"waitingForSynchronization": "Очікує синхронізації ",
 			"warning": "Увага",
 			"week": "Тиждень",
 			"workdays": "Робочі дні",
@@ -1473,7 +1422,7 @@
 					"deleted": "Видалено",
 					"done": "Виконано",
 					"draft": "Чернетка",
-					"inProgress": "У процесі виконання",
+					"inProgress": "Реалізується",
 					"rejected": "Відхилено",
 					"requested": "Запит"
 				}
@@ -1575,29 +1524,6 @@
 			}
 		}
 	},
-	"product": {
-		"button": {
-			"create": "Додати продукт"
-		},
-		"deactivateBeforeDelete": "Не можна видалити активний продукт",
-		"details": {
-			"title": "Інформація про продукт"
-		},
-		"form": {
-			"availableLanguages": {
-				"hint": "Ви можете назвати свій продукт доступними мовами"
-			},
-			"tags": {
-				"select": {
-					"placeholder": "Вибери тег"
-				}
-			},
-			"title": {
-				"create": "Додати товар",
-				"edit": "Редагувати товар"
-			}
-		}
-	},
 	"role": {
 		"ADMIN": "Адміністратор",
 		"OWNER": "Власник",
@@ -1692,8 +1618,6 @@
 		"payment": "Платежі",
 		"plugins": "Плагіни",
 		"private": "Приватне",
-		"product-tag": "Теги товарів",
-		"products": "Продукти",
 		"profile": {
 			"signOut": {
 				"header": "Вийти",

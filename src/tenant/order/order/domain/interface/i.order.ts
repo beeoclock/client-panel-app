@@ -1,17 +1,18 @@
 import {IBaseDTO, IBaseEntityRaw} from "@shared/domain";
 import {Tools} from "@core/shared/tools";
 import {IOrderProductDto} from "./i.order-product.dto";
-import {IOrderServiceDto} from "./i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {OrderStatusEnum} from "../enum/order.status.enum";
 import {IOrderMetaDto} from "./i.order-meta.dto";
 import {INotificationSettings} from "@tenant/order/order/domain/interface/i.notification-settings";
+
 
 export namespace IOrder {
 
 	export interface DTO extends IBaseDTO<'OrderDto'> {
 
 		products: IOrderProductDto[];
-		services: IOrderServiceDto[];
+		services: IOrderService.DTO[];
 		status: OrderStatusEnum;
 		meta: IOrderMetaDto;
 		businessNote: string;

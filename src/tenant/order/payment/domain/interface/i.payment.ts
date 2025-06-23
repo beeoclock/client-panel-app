@@ -22,6 +22,7 @@ export namespace IPayment {
 		providerType?: PaymentProviderTypeEnum & Types.Default<PaymentProviderTypeEnum.onSite>;
 		status: PaymentStatusEnum & Types.Default<PaymentStatusEnum.pending>;
 		paymentDate?: string;
+		anchorId?: string | undefined | null;
 		anchorType: AnchorTypeEnum & Types.Default<AnchorTypeEnum.order>;
 
 	}
