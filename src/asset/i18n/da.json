@@ -676,6 +676,11 @@
 		"firstName": "John",
 		"lastName": "Smith"
 	},
+	"expense-category": {
+		"button": {
+			"create": "Een uitgavencategorie toevoegen"
+		}
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Mindst et felt skal udfyldes",
@@ -1687,6 +1692,8 @@
 		"dashboard": "Dashboard",
 		"dateRangeReport": "Analyse",
 		"events": "Begivenheder",
+		"expense-category": "Ausgabenkategorie",
+		"expenses": "Udgifter",
 		"members": "Medlemmer",
 		"order": "Indkøb",
 		"payment": "Betalinger",

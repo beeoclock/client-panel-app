@@ -676,6 +676,11 @@
 		"firstName": "Іван",
 		"lastName": "Шевченко"
 	},
+	"expense-category": {
+		"button": {
+			"create": "Додати категорію витратів"
+		}
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Хоча б одне поле має бути заповнене",
@@ -1687,6 +1692,8 @@
 		"dashboard": "Панель керування",
 		"dateRangeReport": "Аналітика",
 		"events": "Події",
+		"expense-category": "Категорії витрат",
+		"expenses": "Витрати",
 		"members": "Команда",
 		"order": "Замовлення",
 		"payment": "Платежі",

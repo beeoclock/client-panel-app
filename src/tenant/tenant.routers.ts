@@ -211,6 +211,24 @@ export const tenantRouters: Routes = [
                                 ]
                             },
                             {
+                                path: 'expense',
+                                children: [
+                                    {
+                                        path: 'list',
+                                        loadComponent: () => import('@tenant/expense/expense/presentation/ui/page/list/list.expense.page')
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'expense-category',
+                                children: [
+                                    {
+                                        path: 'list',
+                                        loadComponent: () => import('@tenant/expense/expense-category/presentation/ui/page/list/list.expense-category.page')
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'service',
                                 children: [
                                     {

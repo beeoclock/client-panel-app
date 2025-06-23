@@ -62,6 +62,19 @@ export class ConfigurationSidebarComponent {
 			}
 		});
 		this.menu.push({
+			order: 0,
+			url: 'expense-category/list',
+			translateKey: 'sidebar.expense-category',
+			visible: true,
+			icon: 'bi bi-tags',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
 			order: 1,
 			url: 'client/business-settings',
 			translateKey: 'sidebar.businessSettings',

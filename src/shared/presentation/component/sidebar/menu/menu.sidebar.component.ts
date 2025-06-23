@@ -218,6 +218,19 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 4,
+			url: 'expense/list',
+			translateKey: 'sidebar.expenses',
+			icon: 'bi bi-patch-minus',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 4,
 			url: 'absence/list',
 			translateKey: 'sidebar.absence',
 			icon: 'bi bi-calendar2-x',
