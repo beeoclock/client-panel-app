@@ -82,7 +82,7 @@ export class RolePresentationState {
 			}
 		}
 
-		await this.router.navigate([{outlets: {second: ['member', payload._id]}}]);
+		await this.router.navigate([{outlets: {second: ['role', payload._id]}}]);
 
 	}
 

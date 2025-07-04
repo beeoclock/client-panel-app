@@ -3,8 +3,6 @@ import { IRole } from "../interface/i.role";
 
 export class ERole extends ABaseEntity<'RoleDto', IRole.DTO, IRole.EntityRaw> implements IRole.EntityRaw {
   override object = 'RoleDto' as const;
-
-  _version!: string;
   name!: string;
   isOwner!: boolean;
   permissions!: IRole.Permission[];

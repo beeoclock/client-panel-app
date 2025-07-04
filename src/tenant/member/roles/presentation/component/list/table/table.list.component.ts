@@ -165,43 +165,15 @@ export class TableListComponent extends TableComponent<ERole> {
 	public readonly roleCellTemplate = viewChild<TemplateRef<any>>('roleCellTemplate');
 	public readonly columns = signal<TableColumn<ERole>[]>([
 		{
-			name: this.translateService.instant('keyword.capitalize.fullName'),
-			prop: 'fullName',
+			name: this.translateService.instant('keyword.capitalize.role'),
+			prop: 'name',
 			minWidth: 200,
 			width: 200,
 			sortable: true
 		},
 		{
-			name: this.translateService.instant('keyword.capitalize.phone'),
-			prop: 'phone',
-			minWidth: 160,
-			width: 160,
-			sortable: true,
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.email'),
-			prop: 'email',
-			minWidth: 300,
-			width: 300,
-			sortable: true
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.services'),
-			prop: 'assignmentsService',
-			minWidth: 160,
-			width: 160,
-			sortable: false,
-		},
-		{
-			name: this.translateService.instant('keyword.capitalize.role'),
-			prop: 'role',
-			minWidth: 160,
-			width: 160,
-			sortable: false,
-		},
-		{
 			name: this.translateService.instant('keyword.capitalize.status'),
-			prop: 'active',
+			prop: 'state',
 			minWidth: 160,
 			width: 160,
 			sortable: false,
