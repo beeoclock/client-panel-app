@@ -10,6 +10,7 @@ import {eventResolver} from "@tenant/event/presentation/resolver/event.resolver"
 import {paymentResolver} from "@tenant/order/payment/presentation/resolver/payment.resolver";
 import {balanceResolver} from "@tenant/balance/presentation/resolver/balance.resolver";
 import {productTagResolver} from "@tenant/product/product-tag/presentation/resolver/product.resolver";
+import {pluginResolver} from "@tenant/plugin/tenant-plugin/presentation/resolver/plugin.resolver";
 
 export const tenantSecondRouters: Routes = [
 	/**
@@ -291,6 +292,18 @@ export const tenantSecondRouters: Routes = [
 		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/balance/presentation/ui/component/details/balance-details-container.component')
+	},
+	/**
+	 * Plugin
+	 */
+	{
+		path: 'plugin/:id',
+		outlet: 'second',
+		resolve: {
+			item: pluginResolver,
+		},
+		runGuardsAndResolvers: 'always',
+		loadComponent: () => import('@tenant/plugin/tenant-plugin/presentation/ui/component/details/plugin-details-container.component')
 	},
 	/**
 	 * App

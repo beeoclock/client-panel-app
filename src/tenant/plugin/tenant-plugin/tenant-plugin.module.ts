@@ -22,6 +22,7 @@ import {
 import {
 	TenantPluginDexieAdapterIndexedDBDataProvider
 } from "@tenant/plugin/tenant-plugin/infrastructure/data-provider/indexedDB/adapter/tenant-plugin.dexie.adapter.indexedDB.data-provider";
+import {GetFunctionsApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/get-functions.api";
 
 @NgModule({
 	imports: [
@@ -37,6 +38,7 @@ import {
 		AttachPluginApi,
 		DetachPluginApi,
 		ExecuteFunctionApi,
+		GetFunctionsApi,
 
 		// Data Provider
 		ApiDataProvider,

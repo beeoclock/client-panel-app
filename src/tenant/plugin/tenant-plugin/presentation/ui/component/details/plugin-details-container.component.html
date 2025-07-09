@@ -1,0 +1,24 @@
+@if (item(); as item) {
+	<div class="bg-white">
+		<img class="w-full h-auto aspect-video object-cover"
+			 [src]="item.plugin.logo.url"
+			 alt="Card Image">
+		<div class="p-2 border-b border-neutral-100 flex gap-2">
+			@if (item.isAttached()) {
+				<button (click)="detach()"
+						[disabled]="loading()"
+						class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-neutral-500 hover:bg-neutral-400 hover:text-white transition-all focus:outline-hidden focus:bg-neutral-500 disabled:opacity-50 disabled:pointer-events-none">
+					@if (loading()) {
+						<i class="bi bi-arrow-clockwise animate-spin"></i>
+					} @else {
+						{{ 'tenant-plugin.grid.plugin.detach' | translate }}
+					}
+				</button>
+			}
+		</div>
+	</div>
+
+
+	<standard-details-entity [item]="item"/>
+
+}
