@@ -317,6 +317,14 @@
 								"hint": "Select which fields are required for customers to fill in when booking a service",
 								"label": "Required fields"
 							},
+							"paymentRequirement": {
+								"hint": "Select whether a prepayment is required for your services or products.",
+								"label": "Payment requirement",
+								"options": {
+									"NOT_REQUIRED": "Not required",
+									"REQUIRED_BEFORE_BOOKING": "Customers must make a payment before the booking is confirmed."
+								}
+							},
 							"timeZone": {
 								"hint": "Select the time zone where you do business, this field will determine the process to create free appointments for bookings and display your work schedule.",
 								"label": "Time zone"
