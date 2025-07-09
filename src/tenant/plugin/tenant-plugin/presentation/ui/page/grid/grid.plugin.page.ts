@@ -10,6 +10,7 @@ import {
 } from "@tenant/plugin/tenant-plugin/infrastructure/state/data/tenant-plugin.data.actions";
 import {Actions, ofActionErrored, ofActionSuccessful} from "@ngxs/store";
 import {tap} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-list-tenant-plugin-page',
@@ -90,14 +91,9 @@ import {tap} from "rxjs/operators";
 										</button>
 									}
 									@if (storeItem.isAttached()) {
-										<button (click)="detach(storeItem)"
-												[disabled]="loadingRecordByPluginId()[storeItem._id]"
-												class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-neutral-500 hover:bg-neutral-400 hover:text-white transition-all focus:outline-hidden focus:bg-neutral-500 disabled:opacity-50 disabled:pointer-events-none">
-											@if (loadingRecordByPluginId()[storeItem._id]) {
-												<i class="bi bi-arrow-clockwise animate-spin"></i>
-											} @else {
-												{{ 'tenant-plugin.grid.plugin.detach' | translate }}
-											}
+										<button (click)="openDetailsOf(storeItem)" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-neutral-500 hover:bg-neutral-400 hover:text-white transition-all focus:outline-hidden focus:bg-neutral-500 focus:text-white disabled:opacity-50 disabled:pointer-events-none">
+											<i class="bi bi-eye"></i>
+											{{ 'keyword.capitalize.details' | translate }}
 										</button>
 									}
 								}
@@ -138,6 +134,7 @@ export class GridPluginPage {
 	private readonly translateService = inject(TranslateService);
 	private readonly gridResource = inject(GridResource);
 	private readonly actions = inject(Actions);
+	private readonly router = inject(Router);
 	private readonly network = injectNetwork();
 
 	public readonly currentLanguage = this.translateService.currentLang;
@@ -172,11 +169,6 @@ export class GridPluginPage {
 		})
 	).subscribe();
 
-	public detach(storeItem: ETenantPlugin) {
-		this.setLoadingState(storeItem, true);
-		this.detachPlugin(storeItem);
-	}
-
 	public attach(storeItem: ETenantPlugin) {
 		this.setLoadingState(storeItem, true);
 		this.attachPlugin(storeItem);
@@ -194,12 +186,11 @@ export class GridPluginPage {
 		return new TenantPluginDataActions.Attach(plugin);
 	}
 
-	@Dispatch()
-	private detachPlugin(storeItem: ETenantPlugin) {
-		return new TenantPluginDataActions.Detach(storeItem);
-	}
-
 	protected readonly structuredClone = structuredClone;
+
+	public openDetailsOf(storeItem: ETenantPlugin) {
+		return this.router.navigate([{outlets: {second: ['plugin', storeItem._id]}}]);
+	}
 }
 
 export default GridPluginPage;
