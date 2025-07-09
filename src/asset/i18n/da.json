@@ -317,6 +317,14 @@
 								"hint": "Vælg, hvilke felter kunderne skal udfylde, når de booker en tjeneste",
 								"label": "Krævede felter"
 							},
+							"paymentRequirement": {
+								"hint": "Vælg om forudbetaling er nødvendig for dine tjenester eller produkter.",
+								"label": "Betalingskrav",
+								"options": {
+									"NOT_REQUIRED": "Ikke påkrævet",
+									"REQUIRED_BEFORE_BOOKING": "Kunder skal betale, før reservationen bekræftes."
+								}
+							},
 							"timeZone": {
 								"hint": "Vælg den tidszone, du arbejder i. Dette felt afgør, hvordan du opretter gratis aftaler til bookinger og viser din arbejdsplan.",
 								"label": "Tidszone"

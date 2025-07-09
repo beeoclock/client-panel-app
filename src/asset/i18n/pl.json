@@ -317,6 +317,14 @@
 								"hint": "Wybierz pola wymagane do wypełnienia przez klientów podczas rezerwacji usługi.",
 								"label": "Wymagane pola"
 							},
+							"paymentRequirement": {
+								"hint": "Wybierz, czy wymagana jest przedpłata za twoje usługi lub produkty.",
+								"label": "Wymóg płatności",
+								"options": {
+									"NOT_REQUIRED": "Nie jest wymagany",
+									"REQUIRED_BEFORE_BOOKING": "Klienci muszą dokonać płatności przed potwierdzeniem rezerwacji."
+								}
+							},
 							"timeZone": {
 								"hint": "Wybierz strefę czasową, w której prowadzasz działalność gospodarczą, to pole określi sposób tworzenia wolnych terminów dla rezerwacji i wyświetlania harmonogramu pracy.",
 								"label": "Strefa czasowa"
