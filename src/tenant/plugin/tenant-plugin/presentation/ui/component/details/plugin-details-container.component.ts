@@ -11,8 +11,8 @@ import {tap} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GetFunctionsApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/get-functions.api";
 import {
-	GetPaymentStripeDashboardUrlApi
-} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/get-payment-stripe-dashboard-url.api";
+	PostPaymentStripeDashboardUrlApi
+} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/post-payment-stripe-dashboard-url.api";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyPipe} from "@angular/common";
 import {PluginPriceTypeEnum} from "@tenant/plugin/plugin/domain";
@@ -40,7 +40,7 @@ export class PluginDetailsContainerComponent implements OnInit {
 	public readonly activatedRoute = inject(ActivatedRoute);
 	public readonly getFunctionsApi = inject(GetFunctionsApi);
 	public readonly ngxLogger = inject(NGXLogger);
-	public readonly getPaymentStripeDashboardUrlApi = inject(GetPaymentStripeDashboardUrlApi);
+	public readonly getPaymentStripeDashboardUrlApi = inject(PostPaymentStripeDashboardUrlApi);
 
 	public readonly loading = signal<boolean>(false);
 	public readonly isPaymentStripePlugin = computed(() => {
@@ -86,7 +86,7 @@ export class PluginDetailsContainerComponent implements OnInit {
 
 	public async openPaymentStripeDashboard() {
 		try {
-			const url = await this.getPaymentStripeDashboardUrlApi.executeAsync();
+			const {url} = await this.getPaymentStripeDashboardUrlApi.executeAsync();
 			if (url) {
 				window.open(url, '_blank');
 			} else {
