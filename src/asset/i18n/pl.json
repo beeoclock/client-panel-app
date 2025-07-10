@@ -1841,6 +1841,11 @@
 				"detach": "Odłącz"
 			},
 			"subtitle": "Dzięki wtyczkom możesz uzyskać więcej funkcji i zautomatyzować niektóre procesy. Połącz się i automatyzuj!"
+		},
+		"plugin": {
+			"payment-stripe": {
+				"open-dashboard": "Przejdź do Stripe"
+			}
 		}
 	},
 	"updateAvailable": {

@@ -16,6 +16,37 @@
 				</button>
 			}
 		</div>
+		<div class="flex flex-col gap-2 p-2">
+			@if (isPaymentStripePlugin()) {
+				<button (click)="openPaymentStripeDashboard()"
+						class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-neutral-500 hover:bg-neutral-400 hover:text-white transition-all focus:text-white focus:outline-hidden focus:bg-neutral-500">
+					<i class="bi bi-credit-card"></i>
+					{{ 'tenant-plugin.plugin.payment-stripe.open-dashboard' | translate }}
+					<i class="bi bi-box-arrow-up-right"></i>
+				</button>
+			}
+		</div>
+		<div class="flex flex-wrap gap-2 p-2">
+			@for(feature of item.plugin.features; track feature) {
+				<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-white/10 dark:text-white">
+					{{ feature }}
+				</span>
+			}
+			<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-white/10 dark:text-white">
+				@if (item.plugin.price.isFree) {
+					FREE
+					@if (item.plugin.price.priceType === pluginPriceTypeEnum.payAsYouGo) {
+						({{ 'keyword.capitalize.payAsYouGo' | translate }})
+					}
+				} @else {
+					{{ item.plugin.price.amount | currency: item.plugin.price.currency }}
+				}
+
+			</span>
+			<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-white/10 dark:text-white">
+				{{ item.plugin.version }}
+			</span>
+		</div>
 	</div>
 
 
