@@ -1,0 +1,33 @@
+<div class="flex flex-col gap-4">
+	<bee-card>
+		<form class="flex flex-col gap-4">
+			<form-input
+				id="role-form-name"
+				inputType="text"
+				autocomplete="name"
+				[placeholder]="'keyword.capitalize.name' | translate"
+				[control]="form.controls.name"
+				[label]="'keyword.capitalize.name' | translate"/>
+
+			<utility-switch-component
+				id="role-form-isOwner"
+				[units]="[false, true]"
+				[label]="'keyword.capitalize.isOwner' | translate"
+				[control]="form.controls.isOwner"/>
+
+			<!-- TODO: Add permissions management component -->
+			<div class="bg-gray-50 border rounded-lg p-4">
+				<strong>{{ 'keyword.capitalize.permissions' | translate }}</strong>
+				<div class="text-gray-500 mt-2">
+					{{ 'keyword.capitalize.soon' | translate }}
+				</div>
+			</div>
+
+			<div class="flex justify-end gap-2">
+				<button type="button" primary (click)="save()">
+					{{ 'keyword.capitalize.save' | translate }}
+				</button>
+			</div>
+		</form>
+	</bee-card>
+</div> 

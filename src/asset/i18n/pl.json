@@ -1224,6 +1224,8 @@
 				"NIGHT": "Noc"
 			},
 			"permission": "Uprawnienie",
+			"permissions": "Uprawnienia",
+			"noPermissions": "Brak uprawnień",
 			"phone": "Telefon",
 			"placeholder": {
 				"description": "Wprowadź szczegóły",
@@ -1609,7 +1611,24 @@
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Właściciel",
-		"SPECIALIST": "Specjalista"
+		"SPECIALIST": "Specjalista",
+		"button": {
+			"create": "Dodaj rolę"
+		},
+		"details": {
+			"title": "Informacje o roli"
+		},
+		"form": {
+			"title": {
+				"create": "Dodaj rolę",
+				"edit": "Edytuj rolę"
+			}
+		},
+		"owner": "Właściciel",
+		"title": "Rola",
+		"toast": {
+			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodać więcej ról."
+		}
 	},
 	"service": {
 		"action": {

@@ -16,7 +16,7 @@ import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
+
 import ERole from "@tenant/member/roles/domain/entity/e.role";
 import {IRole} from "@tenant/member/roles/domain";
 import {
@@ -24,7 +24,7 @@ import {
 } from "@tenant/member/roles/infrastructure/state/presentation/role.presentation.actions";
 
 @Component({
-	selector: 'member-table-list-component',
+	selector: 'role-table-list-component',
 	template: `
 		<app-table-ngx-datatable-smart-component
 			(activate)="activate($event)"
@@ -43,101 +43,67 @@ import {
 				class="block h-full"
 				(clickListener)="openForm()"
 				[showLinkToForm]="true"
-				[linkLabel]="'member.button.create' | translate"
+				[linkLabel]="'role.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
-				<member-auto-refresh-component/>
+				<role-auto-refresh-component/>
 			</not-found-table-data-component>
 
 		</app-table-ngx-datatable-smart-component>
 		<ng-template #actionCellTemplate let-row="row">
-			<member-row-action-button-component
+			<role-row-action-button-component
 				[item]="row"
 				[id]="row._id"/>
 		</ng-template>
 
-		<ng-template #assignmentsServiceCellTemplate let-row="row">
-
-			<div>
-				@if (row?.assignments?.service?.full) {
-
-
-					<div
-						class="inline-block border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
-						{{ 'keyword.lowercase.all' | translate }}
-					</div>
-
-				} @else {
-
-
-					@if (row?.assignments?.service?.include?.length) {
-
-
-						<div
-							class="inline-block border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
-							{{ row.assignments.service.include.length }}
-						</div>
-
-					} @else {
-
-
-						<div
-							class="inline-block border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
-							{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
-						</div>
-
-					}
-
-				}
-			</div>
-		</ng-template>
-		<ng-template #fullNameCellTemplate let-row="row">
+		<ng-template #nameCellTemplate let-row="row">
 			<div class="flex gap-2">
-
 				<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
-					@if (row?.avatar?.url) {
-
-						<img [src]="row.avatar.url"
-							 class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover"
-							 alt="">
-
-					} @else {
-
-
-						<div class="text-white text-xs font-bold">{{ row?.firstName?.[0] ?? '' }}</div>
-
-						<div class="text-white text-xs font-bold">{{ row?.lastName?.[0] ?? '' }}</div>
-
-					}
+					<div class="text-white text-xs font-bold">{{ row?.name?.[0] ?? 'R' }}</div>
 				</div>
 				<span class="truncate">
-			{{ row.firstName }} {{ row.lastName }}
-			</span>
+					{{ row.name }}
+				</span>
 			</div>
 		</ng-template>
-		<ng-template #profileStatusCellTemplate let-row="row">
-			{{ ('member.enum.profileStatus.' + row.profileStatus) | translate }}
-		</ng-template>
-		<ng-template #roleCellTemplate let-row="row">
-			{{ 'role.' + row.role | translate }}
-		</ng-template>
-		<ng-template #emailCellTemplate let-row="row">
-			@if (row.email?.length) {
-				<a [href]="'mailto:' + row.email" (click)="$event.stopPropagation();" class="truncate inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-sm font-medium transition-all bg-neutral-100 hover:bg-neutral-200 text-neutral-800 dark:bg-white/10 dark:text-white">
-					{{ row.email }}
-					<i class="text-neutral-400 bi bi-envelope-plus"></i>
-				</a>
+		<ng-template #isOwnerCellTemplate let-row="row">
+			@if (row.isOwner) {
+				<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-800/30 dark:text-purple-500">
+					{{ 'keyword.capitalize.yes' | translate }}
+				</div>
 			} @else {
-				<no-available/>
+				<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-500">
+					{{ 'keyword.capitalize.no' | translate }}
+				</div>
 			}
 		</ng-template>
-		<ng-template #phoneCellTemplate let-row="row">
-			@if (row.phone?.length) {
-				<a [href]="'tel:' + row.phone" (click)="$event.stopPropagation();" class="truncate inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-sm font-medium transition-all bg-neutral-100 hover:bg-neutral-200 text-neutral-800 dark:bg-white/10 dark:text-white">
-					{{ row.phone }}
-					<i class="text-neutral-400 bi bi-telephone-outbound"></i>
-				</a>
+		<ng-template #permissionsCellTemplate let-row="row">
+			@if (row.permissions?.length) {
+				<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500">
+					{{ row.permissions.length }}
+				</div>
 			} @else {
-				<no-available/>
+				<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-500">
+					{{ 'keyword.capitalize.none' | translate }}
+				</div>
+			}
+		</ng-template>
+		<ng-template #stateCellTemplate let-row="row">
+			@switch (row.state) {
+				@case ('active') {
+					<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
+						{{ ('keyword.capitalize.active') | translate }}
+					</div>
+				}
+				@case ('inactive') {
+					<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+						{{ ('keyword.capitalize.inactive') | translate }}
+					</div>
+				}
+				@case ('archived') {
+					<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500">
+						{{ ('keyword.capitalize.archived') | translate }}
+					</div>
+				}
 			}
 		</ng-template>
 	`,
@@ -149,7 +115,6 @@ import {
 		TranslatePipe,
 		AutoRefreshButtonComponent,
 		NotFoundTableDataComponent,
-		NoAvailable
 	],
 	host: {
 		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
@@ -157,19 +122,31 @@ import {
 })
 export class TableListComponent extends TableComponent<ERole> {
 
-	public readonly assignmentsServiceCellTemplate = viewChild<TemplateRef<any>>('assignmentsServiceCellTemplate');
-	public readonly fullNameCellTemplate = viewChild<TemplateRef<any>>('fullNameCellTemplate');
-	public readonly profileStatusCellTemplate = viewChild<TemplateRef<any>>('profileStatusCellTemplate');
-	public readonly emailCellTemplate = viewChild<TemplateRef<any>>('emailCellTemplate');
-	public readonly phoneCellTemplate = viewChild<TemplateRef<any>>('phoneCellTemplate');
-	public readonly roleCellTemplate = viewChild<TemplateRef<any>>('roleCellTemplate');
+	public readonly nameCellTemplate = viewChild<TemplateRef<any>>('nameCellTemplate');
+	public readonly isOwnerCellTemplate = viewChild<TemplateRef<any>>('isOwnerCellTemplate');
+	public readonly permissionsCellTemplate = viewChild<TemplateRef<any>>('permissionsCellTemplate');
+	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly columns = signal<TableColumn<ERole>[]>([
 		{
-			name: this.translateService.instant('keyword.capitalize.role'),
+			name: this.translateService.instant('keyword.capitalize.name'),
 			prop: 'name',
 			minWidth: 200,
 			width: 200,
 			sortable: true
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.isOwner'),
+			prop: 'isOwner',
+			minWidth: 120,
+			width: 120,
+			sortable: false,
+		},
+		{
+			name: this.translateService.instant('keyword.capitalize.permissions'),
+			prop: 'permissions',
+			minWidth: 140,
+			width: 140,
+			sortable: false,
 		},
 		{
 			name: this.translateService.instant('keyword.capitalize.status'),
@@ -198,34 +175,23 @@ export class TableListComponent extends TableComponent<ERole> {
 
 	public readonly columnList = computed(() => {
 		const columns = this.columns();
-		const assignmentsServiceCellTemplate = this.assignmentsServiceCellTemplate();
-		if (assignmentsServiceCellTemplate) {
-			this.setCellTemplateRef(columns, 'assignmentsService', assignmentsServiceCellTemplate);
+		const nameCellTemplate = this.nameCellTemplate();
+		if (nameCellTemplate) {
+			this.setCellTemplateRef(columns, 'name', nameCellTemplate);
 		}
-		const fullNameCellTemplate = this.fullNameCellTemplate();
-		if (fullNameCellTemplate) {
-			this.setCellTemplateRef(columns, 'fullName', fullNameCellTemplate);
+		const isOwnerCellTemplate = this.isOwnerCellTemplate();
+		if (isOwnerCellTemplate) {
+			this.setCellTemplateRef(columns, 'isOwner', isOwnerCellTemplate);
 		}
-		const profileStatusCellTemplate = this.profileStatusCellTemplate();
-		if (profileStatusCellTemplate) {
-			this.setCellTemplateRef(columns, 'active', profileStatusCellTemplate);
+		const permissionsCellTemplate = this.permissionsCellTemplate();
+		if (permissionsCellTemplate) {
+			this.setCellTemplateRef(columns, 'permissions', permissionsCellTemplate);
 		}
-		const emailCellTemplate = this.emailCellTemplate();
-		if (emailCellTemplate) {
-			this.setCellTemplateRef(columns, 'email', emailCellTemplate);
-		}
-
-		const phoneCellTemplate = this.phoneCellTemplate();
-		if (phoneCellTemplate) {
-			this.setCellTemplateRef(columns, 'phone', phoneCellTemplate);
-		}
-
-		const roleCellTemplate = this.roleCellTemplate();
-		if (roleCellTemplate) {
-			this.setCellTemplateRef(columns, 'role', roleCellTemplate);
+		const stateCellTemplate = this.stateCellTemplate();
+		if (stateCellTemplate) {
+			this.setCellTemplateRef(columns, 'state', stateCellTemplate);
 		}
 		return columns;
-
 	});
 
 	public activate($event: ActivateEvent<IRole.EntityRaw>) {

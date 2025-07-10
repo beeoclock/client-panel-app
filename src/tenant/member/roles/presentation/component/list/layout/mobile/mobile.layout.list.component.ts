@@ -2,11 +2,11 @@ import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
 import {NgClass} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@shared/layout.list.component";
-import {CardListComponent} from "@tenant/member/member/presentation/component/list/card/card.list.component";
-import {FilterComponent} from "@tenant/member/member/presentation/component/filter/filter.component";
+import {CardListComponent} from "@tenant/member/roles/presentation/component/list/card/card.list.component";
+import {FilterComponent} from "@tenant/member/roles/presentation/component/filter/filter.component";
 
 @Component({
-	selector: 'member-mobile-layout-list-component',
+	selector: 'role-mobile-layout-list-component',
 	templateUrl: './mobile.layout.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,

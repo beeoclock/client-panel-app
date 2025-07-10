@@ -7,8 +7,8 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {Router} from "@angular/router";
 
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
-import MemberDetailsContainerComponent
-	from "@tenant/member/member/presentation/component/details-container/member-details-container.component";
+import RoleDetailsContainerComponent
+	from "@tenant/member/roles/presentation/component/details-container/role-details-container.component";
 import {
 	RolePresentationActions
 } from "@tenant/member/roles/infrastructure/state/presentation/role.presentation.actions";
@@ -49,13 +49,13 @@ export class RolePresentationState {
 
 		if (activated) {
 
-			if (activated instanceof MemberDetailsContainerComponent) {
+			if (activated instanceof RoleDetailsContainerComponent) {
 
 				const {_id} = activated.item() ?? {};
 
 				if (_id === payload._id) {
 
-					await this.router.navigate([{outlets: {second: ['roles', payload._id]}}], {
+					await this.router.navigate([{outlets: {second: ['role', payload._id]}}], {
 						onSameUrlNavigation: 'reload',
 					});
 
@@ -73,7 +73,7 @@ export class RolePresentationState {
 		const activated = this.secondRouterOutletService.activated();
 
 		if (activated) {
-			if (activated instanceof MemberDetailsContainerComponent) {
+			if (activated instanceof RoleDetailsContainerComponent) {
 				const {_id} = activated.item() ?? {};
 				if (_id === payload._id) {
 					ctx.dispatch(new RolePresentationActions.CloseDetails());
@@ -89,11 +89,11 @@ export class RolePresentationState {
 	@Action(RolePresentationActions.OpenFormToEditById)
 	public async openFormToEditById(ctx: StateContext<IRolePresentationState>, {payload: id}: RolePresentationActions.OpenFormToEditById) {
 
-		const title = this.translateService.instant('member.form.title.edit');
-		const item = await this.sharedUow.member.repository.findByIdAsync(id);
+		const title = this.translateService.instant('role.form.title.edit');
+		const item = await this.sharedUow.role.repository.findByIdAsync(id);
 
 		if (!item) {
-			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
+			this.ngxLogger.error('RoleState.openDetailsById', 'Item not found');
 			return;
 		}
 

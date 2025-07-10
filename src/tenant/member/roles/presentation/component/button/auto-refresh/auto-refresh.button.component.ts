@@ -5,7 +5,7 @@ import {
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
-	selector: 'member-auto-refresh-component',
+	selector: 'role-auto-refresh-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `

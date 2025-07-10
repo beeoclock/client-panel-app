@@ -1224,6 +1224,8 @@
 				"NIGHT": "Night"
 			},
 			"permission": "Permission",
+			"permissions": "Permissions",
+			"noPermissions": "No permissions",
 			"phone": "Phone",
 			"placeholder": {
 				"description": "Type description",
@@ -1609,7 +1611,24 @@
 	"role": {
 		"ADMIN": "Admin",
 		"OWNER": "Owner",
-		"SPECIALIST": "Specialist"
+		"SPECIALIST": "Specialist",
+		"button": {
+			"create": "Add role"
+		},
+		"details": {
+			"title": "Role information"
+		},
+		"form": {
+			"title": {
+				"create": "Add role",
+				"edit": "Edit role"
+			}
+		},
+		"owner": "Owner",
+		"title": "Role",
+		"toast": {
+			"limit": "Limit reached. Upgrade to a higher plan to add more roles."
+		}
 	},
 	"service": {
 		"action": {

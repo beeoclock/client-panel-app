@@ -2,12 +2,57 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Chrome against localhost",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:/*": "${webRoot}/*",
+        "/./*": "${webRoot}/*",
+        "/src/*": "${webRoot}/src/*",
+        "/*": "*",
+        "/./~/*": "${webRoot}/node_modules/*"
+      }
+    },
+    {
+      "name": "Launch Chrome against localhost (Identity)",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:4200/identity",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:/*": "${webRoot}/*",
+        "/./*": "${webRoot}/*",
+        "/src/*": "${webRoot}/src/*",
+        "/*": "*",
+        "/./~/*": "${webRoot}/node_modules/*"
+      }
+    },
+    {
+      "name": "Attach to Chrome",
+      "type": "pwa-chrome",
+      "request": "attach",
+      "port": 9222,
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:/*": "${webRoot}/*",
+        "/./*": "${webRoot}/*",
+        "/src/*": "${webRoot}/src/*",
+        "/*": "*",
+        "/./~/*": "${webRoot}/node_modules/*"
+      }
+    },
+    {
       "name": "ng serve (Vivaldi)",
       "type": "pwa-chrome",
       "request": "launch",
       "preLaunchTask": "npm: start",
       "url": "http://localhost:4200/",
-      "runtimeExecutable": "/path/to/vivaldi",  // CHANGE THIS
+      "runtimeExecutable": "/path/to/vivaldi",
       "runtimeArgs": [
         "--incognito",
         "--remote-debugging-port=9222"
@@ -19,7 +64,7 @@
       "request": "launch",
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html",
-      "runtimeExecutable": "/path/to/vivaldi",  // CHANGE THIS
+      "runtimeExecutable": "/path/to/vivaldi",
       "runtimeArgs": [
         "--incognito",
         "--remote-debugging-port=9222"

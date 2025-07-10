@@ -8,9 +8,9 @@ import LayoutListComponent from "@shared/layout.list.component";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<member-filter-component/>
+		<role-filter-component/>
 
-		<member-table-list-component class="flex flex-1 flex-col"/>
+		<role-table-list-component class="flex flex-1 flex-col"/>
 
 	`,
 	imports: [

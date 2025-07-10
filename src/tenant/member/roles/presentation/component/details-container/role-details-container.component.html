@@ -1,0 +1,78 @@
+@if (item(); as item) {
+	<div class="bg-white">
+		<dl class="divide-y divide-gray-100">
+			<div class="p-2 flex justify-end">
+				<role-row-action-button-component
+					[hide]="['details']"
+					[item]="item"
+					[id]="item._id"/>
+			</div>
+			<div class="p-4 gap-4 flex">
+				<div
+					class="text-neutral-400 font-extrabold text-6xl min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex items-center justify-center bg-neutral-200 rounded-xl">
+					<span class="">{{ (item.name ?? '')[0] }}</span>
+				</div>
+				<div class="flex flex-col justify-between">
+					<div class="flex flex-col gap-2">
+						<div>
+							@switch (item.state) {
+								@case ('active') {
+									<div
+										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
+										{{ ('keyword.capitalize.active') | translate }}
+									</div>
+								}
+								@case ('inactive') {
+									<div
+										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+										{{ ('keyword.capitalize.inactive') | translate }}
+									</div>
+								}
+								@case ('archived') {
+									<div
+										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500">
+										{{ ('keyword.capitalize.archived') | translate }}
+									</div>
+								}
+							}
+						</div>
+						<div>
+							@if (item.isOwner) {
+								<div
+									class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-800/30 dark:text-purple-500">
+									{{ 'role.owner' | translate }}
+								</div>
+							}
+						</div>
+					</div>
+					<div class="font-bold flex flex-col">
+						<span class="text-4xl">{{ item.name }}</span>
+					</div>
+				</div>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.permissions' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex flex-wrap gap-2">
+					@if (item.permissions?.length) {
+						@for (permission of item.permissions; track permission.code) {
+							<div
+								class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500">
+								{{ permission.scope }} ({{ permission.code }})
+							</div>
+						}
+					} @else {
+						<div
+							class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-500">
+							{{ 'keyword.capitalize.noPermissions' | translate }}
+						</div>
+					}
+				</dd>
+			</div>
+		</dl>
+	</div>
+
+	<standard-details-entity [item]="item"/>
+
+} 

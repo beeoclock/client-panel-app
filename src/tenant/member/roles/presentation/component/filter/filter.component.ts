@@ -1,5 +1,5 @@
 import {Component, inject, input} from '@angular/core';
-import {FilterForm} from "@tenant/member/member/presentation/form/filter.form";
+import {FilterForm} from "@tenant/member/roles/presentation/form/filter.form";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {BaseFilterComponent} from "@shared/base.filter.component";
@@ -8,13 +8,13 @@ import {SPECIALIST_LIMIT} from "@tenant/tenant.token";
 import {is} from "@core/shared/checker";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {ToastController} from "@ionic/angular/standalone";
-import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/member.data.state";
+import {RoleDataState} from "@tenant/member/roles/infrastructure/state/data/role.data.state";
 import {
-	MemberPresentationActions
-} from "@tenant/member/member/infrastructure/state/presentation/member.presentation.actions";
+	RolePresentationActions
+} from "@tenant/member/roles/infrastructure/state/presentation/role.presentation.actions";
 
 @Component({
-	selector: 'member-filter-component',
+	selector: 'role-filter-component',
 	standalone: true,
 	imports: [
 		TranslateModule,
@@ -52,7 +52,7 @@ export class FilterComponent extends BaseFilterComponent {
 	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
-	public override readonly state = MemberDataState;
+	public override readonly state = RoleDataState;
 
 	private readonly specialistLimit$ = inject(SPECIALIST_LIMIT);
 	private readonly sharedUow = inject(SharedUow);
@@ -67,11 +67,11 @@ export class FilterComponent extends BaseFilterComponent {
 	public async openForm() {
 
 		const specialistLimit = this.specialistLimit$.value;
-		const actualMembersCount = await this.sharedUow.member.count();
+		const actualRolesCount = await this.sharedUow.role.count();
 
-		if (is.number(specialistLimit) && specialistLimit <= actualMembersCount) {
+		if (is.number(specialistLimit) && specialistLimit <= actualRolesCount) {
 			const toast = await this.toastController.create({
-				message: this.translateService.instant('member.toast.limit'),
+				message: this.translateService.instant('role.toast.limit'),
 				color: 'warning',
 				duration: 5_000,
 				position: 'top',
@@ -80,7 +80,7 @@ export class FilterComponent extends BaseFilterComponent {
 			return;
 		}
 
-		this.store.dispatch(new MemberPresentationActions.OpenForm());
+		this.store.dispatch(new RolePresentationActions.OpenForm());
 	}
 
 }
