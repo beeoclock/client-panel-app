@@ -23,6 +23,9 @@ import {
 	TenantPluginDexieAdapterIndexedDBDataProvider
 } from "@tenant/plugin/tenant-plugin/infrastructure/data-provider/indexedDB/adapter/tenant-plugin.dexie.adapter.indexedDB.data-provider";
 import {GetFunctionsApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/get-functions.api";
+import {
+	GetPaymentStripeDashboardUrlApi
+} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/get-payment-stripe-dashboard-url.api";
 
 @NgModule({
 	imports: [
@@ -39,6 +42,7 @@ import {GetFunctionsApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-
 		DetachPluginApi,
 		ExecuteFunctionApi,
 		GetFunctionsApi,
+		GetPaymentStripeDashboardUrlApi,
 
 		// Data Provider
 		ApiDataProvider,

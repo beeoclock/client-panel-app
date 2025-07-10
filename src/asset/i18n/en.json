@@ -1765,6 +1765,11 @@
 				"detach": "Disable"
 			},
 			"subtitle": "With plugins, you can get more features and automate certain processes. Connect and automate!"
+		},
+		"plugin": {
+			"payment-stripe": {
+				"open-dashboard": "Go to Stripe"
+			}
 		}
 	},
 	"updateAvailable": {

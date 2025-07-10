@@ -7,10 +7,18 @@ export enum tenantPluginEndpointEnum {
 	detachPlugin = '/api/v1/plugins/detach-plugin/{pluginName}',
 	executeFunction = '/api/v1/plugins/{pluginName}/{functionName}',
 	getFunctions = '/api/v1/store/{pluginName}/functions',
+	getPaymentStripeDashboardUrl = '/api/v1/plugins/paymentStripe/getDashboardUrl',
 }
 
 export const tenantPluginEndpoint: EndpointCollectionType = {
 	GET: {
+		[tenantPluginEndpointEnum.getPaymentStripeDashboardUrl]: {
+			source: SourceNetworkEnum.plugin,
+			header: {
+				authorization: true,
+				tenantId: true,
+			}
+		},
 		[tenantPluginEndpointEnum.paged]: {
 			source: SourceNetworkEnum.plugin,
 			header: {
