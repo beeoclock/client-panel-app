@@ -368,7 +368,7 @@
 					"logo": {
 						"fileover": "Umieść swoje pliki tutaj",
 						"formats": "Obsługiwane formaty: SVG, PNG, JPG lub GIF",
-						"motivate": "Możesz nadać profilowi swojej firmy nieco więcej osobowości i pomóc innym rozpoznać Cię, przesyłając logo (obraz, zdjęcie lub inną ikonę graficzną przedstawiającą „ty”).",
+						"motivate": "Możesz nadać profilowi swojej firmy nieco więcej osobowości i pomóc innym rozpoznać Cię, przesyłając logo (obraz, zdjęcie lub inną ikonę graficzną przedstawiającą „ty").",
 						"title": "Logo"
 					}
 				}
@@ -474,7 +474,7 @@
 		"button": {
 			"delete": {
 				"confirm": {
-					"message": "Czy na pewno chcesz usunąć klienta biznesowego, wszystkie dane zostaną usunięte i nie będzie można ich przywrócić, a wszyscy użytkownicy, którzy mieli dostęp do tego klienta biznesowego, również utracą dostęp, jeśli chcesz tylko opuścić tego klienta biznesowego, kliknij przycisk „Wyjdź z tego klienta biznesowego”.",
+					"message": "Czy na pewno chcesz usunąć klienta biznesowego, wszystkie dane zostaną usunięte i nie będzie można ich przywrócić, a wszyscy użytkownicy, którzy mieli dostęp do tego klienta biznesowego, również utracą dostęp, jeśli chcesz tylko opuścić tego klienta biznesowego, kliknij przycisk „Wyjdź z tego klienta biznesowego".",
 					"sub-title": "Po usunięciu klienta biznesowego nie ma możliwości powrotu. Upewnij się.",
 					"title": "Usuń klienta biznesowego"
 				},
@@ -1612,6 +1612,11 @@
 		"ADMIN": "Administrator",
 		"OWNER": "Właściciel",
 		"SPECIALIST": "Specjalista",
+		"action": {
+			"delete": {
+				"question": "Czy na pewno chcesz usunąć rolę?"
+			}
+		},
 		"button": {
 			"create": "Dodaj rolę"
 		},
@@ -1627,7 +1632,8 @@
 		"owner": "Właściciel",
 		"title": "Rola",
 		"toast": {
-			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodać więcej ról."
+			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodać więcej ról.",
+			"cannotDeleteOwner": "Roli właściciela nie można usunąć."
 		}
 	},
 	"service": {

@@ -1612,6 +1612,11 @@
 		"ADMIN": "Admin",
 		"OWNER": "Owner",
 		"SPECIALIST": "Specialist",
+		"action": {
+			"delete": {
+				"question": "Are you sure you want to delete the role?"
+			}
+		},
 		"button": {
 			"create": "Add role"
 		},
@@ -1627,7 +1632,8 @@
 		"owner": "Owner",
 		"title": "Role",
 		"toast": {
-			"limit": "Limit reached. Upgrade to a higher plan to add more roles."
+			"limit": "Limit reached. Upgrade to a higher plan to add more roles.",
+			"cannotDeleteOwner": "Owner role cannot be deleted."
 		}
 	},
 	"service": {

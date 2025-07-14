@@ -136,7 +136,7 @@ export class RoleDataState {
 			const inState = (
 				params?.state ?
 					[params.state] :
-					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
+					[StateEnum.active, StateEnum.archived, StateEnum.inactive, StateEnum.deleted]
 			);
 
 			const {items, totalSize} = await this.sharedUow.role.repository.findAsync({
@@ -179,7 +179,7 @@ export class RoleDataState {
 	}
 
 	@Action(RoleDataActions.SetStatus)
-	public async SetStatus(ctx: StateContext<IRoleState>, {item}: RoleDataActions.SetStatus) {
+	public async setStatus(ctx: StateContext<IRoleState>, {item}: RoleDataActions.SetStatus) {
 		const foundItems = await this.sharedUow.role.repository.findByIdAsync(item._id);
 		if (foundItems) {
 			const entity = ERole.fromRaw(foundItems);

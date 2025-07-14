@@ -104,6 +104,11 @@ import {
 						{{ ('keyword.capitalize.archived') | translate }}
 					</div>
 				}
+				@case ('deleted') {
+					<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-500">
+						{{ ('keyword.capitalize.deleted') | translate }}
+					</div>
+				}
 			}
 		</ng-template>
 	`,

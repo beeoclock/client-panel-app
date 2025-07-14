@@ -9,6 +9,8 @@ import {RoleDataActions} from "@tenant/member/roles/infrastructure/state/data/ro
 import {
 	RolePresentationActions
 } from "@tenant/member/roles/infrastructure/state/presentation/role.presentation.actions";
+import {ToastController} from "@ionic/angular/standalone";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
 	selector: 'role-row-action-button-component',
@@ -17,7 +19,7 @@ import {
 	template: `
 		<utility-table-column-action
 			[id]="id()"
-			[hide]="hide()"
+			[hide]="computedHide()"
 			[state]="statusAsState()"
 			(open)="open()"
 			(delete)="delete()"
@@ -43,6 +45,17 @@ export class RowActionButtonComponent {
 	});
 
 	private readonly store = inject(Store);
+	private readonly toastController = inject(ToastController);
+	private readonly translate = inject(TranslateService);
+
+	public readonly computedHide = computed(() => {
+		const allowed: ('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[] = ['details', 'edit', 'delete', 'activate', 'deactivate'];
+		let base = (this.hide() ?? []).filter((x): x is typeof allowed[number] => allowed.includes(x as any));
+		if (this.item()?.isOwner && !base.includes('delete')) {
+			base = [...base, 'delete'];
+		}
+		return base;
+	});
 
 	public activate() {
 		this.setState(StateEnum.active);
@@ -52,7 +65,23 @@ export class RowActionButtonComponent {
 		this.setState(StateEnum.inactive);
 	}
 
-	public delete() {
+	public async delete() {
+		if (this.item()?.isOwner) {
+			const toast = await this.toastController.create({
+				message: this.translate.instant('role.toast.cannotDeleteOwner'),
+				color: 'warning',
+				duration: 4000,
+				position: 'top',
+			});
+			await toast.present();
+			return;
+		}
+
+		const question = this.translate.instant('role.action.delete.question');
+		if (!confirm(question)) {
+			return;
+		}
+
 		this.setState(StateEnum.deleted);
 	}
 

@@ -2,7 +2,6 @@ import {Routes} from '@angular/router';
 import {customerResolver} from "@tenant/customer/presentation/resolver/customer.resolver";
 import {absenceResolver} from "@tenant/member/absence/presentation/ui/resolver/absence.resolver";
 import {memberResolver} from "@tenant/member/member/presentation/resolver/member.resolver";
-import {roleResolver} from "@tenant/member/roles/presentation/resolver/role.resolver";
 import {serviceResolver} from "@tenant/service/presentation/resolver/service.resolver";
 import {orderResolver} from "@tenant/order/order/presentation/resolver/order.resolver";
 import {paymentByOrderIdResolver} from "@tenant/order/payment/presentation/resolver/payment-by-order-id.resolver";
@@ -118,36 +117,7 @@ export const tenantSecondRouters: Routes = [
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/member/member/presentation/component/form/member-form-container/member-form-container.component')
 	},
-	/**
-	 * Role
-	 */
-	{
-		path: 'role/form',
-		outlet: 'second',
-		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/member/roles/presentation/component/form/role-form-container/role-form-container.component').then(m => m.RoleFormContainerComponent)
-	},
-	{
-		path: 'role/:id',
-		outlet: 'second',
-		resolve: {
-			item: roleResolver,
-		},
-		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/member/roles/presentation/component/details-container/role-details-container.component').then(m => m.RoleDetailsContainerComponent)
-	},
-	{
-		path: 'role/:id/form',
-		outlet: 'second',
-		resolve: {
-			item: roleResolver,
-		},
-		data: {
-			isEditMode: true
-		},
-		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/member/roles/presentation/component/form/role-form-container/role-form-container.component').then(m => m.RoleFormContainerComponent)
-	},
+
 	/**
 	 * Service
 	 */
