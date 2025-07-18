@@ -18,6 +18,7 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 import {interval} from "rxjs";
 import {tap} from "rxjs/operators";
 import {injectNetwork} from "ngxtension/inject-network";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	standalone: true,
@@ -96,6 +97,7 @@ import {injectNetwork} from "ngxtension/inject-network";
 })
 export class SyncButtonComponent implements OnInit {
 
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly network = injectNetwork();
 
@@ -128,18 +130,18 @@ export class SyncButtonComponent implements OnInit {
 	public syncAll() {
 		if (BaseSyncManager.isPaused$.value) {
 			BaseSyncManager.resumeAll().then(() => {
-				console.log('resumeAll done');
+				this.ngxLogger.debug('SyncButtonComponent', 'resumeAll done');
 			});
 		} else {
 			BaseSyncManager.syncAll().then(() => {
-				console.log('syncAll done');
+				this.ngxLogger.debug('SyncButtonComponent', 'syncAll done');
 			});
 		}
 	}
 
 	public pauseAll() {
 		BaseSyncManager.pauseAll().then(() => {
-			console.log('pauseAll done');
+			this.ngxLogger.debug('SyncButtonComponent', 'pauseAll done');
 		});
 	}
 
