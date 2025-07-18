@@ -10,7 +10,6 @@ export const firebase = [
 		initializeApp(environment.firebase.options)
 	),
 	provideAnalytics(() => getAnalytics()),
-	provideMessaging(() => getMessaging()),
 	provideAuth(() => {
 		const auth = getAuth();
 		auth.setPersistence(browserLocalPersistence)
@@ -23,3 +22,9 @@ export const firebase = [
 		return auth;
 	}),
 ];
+
+if (environment.firebase.use.messaging) {
+	firebase.push(
+		provideMessaging(() => getMessaging()),
+	)
+}

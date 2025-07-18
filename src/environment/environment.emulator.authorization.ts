@@ -31,6 +31,9 @@ export const environment = {
 			all: false,
 			authorization: true,
 			functions: false
+		},
+		use: {
+			messaging: true,
 		}
 	},
 	urls: {

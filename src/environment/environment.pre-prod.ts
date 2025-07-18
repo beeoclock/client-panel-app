@@ -1,19 +1,19 @@
 import {config, constant, endpoint} from "@environment/constant";
 
 export const environment = {
-	production: true,
-	develop: false,
+	production: false,
+	develop: true,
 	emulator: false,
 	proxy: false,
 	setDefaultValueToInputs: false,
 	apiUrls: {
-		analytic: 'https://api.beeoclock.com/analytic',
-		panel: 'https://api.beeoclock.com/panel',
-		identity: 'https://api.beeoclock.com/identity',
-		tariffPlan: 'https://api.beeoclock.com/tariff-plan',
-		plugin: 'https://api.beeoclock.com/plugin',
+		analytic: 'https://api-pre-prod.beeoclock.com/analytic',
+		panel: 'https://api-pre-prod.beeoclock.com/panel',
+		identity: 'https://api-pre-prod.beeoclock.com/identity',
+		tariffPlan: 'https://api-pre-prod.beeoclock.com/tariff-plan',
+		plugin: 'https://api-pre-prod.beeoclock.com/plugin',
 		ws: {
-			url: 'https://api.beeoclock.com',
+			url: 'https://api-pre-prod.beeoclock.com',
 			path: '/ws/panel/socket.io'
 		}
 	},
@@ -41,9 +41,9 @@ export const environment = {
 		}
 	},
 	urls: {
-		publicPageOrigin: 'https://beeoclock.com',
+		publicPageOrigin: 'https://pre-prod.beeoclock.com',
 	},
 	footer: {
-		label: `Bee o'clock © 2025`
+		label: `Bee o'clock Dev © 2025`
 	}
 };
