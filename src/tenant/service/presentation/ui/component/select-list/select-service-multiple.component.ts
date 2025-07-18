@@ -19,7 +19,7 @@ import {IService} from "@tenant/service/domain/interface/i.service";
 					/>
 
 					<div class="p-3 flex flex-col flex-1">
-						<h3>{{ service.languageVersions[0].title }}</h3>
+						<h3 class="break-all">{{ service.languageVersions[0].title }}</h3>
 
 						<div class="flex gap-3">
 							<div
@@ -54,9 +54,9 @@ import {IService} from "@tenant/service/domain/interface/i.service";
 
 			</div>
 		} @else {
-			<div class="rounded-2xl p-3 flex w-full justify-between items-start">
+			<div class="rounded-2xl p-3 flex w-full justify-between items-start gap-2">
 				<div>
-					<h3>{{ service.languageVersions[0].title }}</h3>
+					<h3 class="break-all">{{ service.languageVersions[0].title }}</h3>
 
 					<div class="flex gap-3">
 						<div

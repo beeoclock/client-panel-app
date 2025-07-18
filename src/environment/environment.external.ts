@@ -11,14 +11,14 @@ export const environment = {
 	proxy: false,
 	setDefaultValueToInputs: false,
 	apiUrls: {
-		analytic: 'http://localhost:3004',
-		panel: 'http://localhost:3000',
-		identity: 'http://localhost:4000',
-		tariffPlan: 'http://localhost:3006',
-		plugin: 'http://localhost:3005',
+		analytic: 'https://api-dev.beeoclock.com/analytic',
+		panel: 'https://api-dev.beeoclock.com/panel',
+		identity: 'https://api-dev.beeoclock.com/identity',
+		tariffPlan: 'https://api-dev.beeoclock.com/tariff-plan',
+		plugin: 'https://api-dev.beeoclock.com/plugin',
 		ws: {
-			url: 'http://localhost:3000',
-			path: '/socket.io'
+			url: 'https://api-dev.beeoclock.com',
+			path: '/ws/panel/socket.io'
 		}
 	},
 	endpoint,
@@ -26,14 +26,14 @@ export const environment = {
 	config,
 	firebase: {
 		options: {
-			apiKey: "AIzaSyDwj-I3xgErbKnJqMVGqd1uqIb20qRlS44",
-			authDomain: "bee-o-clock.firebaseapp.com",
-			projectId: "bee-o-clock",
-			storageBucket: "bee-o-clock.appspot.com",
-			messagingSenderId: "188732223564",
-			appId: "1:188732223564:web:734881810e32c41d0504e9",
-			measurementId: "G-J1X4CB0RYW",
-			vapidKey: "BKodl-cUANXAL7BR8m1MFJHuXnTSfIh35T4rJIVKOGarmahKI0k8d"
+			apiKey: "AIzaSyDpqktdOQyijnyCaiaOl3_DxUQhTu3PjUg",
+			authDomain: "beeoclock-develop.firebaseapp.com",
+			projectId: "beeoclock-develop",
+			storageBucket: "beeoclock-develop.appspot.com",
+			messagingSenderId: "957741407419",
+			appId: "1:957741407419:web:f5a8613de1f0d7b2aa5d9e",
+			vapidKey: "BHlprMakUwMYPx_Y5xSF8QeaiGOAiMPhdHKmaSTUbgWFdTEsD7Ov42yTEdQdLua4HexFD85gqO1jawbSR0Q-Jw0",
+			measurementId: "G-BY8R2Y83RS"
 		},
 		emulator: {
 			all: false,
@@ -41,14 +41,14 @@ export const environment = {
 			functions: false
 		},
 		use: {
-			messaging: true,
+			messaging: false,
 		}
 	},
 	urls: {
-		publicPageOrigin: 'https://beeoclock.com',
+		publicPageOrigin: 'https://dev.beeoclock.com',
 	},
 	footer: {
-		label: `Bee o'clock Local Production © 2025`
+		label: `Bee o'clock Default © 2025`
 	}
 };
 

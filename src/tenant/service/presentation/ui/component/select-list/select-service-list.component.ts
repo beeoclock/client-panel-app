@@ -30,7 +30,7 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 		SelectServiceMultipleComponent
 	],
 	host: {
-		class: 'border border-gray-200 divide-y h-full overflow-auto rounded-2xl'
+		class: 'border border-gray-200 divide-y h-full overflow-auto rounded-2xl overflow-x-hidden'
 	}
 })
 export class SelectServiceListComponent implements OnInit {
