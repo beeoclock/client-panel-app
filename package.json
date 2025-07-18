@@ -11,7 +11,7 @@
 		"start:emulator:authorization": "ng serve --configuration emulator-authorization",
 		"start:local:external": "ng serve --configuration local --host 0.0.0.0 --disable-host-check",
 		"start:production:external": "ng serve --configuration production --host 0.0.0.0 --disable-host-check",
-		"start:external": "ng serve --host 0.0.0.0 --disable-host-check",
+		"start:external": "ng serve --host 0.0.0.0 --disable-host-check --configuration external",
 		"start:external:emulator": "ng serve --host 0.0.0.0 --disable-host-check --configuration emulator",
 		"start:external:emulator:authorization": "ng serve --host 0.0.0.0 --disable-host-check --configuration emulator-authorization",
 		"build": "ng build",

@@ -187,6 +187,21 @@
 							],
 							"outputHashing": "all"
 						},
+						"external": {
+							"buildOptimizer": false,
+							"optimization": false,
+							"vendorChunk": true,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"namedChunks": true,
+							"fileReplacements": [
+								{
+									"replace": "src/environment/environment.ts",
+									"with": "src/environment/environment.external.ts"
+								}
+							],
+							"outputHashing": "all"
+						},
 						"emulator": {
 							"buildOptimizer": false,
 							"optimization": false,
@@ -234,6 +249,9 @@
 						},
 						"development": {
 							"buildTarget": "client-panel-app:build:development"
+						},
+						"external": {
+							"buildTarget": "client-panel-app:build:external"
 						},
 						"emulator": {
 							"buildTarget": "client-panel-app:build:emulator"
