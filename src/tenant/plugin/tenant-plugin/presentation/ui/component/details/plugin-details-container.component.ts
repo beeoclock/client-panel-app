@@ -1,4 +1,4 @@
-import {afterRender, Component, computed, inject, input, OnInit, signal, ViewEncapsulation} from '@angular/core';
+import {Component, computed, inject, input, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import {Actions, ofActionErrored, ofActionSuccessful, Store} from "@ngxs/store";
 import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
 import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-plugin";
@@ -71,11 +71,6 @@ export class PluginDetailsContainerComponent implements OnInit {
 			this.loading.set(false);
 		})
 	).subscribe();
-
-	public constructor() {
-		afterRender(() => {
-		});
-	}
 
 	public ngOnInit() {
 		console.log(this.item());
