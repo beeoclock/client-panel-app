@@ -16,7 +16,7 @@ import {
 } from "@shared/presentation/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
 import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ServiceOrderForm, ServiceOrderFormArray} from "@tenant/order/order/presentation/form/service.order.form";
+import {OrderServiceForm, OrderServiceFormArray} from "@tenant/order/order/presentation/form/orderServiceForm";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ActiveEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ReservationTypeEnum} from "@tenant/order/order/domain/enum/reservation.type.enum";
@@ -33,6 +33,8 @@ import {
 import {
 	ServicePopoverChipComponent
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/service/service-popover.chip.component";
+import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
+import {CustomerForm} from "@tenant/customer/presentation/form";
 
 @Component({
 	standalone: true,
@@ -54,7 +56,8 @@ import {
 					class="w-8 rounded-lg justify-center items-center flex !py-0">
 				<i class="bi bi-plus-circle text-2xl"></i>
 			</button>
-			<app-service-popover-chip-component class="absolute" trigger="app-list-service-form-order-component-add-service"
+			<app-service-popover-chip-component class="absolute"
+												trigger="app-list-service-form-order-component-add-service"
 												(result)="addService($event)"/>
 		</div>
 		<div class="flex-col justify-start items-start flex px-1">
@@ -81,11 +84,11 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 		customer?: ICustomer.DTO;
 	}>({});
 
-	public readonly serviceOrderFormArray = input.required<ServiceOrderFormArray>();
+	public readonly orderServiceFormArray = input.required<OrderServiceFormArray>();
 
 	public readonly selectedServicePlusControlList: {
 		service: IService.DTO;
-		control: ServiceOrderForm;
+		control: OrderServiceForm;
 		setupPartialData: {
 			defaultAppointmentStartDateTimeIso: string;
 		};
@@ -110,12 +113,12 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 		}
 	}
 
-	public ngOnChanges(changes: SimpleChanges & { serviceOrderFormArray: SimpleChange }) {
-		const {serviceOrderFormArray} = changes;
-		if (!serviceOrderFormArray) {
+	public ngOnChanges(changes: SimpleChanges & { orderServiceFormArray: SimpleChange }) {
+		const {orderServiceFormArray} = changes;
+		if (!orderServiceFormArray) {
 			return;
 		}
-		const {currentValue} = serviceOrderFormArray as { currentValue: ServiceOrderFormArray };
+		const {currentValue} = orderServiceFormArray as { currentValue: OrderServiceFormArray };
 		if (!currentValue) {
 			return;
 		}
@@ -135,7 +138,7 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 
 	public deleteItem(index: number) {
 		this.selectedServicePlusControlList.splice(index, 1);
-		this.serviceOrderFormArray().removeAt(index);
+		this.orderServiceFormArray().removeAt(index);
 		this.#changeDetectorRef.detectChanges();
 	}
 
@@ -173,17 +176,32 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 				if (setupPartialData) {
 
 					if (setupPartialData.customer) {
-						attendees.push(
-							{
-								customer: setupPartialData.customer,
-								_id: ObjectID().toHexString(),
-								createdAt: DateTime.now().toJSDate().toISOString(),
-								updatedAt: DateTime.now().toJSDate().toISOString(),
-								object: "AttendeeDto",
-								state: StateEnum.active,
-								stateHistory: [],
-							} as unknown as IAttendeeDto
-						);
+						attendees.push({
+							customer: setupPartialData.customer,
+							_id: ObjectID().toHexString(),
+							createdAt: DateTime.now().toJSDate().toISOString(),
+							updatedAt: DateTime.now().toJSDate().toISOString(),
+							object: "AttendeeDto",
+							state: StateEnum.active,
+							stateHistory: [],
+							_version: "",
+						});
+					} else {
+
+						const customerForm = CustomerForm.create({
+							customerType: CustomerTypeEnum.anonymous,
+						});
+
+						attendees.push({
+							customer: customerForm.getRawValue(),
+							_version: "",
+							_id: ObjectID().toHexString(),
+							createdAt: DateTime.now().toJSDate().toISOString(),
+							updatedAt: DateTime.now().toJSDate().toISOString(),
+							object: "AttendeeDto",
+							state: StateEnum.active,
+							stateHistory: []
+						})
 					}
 				}
 			}
@@ -192,7 +210,7 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 
 			this.selectedServicePlusControlList.push({
 				service,
-				control: this.serviceOrderFormArray().pushNewOne({
+				control: this.orderServiceFormArray().pushNewOne({
 					serviceSnapshot: {
 						...service,
 						durationVersions: [{

@@ -6,12 +6,22 @@ export enum tenantPluginEndpointEnum {
 	attachPlugin = '/api/v1/plugins/attach-plugin',
 	detachPlugin = '/api/v1/plugins/detach-plugin/{pluginName}',
 	executeFunction = '/api/v1/plugins/{pluginName}/{functionName}',
+	getFunctions = '/api/v1/store/{pluginName}/functions',
+	postPaymentStripeDashboardUrl = '/api/v1/plugins/paymentStripe/getDashboardUrl',
 }
 
 export const tenantPluginEndpoint: EndpointCollectionType = {
 	GET: {
 		[tenantPluginEndpointEnum.paged]: {
 			source: SourceNetworkEnum.plugin,
+			header: {
+				authorization: true,
+				tenantId: true,
+			}
+		},
+		[tenantPluginEndpointEnum.getFunctions]: {
+			source: SourceNetworkEnum.plugin,
+			replace: true,
 			header: {
 				authorization: true,
 				tenantId: true,
@@ -36,6 +46,13 @@ export const tenantPluginEndpoint: EndpointCollectionType = {
 		},
 	},
 	POST: {
+		[tenantPluginEndpointEnum.postPaymentStripeDashboardUrl]: {
+			source: SourceNetworkEnum.plugin,
+			header: {
+				authorization: true,
+				tenantId: true,
+			}
+		},
 		[tenantPluginEndpointEnum.executeFunction]: {
 			source: SourceNetworkEnum.plugin,
 			replace: true,

@@ -10,6 +10,9 @@ import {
 import {
 	MandatoryAttendeePropertiesComponent
 } from "@tenant/client/presentation/ui/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";
+import {
+	PaymentRequirementComponent
+} from "@tenant/client/presentation/ui/component/booking-settings/payment-requirment/payment-requirement.component";
 
 @Component({
   selector: 'client-business-profile-booking-settings-component',
@@ -21,56 +24,60 @@ import {
 		SelectEarliestBookingComponent,
 		SelectLatestBookingComponent,
 		SelectSlotBuildingStrategyComponent,
-		MandatoryAttendeePropertiesComponent
+		MandatoryAttendeePropertiesComponent,
+		PaymentRequirementComponent
 	],
   template: `
-    <bee-card gap="gap-8">
+	  <bee-card gap="gap-8">
 
-      <strong class="dark:text-white">
-        {{ 'keyword.capitalize.services' | translate }}
-      </strong>
+		  <strong class="dark:text-white">
+			  {{ 'keyword.capitalize.services' | translate }}
+		  </strong>
 
-      <select-latest-booking-component
-        [control]="form().controls.latestBooking"/>
+		  <select-latest-booking-component
+			  [control]="form().controls.latestBooking"/>
 
-      <select-earliest-booking-component
-        [control]="form().controls.earliestBooking"/>
+		  <select-earliest-booking-component
+			  [control]="form().controls.earliestBooking"/>
 
-			<hr>
+		  <hr>
 
-			<select-slot-building-strategy-component [slotSettings]="form().controls.slotSettings"/>
+		  <select-slot-building-strategy-component [slotSettings]="form().controls.slotSettings"/>
 
-<!--	В низу знаходяться налаштування які відповідаю за крок "ЗАПИТ" коли бізнес має ще підтвердити чи приймає заявку на реалізацію		-->
+		  <!--	В низу знаходяться налаштування які відповідаю за крок "ЗАПИТ" коли бізнес має ще підтвердити чи приймає заявку на реалізацію		-->
 
-<!--			<hr>-->
+		  <!--			<hr>-->
 
-			<!--      <select-auto-action-on-event-in-seconds-component-->
-			<!--        [control]="form.controls.autoActionOnOrderInSeconds"/>-->
+		  <!--      <select-auto-action-on-event-in-seconds-component-->
+		  <!--        [control]="form.controls.autoActionOnOrderInSeconds"/>-->
 
-			<!--			<select-auto-action-type-on-event-component-->
-			<!--				[control]="form.controls.automaticApprovalType"/>-->
+		  <!--			<select-auto-action-type-on-event-component-->
+		  <!--				[control]="form.controls.automaticApprovalType"/>-->
 
-			<!--			<div class="">-->
-			<!--				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.start' | translate }}-->
-			<!--				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'autoActionTypeOnOrder.' + form.controls.automaticApprovalType.value | translate }}</kbd>-->
-			<!--				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.after' | translate }}-->
-			<!--				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ form.controls.autoActionOnOrderInSeconds.value | humanizeDuration }}</kbd>-->
-			<!--				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.finish' | translate }}-->
-			<!--			</div>-->
+		  <!--			<div class="">-->
+		  <!--				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.start' | translate }}-->
+		  <!--				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'autoActionTypeOnOrder.' + form.controls.automaticApprovalType.value | translate }}</kbd>-->
+		  <!--				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.after' | translate }}-->
+		  <!--				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ form.controls.autoActionOnOrderInSeconds.value | humanizeDuration }}</kbd>-->
+		  <!--				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.finish' | translate }}-->
+		  <!--			</div>-->
 
-<!--			<hr>-->
+		  <!--			<hr>-->
 
-<!--			<select-slot-retrieving-strategy-component [slotSettings]="form.controls.slotSettings"/>-->
+		  <!--			<select-slot-retrieving-strategy-component [slotSettings]="form.controls.slotSettings"/>-->
 
 
-		<client-booking-settings-mandatory-attendee-properties-component
-			[control]="form().controls.mandatoryAttendeeProperties"/>
+		  <client-booking-settings-mandatory-attendee-properties-component
+			  [control]="form().controls.mandatoryAttendeeProperties"/>
 
-    </bee-card>
+		  <client-booking-settings-payment-requirement-component
+			  [control]="form().controls.paymentRequirement"/>
+
+	  </bee-card>
   `
 })
 export class BookingSettingsBusinessProfileComponent {
 
-  public readonly form = input(new BookingSettingsForm());
+  public readonly form = input<BookingSettingsForm>(new BookingSettingsForm());
 
 }
