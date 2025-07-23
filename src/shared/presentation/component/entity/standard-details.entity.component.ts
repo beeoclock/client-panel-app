@@ -14,14 +14,13 @@ import {ActiveStyleDirective} from "@shared/presentation/directives/active-style
 	},
 	template: `
 
-
 		<details class="group w-full">
 			<summary
 				class="bg-neutral-50 hover:bg-neutral-100 transition-all text-neutral-400 group-hover:text-neutral-800 group-open:text-neutral-900 cursor-pointer flex font-medium items-center justify-between list-none p-2 px-4 rounded-[20px] group-open:rounded-b-none h-[42px]">
 				<div class="flex w-full">
 					<ul class="leading-tight flex gap-2 w-full ">
 						<li class="flex gap-1 w-full">
-							{{ 'Advanced information' | translate }}
+							{{ 'keyword.capitalize.additionalInformation' | translate }}
 						</li>
 					</ul>
 				</div>
@@ -93,7 +92,6 @@ import {ActiveStyleDirective} from "@shared/presentation/directives/active-style
 				</div>
 			</div>
 		</details>
-
 
 	`,
 	imports: [

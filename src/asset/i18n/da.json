@@ -1,1773 +1,1774 @@
 {
-	"absence": {
-		"action": {
-			"delete": {
-				"question": "Er du sikker på, at du vil slette fraværet?"
-			}
-		},
-		"button": {
-			"create": "Tilføj fravær"
-		},
-		"details": {
-			"title": "Detaljer om fravær"
-		},
-		"form": {
-			"inputs": {
-				"entireBusiness": {
-					"label": "Hele virksomheden"
-				},
-				"note": {
-					"placeholder": "Det er bedre at have og ikke have brug for end ikke at have og have brug for, efterlad en note for at forstå, hvad der skete senere."
-				},
-				"type": {
-					"label": "Type",
-					"progressStatus": "Aktuel status"
-				}
-			},
-			"membersIds": {
-				"select": {
-					"title": "Udvælgelse af medlemmer"
-				}
-			},
-			"title": {
-				"create": "Tilføjelse af fravær",
-				"edit": "Redigering af fravær"
-			}
-		},
-		"progress": {
-			"status": {
-				"cancel": "Aflyst",
-				"finished": "Færdig",
-				"inProgress": "I gang",
-				"notStarted": "Planlagt"
-			}
-		},
-		"type": {
-			"break": {
-				"label": "Pause"
-			},
-			"holiday": {
-				"label": "Helligdag"
-			},
-			"vacation": {
-				"label": "Ferie"
-			}
-		}
-	},
-	"analytic": {
-		"counter": {
-			"customers": "Betjente kunder",
-			"orderService": {
-				"by": {
-					"status": {
-						"done": "Antal leverede tjenester"
-					}
-				}
-			}
-		},
-		"summary": {
-			"appointments": {
-				"by": {
-					"client": "Offentlig hjemmeside",
-					"panel": "Panel"
-				},
-				"title": "Besøg og kunder",
-				"total": "Antal leverede tjenester"
-			},
-			"averageBill": "Gennemsnitlig regning",
-			"averageServiceTime": "Gennemsnitlig servicetid",
-			"income": "Indkomst",
-			"overview": {
-				"title": "Generelt overblik"
-			},
-			"totalOrders": "Samlede ordrer",
-			"totalServiceTime": "Antal leverede tjenester i timer",
-			"uniqueClients": "Unikke kunder"
-		},
-		"widget": {
-			"revenue": {
-				"summary": {
-					"by": {
-						"description": "Grafen viser antallet eller mængden af ordrer fra hver kilde individuelt eller i alt, afhængigt af de indstillinger, du vælger.",
-						"form": {
-							"kind": {
-								"count": "Antal bestilte tjenester",
-								"label": "Type af information",
-								"money": "Penge"
-							},
-							"source": {
-								"all": "Fra alle kilder",
-								"client": "Fra den offentlige side",
-								"label": "Kilder til information",
-								"panel": "Fra panelet"
-							}
-						}
-					},
-					"description": "Cirkeldiagrammet viser beløbet efter ordrestatus for hver specialist og procentdelen af det samlede beløb.",
-					"label": "Beløb efter ordrestatus"
-				}
-			},
-			"summary": {
-				"revenue": {
-					"by": {
-						"status": {
-							"done": "Indtægter"
-						}
-					}
-				}
-			},
-			"total": {
-				"counter": {
-					"customers": {
-						"title": "Kunder for perioden"
-					},
-					"description": {
-						"title": "Her kan du finde oplysninger om de tjenester, der er leveret i den valgte periode, deres antal og procentdel af det samlede antal bestilte tjenester."
-					},
-					"order-services": {
-						"title": "Bestilte tjenester"
-					},
-					"orders": {
-						"case": {
-							"ordersLessThanOrderServices": {
-								"0": "Alle ordrer har ikke mere end én service",
-								"1": "Nogle ordrer har mere end én service"
-							}
-						},
-						"title": "Bestil"
-					},
-					"services": {
-						"title": "Tjenester for perioden"
-					}
-				}
-			}
-		}
-	},
-	"autoActionOnOrderInSeconds": {
-		"EIGHT_HOURS": "8 timer",
-		"FIFTEEN_MINUTES": "15 minutter",
-		"FIVE_HOURS": "5 timer",
-		"FIVE_MINUTES": "5 minutter",
-		"FORTY_FIVE_MINUTES": "45 minutter",
-		"FOUR_HOURS": "4 timer",
-		"ONE_DAY": "1 dag",
-		"ONE_HOUR": "1 time",
-		"SEVEN_HOURS": "7 timer",
-		"SIX_HOURS": "6 timer",
-		"TEN_MINUTES": "10 minutter",
-		"THIRTY_MINUTES": "30 minutter",
-		"THREE_HOURS": "3 timer",
-		"TWENTY_MINUTES": "20 minutter",
-		"TWO_HOURS": "2 timer"
-	},
-	"autoActionTypeOnOrder": {
-		"APPROVE": "Godkend",
-		"DENY": "Afvis"
-	},
-	"autoRefresh": {
-		"hint": {
-			"selectTime": "Auto. opdatering"
-		},
-		"time": {
-			"off": "fra"
-		}
-	},
-	"balance": {
-		"button": {
-			"create": "Fyld din saldo op"
-		},
-		"field": {
-			"action": {
-				"type": {
-					"label": "Type"
-				}
-			}
-		}
-	},
-	"businessCategory": {
-		"Barbershop": "Barbersalon",
-		"BeautySalon": "Skønhedssalon",
-		"Dentistry": "Tandpleje",
-		"EyebrowStylist": "Øjenbrynsstylist",
-		"Hairdresser": "Frisør",
-		"Manicurist": "Manicure",
-		"Other": "Andet",
-		"PhysicalRehabilitation": "Fysisk rehabilitering",
-		"Psychotherapy": "Psykoterapi"
-	},
-	"businessIndustry": {
-		"BeautyIndustry": "Skønhedsindustrien",
-		"Healthcare": "Sundhedspleje",
-		"Other": "Andet",
-		"TeachingAndConsultation": "Undervisning og konsultation"
-	},
-	"change-name": {
-		"form": {
-			"input": {
-				"name": {
-					"placeholder": "Dit fulde navn"
-				}
-			}
-		},
-		"modal": {
-			"title": "Skift navn"
-		}
-	},
-	"change-phone": {
-		"modal": {
-			"title": "Ændring af telefonnummer"
-		}
-	},
-	"change-phone-number": {
-		"form": {
-			"input": {
-				"phoneNumber": {
-					"placeholder": "Dit telefonnummer"
-				}
-			}
-		},
-		"modal": {
-			"title": "Skift telefonnummer"
-		}
-	},
-	"client": {
-		"profile": {
-			"form": {
-				"inputs": {
-					"active": {
-						"label": "Aktiv",
-						"placeholder": "Slå til, hvis du ønsker at være aktiv"
-					},
-					"description": {
-						"label": "Forretningsbeskrivelse",
-						"placeholder": "Beskriv kort hvad du laver"
-					},
-					"feature": {
-						"label": "Funktion",
-						"placeholder": "Indtast fangende sætning"
-					},
-					"name": {
-						"label": "Forretningsnavn",
-						"placeholder": "Skriv firma- eller personnavn"
-					},
-					"primaryColor": {
-						"label": "Virksomhedens vigtigste farve"
-					},
-					"published": {
-						"label": "Offentlig adgang"
-					},
-					"username": {
-						"hint": {
-							"under": "Bemærk, at alle ændringer, du foretager på dette område, kan påvirke forskellige målinger. Tag for eksempel SEO - ændringer her kan påvirke, hvor dit indhold vises i søgeresultaterne."
-						},
-						"label": "Brugernavn",
-						"placeholder": "Bee.O_clock"
-					}
-				},
-				"section": {
-					"address": {
-						"input": {
-							"city": {
-								"placeholder": "Din by"
-							},
-							"country": {
-								"placeholder": "Dit land"
-							},
-							"customLink": {
-								"hint": "Angiv det link, hvor brugeren skal føres fra den offentlige side ved at klikke på adressen, hvis du vil bruge standardtilstanden, skal du lade dette felt være tomt",
-								"label": "Brugerdefineret link",
-								"placeholder": "https://example.com"
-							},
-							"streetAddressLineOne": {
-								"placeholder": "Gadenavn, avenue, boulevard, osv."
-							},
-							"streetAddressLineTwo": {
-								"placeholder": "Kontor, husnummer, osv."
-							},
-							"zipCode": {
-								"placeholder": "Dit postnummer"
-							}
-						},
-						"title": "Adresse"
-					},
-					"bookingSettings": {
-						"hint": {
-							"autoActionOnEvent": {
-								"after": "i",
-								"finish": "efter oprettelse.",
-								"start": "Den nyligt oprettede begivenhed/reservation vil automatisk blive"
-							}
-						},
-						"input": {
-							"autoActionOnOrderInSeconds": {
-								"placeholder": "Vælg den tid, hvorefter den valgte automatiske handling skal starte for den nyligt oprettede reservation/begivenhed"
-							},
-							"autoActionTypeOnOrder": {
-								"placeholder": "Vælg den type handling, der automatisk skal ske for den nyligt oprettede reservation/begivenhed"
-							},
-							"earliestBooking": {
-								"placeholder": "Den korteste periode, efter hvilken du kan bestille en service"
-							},
-							"latestBooking": {
-								"placeholder": "Tidspunkt, hvor tjenesten kan bookes"
-							}
-						},
-						"select": {
-							"mandatoryAttendeeProperties": {
-								"hint": "Vælg, hvilke felter kunderne skal udfylde, når de booker en tjeneste",
-								"label": "Krævede felter"
-							},
-							"timeZone": {
-								"hint": "Vælg den tidszone, du arbejder i. Dette felt afgør, hvordan du opretter gratis aftaler til bookinger og viser din arbejdsplan.",
-								"label": "Tidszone"
-							}
-						}
-					},
-					"businessSettings": {
-						"select": {
-							"availableLanguages": {
-								"hint": "Sprog, som du leverer tjenester på, og som den offentlige hjemmeside vil være tilgængelig på.",
-								"label": "Sprog, du driver forretning på"
-							},
-							"baseCurrency": {
-								"hint": "Vælg hovedvalutaen for at vise beløb korrekt i rapporter og ordrer",
-								"label": "Hovedvaluta"
-							},
-							"baseLanguage": {
-								"hint": "Det sprog, som tjenester, rapporter og meddelelser vises på, medmindre andet er angivet i din personlige profil.",
-								"label": "Hovedsprog",
-								"placeholder": "Først skal du vælge de sprog, du driver forretning på"
-							},
-							"currencies": {
-								"hint": "Vælg de valutaer, som du kan modtage betaling i for den leverede service, takket være denne indstilling kan du vælge en bestemt valuta for en bestemt service.",
-								"label": "Valutaer"
-							},
-							"emailLanguage": {
-								"hint": "Vælg det sprog, du vil modtage e-mails på, de tilgængelige muligheder afhænger af de sprog, du gør forretninger på",
-								"label": "Sproget i e-mails"
-							}
-						}
-					},
-					"coverImage": {
-						"fileover": "Læg dine filer her",
-						"motivate": "Du kan give din profil lidt mere personlighed og hjælpe folk med at genkende dit arbejde ved at uploade et billede (et billede, foto eller anden grafisk ikon for din virksomhed).",
-						"title": "Forsidebillede"
-					},
-					"gallery": {
-						"comment": "Upload billeder, der viser dit arbejde fra den bedste side. Billederne skal være 1800px i bredden og 900px i højden og i JPEG- eller PNG-format. Du kan uploade op til 6 billeder.",
-						"title": "Galleri"
-					},
-					"logo": {
-						"fileover": "Læg dine filer her",
-						"formats": "Tilladte typer: SVG, PNG, JPG eller GIF",
-						"motivate": "Du kan give din forretningsprofil lidt mere personlighed og hjælpe folk med at genkende dig ved at uploade et logo (et billede, foto eller anden grafisk ikon af \"dig\").",
-						"title": "Logo"
-					}
-				}
-			},
-			"title": "Profil"
-		},
-		"settings": {
-			"defaultData": {
-				"event": {
-					"form": {
-						"inputs": {
-							"language": {
-								"label": "Standardsprog for begivenheden"
-							},
-							"service": {
-								"label": "Standardtjeneste for begivenheden (top tjeneste)"
-							}
-						}
-					},
-					"title": "Standarddata for begivenhed"
-				},
-				"service": {
-					"form": {
-						"inputs": {
-							"break": {
-								"label": "Standardpause for tjenesten"
-							},
-							"duration": {
-								"label": "Standardvarighed for tjenesten"
-							},
-							"endWork": {
-								"label": "Standardtjeneste afsluttes"
-							},
-							"language": {
-								"label": "Standardsprog for tjenesten"
-							},
-							"price": {
-								"label": "Standardpris for tjenesten"
-							},
-							"startWork": {
-								"label": "Standardtjeneste starter"
-							},
-							"workDays": {
-								"label": "Standardarbejdsdage for tjenesten"
-							}
-						}
-					},
-					"title": "Standarddata for tjeneste"
-				}
-			},
-			"form": {
-				"autoBookOrder": {
-					"label": "Tillad en kunde at booke en begivenhed med det samme med en bekræftet status"
-				},
-				"inputs": {
-					"darkMode": {
-						"label": "Mørk tilstand"
-					}
-				}
-			},
-			"title": "Indstillinger"
-		}
-	},
-	"country": {
-		"DK": "Danmark",
-		"PL": "Polen",
-		"UA": "Ukraine"
-	},
-	"customer": {
-		"action": {
-			"delete": {
-				"question": "Er du sikker på, at du vil slette din klient?"
-			}
-		},
-		"button": {
-			"create": "Tilføj kunde"
-		},
-		"details": {
-			"title": "Kundeoplysninger"
-		},
-		"enum": {
-			"type": {
-				"anonymous": "Anonym",
-				"new": "Ny",
-				"regular": "Kunde",
-				"unregistered": "Gæst"
-			}
-		},
-		"form": {
-			"input": {
-				"note": {
-					"placeholder": "Her kan du indtaste yderligere information om kunden"
-				}
-			},
-			"title": {
-				"create": "Tilføjelse af en kunde",
-				"edit": "Redigering af en kunde"
-			}
-		},
-		"title": "Kunde"
-	},
-	"danger-zone": {
-		"button": {
-			"delete": {
-				"confirm": {
-					"message": "Er du sikker på, at du vil slette forretningsklienten, så vil alle data blive slettet, og det vil ikke være muligt at gendanne dem, og alle brugere, der havde adgang til denne forretningsklient, vil også miste adgangen, hvis du kun vil forlade denne forretningsklient, skal du klikke på knappen »Afslut denne forretningsklient«.",
-					"sub-title": "Når du har slettet en erhvervskunde, er der ingen vej tilbage. Vær sikker på det.",
-					"title": "Slet forretningsklient"
-				},
-				"hint": "Det er uigenkaldeligt at slette en virksomhedskonto, så overvej beslutningen nøje.",
-				"label": "Slet virksomhedsprofil",
-				"title": "Sletning af en virksomhedsprofil"
-			}
-		},
-		"hint": {
-			"message": "Slet forretningskonto. Efter sletning af forretningskontoen er der ingen vej tilbage. Overvej denne handling nøje."
-		},
-		"title": "Farlig zone"
-	},
-	"earliestBooking": {
-		"FIVE_HOURS": "Om 5 timer",
-		"FOUR_HOURS": "Om 4 timer",
-		"MINUTE_15": "Om 15 minutter",
-		"MINUTE_30": "Om 30 minutter",
-		"NO_LIMIT": "Ingen tidligste bookingtid",
-		"ONE_DAY": "Om 1 dag",
-		"ONE_HOUR": "Om 1 time",
-		"ONE_WEEK": "Om 1 uge",
-		"SIX_HOURS": "Om 6 timer",
-		"THREE_DAYS": "Om 3 dage",
-		"THREE_HOURS": "Om 3 timer",
-		"TWO_HOURS": "Om 2 timer"
-	},
-	"enum": {
-		"facility": {
-			"capitalize": {
-				"ACCEPTING_CARD_PAYMENT": "Accepterer kreditkort",
-				"ACCEPTING_CHILDREN": "Børnevenlig",
-				"ACCEPTING_PETS": "Kæledyr tilladt",
-				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Faciliteter for personer med handicap",
-				"FREE_PARKING": "Gratis parkering",
-				"INTERNET": "Internet (Wi-Fi)"
-			}
-		},
-		"theme": {
-			"dark": "Mørk",
-			"light": "Lys"
-		}
-	},
-	"event": {
-		"action": {
-			"button": {
-				"done": {
-					"label": "Begivenhed gennemført"
-				}
-			}
-		},
-		"additionalMenu": {
-			"items": {
-				"addNewAbsence": {
-					"hint": "Med denne mulighed kan du tilføje en ny pause i din kalender til dig selv eller andre.",
-					"title": "Tilføj et nyt fravær"
-				},
-				"addNewOrder": {
-					"hint": "Med denne mulighed tilføjer du en ny ordre med service og produkt.",
-					"title": "Tilføj en ny ordre"
-				}
-			},
-			"title": "Ekstra menu"
-		},
-		"calendar-with-specialists": {
-			"confirm-changes": {
-				"message": {
-					"default": "Er du sikker på, at du vil gemme ændringerne?",
-					"important": "Er du sikker på, at du vil tilskrive denne begivenhed til en specialist, som ikke kan levere en sådan service? Der findes ikke en sådan tjeneste på listen over udvalgte tjenester, som en specialist kan levere!"
-				},
-				"subHeader": {
-					"important": "Opmærksomhed, store ændringer"
-				}
-			},
-			"settings": {
-				"move-minute": {
-					"description": "På få minutter",
-					"title": "Bevægelse"
-				}
-			}
-		},
-		"details": {
-			"meta": {
-				"history": {
-					"keyword": {
-						"capitalize": {
-							"_id": "Identifikator",
-							"durationInSeconds": "Varighed",
-							"durationVersions": "Varighed version",
-							"end": "Slut",
-							"orderAppointmentDetails": "Ændringer i begivenheden",
-							"serviceSnapshot": "Service (angiv på bestillingstidspunktet)",
-							"start": "Begyndelsen",
-							"wasSelectedAnybody": "Blev valgt nogen"
-						}
-					}
-				}
-			},
-			"title": "Detaljeret visning af begivenheden"
-		},
-		"form": {
-			"section": {
-				"additional": {
-					"input": {
-						"note": {
-							"placeholder": "Her kan du indtaste yderligere information om begivenheden"
-						}
-					}
-				},
-				"attendant": {
-					"button": {
-						"add": "Tilføj deltager",
-						"select": "Vælg en tjeneste",
-						"togglePresentationOfNewAttendant": "Denne klient er ikke opført (ny klient)"
-					},
-					"input": {
-						"selectCustomer": {
-							"placeholder": "Vælg kunde"
-						}
-					}
-				},
-				"customer": {
-					"modal": {
-						"title": "Kundens valg"
-					}
-				},
-				"datetime": {
-					"hint": {
-						"selectDateToSelectTimeSlot": "Vælg en af de foreslåede datoer for at kunne vælge tidspunkt"
-					}
-				},
-				"service": {
-					"button": {
-						"add": "Tilføj tjeneste",
-						"select": "Vælg tjeneste"
-					},
-					"input": {
-						"selectService": {
-							"placeholder": "Vælg tjeneste"
-						}
-					},
-					"modal": {
-						"title": "Vælg tjeneste"
-					}
-				}
-			},
-			"title": {
-				"create": "Tilføjelse af en ny begivenhed",
-				"edit": "Udgave af begivenheden"
-			}
-		},
-		"keyword": {
-			"capitalize": {
-				"chronologyOfEventChanges": "Kronologi af begivenhedsændringer",
-				"end": "Slutter",
-				"repeat": "Gentag",
-				"service": "Tjeneste",
-				"start": "Bookingstart",
-				"status": "Status",
-				"statusChanged": "Status ændret",
-				"statusChangedTo": "Status ændret til"
-			},
-			"status": {
-				"all": "Alle",
-				"plural": {
-					"accepted": "Accepteret",
-					"cancelled": "Aflyst",
-					"deleted": "Slettet",
-					"done": "Færdig",
-					"inProgress": "I gang",
-					"rejected": "Afvist",
-					"requested": "Anmodet"
-				},
-				"singular": {
-					"accepted": "Accepteret",
-					"cancelled": "Aflyst",
-					"confirmed": "Bekræftet",
-					"deleted": "Usunto",
-					"done": "Færdig",
-					"inProgress": "I gang",
-					"rejected": "Afvist",
-					"requested": "Anmodet"
-				}
-			}
-		},
-		"statistic": {
-			"period": {
-				"LAST_MONTH": "Sidste måned",
-				"LAST_WEEK": "Sidste uge",
-				"LAST_YEAR": "Sidste år",
-				"NEXT_MONTH": "Næste måned",
-				"NEXT_WEEK": "Næste uge",
-				"THIS_MONTH": "Denne måned",
-				"THIS_WEEK": "Denne uge",
-				"THIS_YEAR": "Dette år",
-				"TODAY": "I dag",
-				"YESTERDAY": "I går"
-			}
-		},
-		"title": "Begivenhed",
-		"warning": {
-			"durationAndPriceConflict": "Vælg en tilgængelig varighed, eller den længste vil automatisk blive valgt efter accept.",
-			"multipleEventAtSameTime": "Mere end en begivenhed på dette tidspunkt."
-		}
-	},
-	"example": {
-		"firstName": "John",
-		"lastName": "Smith"
-	},
-	"form": {
-		"validation": {
-			"atLeastOneFieldMustBeFilled": "Mindst et felt skal udfyldes",
-			"atLeastOneMemberSelectedOrEntireBusiness": "Du skal vælge mindst ét medlem eller hele virksomheden.",
-			"durationFormatInvalid": "Gyldigt format er timer:minutter (00:00)",
-			"email": "Ugyldigt e-mail-format",
-			"emailExists": "En bruger med denne e-mail eksisterer allerede",
-			"emailOrPhoneRequired": "E-mail eller telefonnummer er påkrævet",
-			"imageSize": "Maksimal billedstørrelse er {{max}}, nuværende størrelse er {{value}}",
-			"invalid": "Invalid",
-			"mask": "Ugyldigt format, korrekt format er {{requiredMask}}",
-			"min": "Minimum værdi er {{min}}",
-			"minlength": "Minimumslængde er {{requiredLength}}",
-			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede",
-			"required": "Påkrævet felt",
-			"shouldBeMoreThen": {
-				"startInSeconds": "Sluttidspunktet skal være længere end starttidspunktet"
-			},
-			"startBeforeEnd": "Startdatoen skal være før slutdatoen.",
-			"username": "Brugernavnet kan kun indeholde bogstaver, tal, en understregning (_) og et punktum (.).",
-			"whitespace": "Fjern alle mellemrum"
-		}
-	},
-	"http": {
-		"DELETE": {
-			"/api/v1/customer/{id}": {
-				"before": {
-					"accept": {
-						"header": "Sletter en kunde",
-						"message": "Er du sikker på, at du vil fjerne kunden?"
-					}
-				}
-			},
-			"/api/v1/event/{id}": {
-				"before": {
-					"accept": {
-						"header": "Sletter en begivenhed",
-						"message": "Er du sikker på, at du vil fjerne begivenheden?"
-					}
-				}
-			},
-			"/api/v1/service/{id}": {
-				"before": {
-					"accept": {
-						"header": "Sletter en tjeneste",
-						"message": "Er du sikker på, at du vil fjerne tjenesten?"
-					}
-				}
-			}
-		},
-		"PATCH": {
-			"/api/v1/event/{id}/booked": {
-				"after": {
-					"success": {
-						"header": "Begivenhed booket",
-						"message": "Begivenheden blev booket med succes."
-					}
-				}
-			},
-			"/api/v1/event/{id}/cancelled": {
-				"after": {
-					"success": {
-						"header": "Begivenhed aflyst",
-						"message": "Begivenheden blev aflyst med succes."
-					}
-				}
-			},
-			"/api/v1/event/{id}/done": {
-				"after": {
-					"success": {
-						"header": "Begivenhed gennemført",
-						"message": "Begivenheden blev gennemført med succes."
-					}
-				}
-			},
-			"/api/v1/event/{id}/rejected": {
-				"after": {
-					"success": {
-						"header": "Begivenhed afvist",
-						"message": "Begivenheden blev afvist med succes."
-					}
-				}
-			},
-			"/api/v1/event/{id}/requested": {
-				"after": {
-					"success": {
-						"header": "Begivenhed anmodet",
-						"message": "Begivenheden blev anmodet med succes."
-					}
-				}
-			}
-		},
-		"POST": {
-			"/api/v1/customer": {
-				"after": {
-					"success": {
-						"header": "Kunde oprettet",
-						"message": "Kunden blev oprettet med succes."
-					}
-				}
-			},
-			"/api/v1/event": {
-				"after": {
-					"success": {
-						"header": "Begivenhed oprettet",
-						"message": "Begivenheden blev oprettet med succes."
-					}
-				}
-			},
-			"/api/v1/service": {
-				"after": {
-					"success": {
-						"header": "Tjeneste oprettet",
-						"message": "Tjenesten blev oprettet med succes."
-					}
-				}
-			}
-		},
-		"PUT": {
-			"/api/v1/business-profile": {
-				"after": {
-					"success": {
-						"header": "Forretningsprofil",
-						"message": "Forretningsprofilen blev opdateret med succes."
-					}
-				}
-			},
-			"/api/v1/customer/{id}": {
-				"after": {
-					"success": {
-						"header": "Kunde opdateret",
-						"message": "Kunden blev opdateret med succes."
-					}
-				}
-			},
-			"/api/v1/event/{id}": {
-				"after": {
-					"success": {
-						"header": "Begivenhed opdateret",
-						"message": "Begivenheden blev opdateret med succes."
-					}
-				}
-			},
-			"/api/v1/service/{id}": {
-				"after": {
-					"success": {
-						"header": "Tjeneste opdateret",
-						"message": "Tjenesten blev opdateret med succes."
-					}
-				}
-			}
-		},
-		"response": {
-			"status": {
-				"504": {
-					"content": "Kontroller internet eller prøv igen senere.",
-					"title": "Serverfejl"
-				}
-			}
-		}
-	},
-	"identity": {
-		"confirm-email": {
-			"hint": "Måske er den tidligere e-mail allerede udløbet, du kan sende en anden for at bekræfte e-mailen",
-			"sendAgain": {
-				"hint": "Efter at have klikket vil vi sende dig en e-mail med et link til at bekræfte din e-mailadresse"
-			},
-			"sent": {
-				"hint": "Tjek din e-mailboks, nogle gange kan forskellige e-mailtjenester misfortolke vores e-mail, se også i spam!",
-				"title": "E-mail sendt succesfuldt"
-			},
-			"title": "Du har ikke en bekræftet e-mailadresse"
-		},
-		"confirm-invitation": {
-			"form": {
-				"description": "Dette er det sidste skridt til at blive medlem af den organisation, du er blevet inviteret til.",
-				"inputs": {
-					"password": {
-						"label": "Opret en adgangskode til autorisation"
-					}
-				}
-			}
-		},
-		"confirmInvitation": {
-			"success": "Tillykke, du kan nu logge ind"
-		},
-		"corridor": {
-			"addBusiness": "Opret ny forretning",
-			"selectBusiness": "Vælg forretningskontekst"
-		},
-		"create-business": {
-			"form": {
-				"inputs": {
-					"address": {
-						"label": "Adresse"
-					},
-					"businessName": {
-						"label": "Forretningsnavn",
-						"placeholder": "Salon Urody \"Bee O`clock\""
-					},
-					"name": {
-						"label": "Navn"
-					},
-					"slogan": {
-						"label": "Slogan"
-					}
-				}
-			},
-			"section": {
-				"category": {
-					"title": "Vælg din niche"
-				},
-				"industry": {
-					"title": "Hvad er din branche?"
-				},
-				"introduction": {
-					"button": "Kom i gang",
-					"description": "Forbedr din forretningsydelse med en alt-i-én-løsning",
-					"welcome": "Velkommen til"
-				},
-				"languages": {
-					"title": "Hvilke sprog driver du forretning på?"
-				},
-				"names": {
-					"title": "Indtast dit navn og din forretnings navn"
-				},
-				"only-company": {
-					"title": "Indtast navnet på virksomheden"
-				},
-				"pointOfSale": {
-					"title": "Hvor kan kunderne nå dig?"
-				},
-				"portfolio": {
-					"title": "Din portefølje"
-				},
-				"processing": {
-					"button": "Gå til dashboardet"
-				},
-				"schedules": {
-					"title": "Dine arbejdstider"
-				},
-				"services": {
-					"title": "Hvilke tjenester yder du?"
-				}
-			}
-		},
-		"forgot-password": {
-			"form": {
-				"button": {
-					"sign-in": "Log ind",
-					"submit": "Send"
-				},
-				"inputs": {
-					"email": {
-						"label": "E-mail",
-						"placeholder": "Indtast e-mail"
-					}
-				},
-				"label": "Adgangskodegendannelse"
-			}
-		},
-		"reset-password": {
-			"form": {
-				"button": {
-					"sign-in": "Log ind",
-					"submit": "Skift adgangskode"
-				},
-				"inputs": {
-					"password": {
-						"label": "Adgangskode",
-						"placeholder": "Indtast adgangskode"
-					}
-				},
-				"label": "Nulstil adgangskode"
-			}
-		},
-		"sign-in": {
-			"form": {
-				"button": {
-					"forgot-password": "Glemt adgangskode",
-					"sign-up": "Registrering",
-					"submit": "Log ind"
-				},
-				"inputs": {
-					"email": {
-						"label": "E-mail",
-						"placeholder": "navn.efternavn@beeoclock.com"
-					},
-					"password": {
-						"label": "Adgangskode",
-						"placeholder": "Indtast adgangskode"
-					}
-				},
-				"label": "Log ind"
-			},
-			"hint": {
-				"notAMember": "Endnu ikke medlem?",
-				"signInToYourAccount": "Log ind på din konto"
-			},
-			"link": {
-				"forgotPassword": "Glemt adgangskode?"
-			}
-		},
-		"sign-up": {
-			"afterSuccess": {
-				"nextStep": "Næste skridt er at bekræfte din e-mail.",
-				"openMailService": "Åbn e-mailtjenesten",
-				"weSentEmail": "Vi sendte et brev til adressen",
-				"youHaveSuccessfullyRegistered": "Tillykke, du har registreret dig med succes!"
-			},
-			"form": {
-				"button": {
-					"sign-in": "Log ind",
-					"submit": "Registrering"
-				},
-				"inputs": {
-					"display-name": {
-						"label": "Hvordan skal alle kalde dig",
-						"placeholder": "f.eks. Firmanavn, personligt navn"
-					},
-					"email": {
-						"label": "E-mail",
-						"placeholder": "Indtast e-mailadresse"
-					},
-					"password": {
-						"label": "Adgangskode",
-						"placeholder": "Indtast adgangskode"
-					},
-					"password-confirm": {
-						"label": "Bekræft adgangskode",
-						"placeholder": "Indtast bekræft adgangskode"
-					},
-					"timezone": {
-						"inputs": {
-							"offset": {
-								"label": "Bekræft adgangskode",
-								"placeholder": "Indtast bekræft adgangskode"
-							}
-						}
-					}
-				},
-				"label": "Registrering"
-			},
-			"hint": {
-				"mainText": "Værktøjer skræddersyet til dine individuelle behov",
-				"quote": "Arbejd med de bedste specialister! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock står for hurtighed, professionalisme og pålidelighed.",
-				"subBainText": "Opret en konto på få sekunder, og kom i gang med at bruge alle \t\t\t\t\t\t\t\t\taf Bee O'clocks funktioner. Vi fokuserer på at give dig resultater \t\t\t\t\t\t\t\t\tså hurtigt som muligt.",
-				"successfulInCurrentYear": "Din succes er vores mission i {{currentYear}}.",
-				"youHaveAnAccount": "Har du en konto?"
-			}
-		}
-	},
-	"keyword": {
-		"capitalize": {
-			"absence": "Fravær",
-			"accept": "Accepter",
-			"account": "Konto",
-			"action": "Handling",
-			"activate": "Aktivér",
-			"active": "Aktiv",
-			"add": "Tilføj",
-			"add-event": "Tilføj begivenhed",
-			"add-service": "Tilføj tjeneste",
-			"addAvailableHours": "Tilføj tilgængelige timer",
-			"addContactPhone": "Tilføj telefonnummer",
-			"addDuration": "Tilføj varighed",
-			"addSocialMedia": "Tilføj sociale medier",
-			"additional": "Yderligere",
-			"address": "Adresse",
-			"all": "Alle",
-			"allServices": "Alle tjenester",
-			"allSpecialists": "Alle specialister",
-			"allStatuses": "Alle statusser",
-			"amount": "Beløb",
-			"anonymous": "Anonym",
-			"approvalType": "Godkendelsestype",
-			"approve": "Godkend",
-			"archived": "Arkiveret",
-			"attendees": "Deltagere",
-			"autoActionOnOrderInSeconds": "Automatisk handlings starttid",
-			"autoActionTypeOnOrder": "Type automatisk handling",
-			"avatar": "Avatar",
-			"back": "Tilbage",
-			"banners": "Bannere",
-			"bookingSettings": "Bookingindstillinger",
-			"break": "Pause",
-			"business": "Forretning",
-			"businessCategory": "Forretningskategori",
-			"businessIndustry": "Forretningsindustri",
-			"businessName": "Forretningsnavn",
-			"businessNote": "Forretningsnote",
-			"businessProfile": "Forretningsprofil",
-			"businessSettings": "Forretningsindstillinger",
-			"cancel": "Annuller",
-			"changeStatus": "Skift status",
-			"changes": "Ændringer",
-			"changesFrom": "Fra",
-			"changesTo": "Til",
-			"chooseImage": "Vælg billede",
-			"chosen": "Udvalgt",
-			"city": "By",
-			"clearCache": "Opdater cache",
-			"clickToUpload": "Klik for at uploade",
-			"clients": "Klienter",
-			"close": "Luk",
-			"color": "Farve",
-			"comingSoon": "Kommer snart...",
-			"confirm": "Bekræft",
-			"contact": "Kontakt",
-			"contactPhone": "Kontakttelefon",
-			"country": "Land",
-			"create": "Opret",
-			"createdAt": "Oprettet kl",
-			"currency": "Valuta",
-			"customer": "Kunde",
-			"customerNote": "En note fra klienten",
-			"customers": "kunder",
-			"dataNotFound": "Data ikke fundet",
-			"dateAndTime": "Dato og tid",
-			"day": "Dag",
-			"deactivate": "Deaktiver",
-			"delete": "Slet",
-			"deleted": "Slettet",
-			"description": "Beskrivelse",
-			"details": "Detaljer",
-			"dismiss": "Afvis",
-			"done": "Færdig",
-			"downgradeTo": "Nedgradering til",
-			"downloadMore": "Download mere",
-			"duration": "Varighed",
-			"earliestBooking": "Tidligste bookingtid",
-			"edit": "Rediger",
-			"email": "E-mail",
-			"end": "Slut",
-			"error": "Fejl",
-			"event": "Begivenhed",
-			"events": "Begivenheder",
-			"every": "Hver",
-			"exhausted": "Udmattet ",
-			"export": "Eksport",
-			"facilities": "Faciliteter",
-			"feature": "Funktion",
-			"finished": "Voltooid",
-			"firstName": "Fornavn",
-			"from": "Fra",
-			"fullName": "Fulde navn",
-			"general": "Generelt",
-			"historyOfStates": "Statens historie",
-			"image": "Billede",
-			"inactive": "Inaktiv",
-			"information": "Information",
-			"initializing": "Initialiserer",
-			"isUpcoming": "Er kommende",
-			"language": "Sprog",
-			"languageAndRegion": "Sprog og region",
-			"languages": "Sprog",
-			"lastName": "Efternavn",
-			"lastUpdate": "Sidste opdatering",
-			"latestBooking": "Hvornår en begivenhed kan bookes",
-			"leftInDays": "Dagen te gaan",
-			"logout": "Log ud",
-			"members": "Medlemmer",
-			"menu": "Menu",
-			"month": "Måned",
-			"monthly": "Månedligt",
-			"name": "Navn",
-			"next": "Næste",
-			"nextStep": "Næste skridt",
-			"no": "Nej",
-			"noAvailable": "Ikke tilgængelig",
-			"noData": "Ingen data",
-			"noNeedCard": "Intet behov for kort",
-			"notPaid": "Ikke betalt",
-			"notSpecified": "Ikke specificeret",
-			"notYetStarted": "Nog niet begonnen",
-			"note": "Note",
-			"notification": "Notifikation",
-			"openTimePicker": "Vælg",
-			"order": "Rækkefølge",
-			"ordering": "Bestilling",
-			"ownOptionOfTime": "Time efter eget ønske",
-			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
-			"paid": "Betalt",
-			"payAsYouGo": "Betal, når du går",
-			"payer": "Udbetaler",
-			"payment": "Betaling",
-			"paymentMethod": "Betalingsmetode",
-			"paymentProviderType": "Betalingstype ",
-			"paymentStatus": "Betalingsstatus",
-			"periodOfDay": {
-				"AFTERNOON": "Eftermiddag",
-				"EVENING": "Aften",
-				"MORNING": "Morgen",
-				"NIGHT": "Nat"
-			},
-			"permission": "Tilladelse",
-			"phone": "Telefon",
-			"placeholder": {
-				"description": "Skriv beskrivelse",
-				"search": "Søg"
-			},
-			"plugins": "Plugins",
-			"portfolio": "Portefølje",
-			"preview": "Forhåndsvisning",
-			"previous": "Forrige",
-			"price": "Pris",
-			"priceTimeFormatPrompt": "timer:minutter",
-			"prices": "Priser",
-			"processing": "Behandler",
-			"publicPage": "Offentlig side",
-			"reject": "Afvis",
-			"role": "Rolle",
-			"save": "Gem",
-			"search": "søg",
-			"select": "Vælg",
-			"selectSpecialist": "Vælg specialist",
-			"selected": "Valgt",
-			"selectedDateTime": "Valgt dato og klokkeslæt",
-			"selectedMember": "Udvalgt medlem",
-			"send": "Send",
-			"sendAgain": "Send igen",
-			"service": "Tjeneste",
-			"services": "Tjenester",
-			"signIn": "Log ind",
-			"signOut": "Log ud",
-			"signUp": "Tilmeld dig",
-			"slogan": "Slogan",
-			"socialMedia": "Sociale medier",
-			"somethingWentWrong": "Noget gik galt!",
-			"soon": "Snart",
-			"specialist": "Specialist",
-			"specialists": "Specialister",
-			"start": "Start",
-			"state": "Tilstand",
-			"status": "Status",
-			"statuses": "Statusser",
-			"streetAddressLineOne": "Adresse 1",
-			"streetAddressLineTwo": "Adresse 2",
-			"successfully": "Med succes",
-			"switchTo": "Skift til",
-			"synced": "Synkroniseret",
-			"syncing": "Synkronisering pågår…",
-			"theSlotAlreadyTaken": "Denne tid er allerede optaget hos denne specialist!",
-			"theme": "Tema",
-			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
-			"time": "Tid",
-			"title": "Titel",
-			"to": "Til",
-			"today": "I dag",
-			"tomorrow": "I morgen",
-			"total": "Total",
-			"tryDemoProfile": "Prøv demoprofilen",
-			"unknown": "Ukendt",
-			"update": "Opdateret",
-			"updatedAt": "Opdateret kl",
-			"upgradeTo": "Opgrader til",
-			"warning": "Advarsel",
-			"week": "Uge",
-			"workdays": "Arbejdsdage",
-			"workingHours": "Arbejdstimer",
-			"writePrice": "Skriv pris",
-			"year": "År",
-			"yearly": "Årligt",
-			"yes": "Ja",
-			"yesterday": "Yesterday",
-			"youOffline": "Du er offline!",
-			"zipCode": "Postnummer"
-		},
-		"lowercase": {
-			"after": "efter",
-			"ago": "siden",
-			"all": "alle",
-			"at": "kl",
-			"days": "dage",
-			"details": "detaljer",
-			"dragAndDrop": "træk og slip",
-			"in": "i",
-			"min": "min.",
-			"no-data": "ingen data",
-			"now": "nu",
-			"or": "eller",
-			"sec": "sek.",
-			"service": "tjeneste",
-			"short": {
-				"days": "d",
-				"hour": "t",
-				"minutes": "min"
-			}
-		},
-		"singular": {
-			"capitalize": {
-				"client": "Klient",
-				"freeMovement": "Fri bevægelighed",
-				"openDetails": "Åbn detaljer",
-				"type": "Type"
-			}
-		},
-		"state": {
-			"plural": {
-				"active": "Aktiv",
-				"archived": "Arkiveret",
-				"deleted": "Slettet",
-				"inactive": "Inaktiv"
-			}
-		},
-		"status": {
-			"all": "Alle",
-			"plural": {
-				"0": "Inaktiv",
-				"1": "Aktiv"
-			}
-		},
-		"uppercase": {
-			"noAvailable": "N/A"
-		}
-	},
-	"latestBooking": {
-		"EIGHT_WEEKS": "Inden for 8 uger",
-		"FIVE_WEEKS": "Inden for 5 uger",
-		"FOUR_WEEKS": "Inden for 4 uger",
-		"NO_LIMIT": "Ethvert tilgængeligt tidspunkt",
-		"SEVEN_WEEKS": "Inden for 7 uger",
-		"SIX_WEEKS": "Inden for 6 uger",
-		"THREE_WEEKS": "Inden for 3 uger",
-		"TWO_WEEKS": "Denne uge og næste uge"
-	},
-	"mandatoryAttendeeProperties": {
-		"options": {
-			"email": "E-mail",
-			"firstName": "Fornavn",
-			"phone": "Telefon"
-		}
-	},
-	"member": {
-		"button": {
-			"create": "Tilføj medlem"
-		},
-		"details": {
-			"title": "Oplysninger om en medarbejder"
-		},
-		"enum": {
-			"profileStatus": {
-				"active": "Aktiv",
-				"deleted": "Slettet",
-				"suspended": "Suspenderet"
-			}
-		},
-		"form": {
-			"assignments": {
-				"button": {
-					"hint": {
-						"all": "hele listen",
-						"includeIsEmpty": "ingen"
-					},
-					"label": "Tjenester leveret af specialisten"
-				},
-				"service": {
-					"full": {
-						"label": "Specialisten leverer alle tilgængelige (aktive) tjenester på listen"
-					},
-					"select": {
-						"title": "Udvælgelse af tjenester"
-					}
-				}
-			},
-			"title": {
-				"create": "Tilføj et teammedlem",
-				"edit": "Rediger et teammedlem"
-			}
-		},
-		"title": "Medlem",
-		"toast": {
-			"limit": "Grænsen er nået. Opgrader til en højere plan for at tilføje flere teammedlemmer."
-		}
-	},
-	"notificationSetting": {
-		"cardTitle": "Kunde Notifikationsindstillinger",
-		"emailNotificationSettings": {
-			"hint": "Send notifikationer til kunden via e-mail",
-			"label": "E-mail Notifikationer"
-		},
-		"modal": {
-			"contentTitle": "Vælg, hvordan deltagerne skal underrettes om ændringerne.",
-			"hint": "Du ser dette vindue, fordi virksomhedens indstillinger angiver altid at spørge, om der skal sendes beskeder til deltagerne.",
-			"sendEmails": "Send E-mail",
-			"sendSms": "Send SMS",
-			"title": "Notifikation"
-		},
-		"sendNotificationConditionType": {
-			"allow": "Tillad",
-			"allowButAsk": "Spørg Hver Gang",
-			"deny": "Send Ikke"
-		},
-		"smsNotificationSettings": {
-			"hint": "Send notifikationer til kunden via SMS",
-			"label": "SMS Notifikationer"
-		}
-	},
-	"order": {
-		"action": {
-			"delete": {
-				"question": "Er du sikker på, at du vil slette ordren?"
-			}
-		},
-		"button": {
-			"create": "Tilføj ordre"
-		},
-		"confirmation": {
-			"change-status": {
-				"hint": "Statusvariablen kan have en effekt på tjenesterne i denne ordre, hvis den f.eks. er annulleret, annulleres alle tjenester også.",
-				"message": "Er du sikker på, at du vil ændre status?"
-			},
-			"delete": {
-				"service": {
-					"header": "Sletning af den bestilte tjeneste",
-					"message": "Vil du virkelig slette den bestilte tjeneste?",
-					"subHeader": {
-						"lastService": "Når man sletter den senest bestilte tjeneste, slettes selve bestillingen automatisk."
-					}
-				}
-			}
-		},
-		"details": {
-			"title": "Bestil detaljer"
-		},
-		"enum": {
-			"status": {
-				"singular": {
-					"cancelled": "Aflyst",
-					"confirmed": "Bekræftet",
-					"deleted": "Slettet",
-					"done": "Færdig",
-					"draft": "Udkast",
-					"inProgress": "Igangværende",
-					"rejected": "Afvist",
-					"requested": "Anmodet om"
-				}
-			}
-		},
-		"form": {
-			"chip": {
-				"specialist": {
-					"noAssignedSpecialist": "Ingen tildelt specialist"
-				}
-			},
-			"input": {
-				"businessNote": {
-					"placeholder": "Her kan du tilføje en note, som ikke vil være tilgængelig for klienten."
-				}
-			},
-			"payment": {
-				"payer": {
-					"case": {
-						"new": {
-							"hint": "I dette tilfælde vil betaleren automatisk blive tilføjet til kundedatabasen."
-						},
-						"unregistered": {
-							"hint": "Betaleren bliver ikke automatisk tilføjet til kundedatabasen."
-						}
-					}
-				}
-			},
-			"service": {
-				"customer": {
-					"hist": {
-						"anonymous": "Dette valg indikerer, at kunden ikke er identificeret og ikke er registreret i systemet. Derfor vil kunden blive vist som anonym overalt."
-					}
-				}
-			},
-			"title": {
-				"create": "Tilføjelse af en ordre",
-				"edit": "Redigering af en ordre"
-			}
-		},
-		"keyword": {
-			"singular": {
-				"capitalize": {
-					"openDetails": "Åbn ordredetaljer"
-				}
-			}
-		}
-	},
-	"page": {
-		"calendar": {
-			"title": "Kalender"
-		},
-		"select-client": {
-			"button": {
-				"create-new-client": "Opret en ny klient"
-			},
-			"form": {
-				"button": {
-					"submit": "Vælg"
-				}
-			},
-			"title": "Vælg klient"
-		}
-	},
-	"pagination": {
-		"message": {
-			"allDataDownloaded": "Alle tilgængelige data er downloadet"
-		}
-	},
-	"payment": {
-		"method": {
-			"CARD": {
-				"label": "Kort"
-			},
-			"CASH": {
-				"label": "Kontanter"
-			}
-		},
-		"providerType": {
-			"onSite": {
-				"label": "På stedet"
-			},
-			"stripe": {
-				"label": "Stripe"
-			}
-		},
-		"status": {
-			"failed": {
-				"label": "Mislykket"
-			},
-			"pending": {
-				"label": "Afventende"
-			},
-			"registered": {
-				"label": "Registreret"
-			},
-			"succeeded": {
-				"label": "Lykkedes"
-			}
-		}
-	},
-	"role": {
-		"ADMIN": "Administrator",
-		"OWNER": "Ejer",
-		"SPECIALIST": "Specialist"
-	},
-	"service": {
-		"action": {
-			"delete": {
-				"question": "Er du sikker på, at du vil slette tjenesten?"
-			}
-		},
-		"details": {
-			"title": "Information om tjenesten"
-		},
-		"form": {
-			"color": {
-				"input": {
-					"hint": "Tjenestens farve bruges til at vise begivenheden i kalenderen i den valgte farve."
-				}
-			},
-			"order": {
-				"input": {
-					"placeholder": "Angiv placeringen af denne tjeneste på listen på den offentlige hjemmeside"
-				}
-			},
-			"title": {
-				"create": "Tilføjelse af en tjeneste",
-				"edit": "Redigering af en tjeneste"
-			},
-			"v2": {
-				"section": {
-					"availableLanguages": {
-						"hint": "Du kan oprette en tjeneste, der vil være tilgængelig på flere sprog, for at tilføje et andet sprog skal du vælge et af følgende",
-						"title": "Service-sprog"
-					},
-					"presentation": {
-						"motivate": "Du kan give dine tjenester lidt mere personlighed og hjælpe folk med at genkende dit arbejde ved at uploade et billede (et billede, foto eller anden grafisk ikon for din tjeneste)."
-					},
-					"prices": {
-						"button": {
-							"add": {
-								"label": "Tilføj pris"
-							}
-						},
-						"suffix": {
-							"range": {
-								"from": " (fra)",
-								"to": " (til)"
-							}
-						},
-						"switch": {
-							"range": {
-								"title": "Intervalmodus (fra - til)"
-							}
-						}
-					}
-				}
-			}
-		},
-		"keyword": {
-			"capitalize": {
-				"active": "Aktiv",
-				"inactive": "Inaktiv"
-			}
-		},
-		"title": "Tjeneste"
-	},
-	"sidebar": {
-		"absence": "Fravær",
-		"addEvent": "Tilføj begivenhed",
-		"appointments": {
-			"label": "Aftaler"
-		},
-		"balance": "Balance",
-		"businessProfile": "Forretningsprofil",
-		"businessSettings": "Firma indstillinger",
-		"calendar": {
-			"label": "Kalender",
-			"ordinary": {
-				"label": "Almindelig"
-			},
-			"withSpecialists": {
-				"label": "Med specialister"
-			}
-		},
-		"customers": "Kunder",
-		"dashboard": "Dashboard",
-		"dateRangeReport": "Analyse",
-		"events": "Begivenheder",
-		"members": "Medlemmer",
-		"order": "Indkøb",
-		"payment": "Betalinger",
-		"plugins": "Plugins",
-		"private": "Privat",
-		"profile": {
-			"signOut": {
-				"header": "Log ud",
-				"message": "Vil du virkelig forlade?"
-			}
-		},
-		"requested": "Anmodninger",
-		"services": "Tjenester",
-		"settings": "Indstillinger",
-		"statistic": "Statistik",
-		"switch-business-client": "Skift kontekst",
-		"table": "Tabel",
-		"tariffPlan": "Tariffer"
-	},
-	"sign-out": {
-		"button": {
-			"sign-out": {
-				"label": "Log ud nu"
-			}
-		},
-		"title": "Log ud"
-	},
-	"slotBuildingStrategy": {
-		"hint": "Intervaller i den forretningsplan, som kunden booker tjenesten til",
-		"options": {
-			"accordingToAService": "Ifølge en tjeneste"
-		},
-		"title": "Tidspunkter"
-	},
-	"slotRetrievingStrategy": {
-		"hint": "Denne strategi styrer muligheden for at vælge tidsintervaller for begivenheder, der endnu ikke har modtaget bekræftelse fra specialisten. Nedenfor vil du se eksempler på den valgte strategi.",
-		"hists": {
-			"byOption": {
-				"IncludeRequested": "Denne mulighed blokerer muligheden for, at klienter kan tilføje nye begivenheder til slots med allerede eksisterende poster i status",
-				"OnlyBooked": "Den valgte mulighed giver kunderne mulighed for at tilføje nye begivenheder til allerede optagede slots via den offentlige side, forudsat at ingen af dem endnu har modtaget status"
-			}
-		},
-		"options": {
-			"IncludeRequested": "Inklusive anmodede begivenheder",
-			"OnlyBooked": "Kun bookede"
-		},
-		"title": "Strategi for foreslåede tidsintervaller"
-	},
-	"statistic": {
-		"global": {
-			"averageBill": "Gennemsnitlig regning",
-			"numberOfSales": "Antal salg",
-			"numberOfServicesProvided": "Antal leverede tjenester",
-			"revenue": "Indtægter",
-			"topService": "Den mest populære tjeneste"
-		}
-	},
-	"tariffPlan": {
-		"documentation": {
-			"switchingToAnotherPlan": "<p>     <strong>Skift til en anden plan</strong> </p> <p>     Opgradering eller ændring af din plan er problemfri! Når du skifter til en ny plan, vil systemet automatisk      beregne forskellen mellem din nuværende og nye plan, hvilket sikrer en glidende overgang. </p> <p>     🔹 Sådan fungerer det: </p> <ol>     <li>Øjeblikkelig aktivering – Din nye plan aktiveres med det samme efter ændringen.</li>     <li>Pro-rata justering – Systemet fratrækker den resterende værdi af din tidligere plan og          anvender den på den nye.     </li>     <li>Automatisk fakturering – Du betaler kun forskellen, så du bliver opkrævet retfærdigt.</li>     <li>Ingen serviceafbrydelser – Dine eksisterende funktioner forbliver aktive, mens opgraderingen behandles.     </li> </ol> <p>💡 Du kan opgradere når som helst og kun betale for det, du bruger. Hvis du nedgraderer, vil det justerede beløb      blive anvendt på fremtidige betalinger. 🚀</p>"
-		},
-		"features": {
-			"adminPanel": {
-				"label": "Administrationspanel"
-			},
-			"assistantAI": {
-				"label": "Assistent AI"
-			},
-			"confirmationAfterUserPayment": {
-				"label": "Betalingsbekræftelse"
-			},
-			"emailNotification": {
-				"label": "E-mail notifikation"
-			},
-			"jsonLD": {
-				"label": "JSON LD"
-			},
-			"publicPage": {
-				"label": "Offentlig side"
-			},
-			"publicRestApi": {
-				"label": "Offentlig REST API"
-			},
-			"seoOptimization": {
-				"label": "SEO-pakke"
-			},
-			"smsNotification": {
-				"label": "SMS notifikation"
-			},
-			"unlimitedPlugins": {
-				"label": "Ubegrænsede plugins"
-			}
-		},
-		"links": {
-			"billing": {
-				"label": "Faktureringshistorik og tilknyttede betalingskort"
-			}
-		},
-		"message": {
-			"change": {
-				"success": "Ændringen af takstplanen var en succes!"
-			}
-		},
-		"modal": {
-			"confirm-changes": {
-				"content": {
-					"additional": {
-						"one": "✅ Je plan wordt onmiddellijk geüpgraded",
-						"two": "✅ Volgende betaling wordt overeenkomstig aangepast"
-					},
-					"currentTariffPlan": {
-						"daysRemaining": {
-							"label": "Resterende dagen"
-						},
-						"daysUsed": {
-							"label": "Dagen Gebruikt"
-						},
-						"label": "Huidig plan",
-						"remainingCredit": {
-							"label": "Resterend krediet"
-						}
-					},
-					"newTariffPlan": {
-						"differenceToPay": {
-							"label": "Verschil te betalen"
-						},
-						"label": "Nieuw plan"
-					}
-				},
-				"title": "Bevestig de wijziging van het tariefplan"
-			}
-		},
-		"page": {
-			"subtitle": "Vælg den bedste løsning til din virksomhed",
-			"title": "Tariffer"
-		}
-	},
-	"tenant-plugin": {
-		"grid": {
-			"plugin": {
-				"attach": "Verbind",
-				"detach": "Uitschakelen"
-			},
-			"subtitle": "Met plug-ins kun je meer functies krijgen en bepaalde processen automatiseren. Aansluiten en automatiseren!"
-		}
-	},
-	"updateAvailable": {
-		"header": "Ny version",
-		"message": "En ny version af appen er tilgængelig, vil du opdatere?"
-	},
-	"weekday": {
-		"long": {
-			"friday": "Fredag",
-			"monday": "Mandag",
-			"saturday": "Lørdag",
-			"sunday": "Søndag",
-			"thursday": "Torsdag",
-			"tuesday": "Tirsdag",
-			"wednesday": "Onsdag"
-		},
-		"short": {
-			"friday": "Fre",
-			"monday": "Man",
-			"saturday": "Lør",
-			"sunday": "Søn",
-			"thursday": "Tor",
-			"tuesday": "Tir",
-			"wednesday": "Ons"
-		}
-	}
+  "absence": {
+    "action": {
+      "delete": {
+        "question": "Er du sikker på, at du vil slette fraværet?"
+      }
+    },
+    "button": {
+      "create": "Tilføj fravær"
+    },
+    "details": {
+      "title": "Detaljer om fravær"
+    },
+    "form": {
+      "inputs": {
+        "entireBusiness": {
+          "label": "Hele virksomheden"
+        },
+        "note": {
+          "placeholder": "Det er bedre at have og ikke have brug for end ikke at have og have brug for, efterlad en note for at forstå, hvad der skete senere."
+        },
+        "type": {
+          "label": "Type",
+          "progressStatus": "Aktuel status"
+        }
+      },
+      "membersIds": {
+        "select": {
+          "title": "Udvælgelse af medlemmer"
+        }
+      },
+      "title": {
+        "create": "Tilføjelse af fravær",
+        "edit": "Redigering af fravær"
+      }
+    },
+    "progress": {
+      "status": {
+        "cancel": "Aflyst",
+        "finished": "Færdig",
+        "inProgress": "I gang",
+        "notStarted": "Planlagt"
+      }
+    },
+    "type": {
+      "break": {
+        "label": "Pause"
+      },
+      "holiday": {
+        "label": "Helligdag"
+      },
+      "vacation": {
+        "label": "Ferie"
+      }
+    }
+  },
+  "analytic": {
+    "counter": {
+      "customers": "Betjente kunder",
+      "orderService": {
+        "by": {
+          "status": {
+            "done": "Antal leverede tjenester"
+          }
+        }
+      }
+    },
+    "summary": {
+      "appointments": {
+        "by": {
+          "client": "Offentlig hjemmeside",
+          "panel": "Panel"
+        },
+        "title": "Besøg og kunder",
+        "total": "Antal leverede tjenester"
+      },
+      "averageBill": "Gennemsnitlig regning",
+      "averageServiceTime": "Gennemsnitlig servicetid",
+      "income": "Indkomst",
+      "overview": {
+        "title": "Generelt overblik"
+      },
+      "totalOrders": "Samlede ordrer",
+      "totalServiceTime": "Antal leverede tjenester i timer",
+      "uniqueClients": "Unikke kunder"
+    },
+    "widget": {
+      "revenue": {
+        "summary": {
+          "by": {
+            "description": "Grafen viser antallet eller mængden af ordrer fra hver kilde individuelt eller i alt, afhængigt af de indstillinger, du vælger.",
+            "form": {
+              "kind": {
+                "count": "Antal bestilte tjenester",
+                "label": "Type af information",
+                "money": "Penge"
+              },
+              "source": {
+                "all": "Fra alle kilder",
+                "client": "Fra den offentlige side",
+                "label": "Kilder til information",
+                "panel": "Fra panelet"
+              }
+            }
+          },
+          "description": "Cirkeldiagrammet viser beløbet efter ordrestatus for hver specialist og procentdelen af det samlede beløb.",
+          "label": "Beløb efter ordrestatus"
+        }
+      },
+      "summary": {
+        "revenue": {
+          "by": {
+            "status": {
+              "done": "Indtægter"
+            }
+          }
+        }
+      },
+      "total": {
+        "counter": {
+          "customers": {
+            "title": "Kunder for perioden"
+          },
+          "description": {
+            "title": "Her kan du finde oplysninger om de tjenester, der er leveret i den valgte periode, deres antal og procentdel af det samlede antal bestilte tjenester."
+          },
+          "order-services": {
+            "title": "Bestilte tjenester"
+          },
+          "orders": {
+            "case": {
+              "ordersLessThanOrderServices": {
+                "0": "Alle ordrer har ikke mere end én service",
+                "1": "Nogle ordrer har mere end én service"
+              }
+            },
+            "title": "Bestil"
+          },
+          "services": {
+            "title": "Tjenester for perioden"
+          }
+        }
+      }
+    }
+  },
+  "autoActionOnOrderInSeconds": {
+    "EIGHT_HOURS": "8 timer",
+    "FIFTEEN_MINUTES": "15 minutter",
+    "FIVE_HOURS": "5 timer",
+    "FIVE_MINUTES": "5 minutter",
+    "FORTY_FIVE_MINUTES": "45 minutter",
+    "FOUR_HOURS": "4 timer",
+    "ONE_DAY": "1 dag",
+    "ONE_HOUR": "1 time",
+    "SEVEN_HOURS": "7 timer",
+    "SIX_HOURS": "6 timer",
+    "TEN_MINUTES": "10 minutter",
+    "THIRTY_MINUTES": "30 minutter",
+    "THREE_HOURS": "3 timer",
+    "TWENTY_MINUTES": "20 minutter",
+    "TWO_HOURS": "2 timer"
+  },
+  "autoActionTypeOnOrder": {
+    "APPROVE": "Godkend",
+    "DENY": "Afvis"
+  },
+  "autoRefresh": {
+    "hint": {
+      "selectTime": "Auto. opdatering"
+    },
+    "time": {
+      "off": "fra"
+    }
+  },
+  "balance": {
+    "button": {
+      "create": "Fyld din saldo op"
+    },
+    "field": {
+      "action": {
+        "type": {
+          "label": "Type"
+        }
+      }
+    }
+  },
+  "businessCategory": {
+    "Barbershop": "Barbersalon",
+    "BeautySalon": "Skønhedssalon",
+    "Dentistry": "Tandpleje",
+    "EyebrowStylist": "Øjenbrynsstylist",
+    "Hairdresser": "Frisør",
+    "Manicurist": "Manicure",
+    "Other": "Andet",
+    "PhysicalRehabilitation": "Fysisk rehabilitering",
+    "Psychotherapy": "Psykoterapi"
+  },
+  "businessIndustry": {
+    "BeautyIndustry": "Skønhedsindustrien",
+    "Healthcare": "Sundhedspleje",
+    "Other": "Andet",
+    "TeachingAndConsultation": "Undervisning og konsultation"
+  },
+  "change-name": {
+    "form": {
+      "input": {
+        "name": {
+          "placeholder": "Dit fulde navn"
+        }
+      }
+    },
+    "modal": {
+      "title": "Skift navn"
+    }
+  },
+  "change-phone": {
+    "modal": {
+      "title": "Ændring af telefonnummer"
+    }
+  },
+  "change-phone-number": {
+    "form": {
+      "input": {
+        "phoneNumber": {
+          "placeholder": "Dit telefonnummer"
+        }
+      }
+    },
+    "modal": {
+      "title": "Skift telefonnummer"
+    }
+  },
+  "client": {
+    "profile": {
+      "form": {
+        "inputs": {
+          "active": {
+            "label": "Aktiv",
+            "placeholder": "Slå til, hvis du ønsker at være aktiv"
+          },
+          "description": {
+            "label": "Forretningsbeskrivelse",
+            "placeholder": "Beskriv kort hvad du laver"
+          },
+          "feature": {
+            "label": "Funktion",
+            "placeholder": "Indtast fangende sætning"
+          },
+          "name": {
+            "label": "Forretningsnavn",
+            "placeholder": "Skriv firma- eller personnavn"
+          },
+          "primaryColor": {
+            "label": "Virksomhedens vigtigste farve"
+          },
+          "published": {
+            "label": "Offentlig adgang"
+          },
+          "username": {
+            "hint": {
+              "under": "Bemærk, at alle ændringer, du foretager på dette område, kan påvirke forskellige målinger. Tag for eksempel SEO - ændringer her kan påvirke, hvor dit indhold vises i søgeresultaterne."
+            },
+            "label": "Brugernavn",
+            "placeholder": "Bee.O_clock"
+          }
+        },
+        "section": {
+          "address": {
+            "input": {
+              "city": {
+                "placeholder": "Din by"
+              },
+              "country": {
+                "placeholder": "Dit land"
+              },
+              "customLink": {
+                "hint": "Angiv det link, hvor brugeren skal føres fra den offentlige side ved at klikke på adressen, hvis du vil bruge standardtilstanden, skal du lade dette felt være tomt",
+                "label": "Brugerdefineret link",
+                "placeholder": "https://example.com"
+              },
+              "streetAddressLineOne": {
+                "placeholder": "Gadenavn, avenue, boulevard, osv."
+              },
+              "streetAddressLineTwo": {
+                "placeholder": "Kontor, husnummer, osv."
+              },
+              "zipCode": {
+                "placeholder": "Dit postnummer"
+              }
+            },
+            "title": "Adresse"
+          },
+          "bookingSettings": {
+            "hint": {
+              "autoActionOnEvent": {
+                "after": "i",
+                "finish": "efter oprettelse.",
+                "start": "Den nyligt oprettede begivenhed/reservation vil automatisk blive"
+              }
+            },
+            "input": {
+              "autoActionOnOrderInSeconds": {
+                "placeholder": "Vælg den tid, hvorefter den valgte automatiske handling skal starte for den nyligt oprettede reservation/begivenhed"
+              },
+              "autoActionTypeOnOrder": {
+                "placeholder": "Vælg den type handling, der automatisk skal ske for den nyligt oprettede reservation/begivenhed"
+              },
+              "earliestBooking": {
+                "placeholder": "Den korteste periode, efter hvilken du kan bestille en service"
+              },
+              "latestBooking": {
+                "placeholder": "Tidspunkt, hvor tjenesten kan bookes"
+              }
+            },
+            "select": {
+              "mandatoryAttendeeProperties": {
+                "hint": "Vælg, hvilke felter kunderne skal udfylde, når de booker en tjeneste",
+                "label": "Krævede felter"
+              },
+              "timeZone": {
+                "hint": "Vælg den tidszone, du arbejder i. Dette felt afgør, hvordan du opretter gratis aftaler til bookinger og viser din arbejdsplan.",
+                "label": "Tidszone"
+              }
+            }
+          },
+          "businessSettings": {
+            "select": {
+              "availableLanguages": {
+                "hint": "Sprog, som du leverer tjenester på, og som den offentlige hjemmeside vil være tilgængelig på.",
+                "label": "Sprog, du driver forretning på"
+              },
+              "baseCurrency": {
+                "hint": "Vælg hovedvalutaen for at vise beløb korrekt i rapporter og ordrer",
+                "label": "Hovedvaluta"
+              },
+              "baseLanguage": {
+                "hint": "Det sprog, som tjenester, rapporter og meddelelser vises på, medmindre andet er angivet i din personlige profil.",
+                "label": "Hovedsprog",
+                "placeholder": "Først skal du vælge de sprog, du driver forretning på"
+              },
+              "currencies": {
+                "hint": "Vælg de valutaer, som du kan modtage betaling i for den leverede service, takket være denne indstilling kan du vælge en bestemt valuta for en bestemt service.",
+                "label": "Valutaer"
+              },
+              "emailLanguage": {
+                "hint": "Vælg det sprog, du vil modtage e-mails på, de tilgængelige muligheder afhænger af de sprog, du gør forretninger på",
+                "label": "Sproget i e-mails"
+              }
+            }
+          },
+          "coverImage": {
+            "fileover": "Læg dine filer her",
+            "motivate": "Du kan give din profil lidt mere personlighed og hjælpe folk med at genkende dit arbejde ved at uploade et billede (et billede, foto eller anden grafisk ikon for din virksomhed).",
+            "title": "Forsidebillede"
+          },
+          "gallery": {
+            "comment": "Upload billeder, der viser dit arbejde fra den bedste side. Billederne skal være 1800px i bredden og 900px i højden og i JPEG- eller PNG-format. Du kan uploade op til 6 billeder.",
+            "title": "Galleri"
+          },
+          "logo": {
+            "fileover": "Læg dine filer her",
+            "formats": "Tilladte typer: SVG, PNG, JPG eller GIF",
+            "motivate": "Du kan give din forretningsprofil lidt mere personlighed og hjælpe folk med at genkende dig ved at uploade et logo (et billede, foto eller anden grafisk ikon af \"dig\").",
+            "title": "Logo"
+          }
+        }
+      },
+      "title": "Profil"
+    },
+    "settings": {
+      "defaultData": {
+        "event": {
+          "form": {
+            "inputs": {
+              "language": {
+                "label": "Standardsprog for begivenheden"
+              },
+              "service": {
+                "label": "Standardtjeneste for begivenheden (top tjeneste)"
+              }
+            }
+          },
+          "title": "Standarddata for begivenhed"
+        },
+        "service": {
+          "form": {
+            "inputs": {
+              "break": {
+                "label": "Standardpause for tjenesten"
+              },
+              "duration": {
+                "label": "Standardvarighed for tjenesten"
+              },
+              "endWork": {
+                "label": "Standardtjeneste afsluttes"
+              },
+              "language": {
+                "label": "Standardsprog for tjenesten"
+              },
+              "price": {
+                "label": "Standardpris for tjenesten"
+              },
+              "startWork": {
+                "label": "Standardtjeneste starter"
+              },
+              "workDays": {
+                "label": "Standardarbejdsdage for tjenesten"
+              }
+            }
+          },
+          "title": "Standarddata for tjeneste"
+        }
+      },
+      "form": {
+        "autoBookOrder": {
+          "label": "Tillad en kunde at booke en begivenhed med det samme med en bekræftet status"
+        },
+        "inputs": {
+          "darkMode": {
+            "label": "Mørk tilstand"
+          }
+        }
+      },
+      "title": "Indstillinger"
+    }
+  },
+  "country": {
+    "DK": "Danmark",
+    "PL": "Polen",
+    "UA": "Ukraine"
+  },
+  "customer": {
+    "action": {
+      "delete": {
+        "question": "Er du sikker på, at du vil slette din klient?"
+      }
+    },
+    "button": {
+      "create": "Tilføj kunde"
+    },
+    "details": {
+      "title": "Kundeoplysninger"
+    },
+    "enum": {
+      "type": {
+        "anonymous": "Anonym",
+        "new": "Ny",
+        "regular": "Kunde",
+        "unregistered": "Gæst"
+      }
+    },
+    "form": {
+      "input": {
+        "note": {
+          "placeholder": "Her kan du indtaste yderligere information om kunden"
+        }
+      },
+      "title": {
+        "create": "Tilføjelse af en kunde",
+        "edit": "Redigering af en kunde"
+      }
+    },
+    "title": "Kunde"
+  },
+  "danger-zone": {
+    "button": {
+      "delete": {
+        "confirm": {
+          "message": "Er du sikker på, at du vil slette forretningsklienten, så vil alle data blive slettet, og det vil ikke være muligt at gendanne dem, og alle brugere, der havde adgang til denne forretningsklient, vil også miste adgangen, hvis du kun vil forlade denne forretningsklient, skal du klikke på knappen »Afslut denne forretningsklient«.",
+          "sub-title": "Når du har slettet en erhvervskunde, er der ingen vej tilbage. Vær sikker på det.",
+          "title": "Slet forretningsklient"
+        },
+        "hint": "Det er uigenkaldeligt at slette en virksomhedskonto, så overvej beslutningen nøje.",
+        "label": "Slet virksomhedsprofil",
+        "title": "Sletning af en virksomhedsprofil"
+      }
+    },
+    "hint": {
+      "message": "Slet forretningskonto. Efter sletning af forretningskontoen er der ingen vej tilbage. Overvej denne handling nøje."
+    },
+    "title": "Farlig zone"
+  },
+  "earliestBooking": {
+    "FIVE_HOURS": "Om 5 timer",
+    "FOUR_HOURS": "Om 4 timer",
+    "MINUTE_15": "Om 15 minutter",
+    "MINUTE_30": "Om 30 minutter",
+    "NO_LIMIT": "Ingen tidligste bookingtid",
+    "ONE_DAY": "Om 1 dag",
+    "ONE_HOUR": "Om 1 time",
+    "ONE_WEEK": "Om 1 uge",
+    "SIX_HOURS": "Om 6 timer",
+    "THREE_DAYS": "Om 3 dage",
+    "THREE_HOURS": "Om 3 timer",
+    "TWO_HOURS": "Om 2 timer"
+  },
+  "enum": {
+    "facility": {
+      "capitalize": {
+        "ACCEPTING_CARD_PAYMENT": "Accepterer kreditkort",
+        "ACCEPTING_CHILDREN": "Børnevenlig",
+        "ACCEPTING_PETS": "Kæledyr tilladt",
+        "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Faciliteter for personer med handicap",
+        "FREE_PARKING": "Gratis parkering",
+        "INTERNET": "Internet (Wi-Fi)"
+      }
+    },
+    "theme": {
+      "dark": "Mørk",
+      "light": "Lys"
+    }
+  },
+  "event": {
+    "action": {
+      "button": {
+        "done": {
+          "label": "Begivenhed gennemført"
+        }
+      }
+    },
+    "additionalMenu": {
+      "items": {
+        "addNewAbsence": {
+          "hint": "Med denne mulighed kan du tilføje en ny pause i din kalender til dig selv eller andre.",
+          "title": "Tilføj et nyt fravær"
+        },
+        "addNewOrder": {
+          "hint": "Med denne mulighed tilføjer du en ny ordre med service og produkt.",
+          "title": "Tilføj en ny ordre"
+        }
+      },
+      "title": "Ekstra menu"
+    },
+    "calendar-with-specialists": {
+      "confirm-changes": {
+        "message": {
+          "default": "Er du sikker på, at du vil gemme ændringerne?",
+          "important": "Er du sikker på, at du vil tilskrive denne begivenhed til en specialist, som ikke kan levere en sådan service? Der findes ikke en sådan tjeneste på listen over udvalgte tjenester, som en specialist kan levere!"
+        },
+        "subHeader": {
+          "important": "Opmærksomhed, store ændringer"
+        }
+      },
+      "settings": {
+        "move-minute": {
+          "description": "På få minutter",
+          "title": "Bevægelse"
+        }
+      }
+    },
+    "details": {
+      "meta": {
+        "history": {
+          "keyword": {
+            "capitalize": {
+              "_id": "Identifikator",
+              "durationInSeconds": "Varighed",
+              "durationVersions": "Varighed version",
+              "end": "Slut",
+              "orderAppointmentDetails": "Ændringer i begivenheden",
+              "serviceSnapshot": "Service (angiv på bestillingstidspunktet)",
+              "start": "Begyndelsen",
+              "wasSelectedAnybody": "Blev valgt nogen"
+            }
+          }
+        }
+      },
+      "title": "Detaljeret visning af begivenheden"
+    },
+    "form": {
+      "section": {
+        "additional": {
+          "input": {
+            "note": {
+              "placeholder": "Her kan du indtaste yderligere information om begivenheden"
+            }
+          }
+        },
+        "attendant": {
+          "button": {
+            "add": "Tilføj deltager",
+            "select": "Vælg en tjeneste",
+            "togglePresentationOfNewAttendant": "Denne klient er ikke opført (ny klient)"
+          },
+          "input": {
+            "selectCustomer": {
+              "placeholder": "Vælg kunde"
+            }
+          }
+        },
+        "customer": {
+          "modal": {
+            "title": "Kundens valg"
+          }
+        },
+        "datetime": {
+          "hint": {
+            "selectDateToSelectTimeSlot": "Vælg en af de foreslåede datoer for at kunne vælge tidspunkt"
+          }
+        },
+        "service": {
+          "button": {
+            "add": "Tilføj tjeneste",
+            "select": "Vælg tjeneste"
+          },
+          "input": {
+            "selectService": {
+              "placeholder": "Vælg tjeneste"
+            }
+          },
+          "modal": {
+            "title": "Vælg tjeneste"
+          }
+        }
+      },
+      "title": {
+        "create": "Tilføjelse af en ny begivenhed",
+        "edit": "Udgave af begivenheden"
+      }
+    },
+    "keyword": {
+      "capitalize": {
+        "chronologyOfEventChanges": "Kronologi af begivenhedsændringer",
+        "end": "Slutter",
+        "repeat": "Gentag",
+        "service": "Tjeneste",
+        "start": "Bookingstart",
+        "status": "Status",
+        "statusChanged": "Status ændret",
+        "statusChangedTo": "Status ændret til"
+      },
+      "status": {
+        "all": "Alle",
+        "plural": {
+          "accepted": "Accepteret",
+          "cancelled": "Aflyst",
+          "deleted": "Slettet",
+          "done": "Færdig",
+          "inProgress": "I gang",
+          "rejected": "Afvist",
+          "requested": "Anmodet"
+        },
+        "singular": {
+          "accepted": "Accepteret",
+          "cancelled": "Aflyst",
+          "confirmed": "Bekræftet",
+          "deleted": "Usunto",
+          "done": "Færdig",
+          "inProgress": "I gang",
+          "rejected": "Afvist",
+          "requested": "Anmodet"
+        }
+      }
+    },
+    "statistic": {
+      "period": {
+        "LAST_MONTH": "Sidste måned",
+        "LAST_WEEK": "Sidste uge",
+        "LAST_YEAR": "Sidste år",
+        "NEXT_MONTH": "Næste måned",
+        "NEXT_WEEK": "Næste uge",
+        "THIS_MONTH": "Denne måned",
+        "THIS_WEEK": "Denne uge",
+        "THIS_YEAR": "Dette år",
+        "TODAY": "I dag",
+        "YESTERDAY": "I går"
+      }
+    },
+    "title": "Begivenhed",
+    "warning": {
+      "durationAndPriceConflict": "Vælg en tilgængelig varighed, eller den længste vil automatisk blive valgt efter accept.",
+      "multipleEventAtSameTime": "Mere end en begivenhed på dette tidspunkt."
+    }
+  },
+  "example": {
+    "firstName": "John",
+    "lastName": "Smith"
+  },
+  "form": {
+    "validation": {
+      "atLeastOneFieldMustBeFilled": "Mindst et felt skal udfyldes",
+      "atLeastOneMemberSelectedOrEntireBusiness": "Du skal vælge mindst ét medlem eller hele virksomheden.",
+      "durationFormatInvalid": "Gyldigt format er timer:minutter (00:00)",
+      "email": "Ugyldigt e-mail-format",
+      "emailExists": "En bruger med denne e-mail eksisterer allerede",
+      "emailOrPhoneRequired": "E-mail eller telefonnummer er påkrævet",
+      "imageSize": "Maksimal billedstørrelse er {{max}}, nuværende størrelse er {{value}}",
+      "invalid": "Invalid",
+      "mask": "Ugyldigt format, korrekt format er {{requiredMask}}",
+      "min": "Minimum værdi er {{min}}",
+      "minlength": "Minimumslængde er {{requiredLength}}",
+      "phoneExists": "En bruger med dette telefonnummer eksisterer allerede",
+      "required": "Påkrævet felt",
+      "shouldBeMoreThen": {
+        "startInSeconds": "Sluttidspunktet skal være længere end starttidspunktet"
+      },
+      "startBeforeEnd": "Startdatoen skal være før slutdatoen.",
+      "username": "Brugernavnet kan kun indeholde bogstaver, tal, en understregning (_) og et punktum (.).",
+      "whitespace": "Fjern alle mellemrum"
+    }
+  },
+  "http": {
+    "DELETE": {
+      "/api/v1/customer/{id}": {
+        "before": {
+          "accept": {
+            "header": "Sletter en kunde",
+            "message": "Er du sikker på, at du vil fjerne kunden?"
+          }
+        }
+      },
+      "/api/v1/event/{id}": {
+        "before": {
+          "accept": {
+            "header": "Sletter en begivenhed",
+            "message": "Er du sikker på, at du vil fjerne begivenheden?"
+          }
+        }
+      },
+      "/api/v1/service/{id}": {
+        "before": {
+          "accept": {
+            "header": "Sletter en tjeneste",
+            "message": "Er du sikker på, at du vil fjerne tjenesten?"
+          }
+        }
+      }
+    },
+    "PATCH": {
+      "/api/v1/event/{id}/booked": {
+        "after": {
+          "success": {
+            "header": "Begivenhed booket",
+            "message": "Begivenheden blev booket med succes."
+          }
+        }
+      },
+      "/api/v1/event/{id}/cancelled": {
+        "after": {
+          "success": {
+            "header": "Begivenhed aflyst",
+            "message": "Begivenheden blev aflyst med succes."
+          }
+        }
+      },
+      "/api/v1/event/{id}/done": {
+        "after": {
+          "success": {
+            "header": "Begivenhed gennemført",
+            "message": "Begivenheden blev gennemført med succes."
+          }
+        }
+      },
+      "/api/v1/event/{id}/rejected": {
+        "after": {
+          "success": {
+            "header": "Begivenhed afvist",
+            "message": "Begivenheden blev afvist med succes."
+          }
+        }
+      },
+      "/api/v1/event/{id}/requested": {
+        "after": {
+          "success": {
+            "header": "Begivenhed anmodet",
+            "message": "Begivenheden blev anmodet med succes."
+          }
+        }
+      }
+    },
+    "POST": {
+      "/api/v1/customer": {
+        "after": {
+          "success": {
+            "header": "Kunde oprettet",
+            "message": "Kunden blev oprettet med succes."
+          }
+        }
+      },
+      "/api/v1/event": {
+        "after": {
+          "success": {
+            "header": "Begivenhed oprettet",
+            "message": "Begivenheden blev oprettet med succes."
+          }
+        }
+      },
+      "/api/v1/service": {
+        "after": {
+          "success": {
+            "header": "Tjeneste oprettet",
+            "message": "Tjenesten blev oprettet med succes."
+          }
+        }
+      }
+    },
+    "PUT": {
+      "/api/v1/business-profile": {
+        "after": {
+          "success": {
+            "header": "Forretningsprofil",
+            "message": "Forretningsprofilen blev opdateret med succes."
+          }
+        }
+      },
+      "/api/v1/customer/{id}": {
+        "after": {
+          "success": {
+            "header": "Kunde opdateret",
+            "message": "Kunden blev opdateret med succes."
+          }
+        }
+      },
+      "/api/v1/event/{id}": {
+        "after": {
+          "success": {
+            "header": "Begivenhed opdateret",
+            "message": "Begivenheden blev opdateret med succes."
+          }
+        }
+      },
+      "/api/v1/service/{id}": {
+        "after": {
+          "success": {
+            "header": "Tjeneste opdateret",
+            "message": "Tjenesten blev opdateret med succes."
+          }
+        }
+      }
+    },
+    "response": {
+      "status": {
+        "504": {
+          "content": "Kontroller internet eller prøv igen senere.",
+          "title": "Serverfejl"
+        }
+      }
+    }
+  },
+  "identity": {
+    "confirm-email": {
+      "hint": "Måske er den tidligere e-mail allerede udløbet, du kan sende en anden for at bekræfte e-mailen",
+      "sendAgain": {
+        "hint": "Efter at have klikket vil vi sende dig en e-mail med et link til at bekræfte din e-mailadresse"
+      },
+      "sent": {
+        "hint": "Tjek din e-mailboks, nogle gange kan forskellige e-mailtjenester misfortolke vores e-mail, se også i spam!",
+        "title": "E-mail sendt succesfuldt"
+      },
+      "title": "Du har ikke en bekræftet e-mailadresse"
+    },
+    "confirm-invitation": {
+      "form": {
+        "description": "Dette er det sidste skridt til at blive medlem af den organisation, du er blevet inviteret til.",
+        "inputs": {
+          "password": {
+            "label": "Opret en adgangskode til autorisation"
+          }
+        }
+      }
+    },
+    "confirmInvitation": {
+      "success": "Tillykke, du kan nu logge ind"
+    },
+    "corridor": {
+      "addBusiness": "Opret ny forretning",
+      "selectBusiness": "Vælg forretningskontekst"
+    },
+    "create-business": {
+      "form": {
+        "inputs": {
+          "address": {
+            "label": "Adresse"
+          },
+          "businessName": {
+            "label": "Forretningsnavn",
+            "placeholder": "Salon Urody \"Bee O`clock\""
+          },
+          "name": {
+            "label": "Navn"
+          },
+          "slogan": {
+            "label": "Slogan"
+          }
+        }
+      },
+      "section": {
+        "category": {
+          "title": "Vælg din niche"
+        },
+        "industry": {
+          "title": "Hvad er din branche?"
+        },
+        "introduction": {
+          "button": "Kom i gang",
+          "description": "Forbedr din forretningsydelse med en alt-i-én-løsning",
+          "welcome": "Velkommen til"
+        },
+        "languages": {
+          "title": "Hvilke sprog driver du forretning på?"
+        },
+        "names": {
+          "title": "Indtast dit navn og din forretnings navn"
+        },
+        "only-company": {
+          "title": "Indtast navnet på virksomheden"
+        },
+        "pointOfSale": {
+          "title": "Hvor kan kunderne nå dig?"
+        },
+        "portfolio": {
+          "title": "Din portefølje"
+        },
+        "processing": {
+          "button": "Gå til dashboardet"
+        },
+        "schedules": {
+          "title": "Dine arbejdstider"
+        },
+        "services": {
+          "title": "Hvilke tjenester yder du?"
+        }
+      }
+    },
+    "forgot-password": {
+      "form": {
+        "button": {
+          "sign-in": "Log ind",
+          "submit": "Send"
+        },
+        "inputs": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Indtast e-mail"
+          }
+        },
+        "label": "Adgangskodegendannelse"
+      }
+    },
+    "reset-password": {
+      "form": {
+        "button": {
+          "sign-in": "Log ind",
+          "submit": "Skift adgangskode"
+        },
+        "inputs": {
+          "password": {
+            "label": "Adgangskode",
+            "placeholder": "Indtast adgangskode"
+          }
+        },
+        "label": "Nulstil adgangskode"
+      }
+    },
+    "sign-in": {
+      "form": {
+        "button": {
+          "forgot-password": "Glemt adgangskode",
+          "sign-up": "Registrering",
+          "submit": "Log ind"
+        },
+        "inputs": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "navn.efternavn@beeoclock.com"
+          },
+          "password": {
+            "label": "Adgangskode",
+            "placeholder": "Indtast adgangskode"
+          }
+        },
+        "label": "Log ind"
+      },
+      "hint": {
+        "notAMember": "Endnu ikke medlem?",
+        "signInToYourAccount": "Log ind på din konto"
+      },
+      "link": {
+        "forgotPassword": "Glemt adgangskode?"
+      }
+    },
+    "sign-up": {
+      "afterSuccess": {
+        "nextStep": "Næste skridt er at bekræfte din e-mail.",
+        "openMailService": "Åbn e-mailtjenesten",
+        "weSentEmail": "Vi sendte et brev til adressen",
+        "youHaveSuccessfullyRegistered": "Tillykke, du har registreret dig med succes!"
+      },
+      "form": {
+        "button": {
+          "sign-in": "Log ind",
+          "submit": "Registrering"
+        },
+        "inputs": {
+          "display-name": {
+            "label": "Hvordan skal alle kalde dig",
+            "placeholder": "f.eks. Firmanavn, personligt navn"
+          },
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Indtast e-mailadresse"
+          },
+          "password": {
+            "label": "Adgangskode",
+            "placeholder": "Indtast adgangskode"
+          },
+          "password-confirm": {
+            "label": "Bekræft adgangskode",
+            "placeholder": "Indtast bekræft adgangskode"
+          },
+          "timezone": {
+            "inputs": {
+              "offset": {
+                "label": "Bekræft adgangskode",
+                "placeholder": "Indtast bekræft adgangskode"
+              }
+            }
+          }
+        },
+        "label": "Registrering"
+      },
+      "hint": {
+        "mainText": "Værktøjer skræddersyet til dine individuelle behov",
+        "quote": "Arbejd med de bedste specialister! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock står for hurtighed, professionalisme og pålidelighed.",
+        "subBainText": "Opret en konto på få sekunder, og kom i gang med at bruge alle \t\t\t\t\t\t\t\t\taf Bee O'clocks funktioner. Vi fokuserer på at give dig resultater \t\t\t\t\t\t\t\t\tså hurtigt som muligt.",
+        "successfulInCurrentYear": "Din succes er vores mission i {{currentYear}}.",
+        "youHaveAnAccount": "Har du en konto?"
+      }
+    }
+  },
+  "keyword": {
+    "capitalize": {
+      "absence": "Fravær",
+      "accept": "Accepter",
+      "account": "Konto",
+      "action": "Handling",
+      "activate": "Aktivér",
+      "active": "Aktiv",
+      "add": "Tilføj",
+      "add-event": "Tilføj begivenhed",
+      "add-service": "Tilføj tjeneste",
+      "addAvailableHours": "Tilføj tilgængelige timer",
+      "addContactPhone": "Tilføj telefonnummer",
+      "addDuration": "Tilføj varighed",
+      "addSocialMedia": "Tilføj sociale medier",
+      "additional": "Yderligere",
+      "additionalInformation": "Ytterligere oplysninger",
+      "address": "Adresse",
+      "all": "Alle",
+      "allServices": "Alle tjenester",
+      "allSpecialists": "Alle specialister",
+      "allStatuses": "Alle statusser",
+      "amount": "Beløb",
+      "anonymous": "Anonym",
+      "approvalType": "Godkendelsestype",
+      "approve": "Godkend",
+      "archived": "Arkiveret",
+      "attendees": "Deltagere",
+      "autoActionOnOrderInSeconds": "Automatisk handlings starttid",
+      "autoActionTypeOnOrder": "Type automatisk handling",
+      "avatar": "Avatar",
+      "back": "Tilbage",
+      "banners": "Bannere",
+      "bookingSettings": "Bookingindstillinger",
+      "break": "Pause",
+      "business": "Forretning",
+      "businessCategory": "Forretningskategori",
+      "businessIndustry": "Forretningsindustri",
+      "businessName": "Forretningsnavn",
+      "businessNote": "Forretningsnote",
+      "businessProfile": "Forretningsprofil",
+      "businessSettings": "Forretningsindstillinger",
+      "cancel": "Annuller",
+      "changeStatus": "Skift status",
+      "changes": "Ændringer",
+      "changesFrom": "Fra",
+      "changesTo": "Til",
+      "chooseImage": "Vælg billede",
+      "chosen": "Udvalgt",
+      "city": "By",
+      "clearCache": "Opdater cache",
+      "clickToUpload": "Klik for at uploade",
+      "clients": "Klienter",
+      "close": "Luk",
+      "color": "Farve",
+      "comingSoon": "Kommer snart...",
+      "confirm": "Bekræft",
+      "contact": "Kontakt",
+      "contactPhone": "Kontakttelefon",
+      "country": "Land",
+      "create": "Opret",
+      "createdAt": "Oprettet kl",
+      "currency": "Valuta",
+      "customer": "Kunde",
+      "customerNote": "En note fra klienten",
+      "customers": "kunder",
+      "dataNotFound": "Data ikke fundet",
+      "dateAndTime": "Dato og tid",
+      "day": "Dag",
+      "deactivate": "Deaktiver",
+      "delete": "Slet",
+      "deleted": "Slettet",
+      "description": "Beskrivelse",
+      "details": "Detaljer",
+      "dismiss": "Afvis",
+      "done": "Færdig",
+      "downgradeTo": "Nedgradering til",
+      "downloadMore": "Download mere",
+      "duration": "Varighed",
+      "earliestBooking": "Tidligste bookingtid",
+      "edit": "Rediger",
+      "email": "E-mail",
+      "end": "Slut",
+      "error": "Fejl",
+      "event": "Begivenhed",
+      "events": "Begivenheder",
+      "every": "Hver",
+      "exhausted": "Udmattet ",
+      "export": "Eksport",
+      "facilities": "Faciliteter",
+      "feature": "Funktion",
+      "finished": "Voltooid",
+      "firstName": "Fornavn",
+      "from": "Fra",
+      "fullName": "Fulde navn",
+      "general": "Generelt",
+      "historyOfStates": "Statens historie",
+      "image": "Billede",
+      "inactive": "Inaktiv",
+      "information": "Information",
+      "initializing": "Initialiserer",
+      "isUpcoming": "Er kommende",
+      "language": "Sprog",
+      "languageAndRegion": "Sprog og region",
+      "languages": "Sprog",
+      "lastName": "Efternavn",
+      "lastUpdate": "Sidste opdatering",
+      "latestBooking": "Hvornår en begivenhed kan bookes",
+      "leftInDays": "Dagen te gaan",
+      "logout": "Log ud",
+      "members": "Medlemmer",
+      "menu": "Menu",
+      "month": "Måned",
+      "monthly": "Månedligt",
+      "name": "Navn",
+      "next": "Næste",
+      "nextStep": "Næste skridt",
+      "no": "Nej",
+      "noAvailable": "Ikke tilgængelig",
+      "noData": "Ingen data",
+      "noNeedCard": "Intet behov for kort",
+      "notPaid": "Ikke betalt",
+      "notSpecified": "Ikke specificeret",
+      "notYetStarted": "Nog niet begonnen",
+      "note": "Note",
+      "notification": "Notifikation",
+      "openTimePicker": "Vælg",
+      "order": "Rækkefølge",
+      "ordering": "Bestilling",
+      "ownOptionOfTime": "Time efter eget ønske",
+      "ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
+      "paid": "Betalt",
+      "payAsYouGo": "Betal, når du går",
+      "payer": "Udbetaler",
+      "payment": "Betaling",
+      "paymentMethod": "Betalingsmetode",
+      "paymentProviderType": "Betalingstype ",
+      "paymentStatus": "Betalingsstatus",
+      "periodOfDay": {
+        "AFTERNOON": "Eftermiddag",
+        "EVENING": "Aften",
+        "MORNING": "Morgen",
+        "NIGHT": "Nat"
+      },
+      "permission": "Tilladelse",
+      "phone": "Telefon",
+      "placeholder": {
+        "description": "Skriv beskrivelse",
+        "search": "Søg"
+      },
+      "plugins": "Plugins",
+      "portfolio": "Portefølje",
+      "preview": "Forhåndsvisning",
+      "previous": "Forrige",
+      "price": "Pris",
+      "priceTimeFormatPrompt": "timer:minutter",
+      "prices": "Priser",
+      "processing": "Behandler",
+      "publicPage": "Offentlig side",
+      "reject": "Afvis",
+      "role": "Rolle",
+      "save": "Gem",
+      "search": "søg",
+      "select": "Vælg",
+      "selectSpecialist": "Vælg specialist",
+      "selected": "Valgt",
+      "selectedDateTime": "Valgt dato og klokkeslæt",
+      "selectedMember": "Udvalgt medlem",
+      "send": "Send",
+      "sendAgain": "Send igen",
+      "service": "Tjeneste",
+      "services": "Tjenester",
+      "signIn": "Log ind",
+      "signOut": "Log ud",
+      "signUp": "Tilmeld dig",
+      "slogan": "Slogan",
+      "socialMedia": "Sociale medier",
+      "somethingWentWrong": "Noget gik galt!",
+      "soon": "Snart",
+      "specialist": "Specialist",
+      "specialists": "Specialister",
+      "start": "Start",
+      "state": "Tilstand",
+      "status": "Status",
+      "statuses": "Statusser",
+      "streetAddressLineOne": "Adresse 1",
+      "streetAddressLineTwo": "Adresse 2",
+      "successfully": "Med succes",
+      "switchTo": "Skift til",
+      "synced": "Synkroniseret",
+      "syncing": "Synkronisering pågår…",
+      "theSlotAlreadyTaken": "Denne tid er allerede optaget hos denne specialist!",
+      "theme": "Tema",
+      "thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
+      "time": "Tid",
+      "title": "Titel",
+      "to": "Til",
+      "today": "I dag",
+      "tomorrow": "I morgen",
+      "total": "Total",
+      "tryDemoProfile": "Prøv demoprofilen",
+      "unknown": "Ukendt",
+      "update": "Opdateret",
+      "updatedAt": "Opdateret kl",
+      "upgradeTo": "Opgrader til",
+      "warning": "Advarsel",
+      "week": "Uge",
+      "workdays": "Arbejdsdage",
+      "workingHours": "Arbejdstimer",
+      "writePrice": "Skriv pris",
+      "year": "År",
+      "yearly": "Årligt",
+      "yes": "Ja",
+      "yesterday": "Yesterday",
+      "youOffline": "Du er offline!",
+      "zipCode": "Postnummer"
+    },
+    "lowercase": {
+      "after": "efter",
+      "ago": "siden",
+      "all": "alle",
+      "at": "kl",
+      "days": "dage",
+      "details": "detaljer",
+      "dragAndDrop": "træk og slip",
+      "in": "i",
+      "min": "min.",
+      "no-data": "ingen data",
+      "now": "nu",
+      "or": "eller",
+      "sec": "sek.",
+      "service": "tjeneste",
+      "short": {
+        "days": "d",
+        "hour": "t",
+        "minutes": "min"
+      }
+    },
+    "singular": {
+      "capitalize": {
+        "client": "Klient",
+        "freeMovement": "Fri bevægelighed",
+        "openDetails": "Åbn detaljer",
+        "type": "Type"
+      }
+    },
+    "state": {
+      "plural": {
+        "active": "Aktiv",
+        "archived": "Arkiveret",
+        "deleted": "Slettet",
+        "inactive": "Inaktiv"
+      }
+    },
+    "status": {
+      "all": "Alle",
+      "plural": {
+        "0": "Inaktiv",
+        "1": "Aktiv"
+      }
+    },
+    "uppercase": {
+      "noAvailable": "N/A"
+    }
+  },
+  "latestBooking": {
+    "EIGHT_WEEKS": "Inden for 8 uger",
+    "FIVE_WEEKS": "Inden for 5 uger",
+    "FOUR_WEEKS": "Inden for 4 uger",
+    "NO_LIMIT": "Ethvert tilgængeligt tidspunkt",
+    "SEVEN_WEEKS": "Inden for 7 uger",
+    "SIX_WEEKS": "Inden for 6 uger",
+    "THREE_WEEKS": "Inden for 3 uger",
+    "TWO_WEEKS": "Denne uge og næste uge"
+  },
+  "mandatoryAttendeeProperties": {
+    "options": {
+      "email": "E-mail",
+      "firstName": "Fornavn",
+      "phone": "Telefon"
+    }
+  },
+  "member": {
+    "button": {
+      "create": "Tilføj medlem"
+    },
+    "details": {
+      "title": "Oplysninger om en medarbejder"
+    },
+    "enum": {
+      "profileStatus": {
+        "active": "Aktiv",
+        "deleted": "Slettet",
+        "suspended": "Suspenderet"
+      }
+    },
+    "form": {
+      "assignments": {
+        "button": {
+          "hint": {
+            "all": "hele listen",
+            "includeIsEmpty": "ingen"
+          },
+          "label": "Tjenester leveret af specialisten"
+        },
+        "service": {
+          "full": {
+            "label": "Specialisten leverer alle tilgængelige (aktive) tjenester på listen"
+          },
+          "select": {
+            "title": "Udvælgelse af tjenester"
+          }
+        }
+      },
+      "title": {
+        "create": "Tilføj et teammedlem",
+        "edit": "Rediger et teammedlem"
+      }
+    },
+    "title": "Medlem",
+    "toast": {
+      "limit": "Grænsen er nået. Opgrader til en højere plan for at tilføje flere teammedlemmer."
+    }
+  },
+  "notificationSetting": {
+    "cardTitle": "Kunde Notifikationsindstillinger",
+    "emailNotificationSettings": {
+      "hint": "Send notifikationer til kunden via e-mail",
+      "label": "E-mail Notifikationer"
+    },
+    "modal": {
+      "contentTitle": "Vælg, hvordan deltagerne skal underrettes om ændringerne.",
+      "hint": "Du ser dette vindue, fordi virksomhedens indstillinger angiver altid at spørge, om der skal sendes beskeder til deltagerne.",
+      "sendEmails": "Send E-mail",
+      "sendSms": "Send SMS",
+      "title": "Notifikation"
+    },
+    "sendNotificationConditionType": {
+      "allow": "Tillad",
+      "allowButAsk": "Spørg Hver Gang",
+      "deny": "Send Ikke"
+    },
+    "smsNotificationSettings": {
+      "hint": "Send notifikationer til kunden via SMS",
+      "label": "SMS Notifikationer"
+    }
+  },
+  "order": {
+    "action": {
+      "delete": {
+        "question": "Er du sikker på, at du vil slette ordren?"
+      }
+    },
+    "button": {
+      "create": "Tilføj ordre"
+    },
+    "confirmation": {
+      "change-status": {
+        "hint": "Statusvariablen kan have en effekt på tjenesterne i denne ordre, hvis den f.eks. er annulleret, annulleres alle tjenester også.",
+        "message": "Er du sikker på, at du vil ændre status?"
+      },
+      "delete": {
+        "service": {
+          "header": "Sletning af den bestilte tjeneste",
+          "message": "Vil du virkelig slette den bestilte tjeneste?",
+          "subHeader": {
+            "lastService": "Når man sletter den senest bestilte tjeneste, slettes selve bestillingen automatisk."
+          }
+        }
+      }
+    },
+    "details": {
+      "title": "Bestil detaljer"
+    },
+    "enum": {
+      "status": {
+        "singular": {
+          "cancelled": "Aflyst",
+          "confirmed": "Bekræftet",
+          "deleted": "Slettet",
+          "done": "Færdig",
+          "draft": "Udkast",
+          "inProgress": "Igangværende",
+          "rejected": "Afvist",
+          "requested": "Anmodet om"
+        }
+      }
+    },
+    "form": {
+      "chip": {
+        "specialist": {
+          "noAssignedSpecialist": "Ingen tildelt specialist"
+        }
+      },
+      "input": {
+        "businessNote": {
+          "placeholder": "Her kan du tilføje en note, som ikke vil være tilgængelig for klienten."
+        }
+      },
+      "payment": {
+        "payer": {
+          "case": {
+            "new": {
+              "hint": "I dette tilfælde vil betaleren automatisk blive tilføjet til kundedatabasen."
+            },
+            "unregistered": {
+              "hint": "Betaleren bliver ikke automatisk tilføjet til kundedatabasen."
+            }
+          }
+        }
+      },
+      "service": {
+        "customer": {
+          "hist": {
+            "anonymous": "Dette valg indikerer, at kunden ikke er identificeret og ikke er registreret i systemet. Derfor vil kunden blive vist som anonym overalt."
+          }
+        }
+      },
+      "title": {
+        "create": "Tilføjelse af en ordre",
+        "edit": "Redigering af en ordre"
+      }
+    },
+    "keyword": {
+      "singular": {
+        "capitalize": {
+          "openDetails": "Åbn ordredetaljer"
+        }
+      }
+    }
+  },
+  "page": {
+    "calendar": {
+      "title": "Kalender"
+    },
+    "select-client": {
+      "button": {
+        "create-new-client": "Opret en ny klient"
+      },
+      "form": {
+        "button": {
+          "submit": "Vælg"
+        }
+      },
+      "title": "Vælg klient"
+    }
+  },
+  "pagination": {
+    "message": {
+      "allDataDownloaded": "Alle tilgængelige data er downloadet"
+    }
+  },
+  "payment": {
+    "method": {
+      "CARD": {
+        "label": "Kort"
+      },
+      "CASH": {
+        "label": "Kontanter"
+      }
+    },
+    "providerType": {
+      "onSite": {
+        "label": "På stedet"
+      },
+      "stripe": {
+        "label": "Stripe"
+      }
+    },
+    "status": {
+      "failed": {
+        "label": "Mislykket"
+      },
+      "pending": {
+        "label": "Afventende"
+      },
+      "registered": {
+        "label": "Registreret"
+      },
+      "succeeded": {
+        "label": "Lykkedes"
+      }
+    }
+  },
+  "role": {
+    "ADMIN": "Administrator",
+    "OWNER": "Ejer",
+    "SPECIALIST": "Specialist"
+  },
+  "service": {
+    "action": {
+      "delete": {
+        "question": "Er du sikker på, at du vil slette tjenesten?"
+      }
+    },
+    "details": {
+      "title": "Information om tjenesten"
+    },
+    "form": {
+      "color": {
+        "input": {
+          "hint": "Tjenestens farve bruges til at vise begivenheden i kalenderen i den valgte farve."
+        }
+      },
+      "order": {
+        "input": {
+          "placeholder": "Angiv placeringen af denne tjeneste på listen på den offentlige hjemmeside"
+        }
+      },
+      "title": {
+        "create": "Tilføjelse af en tjeneste",
+        "edit": "Redigering af en tjeneste"
+      },
+      "v2": {
+        "section": {
+          "availableLanguages": {
+            "hint": "Du kan oprette en tjeneste, der vil være tilgængelig på flere sprog, for at tilføje et andet sprog skal du vælge et af følgende",
+            "title": "Service-sprog"
+          },
+          "presentation": {
+            "motivate": "Du kan give dine tjenester lidt mere personlighed og hjælpe folk med at genkende dit arbejde ved at uploade et billede (et billede, foto eller anden grafisk ikon for din tjeneste)."
+          },
+          "prices": {
+            "button": {
+              "add": {
+                "label": "Tilføj pris"
+              }
+            },
+            "suffix": {
+              "range": {
+                "from": " (fra)",
+                "to": " (til)"
+              }
+            },
+            "switch": {
+              "range": {
+                "title": "Intervalmodus (fra - til)"
+              }
+            }
+          }
+        }
+      }
+    },
+    "keyword": {
+      "capitalize": {
+        "active": "Aktiv",
+        "inactive": "Inaktiv"
+      }
+    },
+    "title": "Tjeneste"
+  },
+  "sidebar": {
+    "absence": "Fravær",
+    "addEvent": "Tilføj begivenhed",
+    "appointments": {
+      "label": "Aftaler"
+    },
+    "balance": "Balance",
+    "businessProfile": "Forretningsprofil",
+    "businessSettings": "Firma indstillinger",
+    "calendar": {
+      "label": "Kalender",
+      "ordinary": {
+        "label": "Almindelig"
+      },
+      "withSpecialists": {
+        "label": "Med specialister"
+      }
+    },
+    "customers": "Kunder",
+    "dashboard": "Dashboard",
+    "dateRangeReport": "Analyse",
+    "events": "Begivenheder",
+    "members": "Medlemmer",
+    "order": "Indkøb",
+    "payment": "Betalinger",
+    "plugins": "Plugins",
+    "private": "Privat",
+    "profile": {
+      "signOut": {
+        "header": "Log ud",
+        "message": "Vil du virkelig forlade?"
+      }
+    },
+    "requested": "Anmodninger",
+    "services": "Tjenester",
+    "settings": "Indstillinger",
+    "statistic": "Statistik",
+    "switch-business-client": "Skift kontekst",
+    "table": "Tabel",
+    "tariffPlan": "Tariffer"
+  },
+  "sign-out": {
+    "button": {
+      "sign-out": {
+        "label": "Log ud nu"
+      }
+    },
+    "title": "Log ud"
+  },
+  "slotBuildingStrategy": {
+    "hint": "Intervaller i den forretningsplan, som kunden booker tjenesten til",
+    "options": {
+      "accordingToAService": "Ifølge en tjeneste"
+    },
+    "title": "Tidspunkter"
+  },
+  "slotRetrievingStrategy": {
+    "hint": "Denne strategi styrer muligheden for at vælge tidsintervaller for begivenheder, der endnu ikke har modtaget bekræftelse fra specialisten. Nedenfor vil du se eksempler på den valgte strategi.",
+    "hists": {
+      "byOption": {
+        "IncludeRequested": "Denne mulighed blokerer muligheden for, at klienter kan tilføje nye begivenheder til slots med allerede eksisterende poster i status",
+        "OnlyBooked": "Den valgte mulighed giver kunderne mulighed for at tilføje nye begivenheder til allerede optagede slots via den offentlige side, forudsat at ingen af dem endnu har modtaget status"
+      }
+    },
+    "options": {
+      "IncludeRequested": "Inklusive anmodede begivenheder",
+      "OnlyBooked": "Kun bookede"
+    },
+    "title": "Strategi for foreslåede tidsintervaller"
+  },
+  "statistic": {
+    "global": {
+      "averageBill": "Gennemsnitlig regning",
+      "numberOfSales": "Antal salg",
+      "numberOfServicesProvided": "Antal leverede tjenester",
+      "revenue": "Indtægter",
+      "topService": "Den mest populære tjeneste"
+    }
+  },
+  "tariffPlan": {
+    "documentation": {
+      "switchingToAnotherPlan": "<p>     <strong>Skift til en anden plan</strong> </p> <p>     Opgradering eller ændring af din plan er problemfri! Når du skifter til en ny plan, vil systemet automatisk      beregne forskellen mellem din nuværende og nye plan, hvilket sikrer en glidende overgang. </p> <p>     🔹 Sådan fungerer det: </p> <ol>     <li>Øjeblikkelig aktivering – Din nye plan aktiveres med det samme efter ændringen.</li>     <li>Pro-rata justering – Systemet fratrækker den resterende værdi af din tidligere plan og          anvender den på den nye.     </li>     <li>Automatisk fakturering – Du betaler kun forskellen, så du bliver opkrævet retfærdigt.</li>     <li>Ingen serviceafbrydelser – Dine eksisterende funktioner forbliver aktive, mens opgraderingen behandles.     </li> </ol> <p>💡 Du kan opgradere når som helst og kun betale for det, du bruger. Hvis du nedgraderer, vil det justerede beløb      blive anvendt på fremtidige betalinger. 🚀</p>"
+    },
+    "features": {
+      "adminPanel": {
+        "label": "Administrationspanel"
+      },
+      "assistantAI": {
+        "label": "Assistent AI"
+      },
+      "confirmationAfterUserPayment": {
+        "label": "Betalingsbekræftelse"
+      },
+      "emailNotification": {
+        "label": "E-mail notifikation"
+      },
+      "jsonLD": {
+        "label": "JSON LD"
+      },
+      "publicPage": {
+        "label": "Offentlig side"
+      },
+      "publicRestApi": {
+        "label": "Offentlig REST API"
+      },
+      "seoOptimization": {
+        "label": "SEO-pakke"
+      },
+      "smsNotification": {
+        "label": "SMS notifikation"
+      },
+      "unlimitedPlugins": {
+        "label": "Ubegrænsede plugins"
+      }
+    },
+    "links": {
+      "billing": {
+        "label": "Faktureringshistorik og tilknyttede betalingskort"
+      }
+    },
+    "message": {
+      "change": {
+        "success": "Ændringen af takstplanen var en succes!"
+      }
+    },
+    "modal": {
+      "confirm-changes": {
+        "content": {
+          "additional": {
+            "one": "✅ Je plan wordt onmiddellijk geüpgraded",
+            "two": "✅ Volgende betaling wordt overeenkomstig aangepast"
+          },
+          "currentTariffPlan": {
+            "daysRemaining": {
+              "label": "Resterende dagen"
+            },
+            "daysUsed": {
+              "label": "Dagen Gebruikt"
+            },
+            "label": "Huidig plan",
+            "remainingCredit": {
+              "label": "Resterend krediet"
+            }
+          },
+          "newTariffPlan": {
+            "differenceToPay": {
+              "label": "Verschil te betalen"
+            },
+            "label": "Nieuw plan"
+          }
+        },
+        "title": "Bevestig de wijziging van het tariefplan"
+      }
+    },
+    "page": {
+      "subtitle": "Vælg den bedste løsning til din virksomhed",
+      "title": "Tariffer"
+    }
+  },
+  "tenant-plugin": {
+    "grid": {
+      "plugin": {
+        "attach": "Verbind",
+        "detach": "Uitschakelen"
+      },
+      "subtitle": "Met plug-ins kun je meer functies krijgen en bepaalde processen automatiseren. Aansluiten en automatiseren!"
+    }
+  },
+  "updateAvailable": {
+    "header": "Ny version",
+    "message": "En ny version af appen er tilgængelig, vil du opdatere?"
+  },
+  "weekday": {
+    "long": {
+      "friday": "Fredag",
+      "monday": "Mandag",
+      "saturday": "Lørdag",
+      "sunday": "Søndag",
+      "thursday": "Torsdag",
+      "tuesday": "Tirsdag",
+      "wednesday": "Onsdag"
+    },
+    "short": {
+      "friday": "Fre",
+      "monday": "Man",
+      "saturday": "Lør",
+      "sunday": "Søn",
+      "thursday": "Tor",
+      "tuesday": "Tir",
+      "wednesday": "Ons"
+    }
+  }
 }
