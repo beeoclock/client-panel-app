@@ -159,6 +159,9 @@ export const tenantSecondRouters: Routes = [
 		resolve: {
 			item: orderResolver,
 		},
+		data: {
+			title: 'order.details.title'
+		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/order/order/presentation/ui/component/details/order-details-container.component')
 	},
@@ -207,6 +210,9 @@ export const tenantSecondRouters: Routes = [
 		outlet: 'second',
 		resolve: {
 			item: eventResolver,
+		},
+		data: {
+			title: 'event.details.title'
 		},
 		runGuardsAndResolvers: 'always',
 		loadComponent: () => import('@tenant/event/presentation/ui/component/details/container.details.component')

@@ -26,7 +26,7 @@ import {
 
 		<button
 			[id]="'select-service-' + id()"
-			class="ps-0 pe-2 rounded-lg border border-gray-200 justify-center items-center flex gap-1">
+			class="ps-0 pe-2 border border-gray-200 justify-center items-center flex gap-1 bg-white rounded-lg hover:bg-neutral-300 hover:border-neutral-400">
 
 			@if (serviceFormControl.value; as service) {
 
@@ -38,7 +38,7 @@ import {
 					</div>
 				</div>
 				<div class="justify-start items-center flex py-2">
-					<div class="text-black text-sm font-bold text-left">
+					<div class="text-black text-sm font-bold text-left break-all">
 						{{ service.languageVersions[0]?.title }}
 					</div>
 				</div>

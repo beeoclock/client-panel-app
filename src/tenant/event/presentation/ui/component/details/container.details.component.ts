@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {MetaDetailsComponent} from "@tenant/event/presentation/ui/component/details/meta.details.component";
 import {IEvent_V2} from "@tenant/event/domain";
 import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
@@ -10,11 +10,11 @@ import {
 } from "@tenant/event/presentation/ui/component/details/button.open-order.details.component";
 import {Actions, ofActionSuccessful} from "@ngxs/store";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
-import {Reactive} from "@core/cdk/reactive";
 import {NGXLogger} from "ngx-logger";
 import {
 	ListServiceFormCardOrderComponent
 } from "@tenant/order/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'event-container-details-component',
@@ -34,13 +34,17 @@ import {
 			<!--				<app-event-status-segment-component [event]="event"/>-->
 			<!--			</div>-->
 			<app-list-service-form-card-order-component
+				class="m-2"
 				[idPrefix]="item.originalData.service._id"
 				[order]="item.originalData.order"
 				[specificOrderServiceId]="item.originalData.service._id"/>
 
 			<event-v2-general-details [event]="item"/>
 			<!--			<app-event-v2-buttons-details [event]="event"/>-->
-			<button-open-order-details [order]="item.originalData.order"/>
+			<div class="p-2">
+				<button-open-order-details
+					[order]="item.originalData.order"/>
+			</div>
 			<event-meta-details
 				[orderDro]="item.originalData.order"
 				[orderServiceDto]="item.originalData.service"/>
@@ -52,50 +56,28 @@ import {
 		class: 'pb-48 block'
 	}
 })
-export class ContainerDetailsComponent extends Reactive implements OnInit {
+export class ContainerDetailsComponent {
 
 	public readonly item = input.required<IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>>();
 
 	private readonly actions$ = inject(Actions);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	public ngOnInit(): void {
-
+	public constructor() {
 		this.ngxLogger.log('ContainerDetailsComponent:ngOnInit');
 
 		this.actions$
 			.pipe(
-				this.takeUntil(),
+				takeUntilDestroyed(),
 				ofActionSuccessful(
 					OrderActions.UpdateItem,
 				)
 			)
 			.subscribe(({payload: order}) => {
-
 				if (this.item().originalData.order._id !== order._id) {
 					return;
 				}
 			});
-
-		// this.actions$
-		// 	.pipe(
-		// 		this.takeUntil(),
-		// 		ofActionSuccessful(
-		// 			OrderActions.,
-		// 		)
-		// 	)
-		// 	.subscribe(({payload: orderId}) => {
-		//
-		// 		if (this.event.originalData.order._id !== orderId) {
-		// 			return;
-		// 		}
-		//
-		// 		this.ngxLogger.debug('ContainerDetailsComponent.ngOnInit', `Order ${orderId} deleted, closing dialog`);
-		//
-		// 		// Close the dialog
-		// 		this.store.dispatch(new EventActions.CloseDetails());
-		// 	});
-
 	}
 
 }

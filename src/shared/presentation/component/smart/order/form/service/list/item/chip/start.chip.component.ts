@@ -28,7 +28,7 @@ import {DateTime} from "luxon";
 	template: `
 		<button
 			[id]="'datetime-trigger-' + id()"
-			class="px-3 py-2 rounded-lg border border-gray-200 justify-center items-center flex">
+			class="px-3 py-2 border border-gray-200 justify-center items-center flex bg-white rounded-lg hover:bg-neutral-300 hover:border-neutral-400">
 			<div class="text-slate-900 text-sm font-normal">
 				⏰ {{ startFormControl.value | date: 'short' }}
 			</div>

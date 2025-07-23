@@ -565,7 +565,7 @@
 					}
 				}
 			},
-			"title": "Detailed view of the event"
+			"title": "Details of the service ordered"
 		},
 		"form": {
 			"section": {
@@ -1067,7 +1067,7 @@
 			"businessCategory": "Business category",
 			"businessIndustry": "Business industry",
 			"businessName": "Business name",
-			"businessNote": "Business note",
+			"businessNote": "Business note to the order",
 			"businessProfile": "Business profile",
 			"businessSettings": "Business settings",
 			"cancel": "Cancel",
@@ -1080,6 +1080,7 @@
 			"city": "City",
 			"clearCache": "Refresh cache",
 			"clickToUpload": "Click to upload",
+			"clientDoesNotSeeThisData": "The client does not see this data",
 			"clients": "Clients",
 			"close": "Close",
 			"color": "Color",
@@ -1154,8 +1155,10 @@
 			"notYetStarted": "Not yet started",
 			"note": "Note",
 			"notification": "Notification",
+			"numberOfServicesOrdered": "Number of services ordered",
 			"openTimePicker": "Select",
 			"order": "Order",
+			"orderInformation": "Order information",
 			"ordering": "Ordering",
 			"ownOptionOfTime": "Hour according to your wish",
 			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
@@ -1219,6 +1222,7 @@
 			"switchTo": "Switch to",
 			"synced": "Synchronized",
 			"syncing": "Synchronization in progress…",
+			"tapOnTheDataToEditIt": "Tap on the data to edit it",
 			"theSlotAlreadyTaken": "This time slot is already booked with this specialist!",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",

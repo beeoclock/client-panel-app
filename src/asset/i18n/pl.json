@@ -565,7 +565,7 @@
 					}
 				}
 			},
-			"title": "Szczegółowy widok wydarzenia"
+			"title": "Szczegóły zamówionej usługi"
 		},
 		"form": {
 			"section": {
@@ -1067,7 +1067,7 @@
 			"businessCategory": "Kategoria biznesowa",
 			"businessIndustry": "Branża biznesowa",
 			"businessName": "Nazwa firmy",
-			"businessNote": "Notatka służbowa",
+			"businessNote": "Notatka biznesowa do zamówienia",
 			"businessProfile": "Profil biznesu",
 			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
@@ -1080,6 +1080,7 @@
 			"city": "Miasto",
 			"clearCache": "Wyczyść Cache",
 			"clickToUpload": "Kliknij, aby przesłać",
+			"clientDoesNotSeeThisData": "Klient nie widzi tych danych",
 			"clients": "Klienci",
 			"close": "Zamknij",
 			"color": "Kolor",
@@ -1154,8 +1155,10 @@
 			"notYetStarted": "Jeszcze nie rozpoczęto",
 			"note": "Notatka",
 			"notification": "Powiadomienia",
+			"numberOfServicesOrdered": "Liczba zamówionych usług",
 			"openTimePicker": "Wybierz",
 			"order": "Kolejność",
+			"orderInformation": "Informacje dotyczące zamówienia",
 			"ordering": "Zamawianie",
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
@@ -1219,6 +1222,7 @@
 			"switchTo": "Przełącz na",
 			"synced": "Zsynchronizowano",
 			"syncing": "Synchronizacja w toku…",
+			"tapOnTheDataToEditIt": "Dotknij danych, aby je edytować.",
 			"theSlotAlreadyTaken": "Ten termin u tego specjalisty jest już zajęty!",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",

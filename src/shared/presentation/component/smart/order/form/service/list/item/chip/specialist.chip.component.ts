@@ -27,7 +27,7 @@ import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/m
 		<!-- Button to show selected specialist and place where user can change selected specialist -->
 		<button
 			[id]="'select-specialist-' + id()"
-			class="p-1 rounded-lg border border-gray-200 justify-center items-center flex">
+			class="p-1 border border-gray-200 justify-center items-center flex bg-white rounded-lg hover:bg-neutral-300 hover:border-neutral-400">
 
 			@if (specialistFormControl.value; as specialist) {
 

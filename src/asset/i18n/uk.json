@@ -565,7 +565,7 @@
 					}
 				}
 			},
-			"title": "Детальний перегляд події"
+			"title": "Деталі замовленої послуги"
 		},
 		"form": {
 			"section": {
@@ -1067,7 +1067,7 @@
 			"businessCategory": "Категорія бізнесу",
 			"businessIndustry": "Галузь бізнесу",
 			"businessName": "Назва бізнесу",
-			"businessNote": "Бізнес-нотатка",
+			"businessNote": "Бізнес-нотатка до замовлення",
 			"businessProfile": "Профіль бізнесу",
 			"businessSettings": "Бізнес налаштування",
 			"cancel": "Скасувати",
@@ -1080,6 +1080,7 @@
 			"city": "Населений пункт",
 			"clearCache": "Очистити кеш",
 			"clickToUpload": "Натисніть, щоб завантажити",
+			"clientDoesNotSeeThisData": "Клієнт не бачить цих даних",
 			"clients": "Клієнти",
 			"close": "Закрити",
 			"color": "Колір",
@@ -1154,8 +1155,10 @@
 			"notYetStarted": "Ще не розпочато",
 			"note": "Примітка",
 			"notification": "Повідомлення",
+			"numberOfServicesOrdered": "Кількість замовлeних послуг",
 			"openTimePicker": "Вибрати",
 			"order": "Послідовність",
+			"orderInformation": "Інформація про замовлення",
 			"ordering": "Замовлення",
 			"ownOptionOfTime": "Година за твоїм бажанням",
 			"ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",
@@ -1219,6 +1222,7 @@
 			"switchTo": "Перейдіть до",
 			"synced": "Синхронізовано",
 			"syncing": "Синхронізація триває…",
+			"tapOnTheDataToEditIt": "Натисніть на дані, щоб редагувати їх",
 			"theSlotAlreadyTaken": "Цей термін у цього спеціаліста зайнятий!",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",

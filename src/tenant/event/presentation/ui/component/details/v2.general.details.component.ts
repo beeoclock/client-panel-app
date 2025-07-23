@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {IAttendee, IEvent_V2} from "@tenant/event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass} from "@angular/common";
@@ -9,7 +9,6 @@ import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {ICustomer} from "@tenant/customer/domain";
 import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@shared/presentation/directives/link/primary.link.style.directive";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
@@ -22,13 +21,15 @@ import {
 	imports: [
 		TranslateModule,
 		NgClass,
-		PrimaryLinkButtonDirective,
 		PrimaryLinkStyleDirective,
 	],
 	providers: [
 		CurrencyPipe,
 		DurationVersionHtmlHelper,
 	],
+	host: {
+		class: 'block bg-white'
+	},
 	template: `
 		<div class="border-t border-gray-100">
 			<dl class="divide-y divide-gray-100">
@@ -37,11 +38,11 @@ import {
 						{{ 'keyword.capitalize.customer' | translate }}
 					</dt>
 					<dd class="mt-2 text-sm text-gray-900">
-						<ul role="list" class="divide-y divide-gray-100 rounded-lg border border-gray-200">
+						<ul role="list" class="flex flex-col gap-2">
 							@for (customer of attendantMap.customers; track customer._id) {
 								@if (customer) {
 									<li
-										class="flex flex-col gap-2 py-4 px-3 text-sm leading-6">
+										class="flex flex-col gap-2 p-4 text-sm leading-6 rounded-2xl bg-neutral-100 border">
 										@switch (customer.customerType) {
 											@case (customerTypeEnum.unregistered) {
 												<div class="font-bold text-lg">
@@ -49,11 +50,12 @@ import {
 												</div>
 											}
 											@case (customerTypeEnum.regular) {
-												<button primaryLink (click)="openCustomerDetails(customer)"
-														class="font-bold text-lg px-4">
-													{{ customer.firstName }} {{ customer.lastName }}
-												</button>
 												<div class="flex flex-wrap gap-2">
+													<button (click)="openCustomerDetails(customer)"
+															class="font-bold inline-flex px-3 py-2 hover:bg-neutral-200 rounded-2xl gap-2 items-center">
+														{{ customer.firstName }} {{ customer.lastName }}
+														<i class="bi bi-eye"></i>
+													</button>
 													@if (customer.email?.length) {
 														<a href="mailto:{{ customer.email }}"
 														   primaryLinkStyle class="gap-2">
@@ -91,30 +93,31 @@ import {
 					</dd>
 				</div>
 				<div class="p-2">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.customerNote' | translate }}
-					</dt>
-					<dd
-						class="mt-1 text-sm leading-6"
-						[ngClass]="{
+					<div class="mt-1 text-sm leading-6 rounded-2xl p-4 bg-neutral-100 border">
+						<div class="text-sm font-medium leading-6 text-gray-900">
+							{{ 'keyword.capitalize.customerNote' | translate }}
+						</div>
+						<span [ngClass]="{
 							'text-beeColor-500 italic': !thereIsDescription,
 							'text-gray-700': thereIsDescription
 						}">
-						{{ thereIsDescription ? event().note : ('keyword.capitalize.noData' | translate) }}
-					</dd>
+							{{ thereIsDescription ? event().note : ('keyword.capitalize.noData' | translate) }}
+						</span>
+					</div>
 				</div>
 				<div class="p-2">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.businessNote' | translate }}
-					</dt>
-					<dd
-						class="mt-1 text-sm leading-6"
-						[ngClass]="{
+					<div class="mt-1 text-sm leading-6 rounded-2xl p-4 bg-neutral-100 border flex flex-col gap-2">
+						<div class="text-sm font-medium leading-6 text-gray-900 flex flex-col">
+							<span>{{ 'keyword.capitalize.businessNote' | translate }}</span>
+							<span class="text-xs">({{ 'keyword.capitalize.clientDoesNotSeeThisData' | translate }})</span>
+						</div>
+						<span [ngClass]="{
 							'text-beeColor-500 italic': !thereIsBusinessNote,
 							'text-gray-700': thereIsBusinessNote
 						}">
-						{{ thereIsBusinessNote ? event().originalData.order.businessNote : ('keyword.capitalize.noData' | translate) }}
-					</dd>
+							{{ thereIsBusinessNote ? event().originalData.order.businessNote : ('keyword.capitalize.noData' | translate) }}
+						</span>
+					</div>
 				</div>
 			</dl>
 		</div>
@@ -129,9 +132,6 @@ export class V2GeneralDetailsComponent implements OnChanges {
 	}>>();
 
 	public readonly isPreview = input(false);
-
-	@HostBinding()
-	public class = 'block bg-white';
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 

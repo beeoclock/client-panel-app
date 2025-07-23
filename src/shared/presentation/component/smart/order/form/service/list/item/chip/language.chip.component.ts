@@ -28,7 +28,7 @@ import EService from "@tenant/service/domain/entity/e.service";
 	template: `
 		<button
 			[id]="'select-language-version-' + id()"
-			class="w-9 h-9 rounded-lg border border-gray-200 justify-center items-center flex">
+			class="w-9 h-9 border border-gray-200 justify-center items-center flex bg-white rounded-lg hover:bg-neutral-300 hover:border-neutral-400">
 			<div class="text-center text-black text-sm font-bold uppercase">
 				{{ languageCodeFormControl.value }}
 			</div>

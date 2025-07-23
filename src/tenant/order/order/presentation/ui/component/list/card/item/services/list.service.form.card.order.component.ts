@@ -39,7 +39,7 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 	],
 	template: `
 		<div class="flex-col justify-start items-start flex">
-			<div class="bg-white flex-col justify-start items-start flex divide-y border border-gray-200 rounded-2xl">
+			<div class="bg-white flex-col justify-start items-start flex gap-4">
 				@for (item of selectedServicePlusControlList; track item._id; let index = $index) {
 					@if (specificOrderServiceId() === null || specificOrderServiceId() === item._id) {
 						<app-item-list-v2-service-form-order-component
