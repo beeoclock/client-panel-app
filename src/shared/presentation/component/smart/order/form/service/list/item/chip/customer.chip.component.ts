@@ -58,6 +58,7 @@ import ECustomer from "@tenant/customer/domain/entity/e.customer";
 					}
 				}
 			</div>
+			<i class="bi bi-chevron-expand"></i>
 
 		</button>
 		<ion-popover #customerPopover

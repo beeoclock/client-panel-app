@@ -59,6 +59,7 @@ import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/m
 					{{ 'order.form.chip.specialist.noAssignedSpecialist' | translate }}
 				</div>
 			}
+			<i class="bi bi-chevron-expand"></i>
 		</button>
 
 		<!-- Control to select specialist -->

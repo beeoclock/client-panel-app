@@ -49,6 +49,7 @@ import {
 					{{ 'order.form.chip.specialist.noAssignedSpecialist' | translate }}
 				</div>
 			}
+			<i class="bi bi-chevron-expand"></i>
 		</button>
 
 		<app-service-popover-chip-component [trigger]="'select-service-' + id()" (result)="setService($event)"/>

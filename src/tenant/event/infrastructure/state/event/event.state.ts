@@ -43,14 +43,16 @@ export class EventState {
 				}
 			}
 		}
-		
+
 		ctx.dispatch(action);
 
 	}
 
 	@Action(EventActions.OpenDetails)
 	public async openDetails(ctx: StateContext<IEventState>, {payload}: EventActions.OpenDetails) {
-		await this.router.navigate([{outlets: {second: ['event', payload]}}]);
+		await this.router.navigate([{outlets: {second: ['event', payload]}}], {
+			onSameUrlNavigation: 'reload',
+		});
 	}
 
 }

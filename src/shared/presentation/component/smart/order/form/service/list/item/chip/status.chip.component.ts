@@ -34,6 +34,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 				@if (showLabel()) {
 					<span>{{ ('event.keyword.status.singular.' + control().value) | translate }}</span>
 				}
+				<i class="bi bi-chevron-expand"></i>
 			</div>
 		</button>
 		<ion-popover [trigger]="'select-order-service-status-version-' + id()">

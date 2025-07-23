@@ -39,6 +39,7 @@ import {TranslateModule} from "@ngx-translate/core";
 			<div class="text-slate-900 text-sm font-normal">
 				⏳ {{ duration() | humanizeDuration }}
 			</div>
+			<i class="bi bi-chevron-expand"></i>
 		</button>
 		<ion-popover [trigger]="'input-duration-' + id()" [keepContentsMounted]="true">
 			<ng-template>

@@ -48,7 +48,6 @@ export class BusinessNoteComponent {
 			OrderActions.UpdateItem,
 		),
 	).subscribe((action) => {
-		console.log({action})
 		this.initialBusinessNote = action.payload.businessNote;
 		this.businessNoteControl.reset();
 		this.businessNoteControl.setValue(this.initialBusinessNote);

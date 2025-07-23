@@ -8,6 +8,44 @@ import {INotificationSettings} from "@tenant/order/order/domain/interface/i.noti
 import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
+export const statusColorMap = {
+	[OrderStatusEnum.draft]: {
+		bg: 'bg-neutral-100',
+		text: 'text-neutral-500',
+	},
+	[OrderStatusEnum.deleted]: {
+		bg: 'bg-neutral-500',
+		text: 'text-black',
+	},
+	[OrderStatusEnum.requested]: {
+		bg: 'bg-blue-500',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.confirmed]: {
+		bg: 'bg-green-500',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.inProgress]: {
+		bg: 'bg-yellow-500',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.done]: {
+		bg: 'bg-green-600',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.cancelled]: {
+		bg: 'bg-red-500',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.rejected]: {
+		bg: 'bg-red-600',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.waitingForPayment]: {
+		bg: 'bg-orange-500',
+		text: 'text-white',
+	},
+}
 
 export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw> implements IOrder.EntityRaw {
 
@@ -19,6 +57,13 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 	meta!: IOrderMetaDto;
 	businessNote!: string;
 	notificationSettings!: INotificationSettings;
+
+	public get statusColor(): {
+		bg: string;
+		text: string;
+	} {
+		return statusColorMap[this.status];
+	}
 
 	/**
 	 * Change the status of the order.

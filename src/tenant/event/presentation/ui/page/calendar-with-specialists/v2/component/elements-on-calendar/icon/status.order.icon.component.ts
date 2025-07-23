@@ -38,7 +38,7 @@ import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum
 })
 export class StatusOrderIconComponent {
 
-	public readonly status = input.required<OrderStatusEnum>();
+	public readonly status = input<OrderStatusEnum | null>(null);
 
 	protected readonly orderStatusEnum = OrderStatusEnum;
 

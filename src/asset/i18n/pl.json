@@ -1159,6 +1159,7 @@
 			"openTimePicker": "Wybierz",
 			"order": "Kolejność",
 			"orderInformation": "Informacje dotyczące zamówienia",
+			"orderStatus": "Status zamówienia",
 			"ordering": "Zamawianie",
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
@@ -1410,13 +1411,13 @@
 			"status": {
 				"singular": {
 					"cancelled": "Anulowane",
-					"confirmed": "Potwierdzono",
+					"confirmed": "Potwierdzone",
 					"deleted": "Usunięte",
 					"done": "Gotowe",
 					"draft": "Wersja robocza",
 					"inProgress": "W toku",
-					"rejected": "Odrzucono",
-					"requested": "Żądany"
+					"rejected": "Odrzucone",
+					"requested": "Żądane"
 				}
 			}
 		},

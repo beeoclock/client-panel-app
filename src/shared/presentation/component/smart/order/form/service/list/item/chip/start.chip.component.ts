@@ -32,6 +32,7 @@ import {DateTime} from "luxon";
 			<div class="text-slate-900 text-sm font-normal">
 				⏰ {{ startFormControl.value | date: 'short' }}
 			</div>
+			<i class="bi bi-chevron-expand"></i>
 		</button>
 		<ion-popover [trigger]="'datetime-trigger-' + id()" [keepContentsMounted]="true">
 			<ng-template>

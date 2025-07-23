@@ -20,33 +20,39 @@ import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-d
 	],
 	template: `
 
-		<div class="flex justify-between">
+		<div class="flex justify-between font-bold">
 			<div>{{ 'keyword.capitalize.orderInformation' | translate }}</div>
-
-			@if (payment(); as payment) {
-				@if (payment.status === paymentStatusEnum.succeeded) {
-					<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
+		</div>
+		<div class="flex flex-col gap-3">
+			<div class="flex gap-2 justify-between">
+				<span class="text-neutral-500">{{ 'keyword.capitalize.numberOfServicesOrdered' | translate }}:</span>
+				<span>{{ order().services.length }}</span>
+			</div>
+			<div class="flex gap-2 justify-between">
+				<span class="text-neutral-500">{{ 'keyword.capitalize.status' | translate }}:</span>
+				<span>{{ ('order.enum.status.singular.' + order().status) | translate }}</span>
+			</div>
+			<div class="flex gap-2 justify-between">
+				<span class="text-neutral-500">{{ 'keyword.capitalize.createdAt' | translate }}:</span>
+				<span>{{ order().createdAt | dynamicDate }}</span>
+			</div>
+			<div class="flex gap-2 justify-between">
+				<span class="text-neutral-500">{{ 'keyword.capitalize.paymentStatus' | translate }}:</span>
+				@if (payment(); as payment) {
+					@if (payment.status === paymentStatusEnum.succeeded) {
+						<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
 						{{ 'keyword.capitalize.paid' | translate }}
 					</span>
+					} @else {
+						<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+						{{ 'keyword.capitalize.notPaid' | translate }}
+					</span>
+					}
 				} @else {
 					<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
 						{{ 'keyword.capitalize.notPaid' | translate }}
 					</span>
 				}
-			}
-		</div>
-		<div class="flex flex-col gap-2">
-			<div class="flex gap-2">
-				<span class="text-neutral-500">{{ 'keyword.capitalize.numberOfServicesOrdered' | translate }}:</span>
-				<span>{{ order().services.length }}</span>
-			</div>
-			<div class="flex gap-2">
-				<span class="text-neutral-500">{{ 'keyword.capitalize.status' | translate }}:</span>
-				<span>{{ ('order.enum.status.singular.' + order().status) | translate }}</span>
-			</div>
-			<div class="flex gap-2">
-				<span class="text-neutral-500">{{ 'keyword.capitalize.createdAt' | translate }}:</span>
-				<span>{{ order().createdAt | dynamicDate }}</span>
 			</div>
 		</div>
 
@@ -57,7 +63,7 @@ import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-d
 
 	`,
 	host: {
-		class: 'p-4 w-full flex flex-col gap-2 border bg-neutral-100 rounded-2xl'
+		class: 'p-4 w-full flex flex-col gap-3 border bg-neutral-100 rounded-2xl'
 	}
 })
 export class ButtonOpenOrderDetailsComponent {

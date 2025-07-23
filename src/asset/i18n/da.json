@@ -1159,6 +1159,7 @@
 			"openTimePicker": "Vælg",
 			"order": "Rækkefølge",
 			"orderInformation": "Bestillingsoplysninger",
+			"orderStatus": "Ordrestatus",
 			"ordering": "Bestilling",
 			"ownOptionOfTime": "Time efter eget ønske",
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",

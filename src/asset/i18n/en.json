@@ -1159,6 +1159,7 @@
 			"openTimePicker": "Select",
 			"order": "Order",
 			"orderInformation": "Order information",
+			"orderStatus": "Order status",
 			"ordering": "Ordering",
 			"ownOptionOfTime": "Hour according to your wish",
 			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
