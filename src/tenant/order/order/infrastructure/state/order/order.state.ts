@@ -29,6 +29,8 @@ import OrderFormContainerComponent
 import {firstValueFrom} from "rxjs";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {NewCustomerUseCase} from "@tenant/order/order/application/use-case/new-customer.use-case";
+import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
+import ContainerDetailsComponent from "@tenant/event/presentation/ui/component/details/container.details.component";
 
 export type IOrderState = IBaseState<EOrder>;
 
@@ -76,14 +78,33 @@ export class OrderState {
 
 	@Action(OrderActions.CloseForm)
 	public async closeFormAction() {
-		await this.router.navigate([{outlets: {second: null}}]);
+		const activated = this.secondRouterOutletService.activated();
+		if (!activated) return;
+		if (activated instanceof OrderFormContainerComponent) {
+			await this.router.navigate([{outlets: {second: null}}]);
+		}
 	}
 
 	@Action(OrderActions.UpdateOpenedDetails)
 	public async updateOpenedDetailsAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.UpdateOpenedDetails) {
-		await this.router.navigate([{outlets: {second: ['order', payload._id]}}], {
-			onSameUrlNavigation: 'reload',
-		});
+
+		const activated = this.secondRouterOutletService.activated();
+
+		if (activated) {
+			if (activated instanceof OrderDetailsContainerComponent) {
+				const {_id} = activated.item() ?? {};
+				if (_id === payload._id) {
+					await this.router.navigate([{outlets: {second: ['order', payload._id]}}], {
+						onSameUrlNavigation: 'reload',
+					});
+				}
+			}
+			if (activated instanceof ContainerDetailsComponent) {
+				const action = new EventActions.OpenDetails(activated.item()._id);
+				ctx.dispatch(action);
+			}
+		}
+
 	}
 
 	@Action(OrderActions.OpenDetails)
@@ -226,7 +247,8 @@ export class OrderState {
 			await this.sharedUow.orderService.repository.createAsync(orderServiceEntity);
 		}
 
-		await this.closeFormAction();
+		const actions$ = ctx.dispatch(new OrderActions.CloseForm());
+		await firstValueFrom(actions$);
 	}
 
 	@Action(OrderActions.UpdateItem)
@@ -247,9 +269,7 @@ export class OrderState {
 				await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
 			}
 
-			await this.closeFormAction();
-
-			const actions: any[] = [];
+			const actions: any[] = [new OrderActions.CloseForm()];
 			if (orderEntity.state === StateEnum.deleted) {
 				actions.push(new OrderActions.CloseDetails());
 			} else {

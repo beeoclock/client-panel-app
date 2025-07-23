@@ -14,6 +14,8 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	CustomerPresentationActions
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
+import {ReactiveFormsModule} from "@angular/forms";
+import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/details/component/business-note.component";
 
 @Component({
 	selector: 'event-v2-general-details',
@@ -22,6 +24,8 @@ import {
 		TranslateModule,
 		NgClass,
 		PrimaryLinkStyleDirective,
+		ReactiveFormsModule,
+		BusinessNoteComponent,
 	],
 	providers: [
 		CurrencyPipe,
@@ -111,12 +115,7 @@ import {
 							<span>{{ 'keyword.capitalize.businessNote' | translate }}</span>
 							<span class="text-xs">({{ 'keyword.capitalize.clientDoesNotSeeThisData' | translate }})</span>
 						</div>
-						<span [ngClass]="{
-							'text-beeColor-500 italic': !thereIsBusinessNote,
-							'text-gray-700': thereIsBusinessNote
-						}">
-							{{ thereIsBusinessNote ? event().originalData.order.businessNote : ('keyword.capitalize.noData' | translate) }}
-						</span>
+						<app-business-note-component [order]="event().originalData.order"/>
 					</div>
 				</div>
 			</dl>
@@ -175,10 +174,6 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	public get thereIsDescription(): boolean {
 		return !!this.event()?.note?.length;
-	}
-
-	public get thereIsBusinessNote(): boolean {
-		return !!this.event()?.originalData.order.businessNote?.length;
 	}
 
 	@Dispatch()
