@@ -151,7 +151,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'order/form',
 		outlet: 'second',
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/order/presentation/ui/component/form/order-form-container.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/form/order-form.page')
 	},
 	{
 		path: 'order/:id',
@@ -176,7 +176,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/order/order/presentation/ui/component/form/order-form-container.component')
+		loadComponent: () => import('@tenant/order/order/presentation/ui/component/form/order-form.page')
 	},
 	/**
 	 * Order Service

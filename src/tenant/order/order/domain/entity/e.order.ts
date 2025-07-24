@@ -7,6 +7,7 @@ import {INotificationSettings} from "@tenant/order/order/domain/interface/i.noti
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {IOrderService} from "@src/tenant/order/order-service/domain/interface/i.order-service.dto";
+import {OrderFormValue} from "@tenant/order/order/presentation/form/order.form";
 
 export const statusColorMap = {
 	[OrderStatusEnum.draft]: {
@@ -232,6 +233,14 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 			updatedAt: data.updatedAt,
 			notificationSettings: data.notificationSettings,
 		}
+	}
+
+	/**
+	 * Use it to create new entity, e.g. from API or form
+	 * @param data
+	 */
+	public static fromFormValue(data: OrderFormValue): EOrder {
+		return new EOrder(data);
 	}
 
 	/**

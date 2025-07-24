@@ -20,10 +20,6 @@ import {
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
-import {CreateOrderForm} from "@tenant/order/order/presentation/form/create.order.form";
-import {
-	PaymentOrderFormContainerComponent
-} from "@tenant/order/order/presentation/ui/component/form/payment.order-form-container.component";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {ICustomer} from "@tenant/customer/domain";
 import {
@@ -31,20 +27,18 @@ import {
 } from "@shared/presentation/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
 import {firstValueFrom, lastValueFrom} from "rxjs";
-import {PaymentDataActions} from "@tenant/order/payment/infrastructure/state/data/payment.data.actions";
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
-import {IPayment} from "@tenant/order/payment/domain/interface/i.payment";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
-import EPayment from "@tenant/order/payment/domain/entity/e.payment";
+import {OrderForm} from "@tenant/order/order/presentation/form/order.form";
 
 @Component({
-	selector: 'app-order-form-container',
+	selector: 'order-form-page',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ListServiceFormOrderComponent,
@@ -53,7 +47,6 @@ import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 		TranslateModule,
 		CardComponent,
 		FormTextareaComponent,
-		PaymentOrderFormContainerComponent,
 		FormsModule,
 	],
 	standalone: true,
@@ -63,17 +56,16 @@ import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 
 			<app-list-service-form-order-component
 				#appListServiceFormOrderComponent
-				[serviceOrderFormArray]="form.controls.order.controls.services"
+				[serviceOrderFormArray]="form.controls.services"
 				[setupPartialData]="setupPartialData()"
 				class="flex-1"/>
 
-			<app-payment-order-form-container class="px-1" [form]="form"/>
 			<bee-card>
 				<form-textarea-component
 					id="order-business-note"
 					[label]="'keyword.capitalize.businessNote' | translate"
 					[placeholder]="'order.form.input.businessNote.placeholder' | translate"
-					[control]="form.controls.order.controls.businessNote"/>
+					[control]="form.controls.businessNote"/>
 			</bee-card>
 
 			<utility-button-save-container-component class="bottom-0">
@@ -90,10 +82,9 @@ import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 		</form>
 	`
 })
-export class OrderFormContainerComponent {
+export class OrderFormPage {
 
 	public readonly order = input<EOrder | null>(null);
-	public readonly payment = input<EPayment | null>(null);
 
 	public readonly customerJSON = input(null, {
 		transform: (value: string) => {
@@ -163,22 +154,20 @@ export class OrderFormContainerComponent {
 		serviceFormWasOpened: false
 	});
 
-	private readonly destroyRef = inject(DestroyRef);
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly destroyRef = inject(DestroyRef);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer.DTO }>({});
 
-	public readonly form: CreateOrderForm = CreateOrderForm.create(this.destroyRef);
+	public readonly form: OrderForm = OrderForm.create();
 
 	public constructor() {
 		effect(() => {
 
 			const order = this.order();
-			const payment = this.payment();
 
-			if (payment) this.patchPaymentValue(payment);
 			if (order) this.patchOrderValue(order);
 
 			this.form.updateValueAndValidity();
@@ -189,7 +178,7 @@ export class OrderFormContainerComponent {
 
 		afterNextRender({
 			read: () => {
-				this.form.controls.order.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+				this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
 					value.services?.forEach((service) => {
 						service.orderAppointmentDetails?.attendees.forEach((attendee) => {
 							this.availableCustomersInForm.set({
@@ -210,7 +199,6 @@ export class OrderFormContainerComponent {
 			return;
 		}
 		await this.finishSave();
-		// TODO: Close second router-outlet
 	}
 
 	/**
@@ -223,40 +211,24 @@ export class OrderFormContainerComponent {
 		return this.store.dispatch(action);
 	}
 
-	/**
-	 * Dispatch put payment action
-	 * @param item
-	 * @private
-	 */
-	private dispatchPutPaymentAction$(item: IPayment.DTO) {
-		const action = new PaymentDataActions.Update({
-			item
-		});
-		return this.store.dispatch(action);
-	}
-
 	private async finishSave() {
-		const {order, payment} = this.form.value as { order: IOrder.DTO, payment: IPayment.DTO };
+		const formValue = this.form.getRawValue();
 		this.form.disable();
 		this.form.markAsPending();
+		const entity = EOrder.fromFormValue(formValue);
 
 		try {
 
 			if (this.isEditMode()) {
 
-				await lastValueFrom(this.dispatchPutPaymentAction$(payment));
-				await lastValueFrom(this.dispatchPutOrderAction$(order));
+				await lastValueFrom(this.dispatchPutOrderAction$(entity));
 
 			} else {
 
-				payment.orderId = order._id;
-
-
-				const createOrder$ = this.store.dispatch(new OrderActions.CreateItem(order));
+				const createOrder$ = this.store.dispatch(new OrderActions.CreateItem(entity));
 				await firstValueFrom(createOrder$);
 
 				const actions$ = this.store.dispatch([
-					new PaymentDataActions.CreateItem(payment),
 					new CalendarWithSpecialistsAction.GetItems(),
 				]);
 
@@ -276,18 +248,14 @@ export class OrderFormContainerComponent {
 		this.form.updateValueAndValidity();
 	}
 
-	private patchPaymentValue(payment: EPayment) {
-		this.form.controls.payment.patchValue(payment);
-	}
-
 	private patchOrderValue(order: EOrder) {
-		this.form.controls.order.patchValue(order);
+		this.form.patchValue(order);
 		order.services?.forEach((service) => {
-			this.form.controls.order.controls.services.pushNewOne(service);
+			this.form.controls.services.pushNewOne(service);
 		});
 		this.changeDetectorRef.detectChanges();
 	}
 
 }
 
-export default OrderFormContainerComponent;
+export default OrderFormPage;

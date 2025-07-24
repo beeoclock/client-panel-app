@@ -24,8 +24,7 @@ import {Router} from "@angular/router";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import OrderDetailsContainerComponent
 	from "@tenant/order/order/presentation/ui/component/details/order-details-container.component";
-import OrderFormContainerComponent
-	from "@tenant/order/order/presentation/ui/component/form/order-form-container.component";
+import OrderFormPage from "@tenant/order/order/presentation/ui/component/form/order-form.page";
 import {firstValueFrom} from "rxjs";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {NewCustomerUseCase} from "@tenant/order/order/application/use-case/new-customer.use-case";
@@ -80,7 +79,7 @@ export class OrderState {
 	public async closeFormAction() {
 		const activated = this.secondRouterOutletService.activated();
 		if (!activated) return;
-		if (activated instanceof OrderFormContainerComponent) {
+		if (activated instanceof OrderFormPage) {
 			await this.router.navigate([{outlets: {second: null}}]);
 		}
 	}
@@ -151,7 +150,7 @@ export class OrderState {
 		const activated = this.secondRouterOutletService.activated();
 
 		if (activated) {
-			if (activated instanceof OrderFormContainerComponent) {
+			if (activated instanceof OrderFormPage) {
 				const isEditMode = activated.isEditMode();
 				if (isEditMode) {
 					const {_id} = activated.order() ?? {};
