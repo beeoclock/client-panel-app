@@ -36,8 +36,11 @@ import {PaymentDataActions} from "@tenant/order/payment/infrastructure/state/dat
 		CurrencyPipe,
 		TranslatePipe
 	],
+	host: {
+		class: 'flex flex-col gap-4'
+	},
 	template: `
-		<div class="border bg-neutral-100 rounded-2xl p-4 flex flex-col gap-4 mb-2">
+		<div class="border bg-neutral-100 rounded-2xl p-4 flex flex-col gap-4">
 			<div class="flex justify-between items-center">
 				<div>{{ 'keyword.capitalize.amountToPay' | translate }}</div>
 				<div>{{ amountToPay() | currency: currency() }}</div>
@@ -58,7 +61,7 @@ import {PaymentDataActions} from "@tenant/order/payment/infrastructure/state/dat
 			}
 		</div>
 		@for (payment of resource.value(); track payment._id) {
-			<lightweight-payment-card-molecule class="mb-2" [item]="payment"/>
+			<lightweight-payment-card-molecule [item]="payment"/>
 		}
 	`
 })
