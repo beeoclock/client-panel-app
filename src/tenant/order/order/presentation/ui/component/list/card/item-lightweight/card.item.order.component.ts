@@ -208,7 +208,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 																/>
 															</div>
 														}
-														<span class="line-clamp-3">
+														<span class="line-clamp-3 break-all">
 															{{ service.serviceSnapshot.languageVersions[0].title }}
 														</span>
 													</div>

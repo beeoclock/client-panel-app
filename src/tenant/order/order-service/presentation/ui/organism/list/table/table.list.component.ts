@@ -99,7 +99,7 @@ import {CustomerChip} from "@shared/presentation/component/chip/customer/custome
 		MemberListService,
 	],
 	host: {
-		class: 'h-[calc(100vh-145px)] md:h-[calc(100vh-80px)] block'
+		class: 'h-[calc(100vh-210px)] md:h-[calc(100vh-80px)] block'
 	},
 })
 export class TableListComponent extends TableComponent<EOrderService> {
