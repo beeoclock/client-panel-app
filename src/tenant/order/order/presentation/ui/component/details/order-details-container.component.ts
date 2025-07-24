@@ -2,9 +2,6 @@ import {afterNextRender, Component, DestroyRef, inject, input, ViewEncapsulation
 import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
-import {
-	ListServiceFormCardOrderComponent
-} from "@tenant/order/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";
 import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.status.enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
@@ -21,6 +18,9 @@ import {distinctUntilChanged} from 'rxjs';
 import {
 	OrderDetailsPaymentSectionComponent
 } from "@tenant/order/order/presentation/ui/component/details/payment/order-details-payment-section.component";
+import {
+	OrderDetailsOrderServiceSectionComponent
+} from "@tenant/order/order/presentation/ui/component/details/service/order-details-order-service-section.component";
 
 @Component({
 	selector: 'order-details-page',
@@ -28,11 +28,11 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TranslateModule,
-		ListServiceFormCardOrderComponent,
 		StandardDetailsEntityComponent,
 		BusinessNoteComponent,
 		OrderStatusChipComponent,
 		OrderDetailsPaymentSectionComponent,
+		OrderDetailsOrderServiceSectionComponent,
 	],
 	standalone: true
 })
