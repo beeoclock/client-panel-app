@@ -193,10 +193,6 @@ export class DateRangeReportAnalyticState {
 
 					const totalRevenue = this.calculateTotalRevenue(services);
 
-					if (!specialist || !specialist.member) {
-						console.log(`Order ${order._id} has no specialist or member associated with it.`);
-					}
-
 					const report: DateRangeReportAnalyticApi.ISpecialistReport = {
 						specialist: {
 							memberId: specialist.member._id,
