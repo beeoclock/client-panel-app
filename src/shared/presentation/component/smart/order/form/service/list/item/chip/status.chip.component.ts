@@ -102,4 +102,3 @@ export class StatusChipComponent {
 
 }
 
-export default StatusChipComponent;

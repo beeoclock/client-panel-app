@@ -86,4 +86,3 @@ export class LanguageChipComponent implements OnInit {
 
 }
 
-export default LanguageChipComponent;

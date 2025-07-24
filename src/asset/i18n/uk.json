@@ -1167,6 +1167,7 @@
 			"payAsYouGo": "Сплачуйте по мірі проходження",
 			"payer": "Платник",
 			"payment": "Оплата",
+			"paymentDate": "Дата оплати",
 			"paymentMethod": "Спосіб оплати",
 			"paymentProviderType": "Тип оплати",
 			"paymentStatus": "Статус оплати",

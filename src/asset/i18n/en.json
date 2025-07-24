@@ -1167,8 +1167,9 @@
 			"payAsYouGo": "Pay as you go",
 			"payer": "Payer",
 			"payment": "Payment",
+			"paymentDate": "Payment date",
 			"paymentMethod": "Payment method",
-			"paymentProviderType": "Payment type ",
+			"paymentProviderType": "Payment type",
 			"paymentStatus": "Payment status",
 			"periodOfDay": {
 				"AFTERNOON": "Afternoon",

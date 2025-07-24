@@ -1167,6 +1167,7 @@
 			"payAsYouGo": "Płać na bieżąco",
 			"payer": "Płatnik",
 			"payment": "Płatność",
+			"paymentDate": "Data płatności",
 			"paymentMethod": "Metoda płatności",
 			"paymentProviderType": "Typ płatności",
 			"paymentStatus": "Status płatności",

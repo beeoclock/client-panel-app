@@ -9,6 +9,25 @@ import {PaymentStatusEnum} from "../enum/payment.status.enum";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum";
 
+export const PaymentStatusColorMap = {
+	[PaymentStatusEnum.pending]: {
+		bg: 'bg-yellow-100',
+		text: 'text-yellow-800',
+	},
+	[PaymentStatusEnum.succeeded]: {
+		bg: 'bg-green-100',
+		text: 'text-green-800',
+	},
+	[PaymentStatusEnum.failed]: {
+		bg: 'bg-red-100',
+		text: 'text-red-800',
+	},
+	[PaymentStatusEnum.registered]: {
+		bg: 'bg-blue-100',
+		text: 'text-blue-800',
+	},
+};
+
 export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.EntityRaw> implements IPayment.EntityRaw {
 
 	override object = 'PaymentDto' as const;
@@ -20,7 +39,7 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 	currency!: CurrencyCodeEnum & Types.Default<CurrencyCodeEnum.USD>;
 	method!: PaymentMethodEnum & Types.Default<PaymentMethodEnum.CASH>;
 	providerType?: (PaymentProviderTypeEnum & Types.Default<PaymentProviderTypeEnum.onSite>) | undefined;
-	status!: PaymentStatusEnum & Types.Default<PaymentStatusEnum.pending>;
+	status!: PaymentStatusEnum;
 	paymentDate?: string | undefined;
 	anchorType!: AnchorTypeEnum & Types.Default<AnchorTypeEnum.order>;
 
@@ -89,6 +108,10 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 	 */
 	public static fromRaw(data: IPayment.EntityRaw): EPayment {
 		return new EPayment(data);
+	}
+
+	public static fromRawList(items: IPayment.EntityRaw[]): EPayment[] {
+		return items.map(item => EPayment.fromRaw(item));
 	}
 
 }

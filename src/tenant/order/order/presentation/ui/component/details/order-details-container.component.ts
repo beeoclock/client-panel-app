@@ -1,14 +1,12 @@
-import {afterNextRender, Component, DestroyRef, effect, inject, input, signal, ViewEncapsulation} from '@angular/core';
+import {afterNextRender, Component, DestroyRef, inject, input, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
-import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {
 	ListServiceFormCardOrderComponent
 } from "@tenant/order/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";
 import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.status.enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {IPayment} from "@tenant/order/payment/domain/interface/i.payment";
 import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
 import EOrder, {statusColorMap} from "@tenant/order/order/domain/entity/e.order";
 import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/details/component/business-note.component";
@@ -20,9 +18,12 @@ import {FormControl} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {AlertController} from "@ionic/angular/standalone";
 import {distinctUntilChanged} from 'rxjs';
+import {
+	OrderDetailsPaymentSectionComponent
+} from "@tenant/order/order/presentation/ui/component/details/payment/order-details-payment-section.component";
 
 @Component({
-	selector: 'order-detail-page',
+	selector: 'order-details-page',
 	templateUrl: './order-details-container.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -31,6 +32,7 @@ import {distinctUntilChanged} from 'rxjs';
 		StandardDetailsEntityComponent,
 		BusinessNoteComponent,
 		OrderStatusChipComponent,
+		OrderDetailsPaymentSectionComponent,
 	],
 	standalone: true
 })
@@ -39,8 +41,6 @@ export class OrderDetailsContainerComponent {
 	// TODO add base index of details with store and delete method
 
 	public readonly item = input.required<EOrder>();
-
-	public readonly payment = signal<IPayment.DTO | null>(null);
 
 	public readonly orderStatusControl = new FormControl<OrderStatusEnum>(OrderStatusEnum.draft, {
 		nonNullable: true,
@@ -56,9 +56,6 @@ export class OrderDetailsContainerComponent {
 	private alreadyAskingAboutNewOrderStatus = false;
 
 	public constructor() {
-		effect(() => {
-			this.preparePayment().then();
-		});
 		afterNextRender(() => {
 			this.orderStatusControl.setValue(this.item()?.status ?? this.orderStatusControl.value);
 			this.orderStatusControl.valueChanges.pipe(
@@ -110,25 +107,6 @@ export class OrderDetailsContainerComponent {
 			})
 		);
 		this.alreadyAskingAboutNewOrderStatus = false;
-	}
-
-	private async preparePayment() {
-
-		const item = this.item();
-		if (!item) {
-			return;
-		}
-
-		const {items: {0: payment}} = await this.sharedUow.payment.repository.findAsync({
-			orderId: item._id,
-			page: 1,
-			pageSize: 1,
-			orderBy: OrderByEnum.CREATED_AT,
-			orderDir: OrderDirEnum.DESC,
-		});
-
-		this.payment.set(payment);
-
 	}
 
 	public openForm() {
