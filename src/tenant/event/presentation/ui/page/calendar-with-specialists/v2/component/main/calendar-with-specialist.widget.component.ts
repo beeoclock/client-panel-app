@@ -27,7 +27,7 @@ import {
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
 import {
@@ -61,6 +61,7 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
+
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
 	encapsulation: ViewEncapsulation.None,
@@ -89,7 +90,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 	readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
 
 	public eventsBySpecialistId: {
-		[key: string]: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>[]
+		[key: string]: IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; } | IAbsence.DTO>[]
 	} = {};
 
 	// Find all #column
@@ -241,7 +242,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 
 				return acc;
 
-			}, {} as { [key: string]: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>[] });
+			}, {} as { [key: string]: IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; } | IAbsence.DTO>[] });
 
 		}),
 	);
@@ -255,7 +256,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 	}
 
 	public nowOrder(target: unknown) {
-		return target as { order: IOrder.DTO; service: IOrderServiceDto; };
+		return target as { order: IOrder.DTO; service: IOrderService.DTO; };
 	}
 
 	public nowAbsence(target: unknown) {

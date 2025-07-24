@@ -1,10 +1,10 @@
 import {BaseEntityForm} from "@shared/base.form";
 import {FormArray, FormControl} from "@angular/forms";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {IOrderAppointmentDetailsDto} from "@tenant/order/order/domain/interface/i-order-appointment-details.dto";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {IMeta} from "@shared/domain";
 import {IService} from "@tenant/service/domain/interface/i.service";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 
 export interface IServiceOrderForm {
 
@@ -39,7 +39,7 @@ export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IService
 
 	}
 
-	public static create(initValue: Partial<IOrderServiceDto> = {}): ServiceOrderForm {
+	public static create(initValue: Partial<IOrderService.DTO> = {}): ServiceOrderForm {
 
 		const form = new ServiceOrderForm();
 
@@ -57,7 +57,7 @@ export class ServiceOrderFormArray extends FormArray<ServiceOrderForm> {
 		super([]);
 	}
 
-	public pushNewOne(initialValue?: Partial<IOrderServiceDto> | undefined): ServiceOrderForm {
+	public pushNewOne(initialValue?: Partial<IOrderService.DTO> | undefined): ServiceOrderForm {
 
 		const control = new ServiceOrderForm();
 
@@ -74,7 +74,7 @@ export class ServiceOrderFormArray extends FormArray<ServiceOrderForm> {
 
 	}
 
-	public static create(initialValue: IOrderServiceDto[] = []): ServiceOrderFormArray {
+	public static create(initialValue: IOrderService.DTO[] = []): ServiceOrderFormArray {
 		const formArray = new ServiceOrderFormArray();
 		initialValue.forEach((serviceOrderDto) => formArray.push(ServiceOrderForm.create(serviceOrderDto)));
 		return formArray;

@@ -5,9 +5,10 @@ import {
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.state";
 import {DateTime} from "luxon";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {IEvent_V2} from "@tenant/event/domain";
+
 
 export class CalendarWithSpecialistsQueries {
 	static state = createPropertySelectors<ICalendarWithSpecialist>(CalendarWithSpecialistsState);
@@ -39,7 +40,7 @@ export class CalendarWithSpecialistsQueries {
 
 	@Selector([CalendarWithSpecialistsQueries.state.data])
 	static data(data: ICalendarWithSpecialist['data']) {
-		return data as IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>[];
+		return data as IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; } | IAbsence.DTO>[];
 	}
 
 }

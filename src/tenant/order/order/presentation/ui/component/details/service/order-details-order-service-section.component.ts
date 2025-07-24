@@ -14,6 +14,7 @@ import {
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 
 @Component({
 	standalone: true,
@@ -24,7 +25,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 		LightweightOrderServiceCardMolecule
 	],
 	template: `
-		@for (item of resource.value(); track item._id) {
+		@for (item of (orderId() ? resource.value() : this.serviceList()); track item._id) {
 			<lightweight-order-service-card-molecule [item]="item"/>
 		}
 	`,
@@ -34,7 +35,21 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 })
 export class OrderDetailsOrderServiceSectionComponent {
 
-	public readonly orderId = input.required<string>();
+	public readonly orderId = input<string>();
+
+	public readonly serviceList = input([], {
+		transform: (list: IOrderService.DTO[] | IOrderService.EntityRaw[] | EOrderService[]): EOrderService[] => {
+			const firstItem = list[0];
+			if (firstItem instanceof EOrderService) {
+				return list as EOrderService[];
+			}
+			if (EOrderService.isDTO(firstItem)) {
+				return EOrderService.fromDTOList(list);
+			}
+			return EOrderService.fromRawList(list);
+		}
+	});
+
 	private readonly page = signal(1);
 
 	public readonly resource: ResourceRef<EOrderService[]> = resource({

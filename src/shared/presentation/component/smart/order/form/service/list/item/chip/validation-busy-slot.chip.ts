@@ -4,7 +4,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
@@ -45,7 +45,7 @@ export class ValidationBusySlotChip {
 		});
 	}
 
-	public detectIfSlotIsBusy(value: IOrderServiceDto) {
+	public detectIfSlotIsBusy(value: IOrderService.DTO) {
 		this.hideMe.set(true);
 		const {orderAppointmentDetails} = value;
 		if (!orderAppointmentDetails) {

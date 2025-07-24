@@ -3,7 +3,6 @@ import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone"
 import {TranslatePipe} from "@ngx-translate/core";
 import {IEvent_V2} from "@tenant/event/domain";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -11,6 +10,7 @@ import {filter, tap} from "rxjs";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {is} from "@core/shared/checker";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 
 @Component({
 	selector: 'app-event-status-segment-component',
@@ -51,7 +51,7 @@ export class StatusSegmentComponent {
 
 	public readonly event = input.required<IEvent_V2<{
 		order: IOrder.DTO;
-		service: IOrderServiceDto;
+		service: IOrderService.DTO;
 	}>>();
 
 	public readonly orderServiceStatusControl = new FormControl<OrderServiceStatusEnum>(OrderServiceStatusEnum.accepted);

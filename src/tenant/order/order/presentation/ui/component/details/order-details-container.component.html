@@ -15,7 +15,7 @@
 					@if (item.services.length) {
 						<div class="flex flex-wrap gap-4">
 
-							<order-details-order-service-section class="w-full" [orderId]="item._id"/>
+							<order-details-order-service-section class="w-full" [serviceList]="item.services"/>
 
 						</div>
 					}

@@ -2,12 +2,13 @@ import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleCh
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IHistory, IHistoryV2} from "@shared/domain";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {DateTime} from "luxon";
 import {
 	ListFromToChronologyComponent
 } from "@tenant/event/presentation/ui/component/details/chronology/list.from-to.chronology.component";
+
 
 @Component({
 	selector: 'event-meta-details',
@@ -90,7 +91,7 @@ export class MetaDetailsComponent implements OnChanges {
 
 	public readonly orderDro = input.required<IOrder.DTO>();
 
-	public readonly orderServiceDto = input.required<IOrderServiceDto>();
+	public readonly orderServiceDto = input.required<IOrderService.DTO>();
 
 	@HostBinding()
 	public class = 'flex flex-col gap-4 text-beeColor-500 p-4 text-sm';

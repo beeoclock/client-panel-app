@@ -4,13 +4,14 @@ import {IEvent_V2} from "@tenant/event/domain";
 import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
 import {V2GeneralDetailsComponent} from "@tenant/event/presentation/ui/component/details/v2.general.details.component";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {
 	ButtonOpenOrderDetailsComponent
 } from "@tenant/event/presentation/ui/component/details/button.open-order.details.component";
 import {
 	ListServiceFormCardOrderComponent
 } from "@tenant/order/order/presentation/ui/component/list/card/item/services/list.service.form.card.order.component";
+
 
 @Component({
 	selector: 'event-container-details-component',
@@ -54,7 +55,7 @@ import {
 })
 export class ContainerDetailsComponent {
 
-	public readonly item = input.required<IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>>();
+	public readonly item = input.required<IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; }>>();
 
 }
 

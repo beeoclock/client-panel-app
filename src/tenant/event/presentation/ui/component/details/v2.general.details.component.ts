@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {ICustomer} from "@tenant/customer/domain";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
@@ -15,6 +15,7 @@ import {
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 import {ReactiveFormsModule} from "@angular/forms";
 import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/details/component/business-note.component";
+
 
 @Component({
 	selector: 'event-v2-general-details',
@@ -163,7 +164,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
 		order: IOrder.DTO;
-		service: IOrderServiceDto;
+		service: IOrderService.DTO;
 	}>>();
 
 	public readonly isPreview = input(false);
@@ -193,7 +194,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 			this.attendantMap.specialists = [];
 			this.attendantMap.customers = [];
 
-			const {attendees} = event.currentValue as IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>;
+			const {attendees} = event.currentValue as IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; }>;
 			attendees.forEach((attendee) => {
 				(attendee.is === 'specialist') && this.attendantMap.specialists.push(attendee.originalData as ISpecialist);
 				(attendee.is === 'customer') && this.attendantMap.customers.push((attendee.originalData as IAttendee).customer);

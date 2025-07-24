@@ -12,7 +12,7 @@ import {IAttendee, IEvent_V2} from "@tenant/event/domain";
 import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {
@@ -32,6 +32,7 @@ import {
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/business-note.icon.component";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {TranslateService} from "@ngx-translate/core";
+
 
 @Component({
 	selector: 'app-order-event-calendar-with-specialist-widget-component',
@@ -76,7 +77,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 	public readonly event = input.required<IEvent_V2<{
 		order: IOrder.DTO;
-		service: IOrderServiceDto;
+		service: IOrderService.DTO;
 	}>>();
 
 	public readonly useServiceColor = input(true);
@@ -187,7 +188,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 		}, [] as string[]).join(', ');
 	}
 
-	private async openEventDetails(event: IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>) {
+	private async openEventDetails(event: IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; }>) {
 		const action = new EventActions.ToggleDetails(event._id);
 		this.store.dispatch(action);
 	}

@@ -3,10 +3,10 @@ import {IOrder} from "../interface/i.order";
 import {OrderStatusEnum} from "../enum/order.status.enum";
 import {IOrderMetaDto} from "../interface/i.order-meta.dto";
 import {IOrderProductDto} from "../interface/i.order-product.dto";
-import {IOrderServiceDto} from "../interface/i.order-service.dto";
 import {INotificationSettings} from "@tenant/order/order/domain/interface/i.notification-settings";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {IOrderService} from "@src/tenant/order/order-service/domain/interface/i.order-service.dto";
 
 export const statusColorMap = {
 	[OrderStatusEnum.draft]: {
@@ -52,7 +52,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 	override object = 'OrderDto' as const;
 
 	products!: IOrderProductDto[];
-	services!: IOrderServiceDto[];
+	services!: IOrderService.DTO[];
 	status!: OrderStatusEnum;
 	meta!: IOrderMetaDto;
 	businessNote!: string;

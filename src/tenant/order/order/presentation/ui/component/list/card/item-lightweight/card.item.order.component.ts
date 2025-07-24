@@ -20,7 +20,6 @@ import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CurrencyCodeEnum} from "@core/shared/enum";
@@ -37,6 +36,7 @@ import {
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 
 @Component({
 	selector: 'app-card-item-lightweight-order-component',
@@ -326,7 +326,7 @@ export class CardItemLightweightOrderComponent {
 		});
 	}
 
-	public amount(services: IOrderServiceDto[]): number {
+	public amount(services: IOrderService.DTO[]): number {
 
 		return services.reduce((acc, service) => {
 			return acc + (service.serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.price ?? 0);

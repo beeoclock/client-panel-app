@@ -92,6 +92,10 @@ export class EOrderService extends ABaseEntity<'OrderServiceDto', IOrderService.
 		return new EOrderService(data);
 	}
 
+	public static fromDTOList(data: IOrderService.DTO[]): EOrderService[] {
+		return data.map(item => EOrderService.fromDTO(item));
+	}
+
 	public static fromRawList(data: IOrderService.EntityRaw[]): EOrderService[] {
 		return data.map(item => EOrderService.fromRaw(item));
 	}

@@ -16,7 +16,7 @@ import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@tenant/event/domain";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {DateTime} from "luxon";
 import {NGXLogger} from "ngx-logger";
@@ -39,7 +39,8 @@ import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import {AbsenceDataActions} from "@tenant/member/absence/infrastructure/state/data/absence.data.actions";
 
-type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; } | IAbsence.DTO>;
+
+type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; } | IAbsence.DTO>;
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -371,7 +372,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	}
 
-	public isOrder(event: DATA): event is IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }> {
+	public isOrder(event: DATA): event is IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; }> {
 		return event.is === 'order';
 	}
 

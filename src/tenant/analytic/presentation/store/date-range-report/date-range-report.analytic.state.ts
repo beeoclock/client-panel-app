@@ -14,13 +14,13 @@ import {transformIResponseToAnalytic} from "@tenant/analytic/domain/tool/calcula
 import {IntervalTypeEnum} from "@tenant/analytic/domain/enum/interval.enum";
 import {IHistoryV2} from "@shared/domain";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
 import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/interface/i.analytic";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 
 export type IDateRangeAnalyticState = {
 	filterState: {
@@ -289,7 +289,7 @@ export class DateRangeReportAnalyticState {
 	}
 
 	private calculateTotalRevenue(
-		services: IOrderServiceDto[],
+		services: IOrderService.DTO[],
 		// products: IOrderProductDto[]
 	): number {
 		const serviceRevenue = services.reduce((sum, service) =>
@@ -300,7 +300,7 @@ export class DateRangeReportAnalyticState {
 	}
 
 
-	private generateDateReports(services: IOrderServiceDto[]): DateRangeReportAnalyticApi.IDateReport[] {
+	private generateDateReports(services: IOrderService.DTO[]): DateRangeReportAnalyticApi.IDateReport[] {
 		const dateServiceMap = this.groupServicesByDate(services);
 		// const dateProductMap = this.groupProductsByDate(products);
 		const allDates = new Set([
@@ -326,7 +326,7 @@ export class DateRangeReportAnalyticState {
 		});
 	}
 
-	private groupServicesByDate(services: IOrderServiceDto[]): {
+	private groupServicesByDate(services: IOrderService.DTO[]): {
 		[key: string]: DateRangeReportAnalyticApi.IService[]
 	} {
 		return services.reduce((map, orderService) => {
