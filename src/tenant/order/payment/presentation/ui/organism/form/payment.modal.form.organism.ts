@@ -31,6 +31,7 @@ import {Store} from "@ngxs/store";
 import {PaymentForm} from "@tenant/order/payment/presentation/form/payment.form";
 import {PaymentDataActions} from "@tenant/order/payment/infrastructure/state/data/payment.data.actions";
 import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum";
+import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 
 @Component({
 	standalone: true,
@@ -70,7 +71,7 @@ import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum
 				{{ 'keyword.capitalize.services' | translate }}
 			</div>
 			<ion-list [inset]="true" class="!mt-0">
-				@for (service of order().services; track service._id) {
+				@for (service of notPaidServices(); track service._id) {
 					<ion-item>
 						<ion-checkbox [value]="service._id" [checked]="isServiceSelected(service._id)" (ionChange)="toggleService($event)" labelPlacement="end">
 							{{ service.serviceSnapshot.languageVersions[0].title }}
@@ -80,7 +81,7 @@ import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum
 						</ion-text>
 					</ion-item>
 				}
-<!--				@for (product of order().products; track product._id) {-->
+<!--				@for (product of notPaidProducts(); track product._id) {-->
 <!--					<ion-item>-->
 <!--						<ion-checkbox slot="start" aria-label="Toggle task completion">-->
 <!--							{{ product.productSnapshot.name }}-->
@@ -110,6 +111,7 @@ import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum
 })
 export class PaymentModalFormOrganism {
 
+	public readonly payments = input.required<EPayment[]>();
 	public readonly order = input.required<EOrder>();
 	public readonly currency = input.required<CurrencyCodeEnum>();
 
@@ -118,6 +120,24 @@ export class PaymentModalFormOrganism {
 
 	public readonly selectedServices = signal<Set<string>>(new Set<string>());
 	public readonly selectedProducts = signal<Set<string>>(new Set<string>());
+
+	public readonly notPaidServices = computed(() => {
+		const order = this.order();
+		const payments = this.payments();
+		return order.services.filter((service) => {
+			const isPaid = payments.some(payment => payment.anchorId === service._id && payment.anchorType === AnchorTypeEnum.service);
+			return !isPaid;
+		});
+	});
+
+	public readonly notPaidProducts = computed(() => {
+		const order = this.order();
+		const payments = this.payments();
+		return order.products.filter((product) => {
+			const isPaid = payments.some(payment => payment.anchorId === product._id && payment.anchorType === AnchorTypeEnum.product);
+			return !isPaid;
+		});
+	});
 
 	public readonly isSelectedFullOrder = computed(() => {
 		const order = this.order();
@@ -159,18 +179,19 @@ export class PaymentModalFormOrganism {
 
 	public constructor() {
 		afterNextRender(() => {
-			const order = this.order();
 
 			// Initialize selected services
+			const notPaidServices = this.notPaidServices();
 			const setOfServices = new Set<string>();
-			order.services.forEach(service => {
+			notPaidServices.forEach(service => {
 				setOfServices.add(service._id);
 			});
 			this.selectedServices.set(setOfServices);
 
 			// Initialize selected products
+			const notPaidProducts = this.notPaidProducts();
 			const setOfProducts = new Set<string>();
-			order.products.forEach(product => {
+			notPaidProducts.forEach(product => {
 				setOfProducts.add(product._id);
 			});
 			this.selectedProducts.set(setOfProducts);
@@ -234,9 +255,6 @@ export class PaymentModalFormOrganism {
 
 		const selectedServiceList = order.services.filter(service => selectedServices.has(service._id));
 		const selectedProductList = order.products.filter(product => selectedProducts.has(product._id));
-
-		console.log('Selected Services:', selectedServiceList);
-		console.log('Selected Products:', selectedProductList);
 
 		selectedServiceList.forEach((service)=> {
 

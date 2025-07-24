@@ -89,6 +89,7 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 			payer: data.payer,
 			providerPaymentRef: data.providerPaymentRef,
 			anchorType: data.anchorType,
+			anchorId: data.anchorId,
 			state: data.state,
 			stateHistory: data.stateHistory,
 			status: data.status,

@@ -58,7 +58,7 @@ import {PaymentDataActions} from "@tenant/order/payment/infrastructure/state/dat
 			}
 		</div>
 		@for (payment of resource.value(); track payment._id) {
-			<lightweight-payment-card-molecule [item]="payment"/>
+			<lightweight-payment-card-molecule class="mb-2" [item]="payment"/>
 		}
 	`
 })
@@ -133,6 +133,7 @@ export class OrderDetailsPaymentSectionComponent {
 		const modal = await this.modalController.create({
 			component: PaymentModalFormOrganism,
 			componentProps: {
+				payments: this.resource.value(),
 				order: this.order(),
 				currency: this.currency(),
 			},
