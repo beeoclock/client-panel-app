@@ -8,6 +8,7 @@ import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum";
+import {PaymentFormValue} from "@tenant/order/payment/presentation/form/payment.form";
 
 export const PaymentStatusColorMap = {
 	[PaymentStatusEnum.pending]: {
@@ -42,6 +43,7 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 	status!: PaymentStatusEnum;
 	paymentDate?: string | undefined;
 	anchorType!: AnchorTypeEnum & Types.Default<AnchorTypeEnum.order>;
+	anchorId?: string | undefined | null;
 
 	public payerToString() {
 
@@ -99,6 +101,10 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 	 * @param data
 	 */
 	public static fromDTO(data: IPayment.DTO): EPayment {
+		return new EPayment(data);
+	}
+
+	public static fromFormValue(data: PaymentFormValue): EPayment {
 		return new EPayment(data);
 	}
 

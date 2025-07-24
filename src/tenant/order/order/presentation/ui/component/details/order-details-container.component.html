@@ -15,7 +15,7 @@
 					@if (item.services.length) {
 						<div class="flex flex-wrap gap-4">
 
-							<order-details-order-service-section class="w-full" [serviceList]="item.services"/>
+							<order-details-order-service-section class="w-full" [orderId]="item._id"/>
 
 						</div>
 					}
@@ -38,7 +38,7 @@
 			<div class="text-neutral-500 text-xs px-4">
 				{{ 'sidebar.payment' | translate }}
 			</div>
-			<order-details-payment-section [orderId]="item._id"/>
+			<order-details-payment-section [order]="item"/>
 		</div>
 	</div>
 	<standard-details-entity [item]="item"/>
