@@ -75,7 +75,21 @@ export const tenantRouters: Routes = [
 									{
 										path: 'roles',
 										loadComponent: () => import('@tenant/member/roles/presentation/ui/page/list/list.roles.page')
-									}
+									},
+                                    {
+                                        path: 'roles/create',
+                                        loadComponent: () => import('@tenant/member/roles/presentation/component/form/role-form-container/role-form-container.component').then(m => m.RoleFormContainerComponent)
+                                    },
+                                    {
+                                        path: 'roles/:id',
+                                        resolve: { item: require('@tenant/member/roles/presentation/resolver/role.resolver').roleResolver },
+                                        loadComponent: () => import('@tenant/member/roles/presentation/component/details-container/role-details-container.component').then(m => m.RoleDetailsContainerComponent)
+                                    },
+                                    {
+                                        path: 'roles/:id/edit',
+                                        resolve: { item: require('@tenant/member/roles/presentation/resolver/role.resolver').roleResolver },
+                                        loadComponent: () => import('@tenant/member/roles/presentation/component/form/role-form-container/role-form-container.component').then(m => m.RoleFormContainerComponent)
+                                    }
                                 ]
                             },
                             {
