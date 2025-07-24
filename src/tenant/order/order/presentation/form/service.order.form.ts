@@ -2,7 +2,7 @@ import {BaseEntityForm} from "@shared/base.form";
 import {FormArray, FormControl} from "@angular/forms";
 import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {IOrderAppointmentDetailsDto} from "@tenant/order/order/domain/interface/i-order-appointment-details.dto";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {IMeta} from "@shared/domain";
 import {IService} from "@tenant/service/domain/interface/i.service";
 

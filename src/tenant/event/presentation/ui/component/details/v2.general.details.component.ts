@@ -7,7 +7,7 @@ import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {ICustomer} from "@tenant/customer/domain";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {

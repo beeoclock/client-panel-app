@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
 
 @Component({
-	selector: 'customer-detail-page',
+	selector: 'customer-details-page',
 	templateUrl: './customer-details-container.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [

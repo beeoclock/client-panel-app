@@ -18,6 +18,9 @@ import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-ser
 import {ApplicationEnum} from "@core/shared/enum/application.enum";
 import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/interface/i.analytic";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import {StateEnum} from "@core/shared/enum/state.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
+import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 
 export type IDateRangeAnalyticState = {
 	filterState: {
@@ -139,7 +142,13 @@ export class DateRangeReportAnalyticState {
 
 			const orders = await this.sharedUow.order.db.filter((order) => {
 
+				if (order.state === StateEnum.deleted) return false;
+				if (order.status === OrderStatusEnum.deleted) return false;
+
 				return order.services.some((service) => {
+
+					if (service.state === StateEnum.deleted) return false;
+					if (service.status === OrderServiceStatusEnum.deleted) return false;
 
 					if (specialistIds.length) {
 
@@ -183,6 +192,10 @@ export class DateRangeReportAnalyticState {
 					} = order;
 
 					const totalRevenue = this.calculateTotalRevenue(services);
+
+					if (!specialist || !specialist.member) {
+						console.log(`Order ${order._id} has no specialist or member associated with it.`);
+					}
 
 					const report: DateRangeReportAnalyticApi.ISpecialistReport = {
 						specialist: {

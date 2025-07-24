@@ -13,7 +13,7 @@ import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {
 	AnybodySpecialistIconComponent

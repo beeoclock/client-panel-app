@@ -5,7 +5,7 @@ import {IOrderMetaDto} from "../interface/i.order-meta.dto";
 import {IOrderProductDto} from "../interface/i.order-product.dto";
 import {IOrderServiceDto} from "../interface/i.order-service.dto";
 import {INotificationSettings} from "@tenant/order/order/domain/interface/i.notification-settings";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
 export const statusColorMap = {
