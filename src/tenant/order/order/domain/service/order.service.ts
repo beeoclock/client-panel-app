@@ -2,6 +2,8 @@ import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {BaseService} from "@core/shared/service/base.service";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {Types} from "@core/shared/types";
 
 type ENTITY_RAW = IOrder.EntityRaw;
 
@@ -25,6 +27,56 @@ export class OrderService extends BaseService<ENTITY_RAW> {
 				);
 			})
 		).toArray();
+	}
+
+	public async findActualOrFutureByCustomerId(customerId: string, params: {
+		page: number;
+		pageSize: number;
+	}) {
+		const nowISO = new Date().toISOString();
+		const filterFunction = (entity: ENTITY_RAW, filter: Types.FindQueryParams) => {
+			let result = this.repository.getDataProvider().defaultFilter(entity, filter);
+
+			if (result) {
+				result = entity.services.some((service) => {
+					const isActualOrFuture = service.orderAppointmentDetails.start >= nowISO || service.orderAppointmentDetails.end >= nowISO;
+					return isActualOrFuture && service.orderAppointmentDetails.attendees.some((attendee) => attendee.customer._id === customerId);
+				});
+			}
+
+			return result;
+		};
+		return this.repository.findAsync({
+			...params,
+			orderBy: OrderByEnum.CREATED_AT,
+			orderDir: OrderDirEnum.DESC,
+			state: StateEnum.active,
+		}, filterFunction);
+	}
+
+	public async findHistoryByCustomerId(customerId: string, params: {
+		page: number;
+		pageSize: number;
+	}) {
+		const nowISO = new Date().toISOString();
+		const filterFunction = (entity: ENTITY_RAW, filter: Types.FindQueryParams) => {
+			let result = this.repository.getDataProvider().defaultFilter(entity, filter);
+
+			if (result) {
+				result = entity.services.some((service) => {
+					const isActualOrFuture = service.orderAppointmentDetails.end < nowISO;
+					return isActualOrFuture && service.orderAppointmentDetails.attendees.some((attendee) => attendee.customer._id === customerId);
+				});
+			}
+
+			return result;
+		};
+		return this.repository.findAsync({
+			...params,
+			orderBy: OrderByEnum.CREATED_AT,
+			orderDir: OrderDirEnum.DESC,
+			state: StateEnum.active,
+		}, filterFunction);
 	}
 
 	public async findByServiceIds(ids: string[]) {
