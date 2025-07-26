@@ -892,7 +892,7 @@
 					"title": "Jaka jest Twoja branża?"
 				},
 				"introduction": {
-					"button": "Zacząć",
+					"button": "Rozpocznij",
 					"description": "Zwiększ wydajność swojej firmy dzięki kompleksowemu rozwiązaniu",
 					"welcome": "Witamy w"
 				},
@@ -1167,7 +1167,7 @@
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
 			"paid": "Zapłacone",
-			"past": "Przeszłość",
+			"past": "Historia zamówień",
 			"payAsYouGo": "Płać na bieżąco",
 			"payer": "Płatnik",
 			"payment": "Płatność",

@@ -27,7 +27,7 @@ import {IOrderService} from "@tenant/order/order-service/domain/interface/i.orde
 		<ion-segment [formControl]="orderServiceStatusControl">
 			<ion-segment-button [value]="orderServiceStatusEnum.accepted">
 				<ion-label>
-					{{ 'event.keyword.status.singular.accepted' | translate }}
+					{{ 'event.keyword.status.plural.accepted' | translate }}
 				</ion-label>
 			</ion-segment-button>
 			<ion-segment-button [value]="orderServiceStatusEnum.done">
