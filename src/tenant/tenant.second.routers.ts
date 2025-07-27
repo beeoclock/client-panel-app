@@ -121,7 +121,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'service/form',
 		outlet: 'second',
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/service/presentation/ui/component/form/service-container–form/service-container–form.component')
+		loadComponent: () => import('@tenant/service/presentation/ui/page/form/form.service.page')
 	},
 	{
 		path: 'service/:id',
@@ -142,7 +142,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/service/presentation/ui/component/form/service-container–form/service-container–form.component')
+		loadComponent: () => import('@tenant/service/presentation/ui/page/form/form.service.page')
 	},
 	/**
 	 * Order

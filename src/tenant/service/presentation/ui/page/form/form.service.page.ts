@@ -13,10 +13,10 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {PricesBlockComponent} from "@tenant/service/presentation/ui/component/form/v2/prices/prices-block.component";
 import {ServiceForm} from "@tenant/service/presentation/form/service.form";
-import {filter, firstValueFrom, map} from "rxjs";
+import {filter, firstValueFrom, map, tap} from "rxjs";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 
-import {Store} from "@ngxs/store";
+import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
@@ -38,10 +38,11 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'service-form-v2-page-component',
-	templateUrl: './service-container–form.component.html',
+	templateUrl: './form.service.page.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
@@ -58,7 +59,7 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 		CardComponent,
 	]
 })
-export class ServiceContainerFormComponent implements OnInit {
+export class FormServicePage implements OnInit {
 
 	readonly imageBlock = viewChild.required(ImageBlockComponent);
 
@@ -90,7 +91,21 @@ export class ServiceContainerFormComponent implements OnInit {
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly activatedRoute = inject(ActivatedRoute);
 	public readonly router = inject(Router);
+	public readonly actions = inject(Actions);
 	public readonly ngxLogger = inject(NGXLogger);
+
+	private readonly actionsCreateUpdateSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			ServiceActions.UpdateItem,
+			ServiceActions.CreateItem,
+		),
+		tap((payload) => {
+			this.ngxLogger.debug('Service form action successful', payload);
+			const action = new ServiceActions.CloseForm();
+			this.store.dispatch(action);
+		})
+	).subscribe()
 
 	public readonly currencyList$ = this.store.select(BusinessProfileState.baseCurrency).pipe(
 		filter(is.not_undefined<CurrencyCodeEnum>),
@@ -199,4 +214,4 @@ export class ServiceContainerFormComponent implements OnInit {
 
 }
 
-export default ServiceContainerFormComponent;
+export default FormServicePage;
