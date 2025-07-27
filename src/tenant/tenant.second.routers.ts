@@ -59,7 +59,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'absence/form',
 		outlet: 'second',
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/member/absence/presentation/ui/component/form/absence-form-container.component')
+		loadComponent: () => import('@tenant/member/absence/presentation/ui/page/form/form.absence.page')
 	},
 	{
 		path: 'absence/:id',
@@ -81,7 +81,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/member/absence/presentation/ui/component/form/absence-form-container.component')
+		loadComponent: () => import('@tenant/member/absence/presentation/ui/page/form/form.absence.page')
 	},
 	/**
 	 * Member
