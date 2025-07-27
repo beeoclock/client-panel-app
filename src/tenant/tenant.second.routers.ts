@@ -17,7 +17,7 @@ export const tenantSecondRouters: Routes = [
 		path: 'customer/form',
 		outlet: 'second',
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/customer/presentation/ui/component/form/customer-form-container.component')
+		loadComponent: () => import('@tenant/customer/presentation/ui/page/form/form.customer.page')
 	},
 	{
 		path: 'customer/:id',
@@ -38,7 +38,7 @@ export const tenantSecondRouters: Routes = [
 			isEditMode: true
 		},
 		runGuardsAndResolvers: 'always',
-		loadComponent: () => import('@tenant/customer/presentation/ui/component/form/customer-form-container.component')
+		loadComponent: () => import('@tenant/customer/presentation/ui/page/form/form.customer.page')
 	},
 	{
 		path: 'customer/:id/order',

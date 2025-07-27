@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@ang
 import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {
 	CustomerTypeCustomerComponent
-} from "@tenant/customer/presentation/ui/component/form/by-customer-type/customer-type.customer.component";
+} from "@tenant/customer/presentation/ui/page/form/by-customer-type/customer-type.customer.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 import {ServiceOrderFormArray} from "@tenant/order/order/presentation/form/service.order.form";

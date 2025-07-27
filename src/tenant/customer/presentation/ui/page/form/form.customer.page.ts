@@ -2,7 +2,7 @@ import {afterNextRender, Component, inject, input, OnInit, ViewEncapsulation} fr
 import {ReactiveFormsModule} from '@angular/forms';
 import {ICustomer, validCustomer} from "@tenant/customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
-import {Actions, ofActionErrored, ofActionSuccessful} from "@ngxs/store";
+import {Actions, ofActionErrored, ofActionSuccessful, Store} from "@ngxs/store";
 import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
@@ -18,10 +18,13 @@ import {CustomerAsyncValidation} from "@tenant/customer/presentation/form/valida
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {tap} from "rxjs/operators";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {
+	CustomerPresentationActions
+} from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 
 @Component({
 	selector: 'customer-form-page',
-	templateUrl: './customer-form-container.component.html',
+	templateUrl: './form.customer.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
@@ -36,8 +39,9 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	providers: [CustomerAsyncValidation],
 	standalone: true
 })
-export class CustomerFormContainerComponent implements OnInit {
+export class FormCustomerPage implements OnInit {
 
+	private readonly store = inject(Store);
 	private readonly actions = inject(Actions);
 	private readonly customerAsyncValidation = inject(CustomerAsyncValidation);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -69,8 +73,9 @@ export class CustomerFormContainerComponent implements OnInit {
 			CustomerDataActions.CreateItem,
 		),
 		tap((payload) => {
-			this.form.enable();
-			this.form.updateValueAndValidity();
+			this.ngxLogger.debug('Customer form action successful', payload);
+			const action = new CustomerPresentationActions.CloseForm();
+			this.store.dispatch(action);
 		})
 	).subscribe();
 
@@ -130,4 +135,4 @@ export class CustomerFormContainerComponent implements OnInit {
 	}
 }
 
-export default CustomerFormContainerComponent;
+export default FormCustomerPage;
