@@ -68,8 +68,6 @@ export class MemberDataState {
 		}
 
 		await this.sharedUow.member.repository.createAsync(EMember.fromDTO(action.payload));
-		ctx.dispatch(new MemberDataActions.GetList());
-		ctx.dispatch(new MemberPresentationActions.CloseForm());
 	}
 
 	@Action(MemberDataActions.UpdateItem)
@@ -82,10 +80,6 @@ export class MemberDataState {
 				...item,
 			});
 			await this.sharedUow.member.repository.updateAsync(entity);
-			ctx.dispatch(new MemberDataActions.GetList());
-			ctx.dispatch(new MemberPresentationActions.CloseForm());
-			ctx.dispatch(new MemberPresentationActions.UpdateOpenedDetails(entity));
-
 		}
 	}
 

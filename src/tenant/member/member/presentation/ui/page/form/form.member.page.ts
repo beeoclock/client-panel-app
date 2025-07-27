@@ -1,8 +1,8 @@
 import {Component, inject, input, OnChanges, OnInit, SimpleChanges, viewChild, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {Store} from "@ngxs/store";
+import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {MemberForm} from "@tenant/member/member/presentation/form/member.form";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, tap} from "rxjs";
 import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {SelectRoleComponent} from "@tenant/member/member/presentation/component/form/select-role/select-role.component";
@@ -23,10 +23,12 @@ import {
 	MemberPresentationActions
 } from "@tenant/member/member/infrastructure/state/presentation/member.presentation.actions";
 import {TelFormInputComponent} from "@shared/presentation/component/tel-form-input/tel.form.input.component";
+import {NGXLogger} from "ngx-logger";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'member-form-page',
-	templateUrl: './member-form-container.component.html',
+	templateUrl: './form.member.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		CommonModule,
@@ -42,21 +44,36 @@ import {TelFormInputComponent} from "@shared/presentation/component/tel-form-inp
 	],
 	standalone: true
 })
-export class MemberFormContainerComponent implements OnInit, OnChanges {
+export class FormMemberPage implements OnInit, OnChanges {
 
 	public readonly roleEnum = RoleEnum;
 
 	readonly avatarContainerComponent = viewChild.required(AvatarContainerComponent);
 
-	private readonly store = inject(Store);
-
-	public form = new MemberForm();
+	public form = MemberForm.create();
 
 	public readonly memberProfileStatusEnum = MemberProfileStatusEnum;
 
 	public readonly item = input<IMember.EntityRaw>();
 
 	public readonly isEditMode = input<boolean>(false);
+
+	private readonly store = inject(Store);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly actions = inject(Actions);
+
+	private readonly actionsCreateUpdateSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			MemberDataActions.UpdateItem,
+			MemberDataActions.CreateItem,
+		),
+		tap((payload) => {
+			this.ngxLogger.debug('Member form action successful', payload);
+			const action = new MemberPresentationActions.CloseForm();
+			this.store.dispatch(action);
+		})
+	).subscribe()
 
 	public ngOnInit(): void {
 		this.detectItem();
@@ -111,4 +128,4 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 	}
 }
 
-export default MemberFormContainerComponent;
+export default FormMemberPage;

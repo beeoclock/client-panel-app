@@ -17,7 +17,6 @@ import {filter, firstValueFrom, map, tap} from "rxjs";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
-import {ActivatedRoute, Router} from "@angular/router";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
 	ImageBlockComponent
@@ -87,12 +86,10 @@ export class FormServicePage implements OnInit {
 		}]
 	});
 
-	public readonly store = inject(Store);
-	public readonly changeDetectorRef = inject(ChangeDetectorRef);
-	public readonly activatedRoute = inject(ActivatedRoute);
-	public readonly router = inject(Router);
-	public readonly actions = inject(Actions);
-	public readonly ngxLogger = inject(NGXLogger);
+	private  readonly store = inject(Store);
+	private  readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private  readonly actions = inject(Actions);
+	private  readonly ngxLogger = inject(NGXLogger);
 
 	private readonly actionsCreateUpdateSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
