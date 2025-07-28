@@ -1,6 +1,4 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import MembersV2ContainerWeekCalendarComponent
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/members.container.week-calendar.component";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@core/cdk/analytics.service";
 import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
@@ -14,16 +12,18 @@ import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
+import MembersV3ContainerWeekCalendarComponent
+	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/members.container.week-calendar.component";
 
 @Component({
 	selector: 'app-event-calendar-with-specialists-page',
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
-		MembersV2ContainerWeekCalendarComponent
+		MembersV3ContainerWeekCalendarComponent
 	],
 	template: `
-		<app-event-v2-members-container-week-calendar-component/>
+		<app-event-v3-members-container-week-calendar-component/>
 	`
 })
 export default class CalendarWithSpecialistsEventPage implements OnInit {

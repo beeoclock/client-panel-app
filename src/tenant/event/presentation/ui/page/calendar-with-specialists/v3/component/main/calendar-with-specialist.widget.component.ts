@@ -15,20 +15,16 @@ import {
 } from "@angular/core";
 import {AsyncPipe, DOCUMENT} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {NGXLogger} from "ngx-logger";
 import {
 	HeaderCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/header.calendar-with-specialist.widget.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/header.calendar-with-specialist.widget.component";
 import {firstValueFrom, map, switchMap} from "rxjs";
-import {IEvent_V2} from "@tenant/event/domain";
 import {
 	CalendarWithSpecialistsQueries
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
-import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
-import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
 import {
 	CalendarWithSpecialistsAction
@@ -36,7 +32,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	TimeLineCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
@@ -44,22 +40,24 @@ import {DateTime} from "luxon";
 import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {
 	ScheduleElementCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/schedule-element.calendar-with-specialist.widget.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/schedule-element.calendar-with-specialist.widget.component";
 import {
 	EventCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
 import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
 import {AbsenceDataActions} from "@tenant/member/absence/infrastructure/state/data/absence.data.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	FilterCalendarWithSpecialistComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/main/filter/filter.calendar-with-specialist.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/main/filter/filter.calendar-with-specialist.component";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
+import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 
 
 @Component({
@@ -90,7 +88,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 	readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
 
 	public eventsBySpecialistId: {
-		[key: string]: IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; } | IAbsence.DTO>[]
+		[key: string]: (EAbsence | EOrderService)[]
 	} = {};
 
 	// Find all #column
@@ -199,50 +197,58 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 
 			return items.reduce((acc, event) => {
 
-				const {attendees, entireBusiness} = event;
+				if (event instanceof EOrderService) {
 
-				if (entireBusiness) {
+					const {orderAppointmentDetails: {specialists}} = event;
 
-					this.calendarWithSpecialistLocaStateService.members.forEach((member) => {
+					specialists.forEach((specialist) => {
 
-						const {_id: specialistId} = member;
-
-						acc[specialistId] = acc[specialistId] || [];
-
-						acc[specialistId].push(structuredClone(event));
-
-					});
-
-				} else {
-
-					attendees.forEach((attendee) => {
-
-						if (attendee.is !== 'specialist') {
-							return;
-						}
-
-						const specialistId = attendee._id as string;
+						const specialistId = specialist.member._id;
 
 						acc[specialistId] = acc[specialistId] || [];
 
-						// Push event into specialist's list and filter out other specialists but keep customers
-						acc[specialistId].push(structuredClone({
-							...event,
-							attendees: event.attendees.filter((attendee) => {
-								if (attendee.is === 'specialist') {
-									return attendee._id === specialistId;
-								}
-								return true;
-							})
-						}));
+						acc[specialistId].push(event);
 
 					});
 
 				}
 
+				if (event instanceof EAbsence) {
+
+					const {members, entireBusiness} = event;
+
+					if (entireBusiness) {
+
+						this.calendarWithSpecialistLocaStateService.members.forEach((member) => {
+
+							const {_id: specialistId} = member;
+
+							acc[specialistId] = acc[specialistId] || [];
+
+							acc[specialistId].push(structuredClone(event));
+
+						});
+
+					} else {
+
+						members.forEach((member) => {
+
+							const specialistId = member._id as string;
+
+							acc[specialistId] = acc[specialistId] || [];
+
+							// Push event into specialist's list and filter out other specialists but keep customers
+							acc[specialistId].push(event);
+
+						});
+
+					}
+
+				}
+
 				return acc;
 
-			}, {} as { [key: string]: IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; } | IAbsence.DTO>[] });
+			}, {} as { [key: string]: (EAbsence | EOrderService)[] });
 
 		}),
 	);
@@ -255,12 +261,12 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 		return this.calendarWithSpecialistLocaStateService.oneMinuteForPx * this.calendarWithSpecialistLocaStateService.movementInMinutesControl.value;
 	}
 
-	public nowOrder(target: unknown) {
-		return target as { order: IOrder.DTO; service: IOrderService.DTO; };
+	public isEOrderService(event: EOrderService | EAbsence): event is EOrderService {
+		return event instanceof EOrderService;
 	}
 
-	public nowAbsence(target: unknown) {
-		return target as IAbsence.DTO;
+	public isEAbsence(event: EOrderService | EAbsence): event is EAbsence {
+		return event instanceof EAbsence;
 	}
 
 	public async openForm() {
@@ -811,17 +817,17 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 				this.mutatedOtherEventHtmlList.push(elm);
 			}
 
-			elm.style.width = `calc(${column.clientWidth / (foundNearEvents.length + 1)}px - ${20/(foundNearEvents.length + 1)}px)`;
+			elm.style.width = `calc(${column.clientWidth / (foundNearEvents.length + 1)}px - ${20 / (foundNearEvents.length + 1)}px)`;
 			elm.style.transform = `translateX(calc(100% * ${index + (htmlDivElementHasSmollerTop ? 1 : 0)}))`
 		});
 
-		htmlDivElement.style.width = `calc(${column.clientWidth / (foundNearEvents.length + 1)}px - ${20/(foundNearEvents.length + 1)}px)`;
+		htmlDivElement.style.width = `calc(${column.clientWidth / (foundNearEvents.length + 1)}px - ${20 / (foundNearEvents.length + 1)}px)`;
 		htmlDivElement.style.transform = `translateX(calc(100% * ${(htmlDivElementHasSmollerTop ? 0 : foundNearEvents.length)}))`;
 	}
 
 	protected restoreWidthOfMutatedEvents(column: HTMLElement) {
 		this.mutatedOtherEventHtmlList.forEach((element, index) => {
-			element.style.width = `calc(${column.clientWidth / this.mutatedOtherEventHtmlList.length}px - ${20/this.mutatedOtherEventHtmlList.length}px)`;
+			element.style.width = `calc(${column.clientWidth / this.mutatedOtherEventHtmlList.length}px - ${20 / this.mutatedOtherEventHtmlList.length}px)`;
 			element.style.transform = `translateX(calc(100% * ${index}))`;
 		});
 	};

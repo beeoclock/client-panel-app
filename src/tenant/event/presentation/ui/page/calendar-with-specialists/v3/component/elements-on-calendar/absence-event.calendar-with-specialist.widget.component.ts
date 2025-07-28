@@ -3,14 +3,12 @@ import {
 	Component,
 	HostBinding,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	ViewEncapsulation
 } from "@angular/core";
 
-import {IAttendee, IEvent_V2} from "@tenant/event/domain";
 import {Store} from "@ngxs/store";
-import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {TranslateModule} from "@ngx-translate/core";
 import {DateTime} from "luxon";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
@@ -24,17 +22,14 @@ import {
 		<div class="flex flex-wrap gap-1">
 			<div class="w-full flex justify-between">
 				<div class="text-xs dark:text-sky-100">
-					{{ ('absence.type.' + event.originalData.type + '.label') | translate }}
+					{{ ('absence.type.' + event().type + '.label') | translate }}
 				</div>
 				<div class="dark:text-sky-100 absolute right-2 gap-2 flex">
-					@if (event.note) {
-						<i [title]="event.note" class="bi bi-chat-text"></i>
+					@if (event().note) {
+						<i [title]="event().note" class="bi bi-chat-text"></i>
 					}
 					<i class="bi bi-cup-hot-fill"></i>
 				</div>
-			</div>
-			<div class="text-xs font-bold dark:text-sky-100">
-				{{ getAttendeesInformation() }}
 			</div>
 		</div>
 		<div class="text-xs font-medium">
@@ -50,8 +45,7 @@ import {
 })
 export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChanges {
 
-	@Input()
-	public event!: IEvent_V2<IAbsence.DTO>;
+	public readonly event = input.required<EAbsence>()
 
 	public startEndTitle = '';
 
@@ -72,37 +66,16 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 	}
 
 	public async onClick() {
-		await this.openAbsenceDetails(this.event);
+		this.store.dispatch(new AbsencePresentationActions.OpenDetails(this.event()));
 	}
 
 	public ngOnChanges() {
 		this.initStartEndTitle();
 	}
 
-	public getAttendeesInformation() {
-		return this.event.attendees?.map((attendant) => {
-			if (attendant.is !== 'customer') {
-				return;
-			}
-
-			const {customer} = attendant.originalData as IAttendee;
-
-			if (customer?.firstName) {
-				return customer?.firstName;
-			}
-			if (customer?.phone) {
-				return customer?.phone;
-			}
-			if (customer?.email) {
-				return customer?.email;
-			}
-			return '';
-		}).join(', ');
-	}
-
 	public initStartEndTitle(): void {
 
-		const {start, end} = this.event;
+		const {start, end} = this.event();
 		const startDateTime = DateTime.fromISO(start);
 		const endDateTime = DateTime.fromISO(end);
 
@@ -135,11 +108,6 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 
 		this.startEndTitle = `${startDateTime.toFormat('d LLL yyyy')} - ${endDateTime.toFormat('d LLL yyyy')}`;
 
-	}
-
-	private async openAbsenceDetails(event: IEvent_V2<IAbsence.DTO>) {
-		const entity = EAbsence.fromDTO(event.originalData);
-		this.store.dispatch(new AbsencePresentationActions.OpenDetails(entity));
 	}
 
 }

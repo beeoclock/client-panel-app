@@ -14,7 +14,7 @@ import {
 } from "@angular/core";
 import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {is} from "@core/shared/checker";
 
 @Component({
