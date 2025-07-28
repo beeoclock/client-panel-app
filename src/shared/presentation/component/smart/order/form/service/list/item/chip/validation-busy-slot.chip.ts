@@ -6,6 +6,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'validation-busy-slot-chip',
@@ -32,6 +33,7 @@ export class ValidationBusySlotChip {
 	public readonly control  = input.required<ServiceOrderForm>();
 	public readonly hideMe = signal<boolean>(true);
 
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly destroyRef = inject(DestroyRef);
 
@@ -56,16 +58,27 @@ export class ValidationBusySlotChip {
 			return;
 		}
 		const specialistIds = specialists.map(({member: {_id}}) => _id);
+		this.ngxLogger.debug('ValidationBusySlotChip.detectIfSlotIsBusy', {
+			specialistIds,
+			start,
+			end,
+			value,
+		});
 		this.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end).then((busySlots) => {
 			const filtered = busySlots.filter((slot) => {
 				return slot._id !== value.orderId;
+			});
+			this.ngxLogger.debug('ValidationBusySlotChip.detectIfSlotIsBusy.findBySpecialistIdsAndDateTimeRange.result', {
+				busySlots,
+				filtered,
 			});
 			this.hideMe.set(!filtered.length);
 		});
 	}
 
 	private findBySpecialistIdsAndDateTimeRange(specialistIds: string[], start: string, end: string) {
-		return this.sharedUow.order.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end, [StateEnum.active]);
+		const states = [StateEnum.active];
+		return this.sharedUow.order.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end, states);
 	}
 
 }
