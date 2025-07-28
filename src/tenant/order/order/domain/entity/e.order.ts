@@ -240,6 +240,14 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 	 * @param data
 	 */
 	public static fromFormValue(data: OrderFormValue): EOrder {
+		// Set order.id into each service to orderId property and the same for products
+		data.services.forEach((service) => {
+			service.orderId = data._id;
+		});
+		// TODO: Uncomment when products are implemented
+		// data.products.forEach((product) => {
+		// 	product.orderId = data._id;
+		// });
 		return new EOrder(data);
 	}
 

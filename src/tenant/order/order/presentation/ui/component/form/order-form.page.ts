@@ -26,16 +26,16 @@ import {
 	ListServiceFormOrderComponent
 } from "@shared/presentation/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
-import {firstValueFrom, lastValueFrom} from "rxjs";
-import {
-	CalendarWithSpecialistsAction
-} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
 import {OrderForm} from "@tenant/order/order/presentation/form/order.form";
+import {firstValueFrom, lastValueFrom} from "rxjs";
+import {
+	CalendarWithSpecialistsAction
+} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 
 @Component({
 	selector: 'order-form-page',
@@ -225,10 +225,8 @@ export class OrderFormPage {
 
 			} else {
 
-				const createOrder$ = this.store.dispatch(new OrderActions.CreateItem(entity));
-				await firstValueFrom(createOrder$);
-
 				const actions$ = this.store.dispatch([
+					new OrderActions.CreateItem(entity),
 					new CalendarWithSpecialistsAction.GetItems(),
 				]);
 
