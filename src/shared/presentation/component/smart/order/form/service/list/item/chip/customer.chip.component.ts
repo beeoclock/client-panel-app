@@ -40,7 +40,7 @@ import ECustomer from "@tenant/customer/domain/entity/e.customer";
 	template: `
 		<button
 			[id]="'customer-trigger-' + id()"
-			class="px-3 py-2 rounded-xl border border-gray-200 justify-center items-center flex w-full">
+			class="px-3 py-2 border border-gray-200 justify-center items-center flex w-full bg-white rounded-lg hover:bg-neutral-300 hover:border-neutral-400">
 			<div class="text-slate-900 text-sm font-normal">
 				👤
 				@switch (customerForm.value.customerType) {
@@ -58,6 +58,7 @@ import ECustomer from "@tenant/customer/domain/entity/e.customer";
 					}
 				}
 			</div>
+			<i class="bi bi-chevron-expand"></i>
 
 		</button>
 		<ion-popover #customerPopover

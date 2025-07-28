@@ -6,6 +6,40 @@ import {IService} from "@tenant/service/domain/interface/i.service";
 import {OrderServiceStatusEnum} from "../enum/order-service.status.enum";
 import {IOrderAppointmentDetailsDto} from "../interface/i-order-appointment-details.dto";
 
+export const OrderServiceColorStatusMap = {
+	[OrderServiceStatusEnum.requested]: {
+		bg: 'bg-blue-100',
+		text: 'text-blue-800',
+	},
+	[OrderServiceStatusEnum.accepted]: {
+		bg: 'bg-green-100',
+		text: 'text-green-800',
+	},
+	[OrderServiceStatusEnum.ready]: {
+		bg: 'bg-yellow-100',
+		text: 'text-yellow-800',
+	},
+	[OrderServiceStatusEnum.inProgress]: {
+		bg: 'bg-orange-100',
+		text: 'text-orange-800',
+	},
+	[OrderServiceStatusEnum.done]: {
+		bg: 'bg-green-100',
+		text: 'text-green-800',
+	},
+	[OrderServiceStatusEnum.rejected]: {
+		bg: 'bg-red-100',
+		text: 'text-red-800',
+	},
+	[OrderServiceStatusEnum.cancelled]: {
+		bg: 'bg-gray-100',
+		text: 'text-gray-800',
+	},
+	[OrderServiceStatusEnum.deleted]: {
+		bg: 'bg-gray-200',
+		text: 'text-gray-800',
+	},
+}
 
 export class EOrderService extends ABaseEntity<'OrderServiceDto', IOrderService.DTO, IOrderService.EntityRaw> implements IOrderService.EntityRaw {
 
@@ -56,6 +90,14 @@ export class EOrderService extends ABaseEntity<'OrderServiceDto', IOrderService.
 	 */
 	public static fromRaw(data: IOrderService.EntityRaw): EOrderService {
 		return new EOrderService(data);
+	}
+
+	public static fromDTOList(data: IOrderService.DTO[]): EOrderService[] {
+		return data.map(item => EOrderService.fromDTO(item));
+	}
+
+	public static fromRawList(data: IOrderService.EntityRaw[]): EOrderService[] {
+		return data.map(item => EOrderService.fromRaw(item));
 	}
 
 }

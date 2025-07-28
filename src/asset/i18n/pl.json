@@ -565,7 +565,7 @@
 					}
 				}
 			},
-			"title": "Szczegółowy widok wydarzenia"
+			"title": "Szczegóły zamówionej usługi"
 		},
 		"form": {
 			"section": {
@@ -1044,12 +1044,15 @@
 			"addDuration": "Dodaj czas trwania",
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
+			"additionalInformation": "Informacje dodatkowe",
 			"address": "Adres",
 			"all": "Wszystkie",
 			"allServices": "Wszystkie usługi",
 			"allSpecialists": "Wszyscy specjaliści",
 			"allStatuses": "Wszystkie statusy",
 			"amount": "Kwota",
+			"amountPaid": "Zapłacona kwota",
+			"amountToPay": "Kwota do zapłaty",
 			"anonymous": "Anonimowy",
 			"approvalType": "Typ homologacji",
 			"approve": "Zatwierdź",
@@ -1066,7 +1069,7 @@
 			"businessCategory": "Kategoria biznesowa",
 			"businessIndustry": "Branża biznesowa",
 			"businessName": "Nazwa firmy",
-			"businessNote": "Notatka służbowa",
+			"businessNote": "Notatka biznesowa do zamówienia",
 			"businessProfile": "Profil biznesu",
 			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
@@ -1079,6 +1082,7 @@
 			"city": "Miasto",
 			"clearCache": "Wyczyść Cache",
 			"clickToUpload": "Kliknij, aby przesłać",
+			"clientDoesNotSeeThisData": "Klient nie widzi tych danych",
 			"clients": "Klienci",
 			"close": "Zamknij",
 			"color": "Kolor",
@@ -1136,6 +1140,7 @@
 			"lastUpdate": "Ostatnia aktualizacja",
 			"latestBooking": "Najpóźniejszy termin rezerwacji",
 			"leftInDays": "Pozostała ilość dni",
+			"loadMore": "Załaduj więcej",
 			"logout": "Wyloguj się",
 			"members": "Członkowie",
 			"menu": "Menu",
@@ -1153,15 +1158,20 @@
 			"notYetStarted": "Jeszcze nie rozpoczęto",
 			"note": "Notatka",
 			"notification": "Powiadomienia",
+			"numberOfServicesOrdered": "Liczba zamówionych usług",
 			"openTimePicker": "Wybierz",
 			"order": "Kolejność",
+			"orderInformation": "Informacje dotyczące zamówienia",
+			"orderStatus": "Status zamówienia",
 			"ordering": "Zamawianie",
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
 			"paid": "Zapłacone",
+			"past": "Przeszłość",
 			"payAsYouGo": "Płać na bieżąco",
 			"payer": "Płatnik",
 			"payment": "Płatność",
+			"paymentDate": "Data płatności",
 			"paymentMethod": "Metoda płatności",
 			"paymentProviderType": "Typ płatności",
 			"paymentStatus": "Status płatności",
@@ -1186,6 +1196,7 @@
 			"prices": "Ceny",
 			"processing": "Przetwarzanie",
 			"publicPage": "Strona publiczna",
+			"registerPayment": "Zarejestruj płatność ",
 			"reject": "Odrzucić",
 			"role": "Rola",
 			"save": "Zapisz",
@@ -1218,6 +1229,7 @@
 			"switchTo": "Przełącz na",
 			"synced": "Zsynchronizowano",
 			"syncing": "Synchronizacja w toku…",
+			"tapOnTheDataToEditIt": "Dotknij danych, aby je edytować.",
 			"theSlotAlreadyTaken": "Ten termin u tego specjalisty jest już zajęty!",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
@@ -1229,6 +1241,7 @@
 			"total": "Razem",
 			"tryDemoProfile": "Spróbuj profilu demo",
 			"unknown": "Nieznany",
+			"upcoming": "Nadchodzące",
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
 			"upgradeTo": "Zaktualizuj do",
@@ -1405,13 +1418,13 @@
 			"status": {
 				"singular": {
 					"cancelled": "Anulowane",
-					"confirmed": "Potwierdzono",
+					"confirmed": "Potwierdzone",
 					"deleted": "Usunięte",
 					"done": "Gotowe",
 					"draft": "Wersja robocza",
 					"inProgress": "W toku",
-					"rejected": "Odrzucono",
-					"requested": "Żądany"
+					"rejected": "Odrzucone",
+					"requested": "Żądane"
 				}
 			}
 		},

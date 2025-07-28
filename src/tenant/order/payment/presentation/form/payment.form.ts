@@ -6,7 +6,7 @@ import {BaseEntityForm} from "@shared/base.form";
 import {FormControl} from "@angular/forms";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {IPayment} from "@tenant/order/payment/domain/interface/i.payment";
+import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum";
 
 export interface IPaymentForm {
     providerPaymentRef: FormControl<string | null>;
@@ -17,8 +17,12 @@ export interface IPaymentForm {
     method: FormControl<PaymentMethodEnum>;
     providerType: FormControl<PaymentProviderTypeEnum>;
     status: FormControl<PaymentStatusEnum>;
+    anchorType: FormControl<AnchorTypeEnum>;
+    anchorId: FormControl<string | null>;
     paymentDate: FormControl<string>;
 }
+
+export type PaymentFormValue = ReturnType<PaymentForm['getRawValue']>;
 
 export class PaymentForm extends BaseEntityForm<'PaymentDto', IPaymentForm> {
 
@@ -42,13 +46,17 @@ export class PaymentForm extends BaseEntityForm<'PaymentDto', IPaymentForm> {
             status: new FormControl(PaymentStatusEnum.succeeded, {
                 nonNullable: true,
             }),
+            anchorType: new FormControl(AnchorTypeEnum.order, {
+                nonNullable: true,
+            }),
+            anchorId: new FormControl(null),
             paymentDate: new FormControl(new Date().toISOString(), {
                 nonNullable: true,
             }),
         });
     }
 
-    public static create(initValue: Partial<IPayment.DTO> = {}): PaymentForm {
+    public static create(initValue: Partial<PaymentFormValue> = {}): PaymentForm {
 
         const form = new PaymentForm();
 

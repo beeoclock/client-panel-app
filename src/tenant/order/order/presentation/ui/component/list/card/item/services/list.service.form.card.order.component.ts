@@ -25,7 +25,7 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({
@@ -39,15 +39,15 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 	],
 	template: `
 		<div class="flex-col justify-start items-start flex">
-			<div class="bg-white flex-col justify-start items-start flex divide-y border border-gray-200 rounded-2xl">
+			<div class="bg-white flex-col justify-start items-start flex gap-4">
 				@for (item of selectedServicePlusControlList; track item._id; let index = $index) {
 					@if (specificOrderServiceId() === null || specificOrderServiceId() === item._id) {
 						<app-item-list-v2-service-form-order-component
-							[id]="idPrefix() + item._id"
-							(deleteMe)="deleteOrderedService(item._id)"
-							(saveChanges)="saveChanges(item.control)"
 							[item]="item"
-							[setupPartialData]="item.setupPartialData"/>
+							[id]="idPrefix() + item._id"
+							[setupPartialData]="item.setupPartialData"
+							(saveChanges)="saveChanges(item.control)"
+							(deleteMe)="deleteOrderedService(item._id)"/>
 					}
 				}
 			</div>
@@ -78,10 +78,10 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 	@SelectSnapshot(BusinessProfileState.baseLanguage)
 	public readonly baseLanguage!: LanguageCodeEnum;
 
-	readonly #ngxLogger = inject(NGXLogger);
-	readonly #translateService = inject(TranslateService);
-	readonly #changeDetectorRef = inject(ChangeDetectorRef);
-	readonly #alertController = inject(AlertController);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly translateService = inject(TranslateService);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly alertController = inject(AlertController);
 
 	public ngOnChanges() {
 		this.selectedServicePlusControlList.length = 0;
@@ -98,12 +98,12 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 				});
 			}
 		});
-		this.#changeDetectorRef.detectChanges();
+		this.changeDetectorRef.detectChanges();
 	}
 
 	public async deleteOrderedService(orderedServiceId: string) {
 
-		this.#ngxLogger.info('deleteOrderedService', orderedServiceId);
+		this.ngxLogger.info('deleteOrderedService', orderedServiceId);
 
 		const isLastServiceInOrder = this.selectedServicePlusControlList.length === 1;
 		const confirmed = await this.confirmToDelete(isLastServiceInOrder);
@@ -113,34 +113,34 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 		}
 
 		this.dispatchOrderedServiceState(orderedServiceId, StateEnum.deleted);
-		this.#changeDetectorRef.detectChanges();
+		this.changeDetectorRef.detectChanges();
 
 	}
 
 	private async confirmToDelete(isLastServiceInOrder = false) {
-		this.#ngxLogger.info('confirmToDelete', isLastServiceInOrder);
+		this.ngxLogger.info('confirmToDelete', isLastServiceInOrder);
 
-		const header = this.#translateService.instant('order.confirmation.delete.service.header');
-		const message = this.#translateService.instant('order.confirmation.delete.service.message');
+		const header = this.translateService.instant('order.confirmation.delete.service.header');
+		const message = this.translateService.instant('order.confirmation.delete.service.message');
 		let subHeader = '';
 		let cssClass = '';
 
 		if (isLastServiceInOrder) {
-			subHeader = this.#translateService.instant('order.confirmation.delete.service.subHeader.lastService');
+			subHeader = this.translateService.instant('order.confirmation.delete.service.subHeader.lastService');
 			cssClass = '!text-red-600';
 		}
-		const modal = await this.#alertController.create({
+		const modal = await this.alertController.create({
 			header,
 			subHeader,
 			message,
 			buttons: [
 				{
-					text: this.#translateService.instant('keyword.capitalize.cancel'),
+					text: this.translateService.instant('keyword.capitalize.cancel'),
 					role: 'cancel'
 				},
 				{
 					cssClass,
-					text: this.#translateService.instant('keyword.capitalize.delete'),
+					text: this.translateService.instant('keyword.capitalize.delete'),
 					role: 'confirm'
 				}
 			]
@@ -151,7 +151,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 	}
 
 	protected saveChanges(control: ServiceOrderForm) {
-		this.#ngxLogger.info('saveChanges', control.getRawValue());
+		this.ngxLogger.info('saveChanges', control.getRawValue());
 
 		const orderServiceDto = control.getRawValue();
 		this.dispatchOrderChanges({

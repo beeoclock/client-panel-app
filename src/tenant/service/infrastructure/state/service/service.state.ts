@@ -11,9 +11,8 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {Router} from "@angular/router";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import ServiceDetails from "@tenant/service/presentation/ui/component/service-details/service-details";
-import ServiceContainerFormComponent
-	from "@tenant/service/presentation/ui/component/form/service-container–form/service-container–form.component";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import FormServicePage from "@tenant/service/presentation/ui/page/form/form.service.page";
 
 export type IServiceState = IBaseState<EService>
 
@@ -113,7 +112,7 @@ export class ServiceState {
 		const activated = this.secondRouterOutletService.activated();
 
 		if (activated) {
-			if (activated instanceof ServiceContainerFormComponent) {
+			if (activated instanceof FormServicePage) {
 				const isEditMode = activated.isEditMode();
 				if (isEditMode) {
 					const {_id} = activated.item() ?? {};
@@ -159,7 +158,6 @@ export class ServiceState {
 	@Action(ServiceActions.CreateItem)
 	public async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
 		await this.sharedUow.service.repository.createAsync(EService.fromDTO(action.payload));
-		await this.closeForm();
 	}
 
 	@Action(ServiceActions.UpdateItem)
@@ -171,9 +169,6 @@ export class ServiceState {
 				...item,
 			})
 			await this.sharedUow.service.repository.updateAsync(entity);
-			await this.closeForm();
-			await this.updateOpenedDetails(ctx, {payload: item});
-
 		}
 	}
 

@@ -2,7 +2,7 @@ import {BaseActions} from "@shared/state/base/base.actions";
 import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 
 export namespace OrderServiceDataActions {
 

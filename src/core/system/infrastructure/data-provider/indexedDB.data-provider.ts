@@ -147,7 +147,7 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 	 * @param filter
 	 * @private
 	 */
-	public defaultFilter(entity: ENTITY, filter: Types.FindQueryParams) {
+	public override defaultFilter(entity: ENTITY, filter: Types.FindQueryParams) {
 		const {phrase, ...otherFilter} = filter as Types.PartialQueryParams;
 		const clearedOtherFilter = clearObjectClone<object>(otherFilter);
 

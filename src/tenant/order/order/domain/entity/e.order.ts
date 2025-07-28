@@ -3,22 +3,68 @@ import {IOrder} from "../interface/i.order";
 import {OrderStatusEnum} from "../enum/order.status.enum";
 import {IOrderMetaDto} from "../interface/i.order-meta.dto";
 import {IOrderProductDto} from "../interface/i.order-product.dto";
-import {IOrderServiceDto} from "../interface/i.order-service.dto";
 import {INotificationSettings} from "@tenant/order/order/domain/interface/i.notification-settings";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {IOrderService} from "@src/tenant/order/order-service/domain/interface/i.order-service.dto";
+import {OrderFormValue} from "@tenant/order/order/presentation/form/order.form";
 
+export const statusColorMap = {
+	[OrderStatusEnum.draft]: {
+		bg: 'bg-neutral-100',
+		text: 'text-neutral-500',
+	},
+	[OrderStatusEnum.deleted]: {
+		bg: 'bg-neutral-500',
+		text: 'text-black',
+	},
+	[OrderStatusEnum.requested]: {
+		bg: 'bg-blue-500',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.confirmed]: {
+		bg: 'bg-green-500',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.inProgress]: {
+		bg: 'bg-yellow-500',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.done]: {
+		bg: 'bg-green-600',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.cancelled]: {
+		bg: 'bg-red-500',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.rejected]: {
+		bg: 'bg-red-600',
+		text: 'text-white',
+	},
+	[OrderStatusEnum.waitingForPayment]: {
+		bg: 'bg-orange-500',
+		text: 'text-white',
+	},
+}
 
 export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw> implements IOrder.EntityRaw {
 
 	override object = 'OrderDto' as const;
 
 	products!: IOrderProductDto[];
-	services!: IOrderServiceDto[];
+	services!: IOrderService.DTO[];
 	status!: OrderStatusEnum;
 	meta!: IOrderMetaDto;
 	businessNote!: string;
 	notificationSettings!: INotificationSettings;
+
+	public get statusColor(): {
+		bg: string;
+		text: string;
+	} {
+		return statusColorMap[this.status];
+	}
 
 	/**
 	 * Change the status of the order.
@@ -187,6 +233,22 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 			updatedAt: data.updatedAt,
 			notificationSettings: data.notificationSettings,
 		}
+	}
+
+	/**
+	 * Use it to create new entity, e.g. from API or form
+	 * @param data
+	 */
+	public static fromFormValue(data: OrderFormValue): EOrder {
+		// Set order.id into each service to orderId property and the same for products
+		data.services.forEach((service) => {
+			service.orderId = data._id;
+		});
+		// TODO: Uncomment when products are implemented
+		// data.products.forEach((product) => {
+		// 	product.orderId = data._id;
+		// });
+		return new EOrder(data);
 	}
 
 	/**

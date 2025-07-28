@@ -7,8 +7,7 @@ import {Router} from "@angular/router";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import CustomerDetailsContainerComponent
 	from "@tenant/customer/presentation/ui/component/details/customer-details-container.component";
-import CustomerFormContainerComponent
-	from "@tenant/customer/presentation/ui/component/form/customer-form-container.component";
+import FormCustomerPage from "@tenant/customer/presentation/ui/page/form/form.customer.page";
 
 export type ICustomerPresentationState = object;
 
@@ -85,7 +84,7 @@ export class CustomerPresentationState {
 		const activated = this.secondRouterOutletService.activated();
 
 		if (activated) {
-			if (activated instanceof CustomerFormContainerComponent) {
+			if (activated instanceof FormCustomerPage) {
 				const isEditMode = activated.isEditMode();
 				if (isEditMode) {
 					const {_id} = activated.item() ?? {};

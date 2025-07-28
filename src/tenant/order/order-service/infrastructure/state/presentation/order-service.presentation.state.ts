@@ -52,7 +52,7 @@ export class OrderServicePresentationState {
 	@Action(OrderServicePresentationActions.OpenDetails)
 	public async openDetailsAction(ctx: StateContext<IOrderState>, {payload}: OrderServicePresentationActions.OpenDetails) {
 
-		const action = new EventActions.OpenDetails(payload._id);
+		const action = new EventActions.ToggleDetails(payload._id);
 		ctx.dispatch(action);
 
 		//

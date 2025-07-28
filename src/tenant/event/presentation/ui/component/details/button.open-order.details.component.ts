@@ -7,6 +7,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {IPayment} from "@tenant/order/payment/domain/interface/i.payment";
 import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.status.enum";
+import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 
 @Component({
 	standalone: true,
@@ -15,37 +16,54 @@ import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.statu
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		TranslateModule,
+		DynamicDatePipe,
 	],
 	template: `
 
-		<div class="flex justify-between">
-			<div>{{ 'sidebar.order' | translate }}</div>
-			<div>{{ ('order.enum.status.singular.' + order().status) | translate }}</div>
+		<div class="flex justify-between font-bold">
+			<div>{{ 'keyword.capitalize.orderInformation' | translate }}</div>
 		</div>
-		<div class="flex justify-between">
-			<div>{{ 'keyword.capitalize.services' | translate }}: {{ order().services.length }}</div>
-<!--			<div>{{ order().createdAt | dynamicDate }}</div>-->
-			@if (payment(); as payment) {
-				@if (payment.status === paymentStatusEnum.succeeded) {
-					<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
+		<div class="flex flex-col gap-3">
+			<div class="flex gap-2 justify-between">
+				<span class="text-neutral-500">{{ 'keyword.capitalize.numberOfServicesOrdered' | translate }}:</span>
+				<span>{{ order().services.length }}</span>
+			</div>
+			<div class="flex gap-2 justify-between">
+				<span class="text-neutral-500">{{ 'keyword.capitalize.status' | translate }}:</span>
+				<span>{{ ('order.enum.status.singular.' + order().status) | translate }}</span>
+			</div>
+			<div class="flex gap-2 justify-between">
+				<span class="text-neutral-500">{{ 'keyword.capitalize.createdAt' | translate }}:</span>
+				<span>{{ order().createdAt | dynamicDate }}</span>
+			</div>
+			<div class="flex gap-2 justify-between">
+				<span class="text-neutral-500">{{ 'keyword.capitalize.paymentStatus' | translate }}:</span>
+				@if (payment(); as payment) {
+					@if (payment.status === paymentStatusEnum.succeeded) {
+						<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
 						{{ 'keyword.capitalize.paid' | translate }}
 					</span>
+					} @else {
+						<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+						{{ 'keyword.capitalize.notPaid' | translate }}
+					</span>
+					}
 				} @else {
 					<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
 						{{ 'keyword.capitalize.notPaid' | translate }}
 					</span>
 				}
-			}
+			</div>
 		</div>
 
-		<button (click)="openOrderDetails()" type="button" class="p-2 transition-all rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 flex justify-between">
+		<button (click)="openOrderDetails()" type="button" class="p-2 transition-all rounded-lg border border-neutral-200 bg-white hover:bg-neutral-200 hover:border-neutral-300 flex justify-between">
 			{{ 'order.keyword.singular.capitalize.openDetails' | translate }}
 			<i class="bi bi-chevron-right"></i>
 		</button>
 
 	`,
 	host: {
-		class: 'p-4 w-full flex flex-col gap-2 border-b bg-white'
+		class: 'p-4 w-full flex flex-col gap-3 border bg-neutral-100 rounded-2xl'
 	}
 })
 export class ButtonOpenOrderDetailsComponent {

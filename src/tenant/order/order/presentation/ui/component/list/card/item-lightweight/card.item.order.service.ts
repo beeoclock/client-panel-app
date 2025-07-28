@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ICustomer} from "@tenant/customer/domain";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 
 interface GroupedServiceBySpecialistAndDate {
 	date: string;
@@ -9,12 +9,12 @@ interface GroupedServiceBySpecialistAndDate {
 		firstName: string;
 		avatar?: string;
 	};
-	services: IOrderServiceDto[];
+	services: IOrderService.DTO[];
 }
 
 interface GroupedServiceByCustomer {
 	customer: ICustomer.DTO;
-	services: IOrderServiceDto[];
+	services: IOrderService.DTO[];
 }
 
 interface GroupedByCustomerAndThenBySpecialistAndDate {
@@ -27,7 +27,7 @@ const SECONDS_TO_MILLISECONDS = 1_000;
 @Injectable()
 export class CardItemOrderService {
 
-	public groupByCustomerAndThenBySpecialistAndDate(services: IOrderServiceDto[]): GroupedByCustomerAndThenBySpecialistAndDate[] {
+	public groupByCustomerAndThenBySpecialistAndDate(services: IOrderService.DTO[]): GroupedByCustomerAndThenBySpecialistAndDate[] {
 		const groupedByCustomer = this.groupByCustomer(services);
 
 		return groupedByCustomer.map(customerGroup => {
@@ -39,7 +39,7 @@ export class CardItemOrderService {
 		});
 	}
 
-	public groupByCustomer(services: IOrderServiceDto[]): GroupedServiceByCustomer[] {
+	public groupByCustomer(services: IOrderService.DTO[]): GroupedServiceByCustomer[] {
 
 		const grouped = services.reduce((acc, service) => {
 
@@ -76,7 +76,7 @@ export class CardItemOrderService {
 	 * Group services by specialist
 	 * @param services
 	 */
-	public groupBySpecialistAndDate(services: IOrderServiceDto[]): GroupedServiceBySpecialistAndDate[] {
+	public groupBySpecialistAndDate(services: IOrderService.DTO[]): GroupedServiceBySpecialistAndDate[] {
 
 		const DIFF_IN_MINUTES = 60;
 
@@ -135,7 +135,7 @@ export class CardItemOrderService {
 	 * @param service
 	 * @private
 	 */
-	private getDurationInMs(service: IOrderServiceDto): number {
+	private getDurationInMs(service: IOrderService.DTO): number {
 		return (service.serviceSnapshot.durationVersions[0].durationInSeconds || 0) * SECONDS_TO_MILLISECONDS;
 	}
 

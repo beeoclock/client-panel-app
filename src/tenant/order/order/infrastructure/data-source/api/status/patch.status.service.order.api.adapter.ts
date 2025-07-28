@@ -4,7 +4,7 @@ import {OrderEndpoint} from "@tenant/order/order/infrastructure/endpoint/order.e
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 
 @Injectable({
     providedIn: 'root'

@@ -64,14 +64,14 @@ export class EventStatusStyleDirective implements OnInit, OnChanges {
 		this.elementRef.nativeElement.classList.add(...this.base);
 
 		const mode = this.mode();
-  switch (mode) {
+		switch (mode) {
 			case "badge":
 				this.elementRef.nativeElement.classList.add('text-white');
 				break;
 		}
 
 		const status = this.status();
-  this.elementRef.nativeElement.classList.add(
+		this.elementRef.nativeElement.classList.add(
 			...this.classListByStatusAndMode[status].base,
 			...this.classListByStatusAndMode[status][mode]
 		);

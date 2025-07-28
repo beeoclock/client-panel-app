@@ -29,25 +29,30 @@ export class EventState {
 		await this.router.navigate([{outlets: {second: null}}]);
 	}
 
-	@Action(EventActions.OpenDetails)
-	public async openDetails(ctx: StateContext<IEventState>, {payload}: EventActions.OpenDetails) {
+	@Action(EventActions.ToggleDetails)
+	public async toggleDetails(ctx: StateContext<IEventState>, {payload}: EventActions.OpenDetails) {
 
-
+		let action: unknown = new EventActions.OpenDetails(payload);
 		const activated = this.secondRouterOutletService.activated();
 
 		if (activated) {
 			if (activated instanceof ContainerDetailsComponent) {
 				const {originalData: {service: {_id}}} = activated.item() ?? {};
 				if (_id === payload) {
-					const action = new EventActions.CloseDetails();
-					ctx.dispatch(action);
-					return;
+					action = new EventActions.CloseDetails();
 				}
 			}
 		}
 
-		await this.router.navigate([{outlets: {second: ['event', payload]}}]);
+		ctx.dispatch(action);
 
+	}
+
+	@Action(EventActions.OpenDetails)
+	public async openDetails(ctx: StateContext<IEventState>, {payload}: EventActions.OpenDetails) {
+		await this.router.navigate([{outlets: {second: ['event', payload]}}], {
+			onSameUrlNavigation: 'reload',
+		});
 	}
 
 }

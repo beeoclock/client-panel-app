@@ -48,8 +48,9 @@ export abstract class DataProvider<DTO, ID_TYPE = string> implements IDataProvid
 	/**
 	 *
 	 * @param options
+	 * @param filterFunction
 	 */
-	public find$(options: Types.FindQueryParams = {}): Observable<ResponseListType<DTO>> {
+	public find$(options: Types.FindQueryParams = {}, filterFunction?: ((entity: DTO, filter: Types.FindQueryParams) => boolean)): Observable<ResponseListType<DTO>> {
 		throw new Error("Method not implemented.");
 	}
 
@@ -83,6 +84,11 @@ export abstract class DataProvider<DTO, ID_TYPE = string> implements IDataProvid
 	 */
 	public delete$(dto: DTO): Observable<boolean> {
 		throw new Error("Method not implemented.");
+	}
+
+	public defaultFilter(entity: DTO, filter: Types.FindQueryParams): boolean {
+		// Default filter implementation can be overridden in subclasses
+		return true; // By default, return true for all entities
 	}
 
 }

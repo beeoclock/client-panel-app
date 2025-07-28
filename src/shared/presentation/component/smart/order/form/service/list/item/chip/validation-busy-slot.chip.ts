@@ -4,8 +4,9 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'validation-busy-slot-chip',
@@ -32,6 +33,7 @@ export class ValidationBusySlotChip {
 	public readonly control  = input.required<ServiceOrderForm>();
 	public readonly hideMe = signal<boolean>(true);
 
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly destroyRef = inject(DestroyRef);
 
@@ -45,7 +47,7 @@ export class ValidationBusySlotChip {
 		});
 	}
 
-	public detectIfSlotIsBusy(value: IOrderServiceDto) {
+	public detectIfSlotIsBusy(value: IOrderService.DTO) {
 		this.hideMe.set(true);
 		const {orderAppointmentDetails} = value;
 		if (!orderAppointmentDetails) {
@@ -56,16 +58,27 @@ export class ValidationBusySlotChip {
 			return;
 		}
 		const specialistIds = specialists.map(({member: {_id}}) => _id);
+		this.ngxLogger.debug('ValidationBusySlotChip.detectIfSlotIsBusy', {
+			specialistIds,
+			start,
+			end,
+			value,
+		});
 		this.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end).then((busySlots) => {
 			const filtered = busySlots.filter((slot) => {
 				return slot._id !== value.orderId;
+			});
+			this.ngxLogger.debug('ValidationBusySlotChip.detectIfSlotIsBusy.findBySpecialistIdsAndDateTimeRange.result', {
+				busySlots,
+				filtered,
 			});
 			this.hideMe.set(!filtered.length);
 		});
 	}
 
 	private findBySpecialistIdsAndDateTimeRange(specialistIds: string[], start: string, end: string) {
-		return this.sharedUow.order.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end, [StateEnum.active]);
+		const states = [StateEnum.active];
+		return this.sharedUow.order.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end, states);
 	}
 
 }

@@ -85,4 +85,12 @@ export abstract class ABaseEntity<
 		return raw as unknown as RAW;
 	}
 
+	public static isEntityRaw(target: object) {
+		return 'syncedAt' in target;
+	}
+
+	public static isDTO(target: object) {
+		return !this.isEntityRaw(target);
+	}
+
 }
