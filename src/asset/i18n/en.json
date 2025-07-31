@@ -638,7 +638,8 @@
 					"done": "Done",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
-					"requested": "Requested"
+					"requested": "Requested",
+					"confirmed": "Confirmed"
 				},
 				"singular": {
 					"accepted": "Accepted",

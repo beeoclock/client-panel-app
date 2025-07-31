@@ -638,12 +638,13 @@
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucone",
-					"requested": "Zażądane"
+					"requested": "Zażądane",
+					"confirmed": "Potwierdzone"
 				},
 				"singular": {
 					"accepted": "Zaakceptowany",
 					"cancelled": "Odwołane",
-					"confirmed": "Potwierdzono",
+					"confirmed": "Potwierdzone",
 					"deleted": "Usunięto",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
