@@ -638,12 +638,13 @@
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucone",
-					"requested": "Zażądane"
+					"requested": "Zażądane",
+					"confirmed": "Potwierdzone"
 				},
 				"singular": {
 					"accepted": "Zaakceptowany",
 					"cancelled": "Odwołane",
-					"confirmed": "Potwierdzono",
+					"confirmed": "Potwierdzone",
 					"deleted": "Usunięto",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
@@ -892,7 +893,7 @@
 					"title": "Jaka jest Twoja branża?"
 				},
 				"introduction": {
-					"button": "Zacząć",
+					"button": "Rozpocznij",
 					"description": "Zwiększ wydajność swojej firmy dzięki kompleksowemu rozwiązaniu",
 					"welcome": "Witamy w"
 				},
@@ -1167,7 +1168,7 @@
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
 			"paid": "Zapłacone",
-			"past": "Przeszłość",
+			"past": "Historia zamówień",
 			"payAsYouGo": "Płać na bieżąco",
 			"payer": "Płatnik",
 			"payment": "Płatność",
@@ -1592,7 +1593,7 @@
 		"title": "Usługa"
 	},
 	"sidebar": {
-		"absence": "Nieobecność",
+		"absence": "Nieobecności",
 		"addEvent": "Dodaj wydarzenie",
 		"appointments": {
 			"label": "Wizyty"

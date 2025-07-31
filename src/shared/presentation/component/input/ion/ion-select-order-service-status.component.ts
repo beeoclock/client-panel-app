@@ -48,10 +48,15 @@ export class IonSelectOrderServiceStatusComponent {
 		OrderServiceStatusEnum.done,
 		OrderServiceStatusEnum.requested,
 		OrderServiceStatusEnum.cancelled,
-	]
-		.map((status) => ({
+	].map((status) => {
+		const labelKey = this.statusLabelKeyMap[status] ?? status;
+		return {
 			id: status,
-			label: this.translateService.instant(`event.keyword.status.plural.${status}`)
-		}));
+			label: this.translateService.instant(`event.keyword.status.plural.${labelKey}`)
+		};
+	});
 
+	private readonly statusLabelKeyMap: Partial<Record<OrderServiceStatusEnum, string>> = {
+		[OrderServiceStatusEnum.accepted]: 'confirmed',
+	};
 }
