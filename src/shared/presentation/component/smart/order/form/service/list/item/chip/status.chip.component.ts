@@ -48,7 +48,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 							<app-order-service-status-icon-component
 								class="flex text-3xl text-blue-600"
 								[status]="orderServiceStatusEnum.accepted"/>
-							{{ 'event.keyword.status.singular.accepted' | translate }}
+							{{ 'event.keyword.status.plural.accepted' | translate }}
 						</ion-label>
 					</ion-item>
 

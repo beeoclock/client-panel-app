@@ -1592,7 +1592,7 @@
 		"title": "Service"
 	},
 	"sidebar": {
-		"absence": "Absence",
+		"absence": "Absences",
 		"addEvent": "Add event",
 		"appointments": {
 			"label": "Appointments"
