@@ -1634,6 +1634,10 @@
 				"hint": "Permissions management",
 				"comingSoon": "Coming soon",
 				"description": "Permission management feature is under development"
+			},
+			"owner": {
+				"warning": "Owner role",
+				"description": "Owner role cannot be modified. It is created automatically by the system and has the highest access rights."
 			}
 		},
 		"owner": "Owner",
@@ -1643,7 +1647,9 @@
 		"title": "Role",
 		"toast": {
 			"limit": "Limit reached. Upgrade to a higher plan to add more roles.",
-			"cannotDeleteOwner": "Owner role cannot be deleted."
+			"cannotDeleteOwner": "Owner role cannot be deleted.",
+			"ownerAlreadyExists": "Owner role already exists. Only one owner role can be created.",
+			"cannotModifyOwner": "Owner status cannot be modified for existing owner role."
 		}
 	},
 	"service": {

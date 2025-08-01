@@ -15,7 +15,7 @@ import {is} from "@core/shared/checker";
                 class="mr-3 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300">
           {{ label() ?? (labelTranslateKey() | translate) }}
         </span>
-            <input [id]="id()" type="checkbox" [formControl]="localControl" class="sr-only peer">
+            <input [id]="id()" type="checkbox" [formControl]="localControl" [disabled]="disabled()" class="sr-only peer">
             <div class="
 				relative
 				min-w-11
@@ -44,7 +44,9 @@ import {is} from "@core/shared/checker";
 				after:w-5
 				after:transition-all
 				dark:border-beeDarkColor-600
-				peer-checked:bg-blue-600">
+				peer-checked:bg-blue-600
+				peer-disabled:opacity-50
+				peer-disabled:cursor-not-allowed">
             </div>
         </label>
     `,
@@ -66,6 +68,8 @@ export class SwitchComponent extends Reactive implements OnInit, OnChanges {
     public readonly units = input<unknown[]>([ActiveEnum.NO, ActiveEnum.YES]);
 
     public readonly control = input(new FormControl()); // External control
+
+    public readonly disabled = input(false);
 
     public readonly localControl = new FormControl();
 

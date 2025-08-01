@@ -1,4 +1,4 @@
-import {Component, inject, input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation, computed} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {RoleForm} from "@tenant/member/roles/presentation/form/role.form";
@@ -14,6 +14,9 @@ import {RoleDataActions} from "@tenant/member/roles/infrastructure/state/data/ro
 import {
 	RolePresentationActions
 } from "@tenant/member/roles/infrastructure/state/presentation/role.presentation.actions";
+import {SharedUow} from "@core/shared/uow/shared.uow";
+import {ToastController} from "@ionic/angular/standalone";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
 	selector: 'role-form-page',
@@ -32,12 +35,33 @@ import {
 export class RoleFormContainerComponent implements OnInit, OnChanges {
 
 	private readonly store = inject(Store);
+	private readonly sharedUow = inject(SharedUow);
+	private readonly toastController = inject(ToastController);
+	private readonly translateService = inject(TranslateService);
 
 	public form = new RoleForm();
 
 	public readonly item = input<IRole.EntityRaw | ERole | undefined>();
 
 	public readonly isEditMode = input<boolean>(false);
+
+	// Computed property to determine if this is an existing owner role
+	public readonly isExistingOwnerRole = computed(() => {
+		const item = this.item();
+		return this.isEditMode() && item && (item.isOwner || (item instanceof ERole && item.isOwner));
+	});
+
+	// Computed property to determine if isOwner switch should be disabled
+	public readonly isOwnerSwitchDisabled = computed(() => {
+		return this.isExistingOwnerRole() ?? false;
+	});
+
+	// Computed property to check if owner role already exists
+	public readonly ownerRoleExists = computed(async () => {
+		if (this.isEditMode()) return false;
+		const roles = await this.sharedUow.role.repository.findAsync();
+		return roles.items?.some((role: IRole.EntityRaw) => role.isOwner) ?? false;
+	});
 
 	public ngOnInit(): void {
 		this.detectItem();
@@ -57,6 +81,12 @@ export class RoleFormContainerComponent implements OnInit, OnChanges {
 		if (this.isEditMode() && item) {
 			const rawData = item instanceof ERole ? item.toRaw() : item;
 			this.form = RoleForm.create(rawData);
+			
+			// Disable isOwner control for existing owner roles
+			if (this.isExistingOwnerRole()) {
+				this.form.controls.isOwner.disable();
+			}
+			
 			this.form.updateValueAndValidity();
 		}
 	}
@@ -64,6 +94,41 @@ export class RoleFormContainerComponent implements OnInit, OnChanges {
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
 		if (this.form.valid) {
+
+			// Check if trying to create a new owner role when one already exists
+			if (!this.isEditMode() && this.form.controls.isOwner.value) {
+				const roles = await this.sharedUow.role.repository.findAsync();
+				const existingOwner = roles.items?.find((role: IRole.EntityRaw) => role.isOwner);
+				
+				if (existingOwner) {
+					const toast = await this.toastController.create({
+						message: this.translateService.instant('role.toast.ownerAlreadyExists'),
+						color: 'warning',
+						duration: 4000,
+						position: 'top',
+					});
+					await toast.present();
+					return;
+				}
+			}
+
+			// Check if trying to modify isOwner status for existing owner role
+			if (this.isEditMode() && this.isExistingOwnerRole()) {
+				const originalItem = this.item();
+				const originalIsOwner = originalItem?.isOwner || (originalItem instanceof ERole && originalItem.isOwner);
+				const newIsOwner = this.form.controls.isOwner.value;
+				
+				if (originalIsOwner !== newIsOwner) {
+					const toast = await this.toastController.create({
+						message: this.translateService.instant('role.toast.cannotModifyOwner'),
+						color: 'warning',
+						duration: 4000,
+						position: 'top',
+					});
+					await toast.present();
+					return;
+				}
+			}
 
 			this.form.disable();
 			this.form.markAsPending();

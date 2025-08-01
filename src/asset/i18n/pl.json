@@ -1634,6 +1634,10 @@
 				"hint": "Zarządzanie uprawnieniami",
 				"comingSoon": "Wkrótce dostępne",
 				"description": "Funkcja zarządzania uprawnieniami jest w trakcie rozwoju"
+			},
+			"owner": {
+				"warning": "Rola właściciela",
+				"description": "Rola właściciela nie może być zmieniona. Jest tworzona automatycznie przez system i ma najwyższe prawa dostępu."
 			}
 		},
 		"owner": "Właściciel",
@@ -1642,8 +1646,10 @@
 		},
 		"title": "Rola",
 		"toast": {
-			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodać więcej ról.",
-			"cannotDeleteOwner": "Roli właściciela nie można usunąć."
+			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodaти więcej ról.",
+			"cannotDeleteOwner": "Roli właściciela nie można usunąć.",
+			"ownerAlreadyExists": "Rola właściciela już istnieje. Można utworzyć tylko jedną rolę właściciela.",
+			"cannotModifyOwner": "Status właściciela nie może być zmieniony dla istniejącej roli właściciela."
 		}
 	},
 	"service": {

@@ -23,9 +23,6 @@ import {TranslateService} from "@ngx-translate/core";
 			[state]="statusAsState()"
 			(open)="open()"
 			(delete)="delete()"
-			(deactivate)="deactivate()"
-			(activate)="activate()"
-			(archive)="archive()"
 			(edit)="edit()">
 		</utility-table-column-action>
 	`,
@@ -51,19 +48,27 @@ export class RowActionButtonComponent {
 	public readonly computedHide = computed(() => {
 		const allowed: ('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[] = ['details', 'edit', 'delete', 'activate', 'deactivate'];
 		let base = (this.hide() ?? []).filter((x): x is typeof allowed[number] => allowed.includes(x as any));
-		if (this.item()?.isOwner && !base.includes('delete')) {
-			base = [...base, 'delete'];
+		
+		if (this.item()?.isOwner) {
+			// Block delete and edit for owner roles
+			if (!base.includes('delete')) {
+				base = [...base, 'delete'];
+			}
+			if (!base.includes('edit')) {
+				base = [...base, 'edit'];
+			}
 		}
+		
+		// Always hide activate and deactivate for roles
+		if (!base.includes('activate')) {
+			base = [...base, 'activate'];
+		}
+		if (!base.includes('deactivate')) {
+			base = [...base, 'deactivate'];
+		}
+		
 		return base;
 	});
-
-	public activate() {
-		this.setState(StateEnum.active);
-	}
-
-	public deactivate() {
-		this.setState(StateEnum.inactive);
-	}
 
 	public async delete() {
 		if (this.item()?.isOwner) {
@@ -83,10 +88,6 @@ export class RowActionButtonComponent {
 		}
 
 		this.setState(StateEnum.deleted);
-	}
-
-	public archive() {
-		this.setState(StateEnum.archived);
 	}
 
 	@Dispatch()
