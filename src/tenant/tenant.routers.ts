@@ -15,6 +15,7 @@ import {countryResolver} from "@tenant/business-profile/presentation/resolver/co
 import {baseLanguageResolver} from "@tenant/business-profile/presentation/resolver/base-language.resolver";
 import {businessProfileResolver} from "@tenant/business-profile/presentation/resolver/business-profile.resolver";
 import {tenantSecondRouters} from "@tenant/tenant.second.routers";
+import {roleResolver} from "@tenant/member/roles/presentation/resolver/role.resolver";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 
@@ -82,12 +83,12 @@ export const tenantRouters: Routes = [
                                     },
                                     {
                                         path: 'roles/:id',
-                                        resolve: { item: require('@tenant/member/roles/presentation/resolver/role.resolver').roleResolver },
+                                        resolve: { item: roleResolver },
                                         loadComponent: () => import('@tenant/member/roles/presentation/component/details-container/role-details-container.component').then(m => m.RoleDetailsContainerComponent)
                                     },
                                     {
                                         path: 'roles/:id/edit',
-                                        resolve: { item: require('@tenant/member/roles/presentation/resolver/role.resolver').roleResolver },
+                                        resolve: { item: roleResolver },
                                         loadComponent: () => import('@tenant/member/roles/presentation/component/form/role-form-container/role-form-container.component').then(m => m.RoleFormContainerComponent)
                                     }
                                 ]
