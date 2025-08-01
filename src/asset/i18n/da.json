@@ -1629,9 +1629,42 @@
 				"edit": "Rediger rolle"
 			},
 			"permissions": {
-				"hint": "Rettighedshåndtering",
-				"comingSoon": "Kommer snart",
-				"description": "Rettighedshåndteringsfunktionen er under udvikling"
+				"title": "Rettigheder",
+				"description": "Konfigurer rettigheder for denne rolle. Vælg hvilke handlinger en bruger med denne rolle kan udføre.",
+				"selectAll": "Vælg alle",
+				"clearAll": "Ryd alle",
+				"crud": "CRUD",
+				"summary": {
+					"title": "Rettighedsoversigt",
+					"description": "Valgt {{count}} rettigheder",
+					"permissions": "rettigheder"
+				},
+				"group": {
+					"member": {
+						"description": "Teammedlemsstyring"
+					},
+					"service": {
+						"description": "Servicestyring"
+					},
+					"order": {
+						"description": "Ordrestyring"
+					},
+					"customer": {
+						"description": "Kundestyring"
+					},
+					"absence": {
+						"description": "Fraværsstyring"
+					},
+					"role": {
+						"description": "Rollestyring"
+					}
+				},
+				"scope": {
+					"own": "Egen",
+					"any": "Alle",
+					"own.description": "Adgang kun til egne ressourcer",
+					"any.description": "Adgang til alle ressourcer"
+				}
 			},
 			"owner": {
 				"warning": "Ejerrolle",
@@ -1639,9 +1672,11 @@
 			}
 		},
     "owner": "Ejer",
-    "permissions": {
-      "count": "{{count}} rettigheder"
-    },
+    		"permissions": {
+			"count": "{{count}} rettigheder",
+			"none": "Ingen rettigheder",
+			"none.description": "Denne rolle har ingen rettigheder"
+		},
     "title": "Rolle",
     		"toast": {
 			"limit": "Grænse nået. Opgrader til en højere plan for at tilføje flere roller.",

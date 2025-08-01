@@ -1,0 +1,137 @@
+<div class="space-y-6 max-w-full overflow-x-hidden">
+	<!-- Header -->
+	<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+		<div class="flex-1">
+			<h3 class="text-lg sm:text-xl font-semibold text-gray-900">
+				{{ 'role.form.permissions.title' | translate }}
+			</h3>
+			<p class="text-sm text-gray-500 mt-1">
+				{{ 'role.form.permissions.description' | translate }}
+			</p>
+		</div>
+	</div>
+
+	<!-- Scope Legend -->
+	<div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+		<div class="flex flex-wrap items-center gap-4 text-sm">
+			<div class="flex items-center gap-2">
+				<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+					{{ 'role.form.permissions.scope.own' | translate }}
+				</span>
+				<span class="text-gray-600">- {{ 'role.form.permissions.scope.own.description' | translate }}</span>
+			</div>
+			<div class="flex items-center gap-2">
+				<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+					{{ 'role.form.permissions.scope.any' | translate }}
+				</span>
+				<span class="text-gray-600">- {{ 'role.form.permissions.scope.any.description' | translate }}</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Permission Groups -->
+	<div class="space-y-6">
+		@for (group of permissionGroups(); track trackByGroup) {
+			<bee-card>
+				<div class="p-6">
+					<!-- Group Header -->
+					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+						<div class="flex-1 min-w-0">
+							<h4 class="text-lg font-semibold text-gray-900">
+								{{ group.label | translate }}
+							</h4>
+							<p class="text-sm text-gray-500 mt-1">
+								{{ 'role.form.permissions.group.' + group.module + '.description' | translate }}
+							</p>
+						</div>
+						<div class="flex gap-2 sm:gap-3 flex-shrink-0">
+							<button 
+								type="button"
+								class="px-3 sm:px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 hover:border-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 active:scale-95"
+								(click)="selectAllInGroup(group)">
+								{{ 'role.form.permissions.selectAll' | translate }}
+							</button>
+							<button 
+								type="button"
+								class="px-3 sm:px-4 py-2 text-sm font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all duration-200 active:scale-95"
+								(click)="clearAllInGroup(group)">
+								{{ 'role.form.permissions.clearAll' | translate }}
+							</button>
+						</div>
+					</div>
+
+					<!-- Permissions List -->
+					<div class="space-y-4">
+						@for (permission of group.permissions; track trackByPermission) {
+							<div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-3 md:p-4 lg:p-5 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1 w-full group">
+								<!-- Permission Header -->
+								<div class="mb-4">
+									<div class="flex items-start justify-between">
+										<div class="flex-1 min-w-0">
+											<div class="flex items-center gap-2 mb-2">
+												<h5 class="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+													{{ permission.label | translate }}
+												</h5>
+												@if (isCrudPermission(permission.code)) {
+													<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 flex-shrink-0">
+														{{ 'role.form.permissions.crud' | translate }}
+													</span>
+												}
+											</div>
+											<p class="text-xs text-gray-500 leading-relaxed">
+												{{ permission.description | translate }}
+											</p>
+										</div>
+									</div>
+								</div>
+
+								<!-- Scope Options -->
+								<div class="space-y-2 sm:space-y-2 md:space-y-3">
+									@for (scope of permission.scopes; track trackByScope) {
+										<div class="bg-gray-50 border border-transparent rounded-lg p-3 transition-all duration-200 hover:bg-gray-100 hover:border-gray-300 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-opacity-20 group/scope">
+											<div class="flex items-center justify-between w-full">
+												<div class="flex items-center gap-3 flex-1 min-w-0">
+													<utility-switch-component
+														[id]="'permission-' + permission.code + '-' + scope + '-' + forceUpdate()"
+														[units]="[false, true]"
+														[label]="getScopeLabel(scope) | translate"
+														[control]="getPermissionControl(permission.code, scope)"
+														[booleanValue]="true"/>
+												</div>
+												<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 flex-shrink-0 group-hover/scope:bg-blue-200 transition-colors">
+													{{ getScopeLabel(scope) | translate }}
+												</span>
+											</div>
+										</div>
+									}
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</bee-card>
+		}
+	</div>
+
+	<!-- Summary -->
+	<div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border border-blue-200 rounded-xl p-4 sm:p-5 md:p-6 shadow-sm">
+		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+			<div class="flex-1">
+				<h4 class="text-lg font-semibold text-gray-900">
+					{{ 'role.form.permissions.summary.title' | translate }}
+				</h4>
+				<p class="text-sm text-gray-600 mt-1">
+					{{ 'role.form.permissions.summary.description' | translate: { count: selectedPermissions().length } }}
+				</p>
+			</div>
+			<div class="text-center sm:text-right">
+				<span class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+					{{ selectedPermissions().length }}
+				</span>
+				<div class="text-xs sm:text-sm text-gray-500">
+					{{ 'role.form.permissions.summary.permissions' | translate }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 

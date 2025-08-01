@@ -1631,9 +1631,184 @@
 				"edit": "Edytuj rolę"
 			},
 			"permissions": {
-				"hint": "Zarządzanie uprawnieniami",
-				"comingSoon": "Wkrótce dostępne",
-				"description": "Funkcja zarządzania uprawnieniami jest w trakcie rozwoju"
+				"title": "Uprawnienia",
+				"description": "Skonfiguruj uprawnienia dla tej roli. Wybierz, jakie akcje może wykonywać użytkownik z tą rolą.",
+				"selectAll": "Wybierz wszystkie",
+				"clearAll": "Wyczyść wszystkie",
+				"crud": "CRUD",
+				"summary": {
+					"title": "Podsumowanie uprawnień",
+					"description": "Wybrano {{count}} uprawnień",
+					"permissions": "uprawnień"
+				},
+				"group": {
+					"member": {
+						"label": "Zespół",
+						"description": "Zarządzanie członkami zespołu"
+					},
+					"service": {
+						"label": "Usługi",
+						"description": "Zarządzanie usługami"
+					},
+					"order": {
+						"label": "Zamówienia",
+						"description": "Zarządzanie zamówieniami"
+					},
+					"customer": {
+						"label": "Klienci",
+						"description": "Zarządzanie klientami"
+					},
+					"absence": {
+						"label": "Nieobecności",
+						"description": "Zarządzanie nieobecnościami"
+					},
+					"role": {
+						"label": "Role",
+						"description": "Zarządzanie rolami"
+					}
+				},
+				"member": {
+					"crud": {
+						"label": "Pełny dostęp do zespołu",
+						"description": "Może tworzyć, edytować, usuwać i przeglądać wszystkich członków zespołu"
+					},
+					"read": {
+						"label": "Przeglądanie członków zespołu",
+						"description": "Może przeglądać członków zespołu"
+					},
+					"create": {
+						"label": "Tworzenie członków zespołu",
+						"description": "Może tworzyć nowych członków zespołu"
+					},
+					"edit": {
+						"label": "Edycja członków zespołu",
+						"description": "Może edytować członków zespołu"
+					},
+					"delete": {
+						"label": "Usuwanie członków zespołu",
+						"description": "Może usuwać członków zespołu"
+					}
+				},
+				"service": {
+					"crud": {
+						"label": "Pełny dostęp do usług",
+						"description": "Może tworzyć, edytować, usuwać i przeglądać wszystkie usługi"
+					},
+					"read": {
+						"label": "Przeglądanie usług",
+						"description": "Może przeglądać usługi"
+					},
+					"create": {
+						"label": "Tworzenie usług",
+						"description": "Może tworzyć nowe usługi"
+					},
+					"edit": {
+						"label": "Edycja usług",
+						"description": "Może edytować usługi"
+					},
+					"delete": {
+						"label": "Usuwanie usług",
+						"description": "Może usuwać usługi"
+					}
+				},
+				"order": {
+					"crud": {
+						"label": "Pełny dostęp do zamówień",
+						"description": "Może tworzyć, edytować, usuwać i przeglądać wszystkie zamówienia"
+					},
+					"read": {
+						"label": "Przeglądanie zamówień",
+						"description": "Może przeglądać zamówienia"
+					},
+					"create": {
+						"label": "Tworzenie zamówień",
+						"description": "Może tworzyć nowe zamówienia"
+					},
+					"edit": {
+						"label": "Edycja zamówień",
+						"description": "Może edytować zamówienia"
+					},
+					"delete": {
+						"label": "Usuwanie zamówień",
+						"description": "Może usuwać zamówienia"
+					}
+				},
+				"customer": {
+					"crud": {
+						"label": "Pełny dostęp do klientów",
+						"description": "Może tworzyć, edytować, usuwać i przeglądać wszystkich klientów"
+					},
+					"read": {
+						"label": "Przeglądanie klientów",
+						"description": "Może przeglądać klientów"
+					},
+					"create": {
+						"label": "Tworzenie klientów",
+						"description": "Może tworzyć nowych klientów"
+					},
+					"edit": {
+						"label": "Edycja klientów",
+						"description": "Może edytować klientów"
+					},
+					"delete": {
+						"label": "Usuwanie klientów",
+						"description": "Może usuwać klientów"
+					},
+					"find": {
+						"label": "Wyszukiwanie klientów",
+						"description": "Może wyszukiwać klientów"
+					}
+				},
+				"absence": {
+					"crud": {
+						"label": "Pełny dostęp do nieobecności",
+						"description": "Może tworzyć, edytować, usuwać i przeglądać wszystkie rekordy nieobecności"
+					},
+					"read": {
+						"label": "Przeglądanie nieobecności",
+						"description": "Może przeglądać rekordy nieobecności"
+					},
+					"create": {
+						"label": "Tworzenie nieobecności",
+						"description": "Może tworzyć rekordy nieobecności"
+					},
+					"edit": {
+						"label": "Edycja nieobecności",
+						"description": "Może edytować rekordy nieobecności"
+					},
+					"delete": {
+						"label": "Usuwanie nieobecności",
+						"description": "Może usuwać rekordy nieobecności"
+					}
+				},
+				"role": {
+					"crud": {
+						"label": "Pełny dostęp do ról",
+						"description": "Może tworzyć, edytować, usuwać i przeglądać wszystkie role"
+					},
+					"read": {
+						"label": "Przeglądanie ról",
+						"description": "Może przeglądać role"
+					},
+					"create": {
+						"label": "Tworzenie ról",
+						"description": "Może tworzyć nowe role"
+					},
+					"edit": {
+						"label": "Edycja ról",
+						"description": "Może edytować role"
+					},
+					"delete": {
+						"label": "Usuwanie ról",
+						"description": "Może usuwać role"
+					}
+				},
+				"scope": {
+					"own": "Własne",
+					"any": "Wszystkie",
+					"own.description": "Dostęp tylko do własnych zasobów",
+					"any.description": "Dostęp do wszystkich zasobów"
+				}
 			},
 			"owner": {
 				"warning": "Rola właściciela",
@@ -1642,7 +1817,9 @@
 		},
 		"owner": "Właściciel",
 		"permissions": {
-			"count": "{{count}} uprawnień"
+			"count": "{{count}} uprawnień",
+			"none": "Brak uprawnień",
+			"none.description": "Ta rola nie ma żadnych uprawnień"
 		},
 		"title": "Rola",
 		"toast": {

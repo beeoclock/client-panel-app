@@ -6,7 +6,7 @@ import {SharedUow} from "@core/shared/uow/shared.uow";
 import {Router} from "@angular/router";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import ERole from "@tenant/member/roles/domain/entity/e.role";
-import RoleDetailsContainerComponent from "@tenant/member/roles/presentation/component/details-container/role-details-container.component";
+import {RoleDetailsContainerComponent} from "@tenant/member/roles/presentation/component/details-container/role-details-container.component";
 import {RoleFormContainerComponent} from "@tenant/member/roles/presentation/component/form/role-form-container/role-form-container.component";
 
 import {

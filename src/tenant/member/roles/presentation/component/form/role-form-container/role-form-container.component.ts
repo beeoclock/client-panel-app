@@ -17,6 +17,8 @@ import {
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {ToastController} from "@ionic/angular/standalone";
 import {TranslateService} from "@ngx-translate/core";
+import {PermissionsManagerComponent} from "@tenant/member/roles/presentation/component/permissions-manager/permissions-manager.component";
+import {IScopedPermission} from "@tenant/member/roles/domain/interface/i.role";
 
 @Component({
 	selector: 'role-form-page',
@@ -29,6 +31,7 @@ import {TranslateService} from "@ngx-translate/core";
 		FormInputComponent,
 		CardComponent,
 		SwitchComponent,
+		PermissionsManagerComponent,
 	],
 	standalone: true
 })
@@ -90,6 +93,10 @@ export class RoleFormContainerComponent implements OnInit, OnChanges {
 			this.form.updateValueAndValidity();
 		}
 	}
+
+	public onPermissionsChange = (permissions: IScopedPermission[]) => {
+		this.form.controls.permissions.setValue(permissions);
+	};
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();

@@ -1631,9 +1631,184 @@
 				"edit": "Edit role"
 			},
 			"permissions": {
-				"hint": "Permissions management",
-				"comingSoon": "Coming soon",
-				"description": "Permission management feature is under development"
+				"title": "Permissions",
+				"description": "Configure permissions for this role. Select which actions a user with this role can perform.",
+				"selectAll": "Select all",
+				"clearAll": "Clear all",
+				"crud": "CRUD",
+				"summary": {
+					"title": "Permissions summary",
+					"description": "Selected {{count}} permissions",
+					"permissions": "permissions"
+				},
+				"group": {
+					"member": {
+						"label": "Team",
+						"description": "Team member management"
+					},
+					"service": {
+						"label": "Services",
+						"description": "Service management"
+					},
+					"order": {
+						"label": "Orders",
+						"description": "Order management"
+					},
+					"customer": {
+						"label": "Customers",
+						"description": "Customer management"
+					},
+					"absence": {
+						"label": "Absence",
+						"description": "Absence management"
+					},
+					"role": {
+						"label": "Roles",
+						"description": "Role management"
+					}
+				},
+				"member": {
+					"crud": {
+						"label": "Full access to team",
+						"description": "Can create, edit, delete and view all team members"
+					},
+					"read": {
+						"label": "View team members",
+						"description": "Can view team members"
+					},
+					"create": {
+						"label": "Create team members",
+						"description": "Can create new team members"
+					},
+					"edit": {
+						"label": "Edit team members",
+						"description": "Can edit team members"
+					},
+					"delete": {
+						"label": "Delete team members",
+						"description": "Can delete team members"
+					}
+				},
+				"service": {
+					"crud": {
+						"label": "Full access to services",
+						"description": "Can create, edit, delete and view all services"
+					},
+					"read": {
+						"label": "View services",
+						"description": "Can view services"
+					},
+					"create": {
+						"label": "Create services",
+						"description": "Can create new services"
+					},
+					"edit": {
+						"label": "Edit services",
+						"description": "Can edit services"
+					},
+					"delete": {
+						"label": "Delete services",
+						"description": "Can delete services"
+					}
+				},
+				"order": {
+					"crud": {
+						"label": "Full access to orders",
+						"description": "Can create, edit, delete and view all orders"
+					},
+					"read": {
+						"label": "View orders",
+						"description": "Can view orders"
+					},
+					"create": {
+						"label": "Create orders",
+						"description": "Can create new orders"
+					},
+					"edit": {
+						"label": "Edit orders",
+						"description": "Can edit orders"
+					},
+					"delete": {
+						"label": "Delete orders",
+						"description": "Can delete orders"
+					}
+				},
+				"customer": {
+					"crud": {
+						"label": "Full access to customers",
+						"description": "Can create, edit, delete and view all customers"
+					},
+					"read": {
+						"label": "View customers",
+						"description": "Can view customers"
+					},
+					"create": {
+						"label": "Create customers",
+						"description": "Can create new customers"
+					},
+					"edit": {
+						"label": "Edit customers",
+						"description": "Can edit customers"
+					},
+					"delete": {
+						"label": "Delete customers",
+						"description": "Can delete customers"
+					},
+					"find": {
+						"label": "Search customers",
+						"description": "Can search customers"
+					}
+				},
+				"absence": {
+					"crud": {
+						"label": "Full access to absence",
+						"description": "Can create, edit, delete and view all absence records"
+					},
+					"read": {
+						"label": "View absence",
+						"description": "Can view absence records"
+					},
+					"create": {
+						"label": "Create absence",
+						"description": "Can create absence records"
+					},
+					"edit": {
+						"label": "Edit absence",
+						"description": "Can edit absence records"
+					},
+					"delete": {
+						"label": "Delete absence",
+						"description": "Can delete absence records"
+					}
+				},
+				"role": {
+					"crud": {
+						"label": "Full access to roles",
+						"description": "Can create, edit, delete and view all roles"
+					},
+					"read": {
+						"label": "View roles",
+						"description": "Can view roles"
+					},
+					"create": {
+						"label": "Create roles",
+						"description": "Can create new roles"
+					},
+					"edit": {
+						"label": "Edit roles",
+						"description": "Can edit roles"
+					},
+					"delete": {
+						"label": "Delete roles",
+						"description": "Can delete roles"
+					}
+				},
+				"scope": {
+					"own": "Own",
+					"any": "All",
+					"own.description": "Access to own resources only",
+					"any.description": "Access to all resources"
+				}
 			},
 			"owner": {
 				"warning": "Owner role",
@@ -1642,7 +1817,9 @@
 		},
 		"owner": "Owner",
 		"permissions": {
-			"count": "{{count}} permissions"
+			"count": "{{count}} permissions",
+			"none": "No permissions",
+			"none.description": "This role has no permissions"
 		},
 		"title": "Role",
 		"toast": {
