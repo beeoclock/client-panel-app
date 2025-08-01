@@ -47,24 +47,24 @@
       }
     },
     {
-      "name": "ng serve (Vivaldi)",
+      "name": "ng serve (Chrome)",
       "type": "pwa-chrome",
       "request": "launch",
       "preLaunchTask": "npm: start",
       "url": "http://localhost:4200/",
-      "runtimeExecutable": "/path/to/vivaldi",
+      "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
       "runtimeArgs": [
         "--incognito",
         "--remote-debugging-port=9222"
       ]
     },
     {
-      "name": "ng test (Vivaldi)",
+      "name": "ng test (Chrome)",
       "type": "pwa-chrome",
       "request": "launch",
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html",
-      "runtimeExecutable": "/path/to/vivaldi",
+      "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
       "runtimeArgs": [
         "--incognito",
         "--remote-debugging-port=9222"
