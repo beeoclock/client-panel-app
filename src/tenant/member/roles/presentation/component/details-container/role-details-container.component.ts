@@ -23,7 +23,7 @@ import {StandardDetailsEntityComponent} from "@shared/presentation/component/ent
 })
 export class RoleDetailsContainerComponent {
 
-	public readonly item = input.required<ERole>();
+	public readonly item = input.required<ERole | undefined>();
 
 	public readonly store = inject(Store);
 

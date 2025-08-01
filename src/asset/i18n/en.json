@@ -1313,6 +1313,8 @@
 			"writePrice": "Write price",
 			"year": "Year",
 			"yearly": "Yearly",
+			"isOwner": "Owner",
+			"none": "None",
 			"yes": "Yes",
 			"yesterday": "Yesterday",
 			"youOffline": "You are offline!",
@@ -1627,9 +1629,17 @@
 			"title": {
 				"create": "Add role",
 				"edit": "Edit role"
+			},
+			"permissions": {
+				"hint": "Permissions management",
+				"comingSoon": "Coming soon",
+				"description": "Permission management feature is under development"
 			}
 		},
 		"owner": "Owner",
+		"permissions": {
+			"count": "{{count}} permissions"
+		},
 		"title": "Role",
 		"toast": {
 			"limit": "Limit reached. Upgrade to a higher plan to add more roles.",

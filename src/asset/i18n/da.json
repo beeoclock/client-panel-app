@@ -1311,6 +1311,8 @@
       "writePrice": "Skriv pris",
       "year": "År",
       "yearly": "Årligt",
+      "isOwner": "Ejer",
+      "none": "Ingen",
       "yes": "Ja",
       "yesterday": "Yesterday",
       "youOffline": "Du er offline!",
@@ -1609,7 +1611,38 @@
   "role": {
     "ADMIN": "Administrator",
     "OWNER": "Ejer",
-    "SPECIALIST": "Specialist"
+    "SPECIALIST": "Specialist",
+    "action": {
+      "delete": {
+        "question": "Er du sikker på, at du vil slette rollen?"
+      }
+    },
+    "button": {
+      "create": "Tilføj rolle"
+    },
+    "details": {
+      "title": "Rolleinformation"
+    },
+    "form": {
+      "title": {
+        "create": "Tilføj rolle",
+        "edit": "Rediger rolle"
+      },
+      "permissions": {
+        "hint": "Rettighedshåndtering",
+        "comingSoon": "Kommer snart",
+        "description": "Rettighedshåndteringsfunktionen er under udvikling"
+      }
+    },
+    "owner": "Ejer",
+    "permissions": {
+      "count": "{{count}} rettigheder"
+    },
+    "title": "Rolle",
+    "toast": {
+      "limit": "Grænse nået. Opgrader til en højere plan for at tilføje flere roller.",
+      "cannotDeleteOwner": "Ejerrollen kan ikke slettes."
+    }
   },
   "service": {
     "action": {

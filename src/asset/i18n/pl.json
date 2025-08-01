@@ -1313,6 +1313,8 @@
 			"writePrice": "Wpisz cenę",
 			"year": "Rok",
 			"yearly": "Rocznie",
+			"isOwner": "Właściciel",
+			"none": "Brak",
 			"yes": "Tak",
 			"yesterday": "Wczoraj",
 			"youOffline": "Jesteś offline!",
@@ -1627,9 +1629,17 @@
 			"title": {
 				"create": "Dodaj rolę",
 				"edit": "Edytuj rolę"
+			},
+			"permissions": {
+				"hint": "Zarządzanie uprawnieniami",
+				"comingSoon": "Wkrótce dostępne",
+				"description": "Funkcja zarządzania uprawnieniami jest w trakcie rozwoju"
 			}
 		},
 		"owner": "Właściciel",
+		"permissions": {
+			"count": "{{count}} uprawnień"
+		},
 		"title": "Rola",
 		"toast": {
 			"limit": "Osiągnięto limit. Przejdź na wyższy plan, aby dodać więcej ról.",

@@ -56,13 +56,20 @@ import {
 		</ng-template>
 
 		<ng-template #nameCellTemplate let-row="row">
-			<div class="flex gap-2">
-				<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
-					<div class="text-white text-xs font-bold">{{ row?.name?.[0] ?? 'R' }}</div>
+			<div class="flex items-center gap-3">
+				<div class="rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 min-h-10 min-w-10 flex justify-center items-center shadow-sm">
+					<div class="text-white text-sm font-bold">{{ row?.name?.[0] ?? 'R' }}</div>
 				</div>
-				<span class="truncate">
-					{{ row.name }}
-				</span>
+				<div class="flex flex-col min-w-0 flex-1">
+					<span class="font-medium text-gray-900 truncate">
+						{{ row.name }}
+					</span>
+					@if (row.isOwner) {
+						<span class="text-xs text-purple-600 font-medium">
+							{{ 'role.owner' | translate }}
+						</span>
+					}
+				</div>
 			</div>
 		</ng-template>
 		<ng-template #isOwnerCellTemplate let-row="row">
@@ -78,12 +85,21 @@ import {
 		</ng-template>
 		<ng-template #permissionsCellTemplate let-row="row">
 			@if (row.permissions?.length) {
-				<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500">
-					{{ row.permissions.length }}
+				<div class="flex items-center gap-2">
+					<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500">
+						{{ row.permissions.length }}
+					</div>
+					@if (row.permissions.length > 0) {
+						<div class="text-xs text-gray-500">
+							{{ 'role.permissions.count' | translate: { count: row.permissions.length } }}
+						</div>
+					}
 				</div>
 			} @else {
-				<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-500">
-					{{ 'keyword.capitalize.none' | translate }}
+				<div class="flex items-center gap-2">
+					<div class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-500">
+						{{ 'keyword.capitalize.none' | translate }}
+					</div>
 				</div>
 			}
 		</ng-template>

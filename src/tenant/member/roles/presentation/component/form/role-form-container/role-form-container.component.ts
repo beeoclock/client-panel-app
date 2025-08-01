@@ -9,6 +9,7 @@ import {CardComponent} from "@shared/presentation/component/card/card.component"
 import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
 import {CommonModule} from "@angular/common";
 import {IRole} from "@tenant/member/roles/domain";
+import ERole from "@tenant/member/roles/domain/entity/e.role";
 import {RoleDataActions} from "@tenant/member/roles/infrastructure/state/data/role.data.actions";
 import {
 	RolePresentationActions
@@ -34,7 +35,7 @@ export class RoleFormContainerComponent implements OnInit, OnChanges {
 
 	public form = new RoleForm();
 
-	public readonly item = input<IRole.EntityRaw>();
+	public readonly item = input<IRole.EntityRaw | ERole | undefined>();
 
 	public readonly isEditMode = input<boolean>(false);
 
@@ -54,7 +55,8 @@ export class RoleFormContainerComponent implements OnInit, OnChanges {
 	public detectItem(): void {
 		const item = this.item();
 		if (this.isEditMode() && item) {
-			this.form = RoleForm.create(item);
+			const rawData = item instanceof ERole ? item.toRaw() : item;
+			this.form = RoleForm.create(rawData);
 			this.form.updateValueAndValidity();
 		}
 	}
@@ -82,4 +84,10 @@ export class RoleFormContainerComponent implements OnInit, OnChanges {
 
 		}
 	}
-} 
+
+	public cancel(): void {
+		this.store.dispatch(new RolePresentationActions.CloseForm());
+	}
+}
+
+export default RoleFormContainerComponent; 
