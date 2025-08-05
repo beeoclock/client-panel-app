@@ -42,7 +42,6 @@ import EOrderService from "@tenant/order/order-service/domain/entity/e.order-ser
 				<app-anybody-specialist-icon-component
 					[wasSelectedAnybody]="event().orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
 				<app-note-icon-component [note]="event()?.customerNote ?? ''"/>
-				TODO: add business note
 				<!--				<app-business-note-icon-component [businessNote]="event().order?.businessNote ?? ''"/>-->
 				<app-order-service-status-icon-component [useDefaultStyle]="false" class="text-white"
 														 [status]="event().status"/>

@@ -1,137 +1,273 @@
-<div class="grid h-full grid-rows-[60px] md:h-full">
+<!--<div class="grid h-full grid-rows-[60px] md:h-full">-->
 
-	<filter-calendar-with-specialist
-		[orderServiceStatusesControl]="orderServiceStatusesControl"/>
+<!--	<filter-calendar-with-specialist-->
+<!--		[orderServiceStatusesControl]="orderServiceStatusesControl"/>-->
 
-	<!-- Grid of hour rows -->
-	<div #calendar class="flex relative overflow-auto h-0 min-h-full bg-white">
+<!--	&lt;!&ndash; Grid of hour rows &ndash;&gt;-->
+<!--	<div #calendar class="flex relative overflow-auto h-0 min-h-full bg-white">-->
 
-		<div
-			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx"
-			[style.width]="calendarWithSpecialistLocaStateService.hoursWidthInPx"
-			class="bg-white border-r flex flex-col left-0 sticky z-10 text-sm text-center snap-start"
-			data-is-column="true">
+<!--		<div-->
+<!--			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx"-->
+<!--			[style.width]="calendarWithSpecialistLocaStateService.hoursWidthInPx"-->
+<!--			class="bg-white border-r flex flex-col left-0 sticky z-10 text-sm text-center snap-start"-->
+<!--			data-is-column="true">-->
 
-			@if (showTimeLine$ | async) {
+<!--			@if (isTodayS()) {-->
 
-				<app-time-line-calendar-with-specialist-widget-component [showLine]="false"/>
+<!--				<app-time-line-calendar-with-specialist-widget-component [showLine]="false"/>-->
 
-			}
+<!--			}-->
 
-			<div
-				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
-				class="z-[12] bg-white sticky top-0 border-b">
-			</div>
+<!--			<div-->
+<!--				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"-->
+<!--				class="z-[12] bg-white sticky top-0 border-b">-->
+<!--			</div>-->
 
-			@for (hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; track hourRow.hour) {
+<!--			@for (hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; track hourRow.hour) {-->
 
-				<div
-					class="border-b text-slate-400 text-right px-1 sticky left-0"
-					[style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx">
-					{{ hourRow.hour }}
+<!--				<div-->
+<!--					class="border-b text-slate-400 text-right px-1 sticky left-0"-->
+<!--					[style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx">-->
+<!--					{{ hourRow.hour }}-->
+<!--				</div>-->
+
+<!--			}-->
+
+<!--		</div>-->
+
+<!--		@for (member of calendarWithSpecialistLocaStateService.members; let index = $index; track member._id) {-->
+
+<!--			<div-->
+<!--				#column-->
+<!--				(mouseover)="mouseover($event)"-->
+<!--				(mouseenter)="mouseEnter($event)"-->
+<!--				(touchstart)="mouseover($event)"-->
+<!--				(touchend)="mouseEnter($event)"-->
+<!--				[attr.data-index]="index + 1"-->
+<!--				class="flex flex-col flex-1 border-r relative bg-[#00000008] snap-start" data-is-column="true"-->
+<!--				[style.width]="calendarWithSpecialistLocaStateService.cellWidthInPx"-->
+<!--				[style.min-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"-->
+<!--				[style.max-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"-->
+<!--				[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">-->
+
+<!--				<app-schedule-element-calendar-with-specialist-widget-component [index]="index" [calendar]="calendar"-->
+<!--																				[member]="member">-->
+
+<!--					@for (hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; track hourRow.hour) {-->
+
+<!--						<div-->
+<!--							class="border-b"-->
+<!--							[attr.data-column-index]="index + 1"-->
+<!--							[style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx">-->
+<!--						</div>-->
+
+<!--					}-->
+
+<!--				</app-schedule-element-calendar-with-specialist-widget-component>-->
+
+<!--				@if (isTodayS()) {-->
+
+<!--					<app-time-line-calendar-with-specialist-widget-component [showCurrentTime]="false"/>-->
+
+<!--				}-->
+
+<!--				<div-->
+<!--					[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"-->
+<!--					class="z-[12] p-1 bg-white sticky top-0 border-b">-->
+
+<!--					<event-header-calendar-with-specialist-widget-component [member]="member"/>-->
+
+<!--				</div>-->
+
+
+<!--				@for (createEventButton of calendarWithSpecialistLocaStateService.createEventButtonList;-->
+<!--					track createEventButton.id) {-->
+
+<!--					<div-->
+<!--						[class.border-b]="createEventButton.isLastPeace"-->
+<!--						[attr.data-column-index]="index + 1"-->
+<!--						[style.min-height]="createEventButton.heightInPx">-->
+
+<!--						<app-empty-slot-calendar-with-specialist-widget-component-->
+<!--							[class.hidden]="thereSomeEventCalendarWithSpecialistWidgetComponent"-->
+<!--							[startInMinutes]="createEventButton.startInMinutes"-->
+<!--							[durationInMinutes]="createEventButton.durationInMinutes"-->
+<!--							[member]="member"/>-->
+
+<!--					</div>-->
+
+<!--				}-->
+
+<!--				@if (eventsBySpecialistId[member._id]; as events) {-->
+
+<!--					@for (event of events; track event._id) {-->
+
+<!--						@if (isEAbsence(event)) {-->
+
+<!--							<app-event-calendar-with-specialists-widget-component-->
+<!--								[attr.data-absence-id]="event._id"-->
+<!--								[attr.data-member-id]="member._id"-->
+<!--								[attr.data-member-first-name]="member.firstName"-->
+<!--								[attr.data-member-last-name]="member.lastName"-->
+<!--								[item]="event"/>-->
+<!--						}-->
+
+<!--						@if (isEOrderService(event)) {-->
+
+<!--							<app-event-calendar-with-specialists-widget-component-->
+<!--								[attr.data-order-id]="event.orderId"-->
+<!--								[attr.data-order-service-id]="event._id"-->
+<!--								[attr.data-member-id]="member._id"-->
+<!--								[attr.data-member-first-name]="member.firstName"-->
+<!--								[attr.data-member-last-name]="member.lastName"-->
+<!--								[item]="event"/>-->
+<!--						}-->
+
+<!--					}-->
+
+<!--				}-->
+
+
+<!--			</div>-->
+
+<!--		}-->
+
+<!--	</div>-->
+
+<!--</div>-->
+
+
+<div class="flex h-[calc(100%-64px)] divide-x">
+	<div #column data-column="true" class="bg-neutral-100 w-full max-w-xs min-w-10 overflow-auto">
+
+		<!-- board category header -->
+		<div data-column-header="true" class="flex flex-row justify-between items-center sticky top-0 bg-white px-4 py-2">
+			<div class="flex items-center justify-between w-full">
+				<div class="flex items-center gap-2">
+					test
 				</div>
+				<div class="flex gap-2 items-center">
 
-			}
-
+					<p class="text-gray-400 text-sm">
+						10
+					</p>
+				</div>
+			</div>
 		</div>
+		<!-- board card -->
+		<div data-column-body="true" class="flex flex-col gap-8 p-4">
 
-		@for (member of calendarWithSpecialistLocaStateService.members; let index = $index; track member._id) {
 
-			<div
-				#column
-				(mouseover)="mouseover($event)"
-				(mouseenter)="mouseEnter($event)"
-				(touchstart)="mouseover($event)"
-				(touchend)="mouseEnter($event)"
-				[attr.data-index]="index + 1"
-				class="flex flex-col flex-1 border-r relative bg-[#00000008] snap-start" data-is-column="true"
-				[style.width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
-				[style.min-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
-				[style.max-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
-				[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+		</div>
+	</div>
+	<div #column data-column="true" class="bg-neutral-100 w-full max-w-xs min-w-[380px] overflow-auto">
 
-				<app-schedule-element-calendar-with-specialist-widget-component [index]="index" [calendar]="calendar"
-																				[member]="member">
-
-					@for (hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; track hourRow.hour) {
-
-						<div
-							class="border-b"
-							[attr.data-column-index]="index + 1"
-							[style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx">
-						</div>
-
-					}
-
-				</app-schedule-element-calendar-with-specialist-widget-component>
-
-				@if (showTimeLine$ | async) {
-
-					<app-time-line-calendar-with-specialist-widget-component [showCurrentTime]="false"/>
-
-				}
-
-				<div
-					[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
-					class="z-[12] p-1 bg-white sticky top-0 border-b">
-
-					<event-header-calendar-with-specialist-widget-component [member]="member"/>
-
+		<!-- board category header -->
+		<div data-column-header="true" class="flex flex-row justify-between items-center sticky top-0 bg-white px-4 py-2">
+			<div class="flex items-center justify-between w-full">
+				<div class="flex items-center gap-2">
+					test
 				</div>
+				<div class="flex gap-2 items-center">
 
+					<p class="text-gray-400 text-sm">
+						10
+					</p>
+				</div>
+			</div>
+		</div>
+		<!-- board card -->
+		<div data-column-body="true" class="flex flex-col gap-8 p-4">
 
-				@for (createEventButton of calendarWithSpecialistLocaStateService.createEventButtonList;
-					track createEventButton.id) {
-
-					<div
-						[class.border-b]="createEventButton.isLastPeace"
-						[attr.data-column-index]="index + 1"
-						[style.min-height]="createEventButton.heightInPx">
-
-						<app-empty-slot-calendar-with-specialist-widget-component
-							[class.hidden]="thereSomeEventCalendarWithSpecialistWidgetComponent"
-							[startInMinutes]="createEventButton.startInMinutes"
-							[durationInMinutes]="createEventButton.durationInMinutes"
-							[member]="member"/>
-
+			<div>
+				<div class="flex justify-between px-4">
+					<div class="text-neutral-400 text-sm">1</div>
+					<div class="text-neutral-400 text-sm uppercase">
+						#...1232132
 					</div>
+				</div>
+				hello world
+			</div>
 
-				}
 
-				@if (eventsBySpecialistId[member._id]; as events) {
+			<div class="animate-pulse flex flex-col gap-8">
 
-					@for (event of events; track event._id) {
-
-						@if (isEAbsence(event)) {
-
-							<app-event-calendar-with-specialists-widget-component
-								[attr.data-absence-id]="event._id"
-								[attr.data-member-id]="member._id"
-								[attr.data-member-first-name]="member.firstName"
-								[attr.data-member-last-name]="member.lastName"
-								[item]="event"/>
-						}
-
-						@if (isEOrderService(event)) {
-
-							<app-event-calendar-with-specialists-widget-component
-								[attr.data-order-id]="event.orderId"
-								[attr.data-order-service-id]="event._id"
-								[attr.data-member-id]="member._id"
-								[attr.data-member-first-name]="member.firstName"
-								[attr.data-member-last-name]="member.lastName"
-								[item]="event"/>
-						}
-
-					}
-
-				}
-
+				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
 
 			</div>
 
-		}
-
+			<div class="text-beeColor-500 text-center w-full">
+				{{ 'pagination.message.allDataDownloaded' | translate }}
+			</div>
+		</div>
 	</div>
+	<div #column data-column="true" class="bg-neutral-100 w-full max-w-xs min-w-[380px] overflow-auto">
 
+		<!-- board category header -->
+		<div data-column-header="true" class="flex flex-row justify-between items-center sticky top-0 bg-white px-4 py-2">
+			<div class="flex items-center justify-between w-full">
+				<div class="flex items-center gap-2">
+					test
+				</div>
+				<div class="flex gap-2 items-center">
+
+					<p class="text-gray-400 text-sm">
+						10
+					</p>
+				</div>
+			</div>
+		</div>
+		<!-- board card -->
+		<div data-column-body="true" class="flex flex-col gap-8 p-4">
+
+			<div>
+				<div class="flex justify-between px-4">
+					<div class="text-neutral-400 text-sm">1</div>
+					<div class="text-neutral-400 text-sm uppercase">
+						#...1232132
+					</div>
+				</div>
+				hello world
+			</div>
+
+
+			<div class="animate-pulse flex flex-col gap-8">
+
+				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
+				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
+
+			</div>
+
+			<div class="text-beeColor-500 text-center w-full">
+				{{ 'pagination.message.allDataDownloaded' | translate }}
+			</div>
+		</div>
+	</div>
 </div>

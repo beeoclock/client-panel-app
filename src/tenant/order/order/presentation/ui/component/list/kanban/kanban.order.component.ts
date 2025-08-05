@@ -3,9 +3,6 @@ import {DATA, KanbanOrderService} from "@tenant/order/order/presentation/ui/comp
 import {NgClass} from "@angular/common";
 import {FilterComponent} from "@tenant/order/order/presentation/ui/component/filter/filter.component";
 import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
-import {
-	StatusOrderIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.order.icon.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -18,6 +15,9 @@ import {
 import {
 	CardItemOrderService
 } from "@tenant/order/order/presentation/ui/component/list/card/item-lightweight/card.item.order.service";
+import {
+	StatusOrderIconComponent
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/status.order.icon.component";
 
 @Component({
 	selector: 'kanban-order',
@@ -30,10 +30,10 @@ import {
 	],
 	imports: [
 		FilterComponent,
-		StatusOrderIconComponent,
-		NgClass,
 		TranslatePipe,
 		CardItemLightweightOrderComponent,
+		StatusOrderIconComponent,
+		NgClass,
 	],
 	template: `
 		<app-order-filter-component [orderStatusControl]="orderStatusControl" class="sticky left-0"/>

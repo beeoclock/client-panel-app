@@ -52,7 +52,7 @@ type DATA = EOrderService | EAbsence;
 	selector: 'app-event-calendar-with-specialists-widget-component',
 	standalone: true,
 	template: `
-		@let entity = item() ;
+		@let entity = item();
 		@if (isEOrderService(entity)) {
 			<app-order-event-calendar-with-specialist-widget-component [event]="entity"/>
 		}

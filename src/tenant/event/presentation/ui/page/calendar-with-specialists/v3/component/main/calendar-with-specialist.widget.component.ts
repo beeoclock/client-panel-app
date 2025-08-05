@@ -10,16 +10,14 @@ import {
 	OnInit,
 	QueryList,
 	viewChild,
+	viewChildren,
 	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {AsyncPipe, DOCUMENT} from "@angular/common";
+import {DOCUMENT} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {NGXLogger} from "ngx-logger";
-import {
-	HeaderCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/header.calendar-with-specialist.widget.component";
 import {firstValueFrom, map, switchMap} from "rxjs";
 import {
 	CalendarWithSpecialistsQueries
@@ -29,35 +27,24 @@ import {ActivatedRoute} from "@angular/router";
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
-import {TranslateModule} from "@ngx-translate/core";
-import {
-	TimeLineCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {DateTime} from "luxon";
 import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {
-	ScheduleElementCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/schedule-element.calendar-with-specialist.widget.component";
-import {
 	EventCalendarWithSpecialistWidgetComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
-import {
-	EmptySlotCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
 import {AbsenceDataActions} from "@tenant/member/absence/infrastructure/state/data/absence.data.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {
-	FilterCalendarWithSpecialistComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/main/filter/filter.calendar-with-specialist.component";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
+import {TranslatePipe} from "@ngx-translate/core";
+import {explicitEffect} from "ngxtension/explicit-effect";
 
 
 @Component({
@@ -66,15 +53,11 @@ import EOrderService from "@tenant/order/order-service/domain/entity/e.order-ser
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './calendar-with-specialist.widget.component.html',
+	host: {
+		class: 'flex flex-col h-full overflow-x-auto',
+	},
 	imports: [
-		AsyncPipe,
-		EventCalendarWithSpecialistWidgetComponent,
-		HeaderCalendarWithSpecialistWidgetComponent,
-		TranslateModule,
-		EmptySlotCalendarWithSpecialistWidgetComponent,
-		TimeLineCalendarWithSpecialistWidgetComponent,
-		ScheduleElementCalendarWithSpecialistWidgetComponent,
-		FilterCalendarWithSpecialistComponent,
+		TranslatePipe
 	]
 })
 export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewInit {
@@ -85,7 +68,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 		nonNullable: true
 	});
 
-	readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
+	public readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
 
 	public eventsBySpecialistId: {
 		[key: string]: (EAbsence | EOrderService)[]
@@ -183,11 +166,37 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 	private readonly destroyRef = inject(DestroyRef);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 	public readonly schedules$ = this.store.select(BusinessProfileState.schedules);
-	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
-	public readonly showTimeLine$ = this.isToday$.pipe();
+	public readonly isTodayS = this.store.selectSignal(CalendarWithSpecialistsQueries.isToday);
 	private readonly document = inject(DOCUMENT);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly actions$ = inject(Actions);
+
+	private readonly columns = viewChildren<ElementRef<HTMLDivElement>>('column');
+
+	public constructor() {
+		explicitEffect([this.columns], ([columns]) => {
+			console.log({columns});
+			let isSyncing = false;
+
+			columns.forEach(column => {
+				column.nativeElement.addEventListener('scroll', function() {
+					if (isSyncing) return;
+
+					isSyncing = true;
+					const scrollTop = this.scrollTop;
+
+					columns.forEach(otherColumn => {
+						if (otherColumn !== column) {
+							otherColumn.nativeElement.scrollTop = scrollTop;
+						}
+					});
+
+					isSyncing = false;
+				});
+			});
+
+		})
+	}
 
 	private readonly events$ = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
 		takeUntilDestroyed(),
