@@ -136,138 +136,56 @@
 
 <!--</div>-->
 
+<filter-calendar-with-specialist [orderServiceStatusesControl]="orderServiceStatusesControl"/>
+<div class="flex h-[calc(100%-64px)] overflow-x-auto w-full">
+	<div #column data-column="true" class="bg-white min-w-10 max-w-10 w-10 overflow-y-auto no-scrollbar sticky left-0 top-0 z-10 min-h-[1440px] h-[1440px] max-h-[1440px]">
 
-<div class="flex h-[calc(100%-64px)] divide-x">
-	<div #column data-column="true" class="bg-neutral-100 w-full max-w-xs min-w-10 overflow-auto">
+		<div class="h-10">
 
-		<!-- board category header -->
-		<div data-column-header="true" class="flex flex-row justify-between items-center sticky top-0 bg-white px-4 py-2">
-			<div class="flex items-center justify-between w-full">
-				<div class="flex items-center gap-2">
-					test
-				</div>
-				<div class="flex gap-2 items-center">
-
-					<p class="text-gray-400 text-sm">
-						10
-					</p>
-				</div>
-			</div>
 		</div>
-		<!-- board card -->
-		<div data-column-body="true" class="flex flex-col gap-8 p-4">
+		
+		@for (hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; track hourRow.hour) {
 
+				<div
+					class="border-b text-slate-400 text-right px-1 sticky left-0"
+					[style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx">
+					{{ hourRow.hour }}
+				</div>
 
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-			<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-		</div>
+ 			}
+
 	</div>
-	<div #column data-column="true" class="bg-neutral-100 w-full max-w-xs min-w-[380px] overflow-auto">
 
-		<!-- board category header -->
-		<div data-column-header="true" class="flex flex-row justify-between items-center sticky top-0 bg-white px-4 py-2">
-			<div class="flex items-center justify-between w-full">
-				<div class="flex items-center gap-2">
-					test
-				</div>
-				<div class="flex gap-2 items-center">
+	@for (member of members; track member._id) {
 
-					<p class="text-gray-400 text-sm">
-						10
-					</p>
-				</div>
-			</div>
-		</div>
-		<!-- board card -->
-		<div data-column-body="true" class="flex flex-col gap-8 p-4">
+		<div #column data-column="true" class="bg-neutral-100 w-full max-w-xs min-w-[380px] overflow-auto">
 
-			<div>
-				<div class="flex justify-between px-4">
-					<div class="text-neutral-400 text-sm">1</div>
-					<div class="text-neutral-400 text-sm uppercase">
-						#...1232132
+			<!-- board category header -->
+			<div data-column-header="true" class="flex flex-row justify-between items-center sticky top-0 bg-white px-4 py-2">
+				<div class="flex items-center justify-between w-full">
+					<div class="flex items-center gap-2">
+						{{ member.firstName }}
+					</div>
+					<div class="flex gap-2 items-center">
+
+						<p class="text-gray-400 text-sm">
+							10
+						</p>
 					</div>
 				</div>
-				hello world
 			</div>
+			<!-- board card -->
+			<div data-column-body="true" class="flex flex-col gap-8 p-4 relative min-h-[1440px] h-[1440px] max-h-[1440px]">
 
+				@for (event of eventsBySpecialistId[member._id]; track event._id) {
 
-			<div class="animate-pulse flex flex-col gap-8">
+					<app-event-calendar-with-specialists-widget-component [item]="event" />
 
-				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
+				}
 
-			</div>
-
-			<div class="text-beeColor-500 text-center w-full">
-				{{ 'pagination.message.allDataDownloaded' | translate }}
 			</div>
 		</div>
-	</div>
-	<div #column data-column="true" class="bg-neutral-100 w-full max-w-xs min-w-[380px] overflow-auto">
+		
+	}
 
-		<!-- board category header -->
-		<div data-column-header="true" class="flex flex-row justify-between items-center sticky top-0 bg-white px-4 py-2">
-			<div class="flex items-center justify-between w-full">
-				<div class="flex items-center gap-2">
-					test
-				</div>
-				<div class="flex gap-2 items-center">
-
-					<p class="text-gray-400 text-sm">
-						10
-					</p>
-				</div>
-			</div>
-		</div>
-		<!-- board card -->
-		<div data-column-body="true" class="flex flex-col gap-8 p-4">
-
-			<div>
-				<div class="flex justify-between px-4">
-					<div class="text-neutral-400 text-sm">1</div>
-					<div class="text-neutral-400 text-sm uppercase">
-						#...1232132
-					</div>
-				</div>
-				hello world
-			</div>
-
-
-			<div class="animate-pulse flex flex-col gap-8">
-
-				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-40 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-60 rounded-2xl bg-neutral-200"></div>
-				<div class="w-full h-20 rounded-2xl bg-neutral-200"></div>
-
-			</div>
-
-			<div class="text-beeColor-500 text-center w-full">
-				{{ 'pagination.message.allDataDownloaded' | translate }}
-			</div>
-		</div>
-	</div>
 </div>

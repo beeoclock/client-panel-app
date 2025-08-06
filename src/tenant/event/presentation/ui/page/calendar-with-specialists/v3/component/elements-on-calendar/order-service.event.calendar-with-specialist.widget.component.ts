@@ -30,7 +30,7 @@ import EOrderService from "@tenant/order/order-service/domain/entity/e.order-ser
 
 
 @Component({
-	selector: 'app-order-event-calendar-with-specialist-widget-component',
+	selector: 'app-order-service-event-calendar-with-specialist-widget-component',
 	template: `
 		<div class="flex gap-1 items-center justify-between">
 			<div class="text-xs dark:text-sky-100">
@@ -38,24 +38,24 @@ import EOrderService from "@tenant/order/order-service/domain/entity/e.order-ser
 			</div>
 			<div class="flex gap-1">
 				<app-first-time-icon-component
-					[firstTime]="event().orderAppointmentDetails?.attendees?.[0]?.firstTime ?? false"/>
+					[firstTime]="orderService().orderAppointmentDetails?.attendees?.[0]?.firstTime ?? false"/>
 				<app-anybody-specialist-icon-component
-					[wasSelectedAnybody]="event().orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
-				<app-note-icon-component [note]="event()?.customerNote ?? ''"/>
-				<!--				<app-business-note-icon-component [businessNote]="event().order?.businessNote ?? ''"/>-->
+					[wasSelectedAnybody]="orderService().orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
+				<app-note-icon-component [note]="orderService()?.customerNote ?? ''"/>
+				<!--				<app-business-note-icon-component [businessNote]="orderService().order?.businessNote ?? ''"/>-->
 				<app-order-service-status-icon-component [useDefaultStyle]="false" class="text-white"
-														 [status]="event().status"/>
+														 [status]="orderService().status"/>
 			</div>
 		</div>
 		<!--		<div class="text-xs font-bold dark:text-sky-100">-->
 		<!--			{{ getAttendeesInformation() }}-->
 		<!--		</div>-->
 		<div class="text-xs font-medium">
-			{{ event().serviceSnapshot.languageVersions[0].title }}
+			{{ orderService().serviceSnapshot.languageVersions[0].title }}
 		</div>
 		<div class="text-xs font-medium">
-			{{ event().orderAppointmentDetails.start | date: 'HH:mm' }}
-			- {{ event().orderAppointmentDetails.end | date: 'HH:mm' }}
+			{{ orderService().orderAppointmentDetails.start | date: 'HH:mm' }}
+			- {{ orderService().orderAppointmentDetails.end | date: 'HH:mm' }}
 		</div>
 	`,
 	standalone: true,
@@ -71,7 +71,7 @@ import EOrderService from "@tenant/order/order-service/domain/entity/e.order-ser
 })
 export class OrderEventCalendarWithSpecialistWidgetComponent {
 
-	public readonly event = input.required<EOrderService>();
+	public readonly orderService = input.required<EOrderService>();
 
 	public readonly useServiceColor = input(true);
 	// Used by external components
@@ -85,7 +85,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	@HostBinding('style.background-color')
 	public get backgroundColor() {
 		if (this.useServiceColor()) {
-			const {presentation} = this.event().serviceSnapshot;
+			const {presentation} = this.orderService().serviceSnapshot;
 			const {color} = presentation;
 			if (color) {
 				return color;
@@ -105,7 +105,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 		if (this.useServiceColor()) {
 
-			const {presentation} = this.event().serviceSnapshot;
+			const {presentation} = this.orderService().serviceSnapshot;
 			const {color} = presentation;
 			if (color) {
 				classList.push('text-white');
@@ -117,7 +117,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 			classList.push('text-white');
 
-			switch (this.event().status) {
+			switch (this.orderService().status) {
 				case OrderServiceStatusEnum.rejected:
 				case OrderServiceStatusEnum.cancelled:
 					classList.push('bg-red-400', 'hover:bg-red-500'); // 'border-red-400',
@@ -142,12 +142,12 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	}
 
 	public async onClick() {
-		const action = new EventActions.ToggleDetails(this.event()._id);
+		const action = new EventActions.ToggleDetails(this.orderService()._id);
 		this.store.dispatch(action);
 	}
 
 	public getAttendeesInformation() {
-		return this.event().orderAppointmentDetails.attendees?.reduce((acc: string[], attendant) => {
+		return this.orderService().orderAppointmentDetails.attendees?.reduce((acc: string[], attendant) => {
 
 			const {customer} = attendant;
 

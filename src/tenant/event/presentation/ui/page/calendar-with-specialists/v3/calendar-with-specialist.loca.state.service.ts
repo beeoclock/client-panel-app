@@ -19,7 +19,7 @@ export default class CalendarWithSpecialistLocaStateService {
 	public readonly specialistCellHeightForPx = 50;
 	public readonly specialistCellHeightInPx = `${this.specialistCellHeightForPx}px`;
 
-	public readonly oneHourForPx = 120;
+	public readonly oneHourForPx = 60;
 	public readonly oneHourInPx = `${this.oneHourForPx}px`;
 	public readonly oneMinuteForPx = this.oneHourForPx / 60;
 

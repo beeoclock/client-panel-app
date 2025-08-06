@@ -28,9 +28,9 @@ import MembersV3ContainerWeekCalendarComponent
 })
 export default class CalendarWithSpecialistsEventPage implements OnInit {
 
-	readonly #store = inject(Store);
-	readonly #ngxLogger = inject(NGXLogger);
-	readonly #analyticsService = inject(AnalyticsService);
+	private readonly store = inject(Store);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly analyticsService = inject(AnalyticsService);
 
 	private preSyncingValue = false;
 
@@ -46,7 +46,7 @@ export default class CalendarWithSpecialistsEventPage implements OnInit {
 			return false;
 		})
 	).subscribe(() => {
-		this.#store.dispatch([
+		this.store.dispatch([
 			new MemberDataActions.GetList(),
 			new BusinessProfileActions.Init(),
 			new CalendarWithSpecialistsAction.GetItems(),
@@ -54,7 +54,7 @@ export default class CalendarWithSpecialistsEventPage implements OnInit {
 	});
 
 	public ngOnInit(): void {
-		this.#ngxLogger.info('CalendarWithSpecialistsEventPage initialized');
-		this.#analyticsService.logEvent('event_calendar_with_specialists_page_initialized');
+		this.ngxLogger.info('CalendarWithSpecialistsEventPage initialized');
+		this.analyticsService.logEvent('event_calendar_with_specialists_page_initialized');
 	}
 }

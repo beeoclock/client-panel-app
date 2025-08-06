@@ -20,10 +20,10 @@ import {AlertController} from "@ionic/angular/standalone";
 import {TranslateService} from "@ngx-translate/core";
 import {
 	OrderEventCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/order-event.calendar-with-specialist.widget.component";
+} from "@src/tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/order-service.event.calendar-with-specialist.widget.component";
 import {
 	AbsenceEventCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
+} from "@src/tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/absence.event.calendar-with-specialist.widget.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {
 	CalendarWithSpecialistsQueries
@@ -45,19 +45,19 @@ type DATA = EOrderService | EAbsence;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		OrderEventCalendarWithSpecialistWidgetComponent,
-		AbsenceEventCalendarWithSpecialistWidgetComponent,
-		DatePipe
-	],
+    DatePipe,
+    OrderEventCalendarWithSpecialistWidgetComponent,
+    AbsenceEventCalendarWithSpecialistWidgetComponent
+],
 	selector: 'app-event-calendar-with-specialists-widget-component',
 	standalone: true,
 	template: `
 		@let entity = item();
 		@if (isEOrderService(entity)) {
-			<app-order-event-calendar-with-specialist-widget-component [event]="entity"/>
+			<app-order-service-event-calendar-with-specialist-widget-component [orderService]="entity"/>
 		}
 		@if (isEAbsence(entity)) {
-			<app-absence-event-calendar-with-specialist-widget-component [event]="entity"/>
+			<app-absence-event-calendar-with-specialist-widget-component [absence]="entity"/>
 		}
 		@if (draggable) {
 

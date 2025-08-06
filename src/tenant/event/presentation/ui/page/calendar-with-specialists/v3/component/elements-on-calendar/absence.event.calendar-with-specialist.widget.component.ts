@@ -22,11 +22,11 @@ import {
 		<div class="flex flex-wrap gap-1">
 			<div class="w-full flex justify-between">
 				<div class="text-xs dark:text-sky-100">
-					{{ ('absence.type.' + event().type + '.label') | translate }}
+					{{ ('absence.type.' + absence().type + '.label') | translate }}
 				</div>
 				<div class="dark:text-sky-100 absolute right-2 gap-2 flex">
-					@if (event().note) {
-						<i [title]="event().note" class="bi bi-chat-text"></i>
+					@if (absence().note) {
+						<i [title]="absence().note" class="bi bi-chat-text"></i>
 					}
 					<i class="bi bi-cup-hot-fill"></i>
 				</div>
@@ -45,7 +45,7 @@ import {
 })
 export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChanges {
 
-	public readonly event = input.required<EAbsence>()
+	public readonly absence = input.required<EAbsence>()
 
 	public startEndTitle = '';
 
@@ -66,7 +66,7 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 	}
 
 	public async onClick() {
-		this.store.dispatch(new AbsencePresentationActions.OpenDetails(this.event()));
+		this.store.dispatch(new AbsencePresentationActions.OpenDetails(this.absence()));
 	}
 
 	public ngOnChanges() {
@@ -75,7 +75,7 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 
 	public initStartEndTitle(): void {
 
-		const {start, end} = this.event();
+		const {start, end} = this.absence();
 		const startDateTime = DateTime.fromISO(start);
 		const endDateTime = DateTime.fromISO(end);
 

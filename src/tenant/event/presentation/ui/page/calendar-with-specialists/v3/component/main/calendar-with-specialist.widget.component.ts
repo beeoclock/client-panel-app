@@ -14,11 +14,11 @@ import {
 	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {DOCUMENT} from "@angular/common";
+import {DOCUMENT, KeyValuePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {NGXLogger} from "ngx-logger";
-import {firstValueFrom, map, switchMap} from "rxjs";
+import {firstValueFrom, map, switchMap, tap} from "rxjs";
 import {
 	CalendarWithSpecialistsQueries
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
@@ -43,8 +43,8 @@ import {
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
-import {TranslatePipe} from "@ngx-translate/core";
 import {explicitEffect} from "ngxtension/explicit-effect";
+import { FilterCalendarWithSpecialistComponent } from "./filter/filter.calendar-with-specialist.component";
 
 
 @Component({
@@ -57,8 +57,9 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 		class: 'flex flex-col h-full overflow-x-auto',
 	},
 	imports: [
-		TranslatePipe
-	]
+    FilterCalendarWithSpecialistComponent,
+    EventCalendarWithSpecialistWidgetComponent
+]
 })
 export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewInit {
 
@@ -86,7 +87,9 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 	private whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
 
 	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-	private moveCallback = {
+	public readonly members = this.calendarWithSpecialistLocaStateService.members;
+
+	private readonly moveCallback = {
 		accumulationDiffY: 0,
 		position: (htmlDivElement: HTMLElement, diffY: number) => {
 
@@ -198,7 +201,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 		})
 	}
 
-	private readonly events$ = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
+	private readonly eventsSubscription = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
 		takeUntilDestroyed(),
 		map((items) => {
 
@@ -260,7 +263,20 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 			}, {} as { [key: string]: (EAbsence | EOrderService)[] });
 
 		}),
-	);
+		tap((eventsBySpecialistId) => {
+
+			console.log({eventsBySpecialistId});
+			
+
+			this.eventsBySpecialistId = eventsBySpecialistId;
+			setTimeout(() => {
+				this.columnList.forEach((column) => {
+					this.findAndFixNearEventsWidthInEachColumn(column);
+				});
+			}, 0);
+
+		})
+	).subscribe();
 
 	public get thereSomeEventCalendarWithSpecialistWidgetComponent() {
 		return !!this.eventCalendarWithSpecialistWidgetComponent;
@@ -338,16 +354,6 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 			takeUntilDestroyed(this.destroyRef),
 		).subscribe((eventCalendarWithSpecialistWidgetComponent) => {
 			this.initListenersFor(eventCalendarWithSpecialistWidgetComponent);
-		});
-		this.events$.pipe(takeUntilDestroyed(this.destroyRef),).subscribe((eventsBySpecialistId) => {
-
-			this.eventsBySpecialistId = eventsBySpecialistId;
-			setTimeout(() => {
-				this.columnList.forEach((column) => {
-					this.findAndFixNearEventsWidthInEachColumn(column);
-				});
-			}, 0);
-			this.changeDetectorRef.detectChanges();
 		});
 
 		this.actions$

@@ -18,6 +18,7 @@ import {
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {VisibilityService} from "@core/cdk/visibility.service";
+import { IonSelectMemberComponent } from "@shared/presentation/component/input/ion/ion-select-member.component";
 
 @Component({
 	selector: 'filter-calendar-with-specialist',
@@ -32,12 +33,13 @@ import {VisibilityService} from "@core/cdk/visibility.service";
 		`
 	],
 	imports: [
-		DateControlCalendarWithSpecialistsComponent,
-		IonSelectWrapperComponent,
-		SettingsComponent,
-		IonPopover,
-		TranslateModule
-	],
+    DateControlCalendarWithSpecialistsComponent,
+    IonSelectWrapperComponent,
+    SettingsComponent,
+    IonPopover,
+    TranslateModule,
+    IonSelectMemberComponent
+],
 	template: `
 		<div
 			class="overflow-x-auto overflow-y-hidden p-1 flex justify-between gap-2 items-center bg-white border-b border-beeColor-200">
@@ -69,6 +71,7 @@ import {VisibilityService} from "@core/cdk/visibility.service";
 						</div>
 					</ng-template>
 				</ion-popover>
+				<ion-select-member/>
 			</div>
 
 		</div>
