@@ -8,6 +8,7 @@ export namespace CalendarWithSpecialistsAction {
 
 		constructor(public readonly payload: {
 			start: string;
+			end?: string;
 		}) {
 		}
 	}

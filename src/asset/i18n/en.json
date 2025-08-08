@@ -1601,7 +1601,16 @@
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",
 		"calendar": {
-			"label": "Calendar",
+			"label": "Calendar (day)",
+			"ordinary": {
+				"label": "Ordinary"
+			},
+			"withSpecialists": {
+				"label": "With specialists"
+			}
+		},
+		"week-calendar": {
+			"label": "Calendar (week)",
 			"ordinary": {
 				"label": "Ordinary"
 			},

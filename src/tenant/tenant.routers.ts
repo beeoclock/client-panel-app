@@ -151,6 +151,10 @@ export const tenantRouters: Routes = [
                                         path: 'calendar-with-specialists',
                                         loadComponent: () => import('@tenant/event/presentation/ui/page/calendar-with-specialists/calendar-with-specialists.event.page')
                                     },
+                                    {
+                                        path: 'week-calendar',
+                                        loadComponent: () => import('@tenant/event/presentation/ui/page/week-calendar/week-calendar.event.page')
+                                    },
                                 ]
                             },
                             {

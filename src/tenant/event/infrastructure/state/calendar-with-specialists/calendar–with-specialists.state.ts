@@ -221,7 +221,7 @@ export class CalendarWithSpecialistsState {
 	@Action(CalendarWithSpecialistsAction.SetDate)
 	public async setDate(ctx: StateContext<ICalendarWithSpecialist>, {payload}: CalendarWithSpecialistsAction.SetDate) {
 
-		const {start} = payload;
+		const {start, end} = payload;
 
 		const {params} = ctx.getState();
 
@@ -234,7 +234,7 @@ export class CalendarWithSpecialistsState {
 		const newParams = {
 			...params,
 			start: DateTime.fromISO(start).startOf('day').toJSDate().toISOString(),
-			end: DateTime.fromISO(start).endOf('day').toJSDate().toISOString(),
+			end: end ? DateTime.fromISO(end).endOf('day').toJSDate().toISOString() : DateTime.fromISO(start).endOf('day').toJSDate().toISOString(),
 		};
 
 		ctx.patchState({

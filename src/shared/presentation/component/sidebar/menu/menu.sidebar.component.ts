@@ -178,6 +178,42 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			// ]
 		});
 		this.menu.push({
+			order: 1,
+			translateKey: 'sidebar.week-calendar.label',
+			icon: 'bi bi-calendar-week',
+			// icon: 'bi bi-calendar2-event',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: 'event/week-calendar',
+			// items: [
+			// 	{
+			// 		translateKey: 'sidebar.calendar.withSpecialists.label',
+			// 		url: 'event/calendar-with-specialists',
+			// 		icon: 'bi bi-person-badge',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		},
+			// 		visible: true,
+			// 		order: 0
+			// 	},
+			// 	{
+			// 		url: 'event/calendar',
+			// 		translateKey: 'sidebar.calendar.ordinary.label',
+			// 		icon: 'bi bi-calendar-week',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		},
+			// 		visible: true,
+			// 		order: 1
+			// 	},
+			// ]
+		});
+		this.menu.push({
 			order: 2,
 			translateKey: 'sidebar.appointments.label',
 			icon: 'bi bi-journal-check',
