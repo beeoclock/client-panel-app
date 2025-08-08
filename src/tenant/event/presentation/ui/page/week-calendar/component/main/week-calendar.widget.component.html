@@ -1,58 +1,50 @@
 <filter-calendar-with-specialist [orderServiceStatusesControl]="orderServiceStatusesControl" [memberListControl]="memberIdListControl"/>
 
-<div class="flex h-[calc(100%-60px)] overflow-x-auto w-full border-b">
+<div class="flex flex-col h-[calc(100%-60px)] overflow-auto w-full border-b">
 
-	<!-- Left Column: Specialists Names -->
-	<div #column data-column="true" class="bg-white min-w-36 max-w-36 w-36 border-r overflow-y-auto no-scrollbar sticky left-0 top-0 z-10">
-
-		<!-- Header -->
-		<div class="flex flex-row justify-between items-center border-b sticky h-12 top-0 bg-white px-4 py-2 z-10">
+	<!-- Header Row with Days -->
+	<div class="flex bg-white sticky top-0 z-20 border-b">
+		
+		<!-- Specialists Column Header -->
+		<div class="min-w-36 max-w-36 w-36 border-r bg-white px-4 py-2 flex items-center">
 			<span class="text-sm font-medium text-gray-700">{{ 'calendar.specialists' | translate }}</span>
 		</div>
 
-		<!-- Specialists List -->
-		<div class="relative">
-			@for (member of memberList; track member._id) {
-				@if (memberIdListControl.getRawValue().includes(member._id)) {
-					<div class="border-b last:border-none text-slate-400 text-right px-1 sticky left-0 h-44 flex items-center justify-end">
-						<div class="text-sm font-medium text-gray-700">
-							{{ member.firstName }} {{ member.lastName }}
-						</div>
-					</div>
-				}
-			}
-		</div>
+		<!-- Weekday Headers -->
+		@for (weekday of weekdays; track weekday.number) {
+			<div class="flex-1 min-w-32 border-r bg-white px-2 py-2 flex items-center justify-center">
+				<span class="text-sm font-medium text-gray-800">{{ weekday.translationKey | translate }}</span>
+			</div>
+		}
 
 	</div>
 
-	<!-- Week Days Columns -->
-	@for (weekday of weekdays; track weekday.number) {
+	<!-- Specialist Rows -->
+	<div class="flex flex-col">
 		
-		<div #column data-column="true" class="bg-white w-full border-r max-w-xs min-w-10 overflow-auto">
+		@for (member of memberList; track member._id) {
+			@if (memberIdListControl.getRawValue().includes(member._id)) {
+				
+				<!-- Specialist Row -->
+				<div class="flex border-b last:border-none min-h-44">
+					
+					<!-- Specialist Name Column -->
+					<div class="min-w-36 max-w-36 w-36 border-r bg-white px-1 flex items-center justify-end">
+						<div class="text-sm font-medium text-gray-700 text-right">
+							{{ member.firstName }} {{ member.lastName }}
+						</div>
+					</div>
 
-			<!-- Day Header -->
-			<div data-column-header="true" class="flex flex-row justify-between items-center border-b sticky h-12 top-0 bg-white z-10">
-				<div class="flex items-center justify-between w-full px-2">
-					<span class="text-sm font-medium text-gray-800">{{ weekday.translationKey | translate }}</span>
-				</div>
-			</div>
-
-			<!-- Day Content - Events for all specialists -->
-			<div data-column-body="true" class="flex flex-col relative">
-
-				@for (member of memberList; track member._id) {
-
-					@if (memberIdListControl.getRawValue().includes(member._id)) {
-						
-						<div class="border-b last:border-none h-44 p-1 relative overflow-y-auto">
+					<!-- Weekday Columns for this Specialist -->
+					@for (weekday of weekdays; track weekday.number) {
+						<div class="flex-1 min-w-32 border-r bg-white p-1 relative flex flex-col">
 							
 							<!-- Absences for this day -->
 							@if (eventsBySpecialistId[member._id]?.[weekday.number]?.absences; as absences) {
 								@for (absence of absences; track absence._id) {
-									<div class="bg-red-100 border border-red-300 rounded p-1 mb-1 text-xs hover:bg-red-200 transition-colors cursor-pointer">
+									<div class="bg-red-100 border border-red-300 rounded p-1 mb-1 text-xs hover:bg-red-200 transition-colors cursor-pointer flex-shrink-0">
 										<div class="font-medium text-red-800">{{ 'calendar.absence' | translate }}</div>
-										<div class="text-red-600 truncate">
-											test
+										<div class="text-red-600 truncate">еуіе
 										</div>
 									</div>
 								}
@@ -61,38 +53,39 @@
 							<!-- Order Services for this day -->
 							@if (eventsBySpecialistId[member._id]?.[weekday.number]?.orderServices; as orderServices) {
 								@for (orderService of orderServices; track orderService._id) {
-									<div class="bg-blue-100 border border-blue-300 rounded p-1 mb-1 text-xs hover:bg-blue-200 transition-colors cursor-pointer">
+									<div class="bg-blue-100 border border-blue-300 rounded p-1 mb-1 text-xs hover:bg-blue-200 transition-colors cursor-pointer flex-shrink-0">
 										<div class="font-medium text-blue-800">{{ 'calendar.service' | translate }}</div>
 										<div class="text-blue-600 text-xs">
-											test
+										еуіе
 										</div>
 										@if (orderService.orderAppointmentDetails.end) {
 											<div class="text-blue-500 text-xs">
-												{{ 'calendar.until' | translate }}test
+												
 											</div>
 										}
 									</div>
 								}
 							}
 
-							<!-- Empty state -->
+							<!-- Empty state / flexible space -->
 							@if (!eventsBySpecialistId[member._id]?.[weekday.number]?.absences?.length && 
 								 !eventsBySpecialistId[member._id]?.[weekday.number]?.orderServices?.length) {
-								<div class="flex items-center justify-center h-full text-gray-400 text-xs">
+								<div class="flex items-center justify-center flex-1 text-gray-300 text-xs">
 									{{ 'calendar.no_events' | translate }}
 								</div>
+							} @else {
+								<!-- Flexible space to maintain row height consistency -->
+								<div class="flex-1"></div>
 							}
 
 						</div>
-
 					}
 
-				}
+				</div>
 
-			</div>
+			}
+		}
 
-		</div>
-
-	}
+	</div>
 	
 </div>
