@@ -71,7 +71,7 @@ import { IonSelectMemberComponent } from "@shared/presentation/component/input/i
 						</div>
 					</ng-template>
 				</ion-popover>
-				<ion-select-member/>
+				<ion-select-member [control]="memberListControl()"/>
 			</div>
 
 		</div>
@@ -80,6 +80,7 @@ import { IonSelectMemberComponent } from "@shared/presentation/component/input/i
 export class FilterCalendarWithSpecialistComponent extends Reactive implements AfterViewInit {
 
 	public readonly orderServiceStatusesControl = input.required<FormControl<OrderServiceStatusEnum[]>>();
+	public readonly memberListControl = input.required<FormControl<string[]>>();
 	public orderServiceStatusOptions: {
 		value: any;
 		label: string;

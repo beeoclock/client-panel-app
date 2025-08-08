@@ -1,15 +1,14 @@
 import {
+	afterNextRender,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	effect,
 	HostBinding,
 	inject,
-	Input,
 	input,
-	OnChanges,
+	model,
 	OnDestroy,
-	OnInit,
-	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
 import {DatePipe} from "@angular/common";
@@ -31,7 +30,7 @@ import {is} from "@core/shared/checker";
 			<div class="border-2 border-red-500 bg-white rounded-b-lg flex justify-end left-0 sticky w-full">
 				<div
 					class="py-1 rounded-2xl text-sm text-center text-red-500 uppercase font-bold w-full">
-					{{ currentDate | date: 'HH:mm' }}
+					{{ currentDate() | date: 'HH:mm' }}
 				</div>
 			</div>
 
@@ -43,19 +42,18 @@ import {is} from "@core/shared/checker";
 
 		}
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'absolute flex items-start left-0 top-0 transition-all z-[11] w-full'
+	}
 })
-export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, OnDestroy, OnChanges {
+export class TimeLineCalendarWithSpecialistWidgetComponent implements OnDestroy {
 
-	@Input()
-	public currentDate = new Date();
+	public readonly currentDate = model<Date>(new Date());
 
 	public readonly showCurrentTime = input(true);
 
 	public readonly showLine = input(true);
-
-	@HostBinding()
-	public class = 'absolute flex items-start left-0 top-0 transition-all z-[11] w-full';
 
 	@HostBinding('style.height')
 	public height = '0';
@@ -70,17 +68,13 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private interval: NodeJS.Timer | null = null;
 
-	public ngOnChanges(changes: SimpleChanges) {
-		if (changes.currentDate) {
+	public constructor() {
+		effect(() => {
 			this.init();
-		}
-
-	}
-
-	public ngOnInit() {
-
-		this.init();
-
+		});
+		afterNextRender(() => {
+			this.init();
+		})
 	}
 
 	public init() {
@@ -91,7 +85,7 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 	public initInterval() {
 		this.clearInterval();
 		this.interval = setInterval(() => {
-			this.currentDate = new Date();
+			this.currentDate.set(new Date());
 			this.calculateTopPosition();
 			this.changeDetectorRef.detectChanges();
 		}, 1_000);
@@ -103,8 +97,8 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 
 	public calculateTopPosition() {
 
-		const hours = this.currentDate.getHours() - this.startTimeToDisplay;
-		const minutesInHours = this.currentDate.getMinutes() / 60;
+		const hours = this.currentDate().getHours() - this.startTimeToDisplay;
+		const minutesInHours = this.currentDate().getMinutes() / 60;
 		const top = this.headerHeightInPx + ((hours + minutesInHours) * this.heightInPx);
 		this.style += ` top: ${top}px;`;
 

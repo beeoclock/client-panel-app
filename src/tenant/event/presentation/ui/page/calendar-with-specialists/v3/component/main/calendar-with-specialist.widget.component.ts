@@ -14,7 +14,7 @@ import {
 	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {DOCUMENT, KeyValuePipe} from "@angular/common";
+import {DOCUMENT} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {NGXLogger} from "ngx-logger";
@@ -45,6 +45,9 @@ import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import { FilterCalendarWithSpecialistComponent } from "./filter/filter.calendar-with-specialist.component";
+import { EmptySlotCalendarWithSpecialistWidgetComponent } from "../elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
+import { HeaderCalendarWithSpecialistWidgetComponent } from "../header.calendar-with-specialist.widget.component";
+import { TimeLineCalendarWithSpecialistWidgetComponent } from "../time-line.calendar-with-specialist.widget.component";
 
 
 @Component({
@@ -58,14 +61,25 @@ import { FilterCalendarWithSpecialistComponent } from "./filter/filter.calendar-
 	},
 	imports: [
     FilterCalendarWithSpecialistComponent,
-    EventCalendarWithSpecialistWidgetComponent
+    EventCalendarWithSpecialistWidgetComponent,
+    EmptySlotCalendarWithSpecialistWidgetComponent,
+    HeaderCalendarWithSpecialistWidgetComponent,
+    TimeLineCalendarWithSpecialistWidgetComponent
 ]
 })
 export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewInit {
 
 	public changeEventPositionIsOn = false;
 	public handleChangeEventForDraggingEnabledElement = false;
+
+	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+
+	public readonly memberList = this.calendarWithSpecialistLocaStateService.members;
+
 	public readonly orderServiceStatusesControl: FormControl<OrderServiceStatusEnum[]> = new FormControl<OrderServiceStatusEnum[]>([], {
+		nonNullable: true
+	});
+	public readonly memberIdListControl: FormControl<string[]> = new FormControl<string[]>(this.memberList.map(({_id}) => _id), {
 		nonNullable: true
 	});
 
@@ -85,9 +99,6 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 	private mouseDown = false;
 	private prevMousePosition = {x: 0, y: 0};
 	private whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
-
-	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-	public readonly members = this.calendarWithSpecialistLocaStateService.members;
 
 	private readonly moveCallback = {
 		accumulationDiffY: 0,

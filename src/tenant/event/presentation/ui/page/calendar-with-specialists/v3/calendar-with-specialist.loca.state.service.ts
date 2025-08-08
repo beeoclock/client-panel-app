@@ -16,7 +16,7 @@ export default class CalendarWithSpecialistLocaStateService {
 	public readonly maxCreateEventButtonInHourCell = 2; // 2 buttons: 1 for each 30 minutes
 	public readonly createEventButtonDurationInMinutes = 60 / this.maxCreateEventButtonInHourCell;
 
-	public readonly specialistCellHeightForPx = 50;
+	public readonly specialistCellHeightForPx = 0;
 	public readonly specialistCellHeightInPx = `${this.specialistCellHeightForPx}px`;
 
 	public readonly oneHourForPx = 60;
