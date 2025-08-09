@@ -10,10 +10,10 @@ import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import { WeekCalendarWidgetComponent } from "./component/main/week-calendar.widget.component";
+import {WeekCalendarMainPage} from "./component/main/week-calendar.main.page";
 
 @Component({
-	selector: 'app-event-v3-schedule-container-week-calendar-component',
+	selector: 'app-event-schedule-container-week-calendar-component',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -25,7 +25,7 @@ import { WeekCalendarWidgetComponent } from "./component/main/week-calendar.widg
 	`,
 	imports: [
 		AsyncPipe,
-		WeekCalendarWidgetComponent
+		WeekCalendarMainPage
 	]
 })
 export default class ScheduleV3ContainerWeekCalendarComponent {

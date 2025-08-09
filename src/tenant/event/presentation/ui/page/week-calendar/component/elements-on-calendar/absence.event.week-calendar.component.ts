@@ -2,6 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	HostBinding,
+	HostListener,
 	inject,
 	input,
 	OnChanges,
@@ -17,7 +18,7 @@ import {
 } from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";
 
 @Component({
-	selector: 'app-absence-event-calendar-with-specialist-widget-component',
+	selector: 'app-absence-event-week-calendar-component',
 	template: `
 		<div class="flex flex-wrap gap-1">
 			<div class="w-full flex justify-between">
@@ -43,7 +44,7 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChanges {
+export class AbsenceEventWeekCalendarComponent implements OnChanges {
 
 	public readonly absence = input.required<EAbsence>()
 
@@ -56,7 +57,7 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 
 		// Choose color by status
 		const classList = [
-			'absolute top-0 bottom-0 left-0 right-0 text-white border-2',
+			'inline-block top-0 bottom-0 left-0 right-0 text-white border-2',
 			'transition-all cursor-pointer rounded-md border-[#00000038] px-1 flex flex-col overflow-hidden',
 		];
 
@@ -65,6 +66,7 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 		return classList.join(' ');
 	}
 
+	@HostListener('click')
 	public async onClick() {
 		this.store.dispatch(new AbsencePresentationActions.OpenDetails(this.absence()));
 	}

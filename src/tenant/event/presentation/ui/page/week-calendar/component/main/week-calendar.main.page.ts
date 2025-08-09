@@ -1,24 +1,20 @@
 import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
-	ChangeDetectorRef,
 	Component,
 	DestroyRef,
 	ElementRef,
-	HostListener,
 	inject,
 	OnInit,
-	QueryList,
+	Signal,
 	viewChild,
 	viewChildren,
-	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {DOCUMENT} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {NGXLogger} from "ngx-logger";
-import {firstValueFrom, map, switchMap, tap} from "rxjs";
+import {firstValueFrom, map, switchMap} from "rxjs";
 import {
 	CalendarWithSpecialistsQueries
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
@@ -32,20 +28,23 @@ import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/or
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {DateTime} from "luxon";
 import {RISchedule} from "@shared/domain/interface/i.schedule";
-import {
-	EventCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
 import {AbsenceDataActions} from "@tenant/member/absence/infrastructure/state/data/absence.data.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {explicitEffect} from "ngxtension/explicit-effect";
-import { FilterCalendarWithSpecialistComponent } from "./filter/filter.calendar-with-specialist.component";
-import { TranslatePipe } from "@ngx-translate/core";
+import {FilterCalendarWithSpecialistComponent} from "./filter/filter.calendar-with-specialist.component";
+import {TranslatePipe} from "@ngx-translate/core";
+import {
+	OrderEventCalendarWithSpecialistWidgetComponent
+} from "@tenant/event/presentation/ui/page/week-calendar/component/elements-on-calendar/order-service.event.week-calendar.widget.component";
+import {
+	AbsenceEventWeekCalendarComponent
+} from "@tenant/event/presentation/ui/page/week-calendar/component/elements-on-calendar/absence.event.week-calendar.component";
 
 
 @Component({
@@ -53,19 +52,19 @@ import { TranslatePipe } from "@ngx-translate/core";
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	templateUrl: './week-calendar.widget.component.html',
+	templateUrl: './week-calendar.main.page.html',
 	host: {
 		class: 'flex flex-col h-full overflow-x-auto',
 	},
 	imports: [
 		FilterCalendarWithSpecialistComponent,
 		TranslatePipe,
+		OrderEventCalendarWithSpecialistWidgetComponent,
+		AbsenceEventWeekCalendarComponent,
 	]
 })
-export class WeekCalendarWidgetComponent implements OnInit, AfterViewInit {
+export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 
-	public changeEventPositionIsOn = false;
-	public handleChangeEventForDraggingEnabledElement = false;
 
 	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 
@@ -79,119 +78,23 @@ export class WeekCalendarWidgetComponent implements OnInit, AfterViewInit {
 	});
 
 	public readonly weekdays = [
-		{ number: '1', translationKey: 'weekday.long.monday' },
-		{ number: '2', translationKey: 'weekday.long.tuesday' },
-		{ number: '3', translationKey: 'weekday.long.wednesday' },
-		{ number: '4', translationKey: 'weekday.long.thursday' },
-		{ number: '5', translationKey: 'weekday.long.friday' },
-		{ number: '6', translationKey: 'weekday.long.saturday' },
-		{ number: '7', translationKey: 'weekday.long.sunday' }
+		{number: '1', translationKey: 'weekday.long.monday'},
+		{number: '2', translationKey: 'weekday.long.tuesday'},
+		{number: '3', translationKey: 'weekday.long.wednesday'},
+		{number: '4', translationKey: 'weekday.long.thursday'},
+		{number: '5', translationKey: 'weekday.long.friday'},
+		{number: '6', translationKey: 'weekday.long.saturday'},
+		{number: '7', translationKey: 'weekday.long.sunday'}
 	];
 
 	public readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
 
-	public eventsBySpecialistId: {
-		[specialistId: string]: {
-			[weekday: string]: {
-				absences: EAbsence[];
-				orderServices: EOrderService[];
-			}
-		}
-	} = {};
-
-	// Find all #column
-	@ViewChildren('column')
-	public columnList!: QueryList<ElementRef<HTMLDivElement>>;
-
-	public eventCalendarWithSpecialistWidgetComponent: EventCalendarWithSpecialistWidgetComponent | null = null;
-
-	private mutatedOtherEventHtmlList: HTMLDivElement[] = [];
-	private mouseDown = false;
-	private prevMousePosition = {x: 0, y: 0};
-	private whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
-
-	private readonly moveCallback = {
-		accumulationDiffY: 0,
-		position: (htmlDivElement: HTMLElement, diffY: number) => {
-
-			this.moveCallback.accumulationDiffY += diffY;
-
-			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
-				return;
-			}
-
-			const currentTop = htmlDivElement.offsetTop;
-			const newTop = currentTop + this.moveCallback.accumulationDiffY;
-			this.moveCallback.accumulationDiffY = 0;
-
-			// Check if new top position is not out of column + specialist cell height
-			if (newTop >= this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
-				// Check of new top position is not out of the bottom of the column
-				// Get event height
-				const eventHeight = htmlDivElement.clientHeight;
-				// Check if new top position is not out of the bottom of the column
-				if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
-					htmlDivElement.style.top = `${newTop}px`;
-				}
-			}
-		},
-		top: (htmlDivElement: HTMLElement, diffY: number) => {
-			this.moveCallback.accumulationDiffY += diffY;
-
-			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
-				return;
-			}
-
-			// Change height of the event and top position
-			const currentTop = htmlDivElement.offsetTop;
-			const newTop = currentTop + this.moveCallback.accumulationDiffY;
-			const currentHeight = htmlDivElement.clientHeight;
-			const newHeight = currentHeight - this.moveCallback.accumulationDiffY;
-			this.moveCallback.accumulationDiffY = 0;
-
-			// Check if new top position is not out of column + specialist cell height
-			if (newTop > this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
-				// Check of new top position is not out of the bottom of the column
-				// Get event height
-				const eventHeight = htmlDivElement.clientHeight;
-				// Check if new top position is not out of the bottom of the column
-				if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
-					// Check if newTop is not out of bottom of the event
-					if (newTop <= (currentTop + currentHeight)) {
-						htmlDivElement.style.top = `${newTop}px`;
-						htmlDivElement.style.height = `${newHeight}px`;
-					}
-				}
-			}
-
-		},
-		bottom: (htmlDivElement: HTMLElement, diffY: number) => {
-			this.moveCallback.accumulationDiffY += diffY;
-
-			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
-				return;
-			}
-
-			// Change height of the event
-			const currentHeight = htmlDivElement.clientHeight;
-			const newHeight = currentHeight + this.moveCallback.accumulationDiffY;
-			this.moveCallback.accumulationDiffY = 0;
-
-			// Check of new top position is not out of the bottom of the column
-			// Check if new top position is not out of the bottom of the column
-			if ((newHeight + htmlDivElement.offsetTop) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
-				htmlDivElement.style.height = `${newHeight}px`;
-			}
-		}
-	};
-	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly destroyRef = inject(DestroyRef);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 	public readonly schedules$ = this.store.select(BusinessProfileState.schedules);
 	public readonly isTodayS = this.store.selectSignal(CalendarWithSpecialistsQueries.isToday);
-	private readonly document = inject(DOCUMENT);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly actions$ = inject(Actions);
 
@@ -203,7 +106,7 @@ export class WeekCalendarWidgetComponent implements OnInit, AfterViewInit {
 			let isSyncing = false;
 
 			columns.forEach(column => {
-				column.nativeElement.addEventListener('scroll', function() {
+				column.nativeElement.addEventListener('scroll', function () {
 					if (isSyncing) return;
 
 					isSyncing = true;
@@ -222,7 +125,7 @@ export class WeekCalendarWidgetComponent implements OnInit, AfterViewInit {
 		})
 	}
 
-	private readonly eventsSubscription = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
+	private readonly events$ = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
 		takeUntilDestroyed(),
 		map((items) => {
 
@@ -246,12 +149,11 @@ export class WeekCalendarWidgetComponent implements OnInit, AfterViewInit {
 						}
 						if (!acc[specialistId][weekday]) {
 							acc[specialistId][weekday] = {
-								absences: [],
-								orderServices: []
+								items: [],
 							};
 						}
 
-						acc[specialistId][weekday].orderServices.push(event);
+						acc[specialistId][weekday].items.push(event);
 
 					});
 
@@ -275,12 +177,11 @@ export class WeekCalendarWidgetComponent implements OnInit, AfterViewInit {
 							}
 							if (!acc[specialistId][weekday]) {
 								acc[specialistId][weekday] = {
-									absences: [],
-									orderServices: []
+									items: [],
 								};
 							}
 
-							acc[specialistId][weekday].absences.push(structuredClone(event));
+							acc[specialistId][weekday].items.push(structuredClone(event));
 
 						});
 
@@ -296,12 +197,11 @@ export class WeekCalendarWidgetComponent implements OnInit, AfterViewInit {
 							}
 							if (!acc[specialistId][weekday]) {
 								acc[specialistId][weekday] = {
-									absences: [],
-									orderServices: []
+									items: [],
 								};
 							}
 
-							acc[specialistId][weekday].absences.push(event);
+							acc[specialistId][weekday].items.push(event);
 
 						});
 
@@ -311,33 +211,41 @@ export class WeekCalendarWidgetComponent implements OnInit, AfterViewInit {
 
 				return acc;
 
-			}, {} as { 
+			}, {} as {
 				[specialistId: string]: {
 					[weekday: string]: {
-						absences: EAbsence[];
-						orderServices: EOrderService[];
+						items: (EAbsence | EOrderService)[];
 					}
 				}
 			});
 
 		}),
-		tap((eventsBySpecialistId) => {
+		map((eventsByDateAndSpecialistId) => {
+			// Sort at each day at each specialist events by start date
+			Object.keys(eventsByDateAndSpecialistId).forEach(specialistId => {
+				Object.keys(eventsByDateAndSpecialistId[specialistId]).forEach(weekday => {
+					const {items} = eventsByDateAndSpecialistId[specialistId][weekday];
 
-			console.log({eventsBySpecialistId});
-			
-
-			this.eventsBySpecialistId = eventsBySpecialistId;
-
+					items.sort((a, b) => {
+						const aStart = a instanceof EOrderService ? DateTime.fromISO(a.orderAppointmentDetails.start) : DateTime.fromISO(a.start);
+						const bStart = b instanceof EOrderService ? DateTime.fromISO(b.orderAppointmentDetails.start) : DateTime.fromISO(b.start);
+						return aStart.toMillis() - bStart.toMillis();
+					})
+				});
+			});
+			return eventsByDateAndSpecialistId;
 		})
-	).subscribe();
-
-	public get thereSomeEventCalendarWithSpecialistWidgetComponent() {
-		return !!this.eventCalendarWithSpecialistWidgetComponent;
-	}
-
-	public get twoMinutesForPx() {
-		return this.calendarWithSpecialistLocaStateService.oneMinuteForPx * this.calendarWithSpecialistLocaStateService.movementInMinutesControl.value;
-	}
+	);
+	
+	public readonly eventsByDateAndSpecialistIdS: Signal<{
+		[specialistId: string]: {
+			[weekday: string]: {
+				items: (EAbsence | EOrderService)[];
+			}
+		}
+	}> = toSignal(this.events$, {
+		initialValue: {},
+	});
 
 	public isEOrderService(event: EOrderService | EAbsence): event is EOrderService {
 		return event instanceof EOrderService;

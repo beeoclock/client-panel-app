@@ -22,7 +22,7 @@ import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager
 		MembersV3ContainerWeekCalendarComponent
 	],
 	template: `
-		<app-event-v3-members-container-week-calendar-component/>
+		<app-event-members-container-week-calendar-component/>
 	`
 })
 export default class CalendarWithSpecialistsEventPage implements OnInit {

@@ -3,6 +3,7 @@ import {
 	Component,
 	ElementRef,
 	HostBinding,
+	HostListener,
 	inject,
 	input,
 	ViewEncapsulation
@@ -30,7 +31,7 @@ import EOrderService from "@tenant/order/order-service/domain/entity/e.order-ser
 
 
 @Component({
-	selector: 'app-order-service-event-calendar-with-specialist-widget-component',
+	selector: 'app-order-service-event-week-calendar-widget-component',
 	template: `
 		<div class="flex gap-1 items-center justify-between">
 			<div class="text-xs dark:text-sky-100">
@@ -67,7 +68,7 @@ import EOrderService from "@tenant/order/order-service/domain/entity/e.order-ser
 		FirstTimeIconComponent,
 	],
 	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderEventCalendarWithSpecialistWidgetComponent {
 
@@ -99,7 +100,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 		// Choose color by status
 		const classList = [
-			'absolute top-0 bottom-0 left-0 right-0 border-2',
+			'inline-block top-0 bottom-0 left-0 right-0 border-2',
 			'transition-all cursor-pointer rounded-md border-[#00000038] px-1 flex flex-col overflow-hidden',
 		];
 
@@ -141,6 +142,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 		return classList.join(' ');
 	}
 
+	@HostListener('click')
 	public async onClick() {
 		const action = new EventActions.ToggleDetails(this.orderService()._id);
 		this.store.dispatch(action);

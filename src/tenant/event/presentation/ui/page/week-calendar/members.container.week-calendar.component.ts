@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {delay, filter, iif, of, switchMap, tap} from "rxjs";
 import {is} from "@core/shared/checker";
@@ -15,12 +15,12 @@ import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data
 import ScheduleV3ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
 
 @Component({
-	selector: 'app-event-v3-members-container-week-calendar-component',
+	selector: 'app-event-members-container-week-calendar-component',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (item$ | async) {
-			<app-event-v3-schedule-container-week-calendar-component/>
+			<app-event-schedule-container-week-calendar-component/>
 		}
 	`,
 	imports: [

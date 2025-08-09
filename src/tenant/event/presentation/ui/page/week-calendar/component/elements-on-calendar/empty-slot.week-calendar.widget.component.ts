@@ -25,7 +25,7 @@ import AdditionalMenuComponent from "@tenant/event/presentation/ui/component/add
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
-	selector: 'app-empty-slot-calendar-with-specialist-widget-component',
+	selector: 'app-empty-slot-week-calendar-widget-component',
 	template: `
 		+ {{ 'keyword.capitalize.add-event' | translate }}
 	`,
@@ -38,7 +38,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 		class: 'active:bg-blue-400 relative active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer flex h-full hover:opacity-100 items-center justify-center opacity-0 px-2 rounded-md text-neutral-500 transition-all'
 	}
 })
-export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterViewInit {
+export class EmptySlotWeekCalendarWidgetComponent implements AfterViewInit {
 
 	public readonly startInMinutes = input.required<number>();
 	public readonly durationInMinutes = input.required<number>();
