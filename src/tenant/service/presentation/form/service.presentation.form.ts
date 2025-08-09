@@ -1,9 +1,9 @@
 import {FormControl, FormGroup} from "@angular/forms";
 import {IPresentation} from "@tenant/service/domain";
-import {RIMedia} from "@tenant/media/domain/interface/i.media";
+import {IMedia} from "@tenant/media/domain/interface/i.media";
 
 export interface IServicePresentationForm {
-	banners: FormControl<RIMedia[]>;
+	banners: FormControl<IMedia[]>;
 }
 
 export class ServicePresentationForm extends FormGroup<IServicePresentationForm> {

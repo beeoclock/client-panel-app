@@ -13,7 +13,7 @@ import {
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@core/cdk/reactive";
-import {ServiceOrderForm} from "@tenant/order/order/presentation/form/service.order.form";
+import {OrderServiceForm} from "@tenant/order/order/presentation/form/orderServiceForm";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {AlertController} from "@ionic/angular/standalone";
@@ -68,7 +68,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 	public readonly selectedServicePlusControlList: {
 		_id: string;
 		service: IService.DTO;
-		control: ServiceOrderForm;
+		control: OrderServiceForm;
 		setupPartialData: {
 			defaultAppointmentStartDateTimeIso: string;
 			defaultMemberForService: IMember.DTO;
@@ -90,7 +90,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 				this.selectedServicePlusControlList.push({
 					_id: orderServiceDto._id,
 					service: orderServiceDto.serviceSnapshot,
-					control: ServiceOrderForm.create(orderServiceDto),
+					control: OrderServiceForm.create(orderServiceDto),
 					setupPartialData: {
 						defaultAppointmentStartDateTimeIso: orderServiceDto.orderAppointmentDetails.start,
 						defaultMemberForService: orderServiceDto?.orderAppointmentDetails?.specialists?.[0]?.member
@@ -150,7 +150,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 		return role === 'confirm';
 	}
 
-	protected saveChanges(control: ServiceOrderForm) {
+	protected saveChanges(control: OrderServiceForm) {
 		this.ngxLogger.info('saveChanges', control.getRawValue());
 
 		const orderServiceDto = control.getRawValue();

@@ -81,13 +81,16 @@ import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 						</ion-text>
 					</ion-item>
 				}
-<!--				@for (product of notPaidProducts(); track product._id) {-->
-<!--					<ion-item>-->
-<!--						<ion-checkbox slot="start" aria-label="Toggle task completion">-->
-<!--							{{ product.productSnapshot.name }}-->
-<!--						</ion-checkbox>-->
-<!--					</ion-item>-->
-<!--				}-->
+				@for (product of notPaidProducts(); track product._id) {
+					<ion-item>
+						<ion-checkbox [value]="product._id" [checked]="isProductSelected(product._id)" (ionChange)="toggleProduct($event)" labelPlacement="end">
+							{{ product.productSnapshot.languageVersions[0].title }}
+						</ion-checkbox>
+						<ion-text slot="end">
+							{{ (product.productSnapshot.price.value * product.quantity) | currency: currency() }}
+						</ion-text>
+					</ion-item>
+				}
 			</ion-list>
 			<ion-list [inset]="true">
 				<ion-item>
@@ -169,7 +172,7 @@ export class PaymentModalFormOrganism {
 		const totalProducts = Array.from(selectedProducts).reduce((acc, productId) => {
 			const product = this.order().products.find(({_id}) => _id === productId);
 			if (product) {
-				return acc + product.productSnapshot.price;
+				return acc + product.productSnapshot.price.value;
 			}
 			return acc;
 		}, 0);
@@ -276,7 +279,7 @@ export class PaymentModalFormOrganism {
 				orderId: order._id,
 				anchorId: product._id,
 				anchorType: AnchorTypeEnum.product,
-				amount: product.productSnapshot.price,
+				amount: product.productSnapshot.price.value,
 				currency: this.currency(),
 			});
 			const action = new PaymentDataActions.CreateItem(form.getRawValue());
@@ -292,5 +295,9 @@ export class PaymentModalFormOrganism {
 
 	public isServiceSelected(_id: string) {
 		return this.selectedServices().has(_id);
+	}
+
+	public isProductSelected(_id: string) {
+		return this.selectedProducts().has(_id);
 	}
 }

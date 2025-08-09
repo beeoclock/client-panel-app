@@ -1,12 +1,12 @@
 import {
-    ChangeDetectionStrategy,
-    Component,
-    inject,
-    input,
-    OnInit,
-    signal,
-    viewChild,
-    ViewEncapsulation
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	input,
+	OnInit,
+	signal,
+	viewChild,
+	ViewEncapsulation
 } from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -54,7 +54,7 @@ export class IonSelectServiceComponent implements OnInit {
 
     public readonly id = input('');
 
-    public readonly control = input(new FormControl());
+    public readonly control = input.required<FormControl>();
 
     private readonly sharedUow = inject(SharedUow);
 

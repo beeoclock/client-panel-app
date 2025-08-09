@@ -13,7 +13,7 @@ export interface ISlotSettingsForm {
 
 export class SlotSettingsForm extends FormGroup<ISlotSettingsForm> {
 
-	constructor() {
+	public constructor() {
 		super({
 			object: new FormControl('SlotSettings', {
 				nonNullable: true,

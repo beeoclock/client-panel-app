@@ -10,6 +10,7 @@ import {IService} from "@tenant/service/domain/interface/i.service";
 export class MEvent implements RMIEvent {
 
 	public readonly _id!: string;
+	public readonly _version!: string;
 	public readonly status!: EventStatusEnum;
 	public readonly start!: string;
 	public readonly end!: string;

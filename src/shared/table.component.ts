@@ -89,4 +89,5 @@ export abstract class TableComponent<ITEM extends ABaseEntity> extends Reactive 
 	public open(item: ITEM): void {
 		throw new Error('Method not implemented.');
 	}
+
 }

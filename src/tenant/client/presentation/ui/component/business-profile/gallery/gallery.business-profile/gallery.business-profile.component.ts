@@ -109,9 +109,9 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 			const formData = new FormData();
 			formData.append('file', component.selectedFile as Blob);
 
-			const banner = component.banner();
-   if (banner) {
-				formData.append('_id', banner._id);
+			const image = component.image();
+			if (image) {
+				formData.append('_id', image._id);
 			}
 
 			await this.patchMediaGalleryClientApiAdapter.executeAsync(formData);

@@ -36,7 +36,7 @@ export class IonSelectActiveComponent implements OnInit {
 
 	public readonly id = input('');
 
-	public readonly control = input(new FormControl());
+	public readonly control = input.required<FormControl>();
 
 	public readonly addAllOption = input(true);
 

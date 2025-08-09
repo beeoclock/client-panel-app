@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Signal, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	DestroyRef,
+	inject,
+	Signal,
+	viewChild,
+	ViewEncapsulation
+} from "@angular/core";
 import {DATA, KanbanOrderService} from "@tenant/order/order/presentation/ui/component/list/kanban/kanban.order.service";
 import {NgClass} from "@angular/common";
 import {FilterComponent} from "@tenant/order/order/presentation/ui/component/filter/filter.component";
@@ -7,17 +16,17 @@ import {
 	StatusOrderIconComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.order.icon.component";
 import {TranslatePipe} from "@ngx-translate/core";
-import {FormControl} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {filter, tap} from "rxjs";
+import {filter} from "rxjs";
 import {Actions} from "@ngxs/store";
-import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {
 	CardItemLightweightOrderComponent
 } from "@tenant/order/order/presentation/ui/component/list/card/item-lightweight/card.item.order.component";
 import {
 	CardItemOrderService
 } from "@tenant/order/order/presentation/ui/component/list/card/item-lightweight/card.item.order.service";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
+import {explicitEffect} from "ngxtension/explicit-effect";
 
 @Component({
 	selector: 'kanban-order',
@@ -36,9 +45,9 @@ import {
 		CardItemLightweightOrderComponent,
 	],
 	template: `
-		<app-order-filter-component [orderStatusControl]="orderStatusControl" class="sticky left-0"/>
+		<app-order-filter-component #orderFilter class="sticky left-0"/>
 		<div class="flex h-[calc(100%-64px)] divide-x">
-			@for (status of orderStatusControl.value; track status) {
+			@for (status of orderFilter.form.value.orderStatusControl; track status) {
 				<div class="bg-neutral-100 w-full max-w-xs min-w-[380px] overflow-auto">
 
 					@if (getOrderSignal(status); as ordersSignal) {
@@ -138,11 +147,13 @@ export class KanbanOrderComponent {
 
 	protected readonly kanbanOrderService = inject(KanbanOrderService);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
+	protected readonly destroyRef = inject(DestroyRef);
 	protected readonly actions = inject(Actions);
+	private readonly filterComponent = viewChild(FilterComponent);
 
 	private preSyncingValue = false;
 
-	public readonly syncAllSubscription = BaseSyncManager.isSyncing$.pipe(
+	public readonly syncAllSubscription = SyncManager.isSyncing$.pipe(
 		takeUntilDestroyed(),
 		filter((isSyncing) => {
 			if (this.preSyncingValue !== !!isSyncing) {
@@ -155,30 +166,39 @@ export class KanbanOrderComponent {
 		})
 	).subscribe(() => {
 		// Refresh each status
-		this.orderStatusControl.value.forEach(status => this.refresh(status));
-	});
-
-	public readonly orderStatusControl = new FormControl<OrderStatusEnum[]>([], {
-		nonNullable: true
+		this.filterComponent()?.form.value.orderStatusControl?.forEach((status) => {
+			this.refresh(status)
+		});
 	});
 
 	private previousOrderStatus: OrderStatusEnum[] = [];
 
-	private readonly orderStatusSubscription = this.orderStatusControl.valueChanges.pipe(
-		takeUntilDestroyed(),
-		tap((value) => {
-			const newStatus = value.filter(status => !this.previousOrderStatus.includes(status));
-			newStatus.forEach(status => this.kanbanOrderService.fetch(status, true));
-			this.previousOrderStatus = value;
-		})
-	).subscribe();
-
 	public constructor() {
-		this.orderStatusControl.setValue([
-			OrderStatusEnum.confirmed,
-			OrderStatusEnum.done,
-			OrderStatusEnum.cancelled,
-		])
+		explicitEffect([this.filterComponent], ([filterComponent]) => {
+			if (!filterComponent) {
+				return;
+			}
+			filterComponent.form.valueChanges.pipe(
+				takeUntilDestroyed(this.destroyRef),
+			).subscribe(({phrase, orderStatusControl}) => {
+
+				this.updateKanban(filterComponent);
+
+			});
+			this.updateKanban(filterComponent);
+		});
+	}
+
+	public updateKanban({form}: FilterComponent): void {
+		const {orderStatusControl, phrase} = form.value;
+		if (!orderStatusControl) {
+			return;
+		}
+		orderStatusControl.forEach(status => this.kanbanOrderService.fetch({
+			status,
+			reset: true,
+			phrase
+		}));
 	}
 
 	public getOrderSignal(status: OrderStatusEnum): Signal<DATA> {
@@ -186,7 +206,7 @@ export class KanbanOrderComponent {
 	}
 
 	public nextPage(status: OrderStatusEnum): void {
-		this.kanbanOrderService.fetch(status).then();
+		this.kanbanOrderService.fetch({status}).then();
 	}
 
 	public refresh(status: OrderStatusEnum): void {
