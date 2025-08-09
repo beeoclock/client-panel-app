@@ -11,7 +11,8 @@ import {
 import {DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 
-import {BaseSyncManager, ISyncManger} from "@core/system/infrastructure/sync-manager/base.sync-manager";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
+import type {ISyncManger} from "@core/system/infrastructure/sync-manager/i.sync-state";
 import {TimeAgoPipe} from "@shared/presentation/pipes/time-ago.pipe";
 import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {explicitEffect} from "ngxtension/explicit-effect";
@@ -106,8 +107,8 @@ export class SyncButtonComponent implements OnInit {
 		return !online;
 	});
 
-	public readonly isPaused = toSignal(BaseSyncManager.isPaused$);
-	public readonly isSyncing = toSignal(BaseSyncManager.isSyncing$);
+  public readonly isPaused = toSignal(SyncManager.isPaused$);
+  public readonly isSyncing = toSignal(SyncManager.isSyncing$);
 
 	private readonly setTimeoutSubscription = interval(1_000).pipe(
 		takeUntilDestroyed(),
@@ -128,25 +129,25 @@ export class SyncButtonComponent implements OnInit {
 	public readonly state: Map<string, 'wait' | 'done' | ISyncManger> = new Map<string, 'wait' | 'done' | ISyncManger>();
 
 	public syncAll() {
-		if (BaseSyncManager.isPaused$.value) {
-			BaseSyncManager.resumeAll().then(() => {
+    if (SyncManager.isPaused$.value) {
+      SyncManager.resumeAll().then(() => {
 				this.ngxLogger.debug('SyncButtonComponent', 'resumeAll done');
 			});
 		} else {
-			BaseSyncManager.syncAll().then(() => {
+      SyncManager.syncAll().then(() => {
 				this.ngxLogger.debug('SyncButtonComponent', 'syncAll done');
 			});
 		}
 	}
 
 	public pauseAll() {
-		BaseSyncManager.pauseAll().then(() => {
+    SyncManager.pauseAll().then(() => {
 			this.ngxLogger.debug('SyncButtonComponent', 'pauseAll done');
 		});
 	}
 
 	public resetState() {
-		BaseSyncManager.register.forEach((syncManger) => {
+    SyncManager.register.forEach((syncManger) => {
 			this.state.set(syncManger.moduleName, 'wait');
 		});
 	}
@@ -160,7 +161,7 @@ export class SyncButtonComponent implements OnInit {
 
 	public ngOnInit() {
 
-		BaseSyncManager.register.forEach((syncManger) => {
+    SyncManager.register.forEach((syncManger) => {
 			this.state.set(syncManger.moduleName, 'wait');
 		});
 
@@ -168,7 +169,7 @@ export class SyncButtonComponent implements OnInit {
 
 	private detectChanges() {
 
-		const {syncState} = BaseSyncManager.getSyncManager('business-profile');
+    const {syncState} = SyncManager.getSyncManager('business-profile');
 		const value = syncState?.options?.updatedSince || new Date(0).toISOString();
 		this.lastSynchronizedIn.set(value);
 		this.changeDetectorRef.detectChanges();

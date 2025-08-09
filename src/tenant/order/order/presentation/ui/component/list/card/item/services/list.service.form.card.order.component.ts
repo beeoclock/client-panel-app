@@ -25,7 +25,7 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
 
 @Component({

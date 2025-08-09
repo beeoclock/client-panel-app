@@ -1,15 +1,15 @@
 import {BaseEntityForm} from "@shared/base.form";
 import {FormArray, FormControl} from "@angular/forms";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
-import {IOrderAppointmentDetailsDto} from "@tenant/order/order/domain/interface/i-order-appointment-details.dto";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
+import {IOrderAppointmentDetailsDto} from "@tenant/order/order-service/domain/interface/i-order-appointment-details.dto";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {IMeta} from "@shared/domain";
 import {IService} from "@tenant/service/domain/interface/i.service";
 
 export interface IOrderServiceForm {
 
-	serviceSnapshot: FormControl<IService.DTO>;
-	orderAppointmentDetails: FormControl<IOrderAppointmentDetailsDto>;
+    serviceSnapshot: FormControl<IService.DTO>;
+    orderAppointmentDetails: FormControl<IOrderAppointmentDetailsDto>;
 	customerNote: FormControl<string>;
 	orderId: FormControl<string>;
 
@@ -39,7 +39,7 @@ export class OrderServiceForm extends BaseEntityForm<'OrderServiceDto', IOrderSe
 
 	}
 
-	public static create(initValue: Partial<IOrderServiceDto> = {}): OrderServiceForm {
+    public static create(initValue: Partial<IOrderService.DTO> = {}): OrderServiceForm {
 
 		const form = new OrderServiceForm();
 
@@ -57,7 +57,7 @@ export class OrderServiceFormArray extends FormArray<OrderServiceForm> {
 		super([]);
 	}
 
-	public pushNewOne(initialValue?: Partial<IOrderServiceDto> | undefined): OrderServiceForm {
+    public pushNewOne(initialValue?: Partial<IOrderService.DTO> | undefined): OrderServiceForm {
 
 		const control = new OrderServiceForm();
 
@@ -74,9 +74,9 @@ export class OrderServiceFormArray extends FormArray<OrderServiceForm> {
 
 	}
 
-	public static create(initialValue: IOrderServiceDto[] = []): OrderServiceFormArray {
+    public static create(initialValue: IOrderService.DTO[] = []): OrderServiceFormArray {
 		const formArray = new OrderServiceFormArray();
-		initialValue.forEach((serviceOrderDto) => formArray.push(OrderServiceForm.create(serviceOrderDto)));
+        initialValue.forEach((serviceOrderDto) => formArray.push(OrderServiceForm.create(serviceOrderDto)));
 		return formArray;
 	}
 

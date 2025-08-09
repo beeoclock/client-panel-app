@@ -32,14 +32,33 @@ export class PaymentDataState {
 
 	@Action(PaymentDataActions.CreateItem)
 	public async createItem(ctx: StateContext<IPaymentState>, action: PaymentDataActions.CreateItem) {
-		let payment = EPayment.fromFormValue(action.payload);
+        let payment = EPayment.fromDTO({
+      providerPaymentRef: action.payload.providerPaymentRef ?? null,
+      orderId: action.payload.orderId!,
+            payer: action.payload.payer, // already DTO
+      amount: action.payload.amount!,
+      currency: action.payload.currency!,
+      method: action.payload.method!,
+      providerType: action.payload.providerType!,
+      status: action.payload.status!,
+      anchorType: action.payload.anchorType!,
+      anchorId: action.payload.anchorId ?? null,
+      paymentDate: action.payload.paymentDate!,
+      _id: action.payload._id!,
+      createdAt: action.payload.createdAt!,
+      updatedAt: action.payload.updatedAt!,
+      object: 'PaymentDto',
+      state: action.payload.state!,
+      _version: action.payload._version!,
+      stateHistory: action.payload.stateHistory!,
+    });
 		const foundOrder = await this.sharedUow.order.repository.findByIdAsync(payment.orderId);
 		if (!foundOrder) {
 			throw new Error('Order not found');
 		}
-		let payer = CustomerForm.create({
-			customerType: CustomerTypeEnum.anonymous,
-		}).getRawValue();
+        let payer = CustomerForm.create({
+            customerType: CustomerTypeEnum.anonymous,
+        }).getRawValue() as any;
 		try {
 			const {0: {orderAppointmentDetails: {attendees: {0: {customer}}}}} = foundOrder.services;
 			if (customer) {

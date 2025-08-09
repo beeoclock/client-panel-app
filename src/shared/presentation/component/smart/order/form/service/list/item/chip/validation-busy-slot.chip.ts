@@ -3,7 +3,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderServiceForm} from "@tenant/order/order/presentation/form/orderServiceForm";
 
@@ -45,7 +45,7 @@ export class ValidationBusySlotChip {
 		});
 	}
 
-	public detectIfSlotIsBusy(value: IOrderServiceDto) {
+    public detectIfSlotIsBusy(value: IOrderService.DTO) {
 		this.hideMe.set(true);
 		const {orderAppointmentDetails} = value;
 		if (!orderAppointmentDetails) {
@@ -55,7 +55,7 @@ export class ValidationBusySlotChip {
 		if (specialists.length === 0 || !start || !end) {
 			return;
 		}
-		const specialistIds = specialists.map(({member: {_id}}) => _id);
+        const specialistIds = specialists.map(({member}) => (member as any)._id as string);
 		this.findBySpecialistIdsAndDateTimeRange(specialistIds, start, end).then((busySlots) => {
 			const filtered = busySlots.filter((slot) => {
 				return slot._id !== value.orderId;

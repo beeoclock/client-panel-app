@@ -16,6 +16,12 @@ export abstract class ABaseEntity<
 > implements IBaseEntityRaw<OBJECT_TYPE> {
 
 	object!: OBJECT_TYPE;
+    _version: string = '1';
+    syncErrors?: {
+        fromSource: 'server' | 'client';
+        message: string;
+        code?: number;
+    }[];
 	// From MongoDB/Backend
 	_id: string & Types.ObjectId = new ObjectID().toHexString();
 	createdAt: string & Types.DateTime = new Date().toISOString();
@@ -84,6 +90,16 @@ export abstract class ABaseEntity<
 		const {changeState, toDTO, isNew, isUpdated, initSyncedAt, refreshUpdatedAt, ...raw} = this;
 		return raw as unknown as RAW;
 	}
+
+    public clearSyncErrors(): void {
+        this.syncErrors = [];
+    }
+
+    public addSyncError(error: { fromSource: 'server' | 'client'; message: string; code?: number }): void {
+        if (!this.syncErrors) this.syncErrors = [];
+        this.syncErrors.push(error);
+        this.refreshUpdatedAt();
+    }
 
 	public static isEntityRaw(target: object) {
 		return 'syncedAt' in target;

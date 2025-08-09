@@ -43,8 +43,10 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
 import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 import {
-	ListProductFormOrder
+    ListProductFormOrder
 } from "@shared/presentation/component/smart/order/form/product/list/list.product.form.order";
+import {PaymentFormValue} from "@tenant/order/payment/presentation/form/payment.form";
+import {CustomerForm} from "@tenant/customer/presentation/form";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -245,28 +247,32 @@ export class OrderFormContainerComponent {
 		return this.store.dispatch(action);
 	}
 
-	private async finishSave() {
-		const {order, payment} = this.form.value as { order: IOrder.DTO, payment: IPayment.DTO };
+    private async finishSave() {
+        const {order, payment} = this.form.getRawValue() as { order: IOrder.DTO, payment: PaymentFormValue };
 		this.form.disable();
 		this.form.markAsPending();
 
 		try {
 
-			if (this.isEditMode()) {
+            if (this.isEditMode()) {
 
-				await lastValueFrom(this.dispatchPutPaymentAction$(payment));
+                const paymentDto: IPayment.DTO = {
+                    ...payment as any,
+                    payer: (payment.payer as unknown as CustomerForm).getRawValue(),
+                } as unknown as IPayment.DTO;
+                await lastValueFrom(this.dispatchPutPaymentAction$(paymentDto));
 				await lastValueFrom(this.dispatchPutOrderAction$(order));
 
 			} else {
 
-				payment.orderId = order._id;
+                (payment as any).orderId = order._id;
 
 
 				const createOrder$ = this.store.dispatch(new OrderActions.CreateItem(order));
 				await firstValueFrom(createOrder$);
 
-				const actions$ = this.store.dispatch([
-					new PaymentDataActions.CreateItem(payment),
+                const actions$ = this.store.dispatch([
+                    new PaymentDataActions.CreateItem(payment as any),
 					new CalendarWithSpecialistsAction.GetItems(),
 				]);
 
