@@ -1,0 +1,39 @@
+<form class="flex flex-col gap-4">
+
+  @if (availableLanguages$ | async) {
+
+  <form class="flex flex-col gap-4">
+
+	  <image-form-product [control]="form.controls.images"/>
+
+    @if (availableLanguages$ | async; as availableLanguages) {
+      <product-name-form-component [form]="form.controls.languageVersions" [availableLanguages]="availableLanguages" />
+    }
+
+    <bee-card>
+
+      <div>
+        <label default for="product-form-input-tags">
+          {{ 'keyword.capitalize.tag.plural' | translate }}
+        </label>
+		  <ion-select-product-tag id="product-form-input-tags" [control]="form.controls.tags" placeholderTranslateKey="product.form.tags.select.placeholder"/>
+	  </div>
+
+      <price-and-currency-component [currencyControl]="form.controls.price.controls.currency"
+        [currencyList]="(currencyList$ | async) ?? []" [label]="'keyword.capitalize.price' | translate"
+        [priceControl]="form.controls.price.controls.value" class="flex-1" />
+
+      <form-input inputType="number" [step]="1" [label]="'keyword.capitalize.order' | translate"
+        [placeholder]="'keyword.capitalize.order' | translate" [control]="form.controls.order" />
+
+    </bee-card>
+
+    <utility-button-save-container-component class="bottom-0">
+      <button id="product.form.save" type="button" primary [isLoading]="form.pending" [disabled]="form.disabled" [scrollToFirstError]="true"
+        (click)="save()">
+        {{ 'keyword.capitalize.save' | translate }}
+      </button>
+    </utility-button-save-container-component>
+  </form>
+  }
+</form>

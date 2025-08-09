@@ -4,6 +4,7 @@ export const enum MediaTypeEnum {
     avatar = 'avatar',
     galleryItem = "galleryItem",
     serviceBanner = "serviceBanner",
+    productImage = "productImage",
     clientLogo = "clientLogo",
     clientBanner = "clientBanner",
     memberAvatar = "memberAvatar"

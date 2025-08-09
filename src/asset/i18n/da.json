@@ -317,6 +317,14 @@
 								"hint": "Vælg, hvilke felter kunderne skal udfylde, når de booker en tjeneste",
 								"label": "Krævede felter"
 							},
+							"paymentRequirement": {
+								"hint": "Vælg om forudbetaling er nødvendig for dine tjenester eller produkter.",
+								"label": "Betalingskrav",
+								"options": {
+									"NOT_REQUIRED": "Ikke påkrævet",
+									"REQUIRED_BEFORE_BOOKING": "Kunder skal betale, før reservationen bekræftes."
+								}
+							},
 							"timeZone": {
 								"hint": "Vælg den tidszone, du arbejder i. Dette felt afgør, hvordan du opretter gratis aftaler til bookinger og viser din arbejdsplan.",
 								"label": "Tidszone"
@@ -565,7 +573,7 @@
 					}
 				}
 			},
-			"title": "Detaljer om den bestilte tjeneste"
+			"title": "Detaljeret visning af begivenheden"
 		},
 		"form": {
 			"section": {
@@ -689,6 +697,7 @@
 			"mask": "Ugyldigt format, korrekt format er {{requiredMask}}",
 			"min": "Minimum værdi er {{min}}",
 			"minlength": "Minimumslængde er {{requiredLength}}",
+			"nameExists": "Navn findes allerede",
 			"phoneExists": "En bruger med dette telefonnummer eksisterer allerede",
 			"required": "Påkrævet felt",
 			"shouldBeMoreThen": {
@@ -714,6 +723,20 @@
 					"accept": {
 						"header": "Sletter en begivenhed",
 						"message": "Er du sikker på, at du vil fjerne begivenheden?"
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produktet er blevet slettet."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Sletning af et produkt",
+						"message": "Er du sikker på, at du vil fjerne produktet?"
 					}
 				}
 			},
@@ -785,6 +808,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Produkt oprettet",
+						"message": "Produktet er blevet oprettet."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -816,6 +847,14 @@
 					"success": {
 						"header": "Begivenhed opdateret",
 						"message": "Begivenheden blev opdateret med succes."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt opdateret",
+						"message": "Produktet blev opdateret med succes."
 					}
 				}
 			},
@@ -1030,6 +1069,9 @@
 	},
 	"keyword": {
 		"capitalize": {
+			"amount": "Beløb",
+			"amountPaid": "Betalt beløb",
+			"amountToPay": "Beløb, der skal betales",
 			"absence": "Fravær",
 			"accept": "Accepter",
 			"account": "Konto",
@@ -1046,13 +1088,13 @@
 			"additional": "Yderligere",
 			"additionalInformation": "Ytterligere oplysninger",
 			"address": "Adresse",
+			"advancedInformation": "Informatie voor gevorderden",
 			"all": "Alle",
 			"allServices": "Alle tjenester",
 			"allSpecialists": "Alle specialister",
 			"allStatuses": "Alle statusser",
+			"allTags": "Alle tags",
 			"amount": "Beløb",
-			"amountPaid": "Betalt beløb",
-			"amountToPay": "Beløb, der skal betales",
 			"anonymous": "Anonym",
 			"approvalType": "Godkendelsestype",
 			"approve": "Godkend",
@@ -1069,10 +1111,22 @@
 			"businessCategory": "Forretningskategori",
 			"businessIndustry": "Forretningsindustri",
 			"businessName": "Forretningsnavn",
-			"businessNote": "Business note til bestillingen",
+			"businessNote": "Forretningsnote",
 			"businessProfile": "Forretningsprofil",
 			"businessSettings": "Forretningsindstillinger",
 			"cancel": "Annuller",
+			"category": {
+				"create": {
+					"choose": "Vælg en kategori",
+					"enter": "Indtast en kategori",
+					"first": "Tilføj den første kategori",
+					"tooltip": "Tilføj kategorier til listen",
+					"uniqueError": "Kategorinavnet skal være unikt"
+				},
+				"plural": "Kategorier",
+				"single": "Kategori"
+			},
+			"clientDoesNotSeeThisData": "Kunden kan ikke se disse oplysninger",
 			"changeStatus": "Skift status",
 			"changes": "Ændringer",
 			"changesFrom": "Fra",
@@ -1080,9 +1134,9 @@
 			"chooseImage": "Vælg billede",
 			"chosen": "Udvalgt",
 			"city": "By",
+			"loadMore": "Læs mere",
 			"clearCache": "Opdater cache",
 			"clickToUpload": "Klik for at uploade",
-			"clientDoesNotSeeThisData": "Kunden kan ikke se disse oplysninger",
 			"clients": "Klienter",
 			"close": "Luk",
 			"color": "Farve",
@@ -1112,12 +1166,17 @@
 			"duration": "Varighed",
 			"earliestBooking": "Tidligste bookingtid",
 			"edit": "Rediger",
+			"numberOfServicesOrdered": "Antal bestilte tjenester",
 			"email": "E-mail",
+			"orderInformation": "Bestillingsoplysninger",
+			"orderStatus": "Ordrestatus",
 			"end": "Slut",
 			"error": "Fejl",
 			"event": "Begivenhed",
 			"events": "Begivenheder",
+			"past": "Tidligere",
 			"every": "Hver",
+			"paymentDate": "Betalingsdato",
 			"exhausted": "Udmattet ",
 			"export": "Eksport",
 			"facilities": "Faciliteter",
@@ -1140,7 +1199,7 @@
 			"lastUpdate": "Sidste opdatering",
 			"latestBooking": "Hvornår en begivenhed kan bookes",
 			"leftInDays": "Dagen te gaan",
-			"loadMore": "Læs mere",
+			"registerPayment": "Registrer betaling ",
 			"logout": "Log ud",
 			"members": "Medlemmer",
 			"menu": "Menu",
@@ -1158,22 +1217,18 @@
 			"notYetStarted": "Nog niet begonnen",
 			"note": "Note",
 			"notification": "Notifikation",
-			"numberOfServicesOrdered": "Antal bestilte tjenester",
 			"openTimePicker": "Vælg",
 			"order": "Rækkefølge",
-			"orderInformation": "Bestillingsoplysninger",
-			"orderStatus": "Ordrestatus",
 			"ordering": "Bestilling",
 			"ownOptionOfTime": "Time efter eget ønske",
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
 			"paid": "Betalt",
-			"past": "Tidligere",
 			"payAsYouGo": "Betal, når du går",
 			"payer": "Udbetaler",
 			"payment": "Betaling",
-			"paymentDate": "Betalingsdato",
 			"paymentMethod": "Betalingsmetode",
-			"paymentProviderType": "Betalingstype ",
+			"paymentProviderType": "Betalingstype",
+			"tapOnTheDataToEditIt": "Tryk på dataene for at redigere dem",
 			"paymentStatus": "Betalingsstatus",
 			"periodOfDay": {
 				"AFTERNOON": "Eftermiddag",
@@ -1191,12 +1246,15 @@
 			"portfolio": "Portefølje",
 			"preview": "Forhåndsvisning",
 			"previous": "Forrige",
+			"upcoming": "I den nærmeste fremtid",
 			"price": "Pris",
 			"priceTimeFormatPrompt": "timer:minutter",
 			"prices": "Priser",
 			"processing": "Behandler",
+			"productName": "Produktets navn",
+			"products": "Produkter",
 			"publicPage": "Offentlig side",
-			"registerPayment": "Registrer betaling ",
+			"quantity": "Mængde",
 			"reject": "Afvis",
 			"role": "Rolle",
 			"save": "Gem",
@@ -1213,6 +1271,7 @@
 			"signIn": "Log ind",
 			"signOut": "Log ud",
 			"signUp": "Tilmeld dig",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Sociale medier",
 			"somethingWentWrong": "Noget gik galt!",
@@ -1228,8 +1287,22 @@
 			"successfully": "Med succes",
 			"switchTo": "Skift til",
 			"synced": "Synkroniseret",
+			"synchronization": "Synchronisatie",
+			"synchronizationError": "Synkroniseringsfejl",
+			"synchronized": "Synkroniseret",
 			"syncing": "Synkronisering pågår…",
-			"tapOnTheDataToEditIt": "Tryk på dataene for at redigere dem",
+			"tag": {
+				"create": {
+					"choose": "Vælg en tag",
+					"enter": "Indtast en tag",
+					"first": "Tilføj den første tag",
+					"tooltip": "Tilføj tags til listen",
+					"uniqueError": "Tagget skal være unikt"
+				},
+				"plural": "Tags",
+				"single": "Tag"
+			},
+			"tags": "Tags",
 			"theSlotAlreadyTaken": "Denne tid er allerede optaget hos denne specialist!",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
@@ -1241,10 +1314,10 @@
 			"total": "Total",
 			"tryDemoProfile": "Prøv demoprofilen",
 			"unknown": "Ukendt",
-			"upcoming": "I den nærmeste fremtid",
 			"update": "Opdateret",
 			"updatedAt": "Opdateret kl",
 			"upgradeTo": "Opgrader til",
+			"waitingForSynchronization": "Venter på synkronisering ",
 			"warning": "Advarsel",
 			"week": "Uge",
 			"workdays": "Arbejdsdage",
@@ -1524,6 +1597,29 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Tilføj produkt"
+		},
+		"deactivateBeforeDelete": "Du kan ikke slette et aktivt produkt",
+		"details": {
+			"title": "Info om produktet"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "Du kan give dit produkt et navn på de tilgængelige sprog"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Vælg tag"
+				}
+			},
+			"title": {
+				"create": "Tilføj produkt",
+				"edit": "Rediger produkt"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Ejer",
@@ -1627,6 +1723,8 @@
 		"payment": "Betalinger",
 		"plugins": "Plugins",
 		"private": "Privat",
+		"product-tag": "Produktmærker",
+		"products": "Produkter",
 		"profile": {
 			"signOut": {
 				"header": "Log ud",
@@ -1766,6 +1864,11 @@
 				"detach": "Uitschakelen"
 			},
 			"subtitle": "Met plug-ins kun je meer functies krijgen en bepaalde processen automatiseren. Aansluiten en automatiseren!"
+		},
+		"plugin": {
+			"payment-stripe": {
+				"open-dashboard": "Gå til Stripe"
+			}
 		}
 	},
 	"updateAvailable": {

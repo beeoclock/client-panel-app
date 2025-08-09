@@ -34,6 +34,7 @@ import {
 } from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";
 import {MemberListChipComponent} from "@shared/presentation/component/chip/member/list/member.list.chip";
 import {MemberListService} from "@shared/presentation/component/chip/member/list/member.list.service";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -82,6 +83,9 @@ import {MemberListService} from "@shared/presentation/component/chip/member/list
 				}
 			</div>
 		</ng-template>
+		<ng-template #syncedAtTemplate let-row="row">
+			<synchronization-molecule [item]="row"/>
+		</ng-template>
 
 
 	`,
@@ -102,12 +106,14 @@ import {MemberListService} from "@shared/presentation/component/chip/member/list
 		NotFoundTableDataComponent,
 		TranslatePipe,
 		MemberListChipComponent,
+		SynchronizationMolecule,
 	]
 })
 export class TableListComponent extends TableComponent<EAbsence> {
 
 	public readonly stateStatusTemplate = viewChild<TemplateRef<any>>('stateStatusTemplate');
 	public readonly membersStatusTemplate = viewChild<TemplateRef<any>>('membersStatusTemplate');
+	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
 	public readonly columns = signal<TableColumn<EAbsence>[]>([
 		{
@@ -175,6 +181,13 @@ export class TableListComponent extends TableComponent<EAbsence> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
+		{
+			name: this.translateService.instant('keyword.capitalize.synchronization'),
+			prop: 'syncedAt',
+			minWidth: 240,
+			width: 240,
+			sortable: false,
+		},
 	]);
 
 	public readonly columnList = computed(() => {
@@ -187,6 +200,11 @@ export class TableListComponent extends TableComponent<EAbsence> {
 		const membersStatusTemplate = this.membersStatusTemplate();
 		if (membersStatusTemplate) {
 			this.setCellTemplateRef(columns, 'members', membersStatusTemplate);
+		}
+
+		const syncedAtTemplate = this.syncedAtTemplate();
+		if (syncedAtTemplate) {
+			this.setCellTemplateRef(columns, 'syncedAt', syncedAtTemplate);
 		}
 
 		return columns;

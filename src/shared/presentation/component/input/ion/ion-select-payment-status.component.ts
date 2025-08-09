@@ -39,7 +39,7 @@ export class IonSelectPaymentStatusComponent {
 
 	public readonly placeholderTranslateKey = input('keyword.capitalize.allStatuses');
 
-	public readonly control = input(new FormControl());
+	public readonly control = input.required<FormControl>();
 
 	private readonly translateService = inject(TranslateService);
 

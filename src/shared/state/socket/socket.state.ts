@@ -8,10 +8,10 @@ import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {merge} from "rxjs";
-import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {
 	TariffPlanHistoryStore
 } from "@tenant/tariff-plan/tariff-plan-history/infrastructure/store/tariff-plan-history/tariff-plane-history.store";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 export interface SocketStateModel {
 	connected: boolean;
@@ -45,7 +45,7 @@ export class SocketState {
 	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
 
 	private onAny = () => {
-		BaseSyncManager.syncAll().then(() => {
+		SyncManager.syncAll().then(() => {
 			this.tariffPlanHistoryStore.init().then();
 		});
 	};

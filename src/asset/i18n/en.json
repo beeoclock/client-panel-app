@@ -317,6 +317,14 @@
 								"hint": "Select which fields are required for customers to fill in when booking a service",
 								"label": "Required fields"
 							},
+							"paymentRequirement": {
+								"hint": "Select whether a prepayment is required for your services or products.",
+								"label": "Payment requirement",
+								"options": {
+									"NOT_REQUIRED": "Not required",
+									"REQUIRED_BEFORE_BOOKING": "Customers must make a payment before the booking is confirmed."
+								}
+							},
 							"timeZone": {
 								"hint": "Select the time zone where you do business, this field will determine the process to create free appointments for bookings and display your work schedule.",
 								"label": "Time zone"
@@ -689,6 +697,7 @@
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"min": "Minimum value is {{min}}",
 			"minlength": "Minimum length is {{requiredLength}}",
+			"nameExists": "Name already exists",
 			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",
 			"phoneExists": "Phone number already exists",
 			"required": "Required field",
@@ -714,6 +723,20 @@
 					"accept": {
 						"header": "Deleting an event",
 						"message": "Are you sure you want to remove the event?"
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Product",
+						"message": "Product was successfully deleted."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Deleting a product",
+						"message": "Are you sure you want to remove the product?"
 					}
 				}
 			},
@@ -785,6 +808,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Product created",
+						"message": "Product was successfully created."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -816,6 +847,14 @@
 					"success": {
 						"header": "Event updated",
 						"message": "Event was successfully updated."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Product updated",
+						"message": "Product was successfully updated."
 					}
 				}
 			},
@@ -1046,10 +1085,12 @@
 			"additional": "Additional",
 			"additionalInformation": "Additional information",
 			"address": "Address",
+			"advancedInformation": "Advanced information",
 			"all": "All",
 			"allServices": "All services",
 			"allSpecialists": "All specialists",
 			"allStatuses": "All statuses",
+			"allTags": "All tags",
 			"amount": "Amount",
 			"amountPaid": "Amount paid",
 			"amountToPay": "Amount to pay",
@@ -1073,6 +1114,17 @@
 			"businessProfile": "Business profile",
 			"businessSettings": "Business settings",
 			"cancel": "Cancel",
+			"category": {
+				"create": {
+					"choose": "Choose a category",
+					"enter": "Enter a category",
+					"first": "Add the first category",
+					"tooltip": "Add categories to the list",
+					"uniqueError": "The category name must be unique"
+				},
+				"plural": "Categories",
+				"single": "Category"
+			},
 			"changeStatus": "Change status",
 			"changes": "Changes",
 			"changesFrom": "From",
@@ -1195,7 +1247,10 @@
 			"priceTimeFormatPrompt": "hours:minutes",
 			"prices": "Prices",
 			"processing": "Processing",
+			"productName": "Product name",
+			"products": "Products",
 			"publicPage": "Public page",
+			"quantity": "Quantity",
 			"registerPayment": "Register payment ",
 			"reject": "Reject",
 			"role": "Role",
@@ -1213,6 +1268,7 @@
 			"signIn": "Sign in",
 			"signOut": "Sign out",
 			"signUp": "Sign up",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Social media",
 			"somethingWentWrong": "Something went wrong!",
@@ -1228,7 +1284,22 @@
 			"successfully": "Successfully",
 			"switchTo": "Switch to",
 			"synced": "Synchronized",
+			"synchronization": "Synchronization",
+			"synchronizationError": "Synchronization error",
+			"synchronized": "Synchronized",
 			"syncing": "Synchronization in progress…",
+			"tag": {
+				"create": {
+					"choose": "Choose a tag",
+					"enter": "Enter a tag",
+					"first": "Add the first tag",
+					"tooltip": "Add tag to the list",
+					"uniqueError": "The tag name must be unique"
+				},
+				"plural": "Tags",
+				"single": "Tag"
+			},
+			"tags": "Tags",
 			"tapOnTheDataToEditIt": "Tap on the data to edit it",
 			"theSlotAlreadyTaken": "This time slot is already booked with this specialist!",
 			"theme": "Theme",
@@ -1245,6 +1316,7 @@
 			"update": "Updated",
 			"updatedAt": "Updated at",
 			"upgradeTo": "Upgrade to",
+			"waitingForSynchronization": "Waiting for synchronization ",
 			"warning": "Warning",
 			"week": "Week",
 			"workdays": "Workdays",
@@ -1524,6 +1596,29 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Create product"
+		},
+		"deactivateBeforeDelete": "You cannot delete an active product",
+		"details": {
+			"title": "Info about the product"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "You can name your product in the available languages"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Select tag"
+				}
+			},
+			"title": {
+				"create": "Add product",
+				"edit": "Edit product"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Admin",
 		"OWNER": "Owner",
@@ -1627,6 +1722,8 @@
 		"payment": "Payments",
 		"plugins": "Plugins",
 		"private": "Private",
+		"product-tag": "Product tags",
+		"products": "Products",
 		"profile": {
 			"signOut": {
 				"header": "Logout",
@@ -1766,6 +1863,11 @@
 				"detach": "Disable"
 			},
 			"subtitle": "With plugins, you can get more features and automate certain processes. Connect and automate!"
+		},
+		"plugin": {
+			"payment-stripe": {
+				"open-dashboard": "Go to Stripe"
+			}
 		}
 	},
 	"updateAvailable": {
