@@ -30,8 +30,6 @@ import {
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
-import {DateTime} from "luxon";
-import {RISchedule} from "@shared/domain/interface/i.schedule";
 import {
 	EventCalendarWithSpecialistWidgetComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
@@ -44,10 +42,12 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {explicitEffect} from "ngxtension/explicit-effect";
-import { FilterCalendarWithSpecialistComponent } from "./filter/filter.calendar-with-specialist.component";
-import { EmptySlotCalendarWithSpecialistWidgetComponent } from "../elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
-import { HeaderCalendarWithSpecialistWidgetComponent } from "../header.calendar-with-specialist.widget.component";
-import { TimeLineCalendarWithSpecialistWidgetComponent } from "../time-line.calendar-with-specialist.widget.component";
+import {FilterCalendarWithSpecialistComponent} from "./filter/filter.calendar-with-specialist.component";
+import {
+	EmptySlotCalendarWithSpecialistWidgetComponent
+} from "../elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
+import {HeaderCalendarWithSpecialistWidgetComponent} from "../header.calendar-with-specialist.widget.component";
+import {TimeLineCalendarWithSpecialistWidgetComponent} from "../time-line.calendar-with-specialist.widget.component";
 
 
 @Component({
@@ -277,7 +277,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 		tap((eventsBySpecialistId) => {
 
 			console.log({eventsBySpecialistId});
-			
+
 
 			this.eventsBySpecialistId = eventsBySpecialistId;
 			setTimeout(() => {
@@ -295,65 +295,6 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 
 	public get twoMinutesForPx() {
 		return this.calendarWithSpecialistLocaStateService.oneMinuteForPx * this.calendarWithSpecialistLocaStateService.movementInMinutesControl.value;
-	}
-
-	public isEOrderService(event: EOrderService | EAbsence): event is EOrderService {
-		return event instanceof EOrderService;
-	}
-
-	public isEAbsence(event: EOrderService | EAbsence): event is EAbsence {
-		return event instanceof EAbsence;
-	}
-
-	public async openForm() {
-
-		// From selectedDate$
-		const schedules = await firstValueFrom(this.schedules$);
-		const selectedDate = await firstValueFrom(this.selectedDate$);
-		const now = DateTime.now();
-		let defaultAppointmentStartDateTimeIso = selectedDate.toJSDate().toISOString();
-
-		if (selectedDate.hasSame(now, 'day')) {
-			defaultAppointmentStartDateTimeIso = now.toJSDate().toISOString();
-		} else {
-			if (schedules) {
-				const foundSchedule = schedules.reduce((acc: null | RISchedule, schedule) => {
-
-					if (acc) {
-						if (schedule.workDays.includes(selectedDate.weekday)) {
-							if (schedule.startInSeconds < acc.startInSeconds) {
-								return schedule;
-							}
-						}
-					} else {
-						if (schedule.workDays.includes(selectedDate.weekday)) {
-							return schedule;
-						}
-					}
-
-					return acc;
-				}, null);
-
-				if (foundSchedule) {
-
-					defaultAppointmentStartDateTimeIso = selectedDate.plus({
-						seconds: foundSchedule.startInSeconds
-					}).toJSDate().toISOString();
-
-				}
-
-			}
-		}
-
-		this.store.dispatch(
-			new OrderActions.OpenForm({
-				componentInputs: {
-					setupPartialData: {
-						defaultAppointmentStartDateTimeIso,
-					}
-				}
-			})
-		);
 	}
 
 	public ngOnInit() {

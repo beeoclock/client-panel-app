@@ -2,7 +2,6 @@ import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
-	computed,
 	effect,
 	ElementRef,
 	HostBinding,
@@ -23,6 +22,7 @@ import {Router} from "@angular/router";
 import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import AdditionalMenuComponent from "@tenant/event/presentation/ui/component/additional-menu/additional-menu.component";
 import {toSignal} from "@angular/core/rxjs-interop";
+import {v4} from 'uuid';
 
 @Component({
 	selector: 'app-empty-slot-week-calendar-widget-component',
@@ -35,14 +35,15 @@ import {toSignal} from "@angular/core/rxjs-interop";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	host: {
-		class: 'active:bg-blue-400 relative active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer flex h-full hover:opacity-100 items-center justify-center opacity-0 px-2 rounded-md text-neutral-500 transition-all'
+		class: 'active:bg-blue-400 relative active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer inline-flex min-h-20 h-full max-h-44 hover:opacity-100 items-center justify-center opacity-0 px-2 rounded-md text-neutral-500 transition-all'
 	}
 })
 export class EmptySlotWeekCalendarWidgetComponent implements AfterViewInit {
 
-	public readonly startInMinutes = input.required<number>();
+	public readonly startISO = input.required<string>();
 	public readonly durationInMinutes = input.required<number>();
 	public readonly member = input.required<IMember.EntityRaw>();
+	public readonly anchorId = input(v4())
 
 	public readonly showSquare = new BooleanState(false);
 
@@ -59,22 +60,6 @@ export class EmptySlotWeekCalendarWidgetComponent implements AfterViewInit {
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 	public readonly selectedDate = toSignal(this.selectedDate$);
 
-	@HostBinding('attr.data-datetime-iso')
-	public readonly datetimeISO = computed(() => {
-		const selectedDate = this.selectedDate();
-
-		if (!selectedDate) {
-			return;
-		}
-
-		const baseDateTime = selectedDate.startOf('day');
-		const minute = this.startInMinutes();
-
-		const startDateTime = baseDateTime.set({minute,});
-
-		return startDateTime.toJSDate().toISOString();
-	});
-
 	public constructor() {
 		effect(() => {
 			const activated = this.secondRouterOutletService.activated();
@@ -82,13 +67,13 @@ export class EmptySlotWeekCalendarWidgetComponent implements AfterViewInit {
 				this.showSelectedSquare(false);
 			}
 			if (activated instanceof AdditionalMenuComponent) {
-				if (activated.datetimeISO() === this.datetimeISO() && activated.member()?._id === this.member()._id) {
+				if (activated.anchorId() === this.anchorId()) {
 					this.showSelectedSquare(true);
 				}
 			}
 			const deactivated = this.secondRouterOutletService.deactivated();
 			if (deactivated instanceof AdditionalMenuComponent) {
-				if (deactivated.datetimeISO() === this.datetimeISO() && deactivated.member()?._id === this.member()._id) {
+				if (deactivated.anchorId() === this.anchorId()) {
 					this.showSelectedSquare(false);
 				}
 			}
@@ -112,7 +97,11 @@ export class EmptySlotWeekCalendarWidgetComponent implements AfterViewInit {
 	}
 
 	public async openAdditionalMenu() {
-		await this.router.navigate([{outlets: {second: ['additional-menu', this.member()._id, this.datetimeISO()]}}])
+		await this.router.navigate([{outlets: {second: ['additional-menu', this.member()._id, this.startISO()]}}], {
+			queryParams: {
+				anchorId: this.anchorId()
+			}
+		})
 	}
 
 	public showSelectedSquare(show: boolean) {
