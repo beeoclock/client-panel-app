@@ -33,7 +33,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 			}
 		}
 		@if (showLabel()) {
-			<span [class]="labelCLass()">{{ ('event.keyword.status.singular.' + status()) | translate }}</span>
+			<span [class]="labelCLass()">{{ ('event.keyword.status.singular.' + translatedStatusKey) | translate }}</span>
 		}
 	`,
 	imports: [
@@ -62,6 +62,14 @@ export class OrderServiceStatusIconComponent {
 
 	public readonly status = input.required<OrderServiceStatusEnum>();
 
+	public get translatedStatusKey(): string {
+		return this.statusKeyMap[this.status()] ?? this.status();
+	}
+
 	protected readonly orderServiceStatusEnum = OrderServiceStatusEnum;
+
+	private readonly statusKeyMap: Partial<Record<OrderServiceStatusEnum, string>> = {
+		[OrderServiceStatusEnum.accepted]: 'confirmed',
+	};
 
 }

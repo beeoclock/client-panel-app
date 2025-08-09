@@ -646,7 +646,8 @@
 					"done": "Done",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
-					"requested": "Requested"
+					"requested": "Requested",
+					"confirmed": "Confirmed"
 				},
 				"singular": {
 					"accepted": "Accepted",
@@ -1219,7 +1220,7 @@
 			"ownOptionOfTime": "Hour according to your wish",
 			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
 			"paid": "Paid",
-			"past": "Past",
+			"past": "Order history",
 			"payAsYouGo": "Pay as you go",
 			"payer": "Payer",
 			"payment": "Payment",
@@ -1687,7 +1688,7 @@
 		"title": "Service"
 	},
 	"sidebar": {
-		"absence": "Absence",
+		"absence": "Absences",
 		"addEvent": "Add event",
 		"appointments": {
 			"label": "Appointments"
