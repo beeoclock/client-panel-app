@@ -35,7 +35,8 @@ import {
 	OrderServiceStatusIconComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 
 @Component({
 	selector: 'app-card-item-lightweight-order-component',
@@ -207,7 +208,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 																/>
 															</div>
 														}
-														<span class="line-clamp-3">
+														<span class="line-clamp-3 break-all">
 															{{ service.serviceSnapshot.languageVersions[0].title }}
 														</span>
 													</div>

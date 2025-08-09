@@ -11,9 +11,9 @@ import {
 	MembersAbsenceFormContainerComponent
 } from "@tenant/member/absence/presentation/ui/component/form/members.absence-form-container.component";
 import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
-import {Store} from "@ngxs/store";
+import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
-import {firstValueFrom, map} from "rxjs";
+import {firstValueFrom, map, tap} from "rxjs";
 import {AbsenceForm} from "@tenant/member/absence/presentation/form/absence.form";
 import {
 	ButtonSaveContainerComponent
@@ -31,7 +31,7 @@ import {DefaultLabelDirective} from "@shared/presentation/directives/label/defau
 import {DateTime} from "luxon";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import {KeyValuePipe} from "@angular/common";
-import {toSignal} from "@angular/core/rxjs-interop";
+import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {AbsenceDataActions} from "@tenant/member/absence/infrastructure/state/data/absence.data.actions";
 import {
 	AbsencePresentationActions
@@ -95,7 +95,7 @@ import {
 									<ion-datetime [locale]="locale" id="absence-form-start-input"
 												  [formControl]="proxyForm.controls.start" [showDefaultButtons]="true"
 												  [cancelText]="'keyword.capitalize.cancel' | translate"
-												  [doneText]="'keyword.capitalize.done' | translate" />
+												  [doneText]="'keyword.capitalize.done' | translate"/>
 								</ng-template>
 							</ion-popover>
 						</div>
@@ -113,7 +113,7 @@ import {
 									<ion-datetime [locale]="locale" id="absence-form-end-input"
 												  [formControl]="proxyForm.controls.end" [showDefaultButtons]="true"
 												  [cancelText]="'keyword.capitalize.cancel' | translate"
-												  [doneText]="'keyword.capitalize.done' | translate" />
+												  [doneText]="'keyword.capitalize.done' | translate"/>
 								</ng-template>
 							</ion-popover>
 						</div>
@@ -163,7 +163,7 @@ import {
 
 	`
 })
-export class AbsenceFormContainerComponent extends Reactive implements OnInit {
+export class FormAbsencePage extends Reactive implements OnInit {
 
 	public readonly item = input<IAbsence.EntityRaw>();
 	public readonly defaultValue = input({
@@ -190,6 +190,20 @@ export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly actions = inject(Actions);
+
+	private readonly actionsCreateUpdateSubscription = this.actions.pipe(
+		takeUntilDestroyed(),
+		ofActionSuccessful(
+			AbsenceDataActions.UpdateItem,
+			AbsenceDataActions.CreateItem,
+		),
+		tap((payload) => {
+			this.ngxLogger.debug('Absence form action successful', payload);
+			const action = new AbsencePresentationActions.CloseForm();
+			this.store.dispatch(action);
+		})
+	).subscribe()
 
 	public readonly errorsSignal = toSignal(this.form.statusChanges.pipe(map(() => this.form.errors)))
 
@@ -275,4 +289,4 @@ export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 	}
 }
 
-export default AbsenceFormContainerComponent;
+export default FormAbsencePage;

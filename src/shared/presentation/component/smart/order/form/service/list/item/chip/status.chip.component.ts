@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, input, output, viewChild, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import ObjectID from "bson-objectid";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {FormControl} from "@angular/forms";
 import {
 	OrderServiceStatusIconComponent
@@ -24,14 +24,17 @@ import {TranslatePipe} from "@ngx-translate/core";
 	template: `
 		<button
 			[id]="'select-order-service-status-version-' + id()"
-			class="w-9 h-9 rounded-lg border border-gray-200 justify-center items-center flex">
-			<div class="text-center text-black text-sm font-bold uppercase">
+			[class.w-9]="!showLabel()"
+			[class.px-2]="showLabel()"
+			class="h-9 border border-gray-200 justify-center items-center flex bg-white rounded-lg hover:bg-neutral-300 hover:border-neutral-400">
+			<div class="text-center text-black text-sm font-bold uppercase flex items-center gap-2">
 				<app-order-service-status-icon-component
 					class="flex text-3xl"
 					[status]="control().value"/>
 				@if (showLabel()) {
-					{{ ('event.keyword.status.singular.' + control().value) | translate }}
+					<span>{{ ('event.keyword.status.singular.' + control().value) | translate }}</span>
 				}
+				<i class="bi bi-chevron-expand"></i>
 			</div>
 		</button>
 		<ion-popover [trigger]="'select-order-service-status-version-' + id()">
@@ -99,4 +102,3 @@ export class StatusChipComponent {
 
 }
 
-export default StatusChipComponent;

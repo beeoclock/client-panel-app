@@ -15,6 +15,8 @@ export interface IOrderForm {
 
 }
 
+export type OrderFormValue = ReturnType<OrderForm['getRawValue']>;
+
 export class OrderForm extends BaseEntityForm<'OrderDto', IOrderForm> {
 
 	constructor() {
@@ -44,6 +46,16 @@ export class OrderForm extends BaseEntityForm<'OrderDto', IOrderForm> {
 			}),
 
 		});
+
+	}
+
+	public static create(initValue: Partial<OrderFormValue> = {}): OrderForm {
+
+		const form = new OrderForm();
+
+		if (initValue) form.patchValue(initValue);
+
+		return form;
 
 	}
 

@@ -1,20 +1,21 @@
-import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {IAttendee, IEvent_V2} from "@tenant/event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {ICustomer} from "@tenant/customer/domain";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
-import {PrimaryLinkStyleDirective} from "@shared/presentation/directives/link/primary.link.style.directive";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	CustomerPresentationActions
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
+import {ReactiveFormsModule} from "@angular/forms";
+import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/details/component/business-note.component";
+
 
 @Component({
 	selector: 'event-v2-general-details',
@@ -22,99 +23,137 @@ import {
 	imports: [
 		TranslateModule,
 		NgClass,
-		PrimaryLinkButtonDirective,
-		PrimaryLinkStyleDirective,
+		ReactiveFormsModule,
+		BusinessNoteComponent,
 	],
 	providers: [
 		CurrencyPipe,
 		DurationVersionHtmlHelper,
 	],
+	host: {
+		class: 'block bg-white'
+	},
 	template: `
 		<div class="border-t border-gray-100">
 			<dl class="divide-y divide-gray-100">
 				<div class="p-2">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.customer' | translate }}
-					</dt>
-					<dd class="mt-2 text-sm text-gray-900">
-						<ul role="list" class="divide-y divide-gray-100 rounded-lg border border-gray-200">
-							@for (customer of attendantMap.customers; track customer._id) {
-								@if (customer) {
-									<li
-										class="flex flex-col gap-2 py-4 px-3 text-sm leading-6">
-										@switch (customer.customerType) {
-											@case (customerTypeEnum.unregistered) {
-												<div class="font-bold text-lg">
+
+					@for (customer of attendantMap.customers; track customer._id) {
+
+						@if (customer) {
+
+							@switch (customer.customerType) {
+
+								@case (customerTypeEnum.unregistered) {
+
+									<div
+										class="p-4 group bg-neutral-100 flex flex-col w-full bg-white border border-gray-200 shadow-2xs rounded-xl hover:shadow-md focus:outline-hidden focus:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800">
+										<div class="flex justify-between items-center gap-x-3">
+
+											<div
+												class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-neutral-700">
+												<i class="bi bi-person"></i>
+											</div>
+
+											<div class="grow">
+												<h3 class="group-hover:text-blue-600 text-start font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+
 													{{ customer.firstName }} {{ customer.lastName }}
-												</div>
-											}
-											@case (customerTypeEnum.regular) {
-												<button primaryLink (click)="openCustomerDetails(customer)"
-														class="font-bold text-lg px-4">
-													{{ customer.firstName }} {{ customer.lastName }}
-												</button>
-												<div class="flex flex-wrap gap-2">
-													@if (customer.email?.length) {
-														<a href="mailto:{{ customer.email }}"
-														   primaryLinkStyle class="gap-2">
-															<i class="bi bi-envelope-at"></i>
-															{{ customer.email }}
-														</a>
-													}
-													@if (customer.phone?.length) {
-														<a href="tel:{{ customer.phone }}"
-														   primaryLinkStyle class="gap-2">
-															<i class="bi bi-telephone"></i>
-															{{ customer.phone }}
-														</a>
-													}
-													@if (customer.phone?.length) {
-														<a href="sms:{{ customer.phone }}"
-														   primaryLinkStyle class="gap-2">
-															<i class="bi bi-send"></i>
-															SMS
-														</a>
-													}
-												</div>
-											}
-											@case (customerTypeEnum.anonymous) {
-												<div class="font-bold">
-													{{ 'keyword.capitalize.anonymous' | translate }}
-												</div>
-											}
-										}
-									</li>
+												</h3>
+												<p class="text-sm text-gray-500 dark:text-neutral-500 flex gap-2">
+													{{ 'keyword.capitalize.customer' | translate }}
+												</p>
+											</div>
+
+										</div>
+									</div>
 
 								}
+								@case (customerTypeEnum.regular) {
+
+									<button (click)="openCustomerDetails(customer)"
+											class="p-4 group flex flex-col w-full bg-white border border-gray-200 shadow-2xs rounded-xl hover:shadow-md focus:outline-hidden focus:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800">
+										<div class="flex justify-between items-center gap-x-3">
+
+											@let firstName = customer.firstName ?? '' ;
+											@let lastName = customer.lastName ?? '' ;
+
+											<div
+												class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
+												{{ firstName[0] }}{{ lastName[0] }}
+											</div>
+
+											<div class="grow">
+												<h3 class="group-hover:text-blue-600 text-start font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+													{{ customer.firstName }} {{ customer.lastName }}
+												</h3>
+												<p class="text-sm text-gray-500 dark:text-neutral-500 flex gap-2">
+													@if (customer.phone?.length) {
+														{{ customer.phone }}
+													} @else {
+														@if (customer.email?.length) {
+															{{ customer.email }}
+														}
+													}
+												</p>
+											</div>
+											<div>
+												<i class="bi bi-chevron-right"></i>
+											</div>
+
+										</div>
+									</button>
+								}
+								@case (customerTypeEnum.anonymous) {
+
+									<div
+											class="p-4 group bg-neutral-100 flex flex-col w-full border border-gray-200 shadow-2xs rounded-xl hover:shadow-md focus:outline-hidden focus:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800">
+										<div class="flex justify-between items-center gap-x-3">
+
+											<div
+												class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-neutral-700">
+												<i class="bi bi-person"></i>
+											</div>
+
+											<div class="grow">
+												<h3 class="group-hover:text-blue-600 text-start font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+													{{ 'keyword.capitalize.anonymous' | translate }}
+												</h3>
+												<p class="text-sm text-gray-500 dark:text-neutral-500 flex gap-2">
+													{{ 'keyword.capitalize.customer' | translate }}
+												</p>
+											</div>
+
+										</div>
+									</div>
+								}
 							}
-						</ul>
-					</dd>
+
+						}
+					}
 				</div>
 				<div class="p-2">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.customerNote' | translate }}
-					</dt>
-					<dd
-						class="mt-1 text-sm leading-6"
-						[ngClass]="{
+					<div class="mt-1 text-sm leading-6 rounded-2xl p-4 bg-neutral-100 border">
+						<div class="text-sm font-medium leading-6 text-gray-900">
+							{{ 'keyword.capitalize.customerNote' | translate }}
+						</div>
+						<span [ngClass]="{
 							'text-beeColor-500 italic': !thereIsDescription,
 							'text-gray-700': thereIsDescription
 						}">
-						{{ thereIsDescription ? event().note : ('keyword.capitalize.noData' | translate) }}
-					</dd>
+							{{ thereIsDescription ? event().note : ('keyword.capitalize.noData' | translate) }}
+						</span>
+					</div>
 				</div>
 				<div class="p-2">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.businessNote' | translate }}
-					</dt>
-					<dd
-						class="mt-1 text-sm leading-6"
-						[ngClass]="{
-							'text-beeColor-500 italic': !thereIsBusinessNote,
-							'text-gray-700': thereIsBusinessNote
-						}">
-						{{ thereIsBusinessNote ? event().originalData.order.businessNote : ('keyword.capitalize.noData' | translate) }}
-					</dd>
+					<div class="mt-1 text-sm leading-6 rounded-2xl p-4 bg-neutral-100 border flex flex-col gap-2">
+						<div class="text-sm font-medium leading-6 text-gray-900 flex flex-col">
+							<span>{{ 'keyword.capitalize.businessNote' | translate }}</span>
+							<span class="text-xs">({{ 'keyword.capitalize.clientDoesNotSeeThisData' | translate }}
+								)</span>
+						</div>
+						<app-business-note-component [order]="event().originalData.order"/>
+					</div>
 				</div>
 			</dl>
 		</div>
@@ -125,13 +164,10 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
 		order: IOrder.DTO;
-		service: IOrderServiceDto;
+		service: IOrderService.DTO;
 	}>>();
 
 	public readonly isPreview = input(false);
-
-	@HostBinding()
-	public class = 'block bg-white';
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
@@ -158,7 +194,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 			this.attendantMap.specialists = [];
 			this.attendantMap.customers = [];
 
-			const {attendees} = event.currentValue as IEvent_V2<{ order: IOrder.DTO; service: IOrderServiceDto; }>;
+			const {attendees} = event.currentValue as IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; }>;
 			attendees.forEach((attendee) => {
 				(attendee.is === 'specialist') && this.attendantMap.specialists.push(attendee.originalData as ISpecialist);
 				(attendee.is === 'customer') && this.attendantMap.customers.push((attendee.originalData as IAttendee).customer);
@@ -175,10 +211,6 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	public get thereIsDescription(): boolean {
 		return !!this.event()?.note?.length;
-	}
-
-	public get thereIsBusinessNote(): boolean {
-		return !!this.event()?.originalData.order.businessNote?.length;
 	}
 
 	@Dispatch()

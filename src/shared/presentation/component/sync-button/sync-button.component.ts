@@ -18,6 +18,7 @@ import {tap} from "rxjs/operators";
 import {injectNetwork} from "ngxtension/inject-network";
 import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 import {ISyncManger} from "@core/system/infrastructure/sync-manager/i.sync-state";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	standalone: true,
@@ -96,6 +97,7 @@ import {ISyncManger} from "@core/system/infrastructure/sync-manager/i.sync-state
 })
 export class SyncButtonComponent implements OnInit {
 
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly network = injectNetwork();
 
@@ -128,18 +130,18 @@ export class SyncButtonComponent implements OnInit {
 	public syncAll() {
 		if (SyncManager.isPaused$.value) {
 			SyncManager.resumeAll().then(() => {
-				console.log('resumeAll done');
+				this.ngxLogger.debug('SyncButtonComponent', 'resumeAll done');
 			});
 		} else {
 			SyncManager.syncAll().then(() => {
-				console.log('syncAll done');
+				this.ngxLogger.debug('SyncButtonComponent', 'syncAll done');
 			});
 		}
 	}
 
 	public pauseAll() {
 		SyncManager.pauseAll().then(() => {
-			console.log('pauseAll done');
+			this.ngxLogger.debug('SyncButtonComponent', 'pauseAll done');
 		});
 	}
 

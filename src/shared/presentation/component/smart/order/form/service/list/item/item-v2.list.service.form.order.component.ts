@@ -41,14 +41,16 @@ import {
 import {
 	SpecialistChipComponent
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/specialist.chip.component";
-import StatusChipComponent
-	from "@shared/presentation/component/smart/order/form/service/list/item/chip/status.chip.component";
+import {
+	StatusChipComponent
+} from "@shared/presentation/component/smart/order/form/service/list/item/chip/status.chip.component";
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import EService from "@tenant/service/domain/entity/e.service";
 import {
 	ValidationBusySlotChip
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/validation-busy-slot.chip";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -66,6 +68,7 @@ import {
 		ServiceChipComponent,
 		StatusChipComponent,
 		ValidationBusySlotChip,
+		TranslatePipe,
 	],
 	template: `
 		<div class="justify-start items-start gap-1 flex w-full">
@@ -90,6 +93,7 @@ import {
 				<app-status-chip-component
 					(statusChanges)="handleStatusChanges()"
 					[control]="item().control.controls.status"
+					[showLabel]="true"
 					[id]="id()"/>
 				<app-start-chip-component
 					[id]="id()"
@@ -115,10 +119,13 @@ import {
 				<validation-busy-slot-chip [control]="item().control"/>
 			</div>
 		</div>
+		<div class="text-sm text-neutral-500 ">
+			{{ 'keyword.capitalize.tapOnTheDataToEditIt' | translate }}
+		</div>
 
 	`,
 	host: {
-		class: 'flex-col justify-start items-start p-3 gap-2 flex'
+		class: 'flex-col justify-start items-start p-3 gap-2 flex bg-neutral-100 border rounded-2xl w-full'
 	}
 })
 export class ItemV2ListServiceFormOrderComponent {

@@ -32,7 +32,7 @@ export class PaymentDataState {
 
 	@Action(PaymentDataActions.CreateItem)
 	public async createItem(ctx: StateContext<IPaymentState>, action: PaymentDataActions.CreateItem) {
-		let payment = EPayment.fromRaw(action.payload);
+		let payment = EPayment.fromFormValue(action.payload);
 		const foundOrder = await this.sharedUow.order.repository.findByIdAsync(payment.orderId);
 		if (!foundOrder) {
 			throw new Error('Order not found');

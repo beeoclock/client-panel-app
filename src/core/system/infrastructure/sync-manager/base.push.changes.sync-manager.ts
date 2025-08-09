@@ -20,7 +20,7 @@ function hookCreate(this: CreatingHookContext<any, any>, primKey: any, obj: ABas
 			if (isOnline) {
 				setTimeout(() => {
 					asyncQueue.enqueue(() => {
-						return SyncManager.syncAll()
+						return SyncManager.pushAll()
 					}).then();
 				}, 0);
 			}
@@ -50,7 +50,7 @@ function hookUpdate(this: UpdatingHookContext<any, any>, modifications: any, pri
 			if (isOnline) {
 				setTimeout(() => {
 					asyncQueue.enqueue(() => {
-						return SyncManager.syncAll()
+						return SyncManager.pushAll()
 					}).then();
 				}, 0);
 			}

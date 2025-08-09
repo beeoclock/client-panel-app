@@ -114,4 +114,12 @@ export abstract class ABaseEntity<
 		this.syncErrors.push(error);
 	}
 
+	public static isEntityRaw(target: object) {
+		return 'syncedAt' in target;
+	}
+
+	public static isDTO(target: object) {
+		return !this.isEntityRaw(target);
+	}
+
 }

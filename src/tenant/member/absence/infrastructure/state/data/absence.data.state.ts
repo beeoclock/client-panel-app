@@ -33,7 +33,6 @@ export class AbsenceDataState {
 	@Action(AbsenceDataActions.CreateItem)
 	public async createItem(ctx: StateContext<IAbsenceState>, {payload: entity}: AbsenceDataActions.CreateItem) {
 		await this.sharedUow.absence.repository.createAsync(entity);
-		ctx.dispatch(new AbsencePresentationActions.CloseForm());
 	}
 
 	@Action(AbsenceDataActions.UpdateItem)
@@ -45,8 +44,6 @@ export class AbsenceDataState {
 				...item,
 			});
 			await this.sharedUow.absence.repository.updateAsync(entity);
-			ctx.dispatch(new AbsencePresentationActions.CloseForm());
-			ctx.dispatch(new AbsencePresentationActions.OpenDetails(entity));
 		}
 	}
 

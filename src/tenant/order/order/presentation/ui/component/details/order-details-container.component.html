@@ -1,24 +1,26 @@
 @if (item(); as item) {
 	<div class="bg-white">
+		<div
+			class="flex flex-col gap-1 text-white justify-center items-center rounded-b-full min-h-10 py-4 {{ statusColor.bg }} {{ statusColor.text }}">
+			<span class="text-sm">{{ 'keyword.capitalize.orderStatus' | translate }}</span>
+			<app-order-status-chip-component [showLabel]="true" [control]="orderStatusControl"/>
+		</div>
 		<dl class="divide-y divide-gray-100">
-			<div class="px-4 py-6 grid">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.services' | translate }}
-				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+			<div class="p-2 flex flex-col gap-1">
+				<div class="text-neutral-500 text-xs px-4">
+					{{ 'analytic.widget.total.counter.order-services.title' | translate }}
+				</div>
+				<div class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
 
 					@if (item.services.length) {
 						<div class="flex flex-wrap gap-4">
 
-
-							<app-list-service-form-card-order-component
-								[idPrefix]="idPrefix + '-' + item._id + '-'"
-								[order]="item"/>
+							<order-details-order-service-section class="w-full" [serviceList]="item.services"/>
 
 						</div>
 					}
 
-				</dd>
+				</div>
 			</div>
 			<div class="px-4 py-6 grid">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
@@ -46,50 +48,24 @@
 					{{ item.businessNote }}
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.payment' | translate }}
-				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
-					@if (payment(); as payment) {
-						@if (payment.status === paymentStatusEnum.succeeded) {
-							<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
-								{{ 'keyword.capitalize.paid' | translate }}
-							</span>
-						} @else {
-							<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
-								{{ 'keyword.capitalize.notPaid' | translate }}
-							</span>
-						}
-					}
-				</dd>
-			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.status' | translate }}
-				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
-					{{ ('order.enum.status.singular.' + item.status) | translate }}
-				</dd>
+
+			<div class="p-2">
+				<div class="mt-1 text-sm leading-6 rounded-2xl p-4 bg-neutral-100 border flex flex-col gap-2">
+					<div class="text-sm font-medium leading-6 text-gray-900 flex flex-col">
+						<span>{{ 'keyword.capitalize.businessNote' | translate }}</span>
+						<span class="text-xs">({{ 'keyword.capitalize.clientDoesNotSeeThisData' | translate }}
+							)</span>
+					</div>
+					<app-business-note-component [order]="item"/>
+				</div>
 			</div>
 		</dl>
-	</div>
-
-	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
-
-		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
-
-<!--			<bee-delete-button [buttonWidthFull]="true" (event)="delete(item)"/>-->
-			<edit-button-component [buttonWidthFull]="true" (click)="openForm()"/>
-
+		<div class="p-2 flex flex-col gap-1">
+			<div class="text-neutral-500 text-xs px-4">
+				{{ 'sidebar.payment' | translate }}
+			</div>
+			<order-details-payment-section [order]="item"/>
 		</div>
-
-		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
-
-			<app-container-change-status-button [item]="item"/>
-
-		</div>
-
 	</div>
 	<standard-details-entity [item]="item"/>
 }

@@ -2,13 +2,21 @@ import {inject, Injectable} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
 import {is} from "@core/shared/checker";
 
-export type Formats = 'short' | 'medium' | 'shortDate' | 'time' | 'hhMM';
+export type Formats = 'short' | 'medium' | 'shortDate' | 'time' | 'hhMM' | 'shortWithOutSeconds';
 
 export const predefinedFormats: Record<Formats, Intl.DateTimeFormatOptions> = {
 	short: {
 		hour: '2-digit',
 		minute: '2-digit',
 		second: '2-digit',
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+		hourCycle: 'h23'
+	},
+	shortWithOutSeconds: {
+		hour: '2-digit',
+		minute: '2-digit',
 		year: 'numeric',
 		month: '2-digit',
 		day: '2-digit',
