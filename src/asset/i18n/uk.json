@@ -1697,7 +1697,16 @@
 		"businessProfile": "Профіль компанії",
 		"businessSettings": "Налаштування компанії",
 		"calendar": {
-			"label": "Календар",
+			"label": "Календар (день)",
+			"ordinary": {
+				"label": "Звичайний"
+			},
+			"withSpecialists": {
+				"label": "З спеціалістами"
+			}
+		},
+		"week-calendar": {
+			"label": "Календар (тиждень)",
 			"ordinary": {
 				"label": "Звичайний"
 			},

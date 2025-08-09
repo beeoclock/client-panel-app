@@ -1,0 +1,79 @@
+<filter-calendar-with-specialist [orderServiceStatusesControl]="orderServiceStatusesControl" [memberListControl]="memberIdListControl"/>
+
+<div class="flex flex-col h-[calc(100%-60px)] overflow-auto w-full">
+
+	<!-- Header Row with Days -->
+	<div class="flex bg-white sticky top-0 z-20">
+
+		<!-- Specialists Column Header -->
+		<div class="min-w-20 max-w-20 w-20 border-r border-b bg-white px-4 py-2 flex items-center z-10 sticky left-0">
+<!--			<span class="text-sm font-medium text-gray-700">{{ 'keyword.capitalize.specialists' | translate }}</span>-->
+		</div>
+
+		<!-- Weekday Headers -->
+		@for (weekday of weekdays; track weekday.number) {
+			<div class="flex-1 min-w-32 border-r border-b bg-white px-2 py-2 flex items-center justify-center">
+				<span class="text-sm font-medium text-gray-800">{{ weekday.translationKey | translate }}</span>
+			</div>
+		}
+
+	</div>
+
+	<!-- Specialist Rows -->
+	<div class="flex flex-col">
+
+		@for (member of memberList; track member._id) {
+			@if (memberIdListControl.getRawValue().includes(member._id)) {
+
+				<!-- Specialist Row -->
+				<div class="flex min-h-44">
+
+					<!-- Specialist Name Column -->
+					<div class="min-w-20 max-w-20 w-20 sticky left-0 border-r border-b bg-white px-1 flex flex-col items-center justify-center z-10">
+
+						@if (member.avatar?.url) {
+
+							<img [src]="member.avatar.url"
+								 class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
+
+						} @else {
+
+							<div class="text-white text-xs font-bold">{{ member.firstName[0] }}</div>
+							<div class="text-white text-xs font-bold">{{ member.lastName[0] }}</div>
+
+						}
+						<div class="text-sm font-medium text-gray-700 text-right">
+							{{ member.firstName }}
+						</div>
+					</div>
+
+					<!-- Weekday Columns for this Specialist -->
+					@for (weekday of weekdays; track weekday.number) {
+						<div class="flex-1 min-w-32 border-r bg-white p-1 relative flex flex-col border-b">
+
+							@let eventsByDateAndSpecialistId = eventsByDateAndSpecialistIdS();
+
+							@let itemsAtDate = eventsByDateAndSpecialistId?.[member._id]?.[weekday.number] ?? {items: []};
+
+							@for (item of itemsAtDate.items; track item._id) {
+								@if (isEAbsence(item)) {
+									<app-absence-event-week-calendar-component [absence]="item"/>
+								}
+								@if (isEOrderService(item)) {
+									<app-order-service-event-week-calendar-widget-component [orderService]="item"/>
+								}
+							}
+
+							<app-empty-slot-week-calendar-widget-component [startISO]="getStartIso(itemsAtDate.items, weekday.number)" [member]="member" [durationInMinutes]="30"/>
+
+						</div>
+					}
+
+				</div>
+
+			}
+		}
+
+	</div>
+
+</div>

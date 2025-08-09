@@ -11,19 +11,18 @@ import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
-import MembersV3ContainerWeekCalendarComponent
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/members.container.week-calendar.component";
+import MembersV3ContainerWeekCalendarComponent from './members.container.week-calendar.component';
 import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 @Component({
-	selector: 'app-event-calendar-with-specialists-page',
+	selector: 'app-event-week-calendar-page',
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
 		MembersV3ContainerWeekCalendarComponent
 	],
 	template: `
-		<app-event-v3-members-container-week-calendar-component/>
+		<app-event-members-container-week-calendar-component/>
 	`
 })
 export default class CalendarWithSpecialistsEventPage implements OnInit {

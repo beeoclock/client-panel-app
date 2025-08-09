@@ -7,6 +7,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 @import 'intl-tel-input/build/css/intlTelInput.css';
 // intl-tel-input styles
 .iti {

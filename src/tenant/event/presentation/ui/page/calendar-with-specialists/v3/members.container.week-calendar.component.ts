@@ -5,10 +5,10 @@ import {is} from "@core/shared/checker";
 import {AsyncPipe} from "@angular/common";
 import {ITableState} from "@shared/domain/table.state";
 import {Reactive} from "@core/cdk/reactive";
-import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
+import ScheduleV3ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
 import {MemberProfileStatusEnum} from "@tenant/member/member/domain/enums/member-profile-status.enum";
 import CalendarWithSpecialistLocaStateService
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {NGXLogger} from "ngx-logger";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
@@ -16,20 +16,20 @@ import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/m
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
 
 @Component({
-	selector: 'app-event-v2-members-container-week-calendar-component',
+	selector: 'app-event-v3-members-container-week-calendar-component',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (item$ | async) {
-			<app-event-v2-schedule-container-week-calendar-component/>
+			<app-event-v3-schedule-container-week-calendar-component/>
 		}
 	`,
 	imports: [
 		AsyncPipe,
-		ScheduleV2ContainerWeekCalendarComponent
+		ScheduleV3ContainerWeekCalendarComponent
 	]
 })
-export default class MembersV2ContainerWeekCalendarComponent extends Reactive implements OnInit {
+export default class MembersV3ContainerWeekCalendarComponent extends Reactive implements OnInit {
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -62,7 +62,7 @@ export default class MembersV2ContainerWeekCalendarComponent extends Reactive im
 	}
 
 	public ngOnInit(): void {
-		this.ngxLogger.info('MembersV2ContainerWeekCalendarComponent');
+		this.ngxLogger.info('MembersV3ContainerWeekCalendarComponent');
 	}
 
 

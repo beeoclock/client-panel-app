@@ -15,19 +15,22 @@
 		(willDismiss)="cancelChanges()"
 		(didDismiss)="didDismiss($event)">
 		<ng-template>
-			<div class="p-2">
-				<ion-segment [formControl]="intervalTypeControl">
+			@if (!onlyWeek()) {
 
-                    @for (intervalType of intervalTypes; track intervalType) {
-                        <ion-segment-button [value]="intervalType">
-                            <ion-label>
-                                {{ 'keyword.capitalize.' + intervalType | translate }}
-                            </ion-label>
-                        </ion-segment-button>
-                    }
+				<div class="p-2">
+					<ion-segment [formControl]="intervalTypeControl">
 
-                </ion-segment>
-            </div>
+						@for (intervalType of intervalTypes; track intervalType) {
+							<ion-segment-button [value]="intervalType">
+								<ion-label>
+									{{ 'keyword.capitalize.' + intervalType | translate }}
+								</ion-label>
+							</ion-segment-button>
+						}
+
+					</ion-segment>
+				</div>
+			}
 
 
 			<ion-datetime

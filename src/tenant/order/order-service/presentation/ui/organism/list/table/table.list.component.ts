@@ -17,7 +17,7 @@ import {
 } from "@tenant/order/order-service/presentation/ui/molecule/button/auto-refresh/auto-refresh.button.component";
 import {
 	OrderServiceStatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";

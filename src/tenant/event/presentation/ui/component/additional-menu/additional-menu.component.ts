@@ -253,6 +253,8 @@ export class AdditionalMenuComponent implements OnInit {
 
 	public readonly datetimeISO = input.required<string>();
 
+	public readonly anchorId = input<string>();
+
 	readonly selectServiceListComponent = viewChild.required(SelectServiceListComponent);
 
 	readonly customerChipComponent = viewChild.required(CustomerChipComponent);

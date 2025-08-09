@@ -33,7 +33,7 @@ import {
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {
 	OrderServiceStatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";

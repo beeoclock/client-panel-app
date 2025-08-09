@@ -1698,7 +1698,16 @@
 		"businessProfile": "Forretningsprofil",
 		"businessSettings": "Firma indstillinger",
 		"calendar": {
-			"label": "Kalender",
+			"label": "Kalender (dag)",
+			"ordinary": {
+				"label": "Almindelig"
+			},
+			"withSpecialists": {
+				"label": "Med specialister"
+			}
+		},
+		"week-calendar": {
+			"label": "Kalender (uge)",
 			"ordinary": {
 				"label": "Almindelig"
 			},
