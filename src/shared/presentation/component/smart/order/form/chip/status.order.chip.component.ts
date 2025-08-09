@@ -51,7 +51,7 @@ import {
 							<app-status-order-icon-component
 								class="flex text-3xl text-blue-600"
 								[status]="orderStatusEnum.confirmed"/>
-							{{ 'event.keyword.status.singular.accepted' | translate }}
+							{{ 'order.enum.status.singular.confirmed' | translate }}
 						</ion-label>
 					</ion-item>
 

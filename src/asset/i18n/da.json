@@ -646,7 +646,8 @@
 					"done": "Færdig",
 					"inProgress": "I gang",
 					"rejected": "Afvist",
-					"requested": "Anmodet"
+					"requested": "Anmodet",
+					"confirmed": "Bekræftet"
 				},
 				"singular": {
 					"accepted": "Accepteret",
