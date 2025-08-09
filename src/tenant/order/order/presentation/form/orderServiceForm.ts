@@ -39,7 +39,7 @@ export class OrderServiceForm extends BaseEntityForm<'OrderServiceDto', IOrderSe
 
 	}
 
-	public static create(initValue: Partial<IOrderServiceDto> = {}): OrderServiceForm {
+	public static create(initValue: Partial<IOrderService.DTO> = {}): OrderServiceForm {
 
 		const form = new OrderServiceForm();
 
@@ -57,7 +57,7 @@ export class OrderServiceFormArray extends FormArray<OrderServiceForm> {
 		super([]);
 	}
 
-	public pushNewOne(initialValue?: Partial<IOrderServiceDto> | undefined): OrderServiceForm {
+	public pushNewOne(initialValue?: Partial<IOrderService.DTO> | undefined): OrderServiceForm {
 
 		const control = new OrderServiceForm();
 
@@ -74,7 +74,7 @@ export class OrderServiceFormArray extends FormArray<OrderServiceForm> {
 
 	}
 
-	public static create(initialValue: IOrderServiceDto[] = []): OrderServiceFormArray {
+	public static create(initialValue: IOrderService.DTO[] = []): OrderServiceFormArray {
 		const formArray = new OrderServiceFormArray();
 		initialValue.forEach((serviceOrderDto) => formArray.push(OrderServiceForm.create(serviceOrderDto)));
 		return formArray;

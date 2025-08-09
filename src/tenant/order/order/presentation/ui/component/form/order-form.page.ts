@@ -31,7 +31,6 @@ import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
-import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 import {
 	ListProductFormOrder
 } from "@shared/presentation/component/smart/order/form/product/list/list.product.form.order";
@@ -61,15 +60,14 @@ import {
 
 			<app-list-service-form-order-component
 				#appListServiceFormOrderComponent
-				[orderServiceFormArray]="form.controls.order.controls.services"
+				[orderServiceFormArray]="form.controls.services"
 				[setupPartialData]="setupPartialData()"
 				class="flex-1"/>
 
 			<product-list-form-order
 				#productListFormOrder
-				[orderProductFormArray]="form.controls.order.controls.products"/>
+				[orderProductFormArray]="form.controls.products"/>
 
-			<app-payment-order-form-container class="px-1" [form]="form"/>
 			<bee-card>
 				<form-textarea-component
 					id="order-business-note"

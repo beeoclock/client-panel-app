@@ -100,7 +100,7 @@ export class OrderDetailsPaymentSectionComponent {
 		const order = this.order();
 		const {services, products} = order;
 		const totalServices = services.reduce((acc, service) => acc + service.serviceSnapshot.durationVersions[0].prices[0].price, 0);
-		const totalProducts = products.reduce((acc, product) => acc + product.productSnapshot.price, 0);
+		const totalProducts = products.reduce((acc, product) => acc + product.productSnapshot.price.value, 0);
 		return totalServices + totalProducts;
 	});
 

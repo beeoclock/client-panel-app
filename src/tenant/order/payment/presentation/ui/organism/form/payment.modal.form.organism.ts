@@ -169,7 +169,7 @@ export class PaymentModalFormOrganism {
 		const totalProducts = Array.from(selectedProducts).reduce((acc, productId) => {
 			const product = this.order().products.find(({_id}) => _id === productId);
 			if (product) {
-				return acc + product.productSnapshot.price;
+				return acc + product.productSnapshot.price.value;
 			}
 			return acc;
 		}, 0);
@@ -276,7 +276,7 @@ export class PaymentModalFormOrganism {
 				orderId: order._id,
 				anchorId: product._id,
 				anchorType: AnchorTypeEnum.product,
-				amount: product.productSnapshot.price,
+				amount: product.productSnapshot.price.value,
 				currency: this.currency(),
 			});
 			const action = new PaymentDataActions.CreateItem(form.getRawValue());
