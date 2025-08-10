@@ -1,11 +1,10 @@
 import { afterNextRender, Component, DestroyRef, inject, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Reactive } from '@core/cdk/reactive';
 import { Store } from '@ngxs/store';
 import { IntervalTypeEnum } from '@src/tenant/analytic/domain/enum/interval.enum';
 import { DateSliderControlComponent } from '@src/tenant/analytic/presentation/component/control/date-slider/date-slider.control.component';
-import { CalendarWithSpecialistsAction } from '@src/tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action';
+import { WeekCalendarAction } from '@src/tenant/event/infrastructure/state/week-calendar/week-calendar.action';
 import { switchMap } from 'rxjs';
 
 @Component({
@@ -47,24 +46,20 @@ export class DateControlWeekCalendarComponent {
 				switchMap(() => {
 					// Get start and end of the week based on selected date and interval
 					const formValue = this.form.getRawValue();
-					const { selectedDate } = formValue;
-					
+					const { selectedDate, interval } = formValue;
+
 					const date = new Date(selectedDate);
 					const dayOfWeek = date.getDay();
 					const startOfWeek = new Date(date);
 					startOfWeek.setDate(date.getDate() - dayOfWeek);
 					
-					const endOfWeek = new Date(startOfWeek);
-					endOfWeek.setDate(startOfWeek.getDate() + 6);
-					endOfWeek.setHours(23, 59, 59, 999);
-					
-					return this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
+					return this.store.dispatch(new WeekCalendarAction.SetDate({
 						start: startOfWeek.toISOString(),
-						end: endOfWeek.toISOString()
+						interval,
 					}));
 				}),
 				switchMap(() => {
-					return this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
+					return this.store.dispatch(new WeekCalendarAction.GetItems());
 				})
 			).subscribe();
 		});

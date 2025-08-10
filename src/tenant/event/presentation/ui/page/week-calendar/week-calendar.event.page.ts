@@ -7,12 +7,10 @@ import {filter} from "rxjs";
 import {
 	BusinessProfileActions
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";
-import {
-	CalendarWithSpecialistsAction
-} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
 import MembersV3ContainerWeekCalendarComponent from './members.container.week-calendar.component';
 import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
+import { WeekCalendarAction } from '@src/tenant/event/infrastructure/state/week-calendar/week-calendar.action';
 
 @Component({
 	selector: 'app-event-week-calendar-page',
@@ -25,7 +23,7 @@ import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager
 		<app-event-members-container-week-calendar-component/>
 	`
 })
-export default class CalendarWithSpecialistsEventPage implements OnInit {
+export default class WeekCalendarEventPage implements OnInit {
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -48,12 +46,12 @@ export default class CalendarWithSpecialistsEventPage implements OnInit {
 		this.store.dispatch([
 			new MemberDataActions.GetList(),
 			new BusinessProfileActions.Init(),
-			new CalendarWithSpecialistsAction.GetItems(),
+			new WeekCalendarAction.GetItems(),
 		])
 	});
 
 	public ngOnInit(): void {
-		this.ngxLogger.info('CalendarWithSpecialistsEventPage initialized');
-		this.analyticsService.logEvent('event_calendar_with_specialists_page_initialized');
+		this.ngxLogger.info('WeekCalendarEventPage initialized');
+		this.analyticsService.logEvent('event_week_calendar_page_initialized');
 	}
 }

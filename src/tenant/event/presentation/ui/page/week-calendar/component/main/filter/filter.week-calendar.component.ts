@@ -3,17 +3,13 @@ import {IonSelectWrapperComponent} from "@shared/presentation/component/input/io
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
-import CalendarWithSpecialistLocaStateService
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {IonPopover} from "@ionic/angular/standalone";
 import {Reactive} from "@core/cdk/reactive";
-import {
-	CalendarWithSpecialistsAction
-} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {VisibilityService} from "@core/cdk/visibility.service";
 import { IonSelectMemberComponent } from "@shared/presentation/component/input/ion/ion-select-member.component";
 import { DateControlWeekCalendarComponent } from "../../../filter/date-control/date-control.week-calendar.component";
+import { WeekCalendarAction } from "@src/tenant/event/infrastructure/state/week-calendar/week-calendar.action";
 
 @Component({
 	selector: 'filter-calendar-with-specialist',
@@ -76,7 +72,6 @@ export class FilterCalendarWithSpecialistComponent extends Reactive implements A
 		value: any;
 		label: string;
 	}[] = [];
-	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly translateService = inject(TranslateService);
 	private readonly visibilityService = inject(VisibilityService);
 
@@ -102,7 +97,7 @@ export class FilterCalendarWithSpecialistComponent extends Reactive implements A
 
 	@Dispatch()
 	public async forceRefresh() {
-		return new CalendarWithSpecialistsAction.GetItems();
+		return new WeekCalendarAction.GetItems();
 	}
 
 }

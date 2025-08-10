@@ -1,16 +1,12 @@
 import {Injectable} from "@angular/core";
 import {ISchedule} from "@shared/domain/interface/i.schedule";
-import {BehaviorSubject} from "rxjs";
-import {
-	EventCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 
 @Injectable({
 	providedIn: 'root'
 })
-export default class CalendarWithSpecialistLocaStateService {
+export default class WeekCalendarLocaStateService {
 
 	// Property to control amount of available button in each hour cell to add event
 	public readonly maxCreateEventButtonInHourCell = 2; // 2 buttons: 1 for each 30 minutes
@@ -55,7 +51,6 @@ export default class CalendarWithSpecialistLocaStateService {
 	public readonly cellWidthInPx = '328px';
 	public readonly hoursWidthInPx = '50px';
 
-	public readonly eventCalendarWithSpecialistWidgetComponent$ = new BehaviorSubject<EventCalendarWithSpecialistWidgetComponent | null>(null);
 	#earliestScheduleInSeconds = 0;
 	#latestScheduleInSeconds = 0;
 	#startTimeToDisplay = 0; // e.g. 8 (It means: 08:00)
@@ -85,11 +80,6 @@ export default class CalendarWithSpecialistLocaStateService {
 
 	public get schedules(): ISchedule[] {
 		return this.#schedules;
-	}
-
-	public setEventCalendarWithSpecialistWidgetComponent(value: EventCalendarWithSpecialistWidgetComponent | null) {
-		this.eventCalendarWithSpecialistWidgetComponent$.next(value);
-		return this;
 	}
 
 	public setStartTimeToDisplay(value: number) {

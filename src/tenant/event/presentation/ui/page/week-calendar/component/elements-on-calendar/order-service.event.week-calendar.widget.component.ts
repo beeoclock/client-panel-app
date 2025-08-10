@@ -70,7 +70,7 @@ import EOrderService from "@tenant/order/order-service/domain/entity/e.order-ser
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderEventCalendarWithSpecialistWidgetComponent {
+export class OrderEventWeekCalendarWidgetComponent {
 
 	public readonly orderService = input.required<EOrderService>();
 

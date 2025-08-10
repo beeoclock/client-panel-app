@@ -11,18 +11,10 @@ import {
 	viewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import CalendarWithSpecialistLocaStateService
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom, map, switchMap} from "rxjs";
-import {
-	CalendarWithSpecialistsQueries
-} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {ActivatedRoute} from "@angular/router";
-import {
-	CalendarWithSpecialistsAction
-} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
@@ -36,10 +28,9 @@ import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {explicitEffect} from "ngxtension/explicit-effect";
-import {FilterCalendarWithSpecialistComponent} from "./filter/filter.calendar-with-specialist.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
-	OrderEventCalendarWithSpecialistWidgetComponent
+	OrderEventWeekCalendarWidgetComponent
 } from "@tenant/event/presentation/ui/page/week-calendar/component/elements-on-calendar/order-service.event.week-calendar.widget.component";
 import {
 	AbsenceEventWeekCalendarComponent
@@ -47,6 +38,11 @@ import {
 import {
 	EmptySlotWeekCalendarWidgetComponent
 } from "@tenant/event/presentation/ui/page/week-calendar/component/elements-on-calendar/empty-slot.week-calendar.widget.component";
+import WeekCalendarLocaStateService from "../../week-calendar.local.state.service";
+import { WeekCalendarQueries } from "@src/tenant/event/infrastructure/state/week-calendar/week-calendar.queries";
+import { WeekCalendarAction } from "@src/tenant/event/infrastructure/state/week-calendar/week-calendar.action";
+import { IntervalTypeEnum } from "@src/tenant/analytic/domain/enum/interval.enum";
+import { FilterCalendarWithSpecialistComponent } from "./filter/filter.week-calendar.component";
 
 
 @Component({
@@ -59,19 +55,19 @@ import {
 		class: 'flex flex-col h-full overflow-x-auto',
 	},
 	imports: [
-		FilterCalendarWithSpecialistComponent,
-		TranslatePipe,
-		OrderEventCalendarWithSpecialistWidgetComponent,
-		AbsenceEventWeekCalendarComponent,
-		EmptySlotWeekCalendarWidgetComponent,
-	]
+    TranslatePipe,
+    OrderEventWeekCalendarWidgetComponent,
+    AbsenceEventWeekCalendarComponent,
+    EmptySlotWeekCalendarWidgetComponent,
+    FilterCalendarWithSpecialistComponent
+]
 })
 export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 
 
-	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+	protected readonly weekCalendarStateService = inject(WeekCalendarLocaStateService);
 
-	public readonly memberList = this.calendarWithSpecialistLocaStateService.members;
+	public readonly memberList = this.weekCalendarStateService.members;
 
 	public readonly orderServiceStatusesControl: FormControl<OrderServiceStatusEnum[]> = new FormControl<OrderServiceStatusEnum[]>([], {
 		nonNullable: true
@@ -95,9 +91,9 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly destroyRef = inject(DestroyRef);
-	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+	public readonly selectedDate$ = this.store.select(WeekCalendarQueries.start);
 	public readonly schedules$ = this.store.select(BusinessProfileState.schedules);
-	public readonly isTodayS = this.store.selectSignal(CalendarWithSpecialistsQueries.isToday);
+	public readonly isToday$ = this.store.selectSignal(WeekCalendarQueries.isToday);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly actions$ = inject(Actions);
 
@@ -128,7 +124,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 		})
 	}
 
-	private readonly events$ = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
+	private readonly events$ = this.store.select(WeekCalendarQueries.data).pipe(
 		takeUntilDestroyed(),
 		map((items) => {
 
@@ -170,7 +166,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 
 					if (entireBusiness) {
 
-						this.calendarWithSpecialistLocaStateService.members.forEach((member) => {
+						this.weekCalendarStateService.members.forEach((member) => {
 
 							const specialistId = member._id;
 
@@ -277,7 +273,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 
 	public ngOnInit() {
 
-		this.ngxLogger.info('CalendarWithSpecialistWidgetComponent: ngOnInit');
+		this.ngxLogger.info('WeekCalendarMainPageComponent: ngOnInit');
 
 		this.detectParamsInQueryParams();
 
@@ -300,7 +296,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 			this.dispatchActionToUpdateCalendar();
 		});
 
-		this.store.select(CalendarWithSpecialistsQueries.params).pipe(
+		this.store.select(WeekCalendarQueries.params).pipe(
 			takeUntilDestroyed(this.destroyRef),
 		).subscribe((params) => {
 			if ('statuses' in params) {
@@ -318,7 +314,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 			takeUntilDestroyed(this.destroyRef),
 			switchMap((statuses) => {
 				return this.store.dispatch(
-					new CalendarWithSpecialistsAction.UpdateFilters({
+					new WeekCalendarAction.UpdateFilters({
 						statuses
 					})
 				)
@@ -332,7 +328,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 	public ngAfterViewInit() {
 
 		// Check if data is empty if true then dispatch action to get items
-		firstValueFrom(this.store.select(CalendarWithSpecialistsQueries.data)).then((data) => {
+		firstValueFrom(this.store.select(WeekCalendarQueries.data)).then((data) => {
 			if (!data.length) {
 				this.dispatchActionToUpdateCalendar();
 			}
@@ -342,7 +338,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 
 	@Dispatch()
 	public dispatchActionToUpdateCalendar() {
-		return new CalendarWithSpecialistsAction.GetItems();
+		return new WeekCalendarAction.GetItems();
 	}
 
 	private async detectParamsInQueryParams() {
@@ -354,8 +350,9 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 
 		if (start) {
 
-			const setDate$ = this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
-				start
+			const setDate$ = this.store.dispatch(new WeekCalendarAction.SetDate({
+				start,
+				interval: IntervalTypeEnum.week
 			}));
 			await firstValueFrom(setDate$);
 
@@ -367,14 +364,14 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 				emitEvent: false,
 				onlySelf: true
 			});
-			const updateFilters$ = this.store.dispatch(new CalendarWithSpecialistsAction.UpdateFilters({
+			const updateFilters$ = this.store.dispatch(new WeekCalendarAction.UpdateFilters({
 				statuses
 			}));
 			await firstValueFrom(updateFilters$);
 
 		}
 
-		const getItems$ = this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		const getItems$ = this.store.dispatch(new WeekCalendarAction.GetItems());
 		await firstValueFrom(getItems$);
 
 	}

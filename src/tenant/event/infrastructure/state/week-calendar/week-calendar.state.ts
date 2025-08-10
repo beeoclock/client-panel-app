@@ -2,9 +2,6 @@ import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {DateTime} from "luxon";
-import {
-	CalendarWithSpecialistsAction
-} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
 import {clearObject} from "@shared/domain/clear.object";
@@ -13,11 +10,13 @@ import {StateEnum} from "@core/shared/enum/state.enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
+import { WeekCalendarAction } from "./week-calendar.action";
+import { IntervalTypeEnum } from "@src/tenant/analytic/domain/enum/interval.enum";
 
-export interface ICalendarWithSpecialist {
+export interface IWeekCalendarState {
 	params: {
 		start: string;
-		end: string;
+		interval: IntervalTypeEnum;
 		page: number;
 		pageSize: number;
 		orderBy: OrderByEnum;
@@ -32,12 +31,12 @@ export interface ICalendarWithSpecialist {
 	}
 }
 
-@State<ICalendarWithSpecialist>({
-	name: 'calendarWithSpecialists',
+@State<IWeekCalendarState>({
+	name: 'weekCalendar',
 	defaults: {
 		params: {
 			start: DateTime.now().startOf('day').toJSDate().toISOString(),
-			end: DateTime.now().endOf('day').toJSDate().toISOString(),
+			interval: IntervalTypeEnum.week,
 			page: 1,
 			pageSize: 1000,
 			orderBy: OrderByEnum.CREATED_AT,
@@ -58,14 +57,14 @@ export interface ICalendarWithSpecialist {
 	},
 })
 @Injectable()
-export class CalendarWithSpecialistsState {
+export class WeekCalendarActionState {
 
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly sharedUow = inject(SharedUow);
 	private readonly router = inject(Router);
 
-	@Action(CalendarWithSpecialistsAction.GetItems)
-	public async getItems(ctx: StateContext<ICalendarWithSpecialist>) {
+	@Action(WeekCalendarAction.GetItems)
+	public async getItems(ctx: StateContext<IWeekCalendarState>) {
 
 		const {params, loader, settings} = ctx.getState();
 
@@ -78,13 +77,13 @@ export class CalendarWithSpecialistsState {
 			loader: true,
 		});
 
-		const orderParams = {
-			...params
-		};
+		const {interval, ...orderParams} = params;
 
-		const absences = await this.sharedUow.absence.findByRange(params.start, params.end);
+		const end = DateTime.fromISO(params.start).plus({ [interval]: 1 }).endOf('day').toJSDate().toISOString();
 
-		const orders = await this.sharedUow.order.findByServicesRangeAndStatuses(params.start, params.end, params.statuses);
+		const absences = await this.sharedUow.absence.findByRange(params.start, end);
+
+		const orders = await this.sharedUow.order.findByServicesRangeAndStatuses(params.start, end, params.statuses);
 
 		const {startTime, endTime} = settings;
 
@@ -120,9 +119,9 @@ export class CalendarWithSpecialistsState {
 					}
 
 					if (
-						!(service.orderAppointmentDetails.start >= params.start && service.orderAppointmentDetails.start < params.end) &&
-						!(service.orderAppointmentDetails.end > params.start && service.orderAppointmentDetails.end <= params.end) &&
-						!(service.orderAppointmentDetails.start < params.start && service.orderAppointmentDetails.end > params.end)
+						!(service.orderAppointmentDetails.start >= params.start && service.orderAppointmentDetails.start < end) &&
+						!(service.orderAppointmentDetails.end > params.start && service.orderAppointmentDetails.end <= end) &&
+						!(service.orderAppointmentDetails.start < params.start && service.orderAppointmentDetails.end > end)
 					) {
 						return;
 					}
@@ -171,8 +170,8 @@ export class CalendarWithSpecialistsState {
 
 	}
 
-	@Action(CalendarWithSpecialistsAction.UpdateFilters)
-	public async updateFilters(ctx: StateContext<ICalendarWithSpecialist>, {payload}: CalendarWithSpecialistsAction.UpdateFilters) {
+	@Action(WeekCalendarAction.UpdateFilters)
+	public async updateFilters(ctx: StateContext<IWeekCalendarState>, {payload}: WeekCalendarAction.UpdateFilters) {
 		const {params} = ctx.getState();
 		const newParams = {
 			...params,
@@ -192,36 +191,38 @@ export class CalendarWithSpecialistsState {
 
 	}
 
-	@Action(CalendarWithSpecialistsAction.NextDate)
-	public async nextDate(ctx: StateContext<ICalendarWithSpecialist>) {
+	@Action(WeekCalendarAction.NextDate)
+	public async nextDate(ctx: StateContext<IWeekCalendarState>) {
 
 		const {params} = ctx.getState();
 
-		ctx.dispatch(new CalendarWithSpecialistsAction.SetDate({
-			start: DateTime.fromISO(params.start).plus({days: 1}).startOf('day').toJSDate().toISOString()
+		ctx.dispatch(new WeekCalendarAction.SetDate({
+			start: DateTime.fromISO(params.start).plus({days: 1}).startOf('day').toJSDate().toISOString(),
+			interval: params.interval
 		}));
 
-		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		ctx.dispatch(new WeekCalendarAction.GetItems());
 
 	}
 
-	@Action(CalendarWithSpecialistsAction.PrevDate)
-	public async prevDate(ctx: StateContext<ICalendarWithSpecialist>) {
+	@Action(WeekCalendarAction.PrevDate)
+	public async prevDate(ctx: StateContext<IWeekCalendarState>) {
 
 		const {params} = ctx.getState();
 
-		ctx.dispatch(new CalendarWithSpecialistsAction.SetDate({
-			start: DateTime.fromISO(params.start).minus({days: 1}).startOf('day').toJSDate().toISOString()
+		ctx.dispatch(new WeekCalendarAction.SetDate({
+			start: DateTime.fromISO(params.start).minus({days: 1}).startOf('day').toJSDate().toISOString(),
+			interval: params.interval
 		}));
 
-		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		ctx.dispatch(new WeekCalendarAction.GetItems());
 
 	}
 
-	@Action(CalendarWithSpecialistsAction.SetDate)
-	public async setDate(ctx: StateContext<ICalendarWithSpecialist>, {payload}: CalendarWithSpecialistsAction.SetDate) {
+	@Action(WeekCalendarAction.SetDate)
+	public async setDate(ctx: StateContext<IWeekCalendarState>, {payload}: WeekCalendarAction.SetDate) {
 
-		const {start} = payload;
+		const {start, interval} = payload;
 
 		const {params} = ctx.getState();
 
@@ -231,9 +232,12 @@ export class CalendarWithSpecialistsState {
 			return;
 		}
 
+		const end = DateTime.fromISO(start).plus({[interval]: 1}).endOf('day').toJSDate().toISOString();
+
 		const newParams = {
 			...params,
 			start: DateTime.fromISO(start).startOf('day').toJSDate().toISOString(),
+			end,
 		};
 
 		ctx.patchState({

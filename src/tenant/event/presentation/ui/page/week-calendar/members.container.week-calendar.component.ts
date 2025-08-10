@@ -6,13 +6,12 @@ import {AsyncPipe} from "@angular/common";
 import {ITableState} from "@shared/domain/table.state";
 import {Reactive} from "@core/cdk/reactive";
 import {MemberProfileStatusEnum} from "@tenant/member/member/domain/enums/member-profile-status.enum";
-import CalendarWithSpecialistLocaStateService
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/member.data.state";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
 import ScheduleV3ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
+import WeekCalendarLocaStateService from "./week-calendar.local.state.service";
 
 @Component({
 	selector: 'app-event-members-container-week-calendar-component',
@@ -31,7 +30,7 @@ import ScheduleV3ContainerWeekCalendarComponent from "./schedule.container.week-
 export default class MembersV3ContainerWeekCalendarComponent extends Reactive {
 
 	private readonly store = inject(Store);
-	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+	private readonly weekCalendarLocaStateService = inject(WeekCalendarLocaStateService);
 
 	public readonly item$ = this.store.select(MemberDataState.tableState).pipe(
 		this.takeUntil(),
@@ -50,7 +49,7 @@ export default class MembersV3ContainerWeekCalendarComponent extends Reactive {
 		filter((tableState) => tableState.total > 0),
 		tap((tableState) => {
 			const members = tableState.items.filter((member: IMember.EntityRaw) => member.profileStatus === MemberProfileStatusEnum.active);
-			this.calendarWithSpecialistLocaStateService.setMembers(members);
+			this.weekCalendarLocaStateService.setMembers(members);
 		})
 	);
 

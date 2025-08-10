@@ -12,9 +12,6 @@ import {
 } from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
-import {
-	CalendarWithSpecialistsQueries
-} from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {BooleanState} from "@shared/domain";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
@@ -23,6 +20,7 @@ import {SecondRouterOutletService} from "@src/second.router-outlet.service";
 import AdditionalMenuComponent from "@tenant/event/presentation/ui/component/additional-menu/additional-menu.component";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {v4} from 'uuid';
+import { WeekCalendarQueries } from "@src/tenant/event/infrastructure/state/week-calendar/week-calendar.queries";
 
 @Component({
 	selector: 'app-empty-slot-week-calendar-widget-component',
@@ -57,7 +55,7 @@ export class EmptySlotWeekCalendarWidgetComponent implements AfterViewInit {
 	private readonly renderer2 = inject(Renderer2);
 	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
-	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+	public readonly selectedDate$ = this.store.select(WeekCalendarQueries.start);
 	public readonly selectedDate = toSignal(this.selectedDate$);
 
 	public constructor() {
@@ -82,13 +80,13 @@ export class EmptySlotWeekCalendarWidgetComponent implements AfterViewInit {
 
 	@HostListener('click')
 	public async onClick() {
-		this.ngxLogger.debug('EmptySlotCalendarWithSpecialistWidgetComponent:onClick');
+		this.ngxLogger.debug('EmptySlotWeekCalendarWidgetComponent:onClick');
 		await this.openAdditionalMenu();
 	}
 
 	@HostListener('tap')
 	public async onTap() {
-		this.ngxLogger.debug('EmptySlotCalendarWithSpecialistWidgetComponent:onTap');
+		this.ngxLogger.debug('EmptySlotWeekCalendarWidgetComponent:onTap');
 		await this.openAdditionalMenu();
 	}
 
