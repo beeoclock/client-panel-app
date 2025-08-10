@@ -91,7 +91,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly destroyRef = inject(DestroyRef);
-	public readonly selectedDate$ = this.store.select(WeekCalendarQueries.start);
+	public readonly selectedDateS = this.store.selectSignal(WeekCalendarQueries.start);
 	public readonly schedules$ = this.store.select(BusinessProfileState.schedules);
 	public readonly isToday$ = this.store.selectSignal(WeekCalendarQueries.isToday);
 	private readonly activatedRoute = inject(ActivatedRoute);
@@ -101,7 +101,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 
 	public constructor() {
 		explicitEffect([this.columns], ([columns]) => {
-			console.log({columns});
+			({columns});
 			let isSyncing = false;
 
 			columns.forEach(column => {
@@ -256,7 +256,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 
 	public getStartIso(items: (EOrderService | EAbsence)[], weekday: string): string {
 		if (!items.length) {
-			const startOfWeek = DateTime.now().startOf('week');
+			const startOfWeek = this.selectedDateS();
 			const parsedWeekday = parseInt(weekday, 10) as WeekdayNumbers | undefined;
 			if (!parsedWeekday) {
 				throw new Error(`Invalid weekday: ${weekday}`);

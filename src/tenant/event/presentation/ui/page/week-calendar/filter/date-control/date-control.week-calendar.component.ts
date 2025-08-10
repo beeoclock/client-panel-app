@@ -5,6 +5,7 @@ import { Store } from '@ngxs/store';
 import { IntervalTypeEnum } from '@src/tenant/analytic/domain/enum/interval.enum';
 import { DateSliderControlComponent } from '@src/tenant/analytic/presentation/component/control/date-slider/date-slider.control.component';
 import { WeekCalendarAction } from '@src/tenant/event/infrastructure/state/week-calendar/week-calendar.action';
+import { DateTime } from 'luxon';
 import { switchMap } from 'rxjs';
 
 @Component({
@@ -47,14 +48,10 @@ export class DateControlWeekCalendarComponent {
 					// Get start and end of the week based on selected date and interval
 					const formValue = this.form.getRawValue();
 					const { selectedDate, interval } = formValue;
+					const start = DateTime.fromISO(selectedDate).startOf('week').toJSDate().toISOString();
 
-					const date = new Date(selectedDate);
-					const dayOfWeek = date.getDay();
-					const startOfWeek = new Date(date);
-					startOfWeek.setDate(date.getDate() - dayOfWeek);
-					
 					return this.store.dispatch(new WeekCalendarAction.SetDate({
-						start: startOfWeek.toISOString(),
+						start,
 						interval,
 					}));
 				}),

@@ -276,9 +276,6 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 		}),
 		tap((eventsBySpecialistId) => {
 
-			console.log({eventsBySpecialistId});
-
-
 			this.eventsBySpecialistId = eventsBySpecialistId;
 			setTimeout(() => {
 				this.columnList.forEach((column) => {

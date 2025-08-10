@@ -35,7 +35,7 @@ export interface IWeekCalendarState {
 	name: 'weekCalendar',
 	defaults: {
 		params: {
-			start: DateTime.now().startOf('day').toJSDate().toISOString(),
+			start: DateTime.now().startOf('week').toJSDate().toISOString(),
 			interval: IntervalTypeEnum.week,
 			page: 1,
 			pageSize: 1000,
@@ -84,6 +84,8 @@ export class WeekCalendarActionState {
 		const absences = await this.sharedUow.absence.findByRange(params.start, end);
 
 		const orders = await this.sharedUow.order.findByServicesRangeAndStatuses(params.start, end, params.statuses);
+
+		this.ngxLogger.debug('CalendarWithSpecialistsState.getItems', 'Orders found', orders.length, 'Absences found', absences.length);
 
 		const {startTime, endTime} = settings;
 
