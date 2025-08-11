@@ -6,6 +6,7 @@ import {
 	HostBinding,
 	HostListener,
 	inject,
+	input,
 	model,
 	Renderer2,
 	viewChild,
@@ -54,10 +55,21 @@ type DATA = EOrderService | EAbsence;
 	template: `
 		@let entity = item();
 		@if (isEOrderService(entity)) {
-			<app-order-service-event-calendar-with-specialist-widget-component [orderService]="entity"/>
+			<app-order-service-event-calendar-with-specialist-widget-component 
+				[attr.data-order-id]="entity.orderId"
+				[attr.data-order-service-id]="entity._id"
+				[attr.data-member-id]="member()._id"
+				[attr.data-member-first-name]="member().firstName"
+				[attr.data-member-last-name]="member().lastName"
+				[orderService]="entity"/>
 		}
 		@if (isEAbsence(entity)) {
-			<app-absence-event-calendar-with-specialist-widget-component [absence]="entity"/>
+			<app-absence-event-calendar-with-specialist-widget-component 
+				[attr.data-absence-id]="entity._id"
+				[attr.data-member-id]="member()._id"
+				[attr.data-member-first-name]="member().firstName"
+				[attr.data-member-last-name]="member().lastName"
+				[absence]="entity"/>
 		}
 		@if (draggable) {
 
@@ -103,6 +115,7 @@ type DATA = EOrderService | EAbsence;
 })
 export class EventCalendarWithSpecialistWidgetComponent {
 
+	public readonly member = input.required<IMember.DTO>();
 	public readonly item = model.required<DATA>();
 
 	public readonly orderEventCalendarWithSpecialistWidgetComponent = viewChild(OrderEventCalendarWithSpecialistWidgetComponent);

@@ -69,7 +69,7 @@ export class FilterCalendarWithSpecialistComponent extends Reactive implements A
 	public readonly orderServiceStatusesControl = input.required<FormControl<OrderServiceStatusEnum[]>>();
 	public readonly memberListControl = input.required<FormControl<string[]>>();
 	public orderServiceStatusOptions: {
-		value: any;
+		value: OrderServiceStatusEnum;
 		label: string;
 	}[] = [];
 	private readonly translateService = inject(TranslateService);

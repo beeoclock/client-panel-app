@@ -64,7 +64,7 @@
 
 					@for (event of eventsBySpecialistId[member._id]; track event._id) {
 
-						<app-event-calendar-with-specialists-widget-component [item]="event" />
+						<app-event-calendar-with-specialists-widget-component [member]="member" [item]="event" />
 
 					}
 

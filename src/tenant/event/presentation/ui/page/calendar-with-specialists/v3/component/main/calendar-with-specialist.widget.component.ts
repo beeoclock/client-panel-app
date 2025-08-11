@@ -330,7 +330,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 			if ('statuses' in params) {
 				const {statuses} = params;
 				if (statuses) {
-					this.orderServiceStatusesControl.setValue(statuses as any, {
+					this.orderServiceStatusesControl.setValue(statuses, {
 						emitEvent: false,
 						onlySelf: true
 					});

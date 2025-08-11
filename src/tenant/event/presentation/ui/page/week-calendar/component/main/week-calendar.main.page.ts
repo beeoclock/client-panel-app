@@ -101,7 +101,7 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 
 	public constructor() {
 		explicitEffect([this.columns], ([columns]) => {
-			({columns});
+			
 			let isSyncing = false;
 
 			columns.forEach(column => {
