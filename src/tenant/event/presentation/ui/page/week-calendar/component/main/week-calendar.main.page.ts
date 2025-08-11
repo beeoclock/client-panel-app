@@ -29,6 +29,7 @@ import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {TranslatePipe} from "@ngx-translate/core";
+import {WeekDaysEnum} from "@core/shared/enum";
 import {
 	OrderEventWeekCalendarWidgetComponent
 } from "@tenant/event/presentation/ui/page/week-calendar/component/elements-on-calendar/order-service.event.week-calendar.widget.component";
@@ -262,6 +263,30 @@ export class WeekCalendarMainPage implements OnInit, AfterViewInit {
 				throw new Error(`Invalid weekday: ${weekday}`);
 			}
 			const startOfDay = startOfWeek.set({weekday: parsedWeekday});
+			
+			// Get business work hours for this weekday
+			const schedules = this.store.selectSnapshot(BusinessProfileState.schedules);
+			const daySchedule = schedules?.find(schedule => 
+				schedule.workDays?.includes(parsedWeekday as WeekDaysEnum)
+			);
+			
+			if (daySchedule && daySchedule.startInSeconds !== undefined) {
+				// Convert seconds to hours, minutes, and seconds
+				const totalSeconds = daySchedule.startInSeconds;
+				const hours = Math.floor(totalSeconds / 3600);
+				const minutes = Math.floor((totalSeconds % 3600) / 60);
+				const seconds = totalSeconds % 60;
+				
+				const startOfDayWithBusinessHours = startOfDay.set({
+					hour: hours,
+					minute: minutes,
+					second: seconds,
+					millisecond: 0
+				});
+				return startOfDayWithBusinessHours.toJSDate().toISOString();
+			}
+			
+			// Fallback to start of day if no schedule found
 			return startOfDay.toJSDate().toISOString();
 		}
 
