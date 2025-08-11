@@ -24,4 +24,8 @@ export class ApiDataProvider extends DataProvider<ITariffPlanHistory.DTO> {
 		return of(data);
 	}
 
+	public override update$(data: ITariffPlanHistory.DTO) {
+		return of(data);
+	}
+
 }

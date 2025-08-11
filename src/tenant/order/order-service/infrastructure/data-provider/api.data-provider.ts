@@ -60,7 +60,7 @@ export class ApiDataProvider extends DataProvider<IOrderService.DTO> {
 	 * TODO
 	 * @param dto
 	 */
-	// public override update$(dto: IOrderService.DTO) {
-	// 	return this.putApi.execute$(dto);
-	// }
+	public override update$(dto: IOrderService.DTO) {
+		return of(dto);
+	}
 }

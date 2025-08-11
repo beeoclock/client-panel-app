@@ -32,4 +32,8 @@ export class ApiDataProvider extends DataProvider<ITariffPlan.DTO> {
 		return of(data);
 	}
 
+	public override update$(data: ITariffPlan.DTO) {
+		return of(data);
+	}
+
 }

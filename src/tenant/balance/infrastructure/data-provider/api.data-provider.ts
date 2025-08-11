@@ -20,4 +20,8 @@ export class ApiDataProvider extends DataProvider<IBalance.DTO> {
 	public override create$(data: IBalance.DTO) {
 		return of(data);
 	}
+
+	public override update$(data: IBalance.DTO) {
+		return of(data);
+	}
 }

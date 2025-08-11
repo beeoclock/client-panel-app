@@ -29,4 +29,8 @@ export class ApiDataProvider extends DataProvider<ITenantPlugin.DTO> {
 		return of(data);
 	}
 
+	public override update$(data: ITenantPlugin.DTO) {
+		return of(data);
+	}
+
 }
