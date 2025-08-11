@@ -234,6 +234,7 @@ export class CalendarWithSpecialistsState {
 		const newParams = {
 			...params,
 			start: DateTime.fromISO(start).startOf('day').toJSDate().toISOString(),
+			end: DateTime.fromISO(start).endOf('day').toJSDate().toISOString(),
 		};
 
 		ctx.patchState({

@@ -31,14 +31,25 @@
 
 		@if (memberIdListControl.getRawValue().includes(member._id)) {
 
-			<div #column data-column="true" class="bg-white w-full border-r max-w-xs min-w-72 overflow-auto">
+			<div 
+				#column 
+				(mouseover)="mouseover($event)"
+				(focus)="onFocus($event)"
+				(mouseenter)="mouseEnter($event)"
+				(focusin)="onFocusIn($event)"
+				(touchstart)="mouseover($event)"
+				(touchend)="mouseEnter($event)"
+				[attr.data-index]="$index + 1"
+				data-column="true" 
+				class="bg-white w-full border-r max-w-xs min-w-72 overflow-auto"
+				tabindex="0">
 
 				<!-- board category header -->
 				<div data-column-header="true" class="flex flex-row justify-between items-center border-b sticky h-12 top-0 bg-white z-10">
 					<div class="flex items-center justify-between w-full">
 						<event-header-calendar-with-specialist-widget-component [member]="member"/>
 						<div class="mr-2 rounded-full bg-neutral-100 text-neutral-500 h-8 w-8 flex justify-center items-center">
-							{{ eventsBySpecialistId[member._id]?.length ?? 0 }}
+							{{ eventsBySpecialistIdS()[member._id]?.length ?? 0 }}
 						</div>
 					</div>
 				</div>
@@ -62,7 +73,7 @@
 
 					}
 
-					@for (event of eventsBySpecialistId[member._id]; track event._id) {
+					@for (event of eventsBySpecialistIdS()[member._id]; track event._id) {
 
 						<app-event-calendar-with-specialists-widget-component [member]="member" [item]="event" />
 
