@@ -107,7 +107,7 @@ export class SyncButtonComponent {
 	});
 
 	public readonly isPaused = toSignal(SyncManager.isPaused$);
-	public readonly isSyncing = toSignal(SyncManager.isSyncing$.pipe(tap(a => console.log('isSyncing', a))));
+	public readonly isSyncing = toSignal(SyncManager.isSyncing$);
 
 	private readonly setTimeoutSubscription = interval(1_000).pipe(
 		takeUntilDestroyed(),
