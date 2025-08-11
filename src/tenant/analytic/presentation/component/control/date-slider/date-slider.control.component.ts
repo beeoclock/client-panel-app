@@ -67,7 +67,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	public readonly initialIntervalType = input<IntervalTypeEnum>(IntervalTypeEnum.day);
 
-	public readonly onlyWeek = input<boolean>(true);
+	public readonly onlyWeek = input<boolean>(false);
 
 	readonly ionDateTime = viewChild.required(IonDatetime);
 
