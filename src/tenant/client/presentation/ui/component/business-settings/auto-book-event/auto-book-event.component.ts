@@ -1,6 +1,5 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {NotificationCoreService} from "@core/cdk/notification.core.service";
-import {AsyncPipe} from "@angular/common";
 import {CardComponent} from "@shared/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
@@ -12,7 +11,6 @@ import {NGXLogger} from "ngx-logger";
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
-		AsyncPipe,
 		CardComponent,
 		TranslateModule,
 		SwitchComponent

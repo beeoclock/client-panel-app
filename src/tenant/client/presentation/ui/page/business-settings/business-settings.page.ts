@@ -31,20 +31,22 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
+import { AutoBookEventComponent } from "../../component/business-settings/auto-book-event/auto-book-event.component";
 
 @Component({
 	selector: 'client-business-settings-page',
 	templateUrl: './business-settings.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		BookingSettingsBusinessProfileComponent,
-		ButtonSaveContainerComponent,
-		PrimaryButtonDirective,
-		TranslateModule,
-		DangerZoneComponent,
-		ContainerBusinessSettingsComponent,
-		NotificationSettingsComponent,
-	],
+    BookingSettingsBusinessProfileComponent,
+    ButtonSaveContainerComponent,
+    PrimaryButtonDirective,
+    TranslateModule,
+    DangerZoneComponent,
+    ContainerBusinessSettingsComponent,
+    NotificationSettingsComponent,
+    AutoBookEventComponent
+],
 	standalone: true
 })
 export default class BusinessSettingsPage extends Reactive implements OnInit, OnDestroy {
