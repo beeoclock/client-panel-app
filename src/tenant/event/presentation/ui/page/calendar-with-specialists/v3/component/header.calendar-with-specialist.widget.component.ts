@@ -15,8 +15,8 @@ import {IMember} from "src/tenant/member/member/domain";
 
 				} @else {
 
-					<div class="text-white text-xs font-bold">{{ member().firstName[0] }}</div>
-					<div class="text-white text-xs font-bold">{{ member().lastName[0] }}</div>
+					<div class="text-white text-xs font-bold">{{ member().firstName?.[0] ?? '' }}</div>
+					<div class="text-white text-xs font-bold">{{ member().lastName?.[0] ?? '' }}</div>
 
 				}
 

@@ -26,7 +26,7 @@ import {
 						<img class="me-1.5 inline-block size-8 rounded-full object-cover" [src]="data.avatar.url" alt="Photo of member">
 					} @else {
 						<div class="me-1.5 inline-block size-8 rounded-full bg-beeColor-400 text-white text-xs font-bold flex items-center justify-center">
-							{{ data.firstName[0] }}{{ data.lastName[0] }}
+							{{ data.firstName?.[0] ?? '' }}{{ data.lastName?.[0] ?? '' }}
 						</div>
 					}
 					<div class="whitespace-nowrap font-medium text-neutral-800 dark:text-white flex flex-col">
