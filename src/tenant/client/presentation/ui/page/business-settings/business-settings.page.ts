@@ -31,20 +31,23 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
+import { AutoBookEventComponent } from "../../component/business-settings/auto-book-event/auto-book-event.component";
+import { AutomaticApprovalTimeType } from '@core/shared/enum/automatic-approval-time.enum';
 
 @Component({
 	selector: 'client-business-settings-page',
 	templateUrl: './business-settings.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		BookingSettingsBusinessProfileComponent,
-		ButtonSaveContainerComponent,
-		PrimaryButtonDirective,
-		TranslateModule,
-		DangerZoneComponent,
-		ContainerBusinessSettingsComponent,
-		NotificationSettingsComponent,
-	],
+    BookingSettingsBusinessProfileComponent,
+    ButtonSaveContainerComponent,
+    PrimaryButtonDirective,
+    TranslateModule,
+    DangerZoneComponent,
+    ContainerBusinessSettingsComponent,
+    NotificationSettingsComponent,
+    AutoBookEventComponent
+],
 	standalone: true
 })
 export default class BusinessSettingsPage extends Reactive implements OnInit, OnDestroy {
@@ -107,9 +110,9 @@ export default class BusinessSettingsPage extends Reactive implements OnInit, On
 
 	}
 
-	@Dispatch()
 	private saveBusinessProfile(value: IBusinessProfile.DTO) {
-		return new BusinessProfileActions.Update(value);
+		const action = new BusinessProfileActions.Update(value);
+		return this.store.dispatch(action);
 	}
 
 	// Save data
@@ -121,11 +124,17 @@ export default class BusinessSettingsPage extends Reactive implements OnInit, On
 			this.form.disable();
 			this.form.markAsPending();
 
+			const {isEnabled} = value.bookingSettings.autoActionSettings;
+			value.bookingSettings.autoBookOrder = isEnabled;
+			if (isEnabled) {
+				value.bookingSettings.autoActionSettings.actionType = AutomaticApprovalTimeType.APPROVE;
+			} else {
+				value.bookingSettings.autoActionSettings.actionType = AutomaticApprovalTimeType.NONE;
+			}
+
 			try {
-				await Promise.all([
-					// Save data
-					firstValueFrom(this.saveBusinessProfile(value) as unknown as Observable<unknown>),
-				]);
+				await firstValueFrom(this.saveBusinessProfile(value));
+				this.ngxLogger.info('Business profile updated successfully', value);
 			} catch (e) {
 				this.ngxLogger.error(e);
 			}

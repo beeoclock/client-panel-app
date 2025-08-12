@@ -5,7 +5,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/or
 import {FormControl} from "@angular/forms";
 import {
 	OrderServiceStatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({

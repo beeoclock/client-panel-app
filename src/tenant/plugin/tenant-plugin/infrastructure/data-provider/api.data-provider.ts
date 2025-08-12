@@ -6,6 +6,7 @@ import {AttachPluginApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-
 import {DetachPluginApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/detach-plugin.api";
 import {ExecuteFunctionApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/execute-function.api";
 import {ITenantPlugin} from "@tenant/plugin/tenant-plugin/domain";
+import { of } from "rxjs";
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<ITenantPlugin.DTO> {
@@ -22,6 +23,14 @@ export class ApiDataProvider extends DataProvider<ITenantPlugin.DTO> {
 	 */
 	public override find$(options: Types.FindQueryParams) {
 		return this.allTenantPluginsApi.execute$(options);
+	}
+
+	public override create$(data: ITenantPlugin.DTO) {
+		return of(data);
+	}
+
+	public override update$(data: ITenantPlugin.DTO) {
+		return of(data);
 	}
 
 }

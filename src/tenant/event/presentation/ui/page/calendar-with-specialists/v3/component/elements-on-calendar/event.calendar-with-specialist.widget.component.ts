@@ -6,58 +6,70 @@ import {
 	HostBinding,
 	HostListener,
 	inject,
-	Input,
+	input,
+	model,
 	Renderer2,
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
 import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
-import {IEvent_V2} from "@tenant/event/domain";
-import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
-import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
+	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {DateTime} from "luxon";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular/standalone";
 import {TranslateService} from "@ngx-translate/core";
 import {
 	OrderEventCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/order-event.calendar-with-specialist.widget.component";
+} from "@src/tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/order-service.event.calendar-with-specialist.widget.component";
 import {
 	AbsenceEventCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
+} from "@src/tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/absence.event.calendar-with-specialist.widget.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {
 	CalendarWithSpecialistsQueries
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
-import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import {AbsenceDataActions} from "@tenant/member/absence/infrastructure/state/data/absence.data.actions";
+import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
+import {
+	OrderServiceDataActions
+} from "@tenant/order/order-service/infrastructure/state/data/order-service.data.actions";
 
 
-type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; } | IAbsence.DTO>;
+type DATA = EOrderService | EAbsence;
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		OrderEventCalendarWithSpecialistWidgetComponent,
-		AbsenceEventCalendarWithSpecialistWidgetComponent,
-		DatePipe
-	],
+    DatePipe,
+    OrderEventCalendarWithSpecialistWidgetComponent,
+    AbsenceEventCalendarWithSpecialistWidgetComponent
+],
 	selector: 'app-event-calendar-with-specialists-widget-component',
 	standalone: true,
 	template: `
-		@if (isOrder(item)) {
-			<app-order-event-calendar-with-specialist-widget-component [event]="item"/>
+		@let entity = item();
+		@if (isEOrderService(entity)) {
+			<app-order-service-event-calendar-with-specialist-widget-component 
+				[attr.data-order-id]="entity.orderId"
+				[attr.data-order-service-id]="entity._id"
+				[attr.data-member-id]="member()._id"
+				[attr.data-member-first-name]="member().firstName"
+				[attr.data-member-last-name]="member().lastName"
+				[orderService]="entity"/>
 		}
-		@if (isAbsence(item)) {
-			<app-absence-event-calendar-with-specialist-widget-component [event]="item"/>
+		@if (isEAbsence(entity)) {
+			<app-absence-event-calendar-with-specialist-widget-component 
+				[attr.data-absence-id]="entity._id"
+				[attr.data-member-id]="member()._id"
+				[attr.data-member-first-name]="member().firstName"
+				[attr.data-member-last-name]="member().lastName"
+				[absence]="entity"/>
 		}
 		@if (draggable) {
 
@@ -103,15 +115,16 @@ type DATA = IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; } | IAbse
 })
 export class EventCalendarWithSpecialistWidgetComponent {
 
-	@Input({required: true})
-	public item!: DATA;
+	public readonly member = input.required<IMember.DTO>();
+	public readonly item = model.required<DATA>();
 
-	readonly orderEventCalendarWithSpecialistWidgetComponent = viewChild(OrderEventCalendarWithSpecialistWidgetComponent);
+	public readonly orderEventCalendarWithSpecialistWidgetComponent = viewChild(OrderEventCalendarWithSpecialistWidgetComponent);
 
-	readonly absenceEventCalendarWithSpecialistWidgetComponent = viewChild(AbsenceEventCalendarWithSpecialistWidgetComponent);
+	public readonly absenceEventCalendarWithSpecialistWidgetComponent = viewChild(AbsenceEventCalendarWithSpecialistWidgetComponent);
 
 	@SelectSnapshot(CalendarWithSpecialistsQueries.start)
 	public selectedDate!: DateTime;
+
 	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
@@ -145,7 +158,30 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	@HostBinding('style.top')
 	public get top() {
-		let startDateTime = DateTime.fromISO(this.item.start);
+		let start: string | null = null;
+
+		const item = this.item();
+		if (this.isEOrderService(item)) {
+			start = item.orderAppointmentDetails.start;
+			if (!start) {
+				this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:top:item.orderAppointmentDetails.start is not defined');
+				return '0px';
+			}
+		}
+
+		if (this.isEAbsence(item)) {
+			start = item.start;
+			if (!start) {
+				this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:top:item.start is not defined');
+				return '0px';
+			}
+		}
+
+		if (!start) {
+			this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:top:start is not defined');
+			return '0px';
+		}
+		let startDateTime = DateTime.fromISO(start);
 		if (startDateTime < this.selectedDate) {
 			startDateTime = this.selectedDate;
 		}
@@ -155,11 +191,39 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	@HostBinding('style.height')
 	public get height() {
-		let endDateTime = DateTime.fromISO(this.item.end);
+		let start: string | null = null;
+		let end: string | null = null;
+
+		const item = this.item();
+
+		if (this.isEOrderService(item)) {
+			start = item.orderAppointmentDetails.start;
+			end = item.orderAppointmentDetails.end;
+			if (!start || !end) {
+				this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:height:item.orderAppointmentDetails.start or item.orderAppointmentDetails.end is not defined');
+				return '0px';
+			}
+		}
+
+		if (this.isEAbsence(item)) {
+			start = item.start;
+			end = item.end;
+			if (!start || !end) {
+				this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:height:item.start or item.end is not defined');
+				return '0px';
+			}
+		}
+
+		if (!start || !end) {
+			this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:height:start or end is not defined');
+			return '0px';
+		}
+
+		let endDateTime = DateTime.fromISO(end);
 		if (endDateTime > this.selectedDate.endOf('day')) {
 			endDateTime = this.selectedDate.endOf('day');
 		}
-		let startDateTime = DateTime.fromISO(this.item.start);
+		let startDateTime = DateTime.fromISO(start);
 		if (startDateTime < this.selectedDate) {
 			startDateTime = this.selectedDate;
 		}
@@ -248,7 +312,30 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		const newStartInMinutes = newStartPosition / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
 		const newDurationInMinutes = rect.height / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
 
-		const startDateTime = DateTime.fromISO(this.item.start);
+		let start: string | null = null;
+		const item = this.item();
+		if (this.isEOrderService(item)) {
+			start = item.orderAppointmentDetails.start;
+			if (!start) {
+				this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:someUpdateFromExternal:item.orderAppointmentDetails.start is not defined');
+				return;
+			}
+		}
+
+		if (this.isEAbsence(item)) {
+			start = item.start;
+			if (!start) {
+				this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:someUpdateFromExternal:item.start is not defined');
+				return;
+			}
+		}
+
+		if (!start) {
+			this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:someUpdateFromExternal:start is not defined');
+			return;
+		}
+
+		const startDateTime = DateTime.fromISO(start);
 		const newStartDateTime = startDateTime.startOf('day').plus({minutes: newStartInMinutes}).startOf('second');
 		const newEndDateTime = newStartDateTime.plus({minutes: newDurationInMinutes}).startOf('second');
 
@@ -289,73 +376,71 @@ export class EventCalendarWithSpecialistWidgetComponent {
 				return false;
 			}
 
-			if (this.temporaryInformationAboutNewStartAndEnd) {
+			const item = this.item();
 
-				// Update event and save new start and end in server
+			if (this.isEOrderService(item)) {
 
-				this.item.start = this.temporaryInformationAboutNewStartAndEnd.start;
-				this.item.end = this.temporaryInformationAboutNewStartAndEnd.end;
+				const orderService = structuredClone(item);
 
-				if (this.isOrder(this.item)) {
-					this.item.originalData.service.orderAppointmentDetails.start = this.temporaryInformationAboutNewStartAndEnd.start;
-					this.item.originalData.service.orderAppointmentDetails.end = this.temporaryInformationAboutNewStartAndEnd.end;
+				if (this.temporaryInformationAboutNewStartAndEnd) {
+
+					// Update event and save new start and end in server
+					orderService.orderAppointmentDetails.start = this.temporaryInformationAboutNewStartAndEnd.start;
+					orderService.orderAppointmentDetails.end = this.temporaryInformationAboutNewStartAndEnd.end;
+
 				}
 
-				if (this.isAbsence(this.item)) {
-					this.item.originalData.start = this.temporaryInformationAboutNewStartAndEnd.start;
-					this.item.originalData.end = this.temporaryInformationAboutNewStartAndEnd.end;
-				}
+				if (this.temporaryNewMember) {
+					// Update event and save new member in server
 
-			}
-
-			if (this.temporaryNewMember) {
-				// Update event and save new member in server
-
-				if (this.isOrder(this.item)) {
-					this.item.originalData.service.orderAppointmentDetails.specialists = [{
+					orderService.orderAppointmentDetails.specialists = [{
 						object: 'SpecialistDto',
 						member: this.temporaryNewMember,
 						wasSelectedAnybody: false
 					}];
 				}
 
-				if (this.isAbsence(this.item)) {
-					this.item.originalData.members = [this.temporaryNewMember];
+
+				const start = orderService.orderAppointmentDetails.start;
+				const end = orderService.orderAppointmentDetails.end;
+				const durationInSeconds = DateTime.fromISO(end).diff(DateTime.fromISO(start), 'seconds').seconds;
+				orderService.serviceSnapshot.durationVersions[0].durationInSeconds = durationInSeconds;
+				const newEOrderService = EOrderService.fromRaw({
+					...orderService,
+					serviceSnapshot: orderService.serviceSnapshot,
+					orderAppointmentDetails: orderService.orderAppointmentDetails,
+					_id: orderService._id,
+					status: orderService.status
+				});
+
+				const action = new OrderServiceDataActions.UpdateItem(newEOrderService)
+				const action$ = this.store.dispatch(action);
+				await firstValueFrom(action$);
+				this.item.set(newEOrderService);
+			}
+
+			if (this.isEAbsence(item)) {
+
+				const absence = structuredClone(item);
+
+				if (this.temporaryInformationAboutNewStartAndEnd) {
+
+					absence.start = this.temporaryInformationAboutNewStartAndEnd.start;
+					absence.end = this.temporaryInformationAboutNewStartAndEnd.end;
+
 				}
-			}
 
-			if (this.isOrder(this.item)) {
-				const durationInSeconds = DateTime.fromISO(this.item.end).diff(DateTime.fromISO(this.item.start), 'seconds').seconds;
-				const editedService = this.item.originalData.service;
-				editedService.serviceSnapshot.durationVersions[0].durationInSeconds = durationInSeconds;
+				if (this.temporaryNewMember) {
+					// Update event and save new member in server
+					absence.members = [this.temporaryNewMember];
+				}
 
-				const {order} = this.item.originalData;
-				const action = new OrderActions.UpdateItem({
-					...order,
-					services: order.services.map(service => {
-						if (editedService._id === service._id) {
-							return {
-								...service,
-								serviceSnapshot: editedService.serviceSnapshot,
-								orderAppointmentDetails: editedService.orderAppointmentDetails,
-								_id: editedService._id,
-								status: editedService.status
-							};
-						}
-						return service;
-					})
-				})
+				const newEAbsence = EAbsence.fromRaw(absence);
+
+				const action = new AbsenceDataActions.UpdateItem(newEAbsence);
 				const action$ = this.store.dispatch(action);
 				await firstValueFrom(action$);
-				this.item = structuredClone(this.item);
-			}
-
-			if (this.isAbsence(this.item)) {
-				const entity = EAbsence.fromDTO(this.item.originalData);
-				const action = new AbsenceDataActions.UpdateItem(entity);
-				const action$ = this.store.dispatch(action);
-				await firstValueFrom(action$);
-				this.item = structuredClone(this.item);
+				this.item.set(EAbsence.fromRaw(item));
 			}
 
 			this.temporaryNewMember = null;
@@ -372,12 +457,12 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	}
 
-	public isOrder(event: DATA): event is IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; }> {
-		return event.is === 'order';
+	public isEOrderService(event: DATA): event is EOrderService {
+		return event instanceof EOrderService;
 	}
 
-	public isAbsence(event: DATA): event is IEvent_V2<IAbsence.DTO> {
-		return event.is === 'absence';
+	public isEAbsence(event: DATA): event is EAbsence {
+		return event instanceof EAbsence;
 	}
 
 	private snapshotOriginalPosition() {
@@ -387,16 +472,18 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			height: this.elementRef.nativeElement.offsetHeight
 		};
 
-		if (this.isOrder(this.item)) {
+		const item = this.item();
+
+		if (this.isEOrderService(item)) {
 			this.previousData = {
 				memberId: undefined,
-				member: this.item.originalData.service.orderAppointmentDetails.specialists[0].member,
+				member: item.orderAppointmentDetails.specialists[0].member,
 				htmlParent: this.elementRef.nativeElement.parentElement
 			}
 		}
 
-		if (this.isAbsence(this.item)) {
-			const member = this.item.originalData.members[0];
+		if (this.isEAbsence(item)) {
+			const member = item.members[0];
 			this.previousData = {
 				memberId: member._id,
 				member,
@@ -413,14 +500,18 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		}
 		this.snapshotOfOriginalPosition = null;
 
+
+		const item = structuredClone(this.item());
 		if (this.previousData) {
 
-			if (this.isOrder(this.item) && this.previousData.member) {
-				this.item.originalData.service.orderAppointmentDetails.specialists[0].member = this.previousData.member;
+			if (this.isEOrderService(item) && this.previousData.member) {
+				item.orderAppointmentDetails.specialists[0].member = this.previousData.member;
+				this.item.set(EOrderService.fromRaw(item));
 			}
 
-			if (this.isAbsence(this.item) && this.previousData.member) {
-				this.item.originalData.members = [this.previousData.member];
+			if (this.isEAbsence(item) && this.previousData.member) {
+				item.members = [this.previousData.member];
+				this.item.set(EAbsence.fromRaw(item));
 			}
 
 			if (this.previousData.htmlParent) {
@@ -432,50 +523,58 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		this.previousData = null;
 	}
 
-	private confirmChanges(): Promise<boolean> {
-		return new Promise<boolean>((resolve) => {
+	private async confirmChanges(): Promise<boolean> {
 
-			let message = this.translateService.instant('event.calendar-with-specialists.confirm-changes.message.default');
-			let subHeader = undefined;
+		let message = this.translateService.instant('event.calendar-with-specialists.confirm-changes.message.default');
+		let subHeader = undefined;
 
-			if (this.isOrder(this.item)) {
 
-				const prevMember = this.previousData?.member;
+		const item = this.item();
+		if (this.isEOrderService(item)) {
 
-				if (this.temporaryNewMember && prevMember && this.temporaryNewMember._id !== prevMember._id && !this.temporaryNewMember.assignments.service.full) {
+			const prevMember = this.previousData?.member;
 
-					const {service} = this.item.originalData;
-					const newMemberCanServerTheService = this.temporaryNewMember.assignments.service.include.some(({service: includedService}) => {
-						return service._id === includedService._id;
-					});
+			if (this.temporaryNewMember && prevMember && this.temporaryNewMember._id !== prevMember._id && !this.temporaryNewMember.assignments.service.full) {
 
-					if (!newMemberCanServerTheService) {
-						subHeader = this.translateService.instant('event.calendar-with-specialists.confirm-changes.subHeader.important');
-						message = this.translateService.instant('event.calendar-with-specialists.confirm-changes.message.important');
-					}
+				const service = item;
+				const newMemberCanServerTheService = this.temporaryNewMember.assignments.service.include.some(({service: includedService}) => {
+					return service._id === includedService._id;
+				});
 
+				if (!newMemberCanServerTheService) {
+					subHeader = this.translateService.instant('event.calendar-with-specialists.confirm-changes.subHeader.important');
+					message = this.translateService.instant('event.calendar-with-specialists.confirm-changes.message.important');
 				}
 
 			}
 
-			this.alertController.create({
-				header: this.translateService.instant('keyword.capitalize.confirm'),
-				subHeader,
-				message,
-				buttons: [
-					{
-						text: this.translateService.instant('keyword.capitalize.cancel'),
-						role: 'cancel',
-						handler: () => resolve(false)
-					},
-					{
-						text: this.translateService.instant('keyword.capitalize.yes'),
-						cssClass: subHeader ? '!text-red-500' : '',
-						handler: () => resolve(true)
-					}
-				]
-			}).then(alert => alert.present());
+		}
+
+		const alert = await this.alertController.create({
+			header: this.translateService.instant('keyword.capitalize.confirm'),
+			subHeader,
+			message,
+			buttons: [
+				{
+					text: this.translateService.instant('keyword.capitalize.cancel'),
+					role: 'cancel',
+					handler: () => false
+				},
+				{
+					text: this.translateService.instant('keyword.capitalize.yes'),
+					role: 'confirm',
+					cssClass: subHeader ? '!text-red-500' : '',
+					handler: () => true
+				}
+			]
 		});
+
+		await alert.present();
+
+		const result = await alert.onDidDismiss();
+
+		return result.role === 'confirm';
+
 	}
 
 }

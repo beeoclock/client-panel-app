@@ -1,39 +1,36 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {delay, filter, iif, of, switchMap, tap} from "rxjs";
 import {is} from "@core/shared/checker";
 import {AsyncPipe} from "@angular/common";
 import {ITableState} from "@shared/domain/table.state";
 import {Reactive} from "@core/cdk/reactive";
-import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
 import {MemberProfileStatusEnum} from "@tenant/member/member/domain/enums/member-profile-status.enum";
-import CalendarWithSpecialistLocaStateService
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {NGXLogger} from "ngx-logger";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/member.data.state";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
+import ScheduleV3ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
+import WeekCalendarLocaStateService from "./week-calendar.local.state.service";
 
 @Component({
-	selector: 'app-event-v2-members-container-week-calendar-component',
+	selector: 'app-event-members-container-week-calendar-component',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (item$ | async) {
-			<app-event-v2-schedule-container-week-calendar-component/>
+			<app-event-schedule-container-week-calendar-component/>
 		}
 	`,
 	imports: [
 		AsyncPipe,
-		ScheduleV2ContainerWeekCalendarComponent
+		ScheduleV3ContainerWeekCalendarComponent
 	]
 })
-export default class MembersV2ContainerWeekCalendarComponent extends Reactive implements OnInit {
+export default class MembersV3ContainerWeekCalendarComponent extends Reactive {
 
 	private readonly store = inject(Store);
-	private readonly ngxLogger = inject(NGXLogger);
-	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+	private readonly weekCalendarLocaStateService = inject(WeekCalendarLocaStateService);
 
 	public readonly item$ = this.store.select(MemberDataState.tableState).pipe(
 		this.takeUntil(),
@@ -52,7 +49,7 @@ export default class MembersV2ContainerWeekCalendarComponent extends Reactive im
 		filter((tableState) => tableState.total > 0),
 		tap((tableState) => {
 			const members = tableState.items.filter((member: IMember.EntityRaw) => member.profileStatus === MemberProfileStatusEnum.active);
-			this.calendarWithSpecialistLocaStateService.setMembers(members);
+			this.weekCalendarLocaStateService.setMembers(members);
 		})
 	);
 
@@ -60,10 +57,5 @@ export default class MembersV2ContainerWeekCalendarComponent extends Reactive im
 	private initMemberList() {
 		return new MemberDataActions.GetList()
 	}
-
-	public ngOnInit(): void {
-		this.ngxLogger.info('MembersV2ContainerWeekCalendarComponent');
-	}
-
 
 }

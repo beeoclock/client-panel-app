@@ -74,8 +74,10 @@ class _SyncManager {
 		const pushPromises = Array.from(this.register.values()).map(async (syncManager) => {
 
 			await this.incrementSyncing();
+		
 			if (syncManager.isSyncing) {
-				console.warn(`SyncManager ${syncManager.moduleName} is already syncing`);
+				console.warn(`⚠️ SyncManager for '${syncManager.moduleName}' is already in progress. Skipping duplicate sync operation to prevent conflicts. This may indicate overlapping sync requests or a stuck sync process.`);
+				await this.decrementSyncing();
 				return;
 			}
 			if (syncManager.syncState) {
@@ -83,6 +85,7 @@ class _SyncManager {
 			}
 			await syncManager.initPushData();
 			await syncManager.doPush();
+						
 			await this.decrementSyncing();
 
 		});
@@ -96,6 +99,9 @@ class _SyncManager {
 			try {
 				await manager.initPullData();
 				await manager.doPull();
+			} catch (error) {
+				// TODO: use ngxLogger instead of console.error
+				console.error(`SyncManager ${manager.moduleName} pull failed`, error);
 			} finally {
 				await this.decrementSyncing();
 			}

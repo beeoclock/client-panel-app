@@ -7,7 +7,7 @@ import {AsyncPipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService from "./calendar-with-specialist.loca.state.service";
 import {
 	CalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/main/calendar-with-specialist.widget.component";
 import {NGXLogger} from "ngx-logger";
 import {
 	BusinessProfileState
@@ -15,7 +15,7 @@ import {
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
-	selector: 'app-event-v2-schedule-container-week-calendar-component',
+	selector: 'app-event-v3-schedule-container-week-calendar-component',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -30,7 +30,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 		CalendarWithSpecialistWidgetComponent
 	]
 })
-export default class ScheduleV2ContainerWeekCalendarComponent {
+export default class ScheduleV3ContainerWeekCalendarComponent {
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);

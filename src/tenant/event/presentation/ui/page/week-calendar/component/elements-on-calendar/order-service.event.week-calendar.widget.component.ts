@@ -3,39 +3,35 @@ import {
 	Component,
 	ElementRef,
 	HostBinding,
+	HostListener,
 	inject,
 	input,
 	ViewEncapsulation
 } from "@angular/core";
 
-import {IAttendee, IEvent_V2} from "@tenant/event/domain";
 import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import {
 	AnybodySpecialistIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/anybody-specialist.icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/anybody-specialist.icon.component";
 import {
 	NoteIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/note.icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/note.icon.component";
 import {
 	OrderServiceStatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {
 	FirstTimeIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/first-time.icon.component";
-import {
-	BusinessNoteIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/business-note.icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/first-time.icon.component";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {TranslateService} from "@ngx-translate/core";
+import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 
 
 @Component({
-	selector: 'app-order-event-calendar-with-specialist-widget-component',
+	selector: 'app-order-service-event-week-calendar-widget-component',
 	template: `
 		<div class="flex gap-1 items-center justify-between">
 			<div class="text-xs dark:text-sky-100">
@@ -43,22 +39,24 @@ import {TranslateService} from "@ngx-translate/core";
 			</div>
 			<div class="flex gap-1">
 				<app-first-time-icon-component
-					[firstTime]="event().originalData.service?.orderAppointmentDetails?.attendees?.[0]?.firstTime ?? false"/>
+					[firstTime]="orderService().orderAppointmentDetails?.attendees?.[0]?.firstTime ?? false"/>
 				<app-anybody-specialist-icon-component
-					[wasSelectedAnybody]="event().originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
-				<app-note-icon-component [note]="event()?.note ?? ''"/>
-				<app-business-note-icon-component [businessNote]="event()?.originalData?.order?.businessNote ?? ''"/>
-				<app-order-service-status-icon-component [useDefaultStyle]="false" class="text-white" [status]="event().originalData.service.status"/>
+					[wasSelectedAnybody]="orderService().orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
+				<app-note-icon-component [note]="orderService()?.customerNote ?? ''"/>
+				<!--				<app-business-note-icon-component [businessNote]="orderService().order?.businessNote ?? ''"/>-->
+				<app-order-service-status-icon-component [useDefaultStyle]="false" class="text-white"
+														 [status]="orderService().status"/>
 			</div>
 		</div>
-<!--		<div class="text-xs font-bold dark:text-sky-100">-->
-<!--			{{ getAttendeesInformation() }}-->
-<!--		</div>-->
+		<!--		<div class="text-xs font-bold dark:text-sky-100">-->
+		<!--			{{ getAttendeesInformation() }}-->
+		<!--		</div>-->
 		<div class="text-xs font-medium">
-			{{ event().originalData.service.serviceSnapshot.languageVersions[0].title }}
+			{{ orderService().serviceSnapshot.languageVersions[0].title }}
 		</div>
 		<div class="text-xs font-medium">
-			{{ event().start | date: 'HH:mm' }} - {{ event().end | date: 'HH:mm' }}
+			{{ orderService().orderAppointmentDetails.start | date: 'HH:mm' }}
+			- {{ orderService().orderAppointmentDetails.end | date: 'HH:mm' }}
 		</div>
 	`,
 	standalone: true,
@@ -68,17 +66,13 @@ import {TranslateService} from "@ngx-translate/core";
 		NoteIconComponent,
 		OrderServiceStatusIconComponent,
 		FirstTimeIconComponent,
-		BusinessNoteIconComponent,
 	],
 	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderEventCalendarWithSpecialistWidgetComponent {
+export class OrderEventWeekCalendarWidgetComponent {
 
-	public readonly event = input.required<IEvent_V2<{
-		order: IOrder.DTO;
-		service: IOrderService.DTO;
-	}>>();
+	public readonly orderService = input.required<EOrderService>();
 
 	public readonly useServiceColor = input(true);
 	// Used by external components
@@ -92,8 +86,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	@HostBinding('style.background-color')
 	public get backgroundColor() {
 		if (this.useServiceColor()) {
-			const {service} = this.event().originalData;
-			const {presentation} = service.serviceSnapshot;
+			const {presentation} = this.orderService().serviceSnapshot;
 			const {color} = presentation;
 			if (color) {
 				return color;
@@ -107,15 +100,13 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 		// Choose color by status
 		const classList = [
-			'absolute top-0 bottom-0 left-0 right-0 border-2',
+			'inline-block top-0 bottom-0 left-0 right-0 border-2',
 			'transition-all cursor-pointer rounded-md border-[#00000038] px-1 flex flex-col overflow-hidden',
 		];
 
-		const {service} = this.event().originalData;
-
 		if (this.useServiceColor()) {
 
-			const {presentation} = service.serviceSnapshot;
+			const {presentation} = this.orderService().serviceSnapshot;
 			const {color} = presentation;
 			if (color) {
 				classList.push('text-white');
@@ -127,7 +118,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 			classList.push('text-white');
 
-			switch (service.status) {
+			switch (this.orderService().status) {
 				case OrderServiceStatusEnum.rejected:
 				case OrderServiceStatusEnum.cancelled:
 					classList.push('bg-red-400', 'hover:bg-red-500'); // 'border-red-400',
@@ -151,17 +142,16 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 		return classList.join(' ');
 	}
 
+	@HostListener('click')
 	public async onClick() {
-		await this.openEventDetails(this.event());
+		const action = new EventActions.ToggleDetails(this.orderService()._id);
+		this.store.dispatch(action);
 	}
 
 	public getAttendeesInformation() {
-		return this.event().attendees?.reduce((acc: string[], attendant) => {
-			if (attendant.is !== 'customer') {
-				return acc;
-			}
+		return this.orderService().orderAppointmentDetails.attendees?.reduce((acc: string[], attendant) => {
 
-			const {customer} = attendant.originalData as IAttendee;
+			const {customer} = attendant;
 
 			if (customer.customerType === CustomerTypeEnum.anonymous) {
 				acc.push(this.anonymous);
@@ -186,11 +176,6 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 			return acc;
 
 		}, [] as string[]).join(', ');
-	}
-
-	private async openEventDetails(event: IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; }>) {
-		const action = new EventActions.ToggleDetails(event._id);
-		this.store.dispatch(action);
 	}
 
 }

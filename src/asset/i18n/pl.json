@@ -1697,7 +1697,16 @@
 		"businessProfile": "Profil biznesowy",
 		"businessSettings": "Ustawienia firmy",
 		"calendar": {
-			"label": "Kalendarz",
+			"label": "Kalendarz (dzień)",
+			"ordinary": {
+				"label": "Zwykły"
+			},
+			"withSpecialists": {
+				"label": "Ze specjalistami"
+			}
+		},
+		"week-calendar": {
+			"label": "Kalendarz (tydzień)",
 			"ordinary": {
 				"label": "Zwykły"
 			},

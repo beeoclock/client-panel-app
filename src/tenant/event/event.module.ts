@@ -9,6 +9,7 @@ import {
 import {SmsUsedAnalyticState} from "@tenant/analytic/presentation/store/sms-used/sms-used.analytic.state";
 import {EventState} from "@tenant/event/infrastructure/state/event/event.state";
 import {CalendarState} from "@tenant/event/infrastructure/state/calendar/calendar.state";
+import { WeekCalendarActionState } from "./infrastructure/state/week-calendar/week-calendar.state";
 
 @NgModule({
 	imports: [
@@ -16,6 +17,7 @@ import {CalendarState} from "@tenant/event/infrastructure/state/calendar/calenda
 
 			// Calendar Module
 			CalendarWithSpecialistsState,
+			WeekCalendarActionState,
 
 			// Sms Module
 			SmsUsedAnalyticState,

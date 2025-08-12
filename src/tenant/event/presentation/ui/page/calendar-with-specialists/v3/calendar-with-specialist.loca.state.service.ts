@@ -3,7 +3,7 @@ import {ISchedule} from "@shared/domain/interface/i.schedule";
 import {BehaviorSubject} from "rxjs";
 import {
 	EventCalendarWithSpecialistWidgetComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 
@@ -16,10 +16,10 @@ export default class CalendarWithSpecialistLocaStateService {
 	public readonly maxCreateEventButtonInHourCell = 2; // 2 buttons: 1 for each 30 minutes
 	public readonly createEventButtonDurationInMinutes = 60 / this.maxCreateEventButtonInHourCell;
 
-	public readonly specialistCellHeightForPx = 50;
+	public readonly specialistCellHeightForPx = 0;
 	public readonly specialistCellHeightInPx = `${this.specialistCellHeightForPx}px`;
 
-	public readonly oneHourForPx = 120;
+	public readonly oneHourForPx = 60;
 	public readonly oneHourInPx = `${this.oneHourForPx}px`;
 	public readonly oneMinuteForPx = this.oneHourForPx / 60;
 

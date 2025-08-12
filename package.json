@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"scripts": {
 		"ng": "ng",
-		"start": "ng serve",
+		"start": "ng serve --host 0.0.0.0 --disable-host-check --configuration external",
 		"start:local": "ng serve --configuration local",
 		"start:local_production": "ng serve --configuration local_production",
 		"start:production": "ng serve --configuration production",
@@ -72,7 +72,7 @@
 		"@ngxs/store": "19.0.0",
 		"@p4ck493/checker": "0.0.2",
 		"@p4ck493/ts-type-guard": "1.0.3",
-		"@sentry/angular": "9.11.0",
+		"@sentry/angular": "^9.11.0",
 		"@swimlane/ngx-datatable": "21.0.0-alpha.1",
 		"bootstrap-icons": "1.11.3",
 		"bson-objectid": "2.0.4",

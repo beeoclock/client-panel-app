@@ -66,6 +66,4 @@ export class IonSelectMemberComponent {
 	@SelectSnapshot(MemberDataState.activeMembers)
 	public readonly members!: IMember.EntityRaw[];
 
-	private readonly translateService = inject(TranslateService);
-
 }
