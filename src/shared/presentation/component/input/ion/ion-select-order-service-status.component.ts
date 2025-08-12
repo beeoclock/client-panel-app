@@ -43,6 +43,10 @@ export class IonSelectOrderServiceStatusComponent {
 
 	private readonly translateService = inject(TranslateService);
 
+	private readonly statusLabelKeyMap: Partial<Record<OrderServiceStatusEnum, string>> = {
+		[OrderServiceStatusEnum.accepted]: 'confirmed',
+	};
+
 	public readonly statusList: { id: null | string; label: string; }[] = [
 		OrderServiceStatusEnum.accepted,
 		OrderServiceStatusEnum.done,
@@ -56,7 +60,4 @@ export class IonSelectOrderServiceStatusComponent {
 		};
 	});
 
-	private readonly statusLabelKeyMap: Partial<Record<OrderServiceStatusEnum, string>> = {
-		[OrderServiceStatusEnum.accepted]: 'confirmed',
-	};
 }
