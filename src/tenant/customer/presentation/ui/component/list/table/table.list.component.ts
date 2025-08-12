@@ -23,6 +23,7 @@ import {
 	CustomerPresentationActions
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -80,6 +81,9 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 				<no-available/>
 			}
 		</ng-template>
+		<ng-template #syncedAtTemplate let-row="row">
+			<synchronization-molecule [item]="row"/>
+		</ng-template>
 	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
@@ -91,7 +95,8 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 		NotFoundTableDataComponent,
 		TranslatePipe,
 		AutoRefreshButtonComponent,
-		NoAvailable
+		NoAvailable,
+		SynchronizationMolecule
 	],
 	host: {
 		class: 'h-[calc(100vh-210px)] md:h-[calc(100vh-80px)] block'
@@ -101,6 +106,7 @@ export class TableListComponent extends TableComponent<ECustomer> {
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly emailCellTemplate = viewChild<TemplateRef<any>>('emailCellTemplate');
 	public readonly phoneCellTemplate = viewChild<TemplateRef<any>>('phoneCellTemplate');
+	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
 	public readonly columns = signal<TableColumn<ECustomer>[]>([
 		{
@@ -161,6 +167,13 @@ export class TableListComponent extends TableComponent<ECustomer> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
+		{
+			name: this.translateService.instant('keyword.capitalize.synchronization'),
+			prop: 'syncedAt',
+			minWidth: 240,
+			width: 240,
+			sortable: false,
+		},
 	]);
 
 	public readonly columnList = computed(() => {
@@ -179,6 +192,11 @@ export class TableListComponent extends TableComponent<ECustomer> {
 		const phoneCellTemplate = this.phoneCellTemplate();
 		if (phoneCellTemplate) {
 			this.setCellTemplateRef(columns, 'phone', phoneCellTemplate);
+		}
+
+		const syncedAtTemplate = this.syncedAtTemplate();
+		if (syncedAtTemplate) {
+			this.setCellTemplateRef(columns, 'syncedAt', syncedAtTemplate);
 		}
 
 		return columns;

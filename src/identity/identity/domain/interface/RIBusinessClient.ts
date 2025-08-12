@@ -1,5 +1,6 @@
 import {SlotBuildingStrategyEnum} from "@tenant/business-profile/domain/enum/slot-building-strategy.enum";
 import {SlotRetrievingStrategyEnum} from "@core/shared/enum/slot-retrieving-strategy.enum";
+import {PaymentRequirementEnum} from "@identity/identity/domain/enum/payment-requirement.enum";
 
 export interface RIBusinessClient {
 
@@ -27,8 +28,8 @@ export interface RIBusinessClient {
 		};
 		autoBookOrder: boolean;
 		mandatoryAttendeeProperties: string[];
-		// paymentRequirement: string;
-		// paymentDeadlineInSeconds: number;
+		paymentRequirement: PaymentRequirementEnum;
+		paymentDeadlineInSeconds: number;
 	}
 
 }

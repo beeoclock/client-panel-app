@@ -17,7 +17,7 @@ import {
 } from "@tenant/order/order-service/presentation/ui/molecule/button/auto-refresh/auto-refresh.button.component";
 import {
 	OrderServiceStatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
@@ -29,6 +29,7 @@ import {ISpecialist} from "@src/tenant/service/domain/interface/i.specialist";
 import {IMember} from "@tenant/member/member/domain";
 import {MemberListService} from "@shared/presentation/component/chip/member/list/member.list.service";
 import {CustomerChip} from "@shared/presentation/component/chip/customer/customer.chip";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'order-service-table-list-component',
@@ -80,6 +81,9 @@ import {CustomerChip} from "@shared/presentation/component/chip/customer/custome
 				[status]="row.status"/>
 
 		</ng-template>
+		<ng-template #syncedAtTemplate let-row="row">
+			<synchronization-molecule [item]="row"/>
+		</ng-template>
 	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
@@ -91,7 +95,8 @@ import {CustomerChip} from "@shared/presentation/component/chip/customer/custome
 		AutoRefreshButtonComponent,
 		OrderServiceStatusIconComponent,
 		MemberListChipComponent,
-		CustomerChip
+		CustomerChip,
+		SynchronizationMolecule
 	],
 	providers: [
 		DurationVersionHtmlHelper,
@@ -116,6 +121,7 @@ export class TableListComponent extends TableComponent<EOrderService> {
 	public readonly priceCellTemplate = viewChild<TemplateRef<any>>('priceCellTemplate');
 	public readonly specialistCellTemplate = viewChild<TemplateRef<any>>('specialistCellTemplate');
 	public readonly customerCellTemplate = viewChild<TemplateRef<any>>('customerCellTemplate');
+	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
 	public readonly columns = signal<TableColumn<EOrderService>[]>([
 		{
@@ -202,6 +208,13 @@ export class TableListComponent extends TableComponent<EOrderService> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
+		{
+			name: this.translateService.instant('keyword.capitalize.synchronization'),
+			prop: 'syncedAt',
+			minWidth: 240,
+			width: 240,
+			sortable: false,
+		},
 	]);
 
 	public readonly columnList = computed(() => {
@@ -230,6 +243,11 @@ export class TableListComponent extends TableComponent<EOrderService> {
 		const customerCellTemplate = this.customerCellTemplate();
 		if (customerCellTemplate) {
 			this.setCellTemplateRef(columns, 'customer', customerCellTemplate);
+		}
+
+		const syncedAtTemplate = this.syncedAtTemplate();
+		if (syncedAtTemplate) {
+			this.setCellTemplateRef(columns, 'syncedAt', syncedAtTemplate);
 		}
 
 		return columns;

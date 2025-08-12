@@ -1,5 +1,5 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
+import {Component, DestroyRef, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -10,27 +10,12 @@ import {NgEventBus} from "ng-event-bus";
 import {is} from "@core/shared/checker";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@shared/presentation/pipes/with-tenant-id.pipe";
-import {Reactive} from "@core/cdk/reactive";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {WINDOW} from "@core/cdk/window.provider";
-
-interface IMenuItem {
-	order: number;
-	url?: string;
-	icon?: string;
-	badge?: string;
-	translateKey: string;
-	target?: '_blank';
-	disabled?: boolean;
-	visible: boolean;
-	beta?: boolean;
-	routerLinkActiveOptions: {
-		exact: boolean;
-	} | IsActiveMatchOptions;
-	items?: IMenuItem[]
-}
+import {IMenuItem} from "@shared/presentation/component/sidebar/i.menu-item";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
 	standalone: true,
@@ -44,11 +29,12 @@ interface IMenuItem {
 		WithTenantIdPipe
 	],
 })
-export class MenuSidebarComponent extends Reactive implements OnInit {
+export class MenuSidebarComponent implements OnInit {
 
 	private readonly store = inject(Store);
 	private readonly ngEventBus = inject(NgEventBus);
 	private readonly sidebarService = inject(SidebarService);
+	private readonly destroyRef = inject(DestroyRef);
 	private readonly window = inject(WINDOW);
 	private readonly tenantId$ = inject(TENANT_ID);
 
@@ -105,12 +91,12 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			});
 
 		this.businessProfile$.pipe(
-			this.takeUntil()
+			takeUntilDestroyed(this.destroyRef),
 		).subscribe((item) => {
 			this.initMenu();
 			if (item) {
-				const { bookingSettings } = item;
-				const { autoBookOrder } = bookingSettings;
+				const {bookingSettings} = item;
+				const {autoBookOrder} = bookingSettings;
 				this.requestedMenuItem.visible = is.false(autoBookOrder);
 			}
 			this.updateMenu();
@@ -178,6 +164,42 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			// ]
 		});
 		this.menu.push({
+			order: 1,
+			translateKey: 'sidebar.week-calendar.label',
+			icon: 'bi bi-calendar-week',
+			// icon: 'bi bi-calendar2-event',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: 'event/week-calendar',
+			// items: [
+			// 	{
+			// 		translateKey: 'sidebar.calendar.withSpecialists.label',
+			// 		url: 'event/calendar-with-specialists',
+			// 		icon: 'bi bi-person-badge',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		},
+			// 		visible: true,
+			// 		order: 0
+			// 	},
+			// 	{
+			// 		url: 'event/calendar',
+			// 		translateKey: 'sidebar.calendar.ordinary.label',
+			// 		icon: 'bi bi-calendar-week',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		},
+			// 		visible: true,
+			// 		order: 1
+			// 	},
+			// ]
+		});
+		this.menu.push({
 			order: 2,
 			translateKey: 'sidebar.appointments.label',
 			icon: 'bi bi-journal-check',
@@ -218,7 +240,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 		// 	}
 		// });
 		this.menu.push({
-			order: 4,
+			order: 3,
 			url: 'customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',
@@ -231,7 +253,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 5,
+			order: 4,
 			url: 'absence/list',
 			translateKey: 'sidebar.absence',
 			icon: 'bi bi-calendar2-x',
@@ -244,10 +266,23 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 6,
+			order: 5,
 			url: 'service/list',
 			translateKey: 'sidebar.services',
 			icon: 'bi bi-emoji-smile',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 6,
+			url: 'product/list',
+			translateKey: 'sidebar.products',
+			icon: 'bi bi-basket',
 			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
@@ -302,71 +337,6 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			translateKey: 'sidebar.members',
 			visible: true,
 			icon: 'bi bi-people',
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 11,
-			url: 'client/business-profile',
-			translateKey: 'sidebar.businessProfile',
-			visible: true,
-			icon: 'bi bi-buildings',
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 12,
-			url: 'client/business-settings',
-			translateKey: 'sidebar.businessSettings',
-			icon: 'bi bi-building-gear',
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 13,
-			url: 'tariff-plan/overview',
-			translateKey: 'sidebar.tariffPlan',
-			icon: 'bi bi-building-up',
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 13,
-			url: 'balance/overview',
-			translateKey: 'sidebar.balance',
-			icon: 'bi bi-piggy-bank',
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 14,
-			url: 'plugin/grid',
-			translateKey: 'sidebar.plugins',
-			icon: 'bi bi-plug',
-			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",

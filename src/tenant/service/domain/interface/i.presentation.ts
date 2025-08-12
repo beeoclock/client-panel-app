@@ -1,7 +1,7 @@
-import {RIMedia} from "@tenant/media/domain/interface/i.media";
+import {IMedia} from "@tenant/media/domain/interface/i.media";
 
 export interface IPresentation {
 	object: "PresentationDto";
-	banners: RIMedia[];
+	banners: IMedia[];
 	color: string;
 }

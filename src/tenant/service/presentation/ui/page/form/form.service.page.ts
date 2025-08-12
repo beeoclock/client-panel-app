@@ -18,9 +18,7 @@ import {ServiceActions} from "@tenant/service/infrastructure/state/service/servi
 
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
-import {
-	ImageBlockComponent
-} from "@tenant/service/presentation/ui/component/form/v2/image/image-block/image-block.component";
+import {ImageBlockComponent} from "@tenant/service/presentation/ui/component/form/v2/image-block/image-block.component";
 import {
 	ButtonSaveContainerComponent
 } from "@shared/presentation/component/container/button-save/button-save.container.component";
@@ -81,6 +79,7 @@ export class FormServicePage implements OnInit {
 			},
 			state: StateEnum.active,
 			stateHistory: [],
+			_version: '1',
 			createdAt: '',
 			updatedAt: '',
 		}]

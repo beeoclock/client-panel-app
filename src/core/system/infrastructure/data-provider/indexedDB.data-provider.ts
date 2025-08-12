@@ -173,6 +173,13 @@ export abstract class IndexedDBDataProvider<ENTITY extends ABaseEntity> extends 
 				if (is.array(value)) {
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-expect-error
+					if (is.array(entity[key])) {
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-expect-error
+						return value.some((v) => entity[key].includes(v));
+					}
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
 					return value.includes(entity[key]);
 				}
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -121,7 +121,6 @@ export class OrderSectionCustomerDetailsComponent {
 			history: () => this.sharedUow.order.findHistoryByCustomerId(customer._id, pagination),
 		}[mode];
 		const result = await action();
-		console.log({result});
 		this.list.update((list) => {
 			this.isReachedEnd.set(result.items.length < pagination.pageSize);
 			if (pagination.page === 1) {

@@ -5,7 +5,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/or
 import {FormControl} from "@angular/forms";
 import {
 	OrderServiceStatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
@@ -32,7 +32,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 					class="flex text-3xl"
 					[status]="control().value"/>
 				@if (showLabel()) {
-					<span>{{ ('event.keyword.status.singular.' + control().value) | translate }}</span>
+					<span>{{ ('event.keyword.status.singular.' + controlMapper()) | translate }}</span>
 				}
 				<i class="bi bi-chevron-expand"></i>
 			</div>
@@ -48,7 +48,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 							<app-order-service-status-icon-component
 								class="flex text-3xl text-blue-600"
 								[status]="orderServiceStatusEnum.accepted"/>
-							{{ 'event.keyword.status.singular.accepted' | translate }}
+							{{ 'event.keyword.status.plural.confirmed' | translate }}
 						</ion-label>
 					</ion-item>
 
@@ -76,7 +76,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 				</ion-list>
 			</ng-template>
 		</ion-popover>
-    `
+	`
 })
 export class StatusChipComponent {
 
@@ -100,5 +100,14 @@ export class StatusChipComponent {
 		}
 	}
 
+	private readonly statusMap: Partial<Record<OrderServiceStatusEnum, string>> = {
+		[OrderServiceStatusEnum.accepted]: 'confirmed',
+		[OrderServiceStatusEnum.done]: 'done',
+		[OrderServiceStatusEnum.cancelled]: 'cancelled',
+	};
+
+	public controlMapper(): string {
+		return this.statusMap[this.control().value] ?? this.control().value;
+	}
 }
 

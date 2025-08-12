@@ -151,6 +151,10 @@ export const tenantRouters: Routes = [
                                         path: 'calendar-with-specialists',
                                         loadComponent: () => import('@tenant/event/presentation/ui/page/calendar-with-specialists/calendar-with-specialists.event.page')
                                     },
+                                    {
+                                        path: 'week-calendar',
+                                        loadComponent: () => import('@tenant/event/presentation/ui/page/week-calendar/week-calendar.event.page')
+                                    },
                                 ]
                             },
                             {
@@ -183,6 +187,24 @@ export const tenantRouters: Routes = [
                                     }
                                 ]
                             },
+							{
+								path: 'product',
+								children: [
+									{
+										path: 'list',
+										loadComponent: () => import('@tenant/product/product/presentation/ui/page/list/list.product.page')
+									}
+								]
+							},
+							{
+								path: 'product-tag',
+								children: [
+									{
+										path: 'list',
+										loadComponent: () => import('@tenant/product/product-tag/presentation/ui/page/list/list.product-tag.page')
+									}
+								]
+							},
                             {
                                 path: 'customer',
                                 children: [

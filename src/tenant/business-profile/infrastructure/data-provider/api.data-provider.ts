@@ -4,7 +4,7 @@ import {GetApi} from "@tenant/business-profile/infrastructure/data-source/api/ge
 import {PutApi} from "@tenant/business-profile/infrastructure/data-source/api/put.api";
 import {Types} from "@core/shared/types";
 import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
-import {map} from "rxjs";
+import {map, of} from "rxjs";
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<IBusinessProfile.DTO> {
@@ -32,6 +32,10 @@ export class ApiDataProvider extends DataProvider<IBusinessProfile.DTO> {
 	 */
 	public override update$(dto: IBusinessProfile.DTO) {
 		return this.putApi.execute$(dto);
+	}
+	
+	public override create$(data: IBusinessProfile.DTO) {
+		return of(data);
 	}
 
 }

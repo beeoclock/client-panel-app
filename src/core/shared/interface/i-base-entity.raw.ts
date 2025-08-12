@@ -11,6 +11,7 @@ export interface IBaseDTO<OBJECT_TYPE> {
 	updatedAt: string & Types.DateTime;
 	object: OBJECT_TYPE;
 	state: StateEnum;
+	_version: string;
 
 	stateHistory: {
 		state: StateEnum;
@@ -26,6 +27,11 @@ export interface IBaseDTO<OBJECT_TYPE> {
 export interface IBaseEntityRaw<OBJECT_TYPE> extends IBaseDTO<OBJECT_TYPE> {
 
 	syncedAt?: string & Types.DateTime;
+	syncErrors?: {
+		fromSource: 'server' | 'client';
+		message: string;
+		code?: number;
+	}[];
 
 }
 

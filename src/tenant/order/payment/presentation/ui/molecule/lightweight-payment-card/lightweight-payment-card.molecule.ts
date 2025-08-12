@@ -61,7 +61,7 @@ import {CurrencyPipe} from "@angular/common";
 
 									<div
 										class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
-										{{ firstName[0] }}{{ lastName[0] }}
+										{{ firstName?.[0] ?? '' }}{{ lastName?.[0] ?? '' }}
 									</div>
 
 								}

@@ -1,9 +1,6 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import MembersV2ContainerWeekCalendarComponent
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/members.container.week-calendar.component";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@core/cdk/analytics.service";
-import {BaseSyncManager} from "@core/system/infrastructure/sync-manager/base.sync-manager";
 import {Store} from "@ngxs/store";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter} from "rxjs";
@@ -14,27 +11,30 @@ import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
+import MembersV3ContainerWeekCalendarComponent
+	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/members.container.week-calendar.component";
+import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 
 @Component({
 	selector: 'app-event-calendar-with-specialists-page',
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
-		MembersV2ContainerWeekCalendarComponent
+		MembersV3ContainerWeekCalendarComponent
 	],
 	template: `
-		<app-event-v2-members-container-week-calendar-component/>
+		<app-event-v3-members-container-week-calendar-component/>
 	`
 })
 export default class CalendarWithSpecialistsEventPage implements OnInit {
 
-	readonly #store = inject(Store);
-	readonly #ngxLogger = inject(NGXLogger);
-	readonly #analyticsService = inject(AnalyticsService);
+	private readonly store = inject(Store);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly analyticsService = inject(AnalyticsService);
 
 	private preSyncingValue = false;
 
-	public readonly syncAllSubscription = BaseSyncManager.isSyncing$.pipe(
+	public readonly syncAllSubscription = SyncManager.isSyncing$.pipe(
 		takeUntilDestroyed(),
 		filter((isSyncing) => {
 			if (this.preSyncingValue !== !!isSyncing) {
@@ -46,7 +46,7 @@ export default class CalendarWithSpecialistsEventPage implements OnInit {
 			return false;
 		})
 	).subscribe(() => {
-		this.#store.dispatch([
+		this.store.dispatch([
 			new MemberDataActions.GetList(),
 			new BusinessProfileActions.Init(),
 			new CalendarWithSpecialistsAction.GetItems(),
@@ -54,7 +54,7 @@ export default class CalendarWithSpecialistsEventPage implements OnInit {
 	});
 
 	public ngOnInit(): void {
-		this.#ngxLogger.info('CalendarWithSpecialistsEventPage initialized');
-		this.#analyticsService.logEvent('event_calendar_with_specialists_page_initialized');
+		this.ngxLogger.info('CalendarWithSpecialistsEventPage initialized');
+		this.analyticsService.logEvent('event_calendar_with_specialists_page_initialized');
 	}
 }

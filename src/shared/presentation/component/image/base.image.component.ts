@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, inject, input, OnChanges, viewChil
 import {extractFile} from "@shared/domain/extract-file";
 import {file2base64} from "@shared/domain/file2base64";
 import {NGXLogger} from "ngx-logger";
-import {RIMedia} from "@tenant/media/domain/interface/i.media";
+import {IMedia} from "@tenant/media/domain/interface/i.media";
 
 export enum MediaStateEnum {
 	NOT_CHANGED = 'NOT_CHANGED',
@@ -21,10 +21,10 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 
 	readonly previewImage = viewChild.required<ElementRef<HTMLImageElement>>('previewImage');
 
-	public readonly banner = input<RIMedia | null | undefined | {
-    url: string;
-    _id: string;
-}>(null);
+	public readonly image = input<IMedia | null | undefined | {
+		url: string;
+		_id: string;
+	}>(null);
 
 	public readonly index = input(0);
 
@@ -37,23 +37,23 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 	protected readonly logger = inject(NGXLogger);
 
 	public ngAfterViewInit(): void {
-		const banner = this.banner();
-  if (banner) {
-			this.updateSrc(banner.url);
+		const image = this.image();
+		if (image) {
+			this.updateSrc(image.url);
 		}
 	}
 
 	public ngOnChanges(): void {
 		// TODO check if is after view init
-		const banner = this.banner();
-  if (banner) {
-			this.updateSrc(banner.url);
+		const image = this.image();
+		if (image) {
+			this.updateSrc(image.url);
 		}
 	}
 
 	public updateSrc(base64: string | undefined): void {
 		const previewImage = this.previewImage();
-  if (!base64?.length || !previewImage) {
+		if (!base64?.length || !previewImage) {
 			return;
 		}
 		previewImage.nativeElement.src = base64;
@@ -89,7 +89,7 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 	public clear(): void {
 		this.mediaState = MediaStateEnum.DELETED;
 		const previewImage = this.previewImage();
-  previewImage.nativeElement.src = '';
+		previewImage.nativeElement.src = '';
 		previewImage.nativeElement.classList.add('hidden');
 		this.selectedFile = undefined;
 	}

@@ -31,6 +31,9 @@ import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
+import {
+	ListProductFormOrder
+} from "@shared/presentation/component/smart/order/form/product/list/list.product.form.order";
 import {OrderForm} from "@tenant/order/order/presentation/form/order.form";
 import {firstValueFrom, lastValueFrom} from "rxjs";
 import {
@@ -48,6 +51,7 @@ import {
 		CardComponent,
 		FormTextareaComponent,
 		FormsModule,
+		ListProductFormOrder,
 	],
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,9 +60,13 @@ import {
 
 			<app-list-service-form-order-component
 				#appListServiceFormOrderComponent
-				[serviceOrderFormArray]="form.controls.services"
+				[orderServiceFormArray]="form.controls.services"
 				[setupPartialData]="setupPartialData()"
 				class="flex-1"/>
+
+			<product-list-form-order
+				#productListFormOrder
+				[orderProductFormArray]="form.controls.products"/>
 
 			<bee-card>
 				<form-textarea-component
@@ -69,11 +77,13 @@ import {
 			</bee-card>
 
 			<utility-button-save-container-component class="bottom-0">
+				@let isDisabled = form.disabled || ((!appListServiceFormOrderComponent.orderServiceFormArray().length) && (!productListFormOrder.orderProductFormArray().length));
+
 				<button
 					type="button"
 					primary
 					[isLoading]="form.pending"
-					[isDisabled]="form.disabled || (!appListServiceFormOrderComponent.serviceOrderFormArray().length)"
+					[isDisabled]="isDisabled"
 					[scrollToFirstError]="true"
 					(click)="save()">
 					{{ 'keyword.capitalize.save' | translate }}
@@ -247,11 +257,15 @@ export class OrderFormPage {
 	}
 
 	private patchOrderValue(order: EOrder) {
+
 		this.form.patchValue(order);
+
 		order.services?.forEach((service) => {
 			this.form.controls.services.pushNewOne(service);
 		});
+
 		this.changeDetectorRef.detectChanges();
+
 	}
 
 }

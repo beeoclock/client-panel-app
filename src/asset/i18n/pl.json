@@ -317,6 +317,14 @@
 								"hint": "Wybierz pola wymagane do wypełnienia przez klientów podczas rezerwacji usługi.",
 								"label": "Wymagane pola"
 							},
+							"paymentRequirement": {
+								"hint": "Wybierz, czy wymagana jest przedpłata za twoje usługi lub produkty.",
+								"label": "Wymóg płatności",
+								"options": {
+									"NOT_REQUIRED": "Nie jest wymagany",
+									"REQUIRED_BEFORE_BOOKING": "Klienci muszą dokonać płatności przed potwierdzeniem rezerwacji."
+								}
+							},
 							"timeZone": {
 								"hint": "Wybierz strefę czasową, w której prowadzasz działalność gospodarczą, to pole określi sposób tworzenia wolnych terminów dla rezerwacji i wyświetlania harmonogramu pracy.",
 								"label": "Strefa czasowa"
@@ -638,12 +646,13 @@
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucone",
-					"requested": "Zażądane"
+					"requested": "Zażądane",
+					"confirmed": "Potwierdzone"
 				},
 				"singular": {
 					"accepted": "Zaakceptowany",
 					"cancelled": "Odwołane",
-					"confirmed": "Potwierdzono",
+					"confirmed": "Potwierdzone",
 					"deleted": "Usunięto",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
@@ -689,6 +698,7 @@
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"min": "Minimalna wartość to {{min}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
+			"nameExists": "Nazwa już istnieje",
 			"phoneExists": "Numer telefonu już istnieje",
 			"required": "Wymagane pole",
 			"shouldBeMoreThen": {
@@ -714,6 +724,20 @@
 					"accept": {
 						"header": "Usuwanie wydarzenia",
 						"message": "Czy na pewno chcesz usunąć wydarzenie?"
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został usunięty."
+					}
+				},
+				"before": {
+					"accept": {
+						"header": "Usuwanie produkt",
+						"message": "Czy na pewno chcesz usunąć produkt?"
 					}
 				}
 			},
@@ -785,6 +809,14 @@
 					}
 				}
 			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Utworzono produkt",
+						"message": "Produkt został utworzony."
+					}
+				}
+			},
 			"/api/v1/service": {
 				"after": {
 					"success": {
@@ -816,6 +848,14 @@
 					"success": {
 						"header": "Wydarzenie zaktualizowane",
 						"message": "Wydarzenie zostało zaktualizowany."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został zaktualizowany."
 					}
 				}
 			},
@@ -892,7 +932,7 @@
 					"title": "Jaka jest Twoja branża?"
 				},
 				"introduction": {
-					"button": "Zacząć",
+					"button": "Rozpocznij",
 					"description": "Zwiększ wydajność swojej firmy dzięki kompleksowemu rozwiązaniu",
 					"welcome": "Witamy w"
 				},
@@ -1046,10 +1086,12 @@
 			"additional": "Dodatkowe",
 			"additionalInformation": "Informacje dodatkowe",
 			"address": "Adres",
+			"advancedInformation": "Zaawansowane informacje",
 			"all": "Wszystkie",
 			"allServices": "Wszystkie usługi",
 			"allSpecialists": "Wszyscy specjaliści",
 			"allStatuses": "Wszystkie statusy",
+			"allTags": "Wszystkie tagi",
 			"amount": "Kwota",
 			"amountPaid": "Zapłacona kwota",
 			"amountToPay": "Kwota do zapłaty",
@@ -1073,6 +1115,17 @@
 			"businessProfile": "Profil biznesu",
 			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
+			"category": {
+				"create": {
+					"choose": "Wybierz kategorie",
+					"enter": "Wpisz kategorie",
+					"first": "Dodaj pierwszą kategorie",
+					"tooltip": "Dodaj kategorie do listy",
+					"uniqueError": "Nazwa kategorii musi być unikalna"
+				},
+				"plural": "Kategorie",
+				"single": "Kategoria"
+			},
 			"changeStatus": "Zmień status",
 			"changes": "Zmiany",
 			"changesFrom": "Z",
@@ -1167,7 +1220,7 @@
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
 			"paid": "Zapłacone",
-			"past": "Przeszłość",
+			"past": "Historia zamówień",
 			"payAsYouGo": "Płać na bieżąco",
 			"payer": "Płatnik",
 			"payment": "Płatność",
@@ -1195,7 +1248,10 @@
 			"priceTimeFormatPrompt": "godziny:minuty",
 			"prices": "Ceny",
 			"processing": "Przetwarzanie",
+			"productName": "Nazwa produktu",
+			"products": "Produkty",
 			"publicPage": "Strona publiczna",
+			"quantity": "Ilość",
 			"registerPayment": "Zarejestruj płatność ",
 			"reject": "Odrzucić",
 			"role": "Rola",
@@ -1213,6 +1269,7 @@
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
 			"signUp": "Zarejestruj się",
+			"sku": "SKU",
 			"slogan": "Slogan",
 			"socialMedia": "Media społecznościowe",
 			"somethingWentWrong": "Coś poszło nie tak!",
@@ -1228,7 +1285,22 @@
 			"successfully": "Pomyślnie",
 			"switchTo": "Przełącz na",
 			"synced": "Zsynchronizowano",
+			"synchronization": "Synchronizacja",
+			"synchronizationError": "Błąd synchronizacji",
+			"synchronized": "Zsynchronizowano",
 			"syncing": "Synchronizacja w toku…",
+			"tag": {
+				"create": {
+					"choose": "Wybierz tag",
+					"enter": "Wpisz tag",
+					"first": "Dodaj pierwszy tag",
+					"tooltip": "Dodaj tag do listy",
+					"uniqueError": "Nazwa tagu musi być unikalna"
+				},
+				"plural": "Tagi",
+				"single": "Tag"
+			},
+			"tags": "Tagi",
 			"tapOnTheDataToEditIt": "Dotknij danych, aby je edytować.",
 			"theSlotAlreadyTaken": "Ten termin u tego specjalisty jest już zajęty!",
 			"theme": "Motyw",
@@ -1245,6 +1317,7 @@
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
 			"upgradeTo": "Zaktualizuj do",
+			"waitingForSynchronization": "Oczekuje na synchronizację ",
 			"warning": "Uwaga",
 			"week": "Tydzień",
 			"workdays": "Dni pracy",
@@ -1524,6 +1597,29 @@
 			}
 		}
 	},
+	"product": {
+		"button": {
+			"create": "Dodaj produkt"
+		},
+		"deactivateBeforeDelete": "Nie można usunąć aktywnego produktu",
+		"details": {
+			"title": "Informacje o produkcie"
+		},
+		"form": {
+			"availableLanguages": {
+				"hint": "Możesz nadać swojemu produktowi nazwę w ramach dostępnych języków"
+			},
+			"tags": {
+				"select": {
+					"placeholder": "Wybierz tag"
+				}
+			},
+			"title": {
+				"create": "Dodawanie produktu",
+				"edit": "Edycja produktu"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Właściciel",
@@ -1592,7 +1688,7 @@
 		"title": "Usługa"
 	},
 	"sidebar": {
-		"absence": "Nieobecność",
+		"absence": "Nieobecności",
 		"addEvent": "Dodaj wydarzenie",
 		"appointments": {
 			"label": "Wizyty"
@@ -1601,7 +1697,16 @@
 		"businessProfile": "Profil biznesowy",
 		"businessSettings": "Ustawienia firmy",
 		"calendar": {
-			"label": "Kalendarz",
+			"label": "Kalendarz (dzień)",
+			"ordinary": {
+				"label": "Zwykły"
+			},
+			"withSpecialists": {
+				"label": "Ze specjalistami"
+			}
+		},
+		"week-calendar": {
+			"label": "Kalendarz (tydzień)",
 			"ordinary": {
 				"label": "Zwykły"
 			},
@@ -1618,6 +1723,8 @@
 		"payment": "Płatności",
 		"plugins": "Pluginy",
 		"private": "Prywatne",
+		"product-tag": "Tagi produktu",
+		"products": "Produkty",
 		"profile": {
 			"signOut": {
 				"header": "Wylogowanie",
@@ -1757,6 +1864,11 @@
 				"detach": "Odłącz"
 			},
 			"subtitle": "Dzięki wtyczkom możesz uzyskać więcej funkcji i zautomatyzować niektóre procesy. Połącz się i automatyzuj!"
+		},
+		"plugin": {
+			"payment-stripe": {
+				"open-dashboard": "Przejdź do Stripe"
+			}
 		}
 	},
 	"updateAvailable": {

@@ -5,6 +5,7 @@ import {ITariffPlanHistory} from "@tenant/tariff-plan/tariff-plan-history/domain
 import {
 	GetTenantTariffPlanPagedApi
 } from "@tenant/tariff-plan/tariff-plan-history/infrastructure/data-source/api/get/get.tenant-tariff-plan.paged.api";
+import { of } from "rxjs";
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<ITariffPlanHistory.DTO> {
@@ -17,6 +18,14 @@ export class ApiDataProvider extends DataProvider<ITariffPlanHistory.DTO> {
 	 */
 	public override find$(options: Types.FindQueryParams = {}) {
 		return this.getApi.execute$(options);
+	}
+
+	public override create$(data: ITariffPlanHistory.DTO) {
+		return of(data);
+	}
+
+	public override update$(data: ITariffPlanHistory.DTO) {
+		return of(data);
 	}
 
 }

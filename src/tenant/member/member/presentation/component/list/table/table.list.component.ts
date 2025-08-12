@@ -22,6 +22,7 @@ import {
 	MemberPresentationActions
 } from "@tenant/member/member/infrastructure/state/presentation/member.presentation.actions";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'member-table-list-component',
@@ -140,6 +141,9 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 				<no-available/>
 			}
 		</ng-template>
+		<ng-template #syncedAtTemplate let-row="row">
+			<synchronization-molecule [item]="row"/>
+		</ng-template>
 	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
@@ -149,7 +153,8 @@ import {NoAvailable} from "@shared/presentation/component/no-available/no-availa
 		TranslatePipe,
 		AutoRefreshButtonComponent,
 		NotFoundTableDataComponent,
-		NoAvailable
+		NoAvailable,
+		SynchronizationMolecule
 	],
 	host: {
 		class: 'h-[calc(100vh-210px)] md:h-[calc(100vh-80px)] block'
@@ -163,6 +168,8 @@ export class TableListComponent extends TableComponent<EMember> {
 	public readonly emailCellTemplate = viewChild<TemplateRef<any>>('emailCellTemplate');
 	public readonly phoneCellTemplate = viewChild<TemplateRef<any>>('phoneCellTemplate');
 	public readonly roleCellTemplate = viewChild<TemplateRef<any>>('roleCellTemplate');
+	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
+
 	public readonly columns = signal<TableColumn<EMember>[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.fullName'),
@@ -222,6 +229,13 @@ export class TableListComponent extends TableComponent<EMember> {
 			sortable: true,
 			$$valueGetter: this.anyDateConvert,
 		},
+		{
+			name: this.translateService.instant('keyword.capitalize.synchronization'),
+			prop: 'syncedAt',
+			minWidth: 240,
+			width: 240,
+			sortable: false,
+		},
 	]);
 
 	public readonly columnList = computed(() => {
@@ -252,6 +266,12 @@ export class TableListComponent extends TableComponent<EMember> {
 		if (roleCellTemplate) {
 			this.setCellTemplateRef(columns, 'role', roleCellTemplate);
 		}
+
+		const syncedAtTemplate = this.syncedAtTemplate();
+		if (syncedAtTemplate) {
+			this.setCellTemplateRef(columns, 'syncedAt', syncedAtTemplate);
+		}
+
 		return columns;
 
 	});

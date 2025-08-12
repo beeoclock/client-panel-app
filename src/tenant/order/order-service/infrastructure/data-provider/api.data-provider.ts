@@ -1,14 +1,13 @@
-import {DataProvider} from "@core/system/infrastructure/data-provider/data-provider";
-import {inject, Injectable} from "@angular/core";
-import {Types} from "@core/shared/types";
-import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
-import {from, map} from "rxjs";
-import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
-import {SharedUow} from "@core/shared/uow/shared.uow";
+import { DataProvider } from '@core/system/infrastructure/data-provider/data-provider';
+import { inject, Injectable } from '@angular/core';
+import { Types } from '@core/shared/types';
+import { IOrderService } from '@tenant/order/order-service/domain/interface/i.order-service.dto';
+import { from, map, of } from 'rxjs';
+import EOrderService from '@tenant/order/order-service/domain/entity/e.order-service';
+import { SharedUow } from '@core/shared/uow/shared.uow';
 
 @Injectable()
 export class ApiDataProvider extends DataProvider<IOrderService.DTO> {
-
 	// private readonly getApi = inject(GetApi);
 	// private readonly getItemApi = inject(GetItemApi);
 	// private readonly putApi = inject(PutApi);
@@ -26,10 +25,12 @@ export class ApiDataProvider extends DataProvider<IOrderService.DTO> {
 		// 	})),
 		// );
 		return this.sharedUow.order.repository.find$(options).pipe(
-			map(({items, totalSize}) => ({
-				items: items.map(({services}) => services.map(EOrderService.fromDTO)).flat(),
+			map(({ items, totalSize }) => ({
+				items: items
+					.map(({ services }) => services.map(EOrderService.fromDTO))
+					.flat(),
 				totalSize,
-			})),
+			}))
 		);
 	}
 
@@ -40,21 +41,26 @@ export class ApiDataProvider extends DataProvider<IOrderService.DTO> {
 				if (!item) {
 					return undefined;
 				}
-				const found = item.services.find((service) => service._id === id);
+				const found = item.services.find(
+					(service) => service._id === id
+				);
 				if (!found) {
 					return undefined;
 				}
 				return EOrderService.fromDTO(found);
-			}),
-		)
+			})
+		);
+	}
+
+	public override create$(data: IOrderService.DTO) {
+		return of(data);
 	}
 
 	/**
 	 * TODO
 	 * @param dto
 	 */
-	// public override update$(dto: IOrderService.DTO) {
-	// 	return this.putApi.execute$(dto);
-	// }
-
+	public override update$(dto: IOrderService.DTO) {
+		return of(dto);
+	}
 }

@@ -10,6 +10,7 @@ export interface IBaseEntityForm<OBJECT_NAME> {
 	createdAt: FormControl<string>;
 	updatedAt: FormControl<string>;
 	_id: FormControl<string>;
+	_version: FormControl<string>;
 
 	state: FormControl<StateEnum>;
 	stateHistory: FormControl<{
@@ -18,7 +19,7 @@ export interface IBaseEntityForm<OBJECT_NAME> {
 	}[]>;
 }
 
-type DEFAULT_OMIT = 'object' | '_id' | 'createdAt' | 'updatedAt' | 'state' | 'stateHistory';
+type DEFAULT_OMIT = 'object' | '_version' | '_id' | 'createdAt' | 'updatedAt' | 'state' | 'stateHistory';
 type EXTERNAL_FORM_WITHOUT_LOCAL_CONTROLS<FORM_INTERFACE> = {
 	[K in keyof Omit<FORM_INTERFACE, DEFAULT_OMIT>]: Omit<FORM_INTERFACE, DEFAULT_OMIT>[K];
 };
@@ -39,6 +40,9 @@ export class BaseEntityForm<OBJECT_NAME, FORM_INTERFACE extends EXTERNAL_FORM_WI
 				nonNullable: true,
 			}),
 			_id: new FormControl(ObjectID().toHexString(), {
+				nonNullable: true,
+			}),
+			_version: new FormControl('1', {
 				nonNullable: true,
 			}),
 

@@ -22,10 +22,7 @@ import {
 import {
 	StartChipComponent
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/start.chip.component";
-import {
-	LanguageChipComponent
-} from "@shared/presentation/component/smart/order/form/service/list/item/chip/language.chip.component";
-import {ServiceOrderForm} from "@tenant/order/order/presentation/form/service.order.form";
+import {OrderServiceForm} from "@tenant/order/order/presentation/form/orderServiceForm";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
@@ -52,6 +49,9 @@ import {
 	ValidationBusySlotChip
 } from "@shared/presentation/component/smart/order/form/service/list/item/chip/validation-busy-slot.chip";
 import {TranslatePipe} from "@ngx-translate/core";
+import {
+	LanguageChipComponent
+} from "@shared/presentation/component/smart/order/form/service/list/item/chip/language.chip.component";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -64,12 +64,12 @@ import {TranslatePipe} from "@ngx-translate/core";
 		PriceChipComponent,
 		DurationChipComponent,
 		StartChipComponent,
-		LanguageChipComponent,
 		PrimaryLinkButtonDirective,
 		ServiceChipComponent,
 		StatusChipComponent,
 		ValidationBusySlotChip,
 		TranslatePipe,
+		LanguageChipComponent,
 	],
 	template: `
 		<div class="justify-start items-start gap-1 flex w-full">
@@ -133,7 +133,7 @@ export class ItemV2ListServiceFormOrderComponent {
 
 	public readonly item = input.required<{
 		service: IService.DTO; // from serviceSnapshot
-		control: ServiceOrderForm;
+		control: OrderServiceForm;
 	}>();
 
 	public readonly setupPartialData = input<{

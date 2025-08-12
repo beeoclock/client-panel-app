@@ -140,7 +140,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 	 * @param state
 	 */
 	public changeOrderedServiceState(serviceId: string, state: StateEnum): void {
-		const service = this.services.find((service) => service._id === serviceId);
+		const service = this.services.find(({_id}) => _id === serviceId);
 
 		if (!service) {
 			throw new Error(`Service with id ${serviceId} not found`);
@@ -148,6 +148,32 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 
 		service.state = state;
 		service.stateHistory.push({
+			state,
+			setAt: new Date().toISOString(),
+		});
+
+		// Update the order state
+		const newOrderState = this.determineOrderState();
+
+		if (newOrderState) {
+			this.changeState(newOrderState);
+		}
+	}
+
+	/**
+	 *
+	 * @param productId
+	 * @param state
+	 */
+	public changeOrderedProductState(productId: string, state: StateEnum): void {
+		const product = this.products.find(({_id}) => _id === productId);
+
+		if (!product) {
+			throw new Error(`Service with id ${productId} not found`);
+		}
+
+		product.state = state;
+		product.stateHistory.push({
 			state,
 			setAt: new Date().toISOString(),
 		});
@@ -190,23 +216,32 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 	}
 
 	public determineOrderState(): StateEnum | null {
-		const allServicesActive = this.services.every(service => service.state === StateEnum.active);
-		if (allServicesActive) {
+
+		if (this.services.length === 0 && this.products.length === 0) {
+			return null;
+		}
+
+		const allServicesActive = this.services.every(({state}) => state === StateEnum.active);
+		const allProductsActive = this.products.every(({state}) => state === StateEnum.active);
+		if (allServicesActive && allProductsActive) {
 			return StateEnum.active;
 		}
 
-		const allServicesDeleted = this.services.every(service => service.state === StateEnum.deleted);
-		if (allServicesDeleted) {
+		const allServicesDeleted = this.services.every(({state}) => state === StateEnum.active);
+		const allProductsDeleted = this.products.every(({state}) => state === StateEnum.active);
+		if (allServicesDeleted && allProductsDeleted) {
 			return StateEnum.deleted;
 		}
 
-		const allServiceArchived = this.services.every(service => service.state === StateEnum.archived);
-		if (allServiceArchived) {
+		const allServiceArchived = this.services.every(({state}) => state === StateEnum.archived);
+		const allProductsArchived = this.products.every(({state}) => state === StateEnum.archived);
+		if (allServiceArchived && allProductsArchived) {
 			return StateEnum.archived;
 		}
 
-		const allServiceInactive = this.services.some(service => service.state === StateEnum.inactive);
-		if (allServiceInactive) {
+		const allServiceInactive = this.services.every(({state}) => state === StateEnum.inactive);
+		const allProductsInactive = this.products.every(({state}) => state === StateEnum.inactive);
+		if (allServiceInactive && allProductsInactive) {
 			return StateEnum.inactive;
 		}
 
@@ -220,18 +255,20 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 
 	public static toDTO(data: IOrder.EntityRaw): IOrder.DTO {
 		return {
-			_id: data._id,
+			notificationSettings: data.notificationSettings,
 			businessNote: data.businessNote,
-			createdAt: data.createdAt,
-			meta: data.meta,
-			object: data.object,
 			products: data.products,
 			services: data.services,
-			state: data.state,
-			stateHistory: data.stateHistory,
 			status: data.status,
+			meta: data.meta,
+
+			_id: data._id,
+			state: data.state,
+			object: data.object,
+			_version: data._version,
+			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
-			notificationSettings: data.notificationSettings,
+			stateHistory: data.stateHistory,
 		}
 	}
 
