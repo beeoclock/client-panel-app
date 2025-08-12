@@ -31,7 +31,7 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 				<div class="flex gap-2 items-center">
 					<div
 						class="rounded-full uppercase bg-gradient-to-r from-sky-100 to-sky-200 min-h-8 min-w-8 flex justify-center items-center font-bold text-sky-700">
-						{{ firstName[0] }}{{ lastName[0] }}
+						{{ firstName?.[0] ?? '' }}{{ lastName?.[0] ?? '' }}
 					</div>
 
 					<div class="text-slate-900 text-sm font-normal truncate">
@@ -52,7 +52,7 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 
 					<div
 						class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-8 min-w-8 flex justify-center items-center font-bold text-yellow-700">
-						{{ firstName[0] }}{{ lastName[0] }}
+						{{ firstName?.[0] ?? '' }}{{ lastName?.[0] ?? '' }}
 					</div>
 
 					<div class="whitespace-nowrap font-medium text-neutral-800 dark:text-white flex flex-col">
@@ -70,7 +70,7 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 
 					<div
 						class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-8 min-w-8 flex justify-center items-center font-bold text-yellow-700">
-						{{ firstName[0] }}{{ lastName[0] }}
+						{{ firstName?.[0] ?? '' }}{{ lastName?.[0] ?? '' }}
 					</div>
 
 					<span class="truncate">

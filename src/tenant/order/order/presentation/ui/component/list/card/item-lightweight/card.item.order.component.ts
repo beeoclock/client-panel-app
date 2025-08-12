@@ -36,7 +36,6 @@ import {
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
-import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 
 @Component({
 	selector: 'app-card-item-lightweight-order-component',
@@ -129,7 +128,7 @@ import {IOrderService} from "@tenant/order/order-service/domain/interface/i.orde
 
 											<div
 												class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
-												{{ firstName[0] }}{{ lastName[0] }}
+												{{ firstName?.[0] ?? '' }}{{ lastName?.[0] ?? '' }}
 											</div>
 
 										}

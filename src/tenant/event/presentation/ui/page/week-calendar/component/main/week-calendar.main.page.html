@@ -38,8 +38,8 @@
 
 						} @else {
 
-							<div class="text-white text-xs font-bold">{{ member.firstName[0] }}</div>
-							<div class="text-white text-xs font-bold">{{ member.lastName[0] }}</div>
+							<div class="text-white text-xs font-bold">{{ member.firstName?.[0] ?? '' }}</div>
+							<div class="text-white text-xs font-bold">{{ member.lastName?.[0] ?? '' }}</div>
 
 						}
 						<div class="text-sm font-medium text-gray-700 text-right">

@@ -124,7 +124,7 @@ import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum"
 					<dd class="mt-1 text-sm leading-6 text-gray-700 flex items-center gap-2">
 						<div
 							class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center font-bold text-white">
-							{{ firstName[0] }}{{ lastName[0] }}
+							{{ firstName?.[0] ?? '' }}{{ lastName?.[0] ?? '' }}
 						</div>
 						{{ firstName }} {{ lastName }}
 					</dd>
