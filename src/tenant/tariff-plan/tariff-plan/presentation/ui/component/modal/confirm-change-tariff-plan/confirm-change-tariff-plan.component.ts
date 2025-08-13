@@ -160,7 +160,7 @@ export class ConfirmChangeTariffPlanComponent {
 
 	public readonly loading = signal(false);
 
-	private readonly PostTenantTariffPlanChangeAmountApiRequest = inject(PostTenantTariffPlanChangeAmountApi.Request);
+	private readonly postTenantTariffPlanChangeAmountApiRequest = inject(PostTenantTariffPlanChangeAmountApi.Request);
 	private readonly tariffPlanStore = inject(TariffPlanStore);
 
 	public readonly resource: ResourceRef<PostTenantTariffPlanChangeAmountApi.RESPONSE | undefined> = resource({
@@ -168,7 +168,7 @@ export class ConfirmChangeTariffPlanComponent {
 			tariffPlan: this.tariffPlan(),
 		}),
 		loader: async ({request: {tariffPlan}}) => {
-			const result = await this.PostTenantTariffPlanChangeAmountApiRequest.executeAsync(tariffPlan);
+			const result = await this.postTenantTariffPlanChangeAmountApiRequest.executeAsync(tariffPlan);
 			return result;
 		}
 	});

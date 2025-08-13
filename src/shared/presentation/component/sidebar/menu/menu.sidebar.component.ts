@@ -164,6 +164,42 @@ export class MenuSidebarComponent implements OnInit {
 			// ]
 		});
 		this.menu.push({
+			order: 1,
+			translateKey: 'sidebar.week-calendar.label',
+			icon: 'bi bi-calendar-week',
+			// icon: 'bi bi-calendar2-event',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: 'event/week-calendar',
+			// items: [
+			// 	{
+			// 		translateKey: 'sidebar.calendar.withSpecialists.label',
+			// 		url: 'event/calendar-with-specialists',
+			// 		icon: 'bi bi-person-badge',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		},
+			// 		visible: true,
+			// 		order: 0
+			// 	},
+			// 	{
+			// 		url: 'event/calendar',
+			// 		translateKey: 'sidebar.calendar.ordinary.label',
+			// 		icon: 'bi bi-calendar-week',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		},
+			// 		visible: true,
+			// 		order: 1
+			// 	},
+			// ]
+		});
+		this.menu.push({
 			order: 2,
 			translateKey: 'sidebar.appointments.label',
 			icon: 'bi bi-journal-check',
@@ -256,6 +292,19 @@ export class MenuSidebarComponent implements OnInit {
 			}
 		});
 		this.menu.push({
+			order: 6,
+			url: 'product/list',
+			translateKey: 'sidebar.products',
+			icon: 'bi bi-basket',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
 			order: 7,
 			url: 'order/list',
 			translateKey: 'sidebar.order',
@@ -308,65 +357,12 @@ export class MenuSidebarComponent implements OnInit {
 				fragment: "ignored",
 			}
 		});
-
 		this.menu.push({
 			order: 10,
 			url: 'member/roles',
 			translateKey: 'sidebar.roles',
 			visible: true,
 			icon: 'bi bi-award',
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 11,
-			url: 'client/business-profile',
-			translateKey: 'sidebar.businessProfile',
-			visible: true,
-			icon: 'bi bi-buildings',
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 12,
-			url: 'client/business-settings',
-			translateKey: 'sidebar.businessSettings',
-			icon: 'bi bi-building-gear',
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 13,
-			url: 'tariff-plan/overview',
-			translateKey: 'sidebar.tariffPlan',
-			icon: 'bi bi-building-up',
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
-		this.menu.push({
-			order: 13,
-			url: 'balance/overview',
-			translateKey: 'sidebar.balance',
-			icon: 'bi bi-piggy-bank',
-			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",

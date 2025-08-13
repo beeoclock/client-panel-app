@@ -19,9 +19,10 @@ export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IReposit
 	/**
 	 *
 	 * @param options
+	 * @param filterFunction
 	 */
-	public findAsync(options: Types.FindQueryParams = {}): Promise<ResponseListType<ITEM>> {
-		return firstValueFrom(this.find$(options));
+	public findAsync(options: Types.FindQueryParams = {}, filterFunction?: ((entity: ITEM, filter: Types.FindQueryParams) => boolean)): Promise<ResponseListType<ITEM>> {
+		return firstValueFrom(this.find$(options, filterFunction));
 	}
 
 	/**
@@ -59,9 +60,10 @@ export abstract class BaseRepository<ITEM, ID_TYPE = string> implements IReposit
 	/**
 	 *
 	 * @param options
+	 * @param filterFunction
 	 */
-	public find$(options: Types.FindQueryParams = {}): Observable<ResponseListType<ITEM>> {
-		return this.getDataProvider().find$(options);
+	public find$(options: Types.FindQueryParams = {}, filterFunction?: ((entity: ITEM, filter: Types.FindQueryParams) => boolean)): Observable<ResponseListType<ITEM>> {
+		return this.getDataProvider().find$(options, filterFunction);
 	}
 
 	/**

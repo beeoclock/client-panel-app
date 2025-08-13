@@ -8,6 +8,26 @@ import {PaymentProviderTypeEnum} from "../enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "../enum/payment.status.enum";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum";
+import {PaymentFormValue} from "@tenant/order/payment/presentation/form/payment.form";
+
+export const PaymentStatusColorMap = {
+	[PaymentStatusEnum.pending]: {
+		bg: 'bg-yellow-100',
+		text: 'text-yellow-800',
+	},
+	[PaymentStatusEnum.succeeded]: {
+		bg: 'bg-green-100',
+		text: 'text-green-800',
+	},
+	[PaymentStatusEnum.failed]: {
+		bg: 'bg-red-100',
+		text: 'text-red-800',
+	},
+	[PaymentStatusEnum.registered]: {
+		bg: 'bg-blue-100',
+		text: 'text-blue-800',
+	},
+};
 
 export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.EntityRaw> implements IPayment.EntityRaw {
 
@@ -20,9 +40,10 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 	currency!: CurrencyCodeEnum & Types.Default<CurrencyCodeEnum.USD>;
 	method!: PaymentMethodEnum & Types.Default<PaymentMethodEnum.CASH>;
 	providerType?: (PaymentProviderTypeEnum & Types.Default<PaymentProviderTypeEnum.onSite>) | undefined;
-	status!: PaymentStatusEnum & Types.Default<PaymentStatusEnum.pending>;
+	status!: PaymentStatusEnum;
 	paymentDate?: string | undefined;
 	anchorType!: AnchorTypeEnum & Types.Default<AnchorTypeEnum.order>;
+	anchorId?: string | undefined | null;
 
 	public payerToString() {
 
@@ -60,6 +81,7 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 		return {
 			providerPaymentRef: data.providerPaymentRef,
 			anchorType: data.anchorType,
+			anchorId: data.anchorId,
 			currency: data.currency,
 			orderId: data.orderId,
 			amount: data.amount,
@@ -85,12 +107,20 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 		return new EPayment(data);
 	}
 
+	public static fromFormValue(data: PaymentFormValue): EPayment {
+		return new EPayment(data);
+	}
+
 	/**
 	 * Use it to create entity from raw data, e.g. from database
 	 * @param data
 	 */
 	public static fromRaw(data: IPayment.EntityRaw): EPayment {
 		return new EPayment(data);
+	}
+
+	public static fromRawList(items: IPayment.EntityRaw[]): EPayment[] {
+		return items.map(item => EPayment.fromRaw(item));
 	}
 
 }

@@ -573,7 +573,7 @@
 					}
 				}
 			},
-			"title": "Detailed view of the event"
+			"title": "Details of the service ordered"
 		},
 		"form": {
 			"section": {
@@ -646,7 +646,8 @@
 					"done": "Done",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
-					"requested": "Requested"
+					"requested": "Requested",
+					"confirmed": "Confirmed"
 				},
 				"singular": {
 					"accepted": "Accepted",
@@ -1083,6 +1084,7 @@
 			"addDuration": "Add duration",
 			"addSocialMedia": "Add social media",
 			"additional": "Additional",
+			"additionalInformation": "Additional information",
 			"address": "Address",
 			"advancedInformation": "Advanced information",
 			"all": "All",
@@ -1091,6 +1093,8 @@
 			"allStatuses": "All statuses",
 			"allTags": "All tags",
 			"amount": "Amount",
+			"amountPaid": "Amount paid",
+			"amountToPay": "Amount to pay",
 			"anonymous": "Anonymous",
 			"approvalType": "Approval type",
 			"approve": "Approve",
@@ -1107,7 +1111,7 @@
 			"businessCategory": "Business category",
 			"businessIndustry": "Business industry",
 			"businessName": "Business name",
-			"businessNote": "Business note",
+			"businessNote": "Business note to the order",
 			"businessProfile": "Business profile",
 			"businessSettings": "Business settings",
 			"cancel": "Cancel",
@@ -1131,6 +1135,7 @@
 			"city": "City",
 			"clearCache": "Refresh cache",
 			"clickToUpload": "Click to upload",
+			"clientDoesNotSeeThisData": "The client does not see this data",
 			"clients": "Clients",
 			"close": "Close",
 			"color": "Color",
@@ -1188,6 +1193,7 @@
 			"lastUpdate": "Last update",
 			"latestBooking": "When an event can be booked",
 			"leftInDays": "Days left",
+			"loadMore": "Load more",
 			"logout": "Logout",
 			"members": "Members",
 			"menu": "Menu",
@@ -1205,17 +1211,22 @@
 			"notYetStarted": "Not yet started",
 			"note": "Note",
 			"notification": "Notification",
+			"numberOfServicesOrdered": "Number of services ordered",
 			"openTimePicker": "Select",
 			"order": "Order",
+			"orderInformation": "Order information",
+			"orderStatus": "Order status",
 			"ordering": "Ordering",
 			"ownOptionOfTime": "Hour according to your wish",
 			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
 			"paid": "Paid",
+			"past": "Order history",
 			"payAsYouGo": "Pay as you go",
 			"payer": "Payer",
 			"payment": "Payment",
+			"paymentDate": "Payment date",
 			"paymentMethod": "Payment method",
-			"paymentProviderType": "Payment type ",
+			"paymentProviderType": "Payment type",
 			"paymentStatus": "Payment status",
 			"periodOfDay": {
 				"AFTERNOON": "Afternoon",
@@ -1243,6 +1254,7 @@
 			"products": "Products",
 			"publicPage": "Public page",
 			"quantity": "Quantity",
+			"registerPayment": "Register payment ",
 			"reject": "Reject",
 			"role": "Role",
 			"save": "Save",
@@ -1291,6 +1303,7 @@
 				"single": "Tag"
 			},
 			"tags": "Tags",
+			"tapOnTheDataToEditIt": "Tap on the data to edit it",
 			"theSlotAlreadyTaken": "This time slot is already booked with this specialist!",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
@@ -1302,6 +1315,7 @@
 			"total": "Total",
 			"tryDemoProfile": "Try demo profile",
 			"unknown": "Unknown",
+			"upcoming": "Upcoming",
 			"update": "Updated",
 			"updatedAt": "Updated at",
 			"upgradeTo": "Upgrade to",
@@ -1892,7 +1906,7 @@
 		"title": "Service"
 	},
 	"sidebar": {
-		"absence": "Absence",
+		"absence": "Absences",
 		"addEvent": "Add event",
 		"appointments": {
 			"label": "Appointments"
@@ -1901,7 +1915,16 @@
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",
 		"calendar": {
-			"label": "Calendar",
+			"label": "Calendar (day)",
+			"ordinary": {
+				"label": "Ordinary"
+			},
+			"withSpecialists": {
+				"label": "With specialists"
+			}
+		},
+		"week-calendar": {
+			"label": "Calendar (week)",
 			"ordinary": {
 				"label": "Ordinary"
 			},

@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, input, output, viewChild, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import ObjectID from "bson-objectid";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {FormControl} from "@angular/forms";
 import {
 	OrderServiceStatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
@@ -24,14 +24,17 @@ import {TranslatePipe} from "@ngx-translate/core";
 	template: `
 		<button
 			[id]="'select-order-service-status-version-' + id()"
-			class="w-9 h-9 rounded-lg border border-gray-200 justify-center items-center flex">
-			<div class="text-center text-black text-sm font-bold uppercase">
+			[class.w-9]="!showLabel()"
+			[class.px-2]="showLabel()"
+			class="h-9 border border-gray-200 justify-center items-center flex bg-white rounded-lg hover:bg-neutral-300 hover:border-neutral-400">
+			<div class="text-center text-black text-sm font-bold uppercase flex items-center gap-2">
 				<app-order-service-status-icon-component
 					class="flex text-3xl"
 					[status]="control().value"/>
 				@if (showLabel()) {
-					{{ ('event.keyword.status.singular.' + control().value) | translate }}
+					<span>{{ ('event.keyword.status.singular.' + controlMapper()) | translate }}</span>
 				}
+				<i class="bi bi-chevron-expand"></i>
 			</div>
 		</button>
 		<ion-popover [trigger]="'select-order-service-status-version-' + id()">
@@ -45,7 +48,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 							<app-order-service-status-icon-component
 								class="flex text-3xl text-blue-600"
 								[status]="orderServiceStatusEnum.accepted"/>
-							{{ 'event.keyword.status.singular.accepted' | translate }}
+							{{ 'event.keyword.status.plural.confirmed' | translate }}
 						</ion-label>
 					</ion-item>
 
@@ -73,7 +76,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 				</ion-list>
 			</ng-template>
 		</ion-popover>
-    `
+	`
 })
 export class StatusChipComponent {
 
@@ -97,6 +100,14 @@ export class StatusChipComponent {
 		}
 	}
 
+	private readonly statusMap: Partial<Record<OrderServiceStatusEnum, string>> = {
+		[OrderServiceStatusEnum.accepted]: 'confirmed',
+		[OrderServiceStatusEnum.done]: 'done',
+		[OrderServiceStatusEnum.cancelled]: 'cancelled',
+	};
+
+	public controlMapper(): string {
+		return this.statusMap[this.control().value] ?? this.control().value;
+	}
 }
 
-export default StatusChipComponent;

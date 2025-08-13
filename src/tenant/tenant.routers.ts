@@ -98,7 +98,7 @@ export const tenantRouters: Routes = [
                                 children: [
                                     {
                                         path: 'list',
-                                        loadComponent: () => import('@tenant/member/absence/presentation/ui/page/grid.absence.page')
+                                        loadComponent: () => import('@tenant/member/absence/presentation/ui/page/list/grid.absence.page')
                                     }
                                 ]
                             },
@@ -169,6 +169,10 @@ export const tenantRouters: Routes = [
                                     {
                                         path: 'calendar-with-specialists',
                                         loadComponent: () => import('@tenant/event/presentation/ui/page/calendar-with-specialists/calendar-with-specialists.event.page')
+                                    },
+                                    {
+                                        path: 'week-calendar',
+                                        loadComponent: () => import('@tenant/event/presentation/ui/page/week-calendar/week-calendar.event.page')
                                     },
                                 ]
                             },

@@ -15,6 +15,8 @@ import {
 import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
+import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
+import {firstValueFrom} from "rxjs";
 
 export type IOrderState = IBaseState<EOrder>;
 
@@ -63,18 +65,35 @@ export class OrderServiceDataState {
 
 	@Action(OrderServiceDataActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IOrderState>, {payload: item}: OrderServiceDataActions.UpdateItem): Promise<void> {
-		// const foundItem = await this.sharedUow.orderService.repository.findByIdAsync(item._id);
-		// if (foundItem) {
-		//
-		// 	const orderEntity = EOrderService.fromRaw({
-		// 		...foundItem,
-		// 		...item,
-		// 	});
-		//
-		// 	await this.addNotificationSettingsToOrderEntity(orderEntity);
-		// 	await this.sharedUow.orderService.repository.updateAsync(orderEntity);
-		//
-		// }
+		const foundItem = await this.sharedUow.orderService.repository.findByIdAsync(item._id);
+		const foundOrder = await this.sharedUow.order.repository.findByIdAsync(item.orderId);
+		if (!foundOrder) {
+			this.ngxLogger.error('OrderServiceDataState.updateItem: Order not found', item.orderId);
+			return;
+		}
+
+		if (!foundItem) {
+			this.ngxLogger.error('OrderServiceDataState.updateItem: Order Service not found', item._id);
+			return;
+		}
+
+		const orderServiceEntity = EOrderService.fromRaw({
+			...foundItem,
+			...item,
+		});
+
+		foundOrder.services = foundOrder.services.map((service) => {
+			if (service._id === orderServiceEntity._id) {
+				return orderServiceEntity;
+			}
+			return service;
+		});
+		const orderEntity = EOrder.fromRaw(foundOrder);
+
+		const actionUpdateOrder = new OrderActions.UpdateItem(orderEntity)
+		const actionUpdateOrder$ = ctx.dispatch(actionUpdateOrder);
+		await firstValueFrom(actionUpdateOrder$);
+
 	}
 
 	@Action(OrderServiceDataActions.SetState)
@@ -121,5 +140,6 @@ export class OrderServiceDataState {
 		// 	ctx.dispatch(new OrderServiceDataActions.GetList());
 		// }
 	}
+
 
 }

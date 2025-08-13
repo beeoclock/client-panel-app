@@ -10,5 +10,9 @@ export namespace EventActions {
 		public static override readonly type = '[Event Application] Open Details';
 	}
 
+	export class ToggleDetails extends BaseActions.OpenDetails<string> {
+		public static override readonly type = '[Event Application] Toggle Details';
+	}
+
 
 }

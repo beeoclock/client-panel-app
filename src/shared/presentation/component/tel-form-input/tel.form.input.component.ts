@@ -17,6 +17,10 @@ import {InvalidTooltipDirective} from '@shared/presentation/directives/invalid-t
 import intlTelInput, {Iti} from 'intl-tel-input';
 import {is} from '@core/shared/checker';
 import {TranslateModule} from "@ngx-translate/core";
+import {
+	BusinessProfileState
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {Store} from "@ngxs/store";
 
 @Component({
 	selector: 'tel-form-input',
@@ -87,6 +91,8 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 	public intlTelInput: Iti | null = null;
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly store = inject(Store);
+	private readonly businessProfile = this.store.selectSnapshot(BusinessProfileState.item);
 
 	public ngDoCheck(): void {
 		this.changeDetectorRef.detectChanges();
@@ -107,7 +113,19 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 				fetch("https://freeipapi.com/api/json")
 					.then(res => res.json())
 					.then(data => callback(data.countryCode))
-					.catch(() => callback("us"));
+					.catch(() => {
+						const businessProfile = this.businessProfile;
+						if (businessProfile) {
+							const {0: address} = businessProfile.addresses;
+							if (address) {
+								callback(address.country.toLowerCase());
+							} else {
+								callback("us");
+							}
+						} else {
+							callback("us");
+						}
+					});
 			}
 		});
 

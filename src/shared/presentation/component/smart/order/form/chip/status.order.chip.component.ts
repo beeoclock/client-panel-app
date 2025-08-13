@@ -6,7 +6,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 import {
 	StatusOrderIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.order.icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/status.order.icon.component";
 
 @Component({
 	selector: 'app-status-order-chip-component',
@@ -51,7 +51,7 @@ import {
 							<app-status-order-icon-component
 								class="flex text-3xl text-blue-600"
 								[status]="orderStatusEnum.confirmed"/>
-							{{ 'event.keyword.status.singular.accepted' | translate }}
+							{{ 'order.enum.status.singular.confirmed' | translate }}
 						</ion-label>
 					</ion-item>
 

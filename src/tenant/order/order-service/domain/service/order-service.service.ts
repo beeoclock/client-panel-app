@@ -1,4 +1,4 @@
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {BaseService} from "@core/shared/service/base.service";
 import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 

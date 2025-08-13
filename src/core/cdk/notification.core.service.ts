@@ -23,7 +23,13 @@ export class NotificationCoreService {
 	 */
 	public readonly message$ = new BehaviorSubject<MessagePayload | null>(null);
 
-	private readonly messaging = inject(Messaging);
+	private readonly messaging = (() => {
+		if (environment.firebase.use.messaging) {
+			return inject(Messaging);
+		}
+		return null;
+	})();
+
 	private readonly ngxLogger = inject(NGXLogger);
 
 	private readonly scriptURL = 'firebase-messaging-sw.js';
@@ -108,6 +114,11 @@ export class NotificationCoreService {
 	 */
 	private initMessageHandler() {
 
+		if (!this.messaging) {
+			this.ngxLogger.debug('[NOTIFICATION] Messaging is not available.');
+			return;
+		}
+
 		onMessage(this.messaging, it => {
 			this.ngxLogger.debug('[NOTIFICATION] Message received. ', it);
 			this.message$.next(it);
@@ -120,6 +131,11 @@ export class NotificationCoreService {
 	 * It registers a service worker, then gets the FCM token and pushes it to token$.
 	 */
 	private async initTokenAsync() {
+
+		if (!this.messaging) {
+			this.ngxLogger.debug('[NOTIFICATION] Messaging is not available.');
+			return;
+		}
 
 		this.ngxLogger.debug('[NOTIFICATION] Pushing token');
 

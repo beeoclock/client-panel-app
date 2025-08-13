@@ -133,12 +133,11 @@ import {GlobalEventListCustomerRepository} from "@src/token";
 								<ion-item
 									(click)="select(customer)"
 									lines="full"
-									[id]="id() + 'ion-item-' + customer._id"
-									[button]="true">
+									[id]="id() + 'ion-item-' + customer._id">
 									<ion-avatar aria-hidden="true" slot="start">
 										<div
 											class="min-w-[36px] max-w-[36px] min-h-[36px] max-h-[36px] rounded-full bg-beeColor-400 flex justify-center items-center uppercase">
-											{{ customer.firstName?.[0] }}{{ customer.lastName?.[0] }}
+											{{ customer.firstName?.[0] ?? '' }}{{ customer.lastName?.[0] ?? '' }}
 										</div>
 									</ion-avatar>
 									<ion-label>

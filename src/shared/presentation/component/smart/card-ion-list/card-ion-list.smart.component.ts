@@ -16,7 +16,9 @@ import {
 	IonContent,
 	IonInfiniteScroll,
 	IonInfiniteScrollContent,
-	IonList
+	IonList,
+	IonRefresher,
+	IonRefresherContent
 } from "@ionic/angular/standalone";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
@@ -24,6 +26,7 @@ import {
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {NgTemplateOutlet} from "@angular/common";
+import {RefresherCustomEvent} from "@ionic/angular";
 
 @Component({
 	standalone: true,
@@ -36,14 +39,19 @@ import {NgTemplateOutlet} from "@angular/common";
 		IonInfiniteScrollContent,
 		IonList,
 		TranslatePipe,
-		NgTemplateOutlet
+		NgTemplateOutlet,
+		IonRefresher,
+		IonRefresherContent
 	],
 	template: `
 
 		@if (rows.length > 0) {
 
-			<div class="flex flex-col divide-y divide-neutral-200 h-full">
+			<div class="h-full">
 				<ion-content>
+					<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+						<ion-refresher-content></ion-refresher-content>
+					</ion-refresher>
 					<ion-list [classList]="ionListClassList()">
 						@for (row of rows; track row?._id; ) {
 
@@ -114,6 +122,25 @@ export class CardIonListSmartComponent implements OnInit {
 	});
 
 	private lastInfiniteScrollCustomEvent = signal<InfiniteScrollCustomEvent | null>(null);
+
+	public handleRefresh(event: RefresherCustomEvent) {
+
+		if (this.isLoading()) {
+			event.target.complete().then();
+			return;
+		}
+
+		this.parameters.update((parameters) => {
+			return {
+				...parameters,
+				page: 1,
+			}
+		});
+
+		this.lastInfiniteScrollCustomEvent.set(null);
+		event.target.complete().then();
+
+	}
 
 	public completeLastInfiniteScrollCustomEvent() {
 

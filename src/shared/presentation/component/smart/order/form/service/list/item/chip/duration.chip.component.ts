@@ -35,10 +35,11 @@ import {TranslateModule} from "@ngx-translate/core";
 	template: `
 		<button
 			[id]="'input-duration-' + id()"
-			class="px-3 py-2 rounded-lg border border-gray-200 justify-center items-center flex">
+			class="px-3 py-2 border border-gray-200 justify-center items-center flex bg-white rounded-lg hover:bg-neutral-300 hover:border-neutral-400">
 			<div class="text-slate-900 text-sm font-normal">
 				⏳ {{ duration() | humanizeDuration }}
 			</div>
+			<i class="bi bi-chevron-expand"></i>
 		</button>
 		<ion-popover [trigger]="'input-duration-' + id()" [keepContentsMounted]="true">
 			<ng-template>

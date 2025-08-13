@@ -25,7 +25,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 		TranslatePipe,
 	],
 	template: `
-		<div class="w-full max-md:!w-full top-0 right-0 h-screen z-50 flex flex-col lg:relative">
+		<div class="w-full max-md:!w-full top-0 right-0 h-dvh z-50 flex flex-col lg:relative">
 			<whac-a-mole-resize-container class="max-md:hidden" (widthChanges)="widthChanges($event)"
 										  (mouseDownUp)="mouseDownUp($event)"/>
 			<div class="flex justify-between p-1 border-b">

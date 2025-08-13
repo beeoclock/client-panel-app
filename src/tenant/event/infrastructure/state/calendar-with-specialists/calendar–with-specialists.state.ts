@@ -1,17 +1,18 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
-import {IsOrganizerEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {DateTime} from "luxon";
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
-import {IAttendee_V2, IEvent_V2} from "@tenant/event/domain";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
 import {clearObject} from "@shared/domain/clear.object";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
+import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
+import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 
 export interface ICalendarWithSpecialist {
 	params: {
@@ -23,7 +24,7 @@ export interface ICalendarWithSpecialist {
 		orderDir: OrderDirEnum;
 		statuses: OrderServiceStatusEnum[];
 	};
-	data: IEvent_V2[];
+	data: (EOrderService | EAbsence)[];
 	loader: boolean;
 	settings: {
 		startTime: string; // 00:00 - 23:59 Local time
@@ -87,7 +88,7 @@ export class CalendarWithSpecialistsState {
 
 		const {startTime, endTime} = settings;
 
-		const data: IEvent_V2[] = [
+		const data: (EAbsence | EOrderService)[] = [
 			...orders.reduce((acc, order) => {
 
 				if (order.services.length === 0) {
@@ -126,41 +127,12 @@ export class CalendarWithSpecialistsState {
 						return;
 					}
 
-					const attendees = service.orderAppointmentDetails?.specialists.map((specialist) => {
-						return {
-							_id: specialist.member._id,
-							isOrganizer: IsOrganizerEnum.NO,
-							is: 'specialist',
-							originalData: specialist,
-						} as IAttendee_V2;
-					});
-
-					service.orderAppointmentDetails?.attendees.forEach((attendee) => {
-						attendees.push({
-							_id: attendee._id,
-							isOrganizer: IsOrganizerEnum.NO,
-							is: 'customer',
-							originalData: attendee,
-						} as IAttendee_V2);
-					});
-
-					acc.push({
-						is: 'order',
-						_id: service._id,
-						updatedAt: order.updatedAt,
-						createdAt: order.createdAt,
-						start: service.orderAppointmentDetails.start,
-						end: service.orderAppointmentDetails.end,
-						note: service.customerNote,
-						entireBusiness: false,
-						attendees,
-						originalData: {order, service},
-					} as IEvent_V2);
+					acc.push(EOrderService.fromDTO(service));
 				});
 
 				return acc;
 
-			}, [] as IEvent_V2[]),
+			}, [] as EOrderService[]),
 			...absences.reduce((acc, absence) => {
 
 				if (absence.state !== StateEnum.active) {
@@ -185,29 +157,11 @@ export class CalendarWithSpecialistsState {
 					return acc;
 				}
 
-				acc.push({
-					is: 'absence',
-					_id: absence._id,
-					updatedAt: absence.updatedAt,
-					createdAt: absence.createdAt,
-					start: absence.start,
-					end: absence.end,
-					note: absence.note,
-					entireBusiness: absence.entireBusiness,
-					attendees: absence.members.map((attendee) => {
-						return {
-							isOrganizer: IsOrganizerEnum.NO,
-							is: 'specialist',
-							originalData: attendee,
-							_id: attendee._id
-						} as IAttendee_V2;
-					}),
-					originalData: absence,
-				});
+				acc.push(EAbsence.fromRaw(absence));
 
 				return acc;
 
-			}, [] as IEvent_V2[])
+			}, [] as EAbsence[])
 		];
 
 		ctx.patchState({

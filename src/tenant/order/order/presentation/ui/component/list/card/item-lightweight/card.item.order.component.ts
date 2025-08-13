@@ -33,9 +33,9 @@ import {
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {
 	OrderServiceStatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v2/component/elements-on-calendar/icon/order-service-status-icon.component";
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-service.status.enum";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 
 @Component({
 	selector: 'app-card-item-lightweight-order-component',
@@ -128,7 +128,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 
 											<div
 												class="rounded-full uppercase bg-gradient-to-r from-amber-100 to-amber-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-yellow-700">
-												{{ firstName[0] }}{{ lastName[0] }}
+												{{ firstName?.[0] ?? '' }}{{ lastName?.[0] ?? '' }}
 											</div>
 
 										}
@@ -207,7 +207,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/order/domain/enum/order-serv
 																/>
 															</div>
 														}
-														<span class="line-clamp-3">
+														<span class="line-clamp-3 break-all">
 															{{ service.serviceSnapshot.languageVersions[0].title }}
 														</span>
 													</div>

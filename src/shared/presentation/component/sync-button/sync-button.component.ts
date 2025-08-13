@@ -1,10 +1,10 @@
 import {
+	afterNextRender,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
 	computed,
 	inject,
-	OnInit,
 	signal,
 	ViewEncapsulation
 } from "@angular/core";
@@ -18,6 +18,7 @@ import {tap} from "rxjs/operators";
 import {injectNetwork} from "ngxtension/inject-network";
 import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
 import {ISyncManger} from "@core/system/infrastructure/sync-manager/i.sync-state";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	standalone: true,
@@ -37,7 +38,7 @@ import {ISyncManger} from "@core/system/infrastructure/sync-manager/i.sync-state
 		@if (isOffline()) {
 
 			<div class="rounded-2xl border border-red-300 bg-red-100 flex flex-col">
-				<button (click)="syncAll()"
+				<button (click)="syncOrResumeAll()"
 						class="h-[48px] text-red-700 gap-2 p-2 px-3 rounded-2xl flex justify-start items-center hover:bg-red-200 cursor-pointer transition-all">
 					<i class="bi bi-arrow-repeat text-xl"></i>
 					<div class="flex flex-col items-start">
@@ -71,7 +72,7 @@ import {ISyncManger} from "@core/system/infrastructure/sync-manager/i.sync-state
 
 				} @else {
 
-					<button (click)="syncAll()"
+					<button (click)="syncOrResumeAll()"
 							[title]="lastSynchronizedIn() | date: 'dd.MM.yyyy HH:mm:ss'"
 							class="h-[48px] text-black gap-2 p-2 px-3 rounded-2xl flex justify-start items-center hover:bg-neutral-200 cursor-pointer transition-all">
 						<i class="bi bi-arrow-repeat text-xl"></i>
@@ -94,8 +95,9 @@ import {ISyncManger} from "@core/system/infrastructure/sync-manager/i.sync-state
 
 	`
 })
-export class SyncButtonComponent implements OnInit {
+export class SyncButtonComponent {
 
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly network = injectNetwork();
 
@@ -119,27 +121,38 @@ export class SyncButtonComponent implements OnInit {
 			this.detectChanges();
 			this.resetState();
 		});
+		afterNextRender(() => {
+			this.resetState();
+		})
 	}
 
 	public readonly lastSynchronizedIn = signal(new Date(0).toISOString());
 
 	public readonly state: Map<string, 'pending' | 'done' | ISyncManger> = new Map<string, 'pending' | 'done' | ISyncManger>();
 
-	public syncAll() {
+	public syncOrResumeAll() {
 		if (SyncManager.isPaused$.value) {
-			SyncManager.resumeAll().then(() => {
-				console.log('resumeAll done');
-			});
+			this.resumeAll();
 		} else {
-			SyncManager.syncAll().then(() => {
-				console.log('syncAll done');
-			});
+			this.syncAll();
 		}
 	}
 
 	public pauseAll() {
 		SyncManager.pauseAll().then(() => {
-			console.log('pauseAll done');
+			this.ngxLogger.debug('SyncButtonComponent', 'pauseAll done');
+		});
+	}
+
+	public resumeAll() {
+		SyncManager.resumeAll().then(() => {
+			this.ngxLogger.debug('SyncButtonComponent', 'resumeAll done');
+		});
+	}
+
+	public syncAll() {
+		SyncManager.syncAll().then(() => {
+			this.ngxLogger.debug('SyncButtonComponent', 'syncAll done');
 		});
 	}
 
@@ -154,14 +167,6 @@ export class SyncButtonComponent implements OnInit {
 			modulesCount: this.state.size,
 			modulesSynced: Array.from(this.state.values()).filter((value) => value !== 'pending').length,
 		}
-	}
-
-	public ngOnInit() {
-
-		SyncManager.register.forEach((syncManger) => {
-			this.state.set(syncManger.moduleName, 'pending');
-		});
-
 	}
 
 	private detectChanges() {

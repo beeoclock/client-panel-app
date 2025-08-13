@@ -8,9 +8,12 @@ import {
 import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {Router} from "@angular/router";
 import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import {
+	OrderSectionCustomerDetailsComponent
+} from "@tenant/customer/presentation/ui/component/section/order.section.customer-details.component";
 
 @Component({
-	selector: 'customer-detail-page',
+	selector: 'customer-details-page',
 	templateUrl: './customer-details-container.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -18,7 +21,8 @@ import {StandardDetailsEntityComponent} from "@shared/presentation/component/ent
 		ActiveStyleDirective,
 		PrimaryLinkStyleDirective,
 		RowActionButtonComponent,
-		StandardDetailsEntityComponent
+		StandardDetailsEntityComponent,
+		OrderSectionCustomerDetailsComponent
 	],
 	host: {
 		class: 'bg-neutral-100'

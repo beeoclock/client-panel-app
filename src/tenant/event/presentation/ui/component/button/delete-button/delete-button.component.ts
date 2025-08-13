@@ -3,7 +3,8 @@ import {TranslateModule} from "@ngx-translate/core";
 import {IEvent_V2} from "@tenant/event/domain";
 import {Store} from "@ngxs/store";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
-import {IOrderServiceDto} from "@tenant/order/order/domain/interface/i.order-service.dto";
+import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
+
 
 @Component({
 	selector: 'event-delete-button-component',
@@ -43,7 +44,7 @@ export class DeleteButtonComponent {
 
 	public readonly event = input.required<IEvent_V2<{
 		order: IOrder.DTO;
-		service: IOrderServiceDto;
+		service: IOrderService.DTO;
 	}>>();
 
 	public readonly deleteStatus = output<void>();
