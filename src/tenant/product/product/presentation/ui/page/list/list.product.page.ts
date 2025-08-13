@@ -6,30 +6,27 @@ import {
 	ProductTableNgxDatatableSmartResource
 } from "@tenant/product/product/presentation/ui/page/list/product.table-ngx-datatable.resource";
 import {
-	MobileLayoutListComponent
-} from "@tenant/product/product/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
-import {
-	DesktopLayoutListComponent
-} from "@tenant/product/product/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
-import {
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
 import {tap} from "rxjs";
 import {ProductDataActions} from "@tenant/product/product/infrastructure/state/data/product.data.actions";
+import {
+	MobileLayoutListComponent
+} from "@tenant/product/product/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
+
 
 @Component({
     selector: 'app-list-product-page',
     templateUrl: './list.product.page.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        TranslateModule,
-        AsyncPipe,
-        MobileLayoutListComponent,
-        DesktopLayoutListComponent,
-    ],
+	imports: [
+		TranslateModule,
+		AsyncPipe,
+		MobileLayoutListComponent,
+	],
     standalone: true,
     providers: [
         DatePipe,

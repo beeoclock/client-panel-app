@@ -4,9 +4,6 @@ import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {tap} from "rxjs";
 import {
-	MobileLayoutListComponent
-} from "@tenant/member/roles/presentation/component/list/layout/mobile/mobile.layout.list.component";
-import {
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
@@ -25,9 +22,6 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TranslateModule,
-		AsyncPipe,
-		DesktopLayoutListComponent,
-		MobileLayoutListComponent,
 	],
 	standalone: true,
 	providers: [
