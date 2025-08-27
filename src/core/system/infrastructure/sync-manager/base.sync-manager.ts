@@ -335,32 +335,22 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 
 			const item = this.pushData.shift();
 
-			if (!item) {
-				break;
-			}
+			if (!item) break;
+
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			let entity = this.toEntity(item);
+
+			const isCreateCase = entity.isNew();
+			const isUpdateCase = entity.isUpdated();
 
 			try {
 
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
-				let entity = this.toEntity(item);
 				const dto = entity.toDTO();
 				const checkIfCreateOrUpdateIsSuccessfulAndUpdateLocalEntity = (() => {
 
-					if (entity.isNew()) {
-
-						return this.apiDataProvider.createAsync(dto);
-
-					} else {
-
-						if (entity.isUpdated()) {
-
-							return this.apiDataProvider.updateAsync(dto);
-
-						}
-
-					}
-
+					if (isCreateCase) return this.apiDataProvider.createAsync(dto);
+					else if (isUpdateCase) return this.apiDataProvider.updateAsync(dto);
 					return null;
 
 				})();
@@ -423,6 +413,12 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 							return this.putEntity(entity);
 
 						};
+
+
+						if (isCreateCase) {
+							await badCase();
+							break;
+						}
 
 						try {
 
