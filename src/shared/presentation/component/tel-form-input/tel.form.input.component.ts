@@ -82,9 +82,7 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 
 	public readonly control = input.required<FormControl<string | null>>();
 
-	// TODO: Implement country code
-	// @Input()
-	// public countryCode!: 'pl' | 'uk' | 'da';
+	public readonly fallbackCountryCode = input<string>('us');
 
 	readonly inputElement = viewChild.required<ElementRef<HTMLInputElement>>('inputElement');
 
@@ -100,33 +98,19 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 
 	public ngAfterViewInit() {
 
+		const businessProfile = this.businessProfile;
+		const countryCode = businessProfile?.addresses?.[0]?.country?.toLowerCase?.() ?? this.fallbackCountryCode();
+
 		this.intlTelInput = intlTelInput(this.inputElement().nativeElement, {
 			initialCountry: 'auto',
 			// @ts-ignore
 			strictMode: true,
 			separateDialCode: true,
 			// @ts-ignore
-			countryOrder: ['dk', 'pl', 'ua'],
+			countryOrder: [countryCode],
 			// @ts-ignore
 			loadUtils: () => import("intl-tel-input/utils"),
-			geoIpLookup: callback => {
-				fetch("https://freeipapi.com/api/json")
-					.then(res => res.json())
-					.then(data => callback(data.countryCode))
-					.catch(() => {
-						const businessProfile = this.businessProfile;
-						if (businessProfile) {
-							const {0: address} = businessProfile.addresses;
-							if (address) {
-								callback(address.country.toLowerCase());
-							} else {
-								callback("us");
-							}
-						} else {
-							callback("us");
-						}
-					});
-			}
+			geoIpLookup: (callback) => callback(countryCode),
 		});
 
 		// @ts-ignore
