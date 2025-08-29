@@ -65,9 +65,16 @@ export class CustomerDataState {
 				...foundItem,
 				...item,
 			});
-			entity.changeState(state);
-			await this.sharedUow.customer.repository.updateAsync(entity);
-			ctx.dispatch(new CustomerPresentationActions.UpdateOpenedDetails(entity));
+			this.ngxLogger.debug('SetState', {item, state, entity}, entity.isNew());
+			if (entity.isNew()) {
+				this.ngxLogger.debug('SetState: entity is new, the item will completely deleted from the store');
+				await this.sharedUow.customer.repository.deleteAsync(entity);
+				ctx.dispatch(new CustomerPresentationActions.CloseDetails());
+			} else {
+				entity.changeState(state);
+				await this.sharedUow.customer.repository.updateAsync(entity);
+				ctx.dispatch(new CustomerPresentationActions.UpdateOpenedDetails(entity));
+			}
 		}
 	}
 

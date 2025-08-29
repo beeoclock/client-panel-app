@@ -335,45 +335,25 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 
 			const item = this.pushData.shift();
 
-			if (!item) {
-				break;
-			}
+			if (!item) break;
+
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			let entity = this.toEntity(item);
+
+			const isCreateCase = entity.isNew();
+			const isUpdateCase = entity.isUpdated();
 
 			try {
 
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
-				let entity = this.toEntity(item);
 				const dto = entity.toDTO();
-				const checkIfCreateOrUpdateIsSuccessfulAndUpdateLocalEntity = (() => {
 
-					if (entity.isNew()) {
+				if (isCreateCase || isUpdateCase) {
 
-						return this.apiDataProvider.createAsync(dto);
+					if (isCreateCase) await this.apiDataProvider.createAsync(dto);
+					else if (isUpdateCase) await this.apiDataProvider.updateAsync(dto);
 
-					} else {
-
-						if (entity.isUpdated()) {
-
-							return this.apiDataProvider.updateAsync(dto);
-
-						}
-
-					}
-
-					return null;
-
-				})();
-
-				if (checkIfCreateOrUpdateIsSuccessfulAndUpdateLocalEntity) {
-
-					const result = await checkIfCreateOrUpdateIsSuccessfulAndUpdateLocalEntity;
-
-					if (!result) {
-						throw new Error('Item not found on server');
-					}
-
-					entity = this.toEntity(result);
+					entity = this.toEntity(dto);
 					/**
 					 * We need to set syncedAt to updatedAt because we want to know that this object is already on the server
 					 * And I don't know why but on the Windows OS we have problem with every browser to set syncedAt
@@ -423,6 +403,12 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 							return this.putEntity(entity);
 
 						};
+
+
+						if (isCreateCase) {
+							await badCase();
+							break;
+						}
 
 						try {
 
