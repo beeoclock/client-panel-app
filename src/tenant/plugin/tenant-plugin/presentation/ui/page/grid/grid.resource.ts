@@ -16,7 +16,7 @@ export class GridResource {
 
 		// Define a reactive request computation.
 		// The request value recomputes whenever any read signals change.
-		request: () => ({}),
+		params: () => ({}),
 
 		defaultValue: {
 			items: [],
@@ -25,7 +25,7 @@ export class GridResource {
 
 		// Define an async loader that retrieves data.
 		// The resource calls this function every time the `request` value changes.
-		loader: async ({request}) => {
+		loader: async ({params}) => {
 
 			const {items, totalSize} = await this.sharedUow.plugin.repository.findAsync();
 
@@ -42,7 +42,7 @@ export class GridResource {
 
 		// Define a reactive request computation.
 		// The request value recomputes whenever any read signals change.
-		request: () => ({}),
+		params: () => ({}),
 
 		defaultValue: {
 			items: [],
@@ -51,7 +51,7 @@ export class GridResource {
 
 		// Define an async loader that retrieves data.
 		// The resource calls this function every time the `request` value changes.
-		loader: async ({request}) => {
+		loader: async ({params}) => {
 
 			const {items, totalSize} = await this.sharedUow.tenantPlugin.repository.findAsync();
 

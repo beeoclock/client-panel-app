@@ -347,23 +347,13 @@ export abstract class BaseSyncManager<DTO extends IBaseDTO<string>, ENTITY exten
 			try {
 
 				const dto = entity.toDTO();
-				const checkIfCreateOrUpdateIsSuccessfulAndUpdateLocalEntity = (() => {
 
-					if (isCreateCase) return this.apiDataProvider.createAsync(dto);
-					else if (isUpdateCase) return this.apiDataProvider.updateAsync(dto);
-					return null;
+				if (isCreateCase || isUpdateCase) {
 
-				})();
+					if (isCreateCase) await this.apiDataProvider.createAsync(dto);
+					else if (isUpdateCase) await this.apiDataProvider.updateAsync(dto);
 
-				if (checkIfCreateOrUpdateIsSuccessfulAndUpdateLocalEntity) {
-
-					const result = await checkIfCreateOrUpdateIsSuccessfulAndUpdateLocalEntity;
-
-					if (!result) {
-						throw new Error('Item not found on server');
-					}
-
-					entity = this.toEntity(result);
+					entity = this.toEntity(dto);
 					/**
 					 * We need to set syncedAt to updatedAt because we want to know that this object is already on the server
 					 * And I don't know why but on the Windows OS we have problem with every browser to set syncedAt

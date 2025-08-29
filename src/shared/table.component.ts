@@ -16,11 +16,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {debounce} from "typescript-debounce-decorator";
 import {Reactive} from "@core/cdk/reactive";
 import {ABaseEntity} from "@core/system/abstract/a.base-entity";
-import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {DatePipe} from "@angular/common";
 import {TranslateService} from "@ngx-translate/core";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
+import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable";
 
 @Component({
 	selector: 'utility-table-component',

@@ -113,11 +113,11 @@ export class OrderDetailsPaymentSectionComponent {
 
 	public readonly resource: ResourceRef<EPayment[]> = resource({
 		defaultValue: [],
-		request: () => ({
+		params: () => ({
 			orderId: this.order()._id,
 			page: this.page(),
 		}),
-		loader: async ({request: {orderId, page}}) => {
+		loader: async ({params: {orderId, page}}) => {
 
 			const {items} = await this.sharedUow.payment.repository.findAsync({
 				orderId,

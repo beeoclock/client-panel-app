@@ -54,11 +54,11 @@ export class OrderDetailsOrderServiceSectionComponent {
 
 	public readonly resource: ResourceRef<EOrderService[]> = resource({
 		defaultValue: [],
-		request: () => ({
+		params: () => ({
 			orderId: this.orderId(),
 			page: this.page(),
 		}),
-		loader: async ({request: {orderId, page}}) => {
+		loader: async ({params: {orderId, page}}) => {
 
 			const {items} = await this.sharedUow.orderService.repository.findAsync({
 				orderId,

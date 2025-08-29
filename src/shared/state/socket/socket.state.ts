@@ -1,5 +1,5 @@
 import {Action, Selector, State, StateContext, Store} from '@ngxs/store';
-import {inject, Injectable} from '@angular/core';
+import {ApplicationRef, inject, Injectable} from '@angular/core';
 import {Socket, SocketIoConfig} from 'ngx-socket-io';
 import {tap} from 'rxjs/operators';
 import {SocketActions} from "@shared/state/socket/socket.actions";
@@ -43,6 +43,7 @@ export class SocketState {
 	private socket: Socket | undefined;
 	private readonly store: Store = inject(Store);
 	private readonly tariffPlanHistoryStore = inject(TariffPlanHistoryStore);
+	private readonly applicationRef = inject(ApplicationRef);
 
 	private onAny = () => {
 		SyncManager.syncAll().then(() => {
@@ -69,7 +70,7 @@ export class SocketState {
 		}
 
 		const config: SocketIoConfig = {url, options};
-		this.socket = new Socket(config);
+		this.socket = new Socket(config, this.applicationRef);
 		const {socket} = this;
 
 		this.socket.connect();

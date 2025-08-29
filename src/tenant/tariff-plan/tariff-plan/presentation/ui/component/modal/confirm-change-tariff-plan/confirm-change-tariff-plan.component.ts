@@ -164,10 +164,10 @@ export class ConfirmChangeTariffPlanComponent {
 	private readonly tariffPlanStore = inject(TariffPlanStore);
 
 	public readonly resource: ResourceRef<PostTenantTariffPlanChangeAmountApi.RESPONSE | undefined> = resource({
-		request: () => ({
+		params: () => ({
 			tariffPlan: this.tariffPlan(),
 		}),
-		loader: async ({request: {tariffPlan}}) => {
+		loader: async ({params: {tariffPlan}}) => {
 			const result = await this.postTenantTariffPlanChangeAmountApiRequest.executeAsync(tariffPlan);
 			return result;
 		}

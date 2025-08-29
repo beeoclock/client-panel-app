@@ -101,7 +101,7 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 		// Define a reactive request computation.
 		// The request value recomputes whenever any read signals change.
-		request: () => ({
+		params: () => ({
 			parameters: this.parameters(),
 		}),
 
@@ -112,7 +112,7 @@ export class TableNgxDatatableSmartResource<ITEM extends IBaseEntityRaw<string>>
 
 		// Define an async loader that retrieves data.
 		// The resource calls this function every time the `request` value changes.
-		loader: async ({request: {parameters}}) => {
+		loader: async ({params: {parameters}}) => {
 
 			const {page, pageSize} = parameters;
 
