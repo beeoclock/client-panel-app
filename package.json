@@ -25,6 +25,26 @@
 		"prepare": "ts-patch install && typia patch",
 		"start:ssl": "ng serve --ssl true --ssl-key ./_certifications/localhost.key --ssl-cert ./_certifications/localhost.crt --host 192.168.0.234 --port 4200"
 	},
+	"jest": {
+		"preset": "jest-preset-angular",
+		"setupFilesAfterEnv": [
+			"<rootDir>/setup-jest.ts"
+		],
+		"moduleNameMapper": {
+			"@src/(.*)": "<rootDir>/src/$1",
+			"@environment/(.*)": "<rootDir>/src/environment/$1",
+			"@asset/(.*)": "<rootDir>/src/asset/$1",
+			"@scss/(.*)": "<rootDir>/src/asset/scss/$1",
+			"@icon/(.*)": "<rootDir>/src/asset/icon/$1",
+			"@app/(.*)": "<rootDir>/src/app/$1",
+			"@module/(.*)": "<rootDir>/src/module/$1",
+			"@shared/(.*)": "<rootDir>/src/shared/$1",
+			"@tenant/(.*)": "<rootDir>/src/tenant/$1",
+			"@core/(.*)": "<rootDir>/src/core/$1",
+			"@shared-kernel/(.*)": "<rootDir>/src/shared-kernel/$1",
+			"@identity/(.*)": "<rootDir>/src/identity/$1"
+		}
+	},
 	"private": true,
 	"dependencies": {
 		"@amcharts/amcharts5": "5.11.2",
