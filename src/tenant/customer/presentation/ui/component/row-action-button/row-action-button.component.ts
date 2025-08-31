@@ -1,5 +1,5 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
-import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
+import {ActionComponent} from "@shared/presentation/ui/component/table/column/action.component";
 import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";

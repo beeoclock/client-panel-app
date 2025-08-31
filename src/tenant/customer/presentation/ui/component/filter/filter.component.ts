@@ -1,14 +1,14 @@
 import {Component, input} from '@angular/core';
-import {SearchInputComponent} from '@shared/presentation/component/input/search.input.component';
+import {SearchInputComponent} from '@shared/presentation/ui/component/input/search.input.component';
 import {FilterForm} from "@tenant/customer/presentation/form/filter.form";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {BaseFilterComponent} from "@shared/base.filter.component";
-import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
+import {DefaultPanelComponent} from "@shared/presentation/ui/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
-import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
+import {AutoRefreshComponent} from "@shared/presentation/ui/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
-import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
+import {IonSelectStateComponent} from "@shared/presentation/ui/component/input/ion/ion-select-state.component";
 import {
 	CustomerPresentationActions
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";

@@ -10,7 +10,7 @@ import {
 } from "@tenant/order/order-service/presentation/ui/page/list/order-service.table-ngx-datatable.resource";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {ofActionSuccessful} from "@ngxs/store";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {tap} from "rxjs/operators";

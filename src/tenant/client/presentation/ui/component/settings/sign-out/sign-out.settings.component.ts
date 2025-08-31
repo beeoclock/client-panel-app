@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Auth} from "@angular/fire/auth";

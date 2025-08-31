@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
 import {MetaDetailsComponent} from "@tenant/event/presentation/ui/component/details/meta.details.component";
 import {IEvent_V2} from "@tenant/event/domain";
-import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
+import {LoaderComponent} from "@shared/presentation/ui/component/loader/loader.component";
 import {V2GeneralDetailsComponent} from "@tenant/event/presentation/ui/component/details/v2.general.details.component";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";

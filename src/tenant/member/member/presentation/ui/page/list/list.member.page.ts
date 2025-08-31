@@ -8,7 +8,7 @@ import {
 } from "@tenant/member/member/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	DesktopLayoutListComponent
 } from "@tenant/member/member/presentation/component/list/layout/desktop/desktop.layout.list.component";

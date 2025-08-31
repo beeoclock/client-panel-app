@@ -1,8 +1,8 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {PlaceholderImageComponent} from "@shared/presentation/component/image/placeholder.image.component";
+import {PlaceholderImageComponent} from "@shared/presentation/ui/component/image/placeholder.image.component";
 import {DragAndDropDirective} from "@shared/presentation/directives/drag-and-drop/drag-and-drop.directive";
 import {NgIf} from "@angular/common";
-import {BaseImageComponent} from "@shared/presentation/component/image/base.image.component";
+import {BaseImageComponent} from "@shared/presentation/ui/component/image/base.image.component";
 
 @Component({
 	selector: 'client-image-cover-image-business-profile-component',

@@ -7,7 +7,7 @@ export const routes: Routes = [
 	},
 	{
 		path: '404',
-		loadComponent: () => import('@shared/presentation/page/404')
+		loadComponent: () => import('@shared/presentation/ui/page/404')
 	},
 	{
 		path: '',

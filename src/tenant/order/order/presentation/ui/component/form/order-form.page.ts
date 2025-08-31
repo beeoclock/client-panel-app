@@ -12,11 +12,11 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {FormTextareaComponent} from "@shared/presentation/ui/component/input/form.textarea.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {
 	ButtonSaveContainerComponent
-} from "@shared/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/ui/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
@@ -24,7 +24,7 @@ import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order
 import {ICustomer} from "@tenant/customer/domain";
 import {
 	ListServiceFormOrderComponent
-} from "@shared/presentation/component/smart/order/form/service/list/list.service.form.order.component";
+} from "@shared/presentation/ui/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
@@ -33,7 +33,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
 import {
 	ListProductFormOrder
-} from "@shared/presentation/component/smart/order/form/product/list/list.product.form.order";
+} from "@shared/presentation/ui/component/smart/order/form/product/list/list.product.form.order";
 import {OrderForm} from "@tenant/order/order/presentation/form/order.form";
 import {firstValueFrom, lastValueFrom} from "rxjs";
 import {

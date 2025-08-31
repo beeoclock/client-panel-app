@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import EOrderService, {OrderServiceColorStatusMap} from "@tenant/order/order-service/domain/entity/e.order-service";

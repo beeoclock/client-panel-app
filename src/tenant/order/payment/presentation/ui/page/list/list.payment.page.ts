@@ -14,7 +14,7 @@ import {
 } from "@tenant/order/payment/presentation/ui/organism/list/layout/desktop/desktop.layout.list.component";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'app-list-payment-page',

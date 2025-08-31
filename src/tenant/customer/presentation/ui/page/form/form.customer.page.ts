@@ -3,13 +3,13 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ICustomer, validCustomer} from "@tenant/customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {Actions, ofActionErrored, ofActionSuccessful, Store} from "@ngxs/store";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
-import {InvalidTooltipComponent} from "@shared/presentation/component/invalid-message/invalid-message";
+import {InvalidTooltipComponent} from "@shared/presentation/ui/component/invalid-message/invalid-message";
 import {
 	ButtonSaveContainerComponent
-} from "@shared/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/ui/component/container/button-save/button-save.container.component";
 import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";

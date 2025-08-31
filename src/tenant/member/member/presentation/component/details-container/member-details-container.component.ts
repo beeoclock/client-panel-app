@@ -9,7 +9,9 @@ import {
 	MemberPresentationActions
 } from "@tenant/member/member/infrastructure/state/presentation/member.presentation.actions";
 import EMember from "@tenant/member/member/domain/entity/e.member";
-import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import {
+	StandardDetailsEntityComponent
+} from "@shared/presentation/ui/component/entity/standard-details.entity.component";
 
 @Component({
 	selector: 'member-detail-page',

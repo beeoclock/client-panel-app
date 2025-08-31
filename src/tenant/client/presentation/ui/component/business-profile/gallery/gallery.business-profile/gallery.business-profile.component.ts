@@ -9,7 +9,7 @@ import {
 	viewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf} from "@angular/common";
 import {GalleryForm} from "@tenant/client/presentation/form/gallery.form";
@@ -24,7 +24,7 @@ import {
 	DeleteMediaGalleryClientApiAdapter
 } from "@tenant/client/infrastructure/data-source/api/media/gallery/delete.media.gallery.client.api.adapter";
 import {RIMedia} from "@tenant/media/domain/interface/i.media";
-import {MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
+import {MediaStateEnum} from "@shared/presentation/ui/component/image/base.image.component";
 
 @Component({
 	selector: 'client-gallery-business-profile-component',

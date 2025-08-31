@@ -24,7 +24,7 @@ import {OrderProductForm} from "@tenant/order/order/presentation/form/product.or
 import {IProduct} from "@tenant/product/product/domain";
 import {
 	ItemListProductFormOrder
-} from "@shared/presentation/component/smart/order/form/product/list/item/item.list.product.form.order";
+} from "@shared/presentation/ui/component/smart/order/form/product/list/item/item.list.product.form.order";
 
 @Component({
 	standalone: true,

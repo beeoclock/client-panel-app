@@ -5,9 +5,9 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {
 	LanguageServiceFormComponent
 } from '@tenant/service/presentation/ui/component/form/v2/service/language.service.form.component';
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {FormTextareaComponent} from "@shared/presentation/ui/component/input/form.textarea.component";
 
 @Component({
 	selector: 'service-service-form-component',

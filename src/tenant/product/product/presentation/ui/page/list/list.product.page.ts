@@ -13,7 +13,7 @@ import {
 } from "@tenant/product/product/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
 import {tap} from "rxjs";

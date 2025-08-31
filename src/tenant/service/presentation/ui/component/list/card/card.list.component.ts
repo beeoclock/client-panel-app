@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@an
 import {AsyncPipe, CurrencyPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {ILanguageVersion} from "@tenant/service/domain";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
@@ -13,11 +13,11 @@ import {
 } from "@tenant/service/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	CardIonListSmartComponent
-} from "@shared/presentation/component/smart/card-ion-list/card-ion-list.smart.component";
+} from "@shared/presentation/ui/component/smart/card-ion-list/card-ion-list.smart.component";
 
 @Component({
 	selector: 'service-card-list-component',

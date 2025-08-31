@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe, DatePipe} from "@angular/common";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	BalanceTableNgxDatatableSmartResource
 } from "@tenant/balance/presentation/ui/page/list/balance.table-ngx-datatable.resource";

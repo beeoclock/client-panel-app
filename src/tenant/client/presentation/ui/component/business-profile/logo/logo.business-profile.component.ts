@@ -1,5 +1,5 @@
 import {Component, inject, input, viewChild, ViewEncapsulation} from "@angular/core";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {BooleanState} from "@shared/domain";
 import {
@@ -9,7 +9,7 @@ import {
 	PatchMediaLogoClientApiAdapter
 } from "@tenant/client/infrastructure/data-source/api/media/logo/patch.media.logo.client.api.adapter";
 import {RIMedia} from "@tenant/media/domain/interface/i.media";
-import {MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
+import {MediaStateEnum} from "@shared/presentation/ui/component/image/base.image.component";
 
 @Component({
 	selector: 'client-logo-business-profile-component',

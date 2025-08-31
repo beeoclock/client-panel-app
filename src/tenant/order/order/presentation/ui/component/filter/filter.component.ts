@@ -1,16 +1,16 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {SearchInputComponent} from '@shared/presentation/component/input/search.input.component';
+import {SearchInputComponent} from '@shared/presentation/ui/component/input/search.input.component';
 import {FilterForm} from "@tenant/order/order/presentation/form/filter.form";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {BaseFilterComponent} from "@shared/base.filter.component";
-import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
-import {IonSelectWrapperComponent} from "@shared/presentation/component/input/ion/ion-select-wrapper.component";
+import {DefaultPanelComponent} from "@shared/presentation/ui/component/panel/default.panel.component";
+import {IonSelectWrapperComponent} from "@shared/presentation/ui/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {OrderState} from "@tenant/order/order/infrastructure/state/order/order.state";
 import {ReactiveFormsModule} from "@angular/forms";
 import {OrderStatusEnum} from '@tenant/order/order/domain/enum/order.status.enum';
-import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
+import {AutoRefreshComponent} from "@shared/presentation/ui/component/auto-refresh/auto-refresh.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 
 @Component({
