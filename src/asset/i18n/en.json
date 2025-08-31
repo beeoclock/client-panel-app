@@ -642,12 +642,12 @@
 				"plural": {
 					"accepted": "Accepted",
 					"cancelled": "Canceled",
+					"confirmed": "Confirmed",
 					"deleted": "Deleted",
 					"done": "Done",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
-					"requested": "Requested",
-					"confirmed": "Confirmed"
+					"requested": "Requested"
 				},
 				"singular": {
 					"accepted": "Accepted",
@@ -1503,6 +1503,9 @@
 		},
 		"form": {
 			"chip": {
+				"service": {
+					"noAssigned": "No service selected"
+				},
 				"specialist": {
 					"noAssignedSpecialist": "No assigned specialist"
 				}
@@ -1705,15 +1708,6 @@
 				"label": "With specialists"
 			}
 		},
-		"week-calendar": {
-			"label": "Calendar (week)",
-			"ordinary": {
-				"label": "Ordinary"
-			},
-			"withSpecialists": {
-				"label": "With specialists"
-			}
-		},
 		"customers": "Customers",
 		"dashboard": "Dashboard",
 		"dateRangeReport": "Analytics",
@@ -1737,7 +1731,16 @@
 		"statistic": "Statistics",
 		"switch-business-client": "Change context",
 		"table": "Table",
-		"tariffPlan": "Tariffs"
+		"tariffPlan": "Tariffs",
+		"week-calendar": {
+			"label": "Calendar (week)",
+			"ordinary": {
+				"label": "Ordinary"
+			},
+			"withSpecialists": {
+				"label": "With specialists"
+			}
+		}
 	},
 	"sign-out": {
 		"button": {

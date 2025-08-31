@@ -642,12 +642,12 @@
 				"plural": {
 					"accepted": "Zaakceptowane",
 					"cancelled": "Odwołane",
+					"confirmed": "Potwierdzone",
 					"deleted": "Usunięte",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucone",
-					"requested": "Zażądane",
-					"confirmed": "Potwierdzone"
+					"requested": "Zażądane"
 				},
 				"singular": {
 					"accepted": "Zaakceptowany",
@@ -1503,6 +1503,9 @@
 		},
 		"form": {
 			"chip": {
+				"service": {
+					"noAssigned": "Brak wybranej uslugi"
+				},
 				"specialist": {
 					"noAssignedSpecialist": "Brak przypisanego specjalisty"
 				}
@@ -1705,15 +1708,6 @@
 				"label": "Ze specjalistami"
 			}
 		},
-		"week-calendar": {
-			"label": "Kalendarz (tydzień)",
-			"ordinary": {
-				"label": "Zwykły"
-			},
-			"withSpecialists": {
-				"label": "Ze specjalistami"
-			}
-		},
 		"customers": "Klienci",
 		"dashboard": "Panel główny",
 		"dateRangeReport": "Analityka",
@@ -1737,7 +1731,16 @@
 		"statistic": "Statystyki",
 		"switch-business-client": "Zmień kontekst",
 		"table": "Tabela",
-		"tariffPlan": "Taryfy"
+		"tariffPlan": "Taryfy",
+		"week-calendar": {
+			"label": "Kalendarz (tydzień)",
+			"ordinary": {
+				"label": "Zwykły"
+			},
+			"withSpecialists": {
+				"label": "Ze specjalistami"
+			}
+		}
 	},
 	"sign-out": {
 		"button": {

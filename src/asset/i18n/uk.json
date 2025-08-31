@@ -642,12 +642,12 @@
 				"plural": {
 					"accepted": "Прийняті",
 					"cancelled": "Скасовані",
+					"confirmed": "Підтверджено",
 					"deleted": "Видалені",
 					"done": "Виконані",
 					"inProgress": "В процесі",
 					"rejected": "Відхилені",
-					"requested": "На запиті",
-					"confirmed": "Підтверджено"
+					"requested": "На запиті"
 				},
 				"singular": {
 					"accepted": "Прийнято",
@@ -1251,8 +1251,8 @@
 			"productName": "Назва продукту",
 			"products": "Продукти",
 			"publicPage": "Публічна сторінка",
-			"registerPayment": "Зареєструй оплату ",
 			"quantity": "Кількість",
+			"registerPayment": "Зареєструй оплату ",
 			"reject": "Відхилити",
 			"role": "Роль",
 			"save": "Зберегти",
@@ -1503,6 +1503,9 @@
 		},
 		"form": {
 			"chip": {
+				"service": {
+					"noAssigned": "Немає обраної послуги"
+				},
 				"specialist": {
 					"noAssignedSpecialist": "Немає призначеного спеціаліста"
 				}
@@ -1705,15 +1708,6 @@
 				"label": "З спеціалістами"
 			}
 		},
-		"week-calendar": {
-			"label": "Календар (тиждень)",
-			"ordinary": {
-				"label": "Звичайний"
-			},
-			"withSpecialists": {
-				"label": "З спеціалістами"
-			}
-		},
 		"customers": "Клієнти",
 		"dashboard": "Панель керування",
 		"dateRangeReport": "Аналітика",
@@ -1737,7 +1731,16 @@
 		"statistic": "Статистика",
 		"switch-business-client": "Змінити контекст",
 		"table": "Таблиця",
-		"tariffPlan": "Тарифи"
+		"tariffPlan": "Тарифи",
+		"week-calendar": {
+			"label": "Календар (тиждень)",
+			"ordinary": {
+				"label": "Звичайний"
+			},
+			"withSpecialists": {
+				"label": "З спеціалістами"
+			}
+		}
 	},
 	"sign-out": {
 		"button": {

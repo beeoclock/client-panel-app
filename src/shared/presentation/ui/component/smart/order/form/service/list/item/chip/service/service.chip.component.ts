@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, input, OnInit, output, ViewEncapsulation} from "@angular/core";
+import {afterNextRender, ChangeDetectionStrategy, Component, input, output, ViewEncapsulation} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import ObjectID from "bson-objectid";
 import {TranslateModule} from "@ngx-translate/core";
@@ -46,7 +46,7 @@ import {
 			} @else {
 				<!-- Error: No assigned specialist -->
 				<div class="text-red-500 text-sm font-normal px-2 py-1">
-					{{ 'order.form.chip.specialist.noAssignedSpecialist' | translate }}
+					{{ 'order.form.chip.service.noAssigned' | translate }}
 				</div>
 			}
 			<i class="bi bi-chevron-expand"></i>
@@ -55,7 +55,7 @@ import {
 		<app-service-popover-chip-component [trigger]="'select-service-' + id()" (result)="setService($event)"/>
 	`
 })
-export class ServiceChipComponent implements OnInit {
+export class ServiceChipComponent {
 
 	public readonly initialValue = input<IService.DTO | null>(null);
 
@@ -65,8 +65,10 @@ export class ServiceChipComponent implements OnInit {
 
 	public readonly serviceFormControl = new FormControl<IService.DTO | null>(null);
 
-	public ngOnInit() {
-		this.initService();
+	public constructor() {
+		afterNextRender(() => {
+			this.initService();
+		})
 	}
 
 	public initService() {
