@@ -21,7 +21,24 @@ import {
 
 @Component({
 	selector: 'product-card-list-component',
-	templateUrl: './card.list.component.html',
+	template: `
+		<card-ion-list-smart-component [itemTemplate]="itemTemplate">
+
+			<ng-template #itemTemplate let-item="item">
+				<lightweight-product-card-molecule (click)="open(item)" [item]="item" class="m-2"/>
+			</ng-template>
+
+			<not-found-table-data-component
+				class="block h-full"
+				(clickListener)="openForm()"
+				[showLinkToForm]="true"
+				[linkLabel]="'product.button.create' | translate"
+				[label]="'keyword.capitalize.dataNotFound' | translate">
+				<payment-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+			</not-found-table-data-component>
+
+		</card-ion-list-smart-component>
+	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -36,8 +53,6 @@ import {
 	},
 })
 export class CardListComponent extends TableComponent<EProduct> {
-
-	public readonly showAction = new BooleanStreamState(true);
 
 	public readonly showSelectedStatus = new BooleanStreamState(false);
 
