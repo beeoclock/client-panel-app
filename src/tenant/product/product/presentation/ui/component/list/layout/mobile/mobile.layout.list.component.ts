@@ -12,8 +12,8 @@ import {
 	selector: 'product-mobile-layout-list-component',
 	template: `
 		<div class="flex flex-col max-w-full" [ngClass]="{
-'overflow-x-auto h-[calc(100dvh-80px)] md:h-[calc(100vh-65px)]': isPage()
-}">
+			'overflow-x-auto h-[calc(100dvh-80px)] md:h-[calc(100vh-65px)]': isPage()
+		}">
 			<product-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>
 			<product-card-list-component/>
 		</div>
