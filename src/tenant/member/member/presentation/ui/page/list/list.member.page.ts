@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe, DatePipe} from '@angular/common';
+import {afterNextRender, Component, ViewEncapsulation} from '@angular/core';
+import {DatePipe} from '@angular/common';
 import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {tap} from "rxjs";
@@ -18,16 +18,28 @@ import {
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
+import {AppIfDeviceDirective, AppIfNotDeviceDirective} from "@shared/presentation/directives/device";
 
 @Component({
 	selector: 'app-list-member-page',
-	templateUrl: './list.member.page.html',
+	template: `
+
+		@if (initialized()) {
+			<member-mobile-layout-list-component *ifDevice="['phone']"/>
+			<member-desktop-layout-list-component *ifNotDevice="['phone']"/>
+		} @else {
+			<div class="p-4">
+				{{ 'keyword.capitalize.initializing' | translate }}...
+			</div>
+		}
+	`,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TranslateModule,
-		AsyncPipe,
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
+		AppIfDeviceDirective,
+		AppIfNotDeviceDirective,
 	],
 	standalone: true,
 	providers: [
@@ -38,7 +50,7 @@ import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data
 		},
 	]
 })
-export class ListMemberPage extends ListPage implements OnInit {
+export class ListMemberPage extends ListPage {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
@@ -53,10 +65,13 @@ export class ListMemberPage extends ListPage implements OnInit {
 		})
 	).subscribe();
 
-	public override ngOnInit() {
-		super.ngOnInit();
-		this.analyticsService.logEvent('member_list_page_initialized');
+	public constructor() {
+		super();
+		afterNextRender(() => {
+			this.analyticsService.logEvent('member_list_page_initialized');
+		})
 	}
+
 
 }
 

@@ -10,6 +10,7 @@ import {
 } from "@tenant/customer/presentation/ui/component/list/layout/desktop/desktop.layout.list.component";
 import {CustomerTableService} from "@tenant/customer/presentation/ui/component/list/customer.table.service";
 import {TableService} from "@shared/table.service";
+import {AppIfDeviceDirective, AppIfNotDeviceDirective} from "@shared/presentation/directives/device";
 
 @Component({
 	selector: 'customer-external-list-component',
@@ -21,6 +22,8 @@ import {TableService} from "@shared/table.service";
 		TranslateModule,
 		MobileLayoutListComponent,
 		DesktopLayoutListComponent,
+		AppIfDeviceDirective,
+		AppIfNotDeviceDirective,
 	],
 	standalone: true,
 	providers: [

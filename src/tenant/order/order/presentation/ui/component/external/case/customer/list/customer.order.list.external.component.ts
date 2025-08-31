@@ -53,12 +53,11 @@ export class CustomerOrderListExternalComponent extends ListPage implements OnIn
 
 	public readonly item = input.required<ECustomer>();
 
-	readonly mobileLayoutListComponents = viewChildren(MobileLayoutListComponent);
+	public readonly mobileLayoutListComponents = viewChildren(MobileLayoutListComponent);
 
 	public override mobileMode = input(true);
 
-	public override ngOnInit() {
-		super.ngOnInit();
+	public ngOnInit() {
 		this.tableNgxDatatableSmartResource?.parameters.update((parameters) => {
 			return {
 				...parameters,

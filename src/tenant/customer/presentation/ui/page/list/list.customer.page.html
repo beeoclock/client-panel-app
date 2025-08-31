@@ -1,10 +1,7 @@
-@if (initialized.isOn) {
+@if (initialized()) {
 
-	@if (isMobile$ | async) {
-		<customer-mobile-layout-list-component/>
-	} @else {
-		<customer-desktop-layout-list-component />
-	}
+	<customer-mobile-layout-list-component *ifDevice="['phone']"/>
+	<customer-desktop-layout-list-component *ifNotDevice="['phone']" />
 
 } @else {
 

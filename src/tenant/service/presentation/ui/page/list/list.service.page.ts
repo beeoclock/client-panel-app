@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
+import {afterNextRender, ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+import {CurrencyPipe, DatePipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@shared/list.page";
 import {tap} from "rxjs";
@@ -19,16 +19,18 @@ import {
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
+import {AppIfDeviceDirective, AppIfNotDeviceDirective} from "@shared/presentation/directives/device";
 
 @Component({
 	selector: 'app-list-service-page',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		AsyncPipe,
 		TranslateModule,
 		MobileLayoutListComponent,
 		DesktopLayoutListComponent,
+		AppIfDeviceDirective,
+		AppIfNotDeviceDirective,
 	],
 	providers: [
 		DatePipe,
@@ -40,13 +42,9 @@ import {ofActionSuccessful} from "@ngxs/store";
 		},
 	],
 	template: `
-		@if (initialized.isOn) {
-			@if (isMobile$ | async) {
-				<service-mobile-layout-list-component/>
-			} @else {
-				<service-desktop-layout-list-component/>
-			}
-
+		@if (initialized()) {
+			<service-mobile-layout-list-component *ifDevice="['phone']"/>
+			<service-desktop-layout-list-component *ifNotDevice="['phone']"/>
 		} @else {
 
 			<div class="p-4">
@@ -56,7 +54,7 @@ import {ofActionSuccessful} from "@ngxs/store";
 	`,
 	standalone: true,
 })
-export class ListServicePage extends ListPage implements OnInit, OnDestroy {
+export class ListServicePage extends ListPage {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
@@ -70,9 +68,11 @@ export class ListServicePage extends ListPage implements OnInit, OnDestroy {
 		})
 	).subscribe();
 
-	public override ngOnInit() {
-		super.ngOnInit();
-		this.analyticsService.logEvent('service_list_page_initialized');
+	public constructor() {
+		super();
+		afterNextRender(() => {
+			this.analyticsService.logEvent('service_list_page_initialized');
+		});
 	}
 
 }

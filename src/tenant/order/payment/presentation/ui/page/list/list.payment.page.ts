@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {afterNextRender, ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {
@@ -38,7 +38,7 @@ import {
 		},
 	],
 })
-export default class ListPaymentPage extends ListPage implements OnInit {
+export default class ListPaymentPage extends ListPage {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
@@ -51,9 +51,11 @@ export default class ListPaymentPage extends ListPage implements OnInit {
 		})
 	).subscribe();
 
-	public override ngOnInit() {
-		super.ngOnInit();
-		this.analyticsService.logEvent('payment_list_page_initialized');
+	public constructor() {
+		super();
+		afterNextRender(() => {
+			this.analyticsService.logEvent('payment_list_page_initialized');
+		})
 	}
 
 }

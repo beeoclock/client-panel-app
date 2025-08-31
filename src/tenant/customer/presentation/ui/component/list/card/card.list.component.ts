@@ -41,13 +41,14 @@ import {
 })
 export class CardListComponent extends TableComponent<ECustomer> {
 
-	public showAction = new BooleanStreamState(true);
+	public readonly showAction = new BooleanStreamState(true);
 
-	public showSelectedStatus = new BooleanStreamState(false);
+	public readonly showSelectedStatus = new BooleanStreamState(false);
 
 	public override open(item: ECustomer) {
 		this.store.dispatch(new CustomerPresentationActions.OpenDetails(item));
 	}
+
 	@Dispatch()
 	public openForm() {
 		return new CustomerPresentationActions.OpenForm();

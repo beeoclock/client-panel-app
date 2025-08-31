@@ -1,5 +1,5 @@
 export class BooleanState {
-  constructor(
+  public constructor(
     private state: boolean = true,
   ) {
   }

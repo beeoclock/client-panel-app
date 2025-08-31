@@ -14,10 +14,26 @@ import {
 import {
 	MemberTableNgxDatatableSmartResource
 } from "@tenant/member/member/presentation/ui/page/list/member.table-ngx-datatable.resource";
+import {AppIfDeviceDirective, AppIfNotDeviceDirective} from "@shared/presentation/directives/device";
 
 @Component({
 	selector: 'member-external-list-component',
-	templateUrl: './list.component.html',
+	template: `
+		@if (initialized()) {
+
+			<member-mobile-layout-list-component
+				*ifDevice="['phone']"
+				[showButtonGoToForm]="false"
+				[isPage]="false"
+			/>
+			<member-desktop-layout-list-component *ifNotDevice="['phone']"/>
+		} @else {
+
+			<div class="p-4">
+				{{ 'keyword.capitalize.initializing' | translate }}...
+			</div>
+		}
+	`,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
@@ -25,6 +41,8 @@ import {
 		TranslateModule,
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
+		AppIfDeviceDirective,
+		AppIfNotDeviceDirective,
 	],
 	standalone: true,
 	providers: [

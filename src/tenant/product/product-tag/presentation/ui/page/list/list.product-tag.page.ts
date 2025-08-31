@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation,} from '@angular/core';
+import {afterNextRender, ChangeDetectionStrategy, Component, ViewEncapsulation,} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
 import {ListPage} from "@shared/list.page";
@@ -34,7 +34,7 @@ import {ProductTagDataActions} from "@tenant/product/product-tag/infrastructure/
 		},
 	],
 })
-export class ListProductTagPage extends ListPage implements OnInit {
+export class ListProductTagPage extends ListPage {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
@@ -48,9 +48,11 @@ export class ListProductTagPage extends ListPage implements OnInit {
 		})
 	).subscribe();
 
-	public override ngOnInit() {
-		super.ngOnInit();
-		this.analyticsService.logEvent('product_tag_list_page_initialized');
+	public constructor() {
+		super();
+		afterNextRender(() => {
+			this.analyticsService.logEvent('product_tag_list_page_initialized');
+		})
 	}
 
 }
