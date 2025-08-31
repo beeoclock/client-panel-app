@@ -111,6 +111,7 @@
 		"@ng-icons/material-icons": "31.2.0",
 		"@ng-icons/remixicon": "31.2.0",
 		"@ng-icons/tdesign-icons": "31.2.0",
+		"@ngx-env/builder": "^20.0.0",
 		"@ngxs/devtools-plugin": "19.0.0",
 		"@tailwindcss/aspect-ratio": "0.4.2",
 		"@tailwindcss/container-queries": "0.1.1",

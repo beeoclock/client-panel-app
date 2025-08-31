@@ -31,26 +31,27 @@ export class SignInIdentityPage implements OnInit {
 	public readonly password = input<string | null>(null);
 
 	public readonly footerLabel = environment.footer.label;
-	readonly signInComponent = viewChild.required(SignInComponent);
-	readonly #analyticsService = inject(AnalyticsService);
+	public readonly signInComponent = viewChild.required(SignInComponent);
+	private readonly analyticsService = inject(AnalyticsService);
 
 	public initialLoginValues(): {
 		email: string;
 		password: string;
 	} {
 		return {
-			email: this.login() ?? '',
-			password: this.password() ?? ''
+			email: this.login() || environment.default.login,
+			password: this.password() || environment.default.password,
 		}
 	}
 
 	public ngOnInit() {
-		this.#analyticsService.logEvent('member_list_page_initialized');
+		console.log({environment})
+		this.analyticsService.logEvent('member_list_page_initialized');
 	}
 
 	protected loginIntoDemoProfile() {
 
-		this.signInComponent().doSignIn('demo@beeoclock.com', 'ItIckBeRSOLDENZYGosicirE');
+		this.signInComponent().doSignIn('demo@beeoclock.com', 'ItIckBeRSOLDENZYGosicirE').then();
 
 	}
 }

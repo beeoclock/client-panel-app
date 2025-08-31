@@ -49,6 +49,10 @@ export const environment = {
 	},
 	footer: {
 		label: `Bee o'clock Local © 2025`
+	},
+	default: {
+		login: import.meta.env.NG_APP_LOGIN || null,
+		password: import.meta.env.NG_APP_PASSWORD || null,
 	}
 };
 
