@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, input, OnInit, viewChild, Vi
 import {RouterLink} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
-import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
+import {ChangeLanguageComponent} from "@shared/presentation/ui/component/change-language/change-language.component";
 import {AnalyticsService} from "@core/cdk/analytics.service";
 import {NgOptimizedImage} from "@angular/common";
 import {environment} from "@environment/environment";
