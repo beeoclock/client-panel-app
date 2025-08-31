@@ -15,7 +15,7 @@ export namespace CustomerDataActions {
 	export class SetState {
 		public static readonly type = '[Customer API] SetState';
 
-		constructor(
+		public constructor(
 			public readonly item: ICustomer.DTO,
 			public readonly state: StateEnum,
 		) {
