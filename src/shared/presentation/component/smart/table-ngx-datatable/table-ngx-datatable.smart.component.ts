@@ -10,26 +10,24 @@ import {
 	viewChild
 } from '@angular/core';
 import {
+	ActivateEvent,
 	ColumnMode,
 	DatatableComponent,
-	DatatableFooterDirective,
-	DataTableFooterTemplateDirective,
+	DragEventData,
+	Group,
+	PageEvent,
 	SortEvent,
-	SortPropDir
+	SortPropDir,
+	TableColumn
 } from "@swimlane/ngx-datatable";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {ActivateEvent, DragEventData, Group, PageEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
-import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {ReactiveFormsModule} from "@angular/forms";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
+import {TranslateService} from "@ngx-translate/core";
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
-import {
-	PagerTableNgxDataTableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/pager.table-ngx-data-table.smart.component";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 
@@ -69,31 +67,50 @@ import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 					loading...
 				</div>
 			</div>
+<!--			<ngx-datatable-footer>-->
+<!--				<ng-template-->
+<!--					ngx-datatable-footer-template-->
+<!--					let-rowCount="rowCount"-->
+<!--					let-pageSize="pageSize"-->
+<!--					let-selectedCount="selectedCount"-->
+<!--					let-curPage="curPage"-->
+<!--					let-offset="offset"-->
+<!--				>-->
+<!--					<div style="padding: 5px 10px">-->
+<!--						<div><strong>Summary</strong>: Gender: Female</div>-->
+<!--						<hr style="width:100%" />-->
+<!--						<div-->
+<!--						>Rows: {{ rowCount }} | Size: {{ pageSize }} | Current: {{ curPage }} | Offset:-->
+<!--							{{ offset }}</div-->
+<!--						>-->
+<!--					</div>-->
+<!--				</ng-template>-->
+<!--			</ngx-datatable-footer>-->
+<!--			-->
+<!--			<ngx-datatable-footer>-->
+<!--				<ng-template-->
+<!--					let-rowCount="rowCount"-->
+<!--					let-pageSize="pageSize"-->
+<!--					let-selectedCount="selectedCount"-->
+<!--					let-curPage="curPage"-->
+<!--					let-offset="offset"-->
+<!--					ngx-datatable-footer-template-->
+<!--				>-->
+<!--					<div class="page-count">-->
+<!--						{{ 'keyword.capitalize.total' | translate }}: {{ rowCount }}-->
+<!--					</div>-->
+<!--					<app-pager-table-ngx-datatable-smart-component-->
+<!--						[page]="curPage"-->
+<!--						[goToFirstPageVisible]="goToFirstPageVisible()"-->
+<!--						[goToLastPageVisible]="goToLastPageVisible()"-->
+<!--						[visiblePagesCount]="currentVisible()"-->
+<!--						[size]="pageSize"-->
+<!--						[count]="rowCount"-->
+<!--						[hidden]="false"-->
+<!--						(change)="table.onFooterPage($event)"/>-->
+<!--				</ng-template>-->
 
-			<ngx-datatable-footer>
-				<ng-template
-					let-rowCount="rowCount"
-					let-pageSize="pageSize"
-					let-selectedCount="selectedCount"
-					let-curPage="curPage"
-					let-offset="offset"
-					ngx-datatable-footer-template
-				>
-					<div class="page-count">
-						{{ 'keyword.capitalize.total' | translate }}: {{ rowCount }}
-					</div>
-					<app-pager-table-ngx-datatable-smart-component
-						[page]="curPage"
-						[goToFirstPageVisible]="goToFirstPageVisible()"
-						[goToLastPageVisible]="goToLastPageVisible()"
-						[visiblePagesCount]="currentVisible()"
-						[size]="pageSize"
-						[count]="rowCount"
-						[hidden]="false"
-						(change)="table.onFooterPage($event)"/>
-				</ng-template>
-
-			</ngx-datatable-footer>
+<!--			</ngx-datatable-footer>-->
 		</ngx-datatable>
 
 		@if (!rows.length) {
@@ -107,10 +124,6 @@ import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 	imports: [
 		DatatableComponent,
 		ReactiveFormsModule,
-		DatatableFooterDirective,
-		DataTableFooterTemplateDirective,
-		PagerTableNgxDataTableSmartComponent,
-		TranslatePipe,
 	],
 	standalone: true,
 	host: {

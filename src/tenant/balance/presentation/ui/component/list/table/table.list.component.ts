@@ -1,10 +1,8 @@
 import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
-import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
-import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -20,6 +18,7 @@ import {
 	AutoRefreshButtonComponent
 } from "@tenant/balance/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {ActivateEvent, TableColumn} from "@swimlane/ngx-datatable";
 
 @Component({
 	selector: 'balance-table-list-component',
@@ -85,7 +84,9 @@ export class TableListComponent extends TableComponent<EBalance> {
 
 	public readonly balanceActionTypeEnum = BalanceActionTypeEnum;
 
-	public readonly columns = signal<TableColumn<EBalance>[]>([
+	public readonly columns = signal<(TableColumn<EBalance> & {
+		$$valueGetter?: any;
+	})[]>([
 		{
 			name: this.translateService.instant('balance.field.action.type.label'),
 			prop: 'action.type',

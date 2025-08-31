@@ -1,6 +1,5 @@
 import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
-import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
@@ -10,7 +9,6 @@ import {
 import {IMember} from "@tenant/member/member/domain";
 import EMember from "@tenant/member/member/domain/entity/e.member";
 import {TranslatePipe} from "@ngx-translate/core";
-import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/member/member/presentation/component/button/auto-refresh/auto-refresh.button.component";
@@ -23,6 +21,7 @@ import {
 } from "@tenant/member/member/infrastructure/state/presentation/member.presentation.actions";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {ActivateEvent, TableColumn} from "@swimlane/ngx-datatable";
 
 @Component({
 	selector: 'member-table-list-component',
@@ -170,7 +169,10 @@ export class TableListComponent extends TableComponent<EMember> {
 	public readonly roleCellTemplate = viewChild<TemplateRef<any>>('roleCellTemplate');
 	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
-	public readonly columns = signal<TableColumn<EMember>[]>([
+	public readonly columns = signal<(TableColumn<EMember> & {
+		$$valueGetter?: any,
+		$$cellTemplate?: TemplateRef<any>,
+	})[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.fullName'),
 			prop: 'fullName',

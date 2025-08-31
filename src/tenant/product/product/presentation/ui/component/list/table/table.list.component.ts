@@ -1,6 +1,4 @@
 import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from '@angular/core';
-import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
-import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {
@@ -30,6 +28,7 @@ import {
 import {CurrencyPipe} from "@angular/common";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {ActivateEvent, TableColumn} from "@swimlane/ngx-datatable";
 
 @Component({
 	selector: 'product-table-list-component',
@@ -63,7 +62,10 @@ export class TableListComponent extends TableComponent<EProduct> {
 	public readonly imagesCellTemplate = viewChild<TemplateRef<any>>('imagesCellTemplate');
 	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
-	public readonly columns = signal<TableColumn<EProduct>[]>([
+	public readonly columns = signal<(TableColumn<EProduct> & {
+		$$valueGetter?: any,
+		$$cellTemplate?: TemplateRef<any>,
+	})[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.sku'),
 			prop: 'sku',
@@ -189,7 +191,10 @@ export class TableListComponent extends TableComponent<EProduct> {
 		return new ProductPresentationActions.OpenForm();
 	}
 
-	private setTitlesColumnsByAvailableLanguages(columns: TableColumn<EProduct>[], availableLanguages: LanguageCodeEnum[]) {
+	private setTitlesColumnsByAvailableLanguages(columns: (TableColumn<EProduct> & {
+		$$valueGetter?: any,
+		$$cellTemplate?: TemplateRef<any>,
+	})[], availableLanguages: LanguageCodeEnum[]) {
 
 		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'images') + 1;
 		const name = this.translateService.instant('keyword.capitalize.title');

@@ -2,7 +2,6 @@ import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} 
 import {TableComponent} from "@shared/table.component";
 import {ICustomer} from "@tenant/customer/domain";
 import ECustomer from "@tenant/customer/domain/entity/e.customer";
-import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
@@ -10,7 +9,6 @@ import {
 	RowActionButtonComponent
 } from "@tenant/customer/presentation/ui/component/row-action-button/row-action-button.component";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
-import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -24,6 +22,7 @@ import {
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {ActivateEvent, TableColumn} from "@swimlane/ngx-datatable";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -108,7 +107,10 @@ export class TableListComponent extends TableComponent<ECustomer> {
 	public readonly phoneCellTemplate = viewChild<TemplateRef<any>>('phoneCellTemplate');
 	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
-	public readonly columns = signal<TableColumn<ECustomer>[]>([
+	public readonly columns = signal<(TableColumn<ECustomer> & {
+		$$valueGetter?: any,
+		cellTemplateRef?: TemplateRef<any>;
+	})[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.firstName'),
 			prop: 'firstName',

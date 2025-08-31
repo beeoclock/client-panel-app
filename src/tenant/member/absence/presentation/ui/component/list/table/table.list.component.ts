@@ -11,7 +11,6 @@ import {TableComponent} from "@shared/table.component";
 import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
-import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
@@ -21,7 +20,6 @@ import {
 import {
 	RowActionButtonComponent
 } from "@tenant/member/absence/presentation/ui/component/row-action-button/row-action-button.component";
-import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/member/absence/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
@@ -35,6 +33,7 @@ import {
 import {MemberListChipComponent} from "@shared/presentation/component/chip/member/list/member.list.chip";
 import {MemberListService} from "@shared/presentation/component/chip/member/list/member.list.service";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {ActivateEvent, TableColumn, TableColumnProp} from "@swimlane/ngx-datatable";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -115,7 +114,11 @@ export class TableListComponent extends TableComponent<EAbsence> {
 	public readonly membersStatusTemplate = viewChild<TemplateRef<any>>('membersStatusTemplate');
 	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
-	public readonly columns = signal<TableColumn<EAbsence>[]>([
+	public readonly columns = signal<(TableColumn<EAbsence> & {
+		$$valueGetter?: any,
+		cellTemplate?: TemplateRef<any>,
+		isTarget?: boolean
+	})[]>([
 		{
 			name: this.translateService.instant('absence.form.inputs.type.label'),
 			prop: 'type',

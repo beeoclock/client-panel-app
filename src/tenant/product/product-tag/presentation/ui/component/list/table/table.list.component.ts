@@ -1,6 +1,4 @@
 import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from '@angular/core';
-import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
-import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {
@@ -27,6 +25,7 @@ import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {ActivateEvent, TableColumn} from "@swimlane/ngx-datatable";
 
 @Component({
 	selector: 'product-tag-table-list-component',
@@ -54,7 +53,9 @@ export class TableListComponent extends TableComponent<EProductTag> {
 	public readonly stateCellTemplate = viewChild<TemplateRef<any>>('stateCellTemplate');
 	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
-	public readonly columns = signal<TableColumn<EProductTag>[]>([
+	public readonly columns = signal<(TableColumn<EProductTag> & {
+		$$valueGetter?: any
+	})[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.title'),
 			prop: 'name',

@@ -1,6 +1,5 @@
 import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
-import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
@@ -11,7 +10,6 @@ import {
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {ServiceActions} from "@tenant/service/infrastructure/state/service/service.actions";
 import {IService} from "@tenant/service/domain/interface/i.service";
-import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	AutoRefreshButtonComponent
@@ -28,6 +26,8 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {ActivateEvent, TableColumn, TableColumnProp} from "@swimlane/ngx-datatable";
+import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -142,7 +142,9 @@ export class TableListComponent extends TableComponent<EService> {
 	public readonly colorCellTemplate = viewChild<TemplateRef<any>>('colorCellTemplate');
 	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
-	public readonly columns = signal<TableColumn<EService>[]>([
+	public readonly columns = signal<(TableColumn<EService> & {
+		$$valueGetter?: (obj: IBaseEntityRaw<string>, prop: TableColumnProp) => string | null
+	})[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.color'),
 			prop: 'color',
@@ -276,7 +278,9 @@ export class TableListComponent extends TableComponent<EService> {
 		return new ServiceActions.OpenForm();
 	}
 
-	private setTitlesColumnsByAvailableLanguages(columns: TableColumn<EService>[], availableLanguages: LanguageCodeEnum[]) {
+	private setTitlesColumnsByAvailableLanguages(columns: (TableColumn<EService> & {
+		$$valueGetter?: any
+	})[], availableLanguages: LanguageCodeEnum[]) {
 
 		const pushAfterIndex = columns.findIndex(({prop}) => prop === 'banners') + 1;
 		const name = this.translateService.instant('keyword.capitalize.title');

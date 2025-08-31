@@ -1,8 +1,6 @@
 import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
-import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {TranslatePipe} from "@ngx-translate/core";
-import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -30,6 +28,7 @@ import {IMember} from "@tenant/member/member/domain";
 import {MemberListService} from "@shared/presentation/component/chip/member/list/member.list.service";
 import {CustomerChip} from "@shared/presentation/component/chip/customer/customer.chip";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {ActivateEvent, TableColumn, TableColumnProp} from "@swimlane/ngx-datatable";
 
 @Component({
 	selector: 'order-service-table-list-component',
@@ -123,7 +122,10 @@ export class TableListComponent extends TableComponent<EOrderService> {
 	public readonly customerCellTemplate = viewChild<TemplateRef<any>>('customerCellTemplate');
 	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
-	public readonly columns = signal<TableColumn<EOrderService>[]>([
+	public readonly columns = signal<(TableColumn<EOrderService> & {
+		$$valueGetter?: any
+		$$cellTemplate?: TemplateRef<any>;
+	})[]>([
 		{
 			name: this.translateService.instant('keyword.capitalize.status'),
 			prop: 'status',

@@ -1,9 +1,7 @@
 import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
-import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 
 import {TranslatePipe} from "@ngx-translate/core";
-import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
 } from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -26,6 +24,7 @@ import {
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {ActivateEvent, TableColumn, TableColumnProp} from "@swimlane/ngx-datatable";
 
 @Component({
 	selector: 'payment-table-list-component',
@@ -100,7 +99,10 @@ export class TableListComponent extends TableComponent<EPayment> {
 	public readonly idCellTemplate = viewChild<TemplateRef<any>>('idCellTemplate');
 	public readonly syncedAtTemplate = viewChild<TemplateRef<any>>('syncedAtTemplate');
 
-	public readonly columns = signal<TableColumn<EPayment>[]>([
+	public readonly columns = signal<(TableColumn<EPayment> & {
+		$$valueGetter?: (obj: EPayment, prop: TableColumnProp) => string;
+		cellTemplateRef?: TemplateRef<any>;
+	})[]>([
 		{
 			name: '#',
 			prop: '_id',

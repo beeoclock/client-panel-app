@@ -1,18 +1,17 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, input, Input, Output, ViewEncapsulation} from '@angular/core';
-import {DataTablePagerComponent as SuperDataTablePagerComponent} from '@swimlane/ngx-datatable';
+import {ChangeDetectionStrategy, Component, input, Input, output, ViewEncapsulation} from '@angular/core';
 
 @Component({
 	selector: 'app-pager-table-ngx-datatable-smart-component',
 	template: `
 		<ul class="pager">
 			@if (goToFirstPageVisible()) {
-			<li [class.disabled]="!canPrevious()">
-				<a
-					href="javascript:void(0)"
-					(click)="selectPage(1)">
-					<i class="{{pagerPreviousIcon}}"></i>
-				</a>
-			</li>
+				<li [class.disabled]="!canPrevious()">
+					<a
+						href="javascript:void(0)"
+						(click)="selectPage(1)">
+						<i class="{{pagerPreviousIcon}}"></i>
+					</a>
+				</li>
 			}
 			<li [class.disabled]="!canPrevious()">
 				<a
@@ -57,62 +56,60 @@ import {DataTablePagerComponent as SuperDataTablePagerComponent} from '@swimlane
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PagerTableNgxDataTableSmartComponent extends SuperDataTablePagerComponent {
+export class PagerTableNgxDataTableSmartComponent {
 
 	public readonly goToFirstPageVisible = input<boolean>(true);
 
 	public readonly goToLastPageVisible = input<boolean>(true);
 
 	@Input()
-	public override pagerLeftArrowIcon: string = 'bi bi-chevron-left';
+	public pagerLeftArrowIcon: string = 'bi bi-chevron-left';
 
 	@Input()
-	public override pagerRightArrowIcon: string = 'bi bi-chevron-right';
+	public pagerRightArrowIcon: string = 'bi bi-chevron-right';
 
 	@Input()
-	public override pagerPreviousIcon: string = 'bi bi-chevron-bar-left';
+	public pagerPreviousIcon: string = 'bi bi-chevron-bar-left';
 
 	@Input()
-	public override pagerNextIcon: string = 'bi bi-chevron-bar-right';
-
+	public pagerNextIcon: string = 'bi bi-chevron-bar-right';
 
 	@Input()
-	public override set size(val: number) {
+	public set size(val: number) {
 		this._size = val;
 		this.pages = this.calcPages();
 	}
 
-	public override get size(): number {
+	public get size(): number {
 		return this._size;
 	}
 
 	@Input()
-	public override set count(val: number) {
+	public set count(val: number) {
 		this._count = val;
 		this.pages = this.calcPages();
 	}
 
-	public override get count(): number {
+	public get count(): number {
 		return this._count;
 	}
 
 	@Input()
-	public override set page(val: number) {
+	public set page(val: number) {
 		this._page = val;
 		this.pages = this.calcPages();
 	}
 
-	public override get page(): number {
+	public get page(): number {
 		return this._page;
 	}
 
-	public override get totalPages(): number {
+	public get totalPages(): number {
 		const count = this.size < 1 ? 1 : Math.ceil(this.count / this.size);
 		return Math.max(count || 0, 1);
 	}
 
-	@Output()
-	public override change: EventEmitter<any> = new EventEmitter();
+	public readonly change = output<any>();
 
 	public _visiblePagesCount: number = 3;
 
@@ -126,28 +123,28 @@ export class PagerTableNgxDataTableSmartComponent extends SuperDataTablePagerCom
 		return this._visiblePagesCount;
 	}
 
-	public override _count: number = 0;
-	public override _page: number = 1;
-	public override _size: number = 0;
-	public override pages: any;
+	public _count: number = 0;
+	public _page: number = 1;
+	public _size: number = 0;
+	public pages: any;
 
-	public override canPrevious(): boolean {
+	public canPrevious(): boolean {
 		return this.page > 1;
 	}
 
-	public override canNext(): boolean {
+	public canNext(): boolean {
 		return this.page < this.totalPages;
 	}
 
-	public override prevPage(): void {
+	public prevPage(): void {
 		this.selectPage(this.page - 1);
 	}
 
-	public override nextPage(): void {
+	public nextPage(): void {
 		this.selectPage(this.page + 1);
 	}
 
-	public override selectPage(page: number): void {
+	public selectPage(page: number): void {
 		if (page > 0 && page <= this.totalPages && page !== this.page) {
 			this.page = page;
 
@@ -157,7 +154,10 @@ export class PagerTableNgxDataTableSmartComponent extends SuperDataTablePagerCom
 		}
 	}
 
-	public override calcPages(page?: number): any[] {
+	public calcPages(page?: number): {
+		number: number;
+		text: string;
+	}[] {
 		const pages = [];
 		let startPage = 1;
 		let endPage = this.totalPages;
@@ -182,7 +182,7 @@ export class PagerTableNgxDataTableSmartComponent extends SuperDataTablePagerCom
 		for (let num = startPage; num <= endPage; num++) {
 			pages.push({
 				number: num,
-				text: <string><any>num
+				text: num.toString()
 			});
 		}
 
