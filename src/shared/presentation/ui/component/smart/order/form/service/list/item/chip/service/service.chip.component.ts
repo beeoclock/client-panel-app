@@ -1,4 +1,4 @@
-import {afterNextRender, ChangeDetectionStrategy, Component, input, output, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, output, ViewEncapsulation} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import ObjectID from "bson-objectid";
 import {TranslateModule} from "@ngx-translate/core";
@@ -9,6 +9,7 @@ import {
 import {
 	ServicePopoverChipComponent
 } from "@shared/presentation/ui/component/smart/order/form/service/list/item/chip/service/service-popover.chip.component";
+import {explicitEffect} from "ngxtension/explicit-effect";
 
 @Component({
 	selector: 'app-service-chip-component',
@@ -66,7 +67,7 @@ export class ServiceChipComponent {
 	public readonly serviceFormControl = new FormControl<IService.DTO | null>(null);
 
 	public constructor() {
-		afterNextRender(() => {
+		explicitEffect([this.initialValue], () => {
 			this.initService();
 		})
 	}
