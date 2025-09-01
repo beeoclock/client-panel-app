@@ -557,6 +557,11 @@
 			}
 		},
 		"details": {
+			"button": {
+				"checkout": {
+					"label": "Checkout"
+				}
+			},
 			"meta": {
 				"history": {
 					"keyword": {
@@ -573,7 +578,7 @@
 					}
 				}
 			},
-			"title": "Details of the service ordered"
+			"title": "An appointment"
 		},
 		"form": {
 			"section": {
@@ -1569,12 +1574,50 @@
 		}
 	},
 	"payment": {
+		"form": {
+			"method": {
+				"label": "Payment method"
+			}
+		},
 		"method": {
+			"APPLE_PAY": {
+				"label": "Apple Pay"
+			},
+			"BANK_TRANSFER": {
+				"label": "Bank Transfer"
+			},
 			"CARD": {
 				"label": "Card"
 			},
 			"CASH": {
 				"label": "Cash"
+			},
+			"CHECK": {
+				"label": "Check"
+			},
+			"CRYPTO": {
+				"label": "Cryptocurrency"
+			},
+			"DEBIT_CARD": {
+				"label": "Debit Card"
+			},
+			"GIFT_CARD": {
+				"label": "Gift Card"
+			},
+			"GOOGLE_PAY": {
+				"label": "Google Pay"
+			},
+			"INVOICE": {
+				"label": "Invoice"
+			},
+			"MOBILE_PAYMENT": {
+				"label": "Mobile Payment"
+			},
+			"OTHER": {
+				"label": "Other"
+			},
+			"PAYPAL": {
+				"label": "PayPal"
 			}
 		},
 		"providerType": {

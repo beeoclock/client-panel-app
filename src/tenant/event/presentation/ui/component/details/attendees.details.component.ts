@@ -1,13 +1,11 @@
-import {Component, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
-import {IAttendee, IEvent_V2} from "@tenant/event/domain";
+import {Component, computed, inject, input} from "@angular/core";
+import {IEvent_V2} from "@tenant/event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
-import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {ICustomer} from "@tenant/customer/domain";
-import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
@@ -18,7 +16,7 @@ import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/det
 
 
 @Component({
-	selector: 'event-v2-general-details',
+	selector: 'attendees-general-details',
 	standalone: true,
 	imports: [
 		TranslateModule,
@@ -38,7 +36,7 @@ import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/det
 			<dl class="divide-y divide-gray-100">
 				<div class="p-2">
 
-					@for (customer of attendantMap.customers; track customer._id) {
+					@for (customer of customers(); track customer._id) {
 
 						@if (customer) {
 
@@ -107,7 +105,7 @@ import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/det
 								@case (customerTypeEnum.anonymous) {
 
 									<div
-											class="p-4 group bg-neutral-100 flex flex-col w-full border border-gray-200 shadow-2xs rounded-xl hover:shadow-md focus:outline-hidden focus:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800">
+										class="p-4 group bg-neutral-100 flex flex-col w-full border border-gray-200 shadow-2xs rounded-xl hover:shadow-md focus:outline-hidden focus:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800">
 										<div class="flex justify-between items-center gap-x-3">
 
 											<div
@@ -132,19 +130,21 @@ import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/det
 						}
 					}
 				</div>
-				<div class="p-2">
-					<div class="mt-1 text-sm leading-6 rounded-2xl p-4 bg-neutral-100 border">
-						<div class="text-sm font-medium leading-6 text-gray-900">
-							{{ 'keyword.capitalize.customerNote' | translate }}
-						</div>
-						<span [ngClass]="{
-							'text-beeColor-500 italic': !thereIsDescription,
-							'text-gray-700': thereIsDescription
+				@if (eventHasNoteFromCustomer()) {
+					<div class="p-2">
+						<div class="mt-1 text-sm leading-6 rounded-2xl p-4 bg-neutral-100 border">
+							<div class="text-sm font-medium leading-6 text-gray-900">
+								{{ 'keyword.capitalize.customerNote' | translate }}
+							</div>
+							<span [ngClass]="{
+							'text-beeColor-500 italic': !eventHasNoteFromCustomer(),
+							'text-gray-700': eventHasNoteFromCustomer()
 						}">
-							{{ thereIsDescription ? event().note : ('keyword.capitalize.noData' | translate) }}
+							{{ eventHasNoteFromCustomer() ? event().note : ('keyword.capitalize.noData' | translate) }}
 						</span>
+						</div>
 					</div>
-				</div>
+				}
 				<div class="p-2">
 					<div class="mt-1 text-sm leading-6 rounded-2xl p-4 bg-neutral-100 border flex flex-col gap-2">
 						<div class="text-sm font-medium leading-6 text-gray-900 flex flex-col">
@@ -160,7 +160,7 @@ import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/det
 
 	`
 })
-export class V2GeneralDetailsComponent implements OnChanges {
+export class AttendeesDetailsComponent {
 
 	public readonly event = input.required<IEvent_V2<{
 		order: IOrder.DTO;
@@ -171,47 +171,34 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
-	public readonly attendantMap: {
-		specialists: ISpecialist[];
-		customers: ICustomer.DTO[];
-	} = {
-		specialists: [],
-		customers: [],
-	};
-
-	public bannerUrl: string = '';
-	public title: string = '';
-	public description: string = '';
-	public status: OrderServiceStatusEnum | null = null;
 	public readonly customerTypeEnum = CustomerTypeEnum;
 
-	public ngOnChanges(changes: SimpleChanges & { event: SimpleChange }) {
+	public readonly customers = computed(() => {
+		const service = this.event()?.originalData?.service;
+		if (!service) return [];
+		return service.orderAppointmentDetails.attendees.map(({customer}) => customer);
+	})
 
-		const {event} = changes;
+	public readonly bannerUrl = computed(() => {
+		const event = this.event();
+		return event?.originalData?.service?.serviceSnapshot?.presentation?.banners?.[0]?.url ?? ''
+	});
 
-		if (event) {
+	public readonly title = computed(() => {
+		return this.event()?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.title ?? '';
+	});
 
-			this.attendantMap.specialists = [];
-			this.attendantMap.customers = [];
+	public readonly description = computed(() => {
+		return this.event()?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.description ?? '';
+	});
 
-			const {attendees} = event.currentValue as IEvent_V2<{ order: IOrder.DTO; service: IOrderService.DTO; }>;
-			attendees.forEach((attendee) => {
-				(attendee.is === 'specialist') && this.attendantMap.specialists.push(attendee.originalData as ISpecialist);
-				(attendee.is === 'customer') && this.attendantMap.customers.push((attendee.originalData as IAttendee).customer);
-			});
-
-			this.bannerUrl = this.event()?.originalData?.service?.serviceSnapshot?.presentation?.banners?.[0]?.url ?? '';
-			this.title = this.event()?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.title ?? '';
-			this.description = this.event()?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.description ?? '';
-			this.status = this.event()?.originalData?.service?.status ?? null;
-
-		}
-
-	}
-
-	public get thereIsDescription(): boolean {
+	public readonly status = computed(() => {
 		return !!this.event()?.note?.length;
-	}
+	});
+
+	public readonly eventHasNoteFromCustomer = computed(() => {
+		return !!this.event()?.note?.length;
+	});
 
 	@Dispatch()
 	public openCustomerDetails(customer: ICustomer.DTO) {

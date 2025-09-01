@@ -66,6 +66,15 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 		return statusColorMap[this.status];
 	}
 
+	public setOrderedService(dto: IOrderService.DTO) {
+		const index = this.services.findIndex(({_id}) => _id === dto._id);
+		if (index !== -1) {
+			this.services[index] = dto;
+		} else {
+			this.services.push(dto);
+		}
+	}
+
 	/**
 	 * Change the status of the order.
 	 * @param status

@@ -557,6 +557,11 @@
 			}
 		},
 		"details": {
+			"button": {
+				"checkout": {
+					"label": "До оплати"
+				}
+			},
 			"meta": {
 				"history": {
 					"keyword": {
@@ -573,7 +578,7 @@
 					}
 				}
 			},
-			"title": "Деталі замовленої послуги"
+			"title": "Запис"
 		},
 		"form": {
 			"section": {
@@ -1569,12 +1574,50 @@
 		}
 	},
 	"payment": {
+		"form": {
+			"method": {
+				"label": "Спосіб оплати"
+			}
+		},
 		"method": {
+			"APPLE_PAY": {
+				"label": "Apple Pay"
+			},
+			"BANK_TRANSFER": {
+				"label": "Банківський переказ"
+			},
 			"CARD": {
 				"label": "Картка"
 			},
 			"CASH": {
 				"label": "Готівка"
+			},
+			"CHECK": {
+				"label": "Чек"
+			},
+			"CRYPTO": {
+				"label": "Криптовалюта"
+			},
+			"DEBIT_CARD": {
+				"label": "Дебетова картка"
+			},
+			"GIFT_CARD": {
+				"label": "Подарункова картка"
+			},
+			"GOOGLE_PAY": {
+				"label": "Google Pay"
+			},
+			"INVOICE": {
+				"label": "Рахунок"
+			},
+			"MOBILE_PAYMENT": {
+				"label": "Мобільний платіж"
+			},
+			"OTHER": {
+				"label": "Інше"
+			},
+			"PAYPAL": {
+				"label": "PayPal"
 			}
 		},
 		"providerType": {

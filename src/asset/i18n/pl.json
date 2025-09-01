@@ -557,6 +557,11 @@
 			}
 		},
 		"details": {
+			"button": {
+				"checkout": {
+					"label": "Do opłaty"
+				}
+			},
 			"meta": {
 				"history": {
 					"keyword": {
@@ -573,7 +578,7 @@
 					}
 				}
 			},
-			"title": "Szczegóły zamówionej usługi"
+			"title": "Wizyta"
 		},
 		"form": {
 			"section": {
@@ -1569,12 +1574,50 @@
 		}
 	},
 	"payment": {
+		"form": {
+			"method": {
+				"label": "Metod płatności"
+			}
+		},
 		"method": {
+			"APPLE_PAY": {
+				"label": "Apple Pay"
+			},
+			"BANK_TRANSFER": {
+				"label": "Przelew bankowy"
+			},
 			"CARD": {
 				"label": "Karta"
 			},
 			"CASH": {
 				"label": "Gotówka"
+			},
+			"CHECK": {
+				"label": "Czek"
+			},
+			"CRYPTO": {
+				"label": "Kryptowaluta"
+			},
+			"DEBIT_CARD": {
+				"label": "Karta debetowa"
+			},
+			"GIFT_CARD": {
+				"label": "Karta podarunkowa"
+			},
+			"GOOGLE_PAY": {
+				"label": "Google Pay"
+			},
+			"INVOICE": {
+				"label": "Faktura"
+			},
+			"MOBILE_PAYMENT": {
+				"label": "Płatność mobilna"
+			},
+			"OTHER": {
+				"label": "Inne"
+			},
+			"PAYPAL": {
+				"label": "PayPal"
 			}
 		},
 		"providerType": {

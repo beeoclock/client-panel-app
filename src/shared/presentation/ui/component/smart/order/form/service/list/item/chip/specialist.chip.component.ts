@@ -1,9 +1,8 @@
-import {ChangeDetectionStrategy, Component, input, OnInit, output, ViewEncapsulation} from "@angular/core";
+import {afterNextRender, ChangeDetectionStrategy, Component, input, output, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {FormControl} from "@angular/forms";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import ObjectID from "bson-objectid";
-import {Reactive} from "@core/cdk/reactive";
 import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
 import {SpecialistModel} from "@tenant/service/domain/model/specialist.model";
 import {TranslateModule} from "@ngx-translate/core";
@@ -92,7 +91,7 @@ import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/m
 		</ion-popover>
 	`
 })
-export class SpecialistChipComponent extends Reactive implements OnInit {
+export class SpecialistChipComponent {
 
 	public readonly initialValue = input<SpecialistModel | IMember.EntityRaw | null>(null);
 
@@ -105,8 +104,10 @@ export class SpecialistChipComponent extends Reactive implements OnInit {
 
 	public readonly specialistFormControl = new FormControl<ISpecialist | null>(null);
 
-	public ngOnInit() {
-		this.initSpecialist();
+	public constructor() {
+		afterNextRender(() => {
+			this.initSpecialist();
+		})
 	}
 
 	public initSpecialist() {

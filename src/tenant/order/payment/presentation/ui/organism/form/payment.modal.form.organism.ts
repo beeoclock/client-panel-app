@@ -20,6 +20,8 @@ import {
 	IonItem,
 	IonLabel,
 	IonList,
+	IonSelect,
+	IonSelectOption,
 	IonText,
 	IonTitle,
 	IonToolbar,
@@ -32,6 +34,8 @@ import {PaymentForm} from "@tenant/order/payment/presentation/form/payment.form"
 import {PaymentDataActions} from "@tenant/order/payment/infrastructure/state/data/payment.data.actions";
 import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum";
 import EPayment from "@tenant/order/payment/domain/entity/e.payment";
+import {PaymentMethodEnum} from "@tenant/order/payment/domain/enum/payment.method.enum";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
 	standalone: true,
@@ -53,6 +57,9 @@ import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 		IonLabel,
 		IonText,
 		CurrencyPipe,
+		IonSelect,
+		IonSelectOption,
+		ReactiveFormsModule,
 
 	],
 	template: `
@@ -72,17 +79,19 @@ import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 			</div>
 			<ion-list [inset]="true" class="!mt-0">
 				@for (service of notPaidServices(); track service._id) {
-					<ion-item>
-						<ion-checkbox [value]="service._id" [checked]="isServiceSelected(service._id)" (ionChange)="toggleService($event)" labelPlacement="end">
-							{{ service.serviceSnapshot.languageVersions[0].title }}
-						</ion-checkbox>
+					<ion-item lines="full">
+						@if (notPaidServices().length > 1) {
+							<ion-checkbox [value]="service._id" [checked]="isServiceSelected(service._id)" (ionChange)="toggleService($event)" labelPlacement="end">
+								{{ service.serviceSnapshot.languageVersions[0].title }}
+							</ion-checkbox>
+						}
 						<ion-text slot="end">
 							{{ service.serviceSnapshot.durationVersions[0].prices[0].price | currency: currency() }}
 						</ion-text>
 					</ion-item>
 				}
 				@for (product of notPaidProducts(); track product._id) {
-					<ion-item>
+					<ion-item lines="full">
 						<ion-checkbox [value]="product._id" [checked]="isProductSelected(product._id)" (ionChange)="toggleProduct($event)" labelPlacement="end">
 							{{ product.productSnapshot.languageVersions[0].title }}
 						</ion-checkbox>
@@ -93,7 +102,7 @@ import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 				}
 			</ion-list>
 			<ion-list [inset]="true">
-				<ion-item>
+				<ion-item lines="full">
 					<ion-label>
 						{{ 'keyword.capitalize.amountToPay' | translate }}
 					</ion-label>
@@ -101,10 +110,53 @@ import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 						{{ amountToPay() | currency: currency() }}
 					</ion-text>
 				</ion-item>
+				<ion-item lines="full">
+					<ion-select interface="popover" [formControl]="paymentMethodEnumFormControl" [label]="'payment.form.method.label' | translate" [placeholder]="">
+						<ion-select-option [value]="paymentMethodEnum.CARD">
+							{{ 'payment.method.CARD.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.CASH">
+							{{ 'payment.method.CASH.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.DEBIT_CARD">
+							{{ 'payment.method.DEBIT_CARD.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.BANK_TRANSFER">
+							{{ 'payment.method.BANK_TRANSFER.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.PAYPAL">
+							{{ 'payment.method.PAYPAL.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.APPLE_PAY">
+							{{ 'payment.method.APPLE_PAY.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.GOOGLE_PAY">
+							{{ 'payment.method.GOOGLE_PAY.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.CRYPTO">
+							{{ 'payment.method.CRYPTO.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.INVOICE">
+							{{ 'payment.method.INVOICE.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.CHECK">
+							{{ 'payment.method.CHECK.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.MOBILE_PAYMENT">
+							{{ 'payment.method.MOBILE_PAYMENT.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.GIFT_CARD">
+							{{ 'payment.method.GIFT_CARD.label' | translate }}
+						</ion-select-option>
+						<ion-select-option [value]="paymentMethodEnum.OTHER">
+							{{ 'payment.method.OTHER.label' | translate }}
+						</ion-select-option>
+					</ion-select>
+				</ion-item>
 			</ion-list>
 		</ion-content>
 		<ion-footer>
-			<ion-toolbar>
+			<ion-toolbar class="!p-0">
 				<ion-button [disabled]="!isSomethingSelected()" (click)="save()" expand="block">
 					{{ 'keyword.capitalize.save' | translate }}
 				</ion-button>
@@ -117,6 +169,13 @@ export class PaymentModalFormOrganism {
 	public readonly payments = input.required<EPayment[]>();
 	public readonly order = input.required<EOrder>();
 	public readonly currency = input.required<CurrencyCodeEnum>();
+	public readonly selectedServiceIdList = input<string[]>([]);
+
+	public readonly paymentMethodEnumFormControl = new FormControl<PaymentMethodEnum>(PaymentMethodEnum.CASH, {
+		nonNullable: true,
+	});
+
+	public readonly paymentMethodEnum = PaymentMethodEnum;
 
 	private readonly modalController = inject(ModalController);
 	private readonly store = inject(Store);
@@ -183,12 +242,16 @@ export class PaymentModalFormOrganism {
 	public constructor() {
 		afterNextRender(() => {
 
+			const selectedServiceIdList = this.selectedServiceIdList();
+
 			// Initialize selected services
 			const notPaidServices = this.notPaidServices();
-			const setOfServices = new Set<string>();
-			notPaidServices.forEach(service => {
-				setOfServices.add(service._id);
-			});
+			const setOfServices = new Set<string>(selectedServiceIdList);
+			if (!setOfServices.size) {
+				notPaidServices.forEach(service => {
+					setOfServices.add(service._id);
+				});
+			}
 			this.selectedServices.set(setOfServices);
 
 			// Initialize selected products
@@ -266,6 +329,7 @@ export class PaymentModalFormOrganism {
 				anchorId: service._id,
 				anchorType: AnchorTypeEnum.service,
 				amount: service.serviceSnapshot.durationVersions[0].prices[0].price,
+				method: this.paymentMethodEnumFormControl.getRawValue(),
 				currency: this.currency(),
 			});
 			const action = new PaymentDataActions.CreateItem(form.getRawValue());
@@ -280,6 +344,7 @@ export class PaymentModalFormOrganism {
 				anchorId: product._id,
 				anchorType: AnchorTypeEnum.product,
 				amount: product.productSnapshot.price.value,
+				method: this.paymentMethodEnumFormControl.getRawValue(),
 				currency: this.currency(),
 			});
 			const action = new PaymentDataActions.CreateItem(form.getRawValue());

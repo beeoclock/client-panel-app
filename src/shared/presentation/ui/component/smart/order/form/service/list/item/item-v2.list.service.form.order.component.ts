@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	effect,
-	inject,
-	input,
-	output,
-	signal,
-	ViewEncapsulation
-} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, output, ViewEncapsulation} from "@angular/core";
 import {PrimaryLinkButtonDirective} from "@shared/presentation/directives/button/primary.link.button.directive";
 import ObjectID from "bson-objectid";
 import {
@@ -52,6 +43,8 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {
 	LanguageChipComponent
 } from "@shared/presentation/ui/component/smart/order/form/service/list/item/chip/language.chip.component";
+import {Store} from "@ngxs/store";
+import {derivedAsync} from "ngxtension/derived-async";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -143,32 +136,25 @@ export class ItemV2ListServiceFormOrderComponent {
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
-	public readonly serviceEntity = signal<EService | null>(null);
+	public readonly serviceEntity = derivedAsync(() => {
 
-	public constructor() {
-		effect(async () => {
+		const {service} = this.item();
 
-			const {service} = this.item();
-
-			const serviceEntityRaw = await this.#sharedUow.service.repository.findByIdAsync(service._id);
-
-			if (serviceEntityRaw) {
-
-				const serviceEntity = EService.fromRaw(serviceEntityRaw);
-
-				this.serviceEntity.set(serviceEntity);
-
-			}
-
+		return this.sharedUow.service.repository.findByIdAsync(service._id).then((maybeServiceEntityRaw) => {
+			if (!maybeServiceEntityRaw) return null;
+			const serviceEntity = EService.fromRaw(maybeServiceEntityRaw);
+			return serviceEntity;
 		});
-	}
+
+	});
 
 	public readonly deleteMe = output<void>();
 
 	public readonly saveChanges = output<void>();
 
-	readonly #ngxLogger = inject(NGXLogger);
-	readonly #sharedUow = inject(SharedUow);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly sharedUow = inject(SharedUow);
+	private readonly store = inject(Store);
 
 	public get initialSpecialistOrMember() {
 		const specialist = this.item().control.getRawValue().orderAppointmentDetails.specialists[0];
@@ -195,12 +181,19 @@ export class ItemV2ListServiceFormOrderComponent {
 		// Check if the price is the same as the previous price, if so, return early
 
 		if (serviceSnapshot.durationVersions[0].prices[0].price === price) return;
-		this.#ngxLogger.debug('handlePriceChanges', this.id(), price);
-
+		this.ngxLogger.debug('handlePriceChanges', this.id(), price);
+		// Create
 		const copyServiceSnapshot = structuredClone(serviceSnapshot);
 		copyServiceSnapshot.durationVersions[0].prices[0].price = price;
 		this.item().control.controls.serviceSnapshot.patchValue(copyServiceSnapshot);
 		this.saveChanges.emit();
+
+		// Edit
+		// const action = new OrderServiceDataActions.SetPrice({
+		// 	orderedServiceId: this.item().control.getRawValue()._id,
+		// 	price,
+		// });
+		// this.store.dispatch(action);
 	}
 
 	public handleSpecialistChanges(specialist: ISpecialist) {
@@ -209,16 +202,23 @@ export class ItemV2ListServiceFormOrderComponent {
 		const {0: previousSpecialist} = orderAppointmentDetails.specialists;
 
 		if (previousSpecialist && previousSpecialist.member._id === specialist.member._id) return;
-		this.#ngxLogger.debug('handleSpecialistChanges', this.id(), specialist);
-
+		this.ngxLogger.debug('handleSpecialistChanges', this.id(), specialist);
+		// Create
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.specialists = [specialist];
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
+
+		// Edit
+		// const action = new OrderServiceDataActions.SetSpecialists({
+		// 	orderedServiceId: this.item().control.getRawValue()._id,
+		// 	specialists: [specialist],
+		// });
+		// this.store.dispatch(action);
 	}
 
 	public handleServiceChanges(service: IService.DTO) {
-		this.#ngxLogger.debug('handleServiceChanges', this.id(), service);
+		this.ngxLogger.debug('handleServiceChanges', this.id(), service);
 		let {serviceSnapshot} = this.item().control.getRawValue();
 
 		const languageVersions = service.languageVersions.filter(({language}) => {
@@ -246,8 +246,8 @@ export class ItemV2ListServiceFormOrderComponent {
 
 		// Check if the duration is the same as the previous duration, if so, return early
 		if (durationInSeconds === duration) return;
-		this.#ngxLogger.debug('handleDurationChanges', this.id(), duration);
-
+		this.ngxLogger.debug('handleDurationChanges', this.id(), duration);
+		// Create
 		const copyServiceSnapshot = structuredClone(serviceSnapshot);
 		copyServiceSnapshot.durationVersions[0].durationInSeconds = duration;
 		this.item().control.controls.serviceSnapshot.patchValue(copyServiceSnapshot);
@@ -258,10 +258,17 @@ export class ItemV2ListServiceFormOrderComponent {
 		copyOrderAppointmentDetails.end = DateTime.fromISO(copyOrderAppointmentDetails.start).plus({seconds: duration}).toJSDate().toISOString();
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
+
+		// Edit
+		// const action = new OrderServiceDataActions.SetDuration({
+		// 	orderedServiceId: this.item().control.getRawValue()._id,
+		// 	durationInSeconds: duration,
+		// });
+		// this.store.dispatch(action);
 	}
 
 	public async handleLanguageChanges(language: LanguageCodeEnum) {
-		this.#ngxLogger.debug('handleLanguageChanges', this.id());
+		this.ngxLogger.debug('handleLanguageChanges', this.id());
 		const {orderAppointmentDetails, serviceSnapshot} = this.item().control.getRawValue();
 		const service = this.serviceEntity();
 		if (service) {
@@ -275,7 +282,7 @@ export class ItemV2ListServiceFormOrderComponent {
 	}
 
 	public handleStatusChanges() {
-		this.#ngxLogger.debug('handleStatusChanges', this.id());
+		this.ngxLogger.debug('handleStatusChanges', this.id());
 		this.saveChanges.emit();
 	}
 
@@ -284,17 +291,25 @@ export class ItemV2ListServiceFormOrderComponent {
 		// Check if the start is the same as the previous start, if so, return early
 
 		if (orderAppointmentDetails.start === start) return;
-		this.#ngxLogger.debug('handleStartChanges', this.id(), start);
-
+		this.ngxLogger.debug('handleStartChanges', this.id(), start);
+		// Create
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.start = start;
 		copyOrderAppointmentDetails.end = DateTime.fromISO(start).plus({seconds: this.service.durationVersions[0].durationInSeconds}).toJSDate().toISOString();
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
+
+		// Edit
+		// const action = new OrderServiceDataActions.SetStart({
+		// 	orderedServiceId: this.item().control.getRawValue()._id,
+		// 	start,
+		// });
+		// this.store.dispatch(action);
 	}
 
 	public handleCustomerChanges(customer: ICustomer.DTO) {
-		this.#ngxLogger.debug('handleCustomerChanges', this.id(), customer);
+		this.ngxLogger.debug('handleCustomerChanges', this.id(), customer);
+		// Create
 		const {orderAppointmentDetails} = this.item().control.getRawValue();
 
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
@@ -311,6 +326,23 @@ export class ItemV2ListServiceFormOrderComponent {
 		];
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
+
+		// Edit
+		// const action = new OrderServiceDataActions.SetAttendees({
+		// 	orderedServiceId: this.item().control.getRawValue()._id,
+		// 	attendees: [
+		// 		{
+		// 			customer,
+		// 			_id: ObjectID().toHexString(),
+		// 			createdAt: DateTime.now().toJSDate().toISOString(),
+		// 			updatedAt: DateTime.now().toJSDate().toISOString(),
+		// 			object: "AttendeeDto",
+		// 			state: StateEnum.active,
+		// 			stateHistory: [],
+		// 		} as unknown as IAttendeeDto
+		// 	],
+		// });
+		// this.store.dispatch(action);
 	}
 
 }

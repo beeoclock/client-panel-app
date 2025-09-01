@@ -6,6 +6,7 @@ import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
+import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 
 export namespace OrderActions {
 
@@ -111,6 +112,31 @@ export namespace OrderActions {
 			public readonly orderId: string,
 			public readonly orderedProductId: string,
 			public readonly state: StateEnum,
+		) {
+		}
+	}
+
+	export class SetOrderedService {
+		public static readonly type = '[Ordered Service] Set';
+
+		public constructor(
+			public readonly payload: {
+				entity: EOrderService;
+			},
+		) {
+		}
+	}
+
+	export class Checkout {
+		public static readonly type = '[Order] Checkout';
+
+		public constructor(
+			public readonly payload: {
+				orderId: string,
+				selected?: {
+					serviceIdList?: string[];
+				};
+			},
 		) {
 		}
 	}

@@ -557,6 +557,11 @@
 			}
 		},
 		"details": {
+			"button": {
+				"checkout": {
+					"label": "Til betaling"
+				}
+			},
 			"meta": {
 				"history": {
 					"keyword": {
@@ -573,7 +578,7 @@
 					}
 				}
 			},
-			"title": "Detaljeret visning af begivenheden"
+			"title": "En aftale"
 		},
 		"form": {
 			"section": {
@@ -1569,12 +1574,50 @@
 		}
 	},
 	"payment": {
+		"form": {
+			"method": {
+				"label": "Betalingsmåde"
+			}
+		},
 		"method": {
+			"APPLE_PAY": {
+				"label": "Apple Pay"
+			},
+			"BANK_TRANSFER": {
+				"label": "Bankoverførsel"
+			},
 			"CARD": {
 				"label": "Kort"
 			},
 			"CASH": {
-				"label": "Kontanter"
+				"label": "Kontant"
+			},
+			"CHECK": {
+				"label": "Check"
+			},
+			"CRYPTO": {
+				"label": "Kryptovaluta"
+			},
+			"DEBIT_CARD": {
+				"label": "Debetkort"
+			},
+			"GIFT_CARD": {
+				"label": "Gavekort"
+			},
+			"GOOGLE_PAY": {
+				"label": "Google Pay"
+			},
+			"INVOICE": {
+				"label": "Faktura"
+			},
+			"MOBILE_PAYMENT": {
+				"label": "Mobilbetaling"
+			},
+			"OTHER": {
+				"label": "Andet"
+			},
+			"PAYPAL": {
+				"label": "PayPal"
 			}
 		},
 		"providerType": {

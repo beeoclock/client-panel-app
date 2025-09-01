@@ -5,6 +5,9 @@ import {IMeta} from "@shared/domain";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {OrderServiceStatusEnum} from "../enum/order-service.status.enum";
 import {IOrderAppointmentDetailsDto} from "../interface/i-order-appointment-details.dto";
+import {DateTime} from "luxon";
+import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
+import {IAttendeeDto} from "@tenant/order/order/domain/interface/i-order-appointment-details.dto";
 
 export const OrderServiceColorStatusMap = {
 	[OrderServiceStatusEnum.requested]: {
@@ -51,8 +54,29 @@ export class EOrderService extends ABaseEntity<'OrderServiceDto', IOrderService.
 
 	meta!: IMeta;
 
-	override object = 'OrderServiceDto' as const;
+	public override object = 'OrderServiceDto' as const;
 
+	public setDurationInSeconds(durationInSeconds: number): void {
+		this.serviceSnapshot.durationVersions[0].durationInSeconds = durationInSeconds;
+		this.orderAppointmentDetails.end = DateTime.fromISO(this.orderAppointmentDetails.start).plus({seconds: durationInSeconds}).toJSDate().toISOString();
+	}
+
+	public setPrice(price: number): void {
+		this.serviceSnapshot.durationVersions[0].prices[0].price = price;
+	}
+
+	public setSpecialists(specialists: ISpecialist[]) {
+		this.orderAppointmentDetails.specialists = specialists;
+	}
+
+	public setStart(start: string) {
+		this.orderAppointmentDetails.start = start;
+		this.orderAppointmentDetails.end = DateTime.fromISO(start).plus({seconds: this.serviceSnapshot.durationVersions[0].durationInSeconds}).toJSDate().toISOString();
+	}
+
+	public setAttendees(attendees: IAttendeeDto[]) {
+		this.orderAppointmentDetails.attendees = attendees;
+	}
 
 	public override toDTO(): IOrderService.DTO {
 		return EOrderService.toDTO(this);

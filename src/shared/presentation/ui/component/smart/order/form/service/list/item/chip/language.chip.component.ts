@@ -52,7 +52,7 @@ import EService from "@tenant/service/domain/entity/e.service";
 })
 export class LanguageChipComponent implements OnInit {
 
-	public readonly serviceEntity = input.required<EService | null>();
+	public readonly serviceEntity = input.required<EService | null | undefined>();
 
 	public readonly initialValue = input.required<LanguageCodeEnum>();
 
