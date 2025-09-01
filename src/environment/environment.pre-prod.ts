@@ -47,7 +47,7 @@ export const environment = {
 		label: `Bee o'clock Dev © 2025`
 	},
 	default: {
-		login: process.env.NG_APP_LOGIN || null,
-		password: process.env.NG_APP_PASSWORD || null,
+		login: import.meta?.env?.NG_APP_LOGIN || null,
+		password: import.meta?.env?.NG_APP_PASSWORD || null,
 	}
 };
