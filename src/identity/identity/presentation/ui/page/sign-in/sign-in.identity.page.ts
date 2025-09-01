@@ -51,7 +51,8 @@ export class SignInIdentityPage implements OnInit {
 
 	protected loginIntoDemoProfile() {
 
-		this.signInComponent().doSignIn('demo@beeoclock.com', 'ItIckBeRSOLDENZYGosicirE').then();
+		const {login, password} = environment.demo.credential;
+		this.signInComponent().doSignIn(login, password).then();
 
 	}
 }

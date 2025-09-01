@@ -45,5 +45,11 @@ export const environment = {
 	default: {
 		login: import.meta?.env?.NG_APP_LOGIN || null,
 		password: import.meta?.env?.NG_APP_PASSWORD || null,
+	},
+	demo: {
+		credential: {
+			login: 'demo@beeoclock.com',
+			password: 'ItIckBeRSOLDENZYGosicirE'
+		}
 	}
 };
