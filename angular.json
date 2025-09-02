@@ -112,6 +112,42 @@
 							],
 							"outputHashing": "all"
 						},
+						"pre-prod": {
+							"assets": [
+								"src/favicon.ico",
+								"src/asset",
+								"src/manifest.webmanifest",
+								{
+									"glob": "firebase-messaging-sw.js",
+									"input": "environment/pre-prod/firebase",
+									"output": "./"
+								},
+								{
+									"glob": "robots.txt",
+									"input": "environment/pre-prod/",
+									"output": "./"
+								}
+							],
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "2mb",
+									"maximumError": "5mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "6kb",
+									"maximumError": "8kb"
+								}
+							],
+							"fileReplacements": [
+								{
+									"replace": "src/environment/environment.ts",
+									"with": "src/environment/environment.pre-prod.ts"
+								}
+							],
+							"outputHashing": "all"
+						},
 						"development": {
 							"optimization": false,
 							"extractLicenses": false,
@@ -191,6 +227,9 @@
 					"configurations": {
 						"production": {
 							"buildTarget": "client-panel-app:build:production"
+						},
+						"pre-prod": {
+							"buildTarget": "client-panel-app:build:pre-prod"
 						},
 						"develop": {
 							"buildTarget": "client-panel-app:build:develop"
