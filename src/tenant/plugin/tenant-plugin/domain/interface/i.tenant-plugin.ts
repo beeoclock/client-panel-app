@@ -4,6 +4,7 @@ import {IPlugin} from "@tenant/plugin/plugin/domain";
 
 export enum TenantPluginStatusEnum {
 	inTrialPeriod = 'inTrialPeriod',
+	onboardingPending = 'onboardingPending',
 	connected = 'connected',
 	disconnected = 'disconnected'
 }
