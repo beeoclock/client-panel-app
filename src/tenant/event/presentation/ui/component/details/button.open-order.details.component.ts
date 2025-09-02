@@ -1,13 +1,14 @@
-import {ChangeDetectionStrategy, Component, effect, inject, input, signal, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
-import {IPayment} from "@tenant/order/payment/domain/interface/i.payment";
 import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.status.enum";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {derivedAsync} from "ngxtension/derived-async";
+import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 
 @Component({
 	standalone: true,
@@ -70,29 +71,21 @@ export class ButtonOpenOrderDetailsComponent {
 
 	public readonly order = input.required<IOrder.DTO>();
 
-	public readonly payment = signal<IPayment.DTO | null>(null);
+	public readonly payment = derivedAsync(() => this.sharedUow.payment.repository.findAsync({
+		orderId: this.order()._id,
+		page: 1,
+		pageSize: 1,
+		orderBy: OrderByEnum.CREATED_AT,
+		orderDir: OrderDirEnum.DESC,
+	}).then(({items: {0: payment}}) => {
+		if (!payment) return null;
+		return EPayment.fromRaw(payment);
+	}));
 
 	public readonly store = inject(Store);
 	private readonly sharedUow = inject(SharedUow);
 
 	public readonly paymentStatusEnum = PaymentStatusEnum;
-
-	public constructor() {
-		effect(() => {
-			this.initPayment().then();
-		});
-	}
-
-	public async initPayment() {
-		const {items: {0: payment}} = await this.sharedUow.payment.repository.findAsync({
-			orderId: this.order()._id,
-			page: 1,
-			pageSize: 1,
-			orderBy: OrderByEnum.CREATED_AT,
-			orderDir: OrderDirEnum.DESC,
-		});
-		this.payment.set(payment);
-	}
 
 	public openOrderDetails() {
 

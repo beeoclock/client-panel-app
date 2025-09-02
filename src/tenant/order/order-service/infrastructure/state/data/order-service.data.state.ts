@@ -50,19 +50,6 @@ export class OrderServiceDataState {
 	private readonly router = inject(Router);
 	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
 
-	@Action(OrderServiceDataActions.ChangeStatus)
-	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: OrderServiceDataActions.ChangeStatus): Promise<void> {
-		// const foundOrder = await this.sharedUow.orderService.repository.findByIdAsync(action.payload.id);
-		// if (!foundOrder) {
-		// 	return;
-		// }
-		// const orderEntity = EOrderService.fromDTO(foundOrder);
-		// orderEntity.status = action.payload.status;
-		// await this.addNotificationSettingsToOrderEntity(orderEntity);
-		// await this.sharedUow.orderService.repository.updateAsync(orderEntity);
-
-	}
-
 	@Action(OrderServiceDataActions.UpdateItem)
 	public async updateItem(ctx: StateContext<IOrderState>, {payload: item}: OrderServiceDataActions.UpdateItem): Promise<void> {
 		const foundItem = await this.sharedUow.orderService.repository.findByIdAsync(item._id);
@@ -108,37 +95,99 @@ export class OrderServiceDataState {
 		// }
 	}
 
-	@Action(OrderServiceDataActions.OrderedServiceStatus)
-	public async orderedServiceStatus(ctx: StateContext<IOrderState>, {
-		orderedServiceId,
-		orderId,
-		status
-	}: OrderServiceDataActions.OrderedServiceStatus) {
-		// const foundItems = await this.sharedUow.orderService.repository.findByIdAsync(orderId);
-		// if (foundItems) {
-		// 	const entity = EOrderService.fromRaw(foundItems);
-		// 	entity.changeOrderedServiceStatus(orderedServiceId, status);
-		// 	await this.sharedUow.orderService.repository.updateAsync(entity);
-		// 	await this.updateOpenedDetailsAction(ctx, {payload: entity});
-		// 	ctx.dispatch(new OrderServiceDataActions.GetList());
-		// }
+	@Action(OrderServiceDataActions.SetDuration)
+	public async setDuration(ctx: StateContext<IOrderState>, {payload}: OrderServiceDataActions.SetDuration) {
+		const {orderedServiceId, durationInSeconds} = payload;
+
+		const maybeOrderServiceEntityRaw = await this.sharedUow.orderService.repository.findByIdAsync(orderedServiceId);
+
+		if (maybeOrderServiceEntityRaw) {
+			this.ngxLogger.debug('OrderState.setDuration', {maybeOrderServiceEntityRaw});
+			const orderServiceEntity = EOrderService.fromRaw(maybeOrderServiceEntityRaw);
+			orderServiceEntity.setDurationInSeconds(durationInSeconds);
+			await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
+			const action = new OrderActions.SetOrderedService({
+				entity: orderServiceEntity,
+			});
+			ctx.dispatch(action);
+		}
+
 	}
 
-	@Action(OrderServiceDataActions.OrderedServiceState)
-	public async orderedServiceState(ctx: StateContext<IOrderState>, {
-		orderedServiceId,
-		orderId,
-		state
-	}: OrderActions.OrderedServiceState) {
-		// const foundItems = await this.sharedUow.orderService.repository.findByIdAsync(orderId);
-		// if (foundItems) {
-		// 	this.ngxLogger.debug('OrderState.orderedServiceState', foundItems);
-		// 	const entity = EOrderService.fromRaw(foundItems);
-		// 	entity.changeOrderedServiceState(orderedServiceId, state);
-		// 	await this.sharedUow.orderService.repository.updateAsync(entity);
-		// 	await this.updateOpenedDetailsAction(ctx, {payload: entity});
-		// 	ctx.dispatch(new OrderServiceDataActions.GetList());
-		// }
+	@Action(OrderServiceDataActions.SetPrice)
+	public async setPrice(ctx: StateContext<IOrderState>, {payload}: OrderServiceDataActions.SetPrice) {
+		const {orderedServiceId, price} = payload;
+
+		const maybeOrderServiceEntityRaw = await this.sharedUow.orderService.repository.findByIdAsync(orderedServiceId);
+
+		if (maybeOrderServiceEntityRaw) {
+			this.ngxLogger.debug('OrderState.setPrice', {maybeOrderServiceEntityRaw});
+			const orderServiceEntity = EOrderService.fromRaw(maybeOrderServiceEntityRaw);
+			orderServiceEntity.setPrice(price);
+			await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
+			const action = new OrderActions.SetOrderedService({
+				entity: orderServiceEntity,
+			});
+			ctx.dispatch(action);
+		}
+
+	}
+
+	@Action(OrderServiceDataActions.SetSpecialists)
+	public async setSpecialists(ctx: StateContext<IOrderState>, {payload}: OrderServiceDataActions.SetSpecialists) {
+		const {orderedServiceId, specialists} = payload;
+
+		const maybeOrderServiceEntityRaw = await this.sharedUow.orderService.repository.findByIdAsync(orderedServiceId);
+
+		if (maybeOrderServiceEntityRaw) {
+			this.ngxLogger.debug('OrderState.setDuration', {maybeOrderServiceEntityRaw});
+			const orderServiceEntity = EOrderService.fromRaw(maybeOrderServiceEntityRaw);
+			orderServiceEntity.setSpecialists(specialists);
+			await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
+			const action = new OrderActions.SetOrderedService({
+				entity: orderServiceEntity,
+			});
+			ctx.dispatch(action);
+		}
+
+	}
+
+	@Action(OrderServiceDataActions.SetStart)
+	public async setStart(ctx: StateContext<IOrderState>, {payload}: OrderServiceDataActions.SetStart) {
+		const {orderedServiceId, start} = payload;
+
+		const maybeOrderServiceEntityRaw = await this.sharedUow.orderService.repository.findByIdAsync(orderedServiceId);
+
+		if (maybeOrderServiceEntityRaw) {
+			this.ngxLogger.debug('OrderState.setStart', {maybeOrderServiceEntityRaw});
+			const orderServiceEntity = EOrderService.fromRaw(maybeOrderServiceEntityRaw);
+			orderServiceEntity.setStart(start);
+			await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
+			const action = new OrderActions.SetOrderedService({
+				entity: orderServiceEntity,
+			});
+			ctx.dispatch(action);
+		}
+
+	}
+
+	@Action(OrderServiceDataActions.SetAttendees)
+	public async SetAttendees(ctx: StateContext<IOrderState>, {payload}: OrderServiceDataActions.SetAttendees) {
+		const {orderedServiceId, attendees} = payload;
+
+		const maybeOrderServiceEntityRaw = await this.sharedUow.orderService.repository.findByIdAsync(orderedServiceId);
+
+		if (maybeOrderServiceEntityRaw) {
+			this.ngxLogger.debug('OrderState.setStart', {maybeOrderServiceEntityRaw});
+			const orderServiceEntity = EOrderService.fromRaw(maybeOrderServiceEntityRaw);
+			orderServiceEntity.setAttendees(attendees);
+			await this.sharedUow.orderService.repository.updateAsync(orderServiceEntity);
+			const action = new OrderActions.SetOrderedService({
+				entity: orderServiceEntity,
+			});
+			ctx.dispatch(action);
+		}
+
 	}
 
 

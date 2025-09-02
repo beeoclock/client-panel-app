@@ -6,7 +6,7 @@ import {
 } from "@identity/identity/infrastructure/module/change-phone-number.client.adapter";
 import {ChangePhoneNumberForm} from "@tenant/client/presentation/form/change-phone-number.form";
 import {MS_THREE_SECONDS} from "@shared/domain/const/c.time";
-import {TelFormInputComponent} from "@shared/presentation/component/tel-form-input/tel.form.input.component";
+import {TelFormInputComponent} from "@shared/presentation/ui/component/tel-form-input/tel.form.input.component";
 
 @Component({
 	selector: 'client-change-phone-number-component',

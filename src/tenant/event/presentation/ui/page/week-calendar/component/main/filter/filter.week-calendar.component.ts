@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input} from "@angular/core";
-import {IonSelectWrapperComponent} from "@shared/presentation/component/input/ion/ion-select-wrapper.component";
+import {IonSelectWrapperComponent} from "@shared/presentation/ui/component/input/ion/ion-select-wrapper.component";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
@@ -7,9 +7,9 @@ import {IonPopover} from "@ionic/angular/standalone";
 import {Reactive} from "@core/cdk/reactive";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {VisibilityService} from "@core/cdk/visibility.service";
-import { IonSelectMemberComponent } from "@shared/presentation/component/input/ion/ion-select-member.component";
-import { DateControlWeekCalendarComponent } from "../../../filter/date-control/date-control.week-calendar.component";
-import { WeekCalendarAction } from "@src/tenant/event/infrastructure/state/week-calendar/week-calendar.action";
+import {IonSelectMemberComponent} from "@shared/presentation/ui/component/input/ion/ion-select-member.component";
+import {DateControlWeekCalendarComponent} from "../../../filter/date-control/date-control.week-calendar.component";
+import {WeekCalendarAction} from "@src/tenant/event/infrastructure/state/week-calendar/week-calendar.action";
 
 @Component({
 	selector: 'filter-calendar-with-specialist',

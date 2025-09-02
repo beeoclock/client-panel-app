@@ -5,7 +5,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
 import {
@@ -25,8 +25,8 @@ import {
 } from "@tenant/product/product-tag/infrastructure/state/presentation/product-tag.presentation.actions";
 import {
 	TableNgxDatatableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
-import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+import {SynchronizationMolecule} from "@shared/presentation/ui/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'product-tag-table-list-component',

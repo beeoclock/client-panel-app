@@ -3,7 +3,7 @@ import {TableComponent} from "@shared/table.component";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import EService from "@tenant/service/domain/entity/e.service";
 import {
 	RowActionButtonComponent
@@ -18,7 +18,7 @@ import {
 } from "@tenant/service/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {
@@ -26,8 +26,8 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {LanguageCodeEnum} from "@core/shared/enum";
-import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
-import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {NoAvailable} from "@shared/presentation/ui/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/ui/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'service-table-list-component',

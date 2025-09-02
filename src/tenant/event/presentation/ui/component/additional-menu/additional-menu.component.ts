@@ -12,7 +12,7 @@ import {
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {
 	CustomerChipComponent
-} from "@shared/presentation/component/smart/order/form/service/list/item/chip/customer.chip.component";
+} from "@shared/presentation/ui/component/smart/order/form/service/list/item/chip/customer.chip.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
 import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";

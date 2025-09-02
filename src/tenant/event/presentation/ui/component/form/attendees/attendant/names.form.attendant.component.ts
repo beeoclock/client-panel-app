@@ -1,6 +1,6 @@
 import {Component, HostBinding, input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 
@@ -30,7 +30,6 @@ import {CustomerForm} from "@tenant/customer/presentation/form";
 			[placeholder]="'keyword.capitalize.lastName' | translate"
 			[control]="form().controls.lastName"
 			[label]="'keyword.capitalize.lastName' | translate"/>
-
 
 	`
 })

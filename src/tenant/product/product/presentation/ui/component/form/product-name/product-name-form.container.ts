@@ -2,8 +2,8 @@ import {Component, Input, input, OnInit, ViewEncapsulation,} from '@angular/core
 import {NgClass} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ProductLanguageComponent} from './product-language.component';
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
-import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
+import {FormTextareaComponent} from "@shared/presentation/ui/component/input/form.textarea.component";
 import {LanguageCodeEnum, LanguageRecord} from "@core/shared/enum";
 import {Reactive} from "@core/cdk/reactive";
 import {BooleanStreamState} from "@shared/domain/boolean-stream.state";

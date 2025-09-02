@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@shared/list.page";
 import {TranslateModule} from "@ngx-translate/core";
-import {AsyncPipe, DatePipe} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	MobileLayoutListComponent
 } from "@tenant/customer/presentation/ui/component/list/layout/mobile/mobile.layout.list.component";
@@ -18,6 +18,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ofActionSuccessful} from "@ngxs/store";
 import {tap} from "rxjs";
 import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/customer.data.actions";
+import {AppIfDeviceDirective, AppIfNotDeviceDirective} from "@shared/presentation/directives/device";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -26,9 +27,10 @@ import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/cu
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		TranslateModule,
-		AsyncPipe,
 		MobileLayoutListComponent,
 		DesktopLayoutListComponent,
+		AppIfDeviceDirective,
+		AppIfNotDeviceDirective,
 	],
 	standalone: true,
 	providers: [
@@ -39,7 +41,7 @@ import {CustomerDataActions} from "@tenant/customer/infrastructure/state/data/cu
 		},
 	]
 })
-export class ListCustomerPage extends ListPage implements OnDestroy, OnInit {
+export class ListCustomerPage extends ListPage implements OnInit {
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
@@ -53,8 +55,7 @@ export class ListCustomerPage extends ListPage implements OnDestroy, OnInit {
 		})
 	).subscribe();
 
-	public override ngOnInit() {
-		super.ngOnInit();
+	public ngOnInit() {
 		this.analyticsService.logEvent('customer_list_page_initialized');
 	}
 

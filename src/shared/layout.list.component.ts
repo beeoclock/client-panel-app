@@ -1,13 +1,9 @@
-import {ChangeDetectorRef, Component, inject, input} from "@angular/core";
+import {ChangeDetectorRef, Directive, inject, input} from "@angular/core";
 import {NGXLogger} from "ngx-logger";
-import {Reactive} from "@core/cdk/reactive";
 import {Store} from "@ngxs/store";
 
-@Component({
-	selector: 'utility-layout-list-component',
-	template: ``
-})
-export default abstract class LayoutListComponent extends Reactive {
+@Directive()
+export default class LayoutListComponent {
 
 	public readonly isPage = input(true);
 

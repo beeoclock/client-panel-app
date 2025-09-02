@@ -2,15 +2,15 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/co
 import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {BooleanStreamState} from "@shared/domain/boolean-stream.state";
 import {
 	CardIonListSmartComponent
-} from "@shared/presentation/component/smart/card-ion-list/card-ion-list.smart.component";
+} from "@shared/presentation/ui/component/smart/card-ion-list/card-ion-list.smart.component";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import EBalance from "@tenant/balance/domain/entity/e.balance";
 import {

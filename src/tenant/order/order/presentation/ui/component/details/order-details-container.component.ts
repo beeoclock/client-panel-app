@@ -4,7 +4,9 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.status.enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import {
+	StandardDetailsEntityComponent
+} from "@shared/presentation/ui/component/entity/standard-details.entity.component";
 import {
 	ListProductFormCardOrderComponent
 } from "@tenant/order/order/presentation/ui/component/list/card/item/products/list.product.form.card.order.component";

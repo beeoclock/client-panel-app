@@ -10,7 +10,7 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {filter, tap} from "rxjs";
 import {
 	MemberRadioTailwindcssComponent
-} from "@shared/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
+} from "@shared/presentation/ui/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
 import {is} from "@core/shared/checker";
 import {RIClient} from "@tenant/business-profile/domain";
 import {CurrencyCodeEnum} from "@core/shared/enum";

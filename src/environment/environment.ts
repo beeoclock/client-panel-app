@@ -49,6 +49,16 @@ export const environment = {
 	},
 	footer: {
 		label: `Bee o'clock Default © 2025`
+	},
+	default: {
+		login: process.env.NG_APP_LOGIN || null,
+		password: process.env.NG_APP_PASSWORD || null,
+	},
+	demo: {
+		credential: {
+			login: 'demo@beeoclock.com',
+			password: 'ItIckBeRSOLDENZYGosicirE'
+		}
 	}
 };
 

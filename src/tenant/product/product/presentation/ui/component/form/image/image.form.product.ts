@@ -1,8 +1,8 @@
 import {Component, inject, input, viewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
+import {MediaStateEnum} from "@shared/presentation/ui/component/image/base.image.component";
 import {IMedia, RIMedia} from "@tenant/media/domain/interface/i.media";
-import {ImageInputTemplate} from "@shared/presentation/component/image/template/image-input.template";
+import {ImageInputTemplate} from "@shared/presentation/ui/component/image/template/image-input.template";
 import {
 	DeleteImageProductApiAdapter
 } from "@tenant/product/product/infrastructure/data-source/api/delete.image.product.api.adapter";

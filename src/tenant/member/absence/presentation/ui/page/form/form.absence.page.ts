@@ -2,9 +2,9 @@ import {Component, effect, inject, input, OnInit, ViewEncapsulation} from '@angu
 import {ReactiveFormsModule} from "@angular/forms";
 import {AbsenceTypeEnum} from "@tenant/member/absence/domain/enums/absence.type.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
+import {FormTextareaComponent} from "@shared/presentation/ui/component/input/form.textarea.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
+import {SwitchComponent} from "@shared/presentation/ui/component/switch/switch.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {Reactive} from "@core/cdk/reactive";
 import {
@@ -17,7 +17,7 @@ import {firstValueFrom, map, tap} from "rxjs";
 import {AbsenceForm} from "@tenant/member/absence/presentation/form/absence.form";
 import {
 	ButtonSaveContainerComponent
-} from "@shared/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/ui/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
 	IonDatetime,

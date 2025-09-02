@@ -10,12 +10,13 @@ import {
 	TariffPlanHistoryService
 } from "@tenant/tariff-plan/tariff-plan-history/domain/service/tariff-plan-history.service";
 import {OrderServiceService} from "@tenant/order/order-service/domain/service/order-service.service";
-import {EnvironmentProviders, Provider} from "@angular/core";
+import {EnvironmentProviders, Provider, WritableSignal} from "@angular/core";
 import {BalanceService} from "@tenant/balance/domain/service/balance.service";
 import {PluginService} from "@tenant/plugin/plugin/domain/service/plugin.service";
 import {TenantPluginService} from "@tenant/plugin/tenant-plugin/domain/service/tenant-plugin.service";
 import {ProductTagService} from "@tenant/product/product-tag/domain/service/product-tag.service";
 import {ProductService} from "@tenant/product/product/domain/service/product.service";
+import {SHARED_UOW_REF} from "@src/token";
 
 /**
  * Shared Unit of Work
@@ -25,7 +26,12 @@ export class SharedUow {
 
 	public static provide: Provider | EnvironmentProviders = {
 		provide: SharedUow,
-		useClass: SharedUow,
+		useFactory: (SHARED_UOW_REF: WritableSignal<SharedUow | null>) => {
+			const instance = new SharedUow();
+			SHARED_UOW_REF.set(instance);
+			return instance;
+		},
+		deps: [SHARED_UOW_REF]
 	};
 
 	#service!: ServiceService;

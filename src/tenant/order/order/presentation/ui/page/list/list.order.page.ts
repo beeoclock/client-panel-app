@@ -19,13 +19,11 @@ import {KanbanOrderComponent} from "@tenant/order/order/presentation/ui/componen
 })
 export default class ListOrderPage extends ListPage implements OnDestroy, OnInit {
 
-	public override ngOnInit() {
-		super.ngOnInit();
+	public ngOnInit() {
 		this.analyticsService.logEvent('order_list_page_initialized');
 	}
 
-	public override ngOnDestroy() {
-		super.ngOnDestroy();
+	public ngOnDestroy() {
 		this.store.dispatch(new OrderActions.Init());
 	}
 

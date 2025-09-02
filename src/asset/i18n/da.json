@@ -557,6 +557,11 @@
 			}
 		},
 		"details": {
+			"button": {
+				"checkout": {
+					"label": "Til betaling"
+				}
+			},
 			"meta": {
 				"history": {
 					"keyword": {
@@ -573,7 +578,7 @@
 					}
 				}
 			},
-			"title": "Detaljeret visning af begivenheden"
+			"title": "En aftale"
 		},
 		"form": {
 			"section": {
@@ -642,12 +647,12 @@
 				"plural": {
 					"accepted": "Accepteret",
 					"cancelled": "Aflyst",
+					"confirmed": "Bekræftet",
 					"deleted": "Slettet",
 					"done": "Færdig",
 					"inProgress": "I gang",
 					"rejected": "Afvist",
-					"requested": "Anmodet",
-					"confirmed": "Bekræftet"
+					"requested": "Anmodet"
 				},
 				"singular": {
 					"accepted": "Accepteret",
@@ -1070,9 +1075,6 @@
 	},
 	"keyword": {
 		"capitalize": {
-			"amount": "Beløb",
-			"amountPaid": "Betalt beløb",
-			"amountToPay": "Beløb, der skal betales",
 			"absence": "Fravær",
 			"accept": "Accepter",
 			"account": "Konto",
@@ -1096,6 +1098,8 @@
 			"allStatuses": "Alle statusser",
 			"allTags": "Alle tags",
 			"amount": "Beløb",
+			"amountPaid": "Betalt beløb",
+			"amountToPay": "Beløb, der skal betales",
 			"anonymous": "Anonym",
 			"approvalType": "Godkendelsestype",
 			"approve": "Godkend",
@@ -1127,7 +1131,6 @@
 				"plural": "Kategorier",
 				"single": "Kategori"
 			},
-			"clientDoesNotSeeThisData": "Kunden kan ikke se disse oplysninger",
 			"changeStatus": "Skift status",
 			"changes": "Ændringer",
 			"changesFrom": "Fra",
@@ -1135,9 +1138,9 @@
 			"chooseImage": "Vælg billede",
 			"chosen": "Udvalgt",
 			"city": "By",
-			"loadMore": "Læs mere",
 			"clearCache": "Opdater cache",
 			"clickToUpload": "Klik for at uploade",
+			"clientDoesNotSeeThisData": "Kunden kan ikke se disse oplysninger",
 			"clients": "Klienter",
 			"close": "Luk",
 			"color": "Farve",
@@ -1167,17 +1170,12 @@
 			"duration": "Varighed",
 			"earliestBooking": "Tidligste bookingtid",
 			"edit": "Rediger",
-			"numberOfServicesOrdered": "Antal bestilte tjenester",
 			"email": "E-mail",
-			"orderInformation": "Bestillingsoplysninger",
-			"orderStatus": "Ordrestatus",
 			"end": "Slut",
 			"error": "Fejl",
 			"event": "Begivenhed",
 			"events": "Begivenheder",
-			"past": "Tidligere",
 			"every": "Hver",
-			"paymentDate": "Betalingsdato",
 			"exhausted": "Udmattet ",
 			"export": "Eksport",
 			"facilities": "Faciliteter",
@@ -1200,7 +1198,7 @@
 			"lastUpdate": "Sidste opdatering",
 			"latestBooking": "Hvornår en begivenhed kan bookes",
 			"leftInDays": "Dagen te gaan",
-			"registerPayment": "Registrer betaling ",
+			"loadMore": "Læs mere",
 			"logout": "Log ud",
 			"members": "Medlemmer",
 			"menu": "Menu",
@@ -1218,18 +1216,22 @@
 			"notYetStarted": "Nog niet begonnen",
 			"note": "Note",
 			"notification": "Notifikation",
+			"numberOfServicesOrdered": "Antal bestilte tjenester",
 			"openTimePicker": "Vælg",
 			"order": "Rækkefølge",
+			"orderInformation": "Bestillingsoplysninger",
+			"orderStatus": "Ordrestatus",
 			"ordering": "Bestilling",
 			"ownOptionOfTime": "Time efter eget ønske",
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
 			"paid": "Betalt",
+			"past": "Tidligere",
 			"payAsYouGo": "Betal, når du går",
 			"payer": "Udbetaler",
 			"payment": "Betaling",
+			"paymentDate": "Betalingsdato",
 			"paymentMethod": "Betalingsmetode",
 			"paymentProviderType": "Betalingstype",
-			"tapOnTheDataToEditIt": "Tryk på dataene for at redigere dem",
 			"paymentStatus": "Betalingsstatus",
 			"periodOfDay": {
 				"AFTERNOON": "Eftermiddag",
@@ -1247,7 +1249,6 @@
 			"portfolio": "Portefølje",
 			"preview": "Forhåndsvisning",
 			"previous": "Forrige",
-			"upcoming": "I den nærmeste fremtid",
 			"price": "Pris",
 			"priceTimeFormatPrompt": "timer:minutter",
 			"prices": "Priser",
@@ -1256,6 +1257,7 @@
 			"products": "Produkter",
 			"publicPage": "Offentlig side",
 			"quantity": "Mængde",
+			"registerPayment": "Registrer betaling ",
 			"reject": "Afvis",
 			"role": "Rolle",
 			"save": "Gem",
@@ -1286,6 +1288,7 @@
 			"streetAddressLineOne": "Adresse 1",
 			"streetAddressLineTwo": "Adresse 2",
 			"successfully": "Med succes",
+			"summary": "Resumé",
 			"switchTo": "Skift til",
 			"synced": "Synkroniseret",
 			"synchronization": "Synchronisatie",
@@ -1304,6 +1307,7 @@
 				"single": "Tag"
 			},
 			"tags": "Tags",
+			"tapOnTheDataToEditIt": "Tryk på dataene for at redigere dem",
 			"theSlotAlreadyTaken": "Denne tid er allerede optaget hos denne specialist!",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
@@ -1315,6 +1319,7 @@
 			"total": "Total",
 			"tryDemoProfile": "Prøv demoprofilen",
 			"unknown": "Ukendt",
+			"upcoming": "I den nærmeste fremtid",
 			"update": "Opdateret",
 			"updatedAt": "Opdateret kl",
 			"upgradeTo": "Opgrader til",
@@ -1504,6 +1509,9 @@
 		},
 		"form": {
 			"chip": {
+				"service": {
+					"noAssigned": "Ingen valgt tjeneste"
+				},
 				"specialist": {
 					"noAssignedSpecialist": "Ingen tildelt specialist"
 				}
@@ -1567,12 +1575,62 @@
 		}
 	},
 	"payment": {
+		"form": {
+			"method": {
+				"label": "Betalingsmåde"
+			}
+		},
 		"method": {
+			"APPLE_PAY": {
+				"label": "Apple Pay"
+			},
+			"BANK_TRANSFER": {
+				"label": "Bankoverførsel"
+			},
 			"CARD": {
 				"label": "Kort"
 			},
 			"CASH": {
-				"label": "Kontanter"
+				"label": "Kontant"
+			},
+			"CHECK": {
+				"label": "Check"
+			},
+			"CRYPTO": {
+				"label": "Kryptovaluta"
+			},
+			"DEBIT_CARD": {
+				"label": "Debetkort"
+			},
+			"GIFT_CARD": {
+				"label": "Gavekort"
+			},
+			"GOOGLE_PAY": {
+				"label": "Google Pay"
+			},
+			"INVOICE": {
+				"label": "Faktura"
+			},
+			"MOBILE_PAYMENT": {
+				"label": "Mobilbetaling"
+			},
+			"OTHER": {
+				"label": "Andet"
+			},
+			"PAYPAL": {
+				"label": "PayPal"
+			}
+		},
+		"modal": {
+			"checkout": {
+				"button": {
+					"addProduct": {
+						"label": "Tilføj produkt"
+					}
+				},
+				"noProducts": {
+					"label": "Klik på »+« for at tilføje produkter til din ordre."
+				}
 			}
 		},
 		"providerType": {
@@ -1706,15 +1764,6 @@
 				"label": "Med specialister"
 			}
 		},
-		"week-calendar": {
-			"label": "Kalender (uge)",
-			"ordinary": {
-				"label": "Almindelig"
-			},
-			"withSpecialists": {
-				"label": "Med specialister"
-			}
-		},
 		"customers": "Kunder",
 		"dashboard": "Dashboard",
 		"dateRangeReport": "Analyse",
@@ -1738,7 +1787,16 @@
 		"statistic": "Statistik",
 		"switch-business-client": "Skift kontekst",
 		"table": "Tabel",
-		"tariffPlan": "Tariffer"
+		"tariffPlan": "Tariffer",
+		"week-calendar": {
+			"label": "Kalender (uge)",
+			"ordinary": {
+				"label": "Almindelig"
+			},
+			"withSpecialists": {
+				"label": "Med specialister"
+			}
+		}
 	},
 	"sign-out": {
 		"button": {
