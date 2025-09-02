@@ -118,39 +118,46 @@ export class ContainerDetailsComponent {
 			OrderActions.SetState,
 		),
 		tap((action) => {
-			if (action instanceof OrderActions.UpdateItem) {
-				const {payload} = action;
-				const entity = EOrder.fromRaw(payload);
-				const item = this.item();
-				const conditionIdEntityAndIdOrderNotTheSame = item.originalData.order._id !== entity._id;
-				console.log('OrderActions.UpdateItem', {entity, item, conditionIdEntityAndIdOrderNotTheSame});
-				if (conditionIdEntityAndIdOrderNotTheSame) return;
-				this.item.set({
-					...item,
-					originalData: {
-						order: entity.toDTO(),
-						service: entity.services.find(({_id}) => _id === item.originalData.service._id) ?? item.originalData.service,
-					},
-				});
-			}
+			const item = this.item();
+			let orderId: string | null = null;
+
 			if (action instanceof OrderActions.SetOrderedService) {
 				const {payload: {entity}} = action;
-				const item = this.item();
-				const conditionIdEntityAndIdServiceNotTheSame = item.originalData.service._id !== entity._id;
-				console.log('OrderActions.SetOrderedService', {entity, item, conditionIdEntityAndIdServiceNotTheSame});
-				if (conditionIdEntityAndIdServiceNotTheSame) return;
-				const service= entity.toDTO();
+				orderId = entity.orderId;
+			}
+			if (action instanceof OrderActions.OrderedServiceState) {
+				orderId = action.orderId;
+			}
+			if (action instanceof OrderActions.OrderedServiceStatus) {
+				orderId = action.orderId;
+			}
+			if (action instanceof OrderActions.UpdateItem) {
+				orderId = action.payload._id;
+			}
+			if (action instanceof OrderActions.ChangeStatus) {
+				const {payload} = action;
+				orderId = payload.item._id;
+			}
+			if (action instanceof OrderActions.SetState) {
+				const {item} = action;
+				orderId = item._id;
+			}
+
+			const conditionIdEntityAndIdOrderNotTheSame = item.originalData.order._id !== orderId;
+			if (conditionIdEntityAndIdOrderNotTheSame || !orderId) return;
+			this.sharedUow.order.repository.findByIdAsync(orderId).then((maybeOrder) => {
+				if (!maybeOrder) return;
+				const order = EOrder.fromRaw(maybeOrder);
+				const service = order.services.find(s => s._id === item.originalData.service._id);
+				if (!service) return;
 				this.item.set({
 					...item,
 					originalData: {
-						order: {
-							...item.originalData.order,
-							services: item.originalData.order.services.map(os => os._id === service._id ? service : os)
-						},
 						service,
+						order: order.toDTO(),
 					},
-				})
-			}
+				});
+			});
 		})
 	).subscribe();
 

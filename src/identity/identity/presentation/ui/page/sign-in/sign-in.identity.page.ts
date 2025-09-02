@@ -45,7 +45,6 @@ export class SignInIdentityPage implements OnInit {
 	}
 
 	public ngOnInit() {
-		console.log({environment})
 		this.analyticsService.logEvent('member_list_page_initialized');
 	}
 
