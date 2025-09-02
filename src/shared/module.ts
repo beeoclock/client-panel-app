@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
-import {routers} from "@shared/presentation";
+import {routers} from "@shared/presentation/ui/page";
 
 @NgModule({
   imports: [

@@ -1,9 +1,9 @@
 import {Component, input} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
-import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
+import {FormTextareaComponent} from "@shared/presentation/ui/component/input/form.textarea.component";
 import {LanguageVersionForm} from "@tenant/service/presentation/form/service.form";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 
 @Component({
 	selector: 'service-form-details-block-component',

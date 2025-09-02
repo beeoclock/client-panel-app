@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {DatePipe} from "@angular/common";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {
 	PluginTableNgxDatatableResource
 } from "@tenant/plugin/plugin/presentation/ui/page/list/plugin.table-ngx-datatable.resource";

@@ -21,11 +21,11 @@ import {PrimaryButtonDirective} from "@shared/presentation/directives/button/pri
 import {ImageBlockComponent} from "@tenant/service/presentation/ui/component/form/v2/image-block/image-block.component";
 import {
 	ButtonSaveContainerComponent
-} from "@shared/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/ui/component/container/button-save/button-save.container.component";
 import {ServicePresentationForm} from "@tenant/service/presentation/form/service.presentation.form";
 import {ServicesFormComponent} from "@tenant/service/presentation/ui/component/form/v2/service/services.form.component";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@core/shared/checker";
 import {CurrencyCodeEnum} from "@core/shared/enum";

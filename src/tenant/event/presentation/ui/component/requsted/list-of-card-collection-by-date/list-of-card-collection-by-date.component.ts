@@ -5,8 +5,8 @@ import {MEvent, RIEvent} from "@tenant/event/domain";
 import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf} from "@angular/common";
 import {map} from "rxjs";
 import {DateTime} from "luxon";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
+import {ActionComponent} from "@shared/presentation/ui/component/table/column/action.component";
 import {
 	EventStatusStyleDirective
 } from "@tenant/event/presentation/directive/event-status-style/event-status-style.directive";

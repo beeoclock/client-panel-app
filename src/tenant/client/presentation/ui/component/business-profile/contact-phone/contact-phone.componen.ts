@@ -1,12 +1,12 @@
 import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf} from "@angular/common";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {ContactsForm} from "@tenant/client/presentation/form/contact.form";
 import {
 	ContactPhoneFormComponent
 } from "@tenant/client/presentation/ui/component/business-profile/contact-phone/contact-phone.form.component";
-import {FormButtonWithIconComponent} from "@shared/presentation/component/button/form-button-with-icon.component";
+import {FormButtonWithIconComponent} from "@shared/presentation/ui/component/button/form-button-with-icon.component";
 
 @Component({
 	selector: 'client-business-profile-contact-phone-component',

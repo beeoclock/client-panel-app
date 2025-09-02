@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe} from "@angular/common";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {
 	RowActionButtonComponent
@@ -18,7 +18,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CurrencyCodeEnum} from "@core/shared/enum";
 import {
 	StatusOrderChipComponent
-} from "@shared/presentation/component/smart/order/form/chip/status.order.chip.component";
+} from "@shared/presentation/ui/component/smart/order/form/chip/status.order.chip.component";
 import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 
 

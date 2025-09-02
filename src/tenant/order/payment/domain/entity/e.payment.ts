@@ -72,6 +72,13 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 
 	}
 
+	public anchorTypeIs() {
+		return {
+			order: this.anchorType === AnchorTypeEnum.order,
+			product: this.anchorType === AnchorTypeEnum.product,
+			service: this.anchorType === AnchorTypeEnum.service,
+		}
+	}
 
 	public override toDTO(): IPayment.DTO {
 		return EPayment.toDTO(this);

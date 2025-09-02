@@ -1,35 +1,35 @@
 import {Component, computed, inject, signal, TemplateRef, viewChild, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@shared/table.component";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
-import {TranslatePipe} from "@ngx-translate/core";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
-import {
-	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
 import {CurrencyPipe} from "@angular/common";
 import EOrderService from "@tenant/order/order-service/domain/entity/e.order-service";
 import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
 import {
 	OrderServicePresentationActions
 } from "@tenant/order/order-service/infrastructure/state/presentation/order-service.presentation.actions";
-import {
-	AutoRefreshButtonComponent
-} from "@tenant/order/order-service/presentation/ui/molecule/button/auto-refresh/auto-refresh.button.component";
-import {
-	OrderServiceStatusIconComponent
-} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.helper";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {
-	TableNgxDatatableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
-import {MemberListChipComponent} from "@shared/presentation/component/chip/member/list/member.list.chip";
 import {ISpecialist} from "@src/tenant/service/domain/interface/i.specialist";
 import {IMember} from "@tenant/member/member/domain";
-import {MemberListService} from "@shared/presentation/component/chip/member/list/member.list.service";
-import {CustomerChip} from "@shared/presentation/component/chip/customer/customer.chip";
-import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {MemberListService} from "@shared/presentation/ui/component/chip/member/list/member.list.service";
+import {CustomerChip} from "@shared/presentation/ui/component/chip/customer/customer.chip";
+import {
+	OrderServiceStatusIconComponent
+} from "@tenant/event/presentation/ui/page/week-calendar/component/elements-on-calendar/icon/order-service-status-icon.component";
+import {SynchronizationMolecule} from "@shared/presentation/ui/component/synchronization/synchronization.molecule";
+import {MemberListChipComponent} from "@shared/presentation/ui/component/chip/member/list/member.list.chip";
+import {
+	NotFoundTableDataComponent
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
+import {
+	AutoRefreshButtonComponent
+} from "@tenant/order/order-service/presentation/ui/molecule/button/auto-refresh/auto-refresh.button.component";
+import {TranslatePipe} from "@ngx-translate/core";
+import {
+	TableNgxDatatableSmartComponent
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 
 @Component({
 	selector: 'order-service-table-list-component',
@@ -88,15 +88,14 @@ import {SynchronizationMolecule} from "@shared/presentation/component/synchroniz
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		TableNgxDatatableSmartComponent,
-		TranslatePipe,
+		CustomerChip,
+		OrderServiceStatusIconComponent,
+		SynchronizationMolecule,
+		MemberListChipComponent,
 		NotFoundTableDataComponent,
 		AutoRefreshButtonComponent,
-		AutoRefreshButtonComponent,
-		OrderServiceStatusIconComponent,
-		MemberListChipComponent,
-		CustomerChip,
-		SynchronizationMolecule
+		TranslatePipe,
+		TableNgxDatatableSmartComponent,
 	],
 	providers: [
 		DurationVersionHtmlHelper,

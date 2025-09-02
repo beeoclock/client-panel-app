@@ -4,6 +4,8 @@ import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 import {IOrderService} from "@tenant/order/order-service/domain/interface/i.order-service.dto";
+import {ISpecialist} from "@tenant/service/domain/interface/i.specialist";
+import {IAttendeeDto} from "@tenant/order/order/domain/interface/i-order-appointment-details.dto";
 
 export namespace OrderServiceDataActions {
 
@@ -57,6 +59,66 @@ export namespace OrderServiceDataActions {
 			public readonly orderId: string,
 			public readonly orderedServiceId: string,
 			public readonly state: StateEnum,
+		) {
+		}
+	}
+
+	export class SetDuration {
+		public static readonly type = '[Ordered Service] Set Duration';
+
+		public constructor(
+			public readonly payload: {
+				orderedServiceId: string;
+				durationInSeconds: number;
+			},
+		) {
+		}
+	}
+
+	export class SetPrice {
+		public static readonly type = '[Ordered Service] Set Price';
+
+		public constructor(
+			public readonly payload: {
+				orderedServiceId: string;
+				price: number;
+			},
+		) {
+		}
+	}
+
+	export class SetSpecialists {
+		public static readonly type = '[Ordered Service] Set Specialists';
+
+		public constructor(
+			public readonly payload: {
+				orderedServiceId: string;
+				specialists: ISpecialist[];
+			},
+		) {
+		}
+	}
+
+	export class SetStart {
+		public static readonly type = '[Ordered Service] Set Start';
+
+		public constructor(
+			public readonly payload: {
+				orderedServiceId: string;
+				start: string;
+			},
+		) {
+		}
+	}
+
+	export class SetAttendees {
+		public static readonly type = '[Ordered Service] Set Attendees';
+
+		public constructor(
+			public readonly payload: {
+				orderedServiceId: string;
+				attendees: IAttendeeDto[];
+			},
 		) {
 		}
 	}

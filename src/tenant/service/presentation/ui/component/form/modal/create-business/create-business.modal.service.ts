@@ -1,11 +1,11 @@
 import {inject, Injectable} from "@angular/core";
-import {ModalService} from "@shared/presentation/component/modal/modal.service";
+import {ModalService} from "@shared/presentation/ui/component/modal/modal.service";
 import {TranslateService} from "@ngx-translate/core";
 import {
 	ModalButtonInterface,
 	ModalButtonRoleEnum,
 	ModalComponent
-} from "@shared/presentation/component/modal/modal.component";
+} from "@shared/presentation/ui/component/modal/modal.component";
 import {
 	CreateBusinessComponent
 } from "@tenant/service/presentation/ui/component/form/modal/create-business/create-business.component";

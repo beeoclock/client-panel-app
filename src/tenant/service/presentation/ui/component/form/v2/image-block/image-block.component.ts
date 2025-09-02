@@ -7,9 +7,9 @@ import {ServicePresentationForm} from '@tenant/service/presentation/form/service
 import {
 	DeleteBannerServiceApiAdapter
 } from "@tenant/service/infrastructure/data-source/api/delete.banner.service.api.adapter";
-import {MediaStateEnum} from "@shared/presentation/component/image/base.image.component";
+import {MediaStateEnum} from "@shared/presentation/ui/component/image/base.image.component";
 import {IMedia} from "@tenant/media/domain/interface/i.media";
-import {ImageInputTemplate} from "@shared/presentation/component/image/template/image-input.template";
+import {ImageInputTemplate} from "@shared/presentation/ui/component/image/template/image-input.template";
 
 @Component({
 	selector: 'service-form-image-block-component',

@@ -3,11 +3,11 @@ import {TableComponent} from "@shared/table.component";
 import {TableColumn} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {ActivateEvent} from "@swimlane/ngx-datatable/lib/types/public.types";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {BalanceActionTypeEnum, IBalance} from "@tenant/balance/domain";
@@ -19,7 +19,7 @@ import {CurrencyPipe} from "@angular/common";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/balance/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
-import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {SynchronizationMolecule} from "@shared/presentation/ui/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'balance-table-list-component',

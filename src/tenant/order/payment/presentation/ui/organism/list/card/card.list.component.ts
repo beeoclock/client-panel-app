@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import EMember from "@tenant/member/member/domain/entity/e.member";
 import {CardIonListSmartComponent} from "@src/component/smart/card-ion-list/card-ion-list.smart.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {
 	MemberPresentationActions
 } from "@tenant/member/member/infrastructure/state/presentation/member.presentation.actions";

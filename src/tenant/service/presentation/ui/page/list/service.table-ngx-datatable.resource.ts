@@ -2,7 +2,7 @@ import {inject, Injectable, signal} from "@angular/core";
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {IService} from "@tenant/service/domain/interface/i.service";
 import {z} from "zod";

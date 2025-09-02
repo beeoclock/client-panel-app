@@ -30,6 +30,14 @@ import EOrderService from "@tenant/order/order-service/domain/entity/e.order-ser
 import {NewCustomerUseCase} from "@tenant/order/order/application/use-case/new-customer.use-case";
 import {EventActions} from "@tenant/event/infrastructure/state/event/event.actions";
 import ContainerDetailsComponent from "@tenant/event/presentation/ui/component/details/container.details.component";
+import {
+	PaymentModalFormOrganism
+} from "@tenant/order/payment/presentation/ui/organism/form/payment.modal.form.organism";
+import {BASE_CURRENCY} from "@src/token";
+import EPayment from "@tenant/order/payment/domain/entity/e.payment";
+import {
+	SelectProductToOrderModal
+} from "@tenant/order/order-product/presentation/ui/modal/select-prodict-to-order/select-product-to-order.modal";
 
 export type IOrderState = IBaseState<EOrder>;
 
@@ -62,6 +70,7 @@ export class OrderState {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly router = inject(Router);
 	private readonly secondRouterOutletService = inject(SecondRouterOutletService);
+	private readonly baseCurrency$ = inject(BASE_CURRENCY);
 
 	@Action(OrderActions.Init)
 	public async init(ctx: StateContext<IOrderState>): Promise<void> {
@@ -219,7 +228,7 @@ export class OrderState {
 	@Action(OrderActions.ChangeStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: OrderActions.ChangeStatus): Promise<void> {
 		const orderEntity = EOrder.fromRaw(action.payload.item);
-		orderEntity.status = action.payload.status;
+		orderEntity.changeOrderStatus(action.payload.status);
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.sharedUow.order.repository.updateAsync(orderEntity);
 
@@ -393,6 +402,97 @@ export class OrderState {
 			await firstValueFrom(actions$);
 
 		}
+	}
+
+	@Action(OrderActions.SetOrderedService)
+	public async setOrderedService(ctx: StateContext<IOrderState>, {payload}: OrderActions.SetOrderedService) {
+		const {entity} = payload;
+
+		const maybeOrderEntityRaw = await this.sharedUow.order.repository.findByIdAsync(entity.orderId);
+
+		if (maybeOrderEntityRaw) {
+			this.ngxLogger.debug('OrderState.SetOrderedService', {maybeOrderEntityRaw});
+			const orderEntity = EOrder.fromRaw(maybeOrderEntityRaw);
+
+			orderEntity.setOrderedService(entity.toDTO());
+
+			await this.sharedUow.order.repository.updateAsync(orderEntity);
+		}
+
+	}
+
+	@Action(OrderActions.SetOrderedProduct)
+	public async setProductToOrder(ctx: StateContext<IOrderState>, {payload}: OrderActions.SetOrderedProduct) {
+		const {item} = payload;
+
+		this.ngxLogger.debug('OrderState.SetOrderedProduct', {item});
+
+		const maybeOrderEntityRaw = await this.sharedUow.order.repository.findByIdAsync(item.orderId);
+
+		if (maybeOrderEntityRaw) {
+			this.ngxLogger.debug('OrderState.SetOrderedService', {maybeOrderEntityRaw});
+			const orderEntity = EOrder.fromRaw(maybeOrderEntityRaw);
+			orderEntity.setOrderedProduct(payload.item);
+			await this.sharedUow.order.repository.updateAsync(orderEntity);
+		}
+
+	}
+
+	@Action(OrderActions.Checkout)
+	public async checkout(ctx: StateContext<IOrderState>, {payload}: OrderActions.Checkout) {
+		const {orderId, selected} = payload;
+		const serviceIdList = selected?.serviceIdList ?? [];
+
+		this.ngxLogger.debug('OrderState.Checkout', {orderId, serviceIdList});
+
+		const maybeOrderEntityRaw = await this.sharedUow.order.repository.findByIdAsync(orderId);
+		const payments = await this.sharedUow.payment.repository.findAsync({
+			orderId,
+			page: 1,
+			pageSize: 100,
+			orderBy: OrderByEnum.CREATED_AT,
+			orderDir: OrderDirEnum.DESC,
+		}).then(res => res.items).then(EPayment.fromRawList);
+
+		if (maybeOrderEntityRaw) {
+			this.ngxLogger.debug('OrderState.SetOrderedService', {maybeOrderEntityRaw});
+			const orderEntity = EOrder.fromRaw(maybeOrderEntityRaw);
+			const currency = this.baseCurrency$.value;
+
+			const modal = await this.modalController.create({
+				component: PaymentModalFormOrganism,
+				componentProps: {
+					payments,
+					order: orderEntity,
+					currency,
+					selectedServiceIdList: serviceIdList,
+				},
+			});
+			await modal.present();
+		}
+
+	}
+
+	@Action(OrderActions.AddProductModalForm)
+	public async addProductModalForm(ctx: StateContext<IOrderState>, {payload}: OrderActions.AddProductModalForm) {
+		const {orderId} = payload;
+
+		this.ngxLogger.debug('OrderState.AddProductModalForm', {orderId});
+
+		const maybeOrderEntityRaw = await this.sharedUow.order.repository.findByIdAsync(orderId);
+
+		if (maybeOrderEntityRaw) {
+			this.ngxLogger.debug('OrderState.SetOrderedService', {maybeOrderEntityRaw});
+			const orderEntity = EOrder.fromRaw(maybeOrderEntityRaw);
+			const modal = await this.modalController.create({
+				component: SelectProductToOrderModal,
+				componentProps: {
+					order: orderEntity,
+				},
+			});
+			await modal.present();
+		}
+
 	}
 
 	/**

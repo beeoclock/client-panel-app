@@ -1,8 +1,8 @@
 import {Component, inject, ViewEncapsulation} from "@angular/core";
-import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
+import {AutoRefreshComponent} from "@shared/presentation/ui/component/auto-refresh/auto-refresh.component";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 
 @Component({
 	selector: 'app-absence-auto-refresh-component',

@@ -1,6 +1,6 @@
 import {Component, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
-import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
+import {ActionComponent} from "@shared/presentation/ui/component/table/column/action.component";
 import {IProduct} from "@tenant/product/product/domain";
 
 @Component({

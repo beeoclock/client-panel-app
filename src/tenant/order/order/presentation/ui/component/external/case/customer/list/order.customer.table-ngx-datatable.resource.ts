@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 

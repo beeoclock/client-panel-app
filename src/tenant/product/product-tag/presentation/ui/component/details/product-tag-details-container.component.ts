@@ -1,7 +1,7 @@
 import {Component, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
-import {DeleteButtonComponent} from "@shared/presentation/component/button/delete.button.component";
+import {DeleteButtonComponent} from "@shared/presentation/ui/component/button/delete.button.component";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {IProductTag} from "@tenant/product/product-tag/domain";

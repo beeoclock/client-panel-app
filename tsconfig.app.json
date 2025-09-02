@@ -1,25 +1,25 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./out-tsc/app",
-    "types": [
-      "node"
-    ],
-    "plugins": [
-      {
-        "transform": "typia/lib/transform"
-      }
-    ],
-    "strictNullChecks": true,
-    "strict": true
-  },
-  "files": [
-    "src/main.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ],
-  "exclude": [
-    "**/*.stories.*"
-  ]
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./out-tsc/app",
+		"types": [
+			"node"
+		],
+		"plugins": [
+			{
+				"transform": "typia/lib/transform"
+			}
+		],
+		"strictNullChecks": true,
+		"strict": true
+	},
+	"files": [
+		"src/main.ts"
+	],
+	"include": [
+		"src/**/*.d.ts"
+	],
+	"exclude": [
+		"**/*.stories.*"
+	]
 }

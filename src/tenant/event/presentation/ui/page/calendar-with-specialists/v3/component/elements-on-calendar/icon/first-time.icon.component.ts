@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
-import {IconComponent} from "@shared/presentation/component/adapter/icon/icon.component";
+import {IconComponent} from "@shared/presentation/ui/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'app-first-time-icon-component',

@@ -14,7 +14,7 @@ import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import {TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/lib/types/table-column.type";
 import {
 	TableNgxDatatableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {
 	StateStatusComponent
 } from "@tenant/member/absence/presentation/ui/component/state-status/state-status.component";
@@ -27,14 +27,14 @@ import {
 } from "@tenant/member/absence/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
 	AbsencePresentationActions
 } from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";
-import {MemberListChipComponent} from "@shared/presentation/component/chip/member/list/member.list.chip";
-import {MemberListService} from "@shared/presentation/component/chip/member/list/member.list.service";
-import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {MemberListChipComponent} from "@shared/presentation/ui/component/chip/member/list/member.list.chip";
+import {MemberListService} from "@shared/presentation/ui/component/chip/member/list/member.list.service";
+import {SynchronizationMolecule} from "@shared/presentation/ui/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'app-list-absence-table',

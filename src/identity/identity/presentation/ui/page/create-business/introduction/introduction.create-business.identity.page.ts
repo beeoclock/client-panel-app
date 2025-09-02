@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {AsyncPipe} from "@angular/common";
-import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
-import {LogoutComponent} from "@shared/presentation/component/logout/logout.component";
+import {BackLinkComponent} from "@shared/presentation/ui/component/link/back.link.component";
+import {LogoutComponent} from "@shared/presentation/ui/component/logout/logout.component";
 import {filter, map, Observable, tap} from "rxjs";
-import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
+import {ChangeLanguageComponent} from "@shared/presentation/ui/component/change-language/change-language.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Select, Store} from "@ngxs/store";
 import {IMember} from "@identity/identity/domain/interface/i.member";

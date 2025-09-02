@@ -10,6 +10,10 @@ import {environment} from "@environment/environment";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {CustomerForm} from "@tenant/customer/presentation/form";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
+import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum";
+import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
+import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum";
 
 export type IPaymentState = IBaseState<IPayment.DTO>;
 
@@ -53,6 +57,23 @@ export class PaymentDataState {
 			payer
 		})
 		await this.sharedUow.payment.repository.createAsync(payment);
+		let orderAction: OrderActions.ChangeStatus | OrderActions.OrderedServiceStatus | null = null;
+		switch (payment.anchorType) {
+			case AnchorTypeEnum.order:
+				orderAction = new OrderActions.ChangeStatus({
+					item: foundOrder,
+					status: OrderStatusEnum.done
+				});
+				break;
+			case AnchorTypeEnum.service:
+				orderAction = new OrderActions.OrderedServiceStatus(
+					payment.orderId,
+					payment.anchorId!,
+					OrderServiceStatusEnum.done
+				);
+				break;
+		}
+		if (orderAction) ctx.dispatch(orderAction);
 	}
 
 	@Action(PaymentDataActions.Update)

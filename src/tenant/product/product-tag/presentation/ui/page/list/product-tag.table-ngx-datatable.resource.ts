@@ -4,7 +4,7 @@ import {IProductTag} from "@tenant/product/product-tag/domain";
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {z} from "zod";
 import {FilterForm} from "@tenant/service/presentation/form";
 

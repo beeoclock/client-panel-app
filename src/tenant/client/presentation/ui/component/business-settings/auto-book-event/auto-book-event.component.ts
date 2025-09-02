@@ -1,8 +1,8 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {NotificationCoreService} from "@core/cdk/notification.core.service";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
+import {SwitchComponent} from "@shared/presentation/ui/component/switch/switch.component";
 import {FormControl} from "@angular/forms";
 
 @Component({

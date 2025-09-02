@@ -4,7 +4,7 @@ import {Store} from '@ngxs/store';
 import {NGXLogger} from 'ngx-logger';
 import {
 	ButtonSaveContainerComponent
-} from "@shared/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/ui/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
 	ProductTagNameComponent

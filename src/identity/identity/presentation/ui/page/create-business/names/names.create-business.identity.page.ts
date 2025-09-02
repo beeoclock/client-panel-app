@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewEncapsulation} from '@angular/core';
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
-import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
-import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
+import {BackLinkComponent} from "@shared/presentation/ui/component/link/back.link.component";
+import {ChangeLanguageComponent} from "@shared/presentation/ui/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
 import {TranslateModule} from "@ngx-translate/core";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {filter, map, Observable, tap} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {Select, Store} from "@ngxs/store";

@@ -3,8 +3,8 @@ import {
 	ModalButtonInterface,
 	ModalButtonRoleEnum,
 	ModalComponent
-} from "@shared/presentation/component/modal/modal.component";
-import {ModalService} from "@shared/presentation/component/modal/modal.service";
+} from "@shared/presentation/ui/component/modal/modal.component";
+import {ModalService} from "@shared/presentation/ui/component/modal/modal.service";
 import {TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@core/cdk/reactive";
 import {Auth} from "@angular/fire/auth";

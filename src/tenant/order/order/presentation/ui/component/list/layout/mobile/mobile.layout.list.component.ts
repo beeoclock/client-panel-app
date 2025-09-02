@@ -10,7 +10,14 @@ import {
 
 @Component({
 	selector: 'app-order-mobile-layout-list-component',
-	templateUrl: './mobile.layout.list.component.html',
+	template: `
+		<div class="flex flex-col max-w-full h-full" [ngClass]="{
+'overflow-x-auto h-[calc(100dvh-80px)] md:h-[calc(100vh-65px)]': isPage()
+}">
+			<!--\t<member-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>-->
+			<order-card-list-component/>
+		</div>
+	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

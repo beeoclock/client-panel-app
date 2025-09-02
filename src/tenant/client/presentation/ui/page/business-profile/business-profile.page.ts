@@ -13,13 +13,13 @@ import {
 import {
 	BusinessProfileContactPhoneComponent
 } from "@tenant/client/presentation/ui/component/business-profile/contact-phone/contact-phone.componen";
-import {SchedulesFormComponent} from "@shared/presentation/component/schedule/schedules.form.component";
+import {SchedulesFormComponent} from "@shared/presentation/ui/component/schedule/schedules.form.component";
 import {
 	AddressBusinessProfileComponent
 } from "@tenant/client/presentation/ui/component/business-profile/address/address.business-profile.component";
 import {
 	SwitchActiveBlockComponent
-} from "@shared/presentation/component/switch/switch-active/switch-active-block.component";
+} from "@shared/presentation/ui/component/switch/switch-active/switch-active-block.component";
 import {AsyncPipe} from "@angular/common";
 import {
 	BusinessProfileSocialMediaComponent
@@ -27,7 +27,7 @@ import {
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
 	ButtonSaveContainerComponent
-} from "@shared/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/ui/component/container/button-save/button-save.container.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@core/cdk/reactive";
 import {is} from "@core/shared/checker";

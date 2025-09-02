@@ -10,11 +10,11 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {AssignmentsForm} from "@tenant/member/member/presentation/form/member.form";
-import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
-import {IonSelectServiceComponent} from "@shared/presentation/component/input/ion/ion-select-service.component";
+import {SwitchComponent} from "@shared/presentation/ui/component/switch/switch.component";
+import {IonSelectServiceComponent} from "@shared/presentation/ui/component/input/ion/ion-select-service.component";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {FormControl} from "@angular/forms";
