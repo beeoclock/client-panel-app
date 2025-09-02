@@ -57,6 +57,10 @@ export class ETenantPlugin extends ABaseEntity<'TenantPluginDto', ITenantPlugin.
 		return this.status === TenantPluginStatusEnum.connected;
 	}
 
+	public isOnboardingPending(): boolean {
+		return this.status === TenantPluginStatusEnum.onboardingPending;
+	}
+
 	public isDetached(): boolean {
 		return this.status === TenantPluginStatusEnum.disconnected;
 	}
