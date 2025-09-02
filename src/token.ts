@@ -1,9 +1,10 @@
-import {InjectionToken, LOCALE_ID} from "@angular/core";
+import {InjectionToken, LOCALE_ID, signal, WritableSignal} from "@angular/core";
 import {MS_TEN_MINUTES} from "@shared/domain/const/c.time";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@core/shared/enum";
 import {ThemeEnum} from "@core/cdk/theme.service";
 import {BehaviorSubject} from "rxjs";
 import {EventListCustomerRepository} from "@tenant/customer/infrastructure/repository/event.list.customer.repository";
+import {SharedUow} from "@core/shared/uow/shared.uow";
 
 // Use in [tenantId] router or in wrapper-panel.component.ts
 export const CURRENT_TENANT_ID = new InjectionToken<string>('CURRENT_TENANT_ID');
@@ -18,6 +19,7 @@ export const BASE_CURRENCY = new InjectionToken<BehaviorSubject<CurrencyCodeEnum
 export const SIDEBAR_ID = new InjectionToken<string>('SIDEBAR_ID');
 export const MAIN_CONTAINER_ID = new InjectionToken<string>('MAIN_CONTAINER_ID');
 export const CACHE_TABLE_CLEAR_AFTER_MS = new InjectionToken<number>('CACHE_TABLE_CLEAR_AFTER_MS');
+export const SHARED_UOW_REF = new InjectionToken<WritableSignal<SharedUow | null>>('SHARED_UOW_REF',);
 
 /**
  * Token of service per resource
@@ -25,6 +27,10 @@ export const CACHE_TABLE_CLEAR_AFTER_MS = new InjectionToken<number>('CACHE_TABL
 export const GlobalEventListCustomerRepository = new InjectionToken<EventListCustomerRepository>('GlobalEventListCustomerRepository');
 
 export const tokens = [
+	{
+		provide: SHARED_UOW_REF,
+		useFactory: () => signal<SharedUow | null>(null)
+	},
 	{
 		provide: LOCALE_ID,
 		useFactory: () => {

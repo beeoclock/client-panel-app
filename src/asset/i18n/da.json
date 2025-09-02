@@ -1288,6 +1288,7 @@
 			"streetAddressLineOne": "Adresse 1",
 			"streetAddressLineTwo": "Adresse 2",
 			"successfully": "Med succes",
+			"summary": "Resumé",
 			"switchTo": "Skift til",
 			"synced": "Synkroniseret",
 			"synchronization": "Synchronisatie",
@@ -1618,6 +1619,18 @@
 			},
 			"PAYPAL": {
 				"label": "PayPal"
+			}
+		},
+		"modal": {
+			"checkout": {
+				"button": {
+					"addProduct": {
+						"label": "Tilføj produkt"
+					}
+				},
+				"noProducts": {
+					"label": "Klik på »+« for at tilføje produkter til din ordre."
+				}
 			}
 		},
 		"providerType": {

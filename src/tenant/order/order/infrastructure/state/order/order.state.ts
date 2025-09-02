@@ -35,6 +35,9 @@ import {
 } from "@tenant/order/payment/presentation/ui/organism/form/payment.modal.form.organism";
 import {BASE_CURRENCY} from "@src/token";
 import EPayment from "@tenant/order/payment/domain/entity/e.payment";
+import {
+	SelectProductToOrderModal
+} from "@tenant/order/order-product/presentation/ui/modal/select-prodict-to-order/select-product-to-order.modal";
 
 export type IOrderState = IBaseState<EOrder>;
 
@@ -225,7 +228,7 @@ export class OrderState {
 	@Action(OrderActions.ChangeStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: OrderActions.ChangeStatus): Promise<void> {
 		const orderEntity = EOrder.fromRaw(action.payload.item);
-		orderEntity.status = action.payload.status;
+		orderEntity.changeOrderStatus(action.payload.status);
 		await this.addNotificationSettingsToOrderEntity(orderEntity);
 		await this.sharedUow.order.repository.updateAsync(orderEntity);
 
@@ -418,6 +421,23 @@ export class OrderState {
 
 	}
 
+	@Action(OrderActions.SetOrderedProduct)
+	public async setProductToOrder(ctx: StateContext<IOrderState>, {payload}: OrderActions.SetOrderedProduct) {
+		const {item} = payload;
+
+		this.ngxLogger.debug('OrderState.SetOrderedProduct', {item});
+
+		const maybeOrderEntityRaw = await this.sharedUow.order.repository.findByIdAsync(item.orderId);
+
+		if (maybeOrderEntityRaw) {
+			this.ngxLogger.debug('OrderState.SetOrderedService', {maybeOrderEntityRaw});
+			const orderEntity = EOrder.fromRaw(maybeOrderEntityRaw);
+			orderEntity.setOrderedProduct(payload.item);
+			await this.sharedUow.order.repository.updateAsync(orderEntity);
+		}
+
+	}
+
 	@Action(OrderActions.Checkout)
 	public async checkout(ctx: StateContext<IOrderState>, {payload}: OrderActions.Checkout) {
 		const {orderId, selected} = payload;
@@ -446,6 +466,28 @@ export class OrderState {
 					order: orderEntity,
 					currency,
 					selectedServiceIdList: serviceIdList,
+				},
+			});
+			await modal.present();
+		}
+
+	}
+
+	@Action(OrderActions.AddProductModalForm)
+	public async addProductModalForm(ctx: StateContext<IOrderState>, {payload}: OrderActions.AddProductModalForm) {
+		const {orderId} = payload;
+
+		this.ngxLogger.debug('OrderState.AddProductModalForm', {orderId});
+
+		const maybeOrderEntityRaw = await this.sharedUow.order.repository.findByIdAsync(orderId);
+
+		if (maybeOrderEntityRaw) {
+			this.ngxLogger.debug('OrderState.SetOrderedService', {maybeOrderEntityRaw});
+			const orderEntity = EOrder.fromRaw(maybeOrderEntityRaw);
+			const modal = await this.modalController.create({
+				component: SelectProductToOrderModal,
+				componentProps: {
+					order: orderEntity,
 				},
 			});
 			await modal.present();

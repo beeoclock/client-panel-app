@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, model, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, model, signal, ViewEncapsulation} from "@angular/core";
 import {MetaDetailsComponent} from "@tenant/event/presentation/ui/component/details/meta.details.component";
 import {IEvent_V2} from "@tenant/event/domain";
 import {LoaderComponent} from "@shared/presentation/ui/component/loader/loader.component";
@@ -18,6 +18,11 @@ import {tap} from "rxjs/operators";
 import {TranslatePipe} from "@ngx-translate/core";
 import {CurrencyPipe} from "@angular/common";
 import EOrder from "@tenant/order/order/domain/entity/e.order";
+import {SharedUow} from "@core/shared/uow/shared.uow";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {derivedAsync} from "ngxtension/derived-async";
+import {AnchorTypeEnum} from "@tenant/order/payment/domain/enum/anchor.type.enum";
+import {explicitEffect} from "ngxtension/explicit-effect";
 
 
 @Component({
@@ -55,13 +60,15 @@ import EOrder from "@tenant/order/order/domain/entity/e.order";
 				[orderDro]="item.originalData.order"
 				[orderServiceDto]="item.originalData.service"/>
 
-			<div class="absolute bottom-0 w-full p-2 bg-white border-t">
-				<button (click)="checkout()" class="w-full rounded-xl justify-center items-center bg-blue-600 text-white flex gap-2 py-3 border border-gray-200 hover:bg-blue-800">
-					{{ item.originalData.service.serviceSnapshot.durationVersions[0].prices[0].price | currency: item.originalData.service.serviceSnapshot.durationVersions[0].prices[0].currency: 'symbol': '1.0-0' }}
-					•
-					{{ 'event.details.button.checkout.label' | translate }}
-				</button>
-			</div>
+			@if (theOrderedServiceNotPaidYet()) {
+				<div class="absolute bottom-0 w-full p-2 bg-white border-t">
+					<button (click)="checkout()" class="w-full rounded-xl justify-center items-center bg-blue-600 text-white flex gap-2 py-3 border border-gray-200 hover:bg-blue-800">
+						{{ item.originalData.service.serviceSnapshot.durationVersions[0].prices[0].price | currency: item.originalData.service.serviceSnapshot.durationVersions[0].prices[0].currency: 'symbol': '1.0-0' }}
+						•
+						{{ 'event.details.button.checkout.label' | translate }}
+					</button>
+				</div>
+			}
 		} @else {
 			<utility-loader/>
 		}
@@ -76,6 +83,29 @@ export class ContainerDetailsComponent {
 
 	private readonly store = inject(Store);
 	private readonly actions = inject(Actions);
+	private readonly sharedUow = inject(SharedUow);
+
+	public readonly theOrderedServicePaid = derivedAsync(async () => {
+		const item = this.item();
+		const serviceId = item.originalData.service._id;
+		const orderId = item.originalData.order._id;
+		const allPaymentsForThisOrder = await this.sharedUow.payment.repository.findAsync({
+			orderId,
+			page: 1,
+			pageSize: 100,
+			orderBy: OrderByEnum.CREATED_AT,
+			orderDir: OrderDirEnum.DESC,
+		});
+
+		const conditionCustomerPaidForThisService = allPaymentsForThisOrder.items.some(payment => {
+			const paidForFullOrder = payment.anchorType === AnchorTypeEnum.order;
+			const paidForThisSpecificService = payment.anchorType === AnchorTypeEnum.service && payment.anchorId === serviceId;
+			return paidForFullOrder || paidForThisSpecificService;
+		});
+		return conditionCustomerPaidForThisService;
+	});
+
+	public readonly theOrderedServiceNotPaidYet = signal<boolean>(false);
 
 	public readonly actionsSubscription = this.actions.pipe(
 		takeUntilDestroyed(),
@@ -123,6 +153,13 @@ export class ContainerDetailsComponent {
 			}
 		})
 	).subscribe();
+
+	public constructor() {
+		explicitEffect([this.theOrderedServicePaid], ([theOrderedServicePaid]) => {
+			this.theOrderedServiceNotPaidYet.set(!theOrderedServicePaid);
+		});
+	}
+
 
 	public checkout() {
 		const action = new OrderActions.Checkout({

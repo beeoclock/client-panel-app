@@ -1288,6 +1288,7 @@
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
 			"successfully": "Successfully",
+			"summary": "Summary",
 			"switchTo": "Switch to",
 			"synced": "Synchronized",
 			"synchronization": "Synchronization",
@@ -1618,6 +1619,18 @@
 			},
 			"PAYPAL": {
 				"label": "PayPal"
+			}
+		},
+		"modal": {
+			"checkout": {
+				"button": {
+					"addProduct": {
+						"label": "Add product"
+					}
+				},
+				"noProducts": {
+					"label": "Click “+” to add products to your order."
+				}
 			}
 		},
 		"providerType": {

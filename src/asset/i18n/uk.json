@@ -1288,6 +1288,7 @@
 			"streetAddressLineOne": "Адреса 1",
 			"streetAddressLineTwo": "Адреса 2",
 			"successfully": "Успішно",
+			"summary": "Підсумок",
 			"switchTo": "Перейдіть до",
 			"synced": "Синхронізовано",
 			"synchronization": "Синхронізація",
@@ -1618,6 +1619,18 @@
 			},
 			"PAYPAL": {
 				"label": "PayPal"
+			}
+		},
+		"modal": {
+			"checkout": {
+				"button": {
+					"addProduct": {
+						"label": "Додати продукт"
+					}
+				},
+				"noProducts": {
+					"label": "Натисніть «+», щоб додати товари до замовлення."
+				}
 			}
 		},
 		"providerType": {

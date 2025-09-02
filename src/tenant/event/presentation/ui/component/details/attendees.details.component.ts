@@ -104,26 +104,31 @@ import {BusinessNoteComponent} from "@tenant/event/presentation/ui/component/det
 								}
 								@case (customerTypeEnum.anonymous) {
 
-									<div
-										class="p-4 group bg-neutral-100 flex flex-col w-full border border-gray-200 shadow-2xs rounded-xl hover:shadow-md focus:outline-hidden focus:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800">
-										<div class="flex justify-between items-center gap-x-3">
+									@if (showAnonymousCustomer()) {
 
-											<div
-												class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-neutral-700">
-												<i class="bi bi-person"></i>
+										<div
+											class="p-4 group bg-neutral-100 flex flex-col w-full border border-gray-200 shadow-2xs rounded-xl hover:shadow-md focus:outline-hidden focus:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800">
+											<div class="flex justify-between items-center gap-x-3">
+
+												<div
+													class="rounded-full bg-gradient-to-r from-neutral-100 to-neutral-200 min-h-9 min-w-9 flex justify-center items-center font-bold text-neutral-700">
+													<i class="bi bi-person"></i>
+												</div>
+
+												<div class="grow">
+													<h3 class="group-hover:text-blue-600 text-start font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+														{{ 'keyword.capitalize.anonymous' | translate }}
+													</h3>
+													<p class="text-sm text-gray-500 dark:text-neutral-500 flex gap-2">
+														{{ 'keyword.capitalize.customer' | translate }}
+													</p>
+												</div>
+
 											</div>
-
-											<div class="grow">
-												<h3 class="group-hover:text-blue-600 text-start font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
-													{{ 'keyword.capitalize.anonymous' | translate }}
-												</h3>
-												<p class="text-sm text-gray-500 dark:text-neutral-500 flex gap-2">
-													{{ 'keyword.capitalize.customer' | translate }}
-												</p>
-											</div>
-
 										</div>
-									</div>
+										
+									}
+
 								}
 							}
 
@@ -167,6 +172,7 @@ export class AttendeesDetailsComponent {
 		service: IOrderService.DTO;
 	}>>();
 
+	public readonly showAnonymousCustomer = input(false);
 	public readonly isPreview = input(false);
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
