@@ -124,9 +124,9 @@
 				}
 				@case (intervalTypeEnum.year) {
 					<ion-picker>
-						<ion-picker-column [value]="dateControl.value | date: 'YYYY'" (ionChange)="setYear($event)">
+						<ion-picker-column [value]="dateControl.value | date: 'yyyy'" (ionChange)="setYear($event)">
 							@for (yearOption of yearOptions; track yearOption.dateTimeISO) {
-								<ion-picker-column-option [value]="yearOption.dateTimeISO | date: 'YYYY'">
+								<ion-picker-column-option [value]="yearOption.dateTimeISO | date: 'yyyy'">
 									{{ yearOption.dateTimeISO | date: 'yyyy' }}
 								</ion-picker-column-option>
 							}

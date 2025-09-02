@@ -557,6 +557,11 @@
 			}
 		},
 		"details": {
+			"button": {
+				"checkout": {
+					"label": "Do opłaty"
+				}
+			},
 			"meta": {
 				"history": {
 					"keyword": {
@@ -573,7 +578,7 @@
 					}
 				}
 			},
-			"title": "Szczegóły zamówionej usługi"
+			"title": "Wizyta"
 		},
 		"form": {
 			"section": {
@@ -642,12 +647,12 @@
 				"plural": {
 					"accepted": "Zaakceptowane",
 					"cancelled": "Odwołane",
+					"confirmed": "Potwierdzone",
 					"deleted": "Usunięte",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucone",
-					"requested": "Zażądane",
-					"confirmed": "Potwierdzone"
+					"requested": "Zażądane"
 				},
 				"singular": {
 					"accepted": "Zaakceptowany",
@@ -1283,6 +1288,7 @@
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
 			"successfully": "Pomyślnie",
+			"summary": "Podsumowanie",
 			"switchTo": "Przełącz na",
 			"synced": "Zsynchronizowano",
 			"synchronization": "Synchronizacja",
@@ -1503,6 +1509,9 @@
 		},
 		"form": {
 			"chip": {
+				"service": {
+					"noAssigned": "Brak wybranej uslugi"
+				},
 				"specialist": {
 					"noAssignedSpecialist": "Brak przypisanego specjalisty"
 				}
@@ -1566,12 +1575,62 @@
 		}
 	},
 	"payment": {
+		"form": {
+			"method": {
+				"label": "Metod płatności"
+			}
+		},
 		"method": {
+			"APPLE_PAY": {
+				"label": "Apple Pay"
+			},
+			"BANK_TRANSFER": {
+				"label": "Przelew bankowy"
+			},
 			"CARD": {
 				"label": "Karta"
 			},
 			"CASH": {
 				"label": "Gotówka"
+			},
+			"CHECK": {
+				"label": "Czek"
+			},
+			"CRYPTO": {
+				"label": "Kryptowaluta"
+			},
+			"DEBIT_CARD": {
+				"label": "Karta debetowa"
+			},
+			"GIFT_CARD": {
+				"label": "Karta podarunkowa"
+			},
+			"GOOGLE_PAY": {
+				"label": "Google Pay"
+			},
+			"INVOICE": {
+				"label": "Faktura"
+			},
+			"MOBILE_PAYMENT": {
+				"label": "Płatność mobilna"
+			},
+			"OTHER": {
+				"label": "Inne"
+			},
+			"PAYPAL": {
+				"label": "PayPal"
+			}
+		},
+		"modal": {
+			"checkout": {
+				"button": {
+					"addProduct": {
+						"label": "Dodaj produkt"
+					}
+				},
+				"noProducts": {
+					"label": "Kliknij „+”, aby dodać produkty do zamówienia."
+				}
 			}
 		},
 		"providerType": {
@@ -1705,15 +1764,6 @@
 				"label": "Ze specjalistami"
 			}
 		},
-		"week-calendar": {
-			"label": "Kalendarz (tydzień)",
-			"ordinary": {
-				"label": "Zwykły"
-			},
-			"withSpecialists": {
-				"label": "Ze specjalistami"
-			}
-		},
 		"customers": "Klienci",
 		"dashboard": "Panel główny",
 		"dateRangeReport": "Analityka",
@@ -1737,7 +1787,16 @@
 		"statistic": "Statystyki",
 		"switch-business-client": "Zmień kontekst",
 		"table": "Tabela",
-		"tariffPlan": "Taryfy"
+		"tariffPlan": "Taryfy",
+		"week-calendar": {
+			"label": "Kalendarz (tydzień)",
+			"ordinary": {
+				"label": "Zwykły"
+			},
+			"withSpecialists": {
+				"label": "Ze specjalistami"
+			}
+		}
 	},
 	"sign-out": {
 		"button": {

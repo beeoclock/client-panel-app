@@ -10,11 +10,15 @@ import {
 } from "@tenant/order/order-service/presentation/ui/page/list/order-service.table-ngx-datatable.resource";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {ofActionSuccessful} from "@ngxs/store";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {tap} from "rxjs/operators";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {
+	MobileLayoutListComponent
+} from "@tenant/order/order-service/presentation/ui/organism/list/layout/mobile/mobile.layout.list.component";
+import {AppIfDeviceDirective, AppIfNotDeviceDirective} from "@shared/presentation/directives/device";
 
 @Component({
 	selector: 'app-list-order-service-page',
@@ -23,6 +27,9 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 	imports: [
 		TranslateModule,
 		DesktopLayoutListComponent,
+		MobileLayoutListComponent,
+		AppIfDeviceDirective,
+		AppIfNotDeviceDirective,
 	],
 	providers: [
 		DatePipe,
@@ -33,7 +40,8 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 	],
 	standalone: true,
 	template: `
-		<order-service-desktop-layout-list-component/>
+		<order-service-mobile-layout-list-component *ifDevice="['phone']"/>
+		<order-service-desktop-layout-list-component *ifNotDevice="['phone']"/>
 	`,
 })
 export default class ListOrderServicePage extends ListPage implements OnInit {
@@ -53,8 +61,7 @@ export default class ListOrderServicePage extends ListPage implements OnInit {
 		})
 	).subscribe()
 
-	public override ngOnInit() {
-		super.ngOnInit();
+	public ngOnInit() {
 		this.analyticsService.logEvent('order_service_list_page_initialized');
 	}
 

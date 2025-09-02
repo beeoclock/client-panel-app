@@ -5,7 +5,7 @@ import {clearObjectClone} from "@shared/domain/clear.object";
 import {WindowWidthSizeService} from "@core/cdk/window-width-size.service";
 import {
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {AbstractControl} from "@angular/forms";

@@ -1,7 +1,7 @@
 import {Component, input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from "@ng-select/ng-select";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ContactForm} from "@tenant/client/presentation/form/contact.form";
 import {CELL_COUNTRY_PREFIX_OBJECT_LIST} from "@core/shared/enum/cell-country-prefix.enum";

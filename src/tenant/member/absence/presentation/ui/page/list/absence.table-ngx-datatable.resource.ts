@@ -2,7 +2,7 @@ import {inject, Injectable, signal} from "@angular/core";
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {IAbsence} from "@tenant/member/absence/domain/interface/i.absence";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {FilterForm} from "@tenant/member/absence/presentation/form/filter.form";

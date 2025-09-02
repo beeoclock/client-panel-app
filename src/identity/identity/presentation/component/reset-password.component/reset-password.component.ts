@@ -3,9 +3,9 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterLink} from '@angular/router';
-import {DeleteButtonComponent} from '@shared/presentation/component/button/delete.button.component';
+import {DeleteButtonComponent} from '@shared/presentation/ui/component/button/delete.button.component';
 import {HasErrorDirective} from '@shared/presentation/directives/has-error/has-error.directive';
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
 import {FirstKeyNamePipe} from "@shared/presentation/pipes/first-key-name/first-key-name.pipe";
 
 @Component({

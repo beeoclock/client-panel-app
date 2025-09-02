@@ -13,7 +13,9 @@ import {
 import {
 	AbsencePresentationActions
 } from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";
-import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import {
+	StandardDetailsEntityComponent
+} from "@shared/presentation/ui/component/entity/standard-details.entity.component";
 import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {map} from "rxjs";

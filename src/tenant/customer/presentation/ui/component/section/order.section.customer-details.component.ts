@@ -12,7 +12,7 @@ import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone"
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
+import {LoaderComponent} from "@shared/presentation/ui/component/loader/loader.component";
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {
 	CardItemLightweightOrderComponent

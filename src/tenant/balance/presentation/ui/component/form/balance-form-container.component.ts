@@ -11,7 +11,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {
 	ButtonSaveContainerComponent
-} from "@shared/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/ui/component/container/button-save/button-save.container.component";
 import {NGXLogger} from "ngx-logger";
 import {TopUpBalanceForm} from "@tenant/balance/presentation/form";
 import {TOP_UP_BALANCE_PORT} from "@tenant/balance/infrastructure/port/out/top-up.port";
@@ -21,8 +21,8 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	BalancePresentationActions
 } from "@tenant/balance/infrastructure/state/presentation/balance.presentation.actions";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
 import {
 	BusinessProfileState
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";

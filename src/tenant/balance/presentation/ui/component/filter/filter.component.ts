@@ -3,7 +3,7 @@ import {FilterForm} from "@tenant/balance/presentation/form/filter.form";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {BaseFilterComponent} from "@shared/base.filter.component";
-import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
+import {DefaultPanelComponent} from "@shared/presentation/ui/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
 import {BalanceOrganizm} from "@tenant/balance/presentation/ui/organism/balance.organizm";

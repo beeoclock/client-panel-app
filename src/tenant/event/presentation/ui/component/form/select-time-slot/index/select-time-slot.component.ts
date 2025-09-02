@@ -2,12 +2,12 @@ import {Component, inject, Input, input} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {DateTime} from "luxon";
-import {InvalidTooltipComponent} from "@shared/presentation/component/invalid-message/invalid-message";
+import {InvalidTooltipComponent} from "@shared/presentation/ui/component/invalid-message/invalid-message";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SlotsService} from "@tenant/event/presentation/ui/component/form/select-time-slot/slots.service";
 import {IDayItem} from "@shared/domain/interface/i.day-item";
 import {EventConfigurationForm} from "@tenant/event/presentation/form/configuration.form";
-import {DatetimeLocalInputComponent} from "@shared/presentation/component/input/datetime-local.input.component";
+import {DatetimeLocalInputComponent} from "@shared/presentation/ui/component/input/datetime-local.input.component";
 
 @Component({
 	selector: 'event-select-time-slot-form-component',

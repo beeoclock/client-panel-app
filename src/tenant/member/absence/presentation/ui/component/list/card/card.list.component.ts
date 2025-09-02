@@ -5,20 +5,20 @@ import EAbsence from "@tenant/member/absence/domain/entity/e.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {
 	AutoRefreshButtonComponent
 } from "@tenant/member/absence/presentation/ui/component/button/auto-refresh/auto-refresh.button.component";
 import {
 	CardIonListSmartComponent
-} from "@shared/presentation/component/smart/card-ion-list/card-ion-list.smart.component";
+} from "@shared/presentation/ui/component/smart/card-ion-list/card-ion-list.smart.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {DynamicDatePipe} from "@shared/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {NoDataPipe} from "@shared/presentation/pipes/no-data.pipe";
 import {
 	StateStatusComponent
 } from "@tenant/member/absence/presentation/ui/component/state-status/state-status.component";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {
 	AbsencePresentationActions
 } from "@tenant/member/absence/infrastructure/state/presentation/absence.presentation.actions";

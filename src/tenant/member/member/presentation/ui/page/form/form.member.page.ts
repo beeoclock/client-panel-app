@@ -3,14 +3,14 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {MemberForm} from "@tenant/member/member/presentation/form/member.form";
 import {firstValueFrom, tap} from "rxjs";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {SelectRoleComponent} from "@tenant/member/member/presentation/component/form/select-role/select-role.component";
 import {
 	AvatarContainerComponent
 } from "@tenant/member/member/presentation/component/form/avatar-container/avatar-container.component";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
+import {SwitchComponent} from "@shared/presentation/ui/component/switch/switch.component";
 import {CommonModule} from "@angular/common";
 import {
 	MemberFormAssignmentsComponent
@@ -22,7 +22,7 @@ import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data
 import {
 	MemberPresentationActions
 } from "@tenant/member/member/infrastructure/state/presentation/member.presentation.actions";
-import {TelFormInputComponent} from "@shared/presentation/component/tel-form-input/tel.form.input.component";
+import {TelFormInputComponent} from "@shared/presentation/ui/component/tel-form-input/tel.form.input.component";
 import {NGXLogger} from "ngx-logger";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 

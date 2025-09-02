@@ -16,10 +16,10 @@ import {filter, firstValueFrom, map} from 'rxjs';
 import {ProductNameFormComponent} from './product-name/product-name-form.container';
 import {
 	ButtonSaveContainerComponent
-} from "@shared/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/ui/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";
 import {ProductForm} from "@tenant/product/product/presentation/form/product.form";
 import {IProduct} from "@tenant/product/product/domain";
@@ -28,8 +28,8 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {ProductDataActions} from "@tenant/product/product/infrastructure/state/data/product.data.actions";
 import EProduct from "@tenant/product/product/domain/entity/e.product";
-import {PriceAndCurrencyComponent} from "@shared/presentation/component/input/price-and-currency.component";
-import {IonSelectServiceComponent} from "@shared/presentation/component/input/ion/ion-select-product-tag.component";
+import {PriceAndCurrencyComponent} from "@shared/presentation/ui/component/input/price-and-currency.component";
+import {IonSelectServiceComponent} from "@shared/presentation/ui/component/input/ion/ion-select-product-tag.component";
 import {ImageFormProduct} from "@tenant/product/product/presentation/ui/component/form/image/image.form.product";
 import {MediaTypeEnum} from "@core/shared/enum/media.type.enum";
 import {StateEnum} from "@core/shared/enum/state.enum";

@@ -1,17 +1,17 @@
 {
-  "hosting": {
-    "site": "panel-beeoclock",
-    "public": "dist",
-    "ignore": [
-      "**/firebase/**",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
+	"hosting": {
+		"site": "panel-beeoclock",
+		"public": "dist/browser",
+		"ignore": [
+			"**/firebase/**",
+			"**/.*",
+			"**/node_modules/**"
+		],
+		"rewrites": [
+			{
+				"source": "**",
+				"destination": "/index.html"
+			}
+		]
+	}
 }

@@ -3,11 +3,11 @@ import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
 import {
 	CardIonListSmartComponent
-} from "@shared/presentation/component/smart/card-ion-list/card-ion-list.smart.component";
+} from "@shared/presentation/ui/component/smart/card-ion-list/card-ion-list.smart.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {
 	CardItemLightweightOrderComponent
 } from "@tenant/order/order/presentation/ui/component/list/card/item-lightweight/card.item.order.component";

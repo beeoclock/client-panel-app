@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ChangeNameForm} from "@tenant/client/presentation/form/change-name.form";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
 import {ChangeNameClientAdapter} from "@identity/identity/infrastructure/module/change-name.client.adapter";
 import {ToastController} from "@ionic/angular/standalone";
 import {MS_THREE_SECONDS} from "@shared/domain/const/c.time";

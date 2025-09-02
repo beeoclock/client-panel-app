@@ -1,10 +1,10 @@
 import {Component, input, OnInit} from '@angular/core';
-import {SearchInputComponent} from '@shared/presentation/component/input/search.input.component';
+import {SearchInputComponent} from '@shared/presentation/ui/component/input/search.input.component';
 import {FilterForm} from "@tenant/order/payment/presentation/form/filter.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {BaseFilterComponent} from "@shared/base.filter.component";
-import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
+import {DefaultPanelComponent} from "@shared/presentation/ui/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
@@ -14,8 +14,8 @@ import {
 } from "@tenant/order/payment/infrastructure/state/presentation/payment.presentation.actions";
 import {
 	IonSelectPaymentStatusComponent,
-} from "@shared/presentation/component/input/ion/ion-select-payment-status.component";
-import {IonSelectStateComponent} from "@shared/presentation/component/input/ion/ion-select-state.component";
+} from "@shared/presentation/ui/component/input/ion/ion-select-payment-status.component";
+import {IonSelectStateComponent} from "@shared/presentation/ui/component/input/ion/ion-select-state.component";
 import {
 	DateSliderControlComponent
 } from "@tenant/analytic/presentation/component/control/date-slider/date-slider.control.component";

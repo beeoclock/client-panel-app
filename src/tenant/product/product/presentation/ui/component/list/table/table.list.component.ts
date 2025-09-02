@@ -5,7 +5,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {TableComponent} from "@shared/table.component";
 import EProduct from "@tenant/product/product/domain/entity/e.product";
@@ -26,10 +26,10 @@ import {
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 import {
 	TableNgxDatatableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {CurrencyPipe} from "@angular/common";
-import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
-import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {NoAvailable} from "@shared/presentation/ui/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/ui/component/synchronization/synchronization.molecule";
 
 @Component({
 	selector: 'product-table-list-component',

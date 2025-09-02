@@ -4,7 +4,7 @@ import {IOrderService} from "@tenant/order/order-service/domain/interface/i.orde
 import {
 	AsyncLoadDataFunctionParams,
 	TableNgxDatatableSmartResource
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.resource";
 import {z} from 'zod';
 import {IntervalTypeEnum} from "@tenant/analytic/domain/enum/interval.enum";
 import {FilterForm} from "@tenant/order/order-service/presentation/form/filter.form";
