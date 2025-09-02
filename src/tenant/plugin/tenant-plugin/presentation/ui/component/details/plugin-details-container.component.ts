@@ -75,7 +75,6 @@ export class PluginDetailsContainerComponent implements OnInit {
 	).subscribe();
 
 	public ngOnInit() {
-		console.log(this.item());
 		this.getFunctionsApi.executeAsync(this.item().plugin.slug).then((response) => {
 			console.log({response})
 		});

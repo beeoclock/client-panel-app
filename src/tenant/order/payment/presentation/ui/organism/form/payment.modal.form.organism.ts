@@ -197,7 +197,6 @@ export class PaymentModalFormOrganism {
 			OrderActions.SetOrderedService,
 		),
 		tap((action) => {
-			console.log({action})
 			const order = this.order();
 			const orderCopy = EOrder.fromRaw(order.toRaw());
 			if (action instanceof OrderActions.SetOrderedProduct) {

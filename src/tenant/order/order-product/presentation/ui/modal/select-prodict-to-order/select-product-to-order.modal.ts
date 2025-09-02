@@ -78,7 +78,6 @@ type FormGroupType = {
 			provide: SharedUow,
 			useFactory: (SHARED_UOW_REF: WritableSignal<SharedUow | null>) => {
 				const instance = SHARED_UOW_REF();
-				console.log({instance})
 				return instance;
 			},
 			deps: [SHARED_UOW_REF]

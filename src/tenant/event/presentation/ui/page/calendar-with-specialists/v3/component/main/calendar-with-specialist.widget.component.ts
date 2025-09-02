@@ -190,7 +190,6 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 
 	public constructor() {
 		explicitEffect([this.columns], ([columns]) => {
-			console.log({columns});
 			let isSyncing = false;
 
 			columns.forEach(column => {
