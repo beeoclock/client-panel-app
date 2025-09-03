@@ -64,7 +64,7 @@ export class ServicesCreateBusinessIdentityPage {
 		} = this.createBusinessQuery.getBusinessSettings().value;
 		this.createBusinessModalService.openServiceFormModal({
 			availableLanguages: availableLanguages ?? [],
-			baseLanguage: baseLanguage ?? this.translateService.currentLang as LanguageCodeEnum,
+			baseLanguage: baseLanguage ?? this.translateService.getCurrentLang() as LanguageCodeEnum,
 			currencies: currencies ?? [],
 			baseCurrency: baseCurrency ?? CurrencyCodeEnum.USD,
 			serviceForm: serviceFormToEdit

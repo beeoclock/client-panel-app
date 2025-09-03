@@ -151,7 +151,7 @@ export class GridPluginPage {
 	private readonly executeFunctionApi = inject(ExecuteFunctionApi);
 	private readonly network = injectNetwork();
 
-	public readonly currentLanguage = this.translateService.currentLang;
+	public readonly currentLanguage = this.translateService.getCurrentLang();
 
 	public readonly isOnline = this.network.online;
 

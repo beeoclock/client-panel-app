@@ -76,7 +76,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 
 	public ngOnInit(): void {
 
-		Settings.defaultLocale = this.translateService.currentLang;
+		Settings.defaultLocale = this.translateService.getCurrentLang();
 
 		if (this.controlsAreRequired()) {
 
@@ -151,7 +151,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 
 	public async prepareDatetimeList(sourceDatetime: DateTime) {
 		this.logger.debug('prepareDatetimeList', sourceDatetime);
-		sourceDatetime = sourceDatetime.setLocale(this.translateService.currentLang);
+		sourceDatetime = sourceDatetime.setLocale(this.translateService.getCurrentLang());
 		this.daySlotsTitle = this.prepareDaySlotsTitle(sourceDatetime);
 		const dayItemList = this.selectDateService.generateDayItemList(sourceDatetime, this.amountOfDaySlotsInContainer);
 		this.updateDayItemList.emit(dayItemList);

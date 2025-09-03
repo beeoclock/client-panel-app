@@ -182,7 +182,7 @@ export class FormAbsencePage extends Reactive implements OnInit {
 	readonly #translateService = inject(TranslateService);
 
 	public get locale(): string {
-		return this.#translateService.currentLang;
+		return this.#translateService.getCurrentLang();
 	}
 
 	public readonly form = AbsenceForm.create();

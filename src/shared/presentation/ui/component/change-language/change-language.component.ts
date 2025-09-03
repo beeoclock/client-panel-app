@@ -116,7 +116,7 @@ export class ChangeLanguageComponent implements AfterViewInit {
   }
 
   constructor() {
-    this.form.controls.language.setValue(this.translateService.currentLang as LanguageCodeEnum);
+    this.form.controls.language.setValue(this.translateService.getCurrentLang() as LanguageCodeEnum);
   }
 
   public ngAfterViewInit(): void {

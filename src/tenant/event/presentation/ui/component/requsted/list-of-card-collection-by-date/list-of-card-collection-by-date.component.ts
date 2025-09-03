@@ -88,7 +88,7 @@ export class ListOfCardCollectionByDateComponent {
 
 	public getDayNameByDate(date: string) {
 		return DateTime.fromISO(date).toFormat('EEE', {
-			locale: this.translateService.currentLang,
+			locale: this.translateService.getCurrentLang(),
 		});
 	}
 
@@ -100,11 +100,11 @@ export class ListOfCardCollectionByDateComponent {
 		// If the same year, then we don't need to show the year
 		if (this.sameYear(date)) {
 			return DateTime.fromISO(date).toFormat('dd MMMM', {
-				locale: this.translateService.currentLang,
+				locale: this.translateService.getCurrentLang(),
 			});
 		}
 		return DateTime.fromISO(date).toFormat('dd MMMM yyyy', {
-			locale: this.translateService.currentLang,
+			locale: this.translateService.getCurrentLang(),
 		});
 	}
 

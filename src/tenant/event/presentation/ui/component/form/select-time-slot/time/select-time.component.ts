@@ -72,7 +72,7 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		Settings.defaultLocale = this.translateService.currentLang;
+		Settings.defaultLocale = this.translateService.getCurrentLang();
 
 		// Set component into slots.service
 		this.slotsService.selectTimeComponent = this;

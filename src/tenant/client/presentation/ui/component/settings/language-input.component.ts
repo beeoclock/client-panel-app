@@ -44,7 +44,7 @@ export class LanguageInputComponent extends Reactive {
 
 	constructor() {
 		super();
-		this.control.setValue(this.translateService.currentLang);
+		this.control.setValue(this.translateService.getCurrentLang());
 		this.control.valueChanges.pipe(this.takeUntil()).subscribe((languageCode) => {
 			this.translateService.use(languageCode);
 			this.languageBusinessPanelFrontendSettingsAccountApiAdapter

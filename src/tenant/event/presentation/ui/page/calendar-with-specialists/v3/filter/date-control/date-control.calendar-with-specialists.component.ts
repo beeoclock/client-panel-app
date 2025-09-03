@@ -140,11 +140,11 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 					return 'keyword.capitalize.tomorrow';
 				default:
 					// return name of the day
-					return selectedDate.setLocale(this.translateService.currentLang).toFormat('cccc');
+					return selectedDate.setLocale(this.translateService.getCurrentLang()).toFormat('cccc');
 			}
 		})
 	);
-	public readonly locale = this.translateService.currentLang;
+	public readonly locale = this.translateService.getCurrentLang();
 	private readonly document = inject(DOCUMENT);
 	private readonly modalController = inject(ModalController);
 

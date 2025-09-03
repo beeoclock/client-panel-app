@@ -50,7 +50,7 @@ export class CardListComponent extends TableComponent<EService> {
 	public showSelectedStatus = new BooleanStreamState(false);
 
 	public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
-		const firstFoundOption = languageVersions.find(({language}) => language === this.translateService.currentLang);
+		const firstFoundOption = languageVersions.find(({language}) => language === this.translateService.getCurrentLang());
 		return firstFoundOption ?? languageVersions[0];
 	}
 

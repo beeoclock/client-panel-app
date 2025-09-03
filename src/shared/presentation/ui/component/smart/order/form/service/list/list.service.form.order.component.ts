@@ -152,7 +152,7 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 			let foundLanguageVersion = service.languageVersions.find(({language}) => language === this.baseLanguage);
 
 			if (!foundLanguageVersion) {
-				foundLanguageVersion = service.languageVersions.find(({language}) => language === this.#translateService.currentLang);
+				foundLanguageVersion = service.languageVersions.find(({language}) => language === this.#translateService.getCurrentLang());
 			}
 
 			if (!foundLanguageVersion) {
@@ -225,7 +225,7 @@ export class ListServiceFormOrderComponent implements OnChanges, OnInit {
 						start,
 						end,
 						type: ReservationTypeEnum.service,
-						languageCodes: [this.#translateService.currentLang as LanguageCodeEnum],
+						languageCodes: [this.#translateService.getCurrentLang() as LanguageCodeEnum],
 						specialists: [],
 						attendees,
 						timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,

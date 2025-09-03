@@ -147,8 +147,8 @@ export default class CalendarEventPage extends Reactive implements OnInit, After
 
 		this.ngxLogger.debug('fillUpPreferencesOfCalendars', fromDateTime, toDateTime);
 
-		fromDateTime = fromDateTime.setLocale(this.translateService.currentLang);
-		toDateTime = toDateTime.setLocale(this.translateService.currentLang);
+		fromDateTime = fromDateTime.setLocale(this.translateService.getCurrentLang());
+		toDateTime = toDateTime.setLocale(this.translateService.getCurrentLang());
 
 		const preferences = {
 			from: fromDateTime.toJSDate(),
