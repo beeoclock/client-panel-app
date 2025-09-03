@@ -33,14 +33,11 @@ import {
 	ProductTableNgxDatatableSmartResource
 } from "@tenant/product/product/presentation/ui/page/list/product.table-ngx-datatable.resource";
 import {SharedUow} from "@core/shared/uow/shared.uow";
-import {BASE_CURRENCY, SHARED_UOW_REF} from "@src/token";
+import {SHARED_UOW_REF} from "@src/token";
 import EProduct from "@tenant/product/product/domain/entity/e.product";
 import {IconComponent} from "@shared/presentation/ui/component/adapter/icon/icon.component";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {CurrencyPipe} from "@angular/common";
-import {toSignal} from "@angular/core/rxjs-interop";
-import {CurrencyCodeEnum} from "@core/shared/enum";
-import {map} from "rxjs";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {OrderProductForm} from "@tenant/order/order/presentation/form/product.order.form";
@@ -135,7 +132,7 @@ type FormGroupType = {
 		<ion-footer>
 			<ion-toolbar class="!p-0">
 				<ion-button [disabled]="!isSomethingSelected()" (click)="save()" expand="block">
-					{{ total() | currency: baseCurrency():'symbol':'1.2-2' }}
+					{{ total() | currency: undefined:'symbol':'1.2-2' }}
 					•
 					{{ 'keyword.capitalize.save' | translate }}
 				</ion-button>
@@ -147,13 +144,8 @@ export class SelectProductToOrderModal {
 
 	public readonly order = input.required<EOrder>();
 
-	private readonly baseCurrency$ = inject(BASE_CURRENCY);
 	private readonly ionModalToken = inject(IonModalToken);
 	private readonly store = inject(Store);
-
-	public readonly baseCurrency = toSignal(this.baseCurrency$.pipe(
-		map((baseCurrency) => baseCurrency || CurrencyCodeEnum.PLN)
-	), {initialValue: CurrencyCodeEnum.PLN});
 
 	public readonly selectedProductFormGroupMap = signal<Map<string, FormGroup<FormGroupType>>>(new Map<string, FormGroup<FormGroupType>>());
 

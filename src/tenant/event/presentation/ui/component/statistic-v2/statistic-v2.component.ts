@@ -14,7 +14,6 @@ import {Store} from "@ngxs/store";
 import {filter, map, startWith, tap} from "rxjs";
 import {Reactive} from "@core/cdk/reactive";
 import {AsyncPipe} from "@angular/common";
-import {CurrencyCodeEnum} from "@core/shared/enum";
 import {DateTime} from "luxon";
 import {LoaderComponent} from "@shared/presentation/ui/component/loader/loader.component";
 import {is} from "@core/shared/checker";
@@ -115,13 +114,6 @@ export class StatisticV2Component extends Reactive implements OnInit, AfterViewI
 
 	public readonly analytic$ = this.store.select(DateRangeReportAnalyticState.analytic).pipe(
 		filter(is.not_null<IDateRangeAnalyticState['analytic']>),
-		tap(() => {
-			this.changeDetectorRef.detectChanges();
-		})
-	);
-
-	public readonly baseCurrency$ = this.store.select(BusinessProfileState.baseCurrency).pipe(
-		filter(is.not_null<CurrencyCodeEnum>),
 		tap(() => {
 			this.changeDetectorRef.detectChanges();
 		})

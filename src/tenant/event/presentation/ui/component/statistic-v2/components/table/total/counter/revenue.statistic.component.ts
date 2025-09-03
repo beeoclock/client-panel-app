@@ -1,12 +1,7 @@
-import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
 import {Analytic} from "@tenant/analytic/presentation/store/date-range-report/interface/i.analytic";
 import {TranslatePipe} from "@ngx-translate/core";
-import {map} from "rxjs";
-import {Store} from "@ngxs/store";
-import {AsyncPipe, CurrencyPipe} from "@angular/common";
-import {
-	BusinessProfileState
-} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
+import {CurrencyPipe, KeyValuePipe} from "@angular/common";
 
 @Component({
 	selector: 'revenue-statistic-component',
@@ -21,8 +16,8 @@ import {
 		</div>
 		<div class="rounded-2xl bg-white p-2 flex gap-2 justify-center flex-col text-center">
 			<div class="text-2xl font-bold">
-				@if (baseCurrency$ | async; as baseCurrency) {
-					{{ analytic().summary.revenue.total.by.status.done[baseCurrency] | currency: baseCurrency }}
+				@for (statusCurrency of analytic().summary.revenue.total.by.status.done | keyvalue; track statusCurrency.key) {
+					{{ statusCurrency.value | currency: statusCurrency.key }}
 				}
 			</div>
 		</div>
@@ -32,22 +27,14 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TranslatePipe,
-		AsyncPipe,
-		CurrencyPipe
+		CurrencyPipe,
+		KeyValuePipe
 	],
 	host: {
 		class: 'rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2'
 	}
 })
 export class RevenueStatisticComponent {
-
-	private readonly store = inject(Store);
-
-	public readonly baseCurrency$ = this.store.select(BusinessProfileState.item).pipe(
-		map((item) => {
-			return item?.businessSettings?.baseCurrency;
-		})
-	);
 
 	public readonly analytic = input.required<Analytic.I | Analytic.ISpecialist>();
 
