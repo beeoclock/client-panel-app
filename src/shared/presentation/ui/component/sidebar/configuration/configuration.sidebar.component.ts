@@ -11,6 +11,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {WithTenantIdPipe} from "@shared/presentation/pipes/with-tenant-id.pipe";
 import {SidebarService} from "@shared/presentation/ui/component/sidebar/sidebar.service";
 import {IMenuItem} from "@shared/presentation/ui/component/sidebar/i.menu-item";
+import {environment} from "@environment/environment";
 
 
 @Component({
@@ -118,6 +119,21 @@ export class ConfigurationSidebarComponent {
 			url: 'plugin/grid',
 			translateKey: 'sidebar.plugins',
 			icon: 'bi bi-plug',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 6,
+			url: environment.urls.technicalSupport,
+			translateKey: 'sidebar.technicalSupport',
+			externalLink: true,
+			target: '_blank',
+			icon: 'bi bi-patch-question',
 			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",

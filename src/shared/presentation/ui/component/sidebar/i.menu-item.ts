@@ -9,6 +9,7 @@ export interface IMenuItem {
 	translateKey: string;
 	target?: '_blank';
 	disabled?: boolean;
+	externalLink?: boolean;
 	visible: boolean;
 	beta?: boolean;
 	routerLinkActiveOptions: {
