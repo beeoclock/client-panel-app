@@ -7,7 +7,16 @@ import {
 
 @Component({
 	selector: 'app-event-requested-page',
-	templateUrl: './requested.event.page.html',
+	template: `
+		@if (initialized()) {
+			<event-list-of-card-collection-by-date-component/>
+		} @else {
+			<div class="p-4">
+				{{ 'keyword.capitalize.initializing' | translate }}...
+			</div>
+		}
+
+	`,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
@@ -15,8 +24,6 @@ import {
 		ListOfCardCollectionByDateComponent,
 	],
 	standalone: true,
-	providers: [
-	]
 })
 export default class RequestedEventPage extends ListPage {
 

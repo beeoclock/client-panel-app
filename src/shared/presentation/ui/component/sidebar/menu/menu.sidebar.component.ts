@@ -7,7 +7,6 @@ import {SidebarService} from "@shared/presentation/ui/component/sidebar/sidebar.
 import {environment} from "@environment/environment";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {NgEventBus} from "ng-event-bus";
-import {is} from "@core/shared/checker";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@shared/presentation/pipes/with-tenant-id.pipe";
 import {
@@ -94,12 +93,13 @@ export class MenuSidebarComponent implements OnInit {
 			takeUntilDestroyed(this.destroyRef),
 		).subscribe((item) => {
 			this.initMenu();
-			if (item) {
-				const {bookingSettings} = item;
-				const {autoBookOrder} = bookingSettings;
-				this.requestedMenuItem.visible = is.false(autoBookOrder);
-			}
-			this.updateMenu();
+			// Temporary commented, because need to find better solution for presentation of page of requested orders
+			// if (item) {
+				// const {bookingSettings} = item;
+				// const {autoBookOrder} = bookingSettings;
+				// this.requestedMenuItem.visible = is.false(autoBookOrder);
+			// }
+			// this.updateMenu();
 		});
 
 	}

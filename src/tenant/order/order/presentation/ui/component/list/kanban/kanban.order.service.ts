@@ -4,6 +4,10 @@ import {OrderStatusEnum} from "@tenant/order/order/domain/enum/order.status.enum
 import {IOrder} from "@tenant/order/order/domain/interface/i.order";
 import {StateEnum} from "@core/shared/enum/state.enum";
 import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {Store} from "@ngxs/store";
+import {
+	BusinessProfileState
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 export type DATA = {
 	page: number;
@@ -18,10 +22,14 @@ export type DATA = {
 export class KanbanOrderService {
 
 	private readonly sharedUow = inject(SharedUow);
+	private readonly store = inject(Store);
+	private readonly businessProfile = this.store.selectSnapshot(BusinessProfileState.item);
 
 	private readonly _orderSignals = new Map<OrderStatusEnum, ReturnType<typeof signal<DATA>>>();
 
 	public constructor() {
+		const {autoBookOrder} = this.businessProfile?.bookingSettings || {};
+		if (!autoBookOrder) this.initStatus(OrderStatusEnum.requested, 0);
 		this.initStatus(OrderStatusEnum.confirmed, 1);
 		this.initStatus(OrderStatusEnum.done, 2);
 		this.initStatus(OrderStatusEnum.cancelled, 3);
