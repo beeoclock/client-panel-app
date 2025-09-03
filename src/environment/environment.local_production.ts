@@ -47,6 +47,7 @@ export const environment = {
 	},
 	urls: {
 		publicPageOrigin: 'https://beeoclock.com',
+		technicalSupport: 'https://beeoclock.atlassian.net/servicedesk/customer/portal/1',
 	},
 	footer: {
 		label: `Bee o'clock Local Production © 2025`
