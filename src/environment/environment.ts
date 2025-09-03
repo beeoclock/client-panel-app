@@ -3,6 +3,7 @@
 // The settings of file replacements can be found in `angular.json`.
 
 import {config, constant, endpoint} from "@environment/constant";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 
 export const environment = {
 	production: false,
@@ -53,6 +54,7 @@ export const environment = {
 	default: {
 		login: process.env.NG_APP_LOGIN || null,
 		password: process.env.NG_APP_PASSWORD || null,
+		currency: (process.env.NG_APP_CURRENCY || CurrencyCodeEnum.PLN) as CurrencyCodeEnum,
 	},
 	demo: {
 		credential: {

@@ -27,7 +27,8 @@ import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.he
 	template: `
 		<bee-card padding="p-0" class="text-sm hover:ring-2 cursor-pointer" (click)="singleClick()">
 			<div class="flex flex-col">
-				<div class="p-2 px-3 flex flex-col flex-wrap justify-start items-start rounded-t-2xl {{ orderServiceColorStatusMap[item().status].bg }} {{ orderServiceColorStatusMap[item().status].text }}">
+				@let statusColor = orderServiceColorStatusMap[item().status];
+				<div class="p-2 px-3 flex flex-col flex-wrap justify-start items-start rounded-t-2xl {{ statusColor.bg }} {{ statusColor.text }}">
 
 					<div class="flex w-full items-center justify-between cursor-pointer">
 						<div class="flex items-center gap-1">

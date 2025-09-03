@@ -97,7 +97,7 @@ import {explicitEffect} from "ngxtension/explicit-effect";
 												#...{{ item._id.slice(-5) }}
 											</div>
 										</div>
-										<app-card-item-lightweight-order-component [orderDto]="item"/>
+										<app-card-item-lightweight-order-component [orderDto]="item" [showPaymentStatus]="true"/>
 									</div>
 
 								}

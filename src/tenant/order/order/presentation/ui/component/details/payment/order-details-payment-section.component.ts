@@ -9,7 +9,7 @@ import {
 	signal,
 	ViewEncapsulation
 } from "@angular/core";
-import {CurrencyCodeEnum, OrderByEnum, OrderDirEnum} from "@core/shared/enum";
+import {OrderByEnum, OrderDirEnum} from "@core/shared/enum";
 import {SharedUow} from "@core/shared/uow/shared.uow";
 import EPayment from "@tenant/order/payment/domain/entity/e.payment";
 import {
@@ -22,6 +22,9 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {PaymentDataActions} from "@tenant/order/payment/infrastructure/state/data/payment.data.actions";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {environment} from "@environment/environment";
+import {map} from "rxjs";
 
 @Component({
 	standalone: true,
@@ -81,23 +84,14 @@ export class OrderDetailsPaymentSectionComponent {
 		this.resource.reload();
 	})
 
-	public readonly currency = computed(() => {
-		const order = this.order();
-		const {services, products} = order;
-		if (services.length > 0) {
-			return services[0].serviceSnapshot.durationVersions[0].prices[0].currency;
-		}
-		// TODO: Handle products currency if needed
-		// if (products.length > 0) {
-		// 	return products[0].productSnapshot.price;
-		// }
-		return this.baseCurrency$.value || CurrencyCodeEnum.USD;
-	})
+	public readonly currency = toSignal(this.baseCurrency$.pipe(
+		map((currency) => currency || environment.default.currency)
+	), {initialValue: environment.default.currency});
 
 	public readonly amountToPay = computed(() => {
 		const order = this.order();
 		const {services, products} = order;
-		const totalServices = services.reduce((acc, service) => acc + service.serviceSnapshot.durationVersions[0].prices[0].price, 0);
+		const totalServices = services.reduce((acc, service) => acc + (service.serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.price ?? 0), 0);
 		const totalProducts = products.reduce((acc, product) => {
 			return acc + (product.productSnapshot.price.value * product.quantity);
 		}, 0);

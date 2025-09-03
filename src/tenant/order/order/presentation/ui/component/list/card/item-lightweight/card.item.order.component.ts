@@ -36,6 +36,9 @@ import {
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/elements-on-calendar/icon/order-service-status-icon.component";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
+import {SharedUow} from "@core/shared/uow/shared.uow";
+import EPayment, {PaymentStatusColorMap} from "@tenant/order/payment/domain/entity/e.payment";
+import {derivedAsync} from "ngxtension/derived-async";
 
 @Component({
 	selector: 'app-card-item-lightweight-order-component',
@@ -72,12 +75,6 @@ import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/or
 						</div>
 
 						<div class="flex items-center gap-2">
-							@if (baseCurrency) {
-								<div
-									class="py-1 px-1.5 inline-flex items-center gap-x-1 bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
-									💰{{ totalAmount | currency: baseCurrency : 'symbol-narrow' }}
-								</div>
-							}
 							@if (showAction()) {
 
 								<app-order-row-action-button-component
@@ -211,14 +208,14 @@ import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/or
 															{{ service.serviceSnapshot.languageVersions[0].title }}
 														</span>
 													</div>
-													<div class="flex gap-4">
+													<div class="flex gap-2 ps-2">
 														<div
 															[innerHTML]="durationVersionHtmlHelper.getDurationValue(service.serviceSnapshot)"
-															class="inline-flex items-center text-sm font-regular text-[#000000]"
+															class="inline-flex items-center text-sm font-regular text-[#000000] min-w-10"
 														></div>
 														<div
 															[innerHTML]="durationVersionHtmlHelper.getPriceValue(service.serviceSnapshot)"
-															class="inline-flex items-center text-sm font-regular text-[#000000]"
+															class="inline-flex items-center text-sm font-regular text-[#000000] min-w-10"
 														></div>
 													</div>
 												</div>
@@ -231,7 +228,7 @@ import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/or
 						}
 						@if (order.products?.length) {
 							@let orderedProducts = order.products ;
-							<div class="flex flex-col justify-between">
+							<div class="flex flex-col justify-between border-b">
 								<div class="fond-bold pt-2 px-3 text-neutral-400">
 									{{ 'keyword.capitalize.products' | translate }}:
 								</div>
@@ -273,17 +270,52 @@ import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/or
 
 							</div>
 						}
+						@if (order.businessNote?.length) {
+							<div class="flex justify-between p-2 border-b">
+
+									<div class="flex-1">
+										<div class="text-neutral-500">
+											{{ 'keyword.capitalize.businessNote' | translate }}
+										</div>
+										<div>
+											{{ order.businessNote | noData }}
+										</div>
+									</div>
+							</div>
+						}
 						<div class="flex justify-between p-2">
 
-							@if (order.businessNote?.length) {
-								<div class="flex-1">
-									<div class="text-neutral-500">
-										{{ 'keyword.capitalize.businessNote' | translate }}
+							@if (showPaymentStatus()) {
+								@let payments = maybePayments() ;
+								@if (payments?.length) {
+									@for (payment of payments; track payment._id) {
+										<div class="flex-1 flex justify-between items-center">
+											<div>
+												<div class="text-neutral-500 text-xs">
+													{{ 'keyword.capitalize.payment' | translate }}
+												</div>
+												@let statusColor = paymentStatusColorMap[payment.status] ;
+												<div [class]="[statusColor.text]">
+													{{ ('payment.status.' + payment.status + '.label') | translate }}
+												</div>
+											</div>
+											<div class="font-extrabold">
+												{{ payment.amount | currency: payment.currency : 'symbol-narrow' }}
+											</div>
+										</div>
+									}
+								} @else {
+									<div class="flex-1 flex justify-between items-center">
+										<div>
+											<div class="text-neutral-500 text-xs">
+												{{ 'keyword.capitalize.payment' | translate }}
+											</div>
+											<div>
+												{{ 'keyword.capitalize.unpaid' | translate }}
+											</div>
+										</div>
 									</div>
-									<div>
-										{{ order.businessNote | noData }}
-									</div>
-								</div>
+								}
 							}
 						</div>
 					</div>
@@ -295,14 +327,15 @@ import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/or
 export class CardItemLightweightOrderComponent {
 
 	public readonly selectedIds = input<string[]>([]);
-
 	public readonly orderDto = input.required<IOrder.DTO>();
-
-	readonly showAction = input<boolean>(true);
-
-	readonly showSelectedStatus = input<boolean>(false);
+	public readonly showAction = input<boolean>(true);
+	public readonly showPaymentStatus = input<boolean>(false);
+	public readonly payment = input<EPayment | null>(null);
+	public readonly showSelectedStatus = input<boolean>(false);
 
 	private readonly cardItemOrderService = inject(CardItemOrderService);
+	private readonly sharedUow = inject(SharedUow);
+
 	public readonly groups = computed(() => {
 		const {services} = this.orderDto();
 		const result = this.cardItemOrderService.groupByCustomerAndThenBySpecialistAndDate(services);
@@ -310,6 +343,18 @@ export class CardItemLightweightOrderComponent {
 	});
 
 	public readonly order = signal<IOrder.DTO>({} as IOrder.DTO);
+
+	public readonly maybePayments = derivedAsync(async () => {
+		const defaultValue: EPayment[] = [];
+		const showPaymentStatus = this.showPaymentStatus();
+		if (!showPaymentStatus) return Promise.resolve(defaultValue);
+		const payment = this.payment();
+		if (payment) return Promise.resolve([payment]);
+		const order = this.order();
+		if (!order) return Promise.resolve(defaultValue);
+		const payments = await this.sharedUow.payment.findByOrderId(order._id);
+		return EPayment.fromRawList(payments);
+	});
 
 	@HostBinding()
 	public id!: string;
@@ -388,4 +433,5 @@ export class CardItemLightweightOrderComponent {
 
 	protected readonly orderServiceStatusEnum = OrderServiceStatusEnum;
 	protected readonly customerTypeEnum = CustomerTypeEnum;
+	protected readonly paymentStatusColorMap = PaymentStatusColorMap;
 }

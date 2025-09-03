@@ -1,4 +1,5 @@
 import {config, constant, endpoint} from "@environment/constant";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 
 export const environment = {
 	production: false,
@@ -45,6 +46,7 @@ export const environment = {
 	default: {
 		login: import.meta?.env?.NG_APP_LOGIN || null,
 		password: import.meta?.env?.NG_APP_PASSWORD || null,
+		currency: (import.meta?.env?.NG_APP_CURRENCY ||  CurrencyCodeEnum.PLN) as CurrencyCodeEnum,
 	},
 	demo: {
 		credential: {

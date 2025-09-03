@@ -1320,6 +1320,7 @@
 			"total": "Total",
 			"tryDemoProfile": "Prøv demoprofilen",
 			"unknown": "Ukendt",
+			"unpaid": "Ubetalt",
 			"upcoming": "I den nærmeste fremtid",
 			"update": "Opdateret",
 			"updatedAt": "Opdateret kl",
@@ -1643,6 +1644,9 @@
 			}
 		},
 		"status": {
+			"expired": {
+				"label": "Udløbet"
+			},
 			"failed": {
 				"label": "Mislykket"
 			},

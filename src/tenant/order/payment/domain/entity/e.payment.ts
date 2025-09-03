@@ -27,6 +27,10 @@ export const PaymentStatusColorMap = {
 		bg: 'bg-blue-100',
 		text: 'text-blue-800',
 	},
+	[PaymentStatusEnum.expired]: {
+		bg: 'bg-gray-100',
+		text: 'text-gray-800',
+	},
 };
 
 export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.EntityRaw> implements IPayment.EntityRaw {

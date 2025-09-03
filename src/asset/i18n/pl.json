@@ -1320,6 +1320,7 @@
 			"total": "Razem",
 			"tryDemoProfile": "Spróbuj profilu demo",
 			"unknown": "Nieznany",
+			"unpaid": "Niezapłacone",
 			"upcoming": "Nadchodzące",
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
@@ -1643,6 +1644,9 @@
 			}
 		},
 		"status": {
+			"expired": {
+				"label": "Wygasła"
+			},
 			"failed": {
 				"label": "Nie powiodło się"
 			},

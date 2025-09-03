@@ -85,11 +85,11 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 	}
 
 	public getProductList(): IOrderProductDto[] {
-		return this.products.filter(product => product.state !== StateEnum.deleted);
+		return this.products.filter(product => product.state !== null && product.state !== StateEnum.deleted);
 	}
 
 	public getServiceList(): IOrderService.DTO[] {
-		return this.services.filter(service => service.state !== StateEnum.deleted);
+		return this.services.filter(service => service.state !== null && service.state !== StateEnum.deleted);
 	}
 
 	/**
