@@ -42,8 +42,6 @@ export class LanguageService {
     } else {
       if (browserLanguage && browserLanguage in LanguageCodeEnum) {
         this.translateService.use(browserLanguage);
-      } else {
-        this.translateService.use(this.translateService.getDefaultLang());
       }
     }
 

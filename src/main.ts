@@ -8,15 +8,9 @@ import {
 	provideExperimentalZonelessChangeDetection
 } from '@angular/core';
 import {environment} from '@src/environment/environment';
-import {
-	HTTP_INTERCEPTORS,
-	HttpClient,
-	provideHttpClient,
-	withInterceptors,
-	withInterceptorsFromDi
-} from '@angular/common/http';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi} from '@angular/common/http';
+import {TranslateModule} from '@ngx-translate/core';
+import {provideTranslateHttpLoader} from '@ngx-translate/http-loader';
 import {
 	PreloadAllModules,
 	provideRouter,
@@ -45,11 +39,6 @@ import {SocketIoModule} from "ngx-socket-io";
 import {firebase} from "@src/firebase";
 import {provideIonicAngular} from "@ionic/angular/standalone";
 import {WINDOW_PROVIDERS} from "@core/cdk/window.provider";
-
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http, './asset/i18n/', '.json');
-}
 
 if (environment.production) {
 	enableProdMode();
@@ -96,13 +85,12 @@ bootstrapApplication(MainRouterOutlet, {
 			...ngxsProviders,
 			SocketIoModule,
 			TranslateModule.forRoot({
-				useDefaultLang: true,
-				defaultLanguage: LanguageCodeEnum.en,
-				loader: {
-					provide: TranslateLoader,
-					useFactory: HttpLoaderFactory,
-					deps: [HttpClient]
-				}
+				lang: LanguageCodeEnum.pl,
+				fallbackLang: LanguageCodeEnum.pl,
+				loader: provideTranslateHttpLoader({
+					prefix: './asset/i18n/',
+					suffix: '.json'
+				}),
 			}),
 		),
 		{
