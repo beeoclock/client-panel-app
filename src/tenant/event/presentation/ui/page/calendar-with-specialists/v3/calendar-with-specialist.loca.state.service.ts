@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, signal} from "@angular/core";
 import {ISchedule} from "@shared/domain/interface/i.schedule";
 import {BehaviorSubject} from "rxjs";
 import {
@@ -56,71 +56,17 @@ export default class CalendarWithSpecialistLocaStateService {
 	public readonly hoursWidthInPx = '50px';
 
 	public readonly eventCalendarWithSpecialistWidgetComponent$ = new BehaviorSubject<EventCalendarWithSpecialistWidgetComponent | null>(null);
-	#earliestScheduleInSeconds = 0;
-	#latestScheduleInSeconds = 0;
-	#startTimeToDisplay = 0; // e.g. 8 (It means: 08:00)
-	#endTimeToDisplay = 23; // e.g. 20 (It means: 20:00)
-	#members: IMember.EntityRaw[] = [];
-	#schedules: ISchedule[] = [];
+	public readonly earliestScheduleInSeconds = signal<number>(0);
+	public readonly latestScheduleInSeconds = signal<number>(0);
+	public readonly startTimeToDisplay = signal<number>(0); // e.g. 8 (It means: 08:00)
+	public readonly endTimeToDisplay = signal<number>(23); // e.g. 20 (It means: 20:00)
+	public readonly members = signal<IMember.EntityRaw[]>([]);
+	public readonly schedules = signal<ISchedule[]>([]);
 
-	public get startTimeToDisplay(): number {
-		return this.#startTimeToDisplay;
-	}
-
-	public get earliestScheduleInSeconds(): number {
-		return this.#earliestScheduleInSeconds;
-	}
-
-	public get endTimeToDisplay(): number {
-		return this.#endTimeToDisplay;
-	}
-
-	public get latestScheduleInSeconds(): number {
-		return this.#latestScheduleInSeconds;
-	}
-
-	public get members(): IMember.EntityRaw[] {
-		return this.#members;
-	}
-
-	public get schedules(): ISchedule[] {
-		return this.#schedules;
-	}
 
 	public setEventCalendarWithSpecialistWidgetComponent(value: EventCalendarWithSpecialistWidgetComponent | null) {
 		this.eventCalendarWithSpecialistWidgetComponent$.next(value);
 		return this;
 	}
-
-	public setStartTimeToDisplay(value: number) {
-		this.#startTimeToDisplay = value;
-		return this;
-	}
-
-	public setEarliestScheduleInSeconds(value: number) {
-		this.#earliestScheduleInSeconds = value;
-		return this;
-	}
-
-	public setEndTimeToDisplay(value: number) {
-		this.#endTimeToDisplay = value;
-		return this;
-	}
-
-	public setLatestScheduleInSeconds(value: number) {
-		this.#latestScheduleInSeconds = value;
-		return this;
-	}
-
-	public setMembers(value: IMember.EntityRaw[]) {
-		this.#members = value;
-		return this;
-	}
-
-	public setSchedules(value: ISchedule[]) {
-		this.#schedules = value;
-		return this;
-	}
-
 
 }

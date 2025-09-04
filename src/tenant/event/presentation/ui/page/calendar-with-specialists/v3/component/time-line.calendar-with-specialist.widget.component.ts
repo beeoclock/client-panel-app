@@ -97,7 +97,7 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnDestroy 
 
 	public calculateTopPosition() {
 
-		const hours = this.currentDate().getHours() - this.startTimeToDisplay;
+		const hours = this.currentDate().getHours() - this.startTimeToDisplay();
 		const minutesInHours = this.currentDate().getMinutes() / 60;
 		const top = this.headerHeightInPx + ((hours + minutesInHours) * this.heightInPx);
 		this.style += ` top: ${top}px;`;

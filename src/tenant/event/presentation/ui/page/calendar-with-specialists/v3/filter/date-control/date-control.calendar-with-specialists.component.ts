@@ -111,12 +111,8 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start).pipe(
 		this.takeUntil(),
 		tap((selectedDatetime) => {
-			if (!selectedDatetime) {
-				return;
-			}
-			if (this.dateControl.value === selectedDatetime.toJSDate().toISOString()) {
-				return;
-			}
+			if (!selectedDatetime) return;
+			if (this.dateControl.value === selectedDatetime.toJSDate().toISOString()) return;
 			this.dateControl.setValue(selectedDatetime.toISODate() ?? '', {emitEvent: false});
 		})
 	);

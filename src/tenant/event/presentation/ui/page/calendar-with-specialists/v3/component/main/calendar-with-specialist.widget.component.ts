@@ -1,4 +1,5 @@
 import {
+	afterNextRender,
 	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -7,6 +8,7 @@ import {
 	ElementRef,
 	HostListener,
 	inject,
+	input,
 	OnInit,
 	QueryList,
 	signal,
@@ -19,12 +21,11 @@ import {DOCUMENT} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/calendar-with-specialist.loca.state.service";
 import {NGXLogger} from "ngx-logger";
-import {firstValueFrom, map, switchMap, tap} from "rxjs";
+import {combineLatest, delay, filter, firstValueFrom, iif, map, of, switchMap, tap} from "rxjs";
 import {
 	CalendarWithSpecialistsQueries
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
-import {ActivatedRoute} from "@angular/router";
 import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
@@ -49,6 +50,13 @@ import {
 } from "../elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
 import {HeaderCalendarWithSpecialistWidgetComponent} from "../header.calendar-with-specialist.widget.component";
 import {TimeLineCalendarWithSpecialistWidgetComponent} from "../time-line.calendar-with-specialist.widget.component";
+import {is} from "@core/shared/checker";
+import {ISchedule, RISchedule} from "@shared/domain/interface/i.schedule";
+import {MemberDataState} from "@tenant/member/member/infrastructure/state/data/member.data.state";
+import {ITableState} from "@shared/domain/table.state";
+import {IMember} from "@tenant/member/member/domain";
+import {MemberProfileStatusEnum} from "@tenant/member/member/domain/enums/member-profile-status.enum";
+import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
 
 
 @Component({
@@ -61,28 +69,91 @@ import {TimeLineCalendarWithSpecialistWidgetComponent} from "../time-line.calend
 		class: 'flex flex-col h-full overflow-x-auto',
 	},
 	imports: [
-    FilterCalendarWithSpecialistComponent,
-    EventCalendarWithSpecialistWidgetComponent,
-    EmptySlotCalendarWithSpecialistWidgetComponent,
-    HeaderCalendarWithSpecialistWidgetComponent,
-    TimeLineCalendarWithSpecialistWidgetComponent
-]
+		FilterCalendarWithSpecialistComponent,
+		EventCalendarWithSpecialistWidgetComponent,
+		EmptySlotCalendarWithSpecialistWidgetComponent,
+		HeaderCalendarWithSpecialistWidgetComponent,
+		TimeLineCalendarWithSpecialistWidgetComponent
+	]
 })
 export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewInit {
+
+	public readonly start = input<string>();
+	public readonly statuses = input<OrderServiceStatusEnum[]>();
 
 	public changeEventPositionIsOn = false;
 	public handleChangeEventForDraggingEnabledElement = false;
 
 	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+	private readonly store = inject(Store);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly destroyRef = inject(DestroyRef);
+	public readonly isTodayS = this.store.selectSignal(CalendarWithSpecialistsQueries.isToday);
+	private readonly document = inject(DOCUMENT);
+	private readonly actions$ = inject(Actions);
 
 	public readonly memberList = this.calendarWithSpecialistLocaStateService.members;
 
 	public readonly orderServiceStatusesControl: FormControl<OrderServiceStatusEnum[]> = new FormControl<OrderServiceStatusEnum[]>([], {
 		nonNullable: true
 	});
-	public readonly memberIdListControl: FormControl<string[]> = new FormControl<string[]>(this.memberList.map(({_id}) => _id), {
+	public readonly memberIdListControl: FormControl<string[]> = new FormControl<string[]>([], {
 		nonNullable: true
 	});
+
+	public readonly tableStateSubscription = this.store.select(MemberDataState.tableState).pipe(
+		takeUntilDestroyed(),
+		// If tableState is empty then wait one second and try call initMemberList use iif and delay
+		switchMap((tableState) => {
+			return iif(
+				() => tableState.total === 0,
+				of(tableState).pipe(
+					delay(1_000),
+					tap(() => this.initMemberList())
+				),
+				of(tableState)
+			);
+		}),
+		filter(is.object_not_empty<ITableState<IMember.EntityRaw>>),
+		filter((tableState) => tableState.total > 0),
+		tap((tableState) => {
+			const members = tableState.items.filter((member: IMember.EntityRaw) => member.profileStatus === MemberProfileStatusEnum.active);
+			this.memberList.set(members);
+			this.memberIdListControl.setValue(members.map(({_id}) => _id));
+			this.dispatchActionToUpdateCalendar();
+		})
+	).subscribe();
+
+	@Dispatch()
+	private initMemberList() {
+		return new MemberDataActions.GetList()
+	}
+
+	public readonly itemSubscription = this.store.select(BusinessProfileState.item).pipe(
+		takeUntilDestroyed(),
+		filter(is.object_not_empty),
+		switchMap((item) => combineLatest([
+			this.store.select(BusinessProfileState.earliestScheduleAndLatestSchedule).pipe(
+				filter(is.not_null_or_undefined<{ earliestSchedule: RISchedule; latestSchedule: RISchedule; }>),
+				tap(({earliestSchedule, latestSchedule}) => {
+
+					this.calendarWithSpecialistLocaStateService.earliestScheduleInSeconds.set(earliestSchedule.startInSeconds);
+					this.calendarWithSpecialistLocaStateService.latestScheduleInSeconds.set(latestSchedule.endInSeconds);
+
+				})
+			),
+			this.store.select(BusinessProfileState.schedules).pipe(
+				filter(is.not_null_or_undefined<ISchedule[]>),
+				tap((schedules) => {
+					this.calendarWithSpecialistLocaStateService.schedules.set(schedules);
+				})
+			)
+		]).pipe(map(() => item))),
+		tap((item) => {
+			this.dispatchActionToUpdateCalendar();
+		})
+	).subscribe();
 
 	public readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
 
@@ -175,25 +246,62 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 			}
 		}
 	};
-	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly ngxLogger = inject(NGXLogger);
-	private readonly store = inject(Store);
-	private readonly destroyRef = inject(DestroyRef);
-	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
-	public readonly schedules$ = this.store.select(BusinessProfileState.schedules);
-	public readonly isTodayS = this.store.selectSignal(CalendarWithSpecialistsQueries.isToday);
-	private readonly document = inject(DOCUMENT);
-	private readonly activatedRoute = inject(ActivatedRoute);
-	private readonly actions$ = inject(Actions);
 
 	private readonly columns = viewChildren<ElementRef<HTMLDivElement>>('column');
 
+	private readonly actionsSubscription = this.actions$
+		.pipe(
+			takeUntilDestroyed(),
+			ofActionSuccessful(
+				AbsenceDataActions.SetState,
+				AbsenceDataActions.UpdateItem,
+				AbsenceDataActions.CreateItem,
+
+				OrderActions.ChangeStatus,
+				OrderActions.CreateItem,
+				OrderActions.UpdateItem,
+				OrderActions.SetState,
+				OrderActions.OrderedServiceStatus,
+				OrderActions.OrderedServiceState,
+			)
+		).subscribe(() => {
+			this.dispatchActionToUpdateCalendar();
+		});
+
 	public constructor() {
+		afterNextRender(() => {
+
+			// TODO: fix problem with query params
+
+			const start = this.start();
+			const statuses = this.statuses();
+			console.log({start})
+			console.log({statuses})
+			if (statuses?.length) {
+
+				this.orderServiceStatusesControl.setValue(statuses, {
+					emitEvent: false,
+					onlySelf: true
+				});
+				this.store.dispatch(new CalendarWithSpecialistsAction.UpdateFilters({
+					statuses
+				}));
+
+			}
+
+			if (start?.length) {
+
+				this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
+					start
+				}));
+
+			}
+		});
 		explicitEffect([this.columns], ([columns]) => {
 			let isSyncing = false;
 
 			columns.forEach(column => {
-				column.nativeElement.addEventListener('scroll', function() {
+				column.nativeElement.addEventListener('scroll', function () {
 					if (isSyncing) return;
 
 					isSyncing = true;
@@ -242,7 +350,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 
 					if (entireBusiness) {
 
-						this.calendarWithSpecialistLocaStateService.members.forEach((member) => {
+						this.memberList().forEach((member) => {
 
 							const {_id: specialistId} = member;
 
@@ -298,30 +406,10 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 
 		this.ngxLogger.info('CalendarWithSpecialistWidgetComponent: ngOnInit');
 
-		this.detectParamsInQueryParams();
 		this.calendarWithSpecialistLocaStateService.eventCalendarWithSpecialistWidgetComponent$.pipe(
 			takeUntilDestroyed(this.destroyRef),
 		).subscribe((eventCalendarWithSpecialistWidgetComponent) => {
 			this.initListenersFor(eventCalendarWithSpecialistWidgetComponent);
-		});
-
-		this.actions$
-			.pipe(
-				takeUntilDestroyed(this.destroyRef),
-				ofActionSuccessful(
-					AbsenceDataActions.SetState,
-					AbsenceDataActions.UpdateItem,
-					AbsenceDataActions.CreateItem,
-
-					OrderActions.ChangeStatus,
-					OrderActions.CreateItem,
-					OrderActions.UpdateItem,
-					OrderActions.SetState,
-					OrderActions.OrderedServiceStatus,
-					OrderActions.OrderedServiceState,
-				)
-			).subscribe(() => {
-			this.dispatchActionToUpdateCalendar();
 		});
 
 		this.store.select(CalendarWithSpecialistsQueries.params).pipe(
@@ -515,7 +603,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 						const columnBody = column.nativeElement.querySelector('[data-column-body]');
 						if (!columnBody) return;
 						columnBody.appendChild(htmlDivElement);
-						this.eventCalendarWithSpecialistWidgetComponent?.changeMember(this.calendarWithSpecialistLocaStateService.members[Number(newIndex) - 1]);
+						this.eventCalendarWithSpecialistWidgetComponent?.changeMember(this.memberList()[Number(newIndex) - 1]);
 					}
 				});
 			}
@@ -581,7 +669,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 		if (!columnBody) return;
 		columnBody.appendChild(htmlDivElement);
 		const index = Number(columnIndex) - 1;
-		const member = this.calendarWithSpecialistLocaStateService.members[index];
+		const member = this.memberList()[index];
 		this.eventCalendarWithSpecialistWidgetComponent?.changeMember(member);
 
 	}
@@ -613,7 +701,7 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 		if (this.eventCalendarWithSpecialistWidgetComponent) {
 
 			const index = Number(columnIndex) - 1;
-			const member = this.calendarWithSpecialistLocaStateService.members[index];
+			const member = this.memberList()[index];
 			this.eventCalendarWithSpecialistWidgetComponent?.changeMember(member);
 
 		}
@@ -779,39 +867,5 @@ export class CalendarWithSpecialistWidgetComponent implements OnInit, AfterViewI
 			element.style.transform = `translateX(calc(100% * ${index}))`;
 		});
 	};
-
-	private async detectParamsInQueryParams() {
-		const {statuses, start} = this.activatedRoute.snapshot.queryParams;
-		if (!statuses && !start) {
-			this.dispatchActionToUpdateCalendar();
-			return;
-		}
-
-		if (start) {
-
-			const setDate$ = this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
-				start
-			}));
-			await firstValueFrom(setDate$);
-
-		}
-
-		if (statuses) {
-
-			this.orderServiceStatusesControl.setValue(statuses, {
-				emitEvent: false,
-				onlySelf: true
-			});
-			const updateFilters$ = this.store.dispatch(new CalendarWithSpecialistsAction.UpdateFilters({
-				statuses
-			}));
-			await firstValueFrom(updateFilters$);
-
-		}
-
-		const getItems$ = this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
-		await firstValueFrom(getItems$);
-
-	}
 
 }
