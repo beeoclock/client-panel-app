@@ -25,7 +25,7 @@ import {
 	TableNgxDatatableSmartComponent
 } from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
-import {ActivateEvent, TableColumn} from "@swimlane/ngx-datatable";
+import {ActivateEvent, TableColumn} from "@swimlane/ngx-datatable/dist/swimlane/ngx-datatable";
 
 @Component({
 	selector: 'product-tag-table-list-component',

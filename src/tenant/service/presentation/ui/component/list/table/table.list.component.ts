@@ -26,7 +26,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {LanguageCodeEnum} from "@core/shared/enum";
 import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
-import {ActivateEvent, TableColumn, TableColumnProp} from "@swimlane/ngx-datatable";
+import {ActivateEvent, TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/dist/swimlane/ngx-datatable";
 import {IBaseEntityRaw} from "@core/shared/interface/i-base-entity.raw";
 
 @Component({

@@ -1,8 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, input, Input, Output, ViewEncapsulation} from '@angular/core';
 import {DataTablePagerComponent} from "@swimlane/ngx-datatable";
 
-// import {DataTablePagerComponent as SuperDataTablePagerComponent} from '@swimlane/ngx-datatable';
-
 @Component({
 	selector: 'app-pager-table-ngx-datatable-smart-component',
 	template: `

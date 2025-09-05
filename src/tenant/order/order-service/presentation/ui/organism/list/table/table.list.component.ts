@@ -28,7 +28,7 @@ import {IMember} from "@tenant/member/member/domain";
 import {MemberListService} from "@shared/presentation/component/chip/member/list/member.list.service";
 import {CustomerChip} from "@shared/presentation/component/chip/customer/customer.chip";
 import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
-import {ActivateEvent, TableColumn, TableColumnProp} from "@swimlane/ngx-datatable";
+import {ActivateEvent, TableColumn, TableColumnProp} from "@swimlane/ngx-datatable/dist/swimlane/ngx-datatable";
 
 @Component({
 	selector: 'order-service-table-list-component',
