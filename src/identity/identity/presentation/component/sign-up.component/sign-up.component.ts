@@ -3,12 +3,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import RegistrationForm from '@identity/identity/presentation/form/registration.form';
 import {IdentityApiAdapter} from "@identity/identity/infrastructure/api/identity.api.adapter";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
-import {FormInputPasswordComponent} from "@shared/presentation/component/input/form.input.password.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
+import {FormInputPasswordComponent} from "@shared/presentation/ui/component/input/form.input.password.component";
 import {BooleanState} from "@shared/domain";
 import {AlreadySignUpLinkComponent} from "@identity/identity/presentation/component/link/alredy-sign-up.link.component";
 import {PrimaryLinkStyleDirective} from "@shared/presentation/directives/link/primary.link.style.directive";
-import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
+import {ChangeLanguageComponent} from "@shared/presentation/ui/component/change-language/change-language.component";
 import {NgOptimizedImage} from "@angular/common";
 import {firstValueFrom} from "rxjs";
 

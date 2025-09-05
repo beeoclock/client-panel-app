@@ -1,4 +1,5 @@
 import {config, constant, endpoint} from "@environment/constant";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 
 export const environment = {
 	production: false,
@@ -38,8 +39,20 @@ export const environment = {
 	},
 	urls: {
 		publicPageOrigin: 'https://dev.beeoclock.com',
+		technicalSupport: 'https://beeoclock.atlassian.net/servicedesk/customer/portal/1',
 	},
 	footer: {
 		label: `Bee o'clock Emulator © 2025`
+	},
+	default: {
+		login: import.meta?.env?.NG_APP_LOGIN || null,
+		password: import.meta?.env?.NG_APP_PASSWORD || null,
+		currency: (import.meta?.env?.NG_APP_CURRENCY ||  CurrencyCodeEnum.PLN) as CurrencyCodeEnum,
+	},
+	demo: {
+		credential: {
+			login: 'demo@beeoclock.com',
+			password: 'ItIckBeRSOLDENZYGosicirE'
+		}
 	}
 };

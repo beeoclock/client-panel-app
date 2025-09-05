@@ -15,20 +15,20 @@
 			"prefix": "app",
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
+					"builder": "@ngx-env/builder:application",
 					"options": {
+						"outputPath": "dist",
+						"browser": "src/main.ts",
+						"index": "src/index.html",
+						"tsConfig": "tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"scripts": [],
 						"allowedCommonJsDependencies": [
 							"hash-sum",
 							"typescript-debounce-decorator",
 							"typia",
 							"bson-objectid"
 						],
-						"outputPath": "dist",
-						"index": "src/index.html",
-						"main": "src/main.ts",
-						"polyfills": [],
-						"tsConfig": "tsconfig.app.json",
-						"inlineStyleLanguage": "scss",
 						"assets": [
 							"src/favicon.ico",
 							"src/asset",
@@ -37,8 +37,7 @@
 						"styles": [
 							"src/styles.scss"
 						],
-						"serviceWorker": true,
-						"ngswConfigPath": "ngsw-config.json"
+						"serviceWorker": "ngsw-config.json"
 					},
 					"configurations": {
 						"production": {
@@ -113,18 +112,50 @@
 							],
 							"outputHashing": "all"
 						},
+						"pre-prod": {
+							"assets": [
+								"src/favicon.ico",
+								"src/asset",
+								"src/manifest.webmanifest",
+								{
+									"glob": "firebase-messaging-sw.js",
+									"input": "environment/pre-prod/firebase",
+									"output": "./"
+								},
+								{
+									"glob": "robots.txt",
+									"input": "environment/pre-prod/",
+									"output": "./"
+								}
+							],
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "2mb",
+									"maximumError": "5mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "6kb",
+									"maximumError": "8kb"
+								}
+							],
+							"fileReplacements": [
+								{
+									"replace": "src/environment/environment.ts",
+									"with": "src/environment/environment.pre-prod.ts"
+								}
+							],
+							"outputHashing": "all"
+						},
 						"development": {
-							"buildOptimizer": false,
 							"optimization": false,
-							"vendorChunk": true,
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true
 						},
 						"local": {
-							"buildOptimizer": false,
 							"optimization": false,
-							"vendorChunk": true,
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true,
@@ -137,9 +168,7 @@
 							"outputHashing": "all"
 						},
 						"local_production": {
-							"buildOptimizer": false,
 							"optimization": false,
-							"vendorChunk": true,
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true,
@@ -152,9 +181,7 @@
 							"outputHashing": "all"
 						},
 						"external": {
-							"buildOptimizer": false,
 							"optimization": false,
-							"vendorChunk": true,
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true,
@@ -167,9 +194,7 @@
 							"outputHashing": "all"
 						},
 						"emulator": {
-							"buildOptimizer": false,
 							"optimization": false,
-							"vendorChunk": true,
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true,
@@ -182,9 +207,7 @@
 							"outputHashing": "all"
 						},
 						"emulator-authorization": {
-							"buildOptimizer": false,
 							"optimization": false,
-							"vendorChunk": true,
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true,
@@ -200,10 +223,13 @@
 					"defaultConfiguration": "production"
 				},
 				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
+					"builder": "@ngx-env/builder:dev-server",
 					"configurations": {
 						"production": {
 							"buildTarget": "client-panel-app:build:production"
+						},
+						"pre-prod": {
+							"buildTarget": "client-panel-app:build:pre-prod"
 						},
 						"develop": {
 							"buildTarget": "client-panel-app:build:develop"
@@ -227,10 +253,11 @@
 							"buildTarget": "client-panel-app:build:emulator-authorization"
 						}
 					},
-					"defaultConfiguration": "development"
+					"defaultConfiguration": "development",
+					"options": {}
 				},
 				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"builder": "@ngx-env/builder:extract-i18n",
 					"options": {
 						"buildTarget": "client-panel-app:build"
 					}

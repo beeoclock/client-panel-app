@@ -1,6 +1,6 @@
 import {Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NGXLogger} from "ngx-logger";
 import {PaymentForm} from "@tenant/order/payment/presentation/form/payment.form";
@@ -10,7 +10,7 @@ import {PaymentStatusEnum} from "@tenant/order/payment/domain/enum/payment.statu
 import {PaymentMethodEnum} from "@tenant/order/payment/domain/enum/payment.method.enum";
 import {CreateOrderForm} from "@tenant/order/order/presentation/form/create.order.form";
 import {BASE_CURRENCY} from '@src/token';
-import {SwitchComponent} from "@shared/presentation/component/switch/switch.component";
+import {SwitchComponent} from "@shared/presentation/ui/component/switch/switch.component";
 
 @Component({
 	selector: 'app-payment-order-form-container',

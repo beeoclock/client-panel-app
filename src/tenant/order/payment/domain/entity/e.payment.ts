@@ -27,6 +27,10 @@ export const PaymentStatusColorMap = {
 		bg: 'bg-blue-100',
 		text: 'text-blue-800',
 	},
+	[PaymentStatusEnum.expired]: {
+		bg: 'bg-gray-100',
+		text: 'text-gray-800',
+	},
 };
 
 export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.EntityRaw> implements IPayment.EntityRaw {
@@ -72,6 +76,13 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 
 	}
 
+	public anchorTypeIs() {
+		return {
+			order: this.anchorType === AnchorTypeEnum.order,
+			product: this.anchorType === AnchorTypeEnum.product,
+			service: this.anchorType === AnchorTypeEnum.service,
+		}
+	}
 
 	public override toDTO(): IPayment.DTO {
 		return EPayment.toDTO(this);
@@ -80,6 +91,7 @@ export class EPayment extends ABaseEntity<'PaymentDto', IPayment.DTO, IPayment.E
 	public static toDTO(data: IPayment.EntityRaw): IPayment.DTO {
 		return {
 			providerPaymentRef: data.providerPaymentRef,
+			providerType: data.providerType,
 			anchorType: data.anchorType,
 			anchorId: data.anchorId,
 			currency: data.currency,

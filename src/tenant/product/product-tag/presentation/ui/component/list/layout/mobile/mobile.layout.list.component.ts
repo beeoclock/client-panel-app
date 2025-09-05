@@ -10,7 +10,15 @@ import {
 
 @Component({
 	selector: 'product-tag-mobile-layout-list-component',
-	templateUrl: './mobile.layout.list.component.html',
+	template: `
+		<div class="flex flex-col max-w-full" [ngClass]="{
+'overflow-x-auto h-[calc(100dvh-80px)] md:h-[calc(100vh-65px)]': isPage()
+}">
+			<product-tag-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>
+			<product-tag-card-list-component/>
+		</div>
+
+	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

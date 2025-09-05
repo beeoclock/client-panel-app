@@ -1,17 +1,20 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {SearchInputComponent} from '@shared/presentation/component/input/search.input.component';
+import {SearchInputComponent} from '@shared/presentation/ui/component/input/search.input.component';
 import {FilterForm} from "@tenant/order/order/presentation/form/filter.form";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {BaseFilterComponent} from "@shared/base.filter.component";
-import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
-import {IonSelectWrapperComponent} from "@shared/presentation/component/input/ion/ion-select-wrapper.component";
+import {DefaultPanelComponent} from "@shared/presentation/ui/component/panel/default.panel.component";
+import {IonSelectWrapperComponent} from "@shared/presentation/ui/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {OrderActions} from "@tenant/order/order/infrastructure/state/order/order.actions";
 import {OrderState} from "@tenant/order/order/infrastructure/state/order/order.state";
 import {ReactiveFormsModule} from "@angular/forms";
 import {OrderStatusEnum} from '@tenant/order/order/domain/enum/order.status.enum';
-import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
+import {AutoRefreshComponent} from "@shared/presentation/ui/component/auto-refresh/auto-refresh.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
+import {
+	BusinessProfileState
+} from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.state";
 
 @Component({
 	selector: 'app-order-filter-component',
@@ -95,6 +98,7 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 	public override readonly state = OrderState;
 
 	private readonly translateService = inject(TranslateService);
+	private readonly businessProfile = this.store.selectSnapshot(BusinessProfileState.item);
 
 	public orderStatusOptions: {
 		value: any;
@@ -102,8 +106,13 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 	}[] = [];
 
 	private initOrderStatusList() {
-		// Object.keys(OrderStatusEnum)
-		[OrderStatusEnum.confirmed, OrderStatusEnum.done, OrderStatusEnum.cancelled].forEach((status) => {
+		const options = [OrderStatusEnum.confirmed, OrderStatusEnum.done, OrderStatusEnum.cancelled];
+		const {autoBookOrder} = this.businessProfile?.bookingSettings || {};
+		if (!autoBookOrder) {
+			options.unshift(OrderStatusEnum.requested);
+			this.form.controls.orderStatusControl.setValue(options);
+		}
+		options.forEach((status) => {
 			this.orderStatusOptions.push({
 				value: status,
 				label: this.translateService.instant(`order.enum.status.singular.${status}`)

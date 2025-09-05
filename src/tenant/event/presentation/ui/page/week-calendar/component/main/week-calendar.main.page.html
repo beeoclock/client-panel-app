@@ -29,21 +29,22 @@
 				<div class="flex min-h-44">
 
 					<!-- Specialist Name Column -->
-					<div class="min-w-20 max-w-20 w-20 sticky left-0 border-r border-b bg-white px-1 flex flex-col items-center justify-center z-10">
+					<div class="min-w-20 max-w-20 w-20 sticky left-0 border-r border-b bg-white px-1 flex flex-col items-center justify-start z-10">
+						<div class="sticky top-10 pt-4">
+							@if (member.avatar?.url) {
 
-						@if (member.avatar?.url) {
+								<img [src]="member.avatar.url"
+									 class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
 
-							<img [src]="member.avatar.url"
-								 class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
+							} @else {
 
-						} @else {
+								<div class="text-white text-xs font-bold">{{ member.firstName?.[0] ?? '' }}</div>
+								<div class="text-white text-xs font-bold">{{ member.lastName?.[0] ?? '' }}</div>
 
-							<div class="text-white text-xs font-bold">{{ member.firstName?.[0] ?? '' }}</div>
-							<div class="text-white text-xs font-bold">{{ member.lastName?.[0] ?? '' }}</div>
-
-						}
-						<div class="text-sm font-medium text-gray-700 text-right">
-							{{ member.firstName }}
+							}
+							<div class="text-sm font-medium text-gray-700 text-right">
+								{{ member.firstName }}
+							</div>
 						</div>
 					</div>
 

@@ -3,14 +3,14 @@ import {noWhitespaceValidator} from "@shared/validation/whitespace";
 import {
 	atLeastOneFieldMustBeFilledValidator
 } from "@tenant/customer/presentation/form/validation/atLeastOneFieldMustBeFilled.validation";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
-import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
+import {FormTextareaComponent} from "@shared/presentation/ui/component/input/form.textarea.component";
 import {BaseEntityForm} from "@shared/base.form";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
 import {ICustomer} from "@tenant/customer/domain";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
-import {TelFormInputComponent} from "@shared/presentation/component/tel-form-input/tel.form.input.component";
+import {TelFormInputComponent} from "@shared/presentation/ui/component/tel-form-input/tel.form.input.component";
 
 export const enum CustomerFormFieldsEnum {
 

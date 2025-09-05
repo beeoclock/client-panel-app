@@ -1,17 +1,17 @@
 import {Component, input} from '@angular/core';
-import {SearchInputComponent} from '@shared/presentation/component/input/search.input.component';
+import {SearchInputComponent} from '@shared/presentation/ui/component/input/search.input.component';
 import {FilterForm} from "@tenant/order/order-service/presentation/form/filter.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {BaseFilterComponent} from "@shared/base.filter.component";
-import {DefaultPanelComponent} from "@shared/presentation/component/panel/default.panel.component";
+import {DefaultPanelComponent} from "@shared/presentation/ui/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
-import {AutoRefreshComponent} from "@shared/presentation/component/auto-refresh/auto-refresh.component";
+import {AutoRefreshComponent} from "@shared/presentation/ui/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
-import {IonSelectMemberComponent} from "@shared/presentation/component/input/ion/ion-select-member.component";
-import {IonSelectServiceComponent} from "@shared/presentation/component/input/ion/ion-select-service.component";
+import {IonSelectMemberComponent} from "@shared/presentation/ui/component/input/ion/ion-select-member.component";
+import {IonSelectServiceComponent} from "@shared/presentation/ui/component/input/ion/ion-select-service.component";
 import {
 	IonSelectOrderServiceStatusComponent
-} from "@shared/presentation/component/input/ion/ion-select-order-service-status.component";
+} from "@shared/presentation/ui/component/input/ion/ion-select-order-service-status.component";
 import {
 	DateSliderControlComponent
 } from "@tenant/analytic/presentation/component/control/date-slider/date-slider.control.component";

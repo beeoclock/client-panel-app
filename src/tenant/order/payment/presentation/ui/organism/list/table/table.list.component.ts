@@ -4,7 +4,7 @@ import {TableComponent} from "@shared/table.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {IPayment} from "@tenant/order/payment/domain/interface/i.payment";
 import {
@@ -21,9 +21,9 @@ import {
 } from "@shared/presentation/directives/payment-status-style/payment-status-style.directive";
 import {
 	TableNgxDatatableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
-import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
-import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+import {NoAvailable} from "@shared/presentation/ui/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/ui/component/synchronization/synchronization.molecule";
 import {ActivateEvent, TableColumn, TableColumnProp} from "@swimlane/ngx-datatable";
 
 @Component({

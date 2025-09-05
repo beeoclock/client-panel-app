@@ -1,8 +1,8 @@
 import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
-import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
-import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
+import {BackLinkComponent} from "@shared/presentation/ui/component/link/back.link.component";
+import {ChangeLanguageComponent} from "@shared/presentation/ui/component/change-language/change-language.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
 import {Reactive} from "@core/cdk/reactive";

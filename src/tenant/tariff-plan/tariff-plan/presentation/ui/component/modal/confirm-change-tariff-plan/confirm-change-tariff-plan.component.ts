@@ -13,7 +13,7 @@ import {
 	PostTenantTariffPlanChangeAmountApi
 } from "@tenant/tariff-plan/tariff-plan/infrastructure/data-source/api/post/post.tenant-tariff-plan.change-amount.api";
 import {CurrencyPipe} from "@angular/common";
-import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
+import {LoaderComponent} from "@shared/presentation/ui/component/loader/loader.component";
 import {ITariffPlanHistory} from "@tenant/tariff-plan/tariff-plan-history/domain/interface/i.tariff-plan-history";
 import {TranslatePipe} from "@ngx-translate/core";
 import {TariffPlanStore} from "@tenant/tariff-plan/tariff-plan/infrastructure/store/tariff-plan/tariff-plane.store";

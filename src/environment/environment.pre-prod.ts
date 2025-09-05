@@ -1,4 +1,5 @@
 import {config, constant, endpoint} from "@environment/constant";
+import {CurrencyCodeEnum} from "@core/shared/enum";
 
 export const environment = {
 	production: false,
@@ -22,14 +23,14 @@ export const environment = {
 	config,
 	firebase: {
 		options: {
-			apiKey: "AIzaSyDpqktdOQyijnyCaiaOl3_DxUQhTu3PjUg",
-			authDomain: "beeoclock-develop.firebaseapp.com",
-			projectId: "beeoclock-develop",
-			storageBucket: "beeoclock-develop.appspot.com",
-			messagingSenderId: "957741407419",
-			appId: "1:957741407419:web:f5a8613de1f0d7b2aa5d9e",
-			measurementId: "G-BY8R2Y83RS",
-			vapidKey: "BHlprMakUwMYPx_Y5xSF8QeaiGOAiMPhdHKmaSTUbgWFdTEsD7Ov42yTEdQdLua4HexFD85gqO1jawbSR0Q-Jw0"
+			apiKey: "AIzaSyDwj-I3xgErbKnJqMVGqd1uqIb20qRlS44",
+			authDomain: "bee-o-clock.firebaseapp.com",
+			projectId: "bee-o-clock",
+			storageBucket: "bee-o-clock.appspot.com",
+			messagingSenderId: "188732223564",
+			appId: "1:188732223564:web:433e1a365a435a000504e9",
+			measurementId: "G-54E19X7YEV",
+			vapidKey: "BKodl-cUANXAL7BR8m1MFJHuXnTSfIh35T4rJIVKOGarmahKI0k8d"
 		},
 		emulator: {
 			all: false,
@@ -42,8 +43,20 @@ export const environment = {
 	},
 	urls: {
 		publicPageOrigin: 'https://pre-prod.beeoclock.com',
+		technicalSupport: 'https://beeoclock.atlassian.net/servicedesk/customer/portal/1',
 	},
 	footer: {
 		label: `Bee o'clock Dev © 2025`
+	},
+	default: {
+		login: import.meta?.env?.NG_APP_LOGIN || null,
+		password: import.meta?.env?.NG_APP_PASSWORD || null,
+		currency: (import.meta?.env?.NG_APP_CURRENCY ||  CurrencyCodeEnum.PLN) as CurrencyCodeEnum,
+	},
+	demo: {
+		credential: {
+			login: 'demo@beeoclock.com',
+			password: 'ItIckBeRSOLDENZYGosicirE'
+		}
 	}
 };

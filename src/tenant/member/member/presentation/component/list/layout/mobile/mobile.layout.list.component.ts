@@ -7,7 +7,15 @@ import {FilterComponent} from "@tenant/member/member/presentation/component/filt
 
 @Component({
 	selector: 'member-mobile-layout-list-component',
-	templateUrl: './mobile.layout.list.component.html',
+	template: `
+		<div class="flex flex-col max-w-full" [ngClass]="{
+'overflow-x-auto h-[calc(100dvh-80px)] md:h-[calc(100vh-65px)]': isPage()
+}">
+			<member-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>
+			<member-card-list-component/>
+		</div>
+
+	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

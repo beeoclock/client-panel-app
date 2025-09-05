@@ -13,7 +13,7 @@
 				<app-time-line-calendar-with-specialist-widget-component [showLine]="false"/>
 
 			}
-			
+
 			@for (hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; track hourRow.hour) {
 
 				<div
@@ -27,12 +27,12 @@
 
 	</div>
 
-	@for (member of memberList; track member._id) {
+	@for (member of memberList(); track member._id) {
 
 		@if (memberIdListControl.getRawValue().includes(member._id)) {
 
-			<div 
-				#column 
+			<div
+				#column
 				(mouseover)="mouseover($event)"
 				(focus)="onFocus($event)"
 				(mouseenter)="mouseEnter($event)"
@@ -40,7 +40,7 @@
 				(touchstart)="mouseover($event)"
 				(touchend)="mouseEnter($event)"
 				[attr.data-index]="$index + 1"
-				data-column="true" 
+				data-column="true"
 				class="bg-white w-full border-r max-w-xs min-w-72 overflow-auto"
 				tabindex="0">
 
@@ -83,7 +83,7 @@
 			</div>
 
 		}
-		
+
 	}
 
 </div>

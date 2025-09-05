@@ -4,14 +4,14 @@ import {ICustomer} from "@tenant/customer/domain";
 import ECustomer from "@tenant/customer/domain/entity/e.customer";
 import {
 	TableNgxDatatableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {
 	RowActionButtonComponent
 } from "@tenant/customer/presentation/ui/component/row-action-button/row-action-button.component";
 import {ActiveStyleDirective} from "@shared/presentation/directives/active-style/active-style.directive";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {
 	AutoRefreshButtonComponent
@@ -20,8 +20,8 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	CustomerPresentationActions
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
-import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
-import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {NoAvailable} from "@shared/presentation/ui/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/ui/component/synchronization/synchronization.molecule";
 import {ActivateEvent, TableColumn} from "@swimlane/ngx-datatable";
 
 @Component({

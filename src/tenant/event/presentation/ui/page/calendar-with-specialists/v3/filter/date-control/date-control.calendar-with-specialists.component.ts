@@ -111,12 +111,8 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start).pipe(
 		this.takeUntil(),
 		tap((selectedDatetime) => {
-			if (!selectedDatetime) {
-				return;
-			}
-			if (this.dateControl.value === selectedDatetime.toJSDate().toISOString()) {
-				return;
-			}
+			if (!selectedDatetime) return;
+			if (this.dateControl.value === selectedDatetime.toJSDate().toISOString()) return;
 			this.dateControl.setValue(selectedDatetime.toISODate() ?? '', {emitEvent: false});
 		})
 	);
@@ -140,11 +136,11 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 					return 'keyword.capitalize.tomorrow';
 				default:
 					// return name of the day
-					return selectedDate.setLocale(this.translateService.currentLang).toFormat('cccc');
+					return selectedDate.setLocale(this.translateService.getCurrentLang()).toFormat('cccc');
 			}
 		})
 	);
-	public readonly locale = this.translateService.currentLang;
+	public readonly locale = this.translateService.getCurrentLang();
 	private readonly document = inject(DOCUMENT);
 	private readonly modalController = inject(ModalController);
 

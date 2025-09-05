@@ -9,7 +9,9 @@ import {
 	RowActionButtonComponent
 } from "@tenant/service/presentation/ui/component/row-action-button/row-action-button.component";
 import EService from "@tenant/service/domain/entity/e.service";
-import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import {
+	StandardDetailsEntityComponent
+} from "@shared/presentation/ui/component/entity/standard-details.entity.component";
 
 @Component({
 	selector: 'service-detail-page',

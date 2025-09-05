@@ -12,7 +12,7 @@ export interface IFilterForm {
 }
 
 export class FilterForm extends PaginationFilterFromGroup<IFilterForm> {
-	constructor() {
+	public constructor() {
 		super({
 			phrase: new FormControl(),
 			active: new FormControl(),

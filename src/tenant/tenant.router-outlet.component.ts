@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, DestroyRef, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {SidebarComponent} from '@shared/presentation/component/sidebar/sidebar.component';
-import {NavbarComponent} from '@shared/presentation/component/navbar/navbar.component';
+import {SidebarComponent} from '@shared/presentation/ui/component/sidebar/sidebar.component';
+import {NavbarComponent} from '@shared/presentation/ui/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
 import {Store} from "@ngxs/store";
 import {BeeoclockIdTokenResult, IdentityState} from "@identity/identity/presentation/state/identity/identity.state";

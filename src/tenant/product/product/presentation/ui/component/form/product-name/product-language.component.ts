@@ -3,8 +3,8 @@ import {Component, input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {TranslateModule} from '@ngx-translate/core';
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
-import {FormTextareaComponent} from "@shared/presentation/component/input/form.textarea.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
+import {FormTextareaComponent} from "@shared/presentation/ui/component/input/form.textarea.component";
 import {LanguageVersionForm} from "@tenant/product/product/presentation/form/product.form";
 
 @Component({

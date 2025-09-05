@@ -1,6 +1,6 @@
 import {Component, input, ViewEncapsulation} from "@angular/core";
 import {FormControl} from "@angular/forms";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FacilityEnum} from "@core/shared/enum/facility.enum";
 

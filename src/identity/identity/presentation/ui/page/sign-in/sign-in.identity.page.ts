@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, input, OnInit, viewChild, Vi
 import {RouterLink} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
-import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
+import {ChangeLanguageComponent} from "@shared/presentation/ui/component/change-language/change-language.component";
 import {AnalyticsService} from "@core/cdk/analytics.service";
 import {NgOptimizedImage} from "@angular/common";
 import {environment} from "@environment/environment";
@@ -31,26 +31,27 @@ export class SignInIdentityPage implements OnInit {
 	public readonly password = input<string | null>(null);
 
 	public readonly footerLabel = environment.footer.label;
-	readonly signInComponent = viewChild.required(SignInComponent);
-	readonly #analyticsService = inject(AnalyticsService);
+	public readonly signInComponent = viewChild.required(SignInComponent);
+	private readonly analyticsService = inject(AnalyticsService);
 
 	public initialLoginValues(): {
 		email: string;
 		password: string;
 	} {
 		return {
-			email: this.login() ?? '',
-			password: this.password() ?? ''
+			email: this.login() || environment.default.login,
+			password: this.password() || environment.default.password,
 		}
 	}
 
 	public ngOnInit() {
-		this.#analyticsService.logEvent('member_list_page_initialized');
+		this.analyticsService.logEvent('member_list_page_initialized');
 	}
 
 	protected loginIntoDemoProfile() {
 
-		this.signInComponent().doSignIn('demo@beeoclock.com', 'ItIckBeRSOLDENZYGosicirE');
+		const {login, password} = environment.demo.credential;
+		this.signInComponent().doSignIn(login, password).then();
 
 	}
 }

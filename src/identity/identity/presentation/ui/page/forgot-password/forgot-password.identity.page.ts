@@ -10,10 +10,10 @@ import {
 import ResetPasswordForm from "@identity/identity/presentation/form/reset-password.form";
 import {Router} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
-import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
+import {BackLinkComponent} from "@shared/presentation/ui/component/link/back.link.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
+import {ChangeLanguageComponent} from "@shared/presentation/ui/component/change-language/change-language.component";
 import {ToastController} from "@ionic/angular/standalone";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {ForgotPasswordApiAdapter} from "@identity/identity/infrastructure/api/forgot-password.api.adapter";

@@ -209,7 +209,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	private readonly document = inject(DOCUMENT);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	public readonly locale = this.translateService.currentLang;
+	public readonly locale = this.translateService.getCurrentLang();
 
 	protected cacheOfCurrentData: {
 		dateControlValue: string;

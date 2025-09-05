@@ -66,6 +66,32 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 		return statusColorMap[this.status];
 	}
 
+	public setOrderedService(dto: IOrderService.DTO) {
+		const index = this.services.findIndex(({_id}) => _id === dto._id);
+		if (index === -1) {
+			this.services.push(dto);
+		} else {
+			this.services[index] = dto;
+		}
+	}
+
+	public setOrderedProduct(product: IOrderProductDto): void {
+		const index = this.products.findIndex(({_id}) => _id === product._id);
+		if (index === -1) {
+			this.products.push(product);
+		} else {
+			this.products[index] = product;
+		}
+	}
+
+	public getProductList(): IOrderProductDto[] {
+		return this.products.filter(product => product.state !== null && product.state !== StateEnum.deleted);
+	}
+
+	public getServiceList(): IOrderService.DTO[] {
+		return this.services.filter(service => service.state !== null && service.state !== StateEnum.deleted);
+	}
+
 	/**
 	 * Change the status of the order.
 	 * @param status
@@ -75,6 +101,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 		this.status = status;
 
 		const orderedServiceStatusCase: { [key in keyof typeof OrderStatusEnum]?: OrderServiceStatusEnum } = {
+			[OrderStatusEnum.done]: OrderServiceStatusEnum.done,
 			[OrderStatusEnum.confirmed]: OrderServiceStatusEnum.accepted,
 			[OrderStatusEnum.rejected]: OrderServiceStatusEnum.rejected,
 		};
@@ -84,9 +111,7 @@ export class EOrder extends ABaseEntity<'OrderDto', IOrder.DTO, IOrder.EntityRaw
 		if (newOrderedServiceStatus) {
 
 			this.services.forEach((service) => {
-				if (service.status === OrderServiceStatusEnum.requested) {
-					service.status = newOrderedServiceStatus;
-				}
+				service.status = newOrderedServiceStatus;
 			});
 
 		}

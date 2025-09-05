@@ -52,7 +52,7 @@ export class DynamicDateHelper {
 		if (is.not_string(value)) {
 			return '';
 		}
-		return new Intl.DateTimeFormat(this.translateService.currentLang, predefinedFormats[format]).format(new Date(value));
+		return new Intl.DateTimeFormat(this.translateService.getCurrentLang(), predefinedFormats[format]).format(new Date(value));
 	}
 
 }

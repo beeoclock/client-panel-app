@@ -2,7 +2,7 @@ import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input} from "
 import {
 	DateControlCalendarWithSpecialistsComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/filter/date-control/date-control.calendar-with-specialists.component";
-import {IonSelectWrapperComponent} from "@shared/presentation/component/input/ion/ion-select-wrapper.component";
+import {IonSelectWrapperComponent} from "@shared/presentation/ui/component/input/ion/ion-select-wrapper.component";
 import {
 	SettingsComponent
 } from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/settings/settings.component";
@@ -18,7 +18,7 @@ import {
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {VisibilityService} from "@core/cdk/visibility.service";
-import { IonSelectMemberComponent } from "@shared/presentation/component/input/ion/ion-select-member.component";
+import {IonSelectMemberComponent} from "@shared/presentation/ui/component/input/ion/ion-select-member.component";
 
 @Component({
 	selector: 'filter-calendar-with-specialist',

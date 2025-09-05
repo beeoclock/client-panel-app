@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@core/cdk/analytics.service";
 import {Store} from "@ngxs/store";
@@ -11,22 +11,27 @@ import {
 	CalendarWithSpecialistsAction
 } from "@tenant/event/infrastructure/state/calendar-with-specialists/calendar-with-specialists.action";
 import {MemberDataActions} from "@tenant/member/member/infrastructure/state/data/member.data.actions";
-import MembersV3ContainerWeekCalendarComponent
-	from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/members.container.week-calendar.component";
 import {SyncManager} from "@core/system/infrastructure/sync-manager/sync-manager";
+import {
+	CalendarWithSpecialistWidgetComponent
+} from "@tenant/event/presentation/ui/page/calendar-with-specialists/v3/component/main/calendar-with-specialist.widget.component";
+import {OrderServiceStatusEnum} from "@tenant/order/order-service/domain/enum/order-service.status.enum";
 
 @Component({
 	selector: 'app-event-calendar-with-specialists-page',
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
-		MembersV3ContainerWeekCalendarComponent
+		CalendarWithSpecialistWidgetComponent
 	],
 	template: `
-		<app-event-v3-members-container-week-calendar-component/>
+		<app-calendar-with-specialists-widget-component [start]="start()" [statuses]="statuses()"/>
 	`
 })
 export default class CalendarWithSpecialistsEventPage implements OnInit {
+
+	public readonly start = input<string>();
+	public readonly statuses = input<OrderServiceStatusEnum[]>();
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);

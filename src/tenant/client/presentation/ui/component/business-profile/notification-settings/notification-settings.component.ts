@@ -1,5 +1,5 @@
 import {Component, inject, Input} from '@angular/core';
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NotificationSettingsFromGroup} from "@tenant/client/presentation/form";
 import {DefaultLabelDirective} from "@shared/presentation/directives/label/default.label.directive";

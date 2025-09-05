@@ -1,14 +1,17 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./out-tsc/spec",
-    "types": [
-      "jest"
-    ]
-  },
-  "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
-  ]
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./out-tsc/spec",
+		"module": "es2020",
+		"target": "es2022",
+		"moduleResolution": "bundler",
+		"types": ["jest", "node"],
+		"esModuleInterop": true,
+		"skipLibCheck": true
+	},
+	"include": [
+		"src/**/*.spec.ts",
+		"src/**/*.d.ts"
+	]
 }

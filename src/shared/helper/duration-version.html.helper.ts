@@ -39,11 +39,11 @@ export class DurationVersionHtmlHelper {
 		const {durationVersions} = item;
 		if (this.durationHelper.durationIsRangeMode(item) && durationVersions.length > 1) {
 			const [fromDurationVersion, toDurationVersion] = durationVersions;
-			let priceForm = this.currencyPipe.transform(fromDurationVersion.prices[0].price, fromDurationVersion.prices[0].currency, 'symbol-narrow', '1.0-0');
+			let priceForm = this.currencyPipe.transform(fromDurationVersion.prices[0].price, undefined, 'symbol-narrow', '1.0-0');
 			if (!priceForm) {
 				priceForm = `<span class="text-neutral-400">∞</span>`;
 			}
-			let priceTo = this.currencyPipe.transform(toDurationVersion.prices[0].price, toDurationVersion.prices[0].currency, 'symbol-narrow', '1.0-0');
+			let priceTo = this.currencyPipe.transform(toDurationVersion.prices[0].price, undefined, 'symbol-narrow', '1.0-0');
 			if (!priceTo) {
 				priceTo = `<span class="text-neutral-400">∞</span>`;
 			}
@@ -53,7 +53,7 @@ export class DurationVersionHtmlHelper {
 		}
 		const result: string[] = [];
 		item.durationVersions.forEach((durationVersion) => {
-			const price = this.currencyPipe.transform(durationVersion.prices[0].price, durationVersion.prices[0].currency, 'symbol-narrow', '1.0-0');
+			const price = this.currencyPipe.transform(durationVersion.prices[0].price, undefined, 'symbol-narrow', '1.0-0');
 			if (price) {
 				result.push(price);
 			}

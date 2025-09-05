@@ -2,7 +2,7 @@ import {Component, computed, signal, TemplateRef, viewChild, ViewEncapsulation} 
 import {TableComponent} from "@shared/table.component";
 import {
 	TableNgxDatatableSmartComponent
-} from "@shared/presentation/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
+} from "@shared/presentation/ui/component/smart/table-ngx-datatable/table-ngx-datatable.smart.component";
 import {
 	RowActionButtonComponent
 } from "@tenant/member/member/presentation/component/row-action-button/row-action-button.component";
@@ -14,13 +14,13 @@ import {
 } from "@tenant/member/member/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {
 	NotFoundTableDataComponent
-} from "@shared/presentation/component/not-found-table-data/not-found-table-data.component";
+} from "@shared/presentation/ui/component/not-found-table-data/not-found-table-data.component";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	MemberPresentationActions
 } from "@tenant/member/member/infrastructure/state/presentation/member.presentation.actions";
-import {NoAvailable} from "@shared/presentation/component/no-available/no-available";
-import {SynchronizationMolecule} from "@shared/presentation/component/synchronization/synchronization.molecule";
+import {NoAvailable} from "@shared/presentation/ui/component/no-available/no-available";
+import {SynchronizationMolecule} from "@shared/presentation/ui/component/synchronization/synchronization.molecule";
 import {ActivateEvent, TableColumn} from "@swimlane/ngx-datatable";
 
 @Component({

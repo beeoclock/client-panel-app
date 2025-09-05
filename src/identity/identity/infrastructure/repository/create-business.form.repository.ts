@@ -115,7 +115,7 @@ export class CreateBusinessFormRepository extends Reactive {
 
 	private initDefaultValuePeerLanguage() {
 
-		const languageCode = this.translateService.currentLang as LanguageCodeEnum;
+		const languageCode = this.translateService.getCurrentLang() as LanguageCodeEnum;
 		this.#form.controls.businessSettings.controls.availableLanguages.setValue([languageCode]);
 		this.#form.controls.addressForm.controls.country.patchValue(LanguageCountry[languageCode][0]);
 		this.#form.controls.businessSettings.controls.baseCurrency.patchValue(LanguageCurrency[languageCode]);

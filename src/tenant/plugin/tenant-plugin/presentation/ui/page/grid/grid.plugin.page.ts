@@ -11,6 +11,8 @@ import {
 import {Actions, ofActionErrored, ofActionSuccessful} from "@ngxs/store";
 import {tap} from "rxjs/operators";
 import {Router} from "@angular/router";
+import {ExecuteFunctionApi} from "@tenant/plugin/tenant-plugin/infrastructure/data-source/api/execute-function.api";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'app-list-tenant-plugin-page',
@@ -96,6 +98,16 @@ import {Router} from "@angular/router";
 											{{ 'keyword.capitalize.details' | translate }}
 										</button>
 									}
+									@if (storeItem.isOnboardingPending()) {
+										<button (click)="continueOnboarding(storeItem)" [disabled]="loadingRecordByPluginId()[storeItem._id]" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white transition-all hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+											@if (loadingRecordByPluginId()[storeItem._id]) {
+												<i class="bi bi-arrow-clockwise animate-spin"></i>
+											} @else {
+												{{ 'keyword.capitalize.completeTheProcess' | translate }}
+												<i class="bi bi-arrow-right"></i>
+											}
+										</button>
+									}
 								}
 							} @else {
 								<div
@@ -135,9 +147,11 @@ export class GridPluginPage {
 	private readonly gridResource = inject(GridResource);
 	private readonly actions = inject(Actions);
 	private readonly router = inject(Router);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly executeFunctionApi = inject(ExecuteFunctionApi);
 	private readonly network = injectNetwork();
 
-	public readonly currentLanguage = this.translateService.currentLang;
+	public readonly currentLanguage = this.translateService.getCurrentLang();
 
 	public readonly isOnline = this.network.online;
 
@@ -172,6 +186,16 @@ export class GridPluginPage {
 	public attach(storeItem: ETenantPlugin) {
 		this.setLoadingState(storeItem, true);
 		this.attachPlugin(storeItem);
+	}
+
+	public continueOnboarding(storeItem: ETenantPlugin) {
+		this.setLoadingState(storeItem, true);
+		this.executeFunctionApi.executeAsync({}, storeItem.plugin.slug, 'getOnboardingUrl').then((response) => {
+			this.setLoadingState(storeItem, false);
+			this.ngxLogger.debug('Get onboarding URL response', response);
+			const {url} = response as {url?: string};
+			if (url?.length) window.open(url, '_blank');
+		})
 	}
 
 	private setLoadingState(storeItem: ETenantPlugin, isLoading: boolean) {

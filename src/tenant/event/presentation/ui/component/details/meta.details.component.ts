@@ -119,7 +119,7 @@ export class MetaDetailsComponent implements OnChanges {
 			iso: this.orderDro().createdAt,
 			labelTranslateKey: 'keyword.capitalize.createdAt',
 			description: DateTime.fromISO(this.orderDro().createdAt).toRelative({
-				locale: this.translateService.currentLang
+				locale: this.translateService.getCurrentLang()
 			}) ?? '',
 			valueWithFromToProperties: null
 		});

@@ -3,7 +3,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SocialNetworkForm} from "@tenant/client/presentation/form/social-network.form";
 import {SOCIAL_NETWORKS} from "@core/shared/enum/social-network.enum";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({

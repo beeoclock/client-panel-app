@@ -14,7 +14,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {IMember} from "@tenant/member/member/domain/interface/i.member";
-import {IonSelectMemberComponent} from "@shared/presentation/component/input/ion/ion-select-member.component";
+import {IonSelectMemberComponent} from "@shared/presentation/ui/component/input/ion/ion-select-member.component";
 import {explicitEffect} from "ngxtension/explicit-effect";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 

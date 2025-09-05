@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
-import {BackLinkComponent} from "@shared/presentation/component/link/back.link.component";
-import {ChangeLanguageComponent} from "@shared/presentation/component/change-language/change-language.component";
+import {BackLinkComponent} from "@shared/presentation/ui/component/link/back.link.component";
+import {ChangeLanguageComponent} from "@shared/presentation/ui/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
-import {SchedulesFormComponent} from "@shared/presentation/component/schedule/schedules.form.component";
+import {SchedulesFormComponent} from "@shared/presentation/ui/component/schedule/schedules.form.component";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({

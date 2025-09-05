@@ -2,9 +2,11 @@ import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from '@tenant/client/presentation/form/business-profile.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {FormInputComponent} from "@shared/presentation/component/input/form.input.component";
-import {FormInputWithLeftHintComponent} from "@shared/presentation/component/input/form.input-with-left-hint.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
+import {FormInputComponent} from "@shared/presentation/ui/component/input/form.input.component";
+import {
+	FormInputWithLeftHintComponent
+} from "@shared/presentation/ui/component/input/form.input-with-left-hint.component";
 
 @Component({
 	selector: 'client-business-profile-form-component',

@@ -1,6 +1,8 @@
 import {Component, computed, inject, input, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import {Actions, ofActionErrored, ofActionSuccessful, Store} from "@ngxs/store";
-import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import {
+	StandardDetailsEntityComponent
+} from "@shared/presentation/ui/component/entity/standard-details.entity.component";
 import ETenantPlugin from "@tenant/plugin/tenant-plugin/domain/entity/e.tenant-plugin";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
@@ -73,7 +75,6 @@ export class PluginDetailsContainerComponent implements OnInit {
 	).subscribe();
 
 	public ngOnInit() {
-		console.log(this.item());
 		this.getFunctionsApi.executeAsync(this.item().plugin.slug).then((response) => {
 			console.log({response})
 		});

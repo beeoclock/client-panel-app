@@ -19,7 +19,9 @@ import {Store} from "@ngxs/store";
 import {
 	CustomerPresentationActions
 } from "@tenant/customer/infrastructure/state/presentation/customer.presentation.actions";
-import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import {
+	StandardDetailsEntityComponent
+} from "@shared/presentation/ui/component/entity/standard-details.entity.component";
 
 @Component({
 	selector: 'payment-details',

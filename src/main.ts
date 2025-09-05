@@ -10,6 +10,7 @@ import {
 import {environment} from '@src/environment/environment';
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi} from '@angular/common/http';
 import {TranslateModule} from '@ngx-translate/core';
+import {provideTranslateHttpLoader} from '@ngx-translate/http-loader';
 import {
 	PreloadAllModules,
 	provideRouter,
@@ -38,8 +39,6 @@ import {SocketIoModule} from "ngx-socket-io";
 import {firebase} from "@src/firebase";
 import {provideIonicAngular} from "@ionic/angular/standalone";
 import {WINDOW_PROVIDERS} from "@core/cdk/window.provider";
-import {provideTranslateHttpLoader} from "@ngx-translate/http-loader";
-
 
 if (environment.production) {
 	enableProdMode();

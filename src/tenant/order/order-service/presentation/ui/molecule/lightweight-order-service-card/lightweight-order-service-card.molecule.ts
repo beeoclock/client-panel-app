@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {CustomerTypeEnum} from "@tenant/customer/domain/enum/customer-type.enum";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import EOrderService, {OrderServiceColorStatusMap} from "@tenant/order/order-service/domain/entity/e.order-service";
@@ -27,7 +27,8 @@ import {DurationVersionHtmlHelper} from "@shared/helper/duration-version.html.he
 	template: `
 		<bee-card padding="p-0" class="text-sm hover:ring-2 cursor-pointer" (click)="singleClick()">
 			<div class="flex flex-col">
-				<div class="p-2 px-3 flex flex-col flex-wrap justify-start items-start rounded-t-2xl {{ orderServiceColorStatusMap[item().status].bg }} {{ orderServiceColorStatusMap[item().status].text }}">
+				@let statusColor = orderServiceColorStatusMap[item().status];
+				<div class="p-2 px-3 flex flex-col flex-wrap justify-start items-start rounded-t-2xl {{ statusColor.bg }} {{ statusColor.text }}">
 
 					<div class="flex w-full items-center justify-between cursor-pointer">
 						<div class="flex items-center gap-1">

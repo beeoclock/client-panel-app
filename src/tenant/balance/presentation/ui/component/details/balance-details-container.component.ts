@@ -1,6 +1,8 @@
 import {Component, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {StandardDetailsEntityComponent} from "@shared/presentation/component/entity/standard-details.entity.component";
+import {
+	StandardDetailsEntityComponent
+} from "@shared/presentation/ui/component/entity/standard-details.entity.component";
 import EBalance from "@tenant/balance/domain/entity/e.balance";
 import {BalanceActionTypeEnum} from "@tenant/balance/domain";
 import {CurrencyPipe} from "@angular/common";

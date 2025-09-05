@@ -9,7 +9,7 @@ import {
 } from "@tenant/client/presentation/ui/component/business-profile/booking-settings/booking-settings.business-profile.component";
 import {
 	ButtonSaveContainerComponent
-} from "@shared/presentation/component/container/button-save/button-save.container.component";
+} from "@shared/presentation/ui/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@shared/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {DangerZoneComponent} from "@tenant/client/presentation/ui/component/danger-zone/danger-zone.component";
@@ -29,10 +29,9 @@ import {
 import {
 	BusinessProfileActions
 } from "@tenant/business-profile/infrastructure/state/business-profile/business-profile.actions";
-import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {IBusinessProfile} from "@tenant/business-profile/domain/interface/i.business-profile";
-import { AutoBookEventComponent } from "../../component/business-settings/auto-book-event/auto-book-event.component";
-import { AutomaticApprovalTimeType } from '@core/shared/enum/automatic-approval-time.enum';
+import {AutoBookEventComponent} from "../../component/business-settings/auto-book-event/auto-book-event.component";
+import {AutomaticApprovalTimeType} from '@core/shared/enum/automatic-approval-time.enum';
 
 @Component({
 	selector: 'client-business-settings-page',

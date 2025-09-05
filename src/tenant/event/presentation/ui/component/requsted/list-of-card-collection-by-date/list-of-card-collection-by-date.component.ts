@@ -5,8 +5,8 @@ import {MEvent, RIEvent} from "@tenant/event/domain";
 import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf} from "@angular/common";
 import {map} from "rxjs";
 import {DateTime} from "luxon";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {ActionComponent} from "@shared/presentation/component/table/column/action.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
+import {ActionComponent} from "@shared/presentation/ui/component/table/column/action.component";
 import {
 	EventStatusStyleDirective
 } from "@tenant/event/presentation/directive/event-status-style/event-status-style.directive";
@@ -88,7 +88,7 @@ export class ListOfCardCollectionByDateComponent {
 
 	public getDayNameByDate(date: string) {
 		return DateTime.fromISO(date).toFormat('EEE', {
-			locale: this.translateService.currentLang,
+			locale: this.translateService.getCurrentLang(),
 		});
 	}
 
@@ -100,11 +100,11 @@ export class ListOfCardCollectionByDateComponent {
 		// If the same year, then we don't need to show the year
 		if (this.sameYear(date)) {
 			return DateTime.fromISO(date).toFormat('dd MMMM', {
-				locale: this.translateService.currentLang,
+				locale: this.translateService.getCurrentLang(),
 			});
 		}
 		return DateTime.fromISO(date).toFormat('dd MMMM yyyy', {
-			locale: this.translateService.currentLang,
+			locale: this.translateService.getCurrentLang(),
 		});
 	}
 

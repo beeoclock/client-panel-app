@@ -12,8 +12,8 @@ import {PrimaryButtonDirective} from "@shared/presentation/directives/button/pri
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/identity/infrastructure/query/create-business.query";
 import {NgClass} from "@angular/common";
-import {CardComponent} from "@shared/presentation/component/card/card.component";
-import {LoaderComponent} from "@shared/presentation/component/loader/loader.component";
+import {CardComponent} from "@shared/presentation/ui/component/card/card.component";
+import {LoaderComponent} from "@shared/presentation/ui/component/loader/loader.component";
 import {BooleanState} from "@shared/domain";
 import {IdentityApiAdapter} from "@identity/identity/infrastructure/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
